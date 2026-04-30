@@ -1,4 +1,3 @@
 SKYWARD CONTROL
-v0.2.0_20260430_1331
-Build gerada em 2026-04-30 13:33 UTC
-Mudancas: velocidade das aeronaves reduzida; modo carreira com nome/avatar; selecao de aeroportos; aeroportos brasileiros iniciais.
+v0.3.0_20260430_1355
+Radar realista com pistas destacadas, saídas, fila de solicitações ATC e operação por clearance.

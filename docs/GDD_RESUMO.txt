@@ -1,11 +1,9 @@
-SKYWARD CONTROL - RESUMO TECNICO
-Build: v0.2.0_20260430_1331
-
-Objetivo desta build:
-- Avioes muito mais lentos e controlaveis no radar.
-- Perfil de carreira com nome, pais e avatar.
-- Selecao de aeroporto com foco inicial no Brasil.
-- Aeronaves em voo, saida e solo/estacionadas.
-
-Aeroportos Brasil incluidos nesta fase:
-SBGR Guarulhos, SBSP Congonhas, SBKP Viracopos, SBBR Brasilia, SBGL Galeao, SBRJ Santos Dumont, SBCF Confins, SBPA Porto Alegre, SBSV Salvador, SBRE Recife, SBCT Curitiba.
+SKYWARD CONTROL - v0.3.0
+Atualização: radar operacional mais próximo da realidade.
+- Pistas e taxiways renderizadas por código em camada limpa por cima do mapa.
+- Saídas/entradas de pista visíveis com marcadores técnicos.
+- Solicitações ATC reais: chegada pede pouso, solo pede pushback/taxi/decolagem.
+- Painel de fila de solicitações com prioridade.
+- Clearance contextual: o controlador responde a pedidos, não apenas aperta botões soltos.
+- Controle de ocupação de pista, final approach, taxi, lineup, departure e parked.
+- Velocidade de simulação mantida lenta para leitura e decisão.
