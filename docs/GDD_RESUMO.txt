@@ -1,21 +1,11 @@
-SKYWARD CONTROL - Primeira build jogavel
+SKYWARD CONTROL - RESUMO TECNICO
+Build: v0.2.0_20260430_1331
 
 Objetivo desta build:
-- Testar a base do simulador ATC com radar em tempo real.
-- Usar imagens criadas no pipeline como assets oficiais.
-- Validar ciclo de selecao de aeronaves, comandos e risco.
+- Avioes muito mais lentos e controlaveis no radar.
+- Perfil de carreira com nome, pais e avatar.
+- Selecao de aeroporto com foco inicial no Brasil.
+- Aeronaves em voo, saida e solo/estacionadas.
 
-Sistemas implementados:
-- Radar Canvas funcional.
-- Aeronaves dinamicas com heading, speed e altitude.
-- Lista de entradas e saidas.
-- Selecao por toque/click.
-- Comandos: heading, velocidade, altitude, hold, clear, emergencia.
-- Deteccao de conflito e game over.
-- Pontuacao basica.
-- UI mobile-first.
-
-Limitacoes conhecidas:
-- Ainda nao e uma simulacao aeronautica certificada.
-- Procedimentos reais foram simplificados para jogabilidade inicial.
-- Blips e tags sao desenhados via codigo, nao por imagem, para manter realismo funcional.
+Aeroportos Brasil incluidos nesta fase:
+SBGR Guarulhos, SBSP Congonhas, SBKP Viracopos, SBBR Brasilia, SBGL Galeao, SBRJ Santos Dumont, SBCF Confins, SBPA Porto Alegre, SBSV Salvador, SBRE Recife, SBCT Curitiba.

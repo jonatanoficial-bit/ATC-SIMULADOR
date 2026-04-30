@@ -1,0 +1,17 @@
+[
+  {"icao":"KATL","name":"Atlanta Hartsfield-Jackson","city":"Atlanta","country":"Estados Unidos","level":1,"runways":5,"traffic":"Alto","weather":"Variável","unlocked":true},
+  {"icao":"SBGR","name":"São Paulo / Guarulhos","city":"São Paulo","country":"Brasil","level":1,"runways":2,"traffic":"Alto","weather":"Variável","unlocked":true},
+  {"icao":"SBSP","name":"São Paulo / Congonhas","city":"São Paulo","country":"Brasil","level":2,"runways":2,"traffic":"Muito alto","weather":"Urbano/restrito","unlocked":true},
+  {"icao":"SBKP","name":"Viracopos / Campinas","city":"Campinas","country":"Brasil","level":2,"runways":1,"traffic":"Médio/alto","weather":"Variável","unlocked":true},
+  {"icao":"SBBR","name":"Presidente Juscelino Kubitschek","city":"Brasília","country":"Brasil","level":2,"runways":2,"traffic":"Alto","weather":"Seco/chuva sazonal","unlocked":true},
+  {"icao":"SBGL","name":"Rio de Janeiro / Galeão","city":"Rio de Janeiro","country":"Brasil","level":3,"runways":2,"traffic":"Alto","weather":"Litoral","unlocked":true},
+  {"icao":"SBRJ","name":"Santos Dumont","city":"Rio de Janeiro","country":"Brasil","level":3,"runways":2,"traffic":"Médio/alto","weather":"Aproximação crítica","unlocked":true},
+  {"icao":"SBCF","name":"Confins / Belo Horizonte","city":"Belo Horizonte","country":"Brasil","level":2,"runways":1,"traffic":"Médio","weather":"Variável","unlocked":true},
+  {"icao":"SBPA","name":"Porto Alegre / Salgado Filho","city":"Porto Alegre","country":"Brasil","level":2,"runways":1,"traffic":"Médio","weather":"Frentes frias","unlocked":true},
+  {"icao":"SBSV","name":"Salvador / Bahia","city":"Salvador","country":"Brasil","level":2,"runways":2,"traffic":"Médio","weather":"Tropical/litoral","unlocked":true},
+  {"icao":"SBRE","name":"Recife / Guararapes","city":"Recife","country":"Brasil","level":2,"runways":1,"traffic":"Médio","weather":"Tropical/litoral","unlocked":true},
+  {"icao":"SBCT","name":"Curitiba / Afonso Pena","city":"Curitiba","country":"Brasil","level":2,"runways":2,"traffic":"Médio","weather":"Neblina/frio","unlocked":true},
+  {"icao":"EGLL","name":"London Heathrow","city":"Londres","country":"Reino Unido","level":4,"runways":2,"traffic":"Extremo","weather":"Baixa visibilidade","unlocked":false},
+  {"icao":"LEMD","name":"Madrid Barajas","city":"Madrid","country":"Espanha","level":3,"runways":4,"traffic":"Alto","weather":"Seco","unlocked":false},
+  {"icao":"RJTT","name":"Tokyo Haneda","city":"Tóquio","country":"Japão","level":5,"runways":4,"traffic":"Extremo","weather":"Litoral/vento","unlocked":false}
+]

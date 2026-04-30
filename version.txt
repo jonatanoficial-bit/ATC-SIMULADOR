@@ -1,6 +1,4 @@
 SKYWARD CONTROL
-Build: v0.1.0_20260430_1303
-Data: 2026-04-30
-Hora: 13:03 UTC
-Tipo: Primeira versao jogavel do simulador ATC real
-Plataforma: HTML + CSS + JavaScript Vanilla / GitHub Pages / Vercel
+v0.2.0_20260430_1331
+Build gerada em 2026-04-30 13:33 UTC
+Mudancas: velocidade das aeronaves reduzida; modo carreira com nome/avatar; selecao de aeroportos; aeroportos brasileiros iniciais.
