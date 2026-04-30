@@ -1,0 +1,21 @@
+SKYWARD CONTROL - Primeira build jogavel
+
+Objetivo desta build:
+- Testar a base do simulador ATC com radar em tempo real.
+- Usar imagens criadas no pipeline como assets oficiais.
+- Validar ciclo de selecao de aeronaves, comandos e risco.
+
+Sistemas implementados:
+- Radar Canvas funcional.
+- Aeronaves dinamicas com heading, speed e altitude.
+- Lista de entradas e saidas.
+- Selecao por toque/click.
+- Comandos: heading, velocidade, altitude, hold, clear, emergencia.
+- Deteccao de conflito e game over.
+- Pontuacao basica.
+- UI mobile-first.
+
+Limitacoes conhecidas:
+- Ainda nao e uma simulacao aeronautica certificada.
+- Procedimentos reais foram simplificados para jogabilidade inicial.
+- Blips e tags sao desenhados via codigo, nao por imagem, para manter realismo funcional.

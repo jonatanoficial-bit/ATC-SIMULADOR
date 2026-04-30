@@ -1,0 +1,8 @@
+[
+  {"call":"DAL1234","type":"B739","kind":"arrival","alt":180,"speed":250,"state":"APP"},
+  {"call":"AAL567","type":"B738","kind":"arrival","alt":210,"speed":260,"state":"APP"},
+  {"call":"SWA789","type":"B737","kind":"departure","alt":0,"speed":0,"state":"TAXI"},
+  {"call":"UAL890","type":"B739","kind":"arrival","alt":200,"speed":240,"state":"APP"},
+  {"call":"JBU789","type":"A320","kind":"departure","alt":0,"speed":0,"state":"TAXI"},
+  {"call":"FFT321","type":"E190","kind":"arrival","alt":170,"speed":220,"state":"APP"}
+]
