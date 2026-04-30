@@ -1,9 +1,18 @@
-SKYWARD CONTROL - v0.3.0
-Atualização: radar operacional mais próximo da realidade.
-- Pistas e taxiways renderizadas por código em camada limpa por cima do mapa.
-- Saídas/entradas de pista visíveis com marcadores técnicos.
-- Solicitações ATC reais: chegada pede pouso, solo pede pushback/taxi/decolagem.
-- Painel de fila de solicitações com prioridade.
-- Clearance contextual: o controlador responde a pedidos, não apenas aperta botões soltos.
-- Controle de ocupação de pista, final approach, taxi, lineup, departure e parked.
-- Velocidade de simulação mantida lenta para leitura e decisão.
+SKYWARD CONTROL - GDD RESUMO
+Build: v0.4.1_20260430_1610
+
+Objetivo: simulador ATC mobile-first com radar funcional, solicitações de aeronaves, pista ativa, sequência APP e controle de clearances.
+
+Hotfix v0.4.1:
+- Corrigido layout mobile que escondia os botões do painel COMANDO ATC.
+- Tela de operação agora permite rolagem vertical completa no celular.
+- Painéis de frequência, strips, solicitações, comando e comunicações ficam empilhados no mobile.
+- Botões de ação receberam altura mínima e não ficam cortados pelo container.
+
+Novidades mantidas da v0.4.0:
+- Frequência ativa com chamada atual.
+- Status de pista em tempo real.
+- Sequência de aproximação APP.
+- Corredor de aproximação e FINAL FIX.
+- Comandos VETOR FINAL e HOLD SHORT.
+- Radar mais lento e operacional.

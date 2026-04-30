@@ -12,14 +12,14 @@
   <section id="boot" class="screen active bg-tower">
     <div class="shade"></div>
     <div class="brand-block"><div class="vale">VALE <span>GAME</span></div><h1>SKYWARD<br><span>CONTROL</span></h1><p>YOU GUIDE. THEY TRUST.</p></div>
-    <div class="boot-card glass"><strong>SIMULADOR ATC REAL</strong><span>Radar com pista operacional, saídas visíveis e solicitações reais de aeronaves.</span><button class="primary" data-go="menu">INICIAR SIMULADOR</button></div>
-    <footer>Build v0.3.0_20260430_1355</footer>
+    <div class="boot-card glass"><strong>SIMULADOR ATC REAL</strong><span>Radar profissional com circuito de aproximacao, frequencia ATC, pistas, taxiways, saidas e solicitacoes das aeronaves.</span><button class="primary" data-go="menu">INICIAR SIMULADOR</button></div>
+    <footer>Build v0.4.1_20260430_1610</footer>
   </section>
 
   <section id="menu" class="screen bg-rain">
     <div class="shade"></div>
-    <header class="topbar"><div class="logo-mini">SKYWARD<br><span>CONTROL</span></div><div class="build-pill">v0.3.0<br><span>2026-04-30 13:55 UTC</span></div></header>
-    <main class="menu-main"><h2>Controle de Tráfego Aéreo</h2><p>Agora o radar destaca pistas, taxiways, saídas, cabeceiras e uma fila real de solicitações ATC. O jogador responde aos pedidos das aeronaves.</p><button class="primary" data-go="profile">NOVO PERFIL / CARREIRA</button><button class="secondary" data-go="lobby">CONTINUAR CARREIRA</button><button class="secondary" data-go="training">TREINAMENTO</button></main>
+    <header class="topbar"><div class="logo-mini">SKYWARD<br><span>CONTROL</span></div><div class="build-pill">v0.4.1<br><span>2026-04-30 16:10 UTC</span></div></header>
+    <main class="menu-main"><h2>Controle de Tráfego Aéreo</h2><p>Agora o radar opera como tela de controlador: circuito de aproximacao, sequencia de pouso, status de pista, solo e frequencia ativa.</p><button class="primary" data-go="profile">NOVO PERFIL / CARREIRA</button><button class="secondary" data-go="lobby">CONTINUAR CARREIRA</button><button class="secondary" data-go="training">TREINAMENTO</button></main>
   </section>
 
   <section id="profile" class="screen bg-day">
@@ -49,10 +49,11 @@
   <section id="game" class="screen game-screen">
     <header class="game-top"><button class="icon" data-go="lobby">‹</button><div><strong id="gameAirport">SBGR</strong><span id="gameAirportMode">APP / TWR</span></div><div><strong id="clock">00:00</strong><span id="weather">NUBLADO</span></div><div><strong id="score">0</strong><span>PONTOS</span></div><button id="pauseBtn" class="icon">Ⅱ</button></header>
     <main class="game-layout">
-      <section class="radar-wrap glass"><canvas id="radar"></canvas><div id="radarHint" class="radar-hint">Pista ativa destacada • selecione aeronave ou solicitação</div></section>
+      <section class="radar-wrap glass"><canvas id="radar"></canvas><div id="radarHint" class="radar-hint">Scope ATC - vetore chegadas, responda solicitacoes e proteja a pista ativa</div></section>
+      <section class="frequency-panel glass"><h3>FREQUENCIA ATIVA</h3><div id="freqCall" class="freq-call">Aguardando chamada...</div><div class="status-row"><span>PISTA</span><b id="runwayStatus">LIVRE</b></div><div class="status-row"><span>SEQUENCIA APP</span><b id="seqStatus">---</b></div></section>
       <aside class="strip-panel glass"><h3>ENTRADAS</h3><div id="arrivals" class="strip-list"></div><h3>SAÍDAS</h3><div id="departures" class="strip-list"></div><h3>SOLO</h3><div id="groundList" class="strip-list compact"></div></aside>
       <aside class="request-panel glass"><h3>SOLICITAÇÕES</h3><div id="requests" class="request-list"></div></aside>
-      <aside class="command-panel glass"><h3>COMANDO ATC</h3><div id="selectedBox" class="selected-box">Nenhuma aeronave selecionada</div><div class="cmd-grid"><button data-cmd="left">HDG -10°</button><button data-cmd="right">HDG +10°</button><button data-cmd="slow">SPD -10</button><button data-cmd="fast">SPD +10</button><button data-cmd="climb">SUBIR</button><button data-cmd="descend">DESCER</button><button data-cmd="hold">HOLD</button><button data-cmd="clear">CLEARANCE</button><button class="danger" data-cmd="emergency">EMERGÊNCIA</button></div></aside>
+      <aside class="command-panel glass"><h3>COMANDO ATC</h3><div id="selectedBox" class="selected-box">Nenhuma aeronave selecionada</div><div class="cmd-grid"><button data-cmd="left">HDG -10°</button><button data-cmd="right">HDG +10°</button><button data-cmd="slow">SPD -10</button><button data-cmd="fast">SPD +10</button><button data-cmd="climb">SUBIR</button><button data-cmd="descend">DESCER</button><button data-cmd="hold">HOLD</button><button data-cmd="vectorFinal">VETOR FINAL</button><button data-cmd="holdShort">HOLD SHORT</button><button data-cmd="clear">CLEARANCE</button><button class="danger" data-cmd="emergency">EMERGENCIA</button></div></aside>
       <section class="log-panel glass"><h3>COMUNICAÇÕES</h3><div id="log"></div></section>
     </main>
   </section>

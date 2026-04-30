@@ -1,4 +1,4 @@
-const BUILD = 'v0.3.0_20260430_1355';
+const BUILD = 'v0.4.1_20260430_1610';
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 
@@ -25,7 +25,7 @@ let logLines = [];
 let runwayOccupiedBy = null;
 let stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0 };
 
-const SIM_SPEED = 0.115;
+const SIM_SPEED = 0.092;
 const runway = { name:'09/27', x1:18, y1:50, x2:82, y2:50, width:6.2, exits:[32,45,56,68] };
 const gates = [
   {x:55,y:70, label:'A'}, {x:61,y:70, label:'A'}, {x:67,y:70, label:'B'}, {x:73,y:70, label:'B'},
@@ -125,6 +125,22 @@ function addRequest(p,type,priority='normal'){
 }
 function removeRequest(id,type){ requests = requests.filter(r=>!(r.id===id && (!type || r.type===type))); if(selectedRequest && selectedRequest.id===id && (!type || selectedRequest.type===type)) selectedRequest=null; renderRequests(); }
 
+function atcPhrase(r){
+  const ap = airport().icao;
+  const map = { landing: `${r.id}: ${ap} Tower, request landing RWY ${runway.name}.`, pushback: `${r.id}: ${ap} Ground, request pushback.`, taxi: `${r.id}: ${ap} Ground, ready to taxi.`, lineup: `${r.id}: ${ap} Tower, holding short, request line up.`, takeoff: `${r.id}: ${ap} Tower, lined up, ready for departure.`, emergency: `${r.id}: MAYDAY, request immediate landing.` };
+  return map[r.type] || `${r.id}: request ${r.type}.`;
+}
+function updateFrequencyPanel(){
+  const f = $("#freqCall"), rs=$("#runwayStatus"), seq=$("#seqStatus");
+  if(rs){ rs.textContent = runwayOccupiedBy ? `OCUPADA ${runwayOccupiedBy}` : "LIVRE"; rs.style.color = runwayOccupiedBy ? "#ff4d42" : "#5bf06d"; }
+  const finals = aircraft.filter(p=>["APP","FINAL","EMERG","HOLD"].includes(p.status)).sort((a,b)=>dist(a,finalFix)-dist(b,finalFix)).slice(0,3);
+  if(seq) seq.textContent = finals.map(p=>p.id).join(" > ") || "---";
+  if(!f) return; const r = requests[0];
+  if(!r){ f.className="freq-call"; f.innerHTML="Aguardando chamada...<br><small>Monitore a sequencia e mantenha separacao.</small>"; return; }
+  const age = Math.floor((performance.now()-r.time)/1000);
+  f.className = "freq-call " + (r.priority==="urgent" ? "danger" : "");
+  f.innerHTML = `<b>${atcPhrase(r)}</b><br><small>Aguardando resposta ha ${age}s - selecione e pressione CLEARANCE ou vetor.</small>`;
+}
 function startGame(){
   saveProfile(); resize(); running=true; paused=false; score=0; selected=null; selectedRequest=null; runwayOccupiedBy=null; spawnTimer=0; requestTimer=0; startTime=performance.now(); last=startTime; logLines=[]; requests=[];
   stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0 };
@@ -147,7 +163,7 @@ function update(dt){
   if(spawnTimer>38 && aircraft.length<15){ spawnTimer=0; const p=makePlane(Date.now()%1000, Math.random()<.58?'arrival':'departure'); aircraft.push(p); addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'); }
   updatePlanes(dt); checkRunway(); checkConflicts(); checkMissedRequests();
   score += dt * (aircraft.length * 1.4);
-  renderStrips(); renderSelected(); renderRequests();
+  renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel();
 }
 function updatePlanes(dt){
   for(const p of aircraft){
@@ -232,6 +248,8 @@ function drawOperationalMap(w,h){
   ctx.lineWidth=Math.max(2,h*.004); ctx.strokeStyle=runwayOccupiedBy?'rgba(255,77,66,.95)':'rgba(100,255,130,.85)'; ctx.setLineDash([12,8]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); ctx.setLineDash([]);
   // centerline and edges
   ctx.strokeStyle='rgba(255,255,255,.58)'; ctx.lineWidth=1; ctx.setLineDash([10,10]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); ctx.setLineDash([]);
+  // approach corridor and final sector
+  const ff=P(finalFix.x,finalFix.y), th=P(82,50); ctx.strokeStyle="rgba(91,240,109,.28)"; ctx.lineWidth=2; ctx.setLineDash([10,10]); ctx.beginPath(); ctx.moveTo(ff.x,ff.y); ctx.lineTo(th.x,th.y); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle="rgba(91,240,109,.75)"; ctx.beginPath(); ctx.arc(ff.x,ff.y,5,0,Math.PI*2); ctx.fill(); ctx.font="700 10px ui-monospace"; ctx.fillText("FINAL FIX", ff.x+8, ff.y+4);
   // labels from code are okay: operational UI, not image asset
   ctx.font='700 12px ui-monospace,Consolas,monospace'; ctx.fillStyle='rgba(235,245,255,.90)'; ctx.fillText('RWY 09', a.x-8, a.y-18); ctx.fillText('RWY 27', b.x-42, b.y-18);
   runway.exits.forEach((x,i)=>{ const e=P(x,56); ctx.fillStyle='rgba(216,163,72,.95)'; ctx.beginPath(); ctx.arc(e.x,e.y,4,0,Math.PI*2); ctx.fill(); ctx.font='700 10px ui-monospace'; ctx.fillText(`E${i+1}`, e.x+6, e.y+4); });
@@ -299,6 +317,8 @@ function command(cmd){
   if(cmd==='climb') p.targetAlt=clamp(p.targetAlt+10,0,360);
   if(cmd==='descend') p.targetAlt=clamp(p.targetAlt-10,0,360);
   if(cmd==='hold'){ p.hold=!p.hold; if(p.kind==='arrival') p.status=p.hold?'HOLD':'APP'; addLog(`${airport().icao}: ${p.id} ${p.hold?'entre em espera':'prossiga aproximação'}.`); }
+  if(cmd==='holdShort'){ if(['TAXI','LINEUP','DEP'].includes(p.status)){ p.status='HOLD_SHORT'; p.speed=0; p.cleared=false; addLog(`${airport().icao}: ${p.id} hold short pista ${runway.name}.`); } }
+  if(cmd==='vectorFinal'){ if(p.kind==='arrival'){ p.status='APP'; p.hold=false; p.heading=headingTo(p, finalFix); p.targetAlt=Math.min(p.targetAlt,45); p.speed=Math.min(p.speed,170); addLog(`${airport().icao}: ${p.id} vetor para interceptar final RWY ${runway.name}.`); } }
   if(cmd==='emergency'){ p.emergency=true; p.status='EMERG'; stats.emergencies++; addRequest(p,'emergency','urgent'); }
   if(cmd==='clear') handleClearance(p);
   else if(!['hold','emergency'].includes(cmd)) addLog(`${airport().icao}: ${p.id} ${cmd.toUpperCase()} autorizado.`);
