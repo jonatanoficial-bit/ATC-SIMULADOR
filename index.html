@@ -23,12 +23,12 @@
     <div class="shade"></div>
     <div class="brand-block"><div class="vale">VALE <span>GAME</span></div><h1>SKYWARD<br><span>CONTROL</span></h1><p>YOU GUIDE. THEY TRUST.</p></div>
     <div class="boot-card glass"><strong>SIMULADOR ATC REAL</strong><span>Radar profissional mobile-first com solicitação ativa, clearances, pista protegida, menos poluição visual e fluxo ATC mais controlável.</span><button class="primary" data-go="menu">INICIAR SIMULADOR</button></div>
-    <footer>Build v0.6.0_20260509_1237</footer>
+    <footer>Build v0.7.1_20260509_1605</footer>
   </section>
 
   <section id="menu" class="screen bg-rain">
     <div class="shade"></div>
-    <header class="topbar"><div class="logo-mini">SKYWARD<br><span>CONTROL</span></div><div class="build-pill">v0.5.0<br><span>2026-05-09 12:37 UTC</span></div></header>
+    <header class="topbar"><div class="logo-mini">SKYWARD<br><span>CONTROL</span></div><div class="build-pill">v0.7.1<br><span>2026-05-09 16:05 UTC</span></div></header>
     <main class="menu-main"><h2>Controle de Tráfego Aéreo</h2><p>Agora o radar prioriza operação real: chamada ativa, sequência de aproximação, clearances contextuais, resposta negativa/espera e leitura mais limpa no celular.</p><button class="primary" data-go="profile">NOVO PERFIL / CARREIRA</button><button class="secondary" data-go="lobby">CONTINUAR CARREIRA</button><button class="secondary" data-go="training">TREINAMENTO</button></main>
   </section>
 
@@ -57,9 +57,74 @@
   </section>
 
   <section id="game" class="screen game-screen">
-    <header class="game-top"><button class="icon" data-go="lobby">‹</button><div><strong id="gameAirport">SBGR</strong><span id="gameAirportMode">APP / TWR</span></div><div><strong id="clock">00:00</strong><span id="weather">NUBLADO</span></div><div><strong id="score">0</strong><span>PONTOS</span></div><button id="pauseBtn" class="icon">Ⅱ</button></header>
-    <main class="game-layout">
-      <section class="radar-wrap glass"><canvas id="radar"></canvas><div id="radarHint" class="radar-hint">Scope ATC - vetore chegadas, responda solicitacoes e proteja a pista ativa</div></section>
+    <header class="game-top-ref glass">
+      <div class="gt-brand"><div class="logo-mini">SKYWARD<br><span>CONTROL</span></div></div>
+      <div class="gt-airport"><small id="gameAirport">SBGR</small><strong id="gameAirportFull">Guarulhos Intl.</strong></div>
+      <div class="gt-mode"><small>MODO</small><strong id="gameAirportMode">TORRE</strong></div>
+      <div class="gt-time"><small>TEMPO</small><strong id="clock">00:00</strong><span id="runwayTextTop">09-27L &nbsp; | &nbsp; 12/05</span></div>
+      <div class="gt-score"><small>PONTOS</small><strong id="score">0</strong><span id="scoreDelta">+0</span></div>
+      <div class="gt-weather"><small id="weatherTemp">23°C</small><strong id="weather">NUBLADO</strong><span id="weatherWind">VENTO 120° 6KT</span></div>
+      <button id="pauseBtn" class="icon gt-pause">Ⅱ</button>
+    </header>
+    <main class="game-layout-ref">
+      <aside class="left-col">
+        <section class="panel glass strip-panel-ref"><div class="panel-title"><span>ENTRADAS</span><b id="arrivalsCount">0</b></div><div id="arrivals" class="strip-list ref"></div><button class="panel-footer">VER TODOS</button></section>
+        <section class="panel glass strip-panel-ref"><div class="panel-title amber"><span>SAÍDAS</span><b id="departuresCount">0</b></div><div id="departures" class="strip-list ref"></div><button class="panel-footer">VER TODOS</button></section>
+        <section class="panel glass strip-panel-ref"><div class="panel-title blue"><span>SOLO</span><b id="groundCount">0</b></div><div id="groundList" class="strip-list ref compact"></div><button class="panel-footer">VER TODOS</button></section>
+      </aside>
+      <section class="center-col">
+        <section class="panel glass radar-panel-ref">
+          <div class="radar-toolbar"><button class="toolbar-select">VISTA DO AEROPORTO ▾</button></div>
+          <canvas id="radar"></canvas>
+          <div id="radarHint" class="radar-hint ref">Selecione aeronaves no mapa e responda as solicitações mantendo a separação e a pista segura.</div>
+          <div class="map-legend"><span class="leg leg-green">PISTA ATIVA</span><span class="leg leg-gray">PISTA INATIVA</span><span class="leg leg-plane">AERONAVE NO AR</span><span class="leg leg-blue">SOLO / TÁXI</span><span class="leg leg-amber">PONTO DE ESPERA</span><span class="leg leg-gate">PORTÃO</span></div>
+        </section>
+        <section class="panel glass selected-ref">
+          <div class="selected-head">AERONAVE SELECIONADA</div>
+          <div id="selectedBox" class="selected-box ref">Nenhuma aeronave selecionada</div>
+        </section>
+        <div class="bottom-row-ref">
+          <section class="panel glass log-panel-ref">
+            <div class="tabbar"><button class="tab active">TODAS</button><button class="tab">TWR</button><button class="tab">GND</button><button class="tab">APP</button><button class="tab">ALERTAS</button><button class="tab filter">FILTROS</button></div>
+            <div id="log"></div>
+          </section>
+          <section class="panel glass help-panel-ref">
+            <div class="help-title">COMO JOGAR</div>
+            <ol class="help-steps">
+              <li><b>SELECIONAR AERONAVE</b><span>Clique na aeronave no mapa ou nas listas laterais.</span></li>
+              <li><b>ESCOLHER SOLICITAÇÃO</b><span>Veja o pedido atual na frequência e no painel de solicitações.</span></li>
+              <li><b>EMITIR COMANDO</b><span>Use o painel COMANDO ATC para responder e conduzir a operação.</span></li>
+            </ol>
+          </section>
+        </div>
+      </section>
+      <aside class="right-col">
+        <section class="panel glass freq-panel-ref">
+          <div class="panel-title inline"><span>FREQUÊNCIA ATIVA</span><b class="green-tag">TWR</b></div>
+          <div class="pedido-atual">PEDIDO ATUAL <span class="novo-tag">NOVO</span></div>
+          <div id="freqCall" class="freq-call ref">Aguardando chamada...</div>
+        </section>
+        <section class="panel glass requests-panel-ref"><div class="panel-title inline"><span>SOLICITAÇÕES</span><b id="requestsCount">0 AGUARDANDO</b></div><div id="requests" class="request-list ref"></div><button class="panel-footer">VER TODAS</button></section>
+        <section class="panel glass cmd-panel-ref">
+          <div class="panel-title"><span>COMANDO ATC</span></div>
+          <div class="cmd-grid ref">
+            <button class="cmd green" data-cmd="clear">AUTORIZAR<br>OPERAÇÃO</button>
+            <button class="cmd green" data-cmd="vectorFinal">VETOR<br>FINAL</button>
+            <button class="cmd green" data-cmd="holdShort">HOLD SHORT</button>
+            <button class="cmd blue" data-cmd="clear">TÁXI PARA<br>PISTA</button>
+            <button class="cmd blue" data-cmd="clear">PUSHBACK</button>
+            <button class="cmd amber" data-cmd="hold">ESPERAR</button>
+            <button class="cmd red" data-cmd="deny">NEGAR</button>
+            <button class="cmd dark" data-cmd="left">HDG -10°</button>
+            <button class="cmd dark" data-cmd="right">HDG +10°</button>
+            <button class="cmd dark" data-cmd="slow">SPD -10</button>
+            <button class="cmd dark" data-cmd="fast">SPD +10</button>
+            <button class="cmd dark" data-cmd="descend">DESCER</button>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </section>
       <section class="frequency-panel glass"><h3>FREQUENCIA ATIVA</h3><div id="freqCall" class="freq-call">Aguardando chamada...</div><div class="status-row"><span>PISTA</span><b id="runwayStatus">LIVRE</b></div><div class="status-row"><span>SEQUENCIA APP</span><b id="seqStatus">---</b></div></section>
       <aside class="strip-panel glass"><h3>ENTRADAS</h3><div id="arrivals" class="strip-list"></div><h3>SAÍDAS</h3><div id="departures" class="strip-list"></div><h3>SOLO</h3><div id="groundList" class="strip-list compact"></div></aside>
       <aside class="request-panel glass"><h3>SOLICITAÇÕES</h3><div id="requests" class="request-list"></div></aside>

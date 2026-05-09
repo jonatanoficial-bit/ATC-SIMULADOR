@@ -1,4 +1,4 @@
-const BUILD = 'v0.6.0_20260509_1237';
+const BUILD = 'v0.7.1_20260509_1605';
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 
@@ -159,17 +159,29 @@ function updateFrequencyPanel(){
   if(rs){ rs.textContent = runwayOccupiedBy ? `OCUPADA ${runwayOccupiedBy}` : "LIVRE"; rs.style.color = runwayOccupiedBy ? "#ff4d42" : "#5bf06d"; }
   const finals = aircraft.filter(p=>["APP","FINAL","EMERG","HOLD"].includes(p.status)).sort((a,b)=>dist(a,finalFix)-dist(b,finalFix)).slice(0,3);
   if(seq) seq.textContent = finals.map(p=>p.id).join(" > ") || "---";
-  if(!f) return; const r = requests[0];
-  if(!r){ f.className="freq-call"; f.innerHTML="Aguardando chamada...<br><small>Monitore a sequencia e mantenha separacao.</small>"; return; }
+  const r = selectedRequest || requests[0];
+  if(!f) return;
+  if(!r){ f.className="freq-call ref"; f.innerHTML=`<div class="call-id">STANDBY</div><div class="call-type">aguardando contato</div><small>Monitore a fila de chegadas, coordene solo e mantenha a pista segura.</small>`; return; }
+  const p = aircraft.find(x=>x.id===r.id);
   const age = Math.floor((performance.now()-r.time)/1000);
-  f.className = "freq-call " + (r.priority==="urgent" ? "danger" : "");
-  f.innerHTML = `<b>${atcPhrase(r)}</b><br><small>Aguardando resposta ha ${age}s - selecione e pressione CLEARANCE ou vetor.</small>`;
+  f.className = "freq-call ref " + (r.priority==="urgent" ? "danger" : "");
+  f.innerHTML = `
+    <div class="call-id">${r.id}<span style="float:right;font-size:18px;color:#fff">${p?.type || ''}</span></div>
+    <div class="call-grid">
+      <div><span>Posição</span><b>${p?.kind==='arrival' ? `${Math.max(5,Math.round(dist(p,finalFix)))} NM NE ${airport().icao}` : p?.status || 'SOLO'}</b></div>
+      <div><span>Altitude</span><b>FL${Math.round(p?.alt || 0)}</b></div>
+      <div><span>Velocidade</span><b>${Math.round(p?.speed || 0)} kt</b></div>
+      <div><span>Rumo</span><b>${Math.round(p?.heading || 0)}°</b></div>
+      <div style="grid-column:1 / -1"><span>Pedido</span><b>${atcPhrase(r)}</b></div>
+      <div><span>Recebido há</span><b>00:${String(age).padStart(2,'0')}</b></div>
+      <div><span>Pista</span><b>${runwayOccupiedBy ? 'OCUPADA' : 'LIVRE'}</b></div>
+    </div>`;
 }
 function startGame(){
   saveProfile(); resize(); running=true; paused=false; score=0; selected=null; selectedRequest=null; runwayOccupiedBy=null; spawnTimer=0; requestTimer=0; startTime=performance.now(); last=startTime; logLines=[]; requests=[];
   stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0 };
   aircraft = [];
-  const a = airport(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18);
+  const a = airport(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE';
   for(let i=0;i<6;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure'));
   // v0.5.0: menor carga inicial para mobile, evitando poluicao visual e permitindo controle real
   aircraft.forEach(p=>addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'));
@@ -318,26 +330,59 @@ function drawPlane(p,w,h){
 }
 
 function renderStrips(){
-  const mk = p => `<button class="strip ${p.risk>.4?'danger':p.emergency?'warning':''}" data-select="${p.id}"><b>${p.id}</b><span>${p.type} • ${p.status} • FL${Math.round(p.alt)}</span></button>`;
-  $('#arrivals').innerHTML = aircraft.filter(p=>p.kind==='arrival').slice(0,8).map(mk).join('');
-  $('#departures').innerHTML = aircraft.filter(p=>p.kind==='departure' && !['PARKED','PUSHBACK'].includes(p.status)).slice(0,8).map(mk).join('');
-  $('#groundList').innerHTML = aircraft.filter(p=>['PARKED','PUSHBACK','READY_TAXI','TAXI','HOLD_SHORT','LINEUP'].includes(p.status)).slice(0,8).map(mk).join('');
-  $$('[data-select]').forEach(b=>b.onclick=()=>{ selected=b.dataset.select; selectedRequest=null; renderSelected(); renderRequests(); });
+  const arr = aircraft.filter(p=>p.kind==='arrival').slice(0,8);
+  const dep = aircraft.filter(p=>p.kind==='departure' && !['PARKED','PUSHBACK'].includes(p.status)).slice(0,8);
+  const grd = aircraft.filter(p=>['PARKED','PUSHBACK','READY_TAXI','TAXI','HOLD_SHORT','LINEUP'].includes(p.status)).slice(0,8);
+  const mk = (p, type) => {
+    const meta = type==='arr' ? `${p.type} • FL${Math.round(p.alt)} • ${Math.max(5,Math.round(dist(p,finalFix)))} NM` :
+                  type==='dep' ? `${p.status==='LINEUP'?'PRONTO':p.status} • RWY 27` :
+                  `${p.status} • FL${Math.round(p.alt)} • G${Math.max(1,Math.round(p.x/10))}`;
+    return `<button class="strip ref ${p.risk>.4?'danger':p.emergency?'warning':''}" data-select="${p.id}"><b>${p.id}</b><span>${meta}</span><small style="color:#9db0c3">${p.type}</small></button>`;
+  };
+  $('#arrivals').innerHTML = arr.map(p=>mk(p,'arr')).join('');
+  $('#departures').innerHTML = dep.map(p=>mk(p,'dep')).join('');
+  $('#groundList').innerHTML = grd.map(p=>mk(p,'grd')).join('');
+  if($('#arrivalsCount')) $('#arrivalsCount').textContent = arr.length;
+  if($('#departuresCount')) $('#departuresCount').textContent = dep.length;
+  if($('#groundCount')) $('#groundCount').textContent = grd.length;
+  $$('[data-select]').forEach(b=>b.onclick=()=>{ selected=b.dataset.select; selectedRequest=null; renderSelected(); renderRequests(); updateFrequencyPanel(); });
 }
 function renderRequests(){
   const box=$('#requests'); if(!box) return;
-  box.innerHTML = requests.map(r=>{ const age=Math.floor((performance.now()-r.time)/1000); return `<button class="request ${r.priority==='urgent'?'urgent':r.priority==='warn'?'warn':''} ${selectedRequest===r?'selected':''}" data-req="${r.id}|${r.type}"><b>${r.id}</b><small>${age}s aguardando</small><span>${r.text}</span><span>${r.type.toUpperCase()}</span></button>`; }).join('') || '<div class="muted">Nenhuma solicitação pendente.</div>';
-  $$('[data-req]').forEach(b=>b.onclick=()=>{ const [id,type]=b.dataset.req.split('|'); selected=id; selectedRequest=requests.find(r=>r.id===id && r.type===type) || null; renderSelected(); renderRequests(); });
+  if($('#requestsCount')) $('#requestsCount').textContent = `${requests.length} AGUARDANDO`;
+  box.innerHTML = requests.map(r=>{ const age=Math.floor((performance.now()-r.time)/1000); return `
+    <button class="request ${r.priority==='urgent'?'urgent':r.priority==='warn'?'warn':''} ${selectedRequest===r?'selected':''}" data-req="${r.id}|${r.type}">
+      <div class="request-head"><b>${r.id}</b><small>${String(age).padStart(2,'0')}:${String(age%60).padStart(2,'0')}</small></div>
+      <span class="request-text">${r.text}</span>
+      <span class="request-type">${r.type.toUpperCase()}</span>
+    </button>`; }).join('') || '<div class="muted">Nenhuma solicitação pendente.</div>';
+  $$('[data-req]').forEach(b=>b.onclick=()=>{ const [id,type]=b.dataset.req.split('|'); selected=id; selectedRequest=requests.find(r=>r.id===id && r.type===type) || null; renderSelected(); renderRequests(); updateFrequencyPanel(); });
 }
 function renderSelected(){
   const p=aircraft.find(x=>x.id===selected); if(!p){ $('#selectedBox').textContent='Nenhuma aeronave selecionada'; return; }
   const req=requests.find(r=>r.id===p.id);
-  $('#selectedBox').innerHTML = `<b>${p.id}</b><br>${p.type} • ${p.status}<br>HDG ${Math.round(p.heading)}° • SPD ${Math.round(p.speed)} KT<br>FL${Math.round(p.alt)} → FL${Math.round(p.targetAlt)}<br>${req?`<span style="color:#ffbf3d">Pedido ativo: ${req.text}</span>`:'Sem pedido pendente'}<br><small>Use CLEARANCE para autorizar ou NEGAR/ESPERAR se a pista não estiver segura.</small>`;
+  const op = p.kind==='arrival' ? 'Chegada' : (['PARKED','PUSHBACK','READY_TAXI','TAXI','HOLD_SHORT','LINEUP'].includes(p.status) ? 'Solo' : 'Saída');
+  $('#selectedBox').innerHTML = `
+    <div class="sel-top">
+      <div class="sel-left">
+        <div class="sel-icon">✈</div>
+        <div class="sel-name"><b>${p.id}</b><small>${p.type} • ${op}</small></div>
+      </div>
+      <div class="sel-status">${p.status.replace('_',' ')}</div>
+    </div>
+    <div class="sel-grid">
+      <div class="sel-item"><span>Status</span><b>${p.status}</b></div>
+      <div class="sel-item"><span>Altitude</span><b>FL${Math.round(p.alt)}</b></div>
+      <div class="sel-item"><span>Velocidade</span><b>${Math.round(p.speed)} kt</b></div>
+      <div class="sel-item"><span>Rumo</span><b>${Math.round(p.heading)}°</b></div>
+      <div class="sel-item"><span>Posição</span><b>${p.kind==='arrival' ? `${Math.max(5,Math.round(dist(p,finalFix)))} NM NE ${airport().icao}` : 'SOLO / TÁXI'}</b></div>
+      <div class="sel-item req"><span>Pedido atual</span><b>${req ? req.text : 'Sem pedido pendente'}</b></div>
+    </div>`;
 }
 canvas.addEventListener('pointerdown', e=>{
   const rect=canvas.getBoundingClientRect(), x=e.clientX-rect.left, y=e.clientY-rect.top; let best=null, bd=999;
   for(const p of aircraft){ const px=p.x/100*rect.width, py=p.y/100*rect.height, d=Math.hypot(px-x,py-y); if(d<bd){ bd=d; best=p; } }
-  if(best && bd<48){ selected=best.id; selectedRequest=null; addLog(`${best.id} selecionado.`); renderSelected(); renderRequests(); }
+  if(best && bd<48){ selected=best.id; selectedRequest=null; addLog(`${best.id} selecionado.`); renderSelected(); renderRequests(); updateFrequencyPanel(); }
 });
 $$('[data-cmd]').forEach(b=>b.addEventListener('click',()=>command(b.dataset.cmd)));
 function command(cmd){
@@ -356,7 +401,7 @@ function command(cmd){
   if(cmd==='emergency'){ p.emergency=true; p.status='EMERG'; stats.emergencies++; addRequest(p,'emergency','urgent'); }
   if(cmd==='clear') handleClearance(p);
   else if(!['hold','emergency','deny'].includes(cmd)) addLog(`${airport().icao}: ${p.id} ${cmd.toUpperCase()} autorizado.`);
-  renderSelected(); renderRequests();
+  renderSelected(); renderRequests(); updateFrequencyPanel();
 }
 function denyRequest(p){
   const req = requests.find(r=>r.id===p.id);
