@@ -1,4 +1,4 @@
-const BUILD = 'v0.4.1_20260430_1610';
+const BUILD = 'v0.6.0_20260509_1237';
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 
@@ -89,6 +89,30 @@ $$('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
 $$('[data-avatar]').forEach(b=>b.addEventListener('click',()=>{ profile.avatar=b.dataset.avatar; $$('[data-avatar]').forEach(x=>x.classList.toggle('selected',x===b)); saveProfile(); }));
 $('#pauseBtn')?.addEventListener('click',()=>{ paused=!paused; $('#pauseBtn').textContent = paused ? '▶' : 'Ⅱ'; });
 
+
+async function requestFullscreenAndLandscape(){
+  try{
+    const el = document.documentElement;
+    if(!document.fullscreenElement && el.requestFullscreen){ await el.requestFullscreen(); }
+  }catch(e){}
+  try{
+    if(screen.orientation && screen.orientation.lock){ await screen.orientation.lock('landscape'); }
+  }catch(e){}
+  setTimeout(resize, 250);
+}
+function updateOrientationState(){
+  document.body.classList.toggle('portrait-lock', window.innerHeight > window.innerWidth && window.innerWidth < 900);
+  resize();
+}
+$('#fullscreenBtn')?.addEventListener('click', requestFullscreenAndLandscape);
+document.addEventListener('click', (ev)=>{
+  const t = ev.target;
+  if(t && (t.matches('.primary') || t.matches('[data-go]') || t.closest('[data-go]'))){ requestFullscreenAndLandscape(); }
+}, {capture:true});
+window.addEventListener('orientationchange', ()=>setTimeout(updateOrientationState, 350));
+window.addEventListener('resize', updateOrientationState);
+updateOrientationState();
+
 function resize(){ const r=canvas.getBoundingClientRect(), d=window.devicePixelRatio||1; canvas.width=Math.max(320,Math.floor(r.width*d)); canvas.height=Math.max(280,Math.floor(r.height*d)); ctx.setTransform(d,0,0,d,0,0); }
 window.addEventListener('resize', resize);
 
@@ -146,9 +170,10 @@ function startGame(){
   stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0 };
   aircraft = [];
   const a = airport(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18);
-  for(let i=0;i<5;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure'));
-  for(let i=5;i<9;i++) aircraft.push(makePlane(i, 'departure'));
+  for(let i=0;i<6;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure'));
+  // v0.5.0: menor carga inicial para mobile, evitando poluicao visual e permitindo controle real
   aircraft.forEach(p=>addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'));
+  if(requests[0]){ selected = requests[0].id; selectedRequest = requests[0]; }
   addLog(`${a.icao} APP/TWR online. Pista ativa ${runway.name}.`);
   addLog('Aguarde solicitações e emita clearance conforme pista livre.');
   requestAnimationFrame(loop);
@@ -277,10 +302,18 @@ function drawPlane(p,w,h){
   ctx.stroke(); ctx.setTransform(1,0,0,1,0,0);
   if(p.selected){ ctx.beginPath(); ctx.arc(pos.x,pos.y,19,0,Math.PI*2); ctx.stroke(); }
   ctx.shadowBlur=0;
-  ctx.font='12px ui-monospace,Menlo,Consolas,monospace'; ctx.fillStyle=col;
-  const tx=pos.x+12, ty=pos.y-12; ctx.fillText(p.id,tx,ty);
-  ctx.fillStyle='rgba(230,245,255,.9)'; ctx.fillText(`${p.type} ${p.status}`,tx,ty+14); ctx.fillText(`FL${Math.max(0,Math.round(p.alt)).toString().padStart(3,'0')} ${Math.round(p.speed)}KT`,tx,ty+28);
-  if(p.request){ ctx.fillStyle='rgba(255,191,61,.95)'; ctx.fillText('REQ',tx,ty+42); }
+  const hasReq = requests.some(r=>r.id===p.id);
+  const showLabel = p.selected || hasReq || !['PARKED','PUSHBACK'].includes(p.status);
+  if(showLabel){
+    ctx.font=(w<430?'9px':'11px')+' ui-monospace,Menlo,Consolas,monospace'; ctx.fillStyle=col;
+    const tx=pos.x+10, ty=pos.y-10;
+    ctx.fillText(p.id,tx,ty);
+    if(p.selected || w>=430 || !['PARKED','PUSHBACK','TAXI'].includes(p.status)){
+      ctx.fillStyle='rgba(230,245,255,.86)'; ctx.fillText(`${p.status} FL${Math.max(0,Math.round(p.alt)).toString().padStart(3,'0')}`,tx,ty+12);
+      ctx.fillText(`${Math.round(p.speed)}KT`,tx,ty+24);
+    }
+    if(hasReq){ ctx.fillStyle='rgba(255,191,61,.95)'; ctx.fillText('REQ',tx,ty+(p.selected?36:28)); }
+  }
   ctx.restore();
 }
 
@@ -293,13 +326,13 @@ function renderStrips(){
 }
 function renderRequests(){
   const box=$('#requests'); if(!box) return;
-  box.innerHTML = requests.map(r=>`<button class="request ${r.priority==='urgent'?'urgent':r.priority==='warn'?'warn':''} ${selectedRequest===r?'selected':''}" data-req="${r.id}|${r.type}"><b>${r.id}</b><span>${r.text}</span><span>${r.type.toUpperCase()}</span></button>`).join('') || '<div class="muted">Nenhuma solicitação pendente.</div>';
+  box.innerHTML = requests.map(r=>{ const age=Math.floor((performance.now()-r.time)/1000); return `<button class="request ${r.priority==='urgent'?'urgent':r.priority==='warn'?'warn':''} ${selectedRequest===r?'selected':''}" data-req="${r.id}|${r.type}"><b>${r.id}</b><small>${age}s aguardando</small><span>${r.text}</span><span>${r.type.toUpperCase()}</span></button>`; }).join('') || '<div class="muted">Nenhuma solicitação pendente.</div>';
   $$('[data-req]').forEach(b=>b.onclick=()=>{ const [id,type]=b.dataset.req.split('|'); selected=id; selectedRequest=requests.find(r=>r.id===id && r.type===type) || null; renderSelected(); renderRequests(); });
 }
 function renderSelected(){
   const p=aircraft.find(x=>x.id===selected); if(!p){ $('#selectedBox').textContent='Nenhuma aeronave selecionada'; return; }
   const req=requests.find(r=>r.id===p.id);
-  $('#selectedBox').innerHTML = `<b>${p.id}</b><br>${p.type} • ${p.status}<br>HDG ${Math.round(p.heading)}° • SPD ${Math.round(p.speed)} KT<br>FL${Math.round(p.alt)} → FL${Math.round(p.targetAlt)}<br>${req?`<span style="color:#ffbf3d">Pedido: ${req.text}</span>`:'Sem pedido pendente'}`;
+  $('#selectedBox').innerHTML = `<b>${p.id}</b><br>${p.type} • ${p.status}<br>HDG ${Math.round(p.heading)}° • SPD ${Math.round(p.speed)} KT<br>FL${Math.round(p.alt)} → FL${Math.round(p.targetAlt)}<br>${req?`<span style="color:#ffbf3d">Pedido ativo: ${req.text}</span>`:'Sem pedido pendente'}<br><small>Use CLEARANCE para autorizar ou NEGAR/ESPERAR se a pista não estiver segura.</small>`;
 }
 canvas.addEventListener('pointerdown', e=>{
   const rect=canvas.getBoundingClientRect(), x=e.clientX-rect.left, y=e.clientY-rect.top; let best=null, bd=999;
@@ -319,11 +352,27 @@ function command(cmd){
   if(cmd==='hold'){ p.hold=!p.hold; if(p.kind==='arrival') p.status=p.hold?'HOLD':'APP'; addLog(`${airport().icao}: ${p.id} ${p.hold?'entre em espera':'prossiga aproximação'}.`); }
   if(cmd==='holdShort'){ if(['TAXI','LINEUP','DEP'].includes(p.status)){ p.status='HOLD_SHORT'; p.speed=0; p.cleared=false; addLog(`${airport().icao}: ${p.id} hold short pista ${runway.name}.`); } }
   if(cmd==='vectorFinal'){ if(p.kind==='arrival'){ p.status='APP'; p.hold=false; p.heading=headingTo(p, finalFix); p.targetAlt=Math.min(p.targetAlt,45); p.speed=Math.min(p.speed,170); addLog(`${airport().icao}: ${p.id} vetor para interceptar final RWY ${runway.name}.`); } }
+  if(cmd==='deny'){ denyRequest(p); }
   if(cmd==='emergency'){ p.emergency=true; p.status='EMERG'; stats.emergencies++; addRequest(p,'emergency','urgent'); }
   if(cmd==='clear') handleClearance(p);
-  else if(!['hold','emergency'].includes(cmd)) addLog(`${airport().icao}: ${p.id} ${cmd.toUpperCase()} autorizado.`);
+  else if(!['hold','emergency','deny'].includes(cmd)) addLog(`${airport().icao}: ${p.id} ${cmd.toUpperCase()} autorizado.`);
   renderSelected(); renderRequests();
 }
+function denyRequest(p){
+  const req = requests.find(r=>r.id===p.id);
+  if(!req){ addLog(`${p.id}: sem solicitação ativa para negar.`, 'warn'); return; }
+  stats.denied++;
+  score -= req.priority==='urgent' ? 120 : 18;
+  if(req.priority==='urgent'){
+    addLog(`${airport().icao}: ${p.id}, emergência não pode aguardar. Prioridade mantida.`, 'danger');
+    return;
+  }
+  req.time = performance.now();
+  req.priority = req.type==='landing' || req.type==='lineup' || req.type==='takeoff' ? 'warn' : 'normal';
+  addLog(`${airport().icao}: ${p.id}, aguarde. Clearance ainda não autorizado.`, 'warn');
+  renderRequests();
+}
+
 function handleClearance(p){
   const req = requests.find(r=>r.id===p.id);
   if(!req){ addLog(`${p.id}: não há solicitação pendente para CLEARANCE.`, 'warn'); stats.denied++; score-=20; return; }

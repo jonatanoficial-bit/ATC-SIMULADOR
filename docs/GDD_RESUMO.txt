@@ -16,3 +16,6 @@ Novidades mantidas da v0.4.0:
 - Corredor de aproximação e FINAL FIX.
 - Comandos VETOR FINAL e HOLD SHORT.
 - Radar mais lento e operacional.
+
+
+ v0.6.0 - Mobile landscape obrigatório: todas as telas foram ajustadas para operação horizontal. Em celular na vertical, o jogo exibe aviso de rotação e bloqueia interação até o aparelho ficar deitado. A primeira interação solicita tela cheia e bloqueio de orientação quando suportado pelo navegador.
