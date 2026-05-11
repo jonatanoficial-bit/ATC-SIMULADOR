@@ -1,4 +1,4 @@
-const BUILD = 'v0.7.1_20260509_1605';
+const BUILD = 'v0.8.0_20260511_2138';
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 
@@ -77,11 +77,13 @@ function updateProfileUI(){
   if($('#airportTitle')) $('#airportTitle').textContent = `${a.icao} - ${a.city.toUpperCase()}`;
   if($('#airportDesc')) $('#airportDesc').textContent = `${a.name} • ${a.country} • ${a.runways} pista(s) • tráfego ${a.traffic} • clima ${a.weather}.`;
   if($('#gameAirport')) $('#gameAirport').textContent = a.icao;
+  if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao;
 }
 function go(id){
   if(id==='lobby' || id==='profile') saveProfile();
   $$('.screen').forEach(s=>s.classList.remove('active'));
   $('#'+id).classList.add('active');
+  document.body.classList.toggle('game-is-active', id==='game');
   if(id==='game') startGame();
   updateProfileUI(); resize();
 }
@@ -106,8 +108,8 @@ function updateOrientationState(){
 }
 $('#fullscreenBtn')?.addEventListener('click', requestFullscreenAndLandscape);
 document.addEventListener('click', (ev)=>{
-  const t = ev.target;
-  if(t && (t.matches('.primary') || t.matches('[data-go]') || t.closest('[data-go]'))){ requestFullscreenAndLandscape(); }
+  const goBtn = ev.target.closest && ev.target.closest('[data-go]');
+  if(goBtn && goBtn.dataset.go==='game') requestFullscreenAndLandscape();
 }, {capture:true});
 window.addEventListener('orientationchange', ()=>setTimeout(updateOrientationState, 350));
 window.addEventListener('resize', updateOrientationState);
@@ -156,26 +158,27 @@ function atcPhrase(r){
 }
 function updateFrequencyPanel(){
   const f = $("#freqCall"), rs=$("#runwayStatus"), seq=$("#seqStatus");
-  if(rs){ rs.textContent = runwayOccupiedBy ? `OCUPADA ${runwayOccupiedBy}` : "LIVRE"; rs.style.color = runwayOccupiedBy ? "#ff4d42" : "#5bf06d"; }
+  if(rs){ rs.textContent = runwayOccupiedBy ? `RWY OCUPADA ${runwayOccupiedBy}` : "RWY LIVRE"; rs.style.color = runwayOccupiedBy ? "#ff4d42" : "#5bf06d"; }
   const finals = aircraft.filter(p=>["APP","FINAL","EMERG","HOLD"].includes(p.status)).sort((a,b)=>dist(a,finalFix)-dist(b,finalFix)).slice(0,3);
-  if(seq) seq.textContent = finals.map(p=>p.id).join(" > ") || "---";
+  if(seq) seq.textContent = "SEQ: " + (finals.map(p=>p.id).join(" > ") || "---");
   const r = selectedRequest || requests[0];
   if(!f) return;
-  if(!r){ f.className="freq-call ref"; f.innerHTML=`<div class="call-id">STANDBY</div><div class="call-type">aguardando contato</div><small>Monitore a fila de chegadas, coordene solo e mantenha a pista segura.</small>`; return; }
+  if(!r){ f.className="freq-call compact"; f.innerHTML=`<div class="call-id">STBY</div><div class="call-type">aguardando contato</div><small>Monitore aproximação, solo e pista ativa.</small>`; renderActionGrid(); return; }
   const p = aircraft.find(x=>x.id===r.id);
   const age = Math.floor((performance.now()-r.time)/1000);
-  f.className = "freq-call ref " + (r.priority==="urgent" ? "danger" : "");
+  f.className = "freq-call compact " + (r.priority==="urgent" ? "danger" : "");
   f.innerHTML = `
-    <div class="call-id">${r.id}<span style="float:right;font-size:18px;color:#fff">${p?.type || ''}</span></div>
+    <div class="call-id">${r.id}</div>
+    <div class="call-type">${r.text}</div>
     <div class="call-grid">
-      <div><span>Posição</span><b>${p?.kind==='arrival' ? `${Math.max(5,Math.round(dist(p,finalFix)))} NM NE ${airport().icao}` : p?.status || 'SOLO'}</b></div>
-      <div><span>Altitude</span><b>FL${Math.round(p?.alt || 0)}</b></div>
-      <div><span>Velocidade</span><b>${Math.round(p?.speed || 0)} kt</b></div>
-      <div><span>Rumo</span><b>${Math.round(p?.heading || 0)}°</b></div>
-      <div style="grid-column:1 / -1"><span>Pedido</span><b>${atcPhrase(r)}</b></div>
-      <div><span>Recebido há</span><b>00:${String(age).padStart(2,'0')}</b></div>
+      <div><span>Setor</span><b>${getSector(p)}</b></div>
+      <div><span>Tipo</span><b>${p?.type || '---'}</b></div>
+      <div><span>Posição</span><b>${p?.kind==='arrival' ? Math.max(5,Math.round(dist(p,finalFix)))+' NM' : (p?.status||'SOLO')}</b></div>
+      <div><span>Alt / Vel</span><b>FL${Math.round(p?.alt||0)} / ${Math.round(p?.speed||0)}</b></div>
+      <div><span>Espera</span><b>${age}s</b></div>
       <div><span>Pista</span><b>${runwayOccupiedBy ? 'OCUPADA' : 'LIVRE'}</b></div>
     </div>`;
+  renderActionGrid();
 }
 function startGame(){
   saveProfile(); resize(); running=true; paused=false; score=0; selected=null; selectedRequest=null; runwayOccupiedBy=null; spawnTimer=0; requestTimer=0; startTime=performance.now(); last=startTime; logLines=[]; requests=[];
@@ -200,7 +203,7 @@ function update(dt){
   if(spawnTimer>38 && aircraft.length<15){ spawnTimer=0; const p=makePlane(Date.now()%1000, Math.random()<.58?'arrival':'departure'); aircraft.push(p); addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'); }
   updatePlanes(dt); checkRunway(); checkConflicts(); checkMissedRequests();
   score += dt * (aircraft.length * 1.4);
-  renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel();
+  renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid();
 }
 function updatePlanes(dt){
   for(const p of aircraft){
@@ -330,22 +333,25 @@ function drawPlane(p,w,h){
 }
 
 function renderStrips(){
-  const arr = aircraft.filter(p=>p.kind==='arrival').slice(0,8);
-  const dep = aircraft.filter(p=>p.kind==='departure' && !['PARKED','PUSHBACK'].includes(p.status)).slice(0,8);
-  const grd = aircraft.filter(p=>['PARKED','PUSHBACK','READY_TAXI','TAXI','HOLD_SHORT','LINEUP'].includes(p.status)).slice(0,8);
+  const arr = aircraft.filter(p=>p.kind==='arrival').slice(0,9);
+  const dep = aircraft.filter(p=>p.kind==='departure' && !['PARKED','PUSHBACK'].includes(p.status)).slice(0,9);
+  const grd = aircraft.filter(p=>['PARKED','PUSHBACK','READY_TAXI','TAXI','HOLD_SHORT','LINEUP'].includes(p.status)).slice(0,9);
   const mk = (p, type) => {
     const meta = type==='arr' ? `${p.type} • FL${Math.round(p.alt)} • ${Math.max(5,Math.round(dist(p,finalFix)))} NM` :
-                  type==='dep' ? `${p.status==='LINEUP'?'PRONTO':p.status} • RWY 27` :
-                  `${p.status} • FL${Math.round(p.alt)} • G${Math.max(1,Math.round(p.x/10))}`;
-    return `<button class="strip ref ${p.risk>.4?'danger':p.emergency?'warning':''}" data-select="${p.id}"><b>${p.id}</b><span>${meta}</span><small style="color:#9db0c3">${p.type}</small></button>`;
+                  type==='dep' ? `${p.status==='LINEUP'?'PRONTO':p.status} • RWY ${runway.name}` :
+                  `${p.status} • GATE/TAXI • ${p.type}`;
+    return `<button class="strip ref ${p.risk>.4?'danger':p.emergency?'warning':''}" data-select="${p.id}"><b>${p.id}</b><span>${meta}</span><small style="color:#9db0c3">${p.request ? ('PEDIDO: '+p.request.toUpperCase()) : 'MONITORANDO'}</small></button>`;
   };
-  $('#arrivals').innerHTML = arr.map(p=>mk(p,'arr')).join('');
-  $('#departures').innerHTML = dep.map(p=>mk(p,'dep')).join('');
-  $('#groundList').innerHTML = grd.map(p=>mk(p,'grd')).join('');
+  const aEl=$('#arrivals'), dEl=$('#departures'), gEl=$('#groundList');
+  if(aEl) aEl.innerHTML = arr.map(p=>mk(p,'arr')).join('') || '<div class="muted">Sem entradas.</div>';
+  if(dEl) dEl.innerHTML = dep.map(p=>mk(p,'dep')).join('') || '<div class="muted">Sem saídas.</div>';
+  if(gEl) gEl.innerHTML = grd.map(p=>mk(p,'grd')).join('') || '<div class="muted">Sem solo.</div>';
   if($('#arrivalsCount')) $('#arrivalsCount').textContent = arr.length;
   if($('#departuresCount')) $('#departuresCount').textContent = dep.length;
   if($('#groundCount')) $('#groundCount').textContent = grd.length;
-  $$('[data-select]').forEach(b=>b.onclick=()=>{ selected=b.dataset.select; selectedRequest=null; renderSelected(); renderRequests(); updateFrequencyPanel(); });
+  const activeList = $('.traffic-list.active');
+  if($('#trafficCount') && activeList){ $('#trafficCount').textContent = activeList.querySelectorAll('[data-select]').length; }
+  $$('[data-select]').forEach(b=>b.onclick=()=>{ selected=b.dataset.select; selectedRequest=null; renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); renderActionGrid(); });
 }
 function renderRequests(){
   const box=$('#requests'); if(!box) return;
@@ -356,35 +362,31 @@ function renderRequests(){
       <span class="request-text">${r.text}</span>
       <span class="request-type">${r.type.toUpperCase()}</span>
     </button>`; }).join('') || '<div class="muted">Nenhuma solicitação pendente.</div>';
-  $$('[data-req]').forEach(b=>b.onclick=()=>{ const [id,type]=b.dataset.req.split('|'); selected=id; selectedRequest=requests.find(r=>r.id===id && r.type===type) || null; renderSelected(); renderRequests(); updateFrequencyPanel(); });
+  $$('[data-req]').forEach(b=>b.onclick=()=>{ const [id,type]=b.dataset.req.split('|'); selected=id; selectedRequest=requests.find(r=>r.id===id && r.type===type) || null; renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); });
 }
 function renderSelected(){
-  const p=aircraft.find(x=>x.id===selected); if(!p){ $('#selectedBox').textContent='Nenhuma aeronave selecionada'; return; }
+  const box = $('#selectedBox');
+  const p=aircraft.find(x=>x.id===selected); if(!p){ if(box) box.textContent='Nenhuma aeronave selecionada'; renderActionGrid(); return; }
   const req=requests.find(r=>r.id===p.id);
-  const op = p.kind==='arrival' ? 'Chegada' : (['PARKED','PUSHBACK','READY_TAXI','TAXI','HOLD_SHORT','LINEUP'].includes(p.status) ? 'Solo' : 'Saída');
-  $('#selectedBox').innerHTML = `
-    <div class="sel-top">
-      <div class="sel-left">
-        <div class="sel-icon">✈</div>
-        <div class="sel-name"><b>${p.id}</b><small>${p.type} • ${op}</small></div>
-      </div>
-      <div class="sel-status">${p.status.replace('_',' ')}</div>
-    </div>
+  const op = getSector(p);
+  if(box) box.innerHTML = `
+    <div class="sel-top"><div class="sel-name"><b>${p.id}</b><small>${p.type} • ${op}</small></div><div class="sel-status">${p.status.replace('_',' ')}</div></div>
     <div class="sel-grid">
-      <div class="sel-item"><span>Status</span><b>${p.status}</b></div>
-      <div class="sel-item"><span>Altitude</span><b>FL${Math.round(p.alt)}</b></div>
-      <div class="sel-item"><span>Velocidade</span><b>${Math.round(p.speed)} kt</b></div>
-      <div class="sel-item"><span>Rumo</span><b>${Math.round(p.heading)}°</b></div>
-      <div class="sel-item"><span>Posição</span><b>${p.kind==='arrival' ? `${Math.max(5,Math.round(dist(p,finalFix)))} NM NE ${airport().icao}` : 'SOLO / TÁXI'}</b></div>
-      <div class="sel-item req"><span>Pedido atual</span><b>${req ? req.text : 'Sem pedido pendente'}</b></div>
+      <div class="sel-item"><span>ALT</span><b>FL${Math.round(p.alt)}</b></div>
+      <div class="sel-item"><span>SPD</span><b>${Math.round(p.speed)}kt</b></div>
+      <div class="sel-item"><span>HDG</span><b>${Math.round(p.heading)}°</b></div>
+      <div class="sel-item"><span>POS</span><b>${p.kind==='arrival' ? `${Math.max(5,Math.round(dist(p,finalFix)))}NM` : 'SOLO'}</b></div>
+      <div class="sel-item"><span>REQ</span><b>${req ? req.text : '---'}</b></div>
+      <div class="sel-item"><span>SETOR</span><b>${op}</b></div>
     </div>`;
+  if($('#sectorIndicator')) $('#sectorIndicator').textContent = op;
+  renderActionGrid();
 }
 canvas.addEventListener('pointerdown', e=>{
   const rect=canvas.getBoundingClientRect(), x=e.clientX-rect.left, y=e.clientY-rect.top; let best=null, bd=999;
   for(const p of aircraft){ const px=p.x/100*rect.width, py=p.y/100*rect.height, d=Math.hypot(px-x,py-y); if(d<bd){ bd=d; best=p; } }
-  if(best && bd<48){ selected=best.id; selectedRequest=null; addLog(`${best.id} selecionado.`); renderSelected(); renderRequests(); updateFrequencyPanel(); }
+  if(best && bd<48){ selected=best.id; selectedRequest=null; addLog(`${best.id} selecionado.`); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); }
 });
-$$('[data-cmd]').forEach(b=>b.addEventListener('click',()=>command(b.dataset.cmd)));
 function command(cmd){
   const p=aircraft.find(x=>x.id===selected); if(!p){ addLog('Nenhuma aeronave selecionada.','warn'); return; }
   stats.commands++; score -= 2;
@@ -398,10 +400,11 @@ function command(cmd){
   if(cmd==='holdShort'){ if(['TAXI','LINEUP','DEP'].includes(p.status)){ p.status='HOLD_SHORT'; p.speed=0; p.cleared=false; addLog(`${airport().icao}: ${p.id} hold short pista ${runway.name}.`); } }
   if(cmd==='vectorFinal'){ if(p.kind==='arrival'){ p.status='APP'; p.hold=false; p.heading=headingTo(p, finalFix); p.targetAlt=Math.min(p.targetAlt,45); p.speed=Math.min(p.speed,170); addLog(`${airport().icao}: ${p.id} vetor para interceptar final RWY ${runway.name}.`); } }
   if(cmd==='deny'){ denyRequest(p); }
+  if(cmd==='goAround'){ p.status='APP'; p.cleared=false; p.targetAlt=80; p.speed=Math.max(p.speed,170); p.heading=headingTo(p,{x:p.x<50?20:80,y:18}); runwayOccupiedBy = runwayOccupiedBy===p.id ? null : runwayOccupiedBy; addLog(`${airport().icao}: ${p.id} arremeta, suba para FL080.`, 'warn'); }
   if(cmd==='emergency'){ p.emergency=true; p.status='EMERG'; stats.emergencies++; addRequest(p,'emergency','urgent'); }
   if(cmd==='clear') handleClearance(p);
   else if(!['hold','emergency','deny'].includes(cmd)) addLog(`${airport().icao}: ${p.id} ${cmd.toUpperCase()} autorizado.`);
-  renderSelected(); renderRequests(); updateFrequencyPanel();
+  renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid();
 }
 function denyRequest(p){
   const req = requests.find(r=>r.id===p.id);
@@ -455,5 +458,83 @@ function endGame(fail,reason){
   $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
   go('result');
 }
+
+function getSector(p){
+  if(!p) return 'TWR';
+  if(p.emergency || p.status==='EMERG') return 'EMERG';
+  if(p.kind==='arrival') return (p.status==='APP' || p.status==='HOLD') ? 'APP' : 'TWR';
+  if(['PARKED','PUSHBACK','READY_TAXI','TAXI','HOLD_SHORT'].includes(p.status)) return 'GND';
+  if(['LINEUP','DEP'].includes(p.status)) return 'TWR';
+  return 'TWR';
+}
+function makeAction(label, cmd, cls='dark', sub=''){
+  return `<button class="atc-action ${cls}" data-cmd="${cmd}">${label}${sub?`<small>${sub}</small>`:''}</button>`;
+}
+function contextActions(p){
+  if(!p) return [
+    ['SELECIONE','noop','dark','aeronave'],['FILA','noop','dark','pedido'],['RADAR','noop','dark','toque'],['COMMS','noop','dark','monitore']
+  ];
+  const req = requests.find(r=>r.id===p.id);
+  if(p.emergency || req?.type==='emergency') return [
+    ['POUSO IMEDIATO','clear','red','emergência'],['VETOR FINAL','vectorFinal','amber','prioridade'],['REDUZIR','slow','amber','velocidade'],['DESCER','descend','amber','altitude'],['ESPERA','hold','dark','último caso'],['MAIS','more','dark','opções']
+  ];
+  if(p.kind==='arrival'){
+    if(p.status==='APP' || p.status==='HOLD') return [
+      ['VETOR FINAL','vectorFinal','green','interceptar'],['AUT. POUSO','clear','green','se pista livre'],['REDUZIR','slow','blue','separação'],['DESCER','descend','blue','perfil'],['ESPERA','hold','amber','holding'],['MAIS','more','dark','opções']
+    ];
+    if(p.status==='FINAL') return [
+      ['POUSO OK','clear','green','confirmar'],['ARREMETER','goAround','red','go around'],['REDUZIR','slow','blue','final'],['ESPERA','hold','amber','instruir'],['HDG -10','left','dark','vetor'],['MAIS','more','dark','opções']
+    ];
+  }
+  if(['PARKED','PUSHBACK','READY_TAXI'].includes(p.status)) return [
+    ['PUSHBACK','clear','blue','aprovar'],['TÁXI','clear','blue','para pista'],['MANTER','deny','amber','aguarde'],['HDG -10','left','dark','solo'],['HDG +10','right','dark','solo'],['MAIS','more','dark','opções']
+  ];
+  if(['TAXI','HOLD_SHORT'].includes(p.status)) return [
+    ['HOLD SHORT','holdShort','amber','antes pista'],['ALINHAR','clear','green','line up'],['MANTER','deny','amber','posição'],['TÁXI OK','clear','blue','prosseguir'],['EMERGÊNCIA','emergency','red','prioridade'],['MAIS','more','dark','opções']
+  ];
+  if(p.status==='LINEUP' || p.status==='DEP') return [
+    ['DECOLAR','clear','green','takeoff'],['MANTER','deny','amber','aguarde'],['HDG -10','left','dark','vetor'],['HDG +10','right','dark','vetor'],['SUBIR','climb','blue','saída'],['MAIS','more','dark','opções']
+  ];
+  return [['CLEARANCE','clear','green','ação'],['ESPERA','hold','amber','hold'],['NEGAR','deny','red','aguarde'],['MAIS','more','dark','opções']];
+}
+function moreActions(p){
+  return [
+    ['HDG -10','left','dark','vetor'],['HDG +10','right','dark','vetor'],['SPD -10','slow','blue','reduzir'],['SPD +10','fast','blue','aumentar'],['SUBIR','climb','blue','altitude'],['DESCER','descend','blue','altitude'],['HOLD','hold','amber','espera'],['HOLD SHORT','holdShort','amber','pista'],['VETOR FINAL','vectorFinal','green','app'],['CLEARANCE','clear','green','autorizar'],['NEGAR','deny','red','aguarde'],['EMERGÊNCIA','emergency','red','mayday']
+  ];
+}
+function renderActionGrid(){
+  const p=aircraft.find(x=>x.id===selected);
+  const grid=$('#actionGrid');
+  if(grid){ grid.innerHTML=contextActions(p).map(a=>makeAction(a[0],a[1],a[2],a[3])).join(''); }
+  const more=$('#moreActionGrid');
+  if(more){ more.innerHTML=moreActions(p).map(a=>makeAction(a[0],a[1],a[2],a[3])).join(''); }
+  if($('#sectorIndicator')) $('#sectorIndicator').textContent = getSector(p);
+  if($('#sectorHelp')) $('#sectorHelp').textContent = p ? `${p.id} selecionado` : 'Selecione uma aeronave';
+}
+function setTrafficTab(id){
+  $$('.traffic-tab').forEach(b=>b.classList.toggle('active', b.dataset.trafficTab===id));
+  $$('.traffic-list').forEach(l=>l.classList.toggle('active', l.id===id));
+  const names={arrivals:'ENTRADAS',departures:'SAÍDAS',groundList:'SOLO'};
+  if($('#trafficTitle')) $('#trafficTitle').textContent=names[id]||'TRÁFEGO';
+  if($('#trafficCount')) $('#trafficCount').textContent=($('#'+id)?.querySelectorAll('[data-select]').length||0);
+}
+function setDock(id){
+  $$('.dock-tab').forEach(b=>b.classList.toggle('active', b.dataset.dock===id));
+  $$('.dock-body').forEach(b=>b.classList.toggle('active', b.id==='dock-'+id));
+}
+document.addEventListener('click',(e)=>{
+  const t=e.target.closest && e.target.closest('[data-traffic-tab], [data-dock], #moreCommandsBtn, #closeMoreCommands, .command-sheet, [data-cmd]');
+  if(!t) return;
+  if(t.dataset.trafficTab){ setTrafficTab(t.dataset.trafficTab); return; }
+  if(t.dataset.dock){ setDock(t.dataset.dock); return; }
+  if(t.id==='moreCommandsBtn'){ $('#moreCommandSheet')?.classList.add('open'); renderActionGrid(); return; }
+  if(t.id==='closeMoreCommands' || t.classList.contains('command-sheet')){ $('#moreCommandSheet')?.classList.remove('open'); return; }
+  if(t.dataset.cmd){
+    if(t.dataset.cmd==='more'){ $('#moreCommandSheet')?.classList.add('open'); renderActionGrid(); return; }
+    if(t.dataset.cmd==='noop') return;
+    command(t.dataset.cmd);
+    $('#moreCommandSheet')?.classList.remove('open');
+  }
+});
 
 loadProfile(); loadAirports(); resize();

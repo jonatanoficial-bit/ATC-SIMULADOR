@@ -1,3 +1,3 @@
 SKYWARD CONTROL
-v0.7.1_20260509_1605
-Gameplay redesenhado com layout inspirado na referência enviada, mantendo menu e lobby.
+v0.8.0_20260511_2138
+Build jogavel com tela ATC mobile horizontal em uma unica tela, comandos contextuais, radar profissional e remocao de comandos fora da cena gameplay.
