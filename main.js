@@ -1,4 +1,52 @@
-const BUILD = 'v0.8.0_20260511_2138';
+const BUILD = 'v0.8.1_20260513_2146';
+
+const SAFE_MODE = { errors: [], lastFrame: 0, lastScene: 'boot', maxAircraft: 18, recovering:false };
+function safeLogError(err, where='runtime'){
+  try{
+    const msg = (err && (err.stack || err.message)) ? (err.stack || err.message) : String(err);
+    SAFE_MODE.errors.unshift({ where, msg: msg.slice(0,500), at: Date.now() });
+    SAFE_MODE.errors = SAFE_MODE.errors.slice(0,8);
+    localStorage.setItem('skywardLastError', JSON.stringify(SAFE_MODE.errors[0]));
+  }catch(_e){}
+}
+function showSafeMode(err){
+  safeLogError(err,'safe-mode');
+  try{
+    running=false; paused=true;
+    const shield=document.querySelector('#crashShield');
+    const detail=document.querySelector('#safeErrorText');
+    if(detail) detail.textContent = SAFE_MODE.errors[0]?.msg || 'Falha desconhecida recuperada.';
+    if(shield) shield.classList.add('open');
+  }catch(_e){}
+}
+window.addEventListener('error', e=>{ showSafeMode(e.error || e.message); });
+window.addEventListener('unhandledrejection', e=>{ showSafeMode(e.reason || 'Promise rejeitada'); });
+function safeStorageGet(key, fallback){ try{ const raw=localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }catch(e){ safeLogError(e,'storage-get'); return fallback; } }
+function safeStorageSet(key, value){ try{ localStorage.setItem(key, JSON.stringify(value)); return true; }catch(e){ safeLogError(e,'storage-set'); return false; } }
+function sanitizeAircraftList(){
+  if(!Array.isArray(aircraft)) aircraft=[];
+  aircraft = aircraft.filter(p=>p && typeof p.id==='string' && Number.isFinite(p.x) && Number.isFinite(p.y)).slice(0, SAFE_MODE.maxAircraft);
+  aircraft.forEach(p=>{
+    p.x=clamp(Number(p.x)||50,-8,108); p.y=clamp(Number(p.y)||50,-8,108);
+    p.alt=clamp(Number(p.alt)||0,0,420); p.targetAlt=clamp(Number(p.targetAlt)||0,0,420);
+    p.speed=clamp(Number(p.speed)||0,0,360); p.heading=((Number(p.heading)||0)%360+360)%360;
+    if(!Array.isArray(p.trail)) p.trail=[]; p.trail=p.trail.slice(-54);
+  });
+  requests = (Array.isArray(requests)?requests:[]).filter(r=>r && aircraft.some(p=>p.id===r.id)).slice(0,30);
+  if(selected && !aircraft.some(p=>p.id===selected)){ selected=null; selectedRequest=null; }
+}
+function validateGameplayDom(){
+  const required=['#radar','#actionGrid','#requests','#freqCall','#log','#selectedBox'];
+  const missing=required.filter(s=>!document.querySelector(s));
+  if(missing.length) throw new Error('Elementos de gameplay ausentes: '+missing.join(', '));
+}
+function recoverGameplayState(reason='auto'){
+  safeLogError(reason,'recover-state');
+  sanitizeAircraftList();
+  if(running && aircraft.length===0){ for(let i=0;i<4;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure')); aircraft.forEach(p=>addRequest(p,p.request,p.kind==='arrival'?'warn':'normal')); }
+  if(!selected && requests[0]){ selected=requests[0].id; selectedRequest=requests[0]; }
+  try{ renderStrips(); renderRequests(); renderSelected(); updateFrequencyPanel(); renderActionGrid(); renderLog(); }catch(e){ showSafeMode(e); }
+}
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 
@@ -41,7 +89,7 @@ function headingTo(p,t){ return (Math.atan2(t.y-p.y,t.x-p.x)*180/Math.PI+360)%36
 function pctToPx(p,w,h){ return {x:p.x/100*w, y:p.y/100*h}; }
 function dist(a,b){ return Math.hypot(a.x-b.x,a.y-b.y); }
 
-function loadProfile(){ try{ profile = {...profile, ...JSON.parse(localStorage.getItem('skywardProfile') || '{}')}; }catch(e){} }
+function loadProfile(){ profile = {...profile, ...safeStorageGet('skywardProfile', {})}; }
 function airport(){ return airports.find(a=>a.icao===profile.airport) || airports[0] || {icao:'SBGR',name:'Guarulhos',city:'São Paulo',country:'Brasil',runways:2,traffic:'Alto',weather:'Variável'}; }
 async function loadAirports(){
   try{ airports = await fetch('data/airports.json').then(r=>r.json()); }
@@ -52,7 +100,7 @@ function saveProfile(){
   profile.name = $('#pilotName')?.value?.trim() || profile.name;
   profile.country = $('#countrySelect')?.value || profile.country;
   profile.airport = $('#airportSelect')?.value || profile.airport;
-  localStorage.setItem('skywardProfile', JSON.stringify(profile));
+  safeStorageSet('skywardProfile', profile);
   updateProfileUI();
 }
 function populateAirports(){
@@ -80,12 +128,17 @@ function updateProfileUI(){
   if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao;
 }
 function go(id){
-  if(id==='lobby' || id==='profile') saveProfile();
-  $$('.screen').forEach(s=>s.classList.remove('active'));
-  $('#'+id).classList.add('active');
-  document.body.classList.toggle('game-is-active', id==='game');
-  if(id==='game') startGame();
-  updateProfileUI(); resize();
+  try{
+    if(id==='lobby' || id==='profile') saveProfile();
+    const target = $('#'+id) || $('#menu') || $('#boot');
+    $$('.screen').forEach(s=>s.classList.remove('active'));
+    target.classList.add('active');
+    SAFE_MODE.lastScene = target.id;
+    document.body.classList.toggle('game-is-active', target.id==='game');
+    document.querySelector('#crashShield')?.classList.remove('open');
+    if(target.id==='game'){ validateGameplayDom(); startGame(); }
+    updateProfileUI(); resize();
+  }catch(e){ showSafeMode(e); }
 }
 $$('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
 $$('[data-avatar]').forEach(b=>b.addEventListener('click',()=>{ profile.avatar=b.dataset.avatar; $$('[data-avatar]').forEach(x=>x.classList.toggle('selected',x===b)); saveProfile(); }));
@@ -115,7 +168,7 @@ window.addEventListener('orientationchange', ()=>setTimeout(updateOrientationSta
 window.addEventListener('resize', updateOrientationState);
 updateOrientationState();
 
-function resize(){ const r=canvas.getBoundingClientRect(), d=window.devicePixelRatio||1; canvas.width=Math.max(320,Math.floor(r.width*d)); canvas.height=Math.max(280,Math.floor(r.height*d)); ctx.setTransform(d,0,0,d,0,0); }
+function resize(){ try{ if(!canvas||!ctx) return; const r=canvas.getBoundingClientRect(), d=window.devicePixelRatio||1; canvas.width=Math.max(320,Math.floor((r.width||320)*d)); canvas.height=Math.max(240,Math.floor((r.height||240)*d)); ctx.setTransform(d,0,0,d,0,0); }catch(e){ safeLogError(e,'resize'); } }
 window.addEventListener('resize', resize);
 
 function addLog(msg,type=''){
@@ -181,26 +234,29 @@ function updateFrequencyPanel(){
   renderActionGrid();
 }
 function startGame(){
+  try{ validateGameplayDom(); }catch(e){ showSafeMode(e); return; }
   saveProfile(); resize(); running=true; paused=false; score=0; selected=null; selectedRequest=null; runwayOccupiedBy=null; spawnTimer=0; requestTimer=0; startTime=performance.now(); last=startTime; logLines=[]; requests=[];
   stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0 };
   aircraft = [];
   const a = airport(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE';
-  for(let i=0;i<6;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure'));
+  for(let i=0;i<5;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure')); // v0.8.1: carga inicial mais segura para mobile
   // v0.5.0: menor carga inicial para mobile, evitando poluicao visual e permitindo controle real
   aircraft.forEach(p=>addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'));
   if(requests[0]){ selected = requests[0].id; selectedRequest = requests[0]; }
   addLog(`${a.icao} APP/TWR online. Pista ativa ${runway.name}.`);
   addLog('Aguarde solicitações e emita clearance conforme pista livre.');
+  recoverGameplayState('start-game');
   requestAnimationFrame(loop);
 }
-function loop(t){ if(!running || !$('#game').classList.contains('active')) return; const dt=Math.min(.08,(t-last)/1000); last=t; if(!paused) update(dt); draw(); requestAnimationFrame(loop); }
+function loop(t){ try{ if(!running || !$('#game')?.classList.contains('active')) return; SAFE_MODE.lastFrame=t; const dt=Math.min(.08,Math.max(0,(t-last)/1000)); last=t; if(!paused) update(dt); draw(); requestAnimationFrame(loop); }catch(e){ showSafeMode(e); } }
 function update(dt){
+  sanitizeAircraftList();
   const elapsed = (performance.now()-startTime)/1000;
   $('#clock').textContent = new Date(elapsed*1000).toISOString().substring(14,19);
   $('#score').textContent = Math.max(0,Math.round(score)).toLocaleString('pt-BR');
   if(elapsed>420) return endGame(false,'Turno concluído com segurança.');
   spawnTimer += dt;
-  if(spawnTimer>38 && aircraft.length<15){ spawnTimer=0; const p=makePlane(Date.now()%1000, Math.random()<.58?'arrival':'departure'); aircraft.push(p); addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'); }
+  if(spawnTimer>42 && aircraft.length<12){ spawnTimer=0; const p=makePlane(Date.now()%1000, Math.random()<.58?'arrival':'departure'); aircraft.push(p); addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'); }
   updatePlanes(dt); checkRunway(); checkConflicts(); checkMissedRequests();
   score += dt * (aircraft.length * 1.4);
   renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid();
@@ -451,7 +507,7 @@ function endGame(fail,reason){
   const final = Math.max(0, Math.round(score - stats.conflicts*45 + stats.landed*120 + stats.departed*100 + stats.requests*10 - stats.denied*35));
   profile.score = Math.max(profile.score||0, final); profile.turns=(profile.turns||0)+1; profile.xp=(profile.xp||0)+Math.round(final/5)+stats.landed*30+stats.departed*20;
   while(profile.xp >= profile.level*1000){ profile.xp -= profile.level*1000; profile.level++; }
-  localStorage.setItem('skywardProfile', JSON.stringify(profile));
+  safeStorageSet('skywardProfile', profile);
   $('#resultTitle').textContent = fail ? 'GAME OVER' : 'FIM DE TURNO';
   $('#resultReason').textContent = reason;
   $('#finalScore').textContent = final.toLocaleString('pt-BR');
@@ -468,7 +524,8 @@ function getSector(p){
   return 'TWR';
 }
 function makeAction(label, cmd, cls='dark', sub=''){
-  return `<button class="atc-action ${cls}" data-cmd="${cmd}">${label}${sub?`<small>${sub}</small>`:''}</button>`;
+  const disabled = cmd==='noop' ? ' disabled aria-disabled="true"' : '';
+  return `<button class="atc-action ${cls}${cmd==='noop'?' disabled':''}" data-cmd="${cmd}"${disabled}>${label}${sub?`<small>${sub}</small>`:''}</button>`;
 }
 function contextActions(p){
   if(!p) return [
@@ -536,5 +593,20 @@ document.addEventListener('click',(e)=>{
     $('#moreCommandSheet')?.classList.remove('open');
   }
 });
+
+
+document.querySelector('#safeRestartBtn')?.addEventListener('click',()=>{ document.querySelector('#crashShield')?.classList.remove('open'); running=false; go('game'); });
+document.querySelector('#safeLobbyBtn')?.addEventListener('click',()=>{ document.querySelector('#crashShield')?.classList.remove('open'); running=false; go('lobby'); });
+function selfTest(){
+  const report={ build:BUILD, ok:true, checks:[], errors:[] };
+  const check=(name,fn)=>{ try{ const ok=!!fn(); report.checks.push({name,ok}); if(!ok) report.ok=false; }catch(e){ report.ok=false; report.errors.push({name,msg:String(e.message||e)}); } };
+  check('required dom',()=>['#app','#radar','#actionGrid','#requests','#freqCall','#log','#selectedBox'].every(s=>document.querySelector(s)));
+  check('airports data fallback',()=>Array.isArray(airports));
+  check('canvas context',()=>!!ctx);
+  check('safe storage',()=>safeStorageSet('skywardSelfTest',{build:BUILD,t:Date.now()}));
+  window.SKYWARD_SELF_TEST = report;
+  return report;
+}
+setTimeout(()=>{ try{ selfTest(); }catch(e){ safeLogError(e,'self-test'); } },500);
 
 loadProfile(); loadAirports(); resize();
