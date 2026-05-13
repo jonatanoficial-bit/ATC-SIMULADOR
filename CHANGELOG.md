@@ -1,15 +1,10 @@
-# SKYWARD CONTROL - v0.8.1_20260513_2146
+# CHANGELOG
 
-## Upgrade
-- Adicionada camada antequebra/safe mode para capturar erros de runtime.
-- Adicionada tela de recuperação com reiniciar turno e voltar ao lobby.
-- Adicionada validação de elementos essenciais da cena ATC antes de iniciar gameplay.
-- Adicionada sanitização do estado das aeronaves e fila de solicitações.
-- Reduzida a carga inicial de tráfego para diminuir risco de travamento em mobile.
-- Limitado spawn máximo para manter performance e jogabilidade.
-- Botões sem ação agora aparecem desabilitados em vez de parecerem comandos reais.
-- Build label atualizada.
-
-## Regra mantida
-- Menu e lobby preservados.
-- A evolução foi feita por cima da v0.8.0, sem reconstruir o jogo do zero.
+## v0.8.4_20260513_2310
+- Adicionado Safety Advisor com pontuação operacional em tempo real.
+- Adicionada pré-checagem de comandos ATC antes de executar clearance.
+- Bloqueio automático de comandos perigosos: decolagem com chegada em curta final, pouso/decolagem com pista ocupada e vetores inválidos.
+- Adicionado envelope visual de separação para aeronave selecionada no radar.
+- Adicionados avisos de separação mínima lateral/vertical.
+- Adicionada aba SAFETY no dock inferior.
+- Mantidos Safe Mode, recuperação e testes estáticos.

@@ -1,9 +1,10 @@
-# Build Notes v0.8.1
+# BUILD NOTES
 
-Esta build prioriza robustez antes de expansão de gameplay. O jogo possui fallback de dados, captura de erros globais, validação da cena de gameplay e recuperação de estado.
+Build incremental baseada na v0.8.3. O foco foi segurança operacional e recursos antequebra sem alterar menu/lobby.
 
-Testes executados no pacote:
+Testes esperados:
 - `node --check main.js`
-- verificação estática dos IDs essenciais no HTML
-- verificação de arquivos obrigatórios
-- validação JSON de `data/airports.json` e `data/aircraft.json`
+- validação de arquivos obrigatórios
+- validação de JSON
+- checagem dos IDs essenciais
+- checagem de funções Safety Advisor
