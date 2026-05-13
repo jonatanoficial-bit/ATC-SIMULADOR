@@ -1,10 +1,11 @@
-# CHANGELOG
+# CHANGELOG - v0.8.6_20260513_2358
 
-## v0.8.4_20260513_2310
-- Adicionado Safety Advisor com pontuação operacional em tempo real.
-- Adicionada pré-checagem de comandos ATC antes de executar clearance.
-- Bloqueio automático de comandos perigosos: decolagem com chegada em curta final, pouso/decolagem com pista ocupada e vetores inválidos.
-- Adicionado envelope visual de separação para aeronave selecionada no radar.
-- Adicionados avisos de separação mínima lateral/vertical.
-- Adicionada aba SAFETY no dock inferior.
-- Mantidos Safe Mode, recuperação e testes estáticos.
+## Adicionado
+- Painel OBJETIVOS DO TURNO dentro da tela ATC.
+- Handoff Advisor contextual para orientar APP/GND/TWR sem simplificar o simulador.
+- Progresso de missão no debrief final.
+- Self-test ampliado para missão e handoff.
+
+## Preservado
+- Base v0.8.5, Safety Advisor, Readback ATC, radar profissional e recursos antequebra.
+- Menu inicial e lobby não foram reconstruídos.

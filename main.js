@@ -1,6 +1,6 @@
-const BUILD = 'v0.8.4_20260513_2310';
+const BUILD = 'v0.8.6_20260513_2358';
 
-const SAFE_MODE = { errors: [], lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[] };
+const SAFE_MODE = { errors: [], lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[], perf:{badFrames:0, mode:'normal'} };
 function safeLogError(err, where='runtime'){
   try{
     const msg = (err && (err.stack || err.message)) ? (err.stack || err.message) : String(err);
@@ -31,6 +31,144 @@ function setDiagnostic(msg='SISTEMA OK', level='ok'){
     SAFE_MODE.diagnostics.unshift({msg,level,at:Date.now()});
     SAFE_MODE.diagnostics=SAFE_MODE.diagnostics.slice(0,12);
   }catch(_e){}
+}
+
+function setReadback(text='', level='ok'){
+  try{
+    const el=document.querySelector('#readbackLine');
+    if(!el) return;
+    el.textContent = 'READBACK: ' + (text || 'aguardando transmissão.');
+    el.className = 'readback-line ' + (level || 'ok');
+  }catch(e){ safeLogError(e,'readback'); }
+}
+function atcReadbackFor(p, cmd){
+  if(!p) return '';
+  const req = requests.find(r=>r.id===p.id);
+  if(cmd==='left' || cmd==='right') return `${p.id} rumo ${Math.round(p.heading)} graus.`;
+  if(cmd==='slow' || cmd==='fast') return `${p.id} velocidade ${Math.round(p.speed)} nós.`;
+  if(cmd==='climb' || cmd==='descend') return `${p.id} nível alvo FL${Math.round(p.targetAlt)}.`;
+  if(cmd==='hold') return `${p.id} ${p.status==='HOLD'?'entrando em espera':'prosseguindo aproximação'}.`;
+  if(cmd==='holdShort') return `${p.id} mantendo antes da pista ${runway.name}.`;
+  if(cmd==='vectorFinal') return `${p.id} vetor final pista ${runway.name}.`;
+  if(cmd==='goAround') return `${p.id} arremetendo, subindo FL080.`;
+  if(cmd==='deny') return `${p.id} aguardando nova autorização.`;
+  if(cmd==='emergency') return `${p.id} MAYDAY reconhecido, prioridade máxima.`;
+  if(cmd==='clear'){
+    if(req?.type==='landing') return `${p.id} autorizado pouso pista ${runway.name}.`;
+    if(req?.type==='takeoff') return `${p.id} autorizado decolagem pista ${runway.name}.`;
+    if(req?.type==='lineup') return `${p.id} alinhar e aguardar pista ${runway.name}.`;
+    if(req?.type==='taxi') return `${p.id} taxi autorizado para ponto de espera ${runway.name}.`;
+    if(req?.type==='pushback') return `${p.id} pushback aprovado.`;
+    if(req?.type==='emergency') return `${p.id} pouso imediato autorizado.`;
+  }
+  return `${p.id} comando ${cmd.toUpperCase()} recebido.`;
+}
+function adaptivePerformanceGuard(dt){
+  try{
+    if(!Number.isFinite(dt)) return;
+    if(dt>.11) SAFE_MODE.perf.badFrames++; else SAFE_MODE.perf.badFrames=Math.max(0,SAFE_MODE.perf.badFrames-1);
+    if(SAFE_MODE.perf.badFrames>16 && SAFE_MODE.perf.mode==='normal'){
+      SAFE_MODE.perf.mode='reduced';
+      SAFE_MODE.maxAircraft=Math.min(SAFE_MODE.maxAircraft,12);
+      if(typeof radarFilters==='object'){ radarFilters.vectors=false; }
+      setDiagnostic('MODO PERFORMANCE: vetores reduzidos','warn');
+      addLog('Sistema: performance reduzida automaticamente para proteger jogabilidade mobile.','warn');
+    }
+  }catch(e){ safeLogError(e,'performance-guard'); }
+}
+
+function buildMission(){
+  const a = airport();
+  const traffic = String(a.traffic||'Médio').toLowerCase();
+  const heavy = traffic.includes('alto') || traffic.includes('muito');
+  const level = Number(profile.level)||1;
+  const baseLand = heavy ? 3 : 2;
+  const baseDep = heavy ? 2 : 1;
+  return {
+    startedAt: performance.now(),
+    duration: 420,
+    targets:{ landed:baseLand+Math.min(2,Math.floor(level/4)), departed:baseDep+Math.min(2,Math.floor(level/5)), safety:86, blockedMax:3, commands:8 },
+    completed:false,
+    announced:{},
+    airport:a.icao
+  };
+}
+function missionProgress(){
+  if(!mission) mission=buildMission();
+  const safeScore = Math.round(safetyState?.score ?? 100);
+  return [
+    {key:'landed', label:'Pousos seguros', value:stats.landed||0, target:mission.targets.landed, good:true},
+    {key:'departed', label:'Decolagens seguras', value:stats.departed||0, target:mission.targets.departed, good:true},
+    {key:'commands', label:'Comandos corretos', value:stats.commands||0, target:mission.targets.commands, good:true},
+    {key:'safety', label:'Safety mínimo', value:safeScore, target:mission.targets.safety, good:safeScore>=mission.targets.safety, percent:true},
+    {key:'blocked', label:'Bloqueios máximos', value:stats.blocked||0, target:mission.targets.blockedMax, good:(stats.blocked||0)<=mission.targets.blockedMax, inverse:true}
+  ];
+}
+function renderMissionBoard(){
+  try{
+    if(!mission) mission=buildMission();
+    const box=document.querySelector('#missionBoard');
+    const timer=document.querySelector('#missionTimer');
+    if(timer){ const elapsed=Math.max(0,(performance.now()-mission.startedAt)/1000); timer.textContent=new Date(elapsed*1000).toISOString().substring(14,19); }
+    if(!box) return;
+    const rows=missionProgress();
+    box.innerHTML=rows.map(r=>{
+      const done = r.inverse ? r.good : (r.percent ? r.good : r.value>=r.target);
+      const bad = r.inverse && !r.good;
+      const val = r.percent ? `${r.value}% / ${r.target}%` : `${r.value}/${r.target}`;
+      return `<div class="mission-row ${done?'done':''} ${bad?'danger':''}" data-obj="${r.key}"><b>${r.label}</b><span>${val}</span></div>`;
+    }).join('');
+    rows.forEach(r=>{
+      const done = r.inverse ? r.good : (r.percent ? r.good : r.value>=r.target);
+      if(done && !mission.announced[r.key]){
+        mission.announced[r.key]=true;
+        missionHistory.unshift(`${r.label} concluído`);
+        const node=box.querySelector(`[data-obj="${r.key}"]`); if(node) node.classList.add('objective-flash');
+      }
+    });
+    const coreComplete = rows.filter(r=>['landed','departed','safety'].includes(r.key)).every(r=> r.inverse ? r.good : (r.percent ? r.good : r.value>=r.target));
+    if(coreComplete && !mission.completed){ mission.completed=true; addLog('Missão do turno: objetivos principais concluídos. Mantenha segurança até o fim.'); setDiagnostic('OBJETIVOS CONCLUÍDOS','ok'); }
+  }catch(e){ safeLogError(e,'mission-board'); }
+}
+function handoffAdvice(p){
+  if(!p) return {level:'warn', msg:'Selecione uma aeronave ou use PRÓXIMA SOLICITAÇÃO para iniciar o fluxo operacional.'};
+  const req=requests.find(r=>r.id===p.id);
+  if(p.emergency || req?.type==='emergency') return {level:'danger', msg:`${p.id}: prioridade de emergência. Proteja a pista, remova conflitos e autorize pouso imediato quando seguro.`};
+  if(getSector(p)==='APP') return {level:'ok', msg:`${p.id} em APP: controle altitude/velocidade, vetor final e transfira para TWR quando estabilizado.`};
+  if(getSector(p)==='GND') return {level:'ok', msg:`${p.id} em GND: pushback/táxi somente se taxiway e ponto de espera estiverem livres.`};
+  if(p.status==='FINAL') return {level:'warn', msg:`${p.id} na final: confirme pista livre. Se houver risco, execute ARREMETER.`};
+  if(p.status==='LINEUP') return {level:'warn', msg:`${p.id} alinhado: autorize decolagem apenas sem tráfego em curta final.`};
+  return {level:'ok', msg:`${p.id} em ${getSector(p)}: responda ao pedido ativo com comando contextual.`};
+}
+function renderHandoffAdvisor(){
+  try{
+    const el=document.querySelector('#handoffAdvisor'); if(!el) return;
+    const p=aircraft.find(x=>x.id===selected);
+    const a=handoffAdvice(p);
+    el.textContent='HANDOFF: '+a.msg;
+    el.className='handoff-advisor '+a.level;
+  }catch(e){ safeLogError(e,'handoff-advisor'); }
+}
+
+function runwayFlowState(){
+  const final = aircraft.filter(p=>p.kind==='arrival' && ['APP','FINAL','EMERG','HOLD'].includes(p.status)).sort((a,b)=>dist(a,finalFix)-dist(b,finalFix));
+  const depq = aircraft.filter(p=>['HOLD_SHORT','LINEUP','DEP','TAXI'].includes(p.status)).sort((a,b)=>dist(a,holdingPoints[0]||{x:24,y:57})-dist(b,holdingPoints[0]||{x:24,y:57}));
+  const ground = aircraft.filter(p=>['PARKED','PUSHBACK','READY_TAXI','TAXI','HOLD_SHORT'].includes(p.status));
+  const blocked = runwayOccupiedBy ? `OCUPADA ${runwayOccupiedBy}` : 'LIVRE';
+  return {final, depq, ground, blocked};
+}
+function renderRunwayBoard(){
+  try{
+    const box=document.querySelector('#runwayBoard');
+    if(!box) return;
+    const st=runwayFlowState();
+    const fmt=list=>list.slice(0,3).map(p=>`<b>${p.id}</b> <span>${p.status} FL${Math.round(p.alt||0)}</span>`).join('') || '<em>sem tráfego</em>';
+    box.innerHTML = `<div class="runway-board-head"><b>RWY ${runway.name}</b><span>${st.blocked}</span></div>
+      <div class="runway-board-grid">
+        <div><small>APP SEQ</small>${fmt(st.final)}</div>
+        <div><small>DEP/TAXI</small>${fmt(st.depq)}</div>
+      </div>`;
+  }catch(e){ safeLogError(e,'runway-board'); }
 }
 function saveGoodState(reason='snapshot'){
   try{
@@ -65,7 +203,7 @@ function selectNextRequest(){
   selected=next.id; selectedRequest=next;
   setTrafficTab(aircraft.find(p=>p.id===selected)?.kind==='departure' ? 'groundList' : 'arrivals');
   addLog(`Próxima solicitação: ${next.id} (${next.type.toUpperCase()}).`);
-  renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); setDiagnostic(`${next.id} SELECIONADO`,'ok');
+  renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); renderHandoffAdvisor(); setDiagnostic(`${next.id} SELECIONADO`,'ok');
   return true;
 }
 function isRunwayProtectedByOther(p){ return runwayOccupiedBy && (!p || runwayOccupiedBy!==p.id); }
@@ -123,6 +261,9 @@ let requestTimer = 0;
 let logLines = [];
 let runwayOccupiedBy = null;
 let stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, blocked:0, safetyWarnings:0 };
+  mission = buildMission(); missionHistory=[];
+let mission = null;
+let missionHistory = [];
 let conflictPredictions = [];
 let radarFilters = { labels:true, ground:true, final:true, vectors:true, safety:true };
 let runwayQueue = { arrivals:[], departures:[] };
@@ -293,6 +434,7 @@ function startGame(){
   try{ validateGameplayDom(); }catch(e){ showSafeMode(e); return; }
   saveProfile(); resize(); running=true; paused=false; score=0; selected=null; selectedRequest=null; runwayOccupiedBy=null; spawnTimer=0; requestTimer=0; startTime=performance.now(); last=startTime; logLines=[]; requests=[];
   stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, blocked:0, safetyWarnings:0 };
+  mission = buildMission(); missionHistory=[];
   aircraft = [];
   const a = airport(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE';
   for(let i=0;i<5;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure')); // v0.8.1: carga inicial mais segura para mobile
@@ -304,7 +446,7 @@ function startGame(){
   recoverGameplayState('start-game');
   requestAnimationFrame(loop);
 }
-function loop(t){ try{ if(!running || !$('#game')?.classList.contains('active')) return; SAFE_MODE.lastFrame=t; const dt=Math.min(.08,Math.max(0,(t-last)/1000)); last=t; if(!paused) update(dt); draw(); requestAnimationFrame(loop); }catch(e){ showSafeMode(e); } }
+function loop(t){ try{ if(!running || !$('#game')?.classList.contains('active')) return; SAFE_MODE.lastFrame=t; const dt=Math.min(.08,Math.max(0,(t-last)/1000)); last=t; adaptivePerformanceGuard(dt); if(!paused) update(dt); draw(); requestAnimationFrame(loop); }catch(e){ showSafeMode(e); } }
 function update(dt){
   sanitizeAircraftList();
   const elapsed = (performance.now()-startTime)/1000;
@@ -316,7 +458,7 @@ function update(dt){
   updatePlanes(dt); predictConflicts(); checkRunway(); checkConflicts(); checkMissedRequests();
   score += dt * (aircraft.length * 1.4);
   if(Math.floor(elapsed)%8===0) saveGoodState('running');
-  renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); updateOperationalHints();
+  renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); updateOperationalHints(); renderRunwayBoard(); renderMissionBoard(); renderHandoffAdvisor();
 }
 
 function estimatePosition(p, seconds=45){
@@ -683,7 +825,22 @@ canvas.addEventListener('pointerdown', e=>{
 });
 function command(cmd){
   if(cmd==='nextRequest'){ selectNextRequest(); return; }
-  const p=aircraft.find(x=>x.id===selected); if(!p){ addLog('Nenhuma aeronave selecionada.','warn'); setDiagnostic('SELECIONE UMA AERONAVE','warn'); return; }
+  const p=aircraft.find(x=>x.id===selected); if(!p){ addLog('Nenhuma aeronave selecionada.','warn'); setDiagnostic('SELECIONE UMA AERONAVE','warn'); setReadback('selecione uma aeronave antes do comando','warn'); return; }
+  const preRisk = commandRisk(p, cmd);
+  if(preRisk.block){
+    stats.blocked=(stats.blocked||0)+1;
+    stats.safetyWarnings=(stats.safetyWarnings||0)+1;
+    addLog(`${airport().icao}: comando bloqueado para ${p.id} — ${preRisk.msg}`, 'danger');
+    setDiagnostic('COMANDO BLOQUEADO PELO SAFETY ADVISOR','danger');
+    setReadback(`${p.id} comando bloqueado: ${preRisk.msg}`,'danger');
+    renderActionGrid(); renderRunwayBoard();
+    return;
+  }
+  if(preRisk.level==='warn'){
+    stats.safetyWarnings=(stats.safetyWarnings||0)+1;
+    addLog(`${airport().icao}: aviso safety para ${p.id} — ${preRisk.msg}`, 'warn');
+    setDiagnostic('COMANDO COM AVISO OPERACIONAL','warn');
+  }
   stats.commands++; score -= 2;
   if(cmd==='left') p.heading=(p.heading+350)%360;
   if(cmd==='right') p.heading=(p.heading+10)%360;
@@ -699,8 +856,8 @@ function command(cmd){
   if(cmd==='emergency'){ p.emergency=true; p.status='EMERG'; stats.emergencies++; addRequest(p,'emergency','urgent'); }
   if(cmd==='clear') handleClearance(p);
   else if(!['hold','emergency','deny'].includes(cmd)) addLog(`${airport().icao}: ${p.id} ${cmd.toUpperCase()} autorizado.`);
-  p.sector=getSector(p); saveGoodState('after-command');
-  renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); updateOperationalHints();
+  p.sector=getSector(p); setReadback(atcReadbackFor(p,cmd), commandRisk(p,cmd).level==='danger'?'danger':'ok'); saveGoodState('after-command');
+  renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); updateOperationalHints(); renderRunwayBoard();
 }
 function denyRequest(p){
   const req = requests.find(r=>r.id===p.id);
@@ -722,24 +879,24 @@ function handleClearance(p){
   if(!req){ addLog(`${p.id}: não há solicitação pendente para CLEARANCE.`, 'warn'); stats.denied++; score-=20; return; }
   if(req.type==='landing'){
     if(runwayOccupiedBy && runwayOccupiedBy!==p.id){ addLog(`${airport().icao}: ${p.id} NEGATIVO pouso, pista ocupada por ${runwayOccupiedBy}.`, 'warn'); stats.denied++; score-=50; return; }
-    p.status='FINAL'; p.cleared=true; p.targetAlt=0; p.speed=Math.min(p.speed,165); p.sector='TWR'; removeRequest(p.id,'landing'); runwayOccupiedBy=p.id; addLog(`${airport().icao} TWR: ${p.id}, autorizado pouso pista ${runway.name}.`); score+=65; setDiagnostic('POUSO AUTORIZADO','ok'); return;
+    p.status='FINAL'; p.cleared=true; p.targetAlt=0; p.speed=Math.min(p.speed,165); p.sector='TWR'; removeRequest(p.id,'landing'); runwayOccupiedBy=p.id; addLog(`${airport().icao} TWR: ${p.id}, autorizado pouso pista ${runway.name}.`); setReadback(`${p.id} autorizado pouso pista ${runway.name}.`,'ok'); score+=65; setDiagnostic('POUSO AUTORIZADO','ok'); renderRunwayBoard(); return;
   }
   if(req.type==='pushback'){
-    p.status='PUSHBACK'; p.sector='GND'; p.groundTimer=0; removeRequest(p.id,'pushback'); addLog(`${airport().icao} GND: ${p.id}, pushback aprovado.`); score+=30; setDiagnostic('PUSHBACK APROVADO','ok'); return;
+    p.status='PUSHBACK'; p.sector='GND'; p.groundTimer=0; removeRequest(p.id,'pushback'); addLog(`${airport().icao} GND: ${p.id}, pushback aprovado.`); setReadback(`${p.id} pushback aprovado.`,'ok'); score+=30; setDiagnostic('PUSHBACK APROVADO','ok'); renderRunwayBoard(); return;
   }
   if(req.type==='taxi'){
-    p.status='TAXI'; p.sector='GND'; p.groundIndex=Math.floor(rand(0,holdingPoints.length)); removeRequest(p.id,'taxi'); addLog(`${airport().icao} GND: ${p.id}, taxeie até ponto de espera pista ${runway.name}.`); score+=35; setDiagnostic('TÁXI AUTORIZADO','ok'); return;
+    p.status='TAXI'; p.sector='GND'; p.groundIndex=Math.floor(rand(0,holdingPoints.length)); removeRequest(p.id,'taxi'); addLog(`${airport().icao} GND: ${p.id}, taxeie até ponto de espera pista ${runway.name}.`); setReadback(`${p.id} taxi autorizado para ponto de espera ${runway.name}.`,'ok'); score+=35; setDiagnostic('TÁXI AUTORIZADO','ok'); renderRunwayBoard(); return;
   }
   if(req.type==='lineup'){
     if(runwayOccupiedBy && runwayOccupiedBy!==p.id){ addLog(`${airport().icao}: ${p.id} mantenha posição, pista ocupada.`, 'warn'); stats.denied++; score-=25; return; }
-    p.status='LINEUP'; p.sector='TWR'; p.cleared=true; removeRequest(p.id,'lineup'); runwayOccupiedBy=p.id; addLog(`${airport().icao} TWR: ${p.id}, alinhe e aguarde pista ${runway.name}.`); score+=40; setDiagnostic('LINE UP AUTORIZADO','ok'); return;
+    p.status='LINEUP'; p.sector='TWR'; p.cleared=true; removeRequest(p.id,'lineup'); runwayOccupiedBy=p.id; addLog(`${airport().icao} TWR: ${p.id}, alinhe e aguarde pista ${runway.name}.`); setReadback(`${p.id} alinhe e aguarde pista ${runway.name}.`,'ok'); score+=40; setDiagnostic('LINE UP AUTORIZADO','ok'); renderRunwayBoard(); return;
   }
   if(req.type==='takeoff'){
     if(runwayOccupiedBy && runwayOccupiedBy!==p.id){ addLog(`${airport().icao}: ${p.id} NEGATIVO decolagem, pista ocupada.`, 'warn'); stats.denied++; score-=40; return; }
-    p.status='DEP'; p.sector='TWR'; p.speed=130; p.alt=0; p.targetAlt=160; p.heading=270; removeRequest(p.id,'takeoff'); runwayOccupiedBy=p.id; addLog(`${airport().icao} TWR: ${p.id}, autorizado decolagem pista ${runway.name}. Após airborne contate DEP.`); score+=70; setDiagnostic('DECOLAGEM AUTORIZADA','ok'); return;
+    p.status='DEP'; p.sector='TWR'; p.speed=130; p.alt=0; p.targetAlt=160; p.heading=270; removeRequest(p.id,'takeoff'); runwayOccupiedBy=p.id; addLog(`${airport().icao} TWR: ${p.id}, autorizado decolagem pista ${runway.name}. Após airborne contate DEP.`); setReadback(`${p.id} autorizado decolagem pista ${runway.name}.`,'ok'); score+=70; setDiagnostic('DECOLAGEM AUTORIZADA','ok'); renderRunwayBoard(); return;
   }
   if(req.type==='emergency'){
-    p.status='EMERG'; p.sector='EMERG'; p.cleared=true; p.targetAlt=0; p.speed=150; removeRequest(p.id,'emergency'); addLog(`${airport().icao}: ${p.id} emergência reconhecida, pista liberada, pouso imediato.`, 'danger'); score+=120; setDiagnostic('EMERGÊNCIA PRIORIZADA','danger'); return;
+    p.status='EMERG'; p.sector='EMERG'; p.cleared=true; p.targetAlt=0; p.speed=150; removeRequest(p.id,'emergency'); addLog(`${airport().icao}: ${p.id} emergência reconhecida, pista liberada, pouso imediato.`, 'danger'); setReadback(`${p.id} emergência reconhecida, pouso imediato autorizado.`,'danger'); score+=120; setDiagnostic('EMERGÊNCIA PRIORIZADA','danger'); renderRunwayBoard(); return;
   }
   addLog(`${p.id}: solicitação ${req.type} ainda não possui clearance seguro.`, 'warn'); stats.denied++; score-=12; setDiagnostic('COMANDO NÃO APLICÁVEL','warn');
 }
@@ -752,7 +909,7 @@ function endGame(fail,reason){
   $('#resultTitle').textContent = fail ? 'GAME OVER' : 'FIM DE TURNO';
   $('#resultReason').textContent = reason;
   $('#finalScore').textContent = final.toLocaleString('pt-BR');
-  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
+  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
   go('result');
 }
 
@@ -811,7 +968,7 @@ function renderActionGrid(){
   if(more){ more.innerHTML=moreActions(p).map(a=>makeAction(a[0],a[1],a[2],a[3],p)).join(''); }
   if($('#sectorIndicator')) $('#sectorIndicator').textContent = getSector(p);
   if($('#sectorHelp')) $('#sectorHelp').textContent = p ? `${p.id} selecionado` : 'Selecione uma aeronave';
-  try{ updateSafetyState(); }catch(e){ safeLogError(e,'render-action-safety'); }
+  try{ updateSafetyState(); renderMissionBoard(); renderHandoffAdvisor(); }catch(e){ safeLogError(e,'render-action-safety'); }
 }
 function setTrafficTab(id){
   $$('.traffic-tab').forEach(b=>b.classList.toggle('active', b.dataset.trafficTab===id));
@@ -854,13 +1011,18 @@ document.querySelector('#safeLobbyBtn')?.addEventListener('click',()=>{ document
 function selfTest(){
   const report={ build:BUILD, ok:true, checks:[], errors:[] };
   const check=(name,fn)=>{ try{ const ok=!!fn(); report.checks.push({name,ok}); if(!ok) report.ok=false; }catch(e){ report.ok=false; report.errors.push({name,msg:String(e.message||e)}); } };
-  check('required dom',()=>['#app','#radar','#actionGrid','#requests','#freqCall','#log','#selectedBox','#nextRequestBtn','#opsDiagnostic','#moreCommandSheet','#safetyAdvisor','#safetyScore'].every(s=>document.querySelector(s))); 
+  check('required dom',()=>['#app','#radar','#actionGrid','#requests','#freqCall','#readbackLine','#log','#selectedBox','#nextRequestBtn','#opsDiagnostic','#moreCommandSheet','#safetyAdvisor','#safetyScore','#runwayBoard','#missionBoard','#handoffAdvisor'].every(s=>document.querySelector(s))); 
   check('conflict predictor',()=>Array.isArray(predictConflicts()));
   check('safety advisor',()=>commandRisk({id:'TST',kind:'arrival',status:'APP',alt:50,speed:180,x:50,y:30},'vectorFinal').level==='ok');
   check('context action generator',()=>Array.isArray(contextActions(null)) && contextActions(null).some(a=>a[1]==='nextRequest'));
   check('priority sorter',()=>Number.isFinite(requestPriorityScore({type:'landing',priority:'warn',time:performance.now()})));
   check('airports data fallback',()=>Array.isArray(airports));
   check('canvas context',()=>!!ctx);
+  check('runway board',()=>{ renderRunwayBoard(); return !!document.querySelector('#runwayBoard'); });
+  check('mission board',()=>{ mission=buildMission(); renderMissionBoard(); return !!document.querySelector('#missionBoard')?.innerHTML; });
+  check('handoff advisor',()=>{ renderHandoffAdvisor(); return !!document.querySelector('#handoffAdvisor'); });
+  check('readback line',()=>{ setReadback('teste de transmissão','ok'); return document.querySelector('#readbackLine')?.textContent.includes('teste'); });
+  check('command block enforcement',()=>commandRisk({id:'TST',kind:'departure',status:'LINEUP',alt:0,speed:0,x:30,y:50},'vectorFinal').block===true);
   check('safe storage',()=>safeStorageSet('skywardSelfTest',{build:BUILD,t:Date.now()}));
   window.SKYWARD_SELF_TEST = report;
   return report;
