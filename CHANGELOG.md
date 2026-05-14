@@ -1,19 +1,15 @@
-# SKYWARD CONTROL — v0.9.5_20260514_2138
+# SKYWARD CONTROL — v0.9.6_20260514_2206
 
 ## Evolução
-- Sistema inicial de combustível por aeronave.
-- Estados FUEL: OK, LOW, EMERGENCY e CRITICAL.
-- MAYDAY automático por combustível crítico.
-- Emergências operacionais aleatórias: MEDICAL / ENGINE.
-- Painel FUEL / EMERG no dock SAFETY.
-- Etiquetas do radar mostram combustível.
-- Aeronave selecionada mostra FUEL e DMG.
-- Pouso em clima severo ou alta velocidade pode gerar inspeção/dano.
-- Safety Advisor considera combustível mínimo e emergências.
-- Recursos antequebra e Safe Mode preservados.
+- Perfis operacionais por aeroporto.
+- Pista, layout, procedimentos, tráfego inicial e spawn agora mudam por aeroporto.
+- Painel AIRPORT OPS no dock SAFETY.
+- Telemetria do radar passa a mostrar layout operacional do aeroporto.
+- Expansão de aeroportos internacionais bloqueados para carreira futura: KLAX, KJFK, LFPG, EDDF, OMDB e RJTT.
+- Preservados: Safe Mode, Safety Advisor, Fuel/Emergency Director, clima dinâmico, wake turbulence e radar profissional.
 
 ## Testes
 - node --check main.js
-- verificação de arquivos essenciais
 - validação dos JSONs
-- integridade do ZIP
+- verificação de arquivos obrigatórios
+- teste de integridade do ZIP

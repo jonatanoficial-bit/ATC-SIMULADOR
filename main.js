@@ -1,4 +1,4 @@
-const BUILD = 'v0.9.5_20260514_2138';
+const BUILD = 'v0.9.6_20260514_2206';
 
 const SAFE_MODE = { errors: [], lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[], perf:{badFrames:0, mode:'normal'} };
 function safeLogError(err, where='runtime'){
@@ -454,6 +454,61 @@ const gates = [
 ];
 const holdingPoints = [{x:31,y:57},{x:47,y:57},{x:64,y:57},{x:78,y:57}];
 const finalFix = {x:52, y:26};
+
+const AIRPORT_OPS_PROFILES = {
+  SBGR:{runway:'09R/27L', layout:'parallel', complexity:1.18, spawn:0.72, finalFix:{x:50,y:24}, threshold:{x:82,y:50}, gates:'east', ops:'Parallel hub', wind:'E/SE', procedures:'STAR MRC / SID PAG'},
+  SBSP:{runway:'17R/35L', layout:'urban', complexity:1.34, spawn:0.82, finalFix:{x:62,y:22}, threshold:{x:68,y:52}, gates:'south', ops:'Urban short-field', wind:'variable', procedures:'Curved visual / restricted'},
+  SBKP:{runway:'15/33', layout:'single', complexity:1.02, spawn:0.58, finalFix:{x:44,y:20}, threshold:{x:78,y:52}, gates:'cargo', ops:'Cargo + pax flow', wind:'SE', procedures:'Cargo sequencing'},
+  SBBR:{runway:'11L/29R', layout:'parallel', complexity:1.12, spawn:0.66, finalFix:{x:48,y:22}, threshold:{x:82,y:48}, gates:'central', ops:'Capital hub', wind:'E', procedures:'Dual runway ops'},
+  SBGL:{runway:'10/28', layout:'coastal', complexity:1.22, spawn:0.68, finalFix:{x:52,y:22}, threshold:{x:84,y:51}, gates:'west', ops:'Coastal heavy jet', wind:'sea breeze', procedures:'Bay approach'},
+  SBRJ:{runway:'02R/20L', layout:'coastal-short', complexity:1.40, spawn:0.60, finalFix:{x:58,y:18}, threshold:{x:74,y:54}, gates:'bay', ops:'Short coastal approach', wind:'crosswind', procedures:'Visual curve / terrain'},
+  SBCF:{runway:'16/34', layout:'single', complexity:.96, spawn:0.50, finalFix:{x:44,y:20}, threshold:{x:79,y:52}, gates:'north', ops:'Regional hub', wind:'variable', procedures:'Single runway sequence'},
+  SBPA:{runway:'11/29', layout:'single', complexity:1.04, spawn:0.52, finalFix:{x:49,y:24}, threshold:{x:82,y:51}, gates:'south', ops:'Frontal weather ops', wind:'S/SW', procedures:'Low ceiling sequencing'},
+  SBSV:{runway:'10/28', layout:'coastal', complexity:1.05, spawn:0.52, finalFix:{x:52,y:24}, threshold:{x:82,y:50}, gates:'coast', ops:'Tropical coastal ops', wind:'E', procedures:'Sea breeze approach'},
+  SBRE:{runway:'18/36', layout:'single', complexity:1.06, spawn:0.50, finalFix:{x:56,y:22}, threshold:{x:78,y:54}, gates:'east', ops:'Tropical rain cells', wind:'E/SE', procedures:'Rain cell vectoring'},
+  KATL:{runway:'09L/27R', layout:'mega-parallel', complexity:1.38, spawn:0.90, finalFix:{x:50,y:22}, threshold:{x:84,y:50}, gates:'mega', ops:'Mega hub banked flow', wind:'W', procedures:'Parallel arrival streams'},
+  EGLL:{runway:'09L/27R', layout:'parallel', complexity:1.45, spawn:0.82, finalFix:{x:50,y:22}, threshold:{x:82,y:50}, gates:'terminal', ops:'Low vis alternation', wind:'W', procedures:'Heathrow director'},
+  LEMD:{runway:'14R/32L', layout:'parallel', complexity:1.30, spawn:0.76, finalFix:{x:48,y:20}, threshold:{x:82,y:49}, gates:'central', ops:'Four runway ops', wind:'N', procedures:'Madrid arrival manager'}
+};
+let currentOpsProfile = null;
+function airportOpsProfile(){
+  const a=airport();
+  return AIRPORT_OPS_PROFILES[a.icao] || {runway: runway.name, layout:'generic', complexity:1, spawn:.58, finalFix:{x:52,y:26}, threshold:{x:82,y:50}, gates:'default', ops:`${a.runways||1} runway airport`, wind:'variable', procedures:'standard vectors'};
+}
+function applyAirportOpsProfile(){
+  try{
+    const p=airportOpsProfile(); currentOpsProfile=p;
+    runway.name=p.runway || runway.name;
+    if(p.finalFix){ finalFix.x=p.finalFix.x; finalFix.y=p.finalFix.y; }
+    if(p.threshold && PROCEDURE_LAYER?.ils){ PROCEDURE_LAYER.ils.threshold={x:p.threshold.x,y:p.threshold.y}; }
+    if(PROCEDURE_LAYER?.ils){ PROCEDURE_LAYER.ils.name=`ILS RWY ${runway.name}`; PROCEDURE_LAYER.ils.faf={x:Math.max(18,(p.finalFix?.x||52)+6), y:Math.max(16,(p.finalFix?.y||26)+8)}; PROCEDURE_LAYER.ils.iaf={x:Math.max(8,(p.finalFix?.x||52)-18), y:Math.max(8,(p.finalFix?.y||26)-10)}; }
+    if($('#runwayTextTop')) $('#runwayTextTop').textContent=`RWY ${runway.name}`;
+    return p;
+  }catch(e){ safeLogError(e,'airport-ops-profile'); return airportOpsProfile(); }
+}
+function renderAirportOpsBoard(){
+  try{
+    const box=document.querySelector('#airportOpsBoard'); if(!box) return;
+    const a=airport(), p=currentOpsProfile||airportOpsProfile();
+    box.innerHTML=`<div class="airport-ops-head"><b>AIRPORT OPS</b><span>${a.icao}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>RWY</small><b>${p.runway}</b></div>
+        <div><small>LAYOUT</small><b>${p.layout}</b></div>
+        <div><small>OPS</small><b>${p.ops}</b></div>
+        <div><small>PROC</small><b>${p.procedures}</b></div>
+      </div>`;
+  }catch(e){ safeLogError(e,'airport-ops-board'); }
+}
+function airportSpawnInterval(){
+  const p=currentOpsProfile||airportOpsProfile();
+  const wx=WX_STATE?.severity>.75 ? 1.28 : WX_STATE?.severity>.55 ? 1.12 : 1;
+  return Math.max(24, 45 / Math.max(.45, p.spawn||.58) * wx);
+}
+function airportInitialTrafficCount(){
+  const p=currentOpsProfile||airportOpsProfile();
+  return Math.max(4, Math.min(8, Math.round(4 + (p.spawn||.58)*3)));
+}
+
 const PROCEDURE_LAYER = {
   active: true,
   scopeNm: 60,
@@ -575,12 +630,14 @@ function makePlane(i,kind){
   const types = ['A320','B738','B739','E190','A321','B752','A20N'];
   const p = { id:calls[(i+Math.floor(rand(0,6)))%calls.length], type:types[i%types.length], kind, status:kind==='arrival'?'APP':'PARKED', x:0, y:0, heading:0, speed:0, alt:0, targetAlt:0, trail:[], risk:0, selected:false, cleared:false, emergency:false, emergencyType:null, fuel:kind==='arrival'?Math.round(rand(42,72)):Math.round(rand(68,94)), fuelState:'OK', damage:0, hold:false, groundTimer:0, request:null, requestedAt:0, nextFix:null };
   if(kind==='arrival'){
+    const profile=currentOpsProfile||airportOpsProfile();
     const side = Math.floor(rand(0,4));
     p.x = side===0 ? rand(8,20) : side===1 ? rand(80,92) : rand(18,82);
     p.y = side===2 ? rand(6,14) : side===3 ? rand(86,94) : rand(10,36);
-    p.alt = Math.round(rand(90,180)); p.targetAlt = 45; p.speed = Math.round(rand(145,190)); p.heading = headingTo(p, finalFix);
+    p.alt = Math.round(rand(90,180)); p.targetAlt = profile.layout&&String(profile.layout).includes('short') ? 35 : 45; p.speed = Math.round(rand(145,190)); p.heading = headingTo(p, finalFix);
     p.request = 'landing'; p.requestedAt = performance.now();
   } else {
+    const profile=currentOpsProfile||airportOpsProfile();
     const g = gates[i%gates.length]; p.x = g.x + rand(-.5,.5); p.y = g.y + rand(-.5,.5); p.heading = 270; p.request = 'pushback'; p.requestedAt = performance.now();
   }
   return p;
@@ -630,8 +687,9 @@ function startGame(){
   stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
   mission = buildMission(); missionHistory=[];
   aircraft = [];
-  const a = airport(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE';
-  for(let i=0;i<5;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure')); // v0.8.1: carga inicial mais segura para mobile
+  const a = airport(); applyAirportOpsProfile(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE'; if($('#sectorHelp')) $('#sectorHelp').textContent=(currentOpsProfile?.ops||'Torre ativa');
+  const initialTraffic=airportInitialTrafficCount();
+  for(let i=0;i<initialTraffic;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure')); // v0.9.6: tráfego inicial por perfil do aeroporto
   emergencyDirector={active:false,target:null,message:'Sem emergência ativa.',lastTick:performance.now()};
   // v0.5.0: menor carga inicial para mobile, evitando poluicao visual e permitindo controle real
   aircraft.forEach(p=>addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'));
@@ -650,11 +708,11 @@ function update(dt){
   $('#score').textContent = Math.max(0,Math.round(score)).toLocaleString('pt-BR');
   if(elapsed>420) return endGame(false,'Turno concluído com segurança.');
   spawnTimer += dt;
-  if(spawnTimer>42 && aircraft.length<12){ spawnTimer=0; const p=makePlane(Date.now()%1000, Math.random()<.58?'arrival':'departure'); aircraft.push(p); addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'); }
+  if(spawnTimer>airportSpawnInterval() && aircraft.length<Math.min(SAFE_MODE.maxAircraft, 10 + Math.round((currentOpsProfile?.spawn||.58)*5))){ spawnTimer=0; const arrChance=String(currentOpsProfile?.layout||'').includes('single') ? .54 : .60; const p=makePlane(Date.now()%1000, Math.random()<arrChance?'arrival':'departure'); aircraft.push(p); addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'); }
   updatePlanes(dt); predictConflicts(); checkRunway(); checkConflicts(); checkMissedRequests();
   score += dt * (aircraft.length * 1.4);
   if(Math.floor(elapsed)%8===0) saveGoodState('running');
-  renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); updateOperationalHints(); renderRunwayBoard(); renderFuelBoard(); renderMissionBoard(); renderHandoffAdvisor();
+  renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); updateOperationalHints(); renderRunwayBoard(); renderFuelBoard(); renderAirportOpsBoard(); renderMissionBoard(); renderHandoffAdvisor();
 }
 
 function estimatePosition(p, seconds=45){
@@ -1023,7 +1081,7 @@ function drawRadarTelemetry(w,h){
     const scope = PROCEDURE_LAYER.scopeNm || 60;
     const selectedPlane=aircraft.find(p=>p.id===selected);
     const lines=[
-      `${airport().icao} SCOPE ${scope}NM`,
+      `${airport().icao} ${currentOpsProfile?.layout||'GEN'} SCOPE ${scope}NM`,
       `RWY ${runway.name} ${runwayOccupiedBy?'OCC '+runwayOccupiedBy:'FREE'} ${RUNWAY_OPS.mode}`,
       `ACFT ${aircraft.length}/${SAFE_MODE.maxAircraft} PERF ${mode}`,
       selectedPlane ? `SEL ${selectedPlane.id} ${getSector(selectedPlane)} HDG ${Math.round(selectedPlane.heading)} FL${Math.round(selectedPlane.alt)} FUEL ${Math.round(selectedPlane.fuel??0)}%` : (emergencyDirector.active ? `EMERG ${emergencyDirector.target}` : 'SEL ---')
