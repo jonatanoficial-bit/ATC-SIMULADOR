@@ -1,3 +1,4 @@
 SKYWARD CONTROL
-v0.9.4_REBUILD_20260514_2118
-Radar profissional + clima operacional dinâmico + WX/OPS.
+v0.9.5_20260514_2138
+Build: 2026-05-14 21:38
+Fase: Fuel / Emergency Director

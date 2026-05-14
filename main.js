@@ -1,4 +1,4 @@
-const BUILD = 'v0.9.4_REBUILD_20260514_2118';
+const BUILD = 'v0.9.5_20260514_2138';
 
 const SAFE_MODE = { errors: [], lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[], perf:{badFrames:0, mode:'normal'} };
 function safeLogError(err, where='runtime'){
@@ -101,6 +101,74 @@ function renderWeatherBoard(){
       <div class="wx-grid"><div><small>WIND</small><b>${RUNWAY_OPS.wind}</b></div><div><small>VIS</small><b>${RUNWAY_OPS.visibility}</b></div><div><small>CEILING</small><b>${RUNWAY_OPS.ceiling}</b></div><div><small>OPS</small><b>${WX_STATE.ops}</b></div></div>`;
   }catch(e){ safeLogError(e,'weather-board'); }
 }
+
+function updateFuelAndEmergency(dt){
+  try{
+    emergencyDirector.active=false; emergencyDirector.target=null; emergencyDirector.message='Sem emergência ativa.';
+    for(const p of aircraft){
+      if(!p) continue;
+      const moving = !['PARKED'].includes(p.status);
+      const base = p.kind==='arrival' ? FUEL_RULES.arrivalBurn : FUEL_RULES.departureBurn;
+      const wxMul = WX_STATE.severity>.82 ? 1.55 : WX_STATE.severity>.58 ? 1.28 : 1;
+      const holdMul = p.status==='HOLD' ? 1.45 : 1;
+      if(moving) p.fuel = Math.max(0, Number(p.fuel ?? 60) - dt*base*wxMul*holdMul*18);
+      if(p.damage>0) p.fuel = Math.max(0, p.fuel - dt*0.015);
+      const prev=p.fuelState || 'OK';
+      p.fuelState = p.fuel <= FUEL_RULES.criticalThreshold ? 'CRITICAL' : p.fuel <= FUEL_RULES.emergencyThreshold ? 'EMERGENCY' : p.fuel <= FUEL_RULES.lowThreshold ? 'LOW' : 'OK';
+      if(p.fuelState==='LOW' && prev==='OK'){
+        stats.lowFuel=(stats.lowFuel||0)+1;
+        addRequest(p,'lowfuel','warn');
+        addLog(`${p.id}: combustível mínimo, solicita prioridade.`, 'warn');
+      }
+      if((p.fuelState==='EMERGENCY' || p.fuelState==='CRITICAL') && !p.emergency){
+        p.emergency=true; p.emergencyType='LOW FUEL'; p.status = p.kind==='arrival' ? 'EMERG' : p.status;
+        stats.emergencies=(stats.emergencies||0)+1;
+        addRequest(p,'emergency','urgent');
+        addLog(`${p.id}: MAYDAY combustível crítico. Vetor imediato para pouso.`, 'danger');
+      }
+      if(p.emergency){
+        emergencyDirector.active=true; emergencyDirector.target=p.id;
+        emergencyDirector.message = `${p.id} ${p.emergencyType || 'EMERG'} • FUEL ${Math.round(p.fuel)}% • prioridade máxima`;
+      }
+      if(p.fuel<=0){
+        endGame(true,`${p.id} ficou sem combustível.`);
+        return;
+      }
+    }
+  }catch(e){ safeLogError(e,'fuel-emergency-update'); }
+}
+function fuelClass(p){
+  if(!p) return 'ok';
+  if(p.fuelState==='CRITICAL' || p.fuelState==='EMERGENCY' || p.emergency) return 'danger';
+  if(p.fuelState==='LOW' || (p.damage||0)>0) return 'warn';
+  return 'ok';
+}
+function renderFuelBoard(){
+  try{
+    const box=document.querySelector('#fuelBoard'); if(!box) return;
+    const sorted=[...aircraft].sort((a,b)=>(a.fuel??99)-(b.fuel??99)).slice(0,5);
+    const rows=sorted.map(p=>`<div class="fuel-row ${fuelClass(p)}"><b>${p.id}</b><span>${p.fuelState||'OK'}</span><em>FUEL ${Math.round(p.fuel??0)}% • DMG ${Math.round(p.damage||0)}%</em></div>`).join('') || '<em>sem tráfego</em>';
+    box.className='fuel-board '+(emergencyDirector.active?'danger':sorted.some(p=>fuelClass(p)==='warn')?'warn':'ok');
+    box.innerHTML=`<div class="fuel-head"><b>FUEL / EMERG</b><span>${emergencyDirector.active?'EMERGÊNCIA ATIVA':'NORMAL'}</span></div><div class="fuel-director">${emergencyDirector.message}</div>${rows}`;
+  }catch(e){ safeLogError(e,'fuel-board'); }
+}
+function maybeGenerateOperationalEmergency(dt){
+  try{
+    const now=performance.now();
+    if(now-(emergencyDirector.lastTick||0)<22000) return;
+    emergencyDirector.lastTick=now;
+    if(aircraft.length<4 || Math.random()>0.18) return;
+    const candidates=aircraft.filter(p=>p.kind==='arrival' && !p.emergency && ['APP','HOLD','FINAL'].includes(p.status));
+    if(!candidates.length) return;
+    const p=candidates[Math.floor(Math.random()*candidates.length)];
+    p.emergency=true; p.emergencyType = Math.random()<.55 ? 'MEDICAL' : 'ENGINE';
+    p.status='EMERG'; p.targetAlt=Math.min(p.targetAlt||45,35); p.fuel=Math.min(p.fuel||40, Math.round(rand(18,30)));
+    stats.emergencies=(stats.emergencies||0)+1;
+    addRequest(p,'emergency','urgent');
+    addLog(`${p.id}: MAYDAY ${p.emergencyType}, solicita vetores imediatos para RWY ${runway.name}.`, 'danger');
+  }catch(e){ safeLogError(e,'generate-emergency'); }
+}
+
 function drawWeatherOverlay(w,h){
   try{
     if(!radarFilters.wx || WX_STATE.precip<=.05) return;
@@ -190,7 +258,7 @@ function buildMission(){
   return {
     startedAt: performance.now(),
     duration: 420,
-    targets:{ landed:baseLand+Math.min(2,Math.floor(level/4)), departed:baseDep+Math.min(2,Math.floor(level/5)), safety:86, blockedMax:3, commands:8 },
+    targets:{ landed:baseLand+Math.min(2,Math.floor(level/4)), departed:baseDep+Math.min(2,Math.floor(level/5)), safety:86, blockedMax:3, commands:8, maydayResolved:0 },
     completed:false,
     announced:{},
     airport:a.icao
@@ -204,7 +272,8 @@ function missionProgress(){
     {key:'departed', label:'Decolagens seguras', value:stats.departed||0, target:mission.targets.departed, good:true},
     {key:'commands', label:'Comandos corretos', value:stats.commands||0, target:mission.targets.commands, good:true},
     {key:'safety', label:'Safety mínimo', value:safeScore, target:mission.targets.safety, good:safeScore>=mission.targets.safety, percent:true},
-    {key:'blocked', label:'Bloqueios máximos', value:stats.blocked||0, target:mission.targets.blockedMax, good:(stats.blocked||0)<=mission.targets.blockedMax, inverse:true}
+    {key:'blocked', label:'Bloqueios máximos', value:stats.blocked||0, target:mission.targets.blockedMax, good:(stats.blocked||0)<=mission.targets.blockedMax, inverse:true},
+    {key:'mayday', label:'Emergências resolvidas', value:stats.maydayResolved||0, target:mission.targets.maydayResolved||0, good:(stats.maydayResolved||0)>=(mission.targets.maydayResolved||0)}
   ];
 }
 function renderMissionBoard(){
@@ -273,6 +342,7 @@ function renderRunwayBoard(){
       </div>`;
     renderWakeBoard();
     renderWeatherBoard();
+    renderFuelBoard();
   }catch(e){ safeLogError(e,'runway-board'); }
 }
 function saveGoodState(reason='snapshot'){
@@ -365,14 +435,16 @@ let spawnTimer = 0;
 let requestTimer = 0;
 let logLines = [];
 let runwayOccupiedBy = null;
-let stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, blocked:0, safetyWarnings:0 };
+let stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
 let mission = null;
 let missionHistory = [];
 let conflictPredictions = [];
-let radarFilters = { labels:true, ground:true, final:true, vectors:true, safety:true, procedures:true, range:true, map:true, wx:true };
+let radarFilters = { labels:true, ground:true, final:true, vectors:true, safety:true, procedures:true, range:true, map:true, wx:true, fuel:true, emerg:true };
 let runwayQueue = { arrivals:[], departures:[] };
 let safetyState = { score:100, level:'ok', messages:['Safety Advisor inicializado.'], lastRisk:null };
 const SEPARATION_RULES = { lateralNm:6, verticalFL:10, shortFinalNm:10, runwayProtectedNm:14 };
+const FUEL_RULES = { arrivalBurn:0.010, departureBurn:0.006, emergencyThreshold:14, lowThreshold:24, criticalThreshold:8 };
+let emergencyDirector = { active:false, target:null, message:'Sem emergência ativa.', lastTick:0 };
 
 const SIM_SPEED = 0.092;
 const runway = { name:'09/27', x1:18, y1:50, x2:82, y2:50, width:6.2, exits:[32,45,56,68] };
@@ -501,7 +573,7 @@ function makePlane(i,kind){
   const br = airport().country === 'Brasil';
   const calls = br ? ['GLO1204','TAM3307','AZU4211','PTB7021','ONE8902','SID4405','MAP2190','TTL3030','VRG2218'] : ['DAL1234','AAL567','SWA789','UAL890','JBU789','FFT321','BAW612','KLM208'];
   const types = ['A320','B738','B739','E190','A321','B752','A20N'];
-  const p = { id:calls[(i+Math.floor(rand(0,6)))%calls.length], type:types[i%types.length], kind, status:kind==='arrival'?'APP':'PARKED', x:0, y:0, heading:0, speed:0, alt:0, targetAlt:0, trail:[], risk:0, selected:false, cleared:false, emergency:false, hold:false, groundTimer:0, request:null, requestedAt:0, nextFix:null };
+  const p = { id:calls[(i+Math.floor(rand(0,6)))%calls.length], type:types[i%types.length], kind, status:kind==='arrival'?'APP':'PARKED', x:0, y:0, heading:0, speed:0, alt:0, targetAlt:0, trail:[], risk:0, selected:false, cleared:false, emergency:false, emergencyType:null, fuel:kind==='arrival'?Math.round(rand(42,72)):Math.round(rand(68,94)), fuelState:'OK', damage:0, hold:false, groundTimer:0, request:null, requestedAt:0, nextFix:null };
   if(kind==='arrival'){
     const side = Math.floor(rand(0,4));
     p.x = side===0 ? rand(8,20) : side===1 ? rand(80,92) : rand(18,82);
@@ -515,7 +587,7 @@ function makePlane(i,kind){
 }
 function addRequest(p,type,priority='normal'){
   if(requests.some(r=>r.id===p.id && r.type===type)) return;
-  const labels = { landing:'solicita pouso', pushback:'solicita pushback', taxi:'solicita taxi para pista', lineup:'solicita alinhar', takeoff:'solicita decolagem', emergency:'MAYDAY - prioridade' };
+  const labels = { landing:'solicita pouso', pushback:'solicita pushback', taxi:'solicita taxi para pista', lineup:'solicita alinhar', takeoff:'solicita decolagem', emergency:'MAYDAY - prioridade', lowfuel:'combustível mínimo', panpan:'PAN-PAN operacional' };
   requests.unshift({ id:p.id, type, priority, text:labels[type]||type, time:performance.now() });
   p.request = type; p.requestedAt = performance.now(); stats.requests++;
   addLog(`${p.id}: ${labels[type] || type}.`, priority==='urgent'?'danger':priority==='warn'?'warn':'');
@@ -525,7 +597,7 @@ function removeRequest(id,type){ requests = requests.filter(r=>!(r.id===id && (!
 
 function atcPhrase(r){
   const ap = airport().icao;
-  const map = { landing: `${r.id}: ${ap} Tower, request landing RWY ${runway.name}.`, pushback: `${r.id}: ${ap} Ground, request pushback.`, taxi: `${r.id}: ${ap} Ground, ready to taxi.`, lineup: `${r.id}: ${ap} Tower, holding short, request line up.`, takeoff: `${r.id}: ${ap} Tower, lined up, ready for departure.`, emergency: `${r.id}: MAYDAY, request immediate landing.` };
+  const map = { landing: `${r.id}: ${ap} Tower, request landing RWY ${runway.name}.`, pushback: `${r.id}: ${ap} Ground, request pushback.`, taxi: `${r.id}: ${ap} Ground, ready to taxi.`, lineup: `${r.id}: ${ap} Tower, holding short, request line up.`, takeoff: `${r.id}: ${ap} Tower, lined up, ready for departure.`, emergency: `${r.id}: MAYDAY, request immediate landing.`, lowfuel: `${r.id}: minimum fuel, request priority sequencing.`, panpan: `${r.id}: PAN-PAN, operational abnormality.` };
   return map[r.type] || `${r.id}: request ${r.type}.`;
 }
 function updateFrequencyPanel(){
@@ -555,11 +627,12 @@ function updateFrequencyPanel(){
 function startGame(){
   try{ validateGameplayDom(); }catch(e){ showSafeMode(e); return; }
   saveProfile(); resize(); running=true; paused=false; score=0; selected=null; selectedRequest=null; runwayOccupiedBy=null; spawnTimer=0; requestTimer=0; startTime=performance.now(); last=startTime; logLines=[]; requests=[];
-  stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, blocked:0, safetyWarnings:0 };
+  stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
   mission = buildMission(); missionHistory=[];
   aircraft = [];
   const a = airport(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE';
   for(let i=0;i<5;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure')); // v0.8.1: carga inicial mais segura para mobile
+  emergencyDirector={active:false,target:null,message:'Sem emergência ativa.',lastTick:performance.now()};
   // v0.5.0: menor carga inicial para mobile, evitando poluicao visual e permitindo controle real
   aircraft.forEach(p=>addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'));
   if(requests[0]){ selected = requests[0].id; selectedRequest = requests[0]; }
@@ -570,7 +643,7 @@ function startGame(){
 }
 function loop(t){ try{ if(!running || !$('#game')?.classList.contains('active')) return; SAFE_MODE.lastFrame=t; const dt=Math.min(.08,Math.max(0,(t-last)/1000)); last=t; adaptivePerformanceGuard(dt); if(!paused) update(dt); draw(); requestAnimationFrame(loop); }catch(e){ showSafeMode(e); } }
 function update(dt){
-  try{ updateRunwayOps(); }catch(e){ safeLogError(e,'runway-ops-update'); }
+  try{ updateRunwayOps(); updateFuelAndEmergency(dt); maybeGenerateOperationalEmergency(dt); }catch(e){ safeLogError(e,'runway-ops-update'); }
   sanitizeAircraftList();
   const elapsed = (performance.now()-startTime)/1000;
   $('#clock').textContent = new Date(elapsed*1000).toISOString().substring(14,19);
@@ -581,7 +654,7 @@ function update(dt){
   updatePlanes(dt); predictConflicts(); checkRunway(); checkConflicts(); checkMissedRequests();
   score += dt * (aircraft.length * 1.4);
   if(Math.floor(elapsed)%8===0) saveGoodState('running');
-  renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); updateOperationalHints(); renderRunwayBoard(); renderMissionBoard(); renderHandoffAdvisor();
+  renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); updateOperationalHints(); renderRunwayBoard(); renderFuelBoard(); renderMissionBoard(); renderHandoffAdvisor();
 }
 
 function estimatePosition(p, seconds=45){
@@ -646,6 +719,8 @@ function commandRisk(p, cmd){
   if(cmd==='noop' || cmd==='more' || cmd==='nextRequest') return {level:'ok', block:false, msg:'Ação de interface.'};
   if(!p) return {level:'warn', block:true, msg:'Selecione uma aeronave antes de emitir comando.'};
   const req=requests.find(r=>r.id===p.id);
+  if((p.fuelState==='EMERGENCY' || p.fuelState==='CRITICAL') && ['hold','deny','holdShort'].includes(cmd)) return {level:'danger', block:true, msg:`${p.id} em combustível crítico: espera/negação bloqueada.`};
+  if(p.emergency && ['deny','holdShort'].includes(cmd)) return {level:'danger', block:true, msg:`${p.id} em emergência: priorize pouso/vetor final.`};
   const shortFinal=arrivalOnShortFinal(p.id);
   const sep=nearestSeparationThreat(p);
   if(sep && ['clear','vectorFinal','fast','climb','descend'].includes(cmd)) return {level:'danger', block:false, msg:sep.msg};
@@ -677,6 +752,10 @@ function updateSafetyState(){
   if(conflicts){ score-=Math.min(60,conflicts*18); const wakeText=(conflictPredictions[0]?.wakeReq?` Wake ${conflictPredictions[0].wakeReq.toFixed(1)}NM.`:''); messages.push(`${conflicts} conflito(s) previstos no radar.${wakeText}`); }
   if(sep){ score-=30; messages.push(sep.msg); }
   if(shortFinal){ messages.push(`${shortFinal.id} em curta final: bloquear saídas não essenciais.`); }
+  const fuelEmerg=aircraft.filter(p=>p.emergency || p.fuelState==='EMERGENCY' || p.fuelState==='CRITICAL');
+  const lowFuel=aircraft.filter(p=>p.fuelState==='LOW');
+  if(fuelEmerg.length){ score-=Math.min(55,fuelEmerg.length*22); messages.push(`${fuelEmerg.length} MAYDAY/FUEL crítico ativo.`); }
+  if(lowFuel.length){ score-=Math.min(24,lowFuel.length*8); messages.push(`${lowFuel.length} aeronave(s) com combustível mínimo.`); }
   const overdue=requests.filter(r=>performance.now()-r.time>45000).length;
   if(overdue){ score-=Math.min(25,overdue*8); messages.push(`${overdue} solicitação(ões) com espera longa.`); }
   score=clamp(Math.round(score),0,100);
@@ -693,7 +772,8 @@ function updateOperationalHints(){
   const p=aircraft.find(x=>x.id===selected);
   if($('#sectorIndicator')) $('#sectorIndicator').textContent = getSector(p);
   if($('#sectorHelp')) $('#sectorHelp').textContent = p ? sectorLabel(p) : 'Selecione uma aeronave';
-  if(conflictPredictions.some(c=>c.level==='danger')) setDiagnostic('CONFLITO PREVISTO','danger');
+  if(emergencyDirector.active) setDiagnostic('MAYDAY / PRIORIDADE ATIVA','danger');
+  else if(conflictPredictions.some(c=>c.level==='danger')) setDiagnostic('CONFLITO PREVISTO','danger');
   else if(requests.some(r=>r.priority==='urgent')) setDiagnostic('EMERGÊNCIA NA FILA','danger');
   else if(conflictPredictions.length) setDiagnostic('SEPARAÇÃO EM ATENÇÃO','warn');
   else if(isRunwayProtectedByOther(p)) setDiagnostic('PISTA OCUPADA','warn');
@@ -727,7 +807,7 @@ function updatePlanes(dt){
   }
   for(const p of [...aircraft]){
     if((p.status==='FINAL'||p.status==='EMERG') && dist(p,{x:82,y:50})<2.8 && p.alt<10){
-      stats.landed++; score += p.emergency ? 1300 : 900; addLog(`${p.id}: pouso concluído, livrando pista pela saída rápida.`); removeRequest(p.id); runwayOccupiedBy = null; aircraft.splice(aircraft.indexOf(p),1); if(selected===p.id) selected=null;
+      const hardLanding = (p.speed>145 || WX_STATE.severity>.72 || p.damage>30); if(hardLanding){ const dmg=Math.round(rand(8,22)+WX_STATE.severity*18); stats.damaged=(stats.damaged||0)+1; score-=120; addLog(`${p.id}: pouso concluído com inspeção técnica. Dano ${dmg}%.`, 'warn'); } else { addLog(`${p.id}: pouso concluído, livrando pista pela saída rápida.`); } stats.landed++; if(p.emergency) stats.maydayResolved=(stats.maydayResolved||0)+1; score += p.emergency ? 1300 : 900; removeRequest(p.id); runwayOccupiedBy = null; aircraft.splice(aircraft.indexOf(p),1); if(selected===p.id) selected=null;
     }
     if(p.status==='DEP' && (p.x<0 || p.x>104 || p.y<0 || p.y>100)){
       stats.departed++; score += 720; addLog(`${p.id}: decolagem concluída, contato com saída.`); removeRequest(p.id); runwayOccupiedBy = null; aircraft.splice(aircraft.indexOf(p),1); if(selected===p.id) selected=null;
@@ -946,7 +1026,7 @@ function drawRadarTelemetry(w,h){
       `${airport().icao} SCOPE ${scope}NM`,
       `RWY ${runway.name} ${runwayOccupiedBy?'OCC '+runwayOccupiedBy:'FREE'} ${RUNWAY_OPS.mode}`,
       `ACFT ${aircraft.length}/${SAFE_MODE.maxAircraft} PERF ${mode}`,
-      selectedPlane ? `SEL ${selectedPlane.id} ${getSector(selectedPlane)} HDG ${Math.round(selectedPlane.heading)} FL${Math.round(selectedPlane.alt)}` : 'SEL ---'
+      selectedPlane ? `SEL ${selectedPlane.id} ${getSector(selectedPlane)} HDG ${Math.round(selectedPlane.heading)} FL${Math.round(selectedPlane.alt)} FUEL ${Math.round(selectedPlane.fuel??0)}%` : (emergencyDirector.active ? `EMERG ${emergencyDirector.target}` : 'SEL ---')
     ];
     ctx.fillStyle='rgba(3,8,14,.60)';
     ctx.strokeStyle='rgba(151,202,255,.16)';
@@ -993,9 +1073,10 @@ function drawPlane(p,w,h){
     ctx.fillText(p.id,tx,ty);
     if(p.selected || w>=430 || !['PARKED','PUSHBACK','TAXI'].includes(p.status)){
       ctx.fillStyle='rgba(230,245,255,.86)'; ctx.fillText(`${p.status} FL${Math.max(0,Math.round(p.alt)).toString().padStart(3,'0')}`,tx,ty+12);
-      ctx.fillText(`${Math.round(p.speed)}KT`,tx,ty+24);
+      ctx.fillText(`${Math.round(p.speed)}KT F${Math.round(p.fuel??0)}%`,tx,ty+24);
     }
     if(hasReq){ ctx.fillStyle='rgba(255,191,61,.95)'; ctx.fillText('REQ',tx,ty+(p.selected?36:28)); }
+    if((p.fuelState&&p.fuelState!=='OK') || p.emergency){ ctx.fillStyle=p.emergency?'#ff4d42':'#ffbf3d'; ctx.fillText(p.emergency?'MAYDAY':p.fuelState,tx,ty+(p.selected?60:52)); }
     if(p.conflictLevel && p.conflictLevel!=='ok'){ ctx.fillStyle=p.conflictLevel==='danger'?'#ff4d42':'#ffbf3d'; ctx.fillText(p.conflictLevel==='danger'?'CNFL':'SEP',tx,ty+(p.selected?48:40)); }
   }
   ctx.restore();
@@ -1006,8 +1087,8 @@ function renderStrips(){
   const dep = aircraft.filter(p=>p.kind==='departure' && !['PARKED','PUSHBACK'].includes(p.status)).slice(0,9);
   const grd = aircraft.filter(p=>['PARKED','PUSHBACK','READY_TAXI','TAXI','HOLD_SHORT','LINEUP'].includes(p.status)).slice(0,9);
   const mk = (p, type) => {
-    const meta = type==='arr' ? `${p.type} • FL${Math.round(p.alt)} • ${Math.max(5,Math.round(dist(p,finalFix)))} NM` :
-                  type==='dep' ? `${p.status==='LINEUP'?'PRONTO':p.status} • RWY ${runway.name}` :
+    const meta = type==='arr' ? `${p.type} • FL${Math.round(p.alt)} • ${Math.max(5,Math.round(dist(p,finalFix)))} NM • F${Math.round(p.fuel??0)}%` :
+                  type==='dep' ? `${p.status==='LINEUP'?'PRONTO':p.status} • RWY ${runway.name} • F${Math.round(p.fuel??0)}%` :
                   `${p.status} • GATE/TAXI • ${p.type}`;
     return `<button class="strip ref ${p.risk>.4?'danger':p.emergency?'warning':''}" data-select="${p.id}"><b>${p.id}</b><span>${meta}</span><small style="color:#9db0c3">${p.request ? ('PEDIDO: '+p.request.toUpperCase()) : 'MONITORANDO'}</small></button>`;
   };
@@ -1047,7 +1128,7 @@ function renderSelected(){
       <div class="sel-item"><span>HDG</span><b>${Math.round(p.heading)}°</b></div>
       <div class="sel-item"><span>POS</span><b>${p.kind==='arrival' ? `${Math.max(5,Math.round(dist(p,finalFix)))}NM` : 'SOLO'}</b></div>
       <div class="sel-item"><span>REQ</span><b>${req ? req.text : '---'}</b></div>
-      <div class="sel-item"><span>SETOR</span><b>${op}</b></div><div class="sel-item"><span>WAKE</span><b>${wakeCategory(p)}</b></div>
+      <div class="sel-item"><span>SETOR</span><b>${op}</b></div><div class="sel-item"><span>WAKE</span><b>${wakeCategory(p)}</b></div><div class="sel-item"><span>FUEL</span><b class="fuel-${fuelClass(p)}">${Math.round(p.fuel??0)}%</b></div><div class="sel-item"><span>DMG</span><b>${Math.round(p.damage||0)}%</b></div>
     </div>`;
   if($('#sectorIndicator')) $('#sectorIndicator').textContent = op;
   renderActionGrid();
@@ -1087,7 +1168,7 @@ function command(cmd){
   if(cmd==='vectorFinal'){ if(p.kind==='arrival'){ p.status='APP'; p.hold=false; p.heading=headingTo(p, finalFix); p.targetAlt=Math.min(p.targetAlt,45); p.speed=Math.min(p.speed,170); addLog(`${airport().icao}: ${p.id} vetor para interceptar final RWY ${runway.name}.`); } }
   if(cmd==='deny'){ denyRequest(p); }
   if(cmd==='goAround'){ p.status='APP'; p.cleared=false; p.targetAlt=80; p.speed=Math.max(p.speed,170); p.heading=headingTo(p,{x:p.x<50?20:80,y:18}); runwayOccupiedBy = runwayOccupiedBy===p.id ? null : runwayOccupiedBy; addLog(`${airport().icao}: ${p.id} arremeta, suba para FL080.`, 'warn'); }
-  if(cmd==='emergency'){ p.emergency=true; p.status='EMERG'; stats.emergencies++; addRequest(p,'emergency','urgent'); }
+  if(cmd==='emergency'){ if(!p.emergency){ stats.emergencies=(stats.emergencies||0)+1; } p.emergency=true; p.emergencyType=p.emergencyType||'ATC DECLARED'; p.status=p.kind==='arrival'?'EMERG':p.status; p.fuel=Math.min(p.fuel||40,24); addRequest(p,'emergency','urgent'); setReadback(`${p.id} MAYDAY acknowledged, priority handling approved.`,'danger'); }
   if(cmd==='clear') handleClearance(p);
   else if(!['hold','emergency','deny'].includes(cmd)) addLog(`${airport().icao}: ${p.id} ${cmd.toUpperCase()} autorizado.`);
   p.sector=getSector(p); setReadback(atcReadbackFor(p,cmd), commandRisk(p,cmd).level==='danger'?'danger':'ok'); saveGoodState('after-command');
@@ -1143,7 +1224,7 @@ function endGame(fail,reason){
   $('#resultTitle').textContent = fail ? 'GAME OVER' : 'FIM DE TURNO';
   $('#resultReason').textContent = reason;
   $('#finalScore').textContent = final.toLocaleString('pt-BR');
-  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
+  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>MAYDAY resolvidos</span><b>${stats.maydayResolved||0}</b></div><div><span>Combustível mínimo</span><b>${stats.lowFuel||0}</b></div><div><span>Danos/inspeções</span><b>${stats.damaged||0}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
   go('result');
 }
 
@@ -1167,7 +1248,7 @@ function contextActions(p){
     ['PRÓXIMO','nextRequest','blue','pedido'],['SELECIONE','noop','dark','aeronave'],['RADAR','noop','dark','toque'],['COMMS','noop','dark','monitore']
   ];
   const req = requests.find(r=>r.id===p.id);
-  if(p.emergency || req?.type==='emergency') return [
+  if(p.emergency || req?.type==='emergency' || p.fuelState==='EMERGENCY' || p.fuelState==='CRITICAL') return [
     ['POUSO IMEDIATO','clear','red','emergência'],['VETOR FINAL','vectorFinal','amber','prioridade'],['REDUZIR','slow','amber','velocidade'],['DESCER','descend','amber','altitude'],['ESPERA','hold','dark','último caso'],['MAIS','more','dark','opções']
   ];
   if(p.kind==='arrival'){
@@ -1254,7 +1335,8 @@ function selfTest(){
   check('canvas context',()=>!!ctx);
   check('runway board',()=>{ renderRunwayBoard(); return !!document.querySelector('#runwayBoard'); });
   check('professional radar layer',()=>{ drawProfessionalProcedures(800,420); drawRadarTelemetry(800,420); drawWeatherOverlay(800,420); return !!PROCEDURE_LAYER && Array.isArray(PROCEDURE_LAYER.routes); });
-  check('weather ops',()=>{ updateWeatherOps(1); renderWeatherBoard(); return !!WX_STATE.condition && !!document.querySelector('#weatherBoard'); });
+  check('weather ops',()=>{ updateWeatherOps(1); renderWeatherBoard();
+    renderFuelBoard(); return !!WX_STATE.condition && !!document.querySelector('#weatherBoard'); });
   check('mission board',()=>{ mission=buildMission(); renderMissionBoard(); return !!document.querySelector('#missionBoard')?.innerHTML; });
   check('handoff advisor',()=>{ renderHandoffAdvisor(); return !!document.querySelector('#handoffAdvisor'); });
   check('readback line',()=>{ setReadback('teste de transmissão','ok'); return document.querySelector('#readbackLine')?.textContent.includes('teste'); });

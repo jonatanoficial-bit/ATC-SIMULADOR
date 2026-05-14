@@ -1,8 +1,19 @@
-# CHANGELOG
+# SKYWARD CONTROL — v0.9.5_20260514_2138
 
-## v0.9.4_REBUILD_20260514_2118
-- Adicionado clima operacional dinâmico: VMC, RAIN, LOW VIS e STORM OPS.
-- WX/OPS impacta separação mínima e runway ops.
-- Nova camada visual de precipitação no radar.
-- Novo Weather Board no painel Safety.
-- Safe Mode e recursos antequebra preservados.
+## Evolução
+- Sistema inicial de combustível por aeronave.
+- Estados FUEL: OK, LOW, EMERGENCY e CRITICAL.
+- MAYDAY automático por combustível crítico.
+- Emergências operacionais aleatórias: MEDICAL / ENGINE.
+- Painel FUEL / EMERG no dock SAFETY.
+- Etiquetas do radar mostram combustível.
+- Aeronave selecionada mostra FUEL e DMG.
+- Pouso em clima severo ou alta velocidade pode gerar inspeção/dano.
+- Safety Advisor considera combustível mínimo e emergências.
+- Recursos antequebra e Safe Mode preservados.
+
+## Testes
+- node --check main.js
+- verificação de arquivos essenciais
+- validação dos JSONs
+- integridade do ZIP

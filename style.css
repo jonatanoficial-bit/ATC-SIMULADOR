@@ -339,7 +339,7 @@ body:not(.game-is-active) .command-sheet{display:none!important;} body:not(.game
   font-weight:700;
 }
 
-/* v0.9.4 Weather Ops */
+/* v0.9.5_20260514_2138 Weather Ops */
 .weather-board{margin-top:10px;padding:10px;border-radius:12px;background:rgba(4,10,16,.72);border:1px solid rgba(151,202,255,.14);font-size:.82rem;line-height:1.25}
 .weather-board.warn{border-color:rgba(255,191,61,.35);box-shadow:inset 3px 0 0 rgba(255,191,61,.9)}
 .weather-board.danger{border-color:rgba(255,77,66,.35);box-shadow:inset 3px 0 0 rgba(255,77,66,.9)}
@@ -347,3 +347,18 @@ body:not(.game-is-active) .command-sheet{display:none!important;} body:not(.game
 .wx-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.wx-grid div{padding:7px;border-radius:8px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.05)}
 .wx-grid small{display:block;color:#9db0c3;font-size:.68rem}.wx-grid b{display:block;color:#eef6ff;font-size:.78rem;margin-top:2px}
 @media(max-width:900px){.wx-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+/* v0.9.5 Fuel / Emergency Director */
+.fuel-board{margin-top:8px;padding:10px;border-radius:12px;border:1px solid rgba(151,202,255,.16);background:rgba(4,10,16,.58);display:grid;gap:7px;font-size:12px}
+.fuel-board.ok{border-color:rgba(91,240,109,.22)}
+.fuel-board.warn{border-color:rgba(255,191,61,.35);box-shadow:inset 3px 0 0 rgba(255,191,61,.85)}
+.fuel-board.danger{border-color:rgba(255,77,66,.42);box-shadow:inset 3px 0 0 rgba(255,77,66,.9)}
+.fuel-head{display:flex;justify-content:space-between;gap:8px;align-items:center;font-weight:900;letter-spacing:.05em}
+.fuel-head span{color:#9db0c3;font-size:11px}
+.fuel-director{padding:8px;border-radius:9px;background:rgba(255,255,255,.035);color:#dbe9f6;line-height:1.25}
+.fuel-row{display:grid;grid-template-columns:72px 74px 1fr;gap:6px;align-items:center;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,.028)}
+.fuel-row b{font-size:12px}.fuel-row span{font-weight:900}.fuel-row em{font-style:normal;color:#aebdcc;font-size:11px}
+.fuel-row.ok span,.fuel-ok{color:#5bf06d}.fuel-row.warn span,.fuel-warn{color:#ffbf3d}.fuel-row.danger span,.fuel-danger{color:#ff4d42}
+.atc-action.risk-danger:not(.blocked){outline:1px solid rgba(255,77,66,.45)}
+.atc-action.risk-warn:not(.blocked){outline:1px solid rgba(255,191,61,.42)}
