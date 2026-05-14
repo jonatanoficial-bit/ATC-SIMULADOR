@@ -1,3 +1,3 @@
 SKYWARD CONTROL
-v0.9.0_20260514_1322
-Fase 2: radar profissional com procedimentos, alcance, ILS, fixes, rotas SID/STAR e telemetria de scope. Base v0.8.7 preservada com Safe Mode.
+v0.9.4_REBUILD_20260514_2118
+Radar profissional + clima operacional dinâmico + WX/OPS.
