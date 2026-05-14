@@ -1,4 +1,4 @@
-const BUILD = 'v0.8.6_20260513_2358';
+const BUILD = 'v0.8.7_20260514_1257';
 
 const SAFE_MODE = { errors: [], lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[], perf:{badFrames:0, mode:'normal'} };
 function safeLogError(err, where='runtime'){
@@ -261,7 +261,6 @@ let requestTimer = 0;
 let logLines = [];
 let runwayOccupiedBy = null;
 let stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, blocked:0, safetyWarnings:0 };
-  mission = buildMission(); missionHistory=[];
 let mission = null;
 let missionHistory = [];
 let conflictPredictions = [];

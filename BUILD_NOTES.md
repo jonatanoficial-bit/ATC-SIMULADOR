@@ -1,10 +1,9 @@
-# BUILD NOTES - v0.8.6_20260513_2358
+# BUILD NOTES - v0.8.7_20260514_1257
 
-Primeiro upgrade pós-v0.8.5 focado em jogabilidade guiada.
+Esta build corrige o travamento em Modo Seguro ATC causado por inicialização fora de ordem.
 
-Testes planejados/executados:
+Testes executados:
 - node --check main.js
-- validação de JSONs
-- verificação de IDs essenciais
-- verificação das funções de missão e handoff
-- integridade do ZIP
+- verificação do ponto de erro reportado no console
+- validação dos arquivos obrigatórios
+- empacotamento ZIP completo

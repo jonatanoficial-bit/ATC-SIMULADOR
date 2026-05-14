@@ -1,11 +1,7 @@
-# CHANGELOG - v0.8.6_20260513_2358
+# CHANGELOG - v0.8.7_20260514_1257
 
-## Adicionado
-- Painel OBJETIVOS DO TURNO dentro da tela ATC.
-- Handoff Advisor contextual para orientar APP/GND/TWR sem simplificar o simulador.
-- Progresso de missão no debrief final.
-- Self-test ampliado para missão e handoff.
-
-## Preservado
-- Base v0.8.5, Safety Advisor, Readback ATC, radar profissional e recursos antequebra.
-- Menu inicial e lobby não foram reconstruídos.
+## Hotfix crítico
+- Corrigido erro `ReferenceError: Cannot access mission before initialization`.
+- Removida inicialização prematura da missão antes da declaração `let mission`.
+- Preservados recursos antequebra, Safety Advisor, Handoff Advisor e Objetivos do Turno.
+- Build testada com `node --check main.js`.
