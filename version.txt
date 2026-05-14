@@ -1,3 +1,3 @@
 SKYWARD CONTROL
-v0.8.7_20260514_1257
-HOTFIX: corrigido ReferenceError de mission antes da inicialização. Build antequebra preservada.
+v0.9.0_20260514_1322
+Fase 2: radar profissional com procedimentos, alcance, ILS, fixes, rotas SID/STAR e telemetria de scope. Base v0.8.7 preservada com Safe Mode.

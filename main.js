@@ -1,4 +1,4 @@
-const BUILD = 'v0.8.7_20260514_1257';
+const BUILD = 'v0.9.0_20260514_1322';
 
 const SAFE_MODE = { errors: [], lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[], perf:{badFrames:0, mode:'normal'} };
 function safeLogError(err, where='runtime'){
@@ -264,7 +264,7 @@ let stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requ
 let mission = null;
 let missionHistory = [];
 let conflictPredictions = [];
-let radarFilters = { labels:true, ground:true, final:true, vectors:true, safety:true };
+let radarFilters = { labels:true, ground:true, final:true, vectors:true, safety:true, procedures:true, range:true, map:true };
 let runwayQueue = { arrivals:[], departures:[] };
 let safetyState = { score:100, level:'ok', messages:['Safety Advisor inicializado.'], lastRisk:null };
 const SEPARATION_RULES = { lateralNm:6, verticalFL:10, shortFinalNm:10, runwayProtectedNm:14 };
@@ -277,6 +277,24 @@ const gates = [
 ];
 const holdingPoints = [{x:31,y:57},{x:47,y:57},{x:64,y:57},{x:78,y:57}];
 const finalFix = {x:52, y:26};
+const PROCEDURE_LAYER = {
+  active: true,
+  scopeNm: 60,
+  ils: { name:'ILS RWY 27', localizer:270, threshold:{x:82,y:50}, faf:{x:58,y:30}, iaf:{x:36,y:18}, missed:{x:88,y:44} },
+  fixes: [
+    {id:'IAF', name:'ANVIL', x:36, y:18, type:'arrival'},
+    {id:'FAF', name:'FINAL FIX', x:52, y:26, type:'final'},
+    {id:'OM', name:'OUTER MARKER', x:66, y:38, type:'marker'},
+    {id:'HLD', name:'HOLD NW', x:22, y:24, type:'hold'},
+    {id:'SID', name:'DEP FIX', x:14, y:64, type:'departure'}
+  ],
+  routes: [
+    {id:'STAR 27', type:'arrival', color:'rgba(91,240,109,.55)', pts:[{x:14,y:14},{x:36,y:18},{x:52,y:26},{x:82,y:50}]},
+    {id:'SID 27', type:'departure', color:'rgba(88,183,255,.52)', pts:[{x:24,y:50},{x:14,y:64},{x:8,y:78}]},
+    {id:'MISSED', type:'missed', color:'rgba(255,191,61,.50)', pts:[{x:82,y:50},{x:88,y:44},{x:86,y:28},{x:72,y:20}]}
+  ]
+};
+
 
 function rand(a,b){ return Math.random()*(b-a)+a; }
 function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
@@ -640,10 +658,15 @@ function checkConflicts(){
 function draw(){
   const r = canvas.getBoundingClientRect(), w=r.width, h=r.height;
   ctx.clearRect(0,0,w,h);
-  if(asset.map.complete){ ctx.globalAlpha=.36; ctx.drawImage(asset.map,0,0,w,h); ctx.globalAlpha=1; }
-  drawOperationalMap(w,h);
+  if(radarFilters.map && asset.map.complete){ ctx.globalAlpha=.30; ctx.drawImage(asset.map,0,0,w,h); ctx.globalAlpha=1; }
   drawScope(w,h);
+  drawOperationalMap(w,h);
+  drawProfessionalProcedures(w,h);
+  drawConflictPredictions(w,h);
+  drawSafetyEnvelope(w,h);
+  drawRunwayQueue(w,h);
   for(const p of aircraft) drawPlane(p,w,h);
+  drawRadarTelemetry(w,h);
 }
 function drawOperationalMap(w,h){
   const P = (x,y)=>({x:x/100*w,y:y/100*h});
@@ -735,6 +758,111 @@ function drawRunwayQueue(w,h){
   ctx.fillStyle='rgba(230,245,255,.70)'; ctx.fillText('APP SEQ: '+(runwayQueue.arrivals.join(' > ')||'---'), x, y);
   ctx.fillStyle='rgba(88,183,255,.70)'; ctx.fillText('DEP SEQ: '+(runwayQueue.departures.join(' > ')||'---'), x, y+13);
   ctx.restore();
+}
+
+
+function drawProcedurePath(points,w,h,color,label){
+  if(!Array.isArray(points) || points.length<2) return;
+  const P=(o)=>pctToPx(o,w,h);
+  ctx.save();
+  ctx.strokeStyle=color || 'rgba(91,240,109,.45)';
+  ctx.lineWidth=Math.max(1.2,w*.0018);
+  ctx.setLineDash([10,8]);
+  ctx.beginPath();
+  points.forEach((pt,i)=>{ const p=P(pt); if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y); });
+  ctx.stroke();
+  ctx.setLineDash([]);
+  if(label){
+    const p=P(points[Math.max(0,Math.floor(points.length/2))]);
+    ctx.fillStyle=color || 'rgba(91,240,109,.75)';
+    ctx.font='800 10px ui-monospace,Consolas,monospace';
+    ctx.fillText(label,p.x+8,p.y-6);
+  }
+  ctx.restore();
+}
+
+function drawProfessionalProcedures(w,h){
+  if(!radarFilters.procedures) return;
+  try{
+    const P=(o)=>pctToPx(o,w,h);
+    ctx.save();
+    // controlled terminal area boundary
+    ctx.strokeStyle='rgba(79,181,255,.18)';
+    ctx.lineWidth=1.2;
+    ctx.setLineDash([12,10]);
+    ctx.beginPath();
+    ctx.ellipse(w*.50,h*.48,w*.43,h*.36,0,0,Math.PI*2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // ILS localizer fan / feather
+    if(radarFilters.final){
+      const th=P(PROCEDURE_LAYER.ils.threshold), faf=P(PROCEDURE_LAYER.ils.faf), iaf=P(PROCEDURE_LAYER.ils.iaf);
+      const fanA=P({x:56,y:22}), fanB=P({x:60,y:39});
+      ctx.fillStyle='rgba(91,240,109,.045)';
+      ctx.beginPath(); ctx.moveTo(th.x,th.y); ctx.lineTo(fanA.x,fanA.y); ctx.lineTo(fanB.x,fanB.y); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle='rgba(91,240,109,.38)'; ctx.lineWidth=1.8; ctx.setLineDash([8,6]);
+      ctx.beginPath(); ctx.moveTo(th.x,th.y); ctx.lineTo(iaf.x,iaf.y); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle='rgba(91,240,109,.78)'; ctx.font='900 10px ui-monospace,Consolas,monospace';
+      ctx.fillText(PROCEDURE_LAYER.ils.name, faf.x+8, faf.y+12);
+    }
+
+    PROCEDURE_LAYER.routes.forEach(r=>{
+      if(r.type==='arrival' && !radarFilters.final) return;
+      drawProcedurePath(r.pts,w,h,r.color,r.id);
+    });
+
+    PROCEDURE_LAYER.fixes.forEach(f=>{
+      if(f.type==='departure' && !radarFilters.vectors) return;
+      const p=P(f);
+      const col=f.type==='arrival'?'rgba(91,240,109,.80)':f.type==='departure'?'rgba(88,183,255,.80)':f.type==='hold'?'rgba(255,191,61,.80)':'rgba(230,245,255,.75)';
+      ctx.strokeStyle=col; ctx.fillStyle=col; ctx.lineWidth=1.4;
+      if(f.type==='hold'){
+        ctx.setLineDash([4,4]); ctx.beginPath(); ctx.ellipse(p.x,p.y,18,10,-.25,0,Math.PI*2); ctx.stroke(); ctx.setLineDash([]);
+      }else{
+        ctx.beginPath(); ctx.moveTo(p.x-5,p.y); ctx.lineTo(p.x+5,p.y); ctx.moveTo(p.x,p.y-5); ctx.lineTo(p.x,p.y+5); ctx.stroke();
+      }
+      ctx.font='800 9px ui-monospace,Consolas,monospace';
+      ctx.fillText(`${f.id} ${f.name}`,p.x+7,p.y-7);
+    });
+    ctx.restore();
+  }catch(e){ safeLogError(e,'draw-professional-procedures'); }
+}
+
+function drawRadarTelemetry(w,h){
+  try{
+    ctx.save();
+    const mode = SAFE_MODE.perf?.mode==='reduced' ? 'PERF REDUZIDA' : 'NORMAL';
+    const scope = PROCEDURE_LAYER.scopeNm || 60;
+    const selectedPlane=aircraft.find(p=>p.id===selected);
+    const lines=[
+      `${airport().icao} SCOPE ${scope}NM`,
+      `RWY ${runway.name} ${runwayOccupiedBy?'OCC '+runwayOccupiedBy:'FREE'}`,
+      `ACFT ${aircraft.length}/${SAFE_MODE.maxAircraft}  MODE ${mode}`,
+      selectedPlane ? `SEL ${selectedPlane.id} ${getSector(selectedPlane)} HDG ${Math.round(selectedPlane.heading)} FL${Math.round(selectedPlane.alt)}` : 'SEL ---'
+    ];
+    ctx.fillStyle='rgba(3,8,14,.60)';
+    ctx.strokeStyle='rgba(151,202,255,.16)';
+    ctx.lineWidth=1;
+    const boxW=Math.min(w*.38,260), boxH=18+lines.length*14;
+    ctx.fillRect(w-boxW-10,10,boxW,boxH);
+    ctx.strokeRect(w-boxW-10,10,boxW,boxH);
+    ctx.font='800 10px ui-monospace,Consolas,monospace';
+    lines.forEach((line,i)=>{
+      ctx.fillStyle=i===1 && runwayOccupiedBy ? 'rgba(255,191,61,.90)' : 'rgba(203,236,255,.82)';
+      ctx.fillText(line,w-boxW,28+i*14);
+    });
+    if(radarFilters.range){
+      ctx.strokeStyle='rgba(230,245,255,.36)';
+      ctx.beginPath(); ctx.moveTo(16,h-20); ctx.lineTo(Math.min(156,w*.22),h-20); ctx.stroke();
+      ctx.fillStyle='rgba(230,245,255,.70)';
+      ctx.font='800 10px ui-monospace,Consolas,monospace';
+      ctx.fillText('10 NM',18,h-26);
+    }
+    const badge=document.querySelector('#radarModeBadge');
+    if(badge) badge.textContent = `RADAR PROFISSIONAL • ${scope}NM • ${mode}`;
+    ctx.restore();
+  }catch(e){ safeLogError(e,'draw-radar-telemetry'); }
 }
 
 function drawPlane(p,w,h){
@@ -1010,7 +1138,7 @@ document.querySelector('#safeLobbyBtn')?.addEventListener('click',()=>{ document
 function selfTest(){
   const report={ build:BUILD, ok:true, checks:[], errors:[] };
   const check=(name,fn)=>{ try{ const ok=!!fn(); report.checks.push({name,ok}); if(!ok) report.ok=false; }catch(e){ report.ok=false; report.errors.push({name,msg:String(e.message||e)}); } };
-  check('required dom',()=>['#app','#radar','#actionGrid','#requests','#freqCall','#readbackLine','#log','#selectedBox','#nextRequestBtn','#opsDiagnostic','#moreCommandSheet','#safetyAdvisor','#safetyScore','#runwayBoard','#missionBoard','#handoffAdvisor'].every(s=>document.querySelector(s))); 
+  check('required dom',()=>['#app','#radar','#actionGrid','#requests','#freqCall','#readbackLine','#log','#selectedBox','#nextRequestBtn','#opsDiagnostic','#moreCommandSheet','#safetyAdvisor','#safetyScore','#runwayBoard','#missionBoard','#handoffAdvisor','#radarModeBadge'].every(s=>document.querySelector(s))); 
   check('conflict predictor',()=>Array.isArray(predictConflicts()));
   check('safety advisor',()=>commandRisk({id:'TST',kind:'arrival',status:'APP',alt:50,speed:180,x:50,y:30},'vectorFinal').level==='ok');
   check('context action generator',()=>Array.isArray(contextActions(null)) && contextActions(null).some(a=>a[1]==='nextRequest'));
@@ -1018,6 +1146,7 @@ function selfTest(){
   check('airports data fallback',()=>Array.isArray(airports));
   check('canvas context',()=>!!ctx);
   check('runway board',()=>{ renderRunwayBoard(); return !!document.querySelector('#runwayBoard'); });
+  check('professional radar layer',()=>{ drawProfessionalProcedures(800,420); drawRadarTelemetry(800,420); return !!PROCEDURE_LAYER && Array.isArray(PROCEDURE_LAYER.routes); });
   check('mission board',()=>{ mission=buildMission(); renderMissionBoard(); return !!document.querySelector('#missionBoard')?.innerHTML; });
   check('handoff advisor',()=>{ renderHandoffAdvisor(); return !!document.querySelector('#handoffAdvisor'); });
   check('readback line',()=>{ setReadback('teste de transmissão','ok'); return document.querySelector('#readbackLine')?.textContent.includes('teste'); });
