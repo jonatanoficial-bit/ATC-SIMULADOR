@@ -1,9 +1,9 @@
-# Build Notes — v0.9.6_20260514_2206
+# Build Notes — v1.0.2_20260515_1248
 
-Base preservada: v0.9.5.
-Foco: cada aeroporto começar a ter identidade operacional própria sem alterar menu/lobby.
+Correção direta do problema reportado no print:
+os botões PEDIDOS / COMANDOS / COMMS / SAFETY estavam globais e persistentes.
 
-Camada antequebra:
-- perfil genérico fallback para qualquer ICAO sem definição.
-- painel Airport Ops só renderiza se existir no HTML.
-- tráfego inicial e spawn têm limites seguros para mobile.
+Agora o body recebe `game-active` apenas no gameplay. Fora do gameplay:
+- não existe dock mobile visível
+- a rolagem é liberada
+- menu e lobby voltam a funcionar.

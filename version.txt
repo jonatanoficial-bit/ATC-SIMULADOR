@@ -1,1 +1,4 @@
-v1.0.0_20260514_2248
+SKYWARD CONTROL
+v1.0.2_20260515_1248
+Build: 2026-05-15 12:48
+Hotfix mobile layer visibility

@@ -1,4 +1,4 @@
-const BUILD = 'v1.0.0_20260514_2248';
+const BUILD = 'v1.0.2_20260515_1248';
 
 const SAFE_MODE = { errors: [], lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[], perf:{badFrames:0, mode:'normal'} };
 function safeLogError(err, where='runtime'){
@@ -573,6 +573,20 @@ function updateProfileUI(){
   if($('#gameAirport')) $('#gameAirport').textContent = a.icao;
   if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao;
 }
+
+function updateSceneBodyClass(id){
+  try{
+    document.body.classList.toggle('game-active', id==='game');
+    if(id!=='game'){
+      document.getElementById('mobilePanel')?.classList.remove('active');
+      document.querySelectorAll('.mobile-nav').forEach(b=>b.classList.remove('active'));
+    }else{
+      document.querySelector('.mobile-nav[data-mobile-tab="requests"]')?.classList.add('active');
+      document.getElementById('mobilePanel')?.classList.add('active');
+    }
+  }catch(e){ safeLogError(e,'scene-body-class'); }
+}
+
 function go(id){
   try{
     if(id==='lobby' || id==='profile') saveProfile();
@@ -648,7 +662,7 @@ function addRequest(p,type,priority='normal'){
   requests.unshift({ id:p.id, type, priority, text:labels[type]||type, time:performance.now() });
   p.request = type; p.requestedAt = performance.now(); stats.requests++;
   addLog(`${p.id}: ${labels[type] || type}.`, priority==='urgent'?'danger':priority==='warn'?'warn':'');
-  renderRequests();
+  renderRequests(); renderMobileGameplay();
 }
 function removeRequest(id,type){ requests = requests.filter(r=>!(r.id===id && (!type || r.type===type))); if(selectedRequest && selectedRequest.id===id && (!type || selectedRequest.type===type)) selectedRequest=null; renderRequests(); }
 
@@ -712,7 +726,7 @@ function update(dt){
   updatePlanes(dt); predictConflicts(); checkRunway(); checkConflicts(); checkMissedRequests();
   score += dt * (aircraft.length * 1.4);
   if(Math.floor(elapsed)%8===0) saveGoodState('running');
-  renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); updateOperationalHints(); renderRunwayBoard(); renderFuelBoard(); renderAirportOpsBoard(); renderMissionBoard(); renderHandoffAdvisor();
+  renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); updateOperationalHints(); renderRunwayBoard(); renderFuelBoard(); renderAirportOpsBoard(); renderMissionBoard(); renderHandoffAdvisor(); renderMobileGameplay();
 }
 
 function estimatePosition(p, seconds=45){
@@ -1206,7 +1220,7 @@ function command(cmd){
     addLog(`${airport().icao}: comando bloqueado para ${p.id} — ${preRisk.msg}`, 'danger');
     setDiagnostic('COMANDO BLOQUEADO PELO SAFETY ADVISOR','danger');
     setReadback(`${p.id} comando bloqueado: ${preRisk.msg}`,'danger');
-    renderActionGrid(); renderRunwayBoard();
+    renderActionGrid(); renderRunwayBoard(); renderMobileGameplay();
     return;
   }
   if(preRisk.level==='warn'){
@@ -1424,3 +1438,91 @@ openPanel('requestsPanel');
 }catch(e){console.warn(e);}
 }
 window.addEventListener('load',()=>setTimeout(initMobileDock,400));
+
+
+
+function mobileEsc(v){ return String(v??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function mobileCommandButton(a,p){
+  const risk = p ? commandRisk(p,a[1]) : {block:a[1]!=='nextRequest',level:'warn',msg:'Selecione aeronave'};
+  const disabled = risk.block || a[1]==='noop';
+  return `<button class="mobile-cmd ${a[2]||'dark'} ${disabled?'blocked':''}" data-cmd="${mobileEsc(a[1])}" ${disabled?'disabled':''}>
+    ${mobileEsc(a[0])}<small>${disabled?'BLOQUEADO':mobileEsc(a[3]||'')}</small>
+  </button>`;
+}
+function renderMobileGameplay(){
+  try{
+    const layer=document.getElementById('mobileAtcLayer');
+    if(!layer || !document.getElementById('game')?.classList.contains('active')){ document.body.classList.remove('game-active'); return; }
+    document.body.classList.add('game-active');
+    const p=aircraft.find(x=>x.id===selected);
+    const mini=document.getElementById('mobileMiniStatus');
+    if(mini){
+      mini.textContent=`${airport().icao} • RWY ${runway.name} • ${runwayOccupiedBy?'RWY OCUPADA '+runwayOccupiedBy:'RWY LIVRE'} • SAFETY ${Math.round(safetyState?.score??100)}%${emergencyDirector?.active?' • MAYDAY '+emergencyDirector.target:''}`;
+    }
+    const title=document.getElementById('mobileSelectedTitle');
+    if(title) title.textContent=p?`${p.id} • ${p.status} • FUEL ${Math.round(p.fuel??0)}%`:'Nenhuma aeronave';
+    const primary=document.getElementById('mobilePrimaryActions');
+    if(primary) primary.innerHTML=contextActions(p).slice(0,6).map(a=>mobileCommandButton(a,p)).join('');
+    const more=document.getElementById('mobileMoreActions');
+    if(more) more.innerHTML=moreActions(p).map(a=>mobileCommandButton(a,p)).join('');
+
+    const active=document.querySelector('.mobile-nav.active')?.dataset.mobileTab || 'requests';
+    renderMobilePanel(active);
+  }catch(e){ safeLogError(e,'mobile-render'); }
+}
+function renderMobilePanel(tab){
+  try{
+    const title=document.getElementById('mobilePanelTitle'), body=document.getElementById('mobilePanelBody'), panel=document.getElementById('mobilePanel');
+    if(!body || !panel) return;
+    panel.classList.add('active');
+    if(title) title.textContent = tab==='actions'?'COMANDOS ATC':tab==='comms'?'COMUNICAÇÕES':tab==='safety'?'SAFETY / OPS':'PEDIDOS ATC';
+    if(tab==='requests'){
+      const ordered=[...requests].sort((a,b)=>requestPriorityScore(b)-requestPriorityScore(a));
+      body.innerHTML=ordered.map(r=>{
+        const age=Math.floor((performance.now()-r.time)/1000);
+        return `<button class="mobile-request ${r.priority==='urgent'?'urgent':r.priority==='warn'?'warn':''}" data-mobile-req="${mobileEsc(r.id)}|${mobileEsc(r.type)}">
+          <b>${mobileEsc(r.id)}</b><span>${mobileEsc(r.text)} • ${mobileEsc(r.type.toUpperCase())}</span><em>${age}s aguardando</em>
+        </button>`;
+      }).join('') || '<div class="mobile-info-line">Nenhuma solicitação pendente.</div>';
+    }else if(tab==='actions'){
+      const p=aircraft.find(x=>x.id===selected);
+      body.innerHTML = p ? `<div class="mobile-info-line ok"><b>${mobileEsc(p.id)}</b> ${mobileEsc(p.type)} • ${mobileEsc(p.status)} • FL${Math.round(p.alt)} • ${Math.round(p.speed)}kt</div>` + contextActions(p).map(a=>mobileCommandButton(a,p)).join('') : '<div class="mobile-info-line warn">Selecione uma aeronave no radar ou em PEDIDOS.</div>';
+    }else if(tab==='comms'){
+      body.innerHTML=logLines.slice(0,12).map(l=>`<div class="mobile-info-line ${l.type||''}"><b>${mobileEsc(l.t)}</b> ${mobileEsc(l.msg)}</div>`).join('') || '<div class="mobile-info-line">Sem comunicações.</div>';
+    }else if(tab==='safety'){
+      const msgs=(safetyState?.messages||['Operação normal']).map(m=>`<div class="mobile-info-line ${safetyState.level||'ok'}">${mobileEsc(m)}</div>`).join('');
+      body.innerHTML=`<div class="mobile-info-line ${safetyState.level||'ok'}"><b>SAFETY ${Math.round(safetyState.score||100)}%</b></div>${msgs}<div class="mobile-info-line">${mobileEsc(emergencyDirector?.message||'Sem emergência ativa.')}</div>`;
+    }
+  }catch(e){ safeLogError(e,'mobile-panel'); }
+}
+function initMobileDockV2(){
+  try{
+    document.querySelectorAll('.mobile-nav').forEach(btn=>{
+      btn.onclick=()=>{
+        document.querySelectorAll('.mobile-nav').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        if(document.body.classList.contains('game-active')) renderMobilePanel(btn.dataset.mobileTab);
+      };
+    });
+    document.getElementById('mobilePanelClose')?.addEventListener('click',()=>document.getElementById('mobilePanel')?.classList.remove('active'));
+    document.getElementById('mobileDeselect')?.addEventListener('click',()=>{ selected=null; selectedRequest=null; renderSelected(); renderMobileGameplay(); });
+    document.getElementById('mobileMoreToggle')?.addEventListener('click',()=>document.getElementById('mobileMoreActions')?.classList.toggle('open'));
+    document.addEventListener('click',(e)=>{
+      const req=e.target.closest?.('[data-mobile-req]');
+      if(req){
+        const [id,type]=req.dataset.mobileReq.split('|');
+        selected=id; selectedRequest=requests.find(r=>r.id===id && r.type===type) || null;
+        renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid(); renderMobileGameplay();
+      }
+    });
+  }catch(e){ safeLogError(e,'mobile-init'); }
+}
+window.addEventListener('load',()=>setTimeout(initMobileDockV2,500));
+
+function syncMobileLayerVisibility(){
+  try{
+    const active=document.querySelector('.screen.active')?.id;
+    document.body.classList.toggle('game-active', active==='game');
+  }catch(e){}
+}
+window.addEventListener('load',()=>setInterval(syncMobileLayerVisibility,500));

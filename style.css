@@ -386,3 +386,131 @@ position:fixed!important;left:0;right:0;bottom:62px;max-height:34vh;overflow:aut
 .atc-action,button,.cmd-btn{min-height:54px!important;font-size:14px!important;}
 .left-sidebar,.right-sidebar,.desktop-sidebars{display:none!important;}
 }
+
+
+/* v1.0.2_20260515_1248 Real Mobile ATC Gameplay Layer */
+.mobile-atc-layer{display:none}
+@media (max-width:980px) and (orientation:landscape){
+  html,body{width:100%;height:100%;overflow:hidden;background:#02070d}
+  .screen.game-screen.active{padding:4px!important;height:100dvh!important;min-height:100dvh!important;overflow:hidden!important}
+  .atc-top{height:44px!important;min-height:44px!important;padding:4px 6px!important;gap:5px!important}
+  .atc-brand span,.atc-status span,.atc-status small{display:none!important}
+  .atc-brand{min-width:70px!important;font-size:10px!important}
+  .atc-status{padding:4px 7px!important;min-width:58px!important}
+  .atc-status b{font-size:15px!important}
+  .atc-status.weather{display:none!important}
+  .atc-mobile-layout{display:block!important;height:calc(100dvh - 48px)!important;padding:0!important;margin:0!important}
+  .traffic-stack,.ops-panel,.bottom-dock{display:none!important}
+  .scope-column{height:100%!important;width:100%!important;display:block!important}
+  .radar-shell{height:calc(100dvh - 58px)!important;width:100%!important;border-radius:12px!important}
+  #radar{height:100%!important;width:100%!important;min-height:0!important}
+  .scope-overlay.top-left{top:8px!important;left:8px!important;font-size:10px!important;max-width:36vw;opacity:.78}
+  .scope-overlay.bottom-left{display:none!important}
+  .scope-overlay.bottom-right{right:8px!important;bottom:62px!important;font-size:10px!important;max-width:38vw}
+
+  .mobile-atc-layer{display:block;position:fixed;inset:0;pointer-events:none;z-index:1500}
+  .mobile-mini-status{position:fixed;top:50px;left:8px;right:8px;height:24px;border:1px solid rgba(91,240,109,.22);background:rgba(3,9,16,.72);border-radius:10px;padding:4px 10px;font:800 10px ui-monospace,monospace;color:#91ffab;letter-spacing:.04em;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mobile-dock-v2{position:fixed;left:8px;right:8px;bottom:6px;height:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;pointer-events:auto}
+  .mobile-nav{border:1px solid rgba(151,202,255,.18);border-radius:12px;background:linear-gradient(180deg,rgba(11,28,43,.96),rgba(5,14,24,.96));color:#cfe9ff;font-weight:950;font-size:11px;letter-spacing:.06em;box-shadow:0 8px 18px rgba(0,0,0,.35)}
+  .mobile-nav.active{border-color:rgba(255,191,61,.65);background:linear-gradient(180deg,rgba(174,117,21,.96),rgba(72,44,5,.96));color:#fff4c6}
+
+  .mobile-panel{position:fixed;left:8px;bottom:60px;width:min(360px,42vw);max-height:calc(100dvh - 145px);border:1px solid rgba(151,202,255,.20);border-radius:14px;background:rgba(3,9,16,.94);box-shadow:0 18px 40px rgba(0,0,0,.46);backdrop-filter:blur(12px);display:none;pointer-events:auto;overflow:hidden}
+  .mobile-panel.active{display:block}
+  .mobile-panel-head{height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:1px solid rgba(151,202,255,.12)}
+  .mobile-panel-head b{font-size:12px;letter-spacing:.08em}
+  #mobilePanelClose{width:32px;height:28px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);border-radius:9px;color:#eaf6ff;font-weight:900}
+  .mobile-panel-body{padding:8px;overflow:auto;max-height:calc(100dvh - 185px)}
+  .mobile-request{width:100%;text-align:left;border:1px solid rgba(91,240,109,.28);border-left:4px solid #5bf06d;background:rgba(6,18,28,.92);border-radius:12px;color:#eaf6ff;margin-bottom:7px;padding:9px 10px;min-height:58px}
+  .mobile-request.warn{border-left-color:#ffbf3d}.mobile-request.urgent{border-left-color:#ff4d42}
+  .mobile-request b{display:block;font-size:15px}.mobile-request span{display:block;color:#9fb4c8;font-size:11px;margin-top:2px}.mobile-request em{font-style:normal;color:#ffcf67;font-size:10px;font-weight:900}
+  .mobile-info-line{padding:8px;border-radius:10px;background:rgba(255,255,255,.035);margin-bottom:6px;font-size:12px;color:#dbe9f6}
+  .mobile-info-line.danger{border-left:4px solid #ff4d42}.mobile-info-line.warn{border-left:4px solid #ffbf3d}.mobile-info-line.ok{border-left:4px solid #5bf06d}
+
+  .mobile-action-sheet{position:fixed;right:8px;bottom:60px;width:min(420px,52vw);border:1px solid rgba(255,191,61,.28);border-radius:14px;background:rgba(3,9,16,.95);box-shadow:0 18px 40px rgba(0,0,0,.48);backdrop-filter:blur(12px);pointer-events:auto;overflow:hidden}
+  .mobile-action-head{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:1px solid rgba(255,191,61,.14)}
+  .mobile-action-head small{display:block;color:#9fb4c8;font-size:9px;font-weight:900;letter-spacing:.07em}.mobile-action-head b{font-size:17px;color:#fff}
+  #mobileDeselect{height:30px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#cfe9ff;font-size:10px;font-weight:900}
+  .mobile-primary-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;padding:9px}
+  .mobile-cmd{min-height:58px;border-radius:13px;border:1px solid rgba(255,255,255,.13);font-weight:950;letter-spacing:.03em;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+  .mobile-cmd small{display:block;font-size:10px;opacity:.78;margin-top:2px}
+  .mobile-cmd.green{background:linear-gradient(180deg,#126a34,#082d19)}.mobile-cmd.blue{background:linear-gradient(180deg,#07558e,#06283f)}.mobile-cmd.amber{background:linear-gradient(180deg,#91630d,#3d2705)}.mobile-cmd.red{background:linear-gradient(180deg,#8d1c1c,#3a0808)}.mobile-cmd.dark{background:linear-gradient(180deg,#162636,#07111c)}
+  .mobile-cmd.blocked,.mobile-cmd:disabled{opacity:.35;filter:grayscale(.5)}
+  .mobile-more-toggle{margin:0 9px 9px;width:calc(100% - 18px);height:34px;border-radius:10px;border:1px solid rgba(151,202,255,.18);background:rgba(255,255,255,.04);color:#dff4ff;font-weight:900}
+  .mobile-more-actions{display:none;grid-template-columns:repeat(3,1fr);gap:6px;padding:0 9px 9px}
+  .mobile-more-actions.open{display:grid}
+  .mobile-more-actions .mobile-cmd{min-height:44px;font-size:11px}
+}
+@media (max-width:740px) and (orientation:landscape){
+  .mobile-panel{width:39vw}
+  .mobile-action-sheet{width:57vw}
+  .mobile-primary-actions{grid-template-columns:repeat(2,1fr);gap:5px;padding:7px}
+  .mobile-cmd{min-height:50px;font-size:12px}
+  .mobile-more-actions .mobile-cmd{min-height:38px}
+  .atc-status{min-width:50px!important}.atc-status b{font-size:13px!important}
+}
+
+
+/* v1.0.2 HOTFIX: mobile ATC layer only during gameplay */
+.mobile-atc-layer,
+.mobile-dock,
+.mobile-dock-v2,
+.mobile-panel,
+.mobile-action-sheet{
+  display:none !important;
+}
+
+body.game-active .mobile-atc-layer{
+  display:block !important;
+}
+
+@media (max-width:980px) and (orientation:landscape){
+  body:not(.game-active){
+    overflow:auto !important;
+    height:auto !important;
+    min-height:100dvh !important;
+  }
+
+  body:not(.game-active) .screen.active{
+    overflow:auto !important;
+    min-height:100dvh !important;
+    height:auto !important;
+  }
+
+  body:not(.game-active) .mobile-atc-layer,
+  body:not(.game-active) .mobile-dock,
+  body:not(.game-active) .mobile-dock-v2,
+  body:not(.game-active) .mobile-panel,
+  body:not(.game-active) .mobile-action-sheet{
+    display:none !important;
+    pointer-events:none !important;
+  }
+
+  body.game-active{
+    overflow:hidden !important;
+    height:100dvh !important;
+  }
+
+  body.game-active .mobile-atc-layer{
+    display:block !important;
+  }
+
+  body.game-active .mobile-dock-v2{
+    display:grid !important;
+  }
+
+  body.game-active .mobile-action-sheet{
+    display:block !important;
+  }
+
+  body.game-active .mobile-panel.active{
+    display:block !important;
+  }
+
+  body.game-active .mobile-panel:not(.active){
+    display:none !important;
+  }
+
+  body.game-active .mobile-dock{
+    display:none !important;
+  }
+}

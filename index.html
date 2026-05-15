@@ -160,5 +160,29 @@
 <button class="dock-btn" data-panel="commsPanel">COMMS</button>
 <button class="dock-btn" data-panel="safetyPanelMobile">SAFETY</button>
 </div>
+
+<div id="mobileAtcLayer" class="mobile-atc-layer" aria-live="polite">
+  <div id="mobileMiniStatus" class="mobile-mini-status">SBGR • RWY • SAFETY</div>
+  <div id="mobilePanel" class="mobile-panel active" data-mobile-panel="requests">
+    <div class="mobile-panel-head"><b id="mobilePanelTitle">PEDIDOS ATC</b><button id="mobilePanelClose" type="button">×</button></div>
+    <div id="mobilePanelBody" class="mobile-panel-body"></div>
+  </div>
+  <div id="mobileActionSheet" class="mobile-action-sheet">
+    <div class="mobile-action-head">
+      <div><small>AERONAVE SELECIONADA</small><b id="mobileSelectedTitle">---</b></div>
+      <button id="mobileDeselect" type="button">LIMPAR</button>
+    </div>
+    <div id="mobilePrimaryActions" class="mobile-primary-actions"></div>
+    <button id="mobileMoreToggle" class="mobile-more-toggle" type="button">MAIS COMANDOS</button>
+    <div id="mobileMoreActions" class="mobile-more-actions"></div>
+  </div>
+  <div id="mobileDockV2" class="mobile-dock-v2">
+    <button class="mobile-nav active" data-mobile-tab="requests">PEDIDOS</button>
+    <button class="mobile-nav" data-mobile-tab="actions">COMANDOS</button>
+    <button class="mobile-nav" data-mobile-tab="comms">COMMS</button>
+    <button class="mobile-nav" data-mobile-tab="safety">SAFETY</button>
+  </div>
+</div>
+
 </body>
 </html>
