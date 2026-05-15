@@ -1,4 +1,4 @@
-const BUILD = 'v0.9.6_20260514_2206';
+const BUILD = 'v1.0.0_20260514_2248';
 
 const SAFE_MODE = { errors: [], lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[], perf:{badFrames:0, mode:'normal'} };
 function safeLogError(err, where='runtime'){
@@ -1406,3 +1406,21 @@ function selfTest(){
 setTimeout(()=>{ try{ selfTest(); }catch(e){ safeLogError(e,'self-test'); } },500);
 
 loadProfile(); loadAirports(); resize();
+
+function initMobileDock(){
+try{
+const btns=[...document.querySelectorAll('.dock-btn')];
+const ids=['requestsPanel','actionsPanel','commsPanel','safetyPanelMobile'];
+function openPanel(id){
+ids.forEach(pid=>{const el=document.getElementById(pid);if(el)el.classList.remove('active-panel');});
+btns.forEach(b=>b.classList.remove('active'));
+const target=document.getElementById(id);
+if(target)target.classList.add('active-panel');
+const btn=btns.find(b=>b.dataset.panel===id);
+if(btn)btn.classList.add('active');
+}
+btns.forEach(btn=>btn.onclick=()=>openPanel(btn.dataset.panel));
+openPanel('requestsPanel');
+}catch(e){console.warn(e);}
+}
+window.addEventListener('load',()=>setTimeout(initMobileDock,400));

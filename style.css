@@ -372,3 +372,17 @@ body:not(.game-is-active) .command-sheet{display:none!important;} body:not(.game
 .airport-ops-grid div{padding:7px 8px;border-radius:9px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.045)}
 .airport-ops-grid small{display:block;color:#9db0c3;font-size:10px;font-weight:800;letter-spacing:.06em}
 .airport-ops-grid b{display:block;margin-top:3px;color:#eaf6ff;font-size:11px;line-height:1.18}
+
+@media (max-width:980px){
+body{overflow:hidden;touch-action:manipulation;}
+.main-layout,.game-layout{display:grid!important;grid-template-columns:1fr!important;grid-template-rows:55vh auto!important;height:calc(100vh - 58px)!important;overflow:hidden!important;}
+.radar-panel,.scope-panel,canvas{width:100%!important;height:55vh!important;min-height:55vh!important;}
+.mobile-dock{position:fixed;left:8px;right:8px;bottom:8px;height:50px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;z-index:1200;}
+.dock-btn{border:none;border-radius:12px;background:#081522;color:#dff6ff;font-size:11px;font-weight:800;}
+.dock-btn.active{background:#133926;color:#8fffb0;}
+#requestsPanel,#actionsPanel,#commsPanel,#safetyPanelMobile{
+position:fixed!important;left:0;right:0;bottom:62px;max-height:34vh;overflow:auto;background:rgba(3,9,16,.96)!important;padding:10px;z-index:999;display:none;}
+.active-panel{display:block!important;}
+.atc-action,button,.cmd-btn{min-height:54px!important;font-size:14px!important;}
+.left-sidebar,.right-sidebar,.desktop-sidebars{display:none!important;}
+}

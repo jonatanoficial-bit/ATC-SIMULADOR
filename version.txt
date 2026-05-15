@@ -1,4 +1,1 @@
-SKYWARD CONTROL
-v0.9.6_20260514_2206
-Build: 2026-05-14 22:06
-Fase: Airport Operational Profiles
+v1.0.0_20260514_2248
