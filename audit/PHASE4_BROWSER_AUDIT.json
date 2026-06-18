@@ -1,0 +1,745 @@
+{
+  "build": {
+    "product": "Skyward Control",
+    "version": "1.4.0",
+    "phase": "F04",
+    "phaseName": "TypeScript, Contratos de Dados e Validação Runtime",
+    "channel": "alpha",
+    "build": "SC-1.4.0-F04-20260617-1542",
+    "builtAt": "2026-06-17 15:42 BRT",
+    "builtAtIso": "2026-06-17T15:42:27-03:00",
+    "schema": 2,
+    "contractSchema": 1,
+    "target": "Mobile-first / Tablet / Desktop"
+  },
+  "viewports": {
+    "desktop": {
+      "runtime": {
+        "build": {
+          "product": "Skyward Control",
+          "version": "1.4.0",
+          "phase": "F04",
+          "phaseName": "TypeScript, Contratos de Dados e Validação Runtime",
+          "channel": "alpha",
+          "build": "SC-1.4.0-F04-20260617-1542",
+          "builtAt": "2026-06-17 15:42 BRT",
+          "builtAtIso": "2026-06-17T15:42:27-03:00",
+          "schema": 2,
+          "contractSchema": 1,
+          "target": "Mobile-first / Tablet / Desktop"
+        },
+        "contracts": {
+          "schema": 1,
+          "version": "1.0.0",
+          "frozen": true
+        },
+        "architecture": {
+          "generation": 4,
+          "moduleCount": 13,
+          "sealed": true
+        },
+        "selfTest": {
+          "build": "SC-1.4.0-F04-20260617-1542",
+          "ok": true,
+          "checks": [
+            {
+              "name": "required dom",
+              "ok": true
+            },
+            {
+              "name": "conflict predictor",
+              "ok": true
+            },
+            {
+              "name": "safety advisor",
+              "ok": true
+            },
+            {
+              "name": "context action generator",
+              "ok": true
+            },
+            {
+              "name": "priority sorter",
+              "ok": true
+            },
+            {
+              "name": "airports data fallback",
+              "ok": true
+            },
+            {
+              "name": "canvas context",
+              "ok": true
+            },
+            {
+              "name": "runway board",
+              "ok": true
+            },
+            {
+              "name": "professional radar layer",
+              "ok": true
+            },
+            {
+              "name": "weather ops",
+              "ok": true
+            },
+            {
+              "name": "mission board",
+              "ok": true
+            },
+            {
+              "name": "handoff advisor",
+              "ok": true
+            },
+            {
+              "name": "readback line",
+              "ok": true
+            },
+            {
+              "name": "command block enforcement",
+              "ok": true
+            },
+            {
+              "name": "safe storage",
+              "ok": true
+            },
+            {
+              "name": "build metadata",
+              "ok": true
+            },
+            {
+              "name": "explicit clearances",
+              "ok": true
+            },
+            {
+              "name": "snapshot schema",
+              "ok": true
+            },
+            {
+              "name": "release metadata source",
+              "ok": true
+            },
+            {
+              "name": "modular runtime registry",
+              "ok": true
+            },
+            {
+              "name": "typescript contracts available",
+              "ok": true
+            },
+            {
+              "name": "typescript build contract",
+              "ok": true
+            },
+            {
+              "name": "typescript airport contract",
+              "ok": true
+            },
+            {
+              "name": "typescript profile contract",
+              "ok": true
+            },
+            {
+              "name": "typescript aircraft contract",
+              "ok": true
+            },
+            {
+              "name": "typescript requests contract",
+              "ok": true
+            },
+            {
+              "name": "modular runtime sealed",
+              "ok": true
+            },
+            {
+              "name": "unique callsign helper",
+              "ok": true
+            }
+          ],
+          "errors": []
+        }
+      },
+      "orientationGuardVisible": false,
+      "gameState": {
+        "gameActive": true,
+        "bodyGame": true,
+        "aircraft": true,
+        "diagnostics": 50
+      }
+    },
+    "tablet": {
+      "runtime": {
+        "build": {
+          "product": "Skyward Control",
+          "version": "1.4.0",
+          "phase": "F04",
+          "phaseName": "TypeScript, Contratos de Dados e Validação Runtime",
+          "channel": "alpha",
+          "build": "SC-1.4.0-F04-20260617-1542",
+          "builtAt": "2026-06-17 15:42 BRT",
+          "builtAtIso": "2026-06-17T15:42:27-03:00",
+          "schema": 2,
+          "contractSchema": 1,
+          "target": "Mobile-first / Tablet / Desktop"
+        },
+        "contracts": {
+          "schema": 1,
+          "version": "1.0.0",
+          "frozen": true
+        },
+        "architecture": {
+          "generation": 4,
+          "moduleCount": 13,
+          "sealed": true
+        },
+        "selfTest": {
+          "build": "SC-1.4.0-F04-20260617-1542",
+          "ok": true,
+          "checks": [
+            {
+              "name": "required dom",
+              "ok": true
+            },
+            {
+              "name": "conflict predictor",
+              "ok": true
+            },
+            {
+              "name": "safety advisor",
+              "ok": true
+            },
+            {
+              "name": "context action generator",
+              "ok": true
+            },
+            {
+              "name": "priority sorter",
+              "ok": true
+            },
+            {
+              "name": "airports data fallback",
+              "ok": true
+            },
+            {
+              "name": "canvas context",
+              "ok": true
+            },
+            {
+              "name": "runway board",
+              "ok": true
+            },
+            {
+              "name": "professional radar layer",
+              "ok": true
+            },
+            {
+              "name": "weather ops",
+              "ok": true
+            },
+            {
+              "name": "mission board",
+              "ok": true
+            },
+            {
+              "name": "handoff advisor",
+              "ok": true
+            },
+            {
+              "name": "readback line",
+              "ok": true
+            },
+            {
+              "name": "command block enforcement",
+              "ok": true
+            },
+            {
+              "name": "safe storage",
+              "ok": true
+            },
+            {
+              "name": "build metadata",
+              "ok": true
+            },
+            {
+              "name": "explicit clearances",
+              "ok": true
+            },
+            {
+              "name": "snapshot schema",
+              "ok": true
+            },
+            {
+              "name": "release metadata source",
+              "ok": true
+            },
+            {
+              "name": "modular runtime registry",
+              "ok": true
+            },
+            {
+              "name": "typescript contracts available",
+              "ok": true
+            },
+            {
+              "name": "typescript build contract",
+              "ok": true
+            },
+            {
+              "name": "typescript airport contract",
+              "ok": true
+            },
+            {
+              "name": "typescript profile contract",
+              "ok": true
+            },
+            {
+              "name": "typescript aircraft contract",
+              "ok": true
+            },
+            {
+              "name": "typescript requests contract",
+              "ok": true
+            },
+            {
+              "name": "modular runtime sealed",
+              "ok": true
+            },
+            {
+              "name": "unique callsign helper",
+              "ok": true
+            }
+          ],
+          "errors": []
+        }
+      },
+      "orientationGuardVisible": false,
+      "gameState": {
+        "gameActive": true,
+        "bodyGame": true,
+        "aircraft": true,
+        "diagnostics": 50
+      }
+    },
+    "mobile_landscape": {
+      "runtime": {
+        "build": {
+          "product": "Skyward Control",
+          "version": "1.4.0",
+          "phase": "F04",
+          "phaseName": "TypeScript, Contratos de Dados e Validação Runtime",
+          "channel": "alpha",
+          "build": "SC-1.4.0-F04-20260617-1542",
+          "builtAt": "2026-06-17 15:42 BRT",
+          "builtAtIso": "2026-06-17T15:42:27-03:00",
+          "schema": 2,
+          "contractSchema": 1,
+          "target": "Mobile-first / Tablet / Desktop"
+        },
+        "contracts": {
+          "schema": 1,
+          "version": "1.0.0",
+          "frozen": true
+        },
+        "architecture": {
+          "generation": 4,
+          "moduleCount": 13,
+          "sealed": true
+        },
+        "selfTest": {
+          "build": "SC-1.4.0-F04-20260617-1542",
+          "ok": true,
+          "checks": [
+            {
+              "name": "required dom",
+              "ok": true
+            },
+            {
+              "name": "conflict predictor",
+              "ok": true
+            },
+            {
+              "name": "safety advisor",
+              "ok": true
+            },
+            {
+              "name": "context action generator",
+              "ok": true
+            },
+            {
+              "name": "priority sorter",
+              "ok": true
+            },
+            {
+              "name": "airports data fallback",
+              "ok": true
+            },
+            {
+              "name": "canvas context",
+              "ok": true
+            },
+            {
+              "name": "runway board",
+              "ok": true
+            },
+            {
+              "name": "professional radar layer",
+              "ok": true
+            },
+            {
+              "name": "weather ops",
+              "ok": true
+            },
+            {
+              "name": "mission board",
+              "ok": true
+            },
+            {
+              "name": "handoff advisor",
+              "ok": true
+            },
+            {
+              "name": "readback line",
+              "ok": true
+            },
+            {
+              "name": "command block enforcement",
+              "ok": true
+            },
+            {
+              "name": "safe storage",
+              "ok": true
+            },
+            {
+              "name": "build metadata",
+              "ok": true
+            },
+            {
+              "name": "explicit clearances",
+              "ok": true
+            },
+            {
+              "name": "snapshot schema",
+              "ok": true
+            },
+            {
+              "name": "release metadata source",
+              "ok": true
+            },
+            {
+              "name": "modular runtime registry",
+              "ok": true
+            },
+            {
+              "name": "typescript contracts available",
+              "ok": true
+            },
+            {
+              "name": "typescript build contract",
+              "ok": true
+            },
+            {
+              "name": "typescript airport contract",
+              "ok": true
+            },
+            {
+              "name": "typescript profile contract",
+              "ok": true
+            },
+            {
+              "name": "typescript aircraft contract",
+              "ok": true
+            },
+            {
+              "name": "typescript requests contract",
+              "ok": true
+            },
+            {
+              "name": "modular runtime sealed",
+              "ok": true
+            },
+            {
+              "name": "unique callsign helper",
+              "ok": true
+            }
+          ],
+          "errors": []
+        }
+      },
+      "profileScroll": {
+        "before": {
+          "screen": 0,
+          "doc": 0
+        },
+        "screenAfter": 0,
+        "docAfter": 515,
+        "screenScrollHeight": 905,
+        "screenClientHeight": 905,
+        "docScrollHeight": 905,
+        "docClientHeight": 390
+      },
+      "gameLayout": {
+        "canvas": {
+          "w": 818,
+          "h": 314
+        },
+        "panel": {
+          "w": 320.71875,
+          "h": 246,
+          "active": true
+        },
+        "bodyGame": true
+      }
+    },
+    "mobile_portrait": {
+      "runtime": {
+        "build": {
+          "product": "Skyward Control",
+          "version": "1.4.0",
+          "phase": "F04",
+          "phaseName": "TypeScript, Contratos de Dados e Validação Runtime",
+          "channel": "alpha",
+          "build": "SC-1.4.0-F04-20260617-1542",
+          "builtAt": "2026-06-17 15:42 BRT",
+          "builtAtIso": "2026-06-17T15:42:27-03:00",
+          "schema": 2,
+          "contractSchema": 1,
+          "target": "Mobile-first / Tablet / Desktop"
+        },
+        "contracts": {
+          "schema": 1,
+          "version": "1.0.0",
+          "frozen": true
+        },
+        "architecture": {
+          "generation": 4,
+          "moduleCount": 13,
+          "sealed": true
+        },
+        "selfTest": {
+          "build": "SC-1.4.0-F04-20260617-1542",
+          "ok": true,
+          "checks": [
+            {
+              "name": "required dom",
+              "ok": true
+            },
+            {
+              "name": "conflict predictor",
+              "ok": true
+            },
+            {
+              "name": "safety advisor",
+              "ok": true
+            },
+            {
+              "name": "context action generator",
+              "ok": true
+            },
+            {
+              "name": "priority sorter",
+              "ok": true
+            },
+            {
+              "name": "airports data fallback",
+              "ok": true
+            },
+            {
+              "name": "canvas context",
+              "ok": true
+            },
+            {
+              "name": "runway board",
+              "ok": true
+            },
+            {
+              "name": "professional radar layer",
+              "ok": true
+            },
+            {
+              "name": "weather ops",
+              "ok": true
+            },
+            {
+              "name": "mission board",
+              "ok": true
+            },
+            {
+              "name": "handoff advisor",
+              "ok": true
+            },
+            {
+              "name": "readback line",
+              "ok": true
+            },
+            {
+              "name": "command block enforcement",
+              "ok": true
+            },
+            {
+              "name": "safe storage",
+              "ok": true
+            },
+            {
+              "name": "build metadata",
+              "ok": true
+            },
+            {
+              "name": "explicit clearances",
+              "ok": true
+            },
+            {
+              "name": "snapshot schema",
+              "ok": true
+            },
+            {
+              "name": "release metadata source",
+              "ok": true
+            },
+            {
+              "name": "modular runtime registry",
+              "ok": true
+            },
+            {
+              "name": "typescript contracts available",
+              "ok": true
+            },
+            {
+              "name": "typescript build contract",
+              "ok": true
+            },
+            {
+              "name": "typescript airport contract",
+              "ok": true
+            },
+            {
+              "name": "typescript profile contract",
+              "ok": true
+            },
+            {
+              "name": "typescript aircraft contract",
+              "ok": true
+            },
+            {
+              "name": "typescript requests contract",
+              "ok": true
+            },
+            {
+              "name": "modular runtime sealed",
+              "ok": true
+            },
+            {
+              "name": "unique callsign helper",
+              "ok": true
+            }
+          ],
+          "errors": []
+        }
+      },
+      "orientationGuardVisible": true,
+      "gameState": {
+        "gameActive": true,
+        "bodyGame": true,
+        "aircraft": true,
+        "diagnostics": 50
+      }
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "checks": [
+    {
+      "name": "desktop: autoteste interno aprovado",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "desktop: contratos carregados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop: arquitetura geração 4",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tablet: autoteste interno aprovado",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "tablet: contratos carregados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tablet: arquitetura geração 4",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile_landscape: autoteste interno aprovado",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "mobile_landscape: contratos carregados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile_landscape: arquitetura geração 4",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile_portrait: autoteste interno aprovado",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "mobile_portrait: contratos carregados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile_portrait: arquitetura geração 4",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile: perfil rolável",
+      "ok": true,
+      "detail": "{'before': {'screen': 0, 'doc': 0}, 'screenAfter': 0, 'docAfter': 515, 'screenScrollHeight': 905, 'screenClientHeight': 905, 'docScrollHeight': 905, 'docClientHeight': 390}"
+    },
+    {
+      "name": "mobile: radar preservado",
+      "ok": true,
+      "detail": "{'canvas': {'w': 818, 'h': 314}, 'panel': {'w': 320.71875, 'h': 246, 'active': True}, 'bodyGame': True}"
+    },
+    {
+      "name": "mobile: painel único ativo",
+      "ok": true,
+      "detail": "{'canvas': {'w': 818, 'h': 314}, 'panel': {'w': 320.71875, 'h': 246, 'active': True}, 'bodyGame': True}"
+    },
+    {
+      "name": "portrait: guard de orientação visível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop: guard de orientação oculto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "sem exceções de página",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "sem erros de console",
+      "ok": true,
+      "detail": "[]"
+    }
+  ]
+}

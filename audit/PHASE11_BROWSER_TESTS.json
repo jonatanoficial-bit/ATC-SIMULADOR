@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "suite": "phase11-browser",
+  "mode": "inline-controlled-runtime",
+  "environmentLimitation": "Chromium local navigation is blocked by policy; exact app HTML/CSS/JS are loaded in memory while file integrity is verified separately.",
+  "build": {
+    "product": "Skyward Control",
+    "version": "1.12.0",
+    "phase": "F12",
+    "phaseName": "Modelo Realista de Aeronaves",
+    "channel": "alpha",
+    "build": "SC-1.12.0-F12-20260618-1138",
+    "builtAt": "2026-06-18 11:38 BRT",
+    "builtAtIso": "2026-06-18T11:38:16-03:00",
+    "schema": 3,
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "aircraftPerformanceSchema": 1,
+    "target": "Mobile-first / Tablet / Desktop"
+  },
+  "checks": [
+    {
+      "name": "build F11+ carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'version': '1.12.0', 'phase': 'F12', 'phaseName': 'Modelo Realista de Aeronaves', 'channel': 'alpha', 'build': 'SC-1.12.0-F12-20260618-1138', 'builtAt': '2026-06-18 11:38 BRT', 'builtAtIso': '2026-06-18T11:38:16-03:00', 'schema': 3, 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'aircraftPerformanceSchema': 1, 'target': 'Mobile-first / Tablet / Desktop'}"
+    },
+    {
+      "name": "replay schema carregado",
+      "ok": true,
+      "detail": "{'build': {'product': 'Skyward Control', 'version': '1.12.0', 'phase': 'F12', 'phaseName': 'Modelo Realista de Aeronaves', 'channel': 'alpha', 'build': 'SC-1.12.0-F12-20260618-1138', 'builtAt': '2026-06-18 11:38 BRT', 'builtAtIso': '2026-06-18T11:38:16-03:00', 'schema': 3, 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'aircraftPerformanceSchema': 1, 'target': 'Mobile-first / Tablet / Desktop'}, 'self': {'build': 'SC-1.12.0-F12-20260618-1138', 'ok': True, 'checks': [{'name': 'required dom', 'ok': True}, {'name': 'conflict predictor', 'ok': True}, {'name': 'safety advisor', 'ok': True}, {'name': 'context action generator', 'ok': True}, {'name': 'priority sorter', 'ok': True}, {'name': 'airports data fallback', 'ok': True}, {'name': 'canvas context', 'ok': True}, {'name': 'runway board', 'ok': True}, {'name': 'professional radar layer', 'ok': True}, {'name': 'weather ops', 'ok': True}, {'name': 'mission board', 'ok': True}, {'name': 'handoff advisor', 'ok': True}, {'name': 'readback line', 'ok': True}, {'name': 'command block enforcement', 'ok': True}, {'name': 'safe storage', 'ok': True}, {'name': 'build metadata', 'ok': True}, {'name': 'explicit clearances', 'ok': True}, {'name': 'snapshot schema', 'ok': True}, {'name': 'release metadata source', 'ok': True}, {'name': 'modular runtime registry', 'ok': True}, {'name': 'typescript contracts available', 'ok': True}, {'name': 'typescript build contract', 'ok': True}, {'name': 'typescript airport contract', 'ok': True}, {'name': 'typescript profile contract', 'ok': True}, {'name': 'typescript aircraft contract', 'ok': True}, {'name': 'typescript requests contract', 'ok': True}, {'name': 'quality kernel available', 'ok': True}, {'name': 'test schema metadata', 'ok': True}, {'name': 'qa bridge available', 'ok': True}, {'name': 'transactional save vault', 'ok': True}, {'name': 'pwa runtime available', 'ok': True}, {'name': 'pwa install manifest linked', 'ok': True}, {'name': 'mobile UX schema and API', 'ok': True}, {'name': 'mobile gesture classifier', 'ok': True}, {'name': 'mobile touch target', 'ok': True}, {'name': 'desktop workspace schema and API', 'ok': True}, {'name': 'desktop shortcut map', 'ok': True}, {'name': 'profile save contract', 'ok': True}, {'name': 'snapshot migrator v2 to v3', 'ok': True}, {'name': 'modular runtime sealed', 'ok': True}, {'name': 'unique callsign helper', 'ok': True}, {'name': 'replay schema and API', 'ok': True}, {'name': 'deterministic replay self check', 'ok': True}, {'name': 'deterministic replay checksum', 'ok': True}, {'name': 'aircraft performance schema and API', 'ok': True}, {'name': 'aircraft performance self check', 'ok': True}, {'name': 'aircraft performance envelope', 'ok': True}], 'errors': []}, 'replay': {'ok': True, 'sequence': ['0.38581307', '0.47924937', '0.91898549'], 'checksum': '8b9e4511'}, 'schema': 1}"
+    },
+    {
+      "name": "autoteste interno aprovado",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "self check replay aprovado",
+      "ok": true,
+      "detail": "{'ok': True, 'sequence': ['0.38581307', '0.47924937', '0.91898549'], 'checksum': '8b9e4511'}"
+    },
+    {
+      "name": "turno inicia replay determinístico",
+      "ok": true,
+      "detail": "{'rec': {'enabled': True, 'recording': True, 'replaying': False, 'seed': 'SC-1.12.0-F12-20260618-1138|SBGR|Controlador|0|start-game', 'seedHash': 404946290, 'rngState': 2612582985, 'tick': 8, 'elapsed': 0.58, 'frame': 8, 'events': [{'schema': 1, 'index': 0, 'tick': 0, 'elapsed': 0, 'type': 'turn-start', 'detail': {'seed': 'SC-1.12.0-F12-20260618-1138|SBGR|Controlador|0|start-game', 'airport': 'SBGR', 'build': 'SC-1.12.0-F12-20260618-1138'}, 'checksum': '2aab2866', 'at': 1781794120051}, {'schema': 1, 'index': 1, 'tick': 0, 'elapsed': 0, 'type': 'initial-state', 'detail': {'aircraft': ['GLO1204', 'TAM3307', 'AZU4211', 'PTB7021', 'ONE8902', 'SID4405'], 'requests': ['SID4405:pushback', 'ONE8902:landing', 'PTB7021:pushback', 'AZU4211:landing', 'TAM3307:pushback', 'GLO1204:landing']}, 'checksum': 'e074b8fb', 'at': 1781794120204}], 'lastChecksum': 'e074b8fb', 'startedAt': 1781794120051, 'lastExport': None}, 'det': True, 'status': 'REC 2 • e074b8fb'}"
+    },
+    {
+      "name": "seed gerada",
+      "ok": true,
+      "detail": "SC-1.12.0-F12-20260618-1138|SBGR|Controlador|0|start-game"
+    },
+    {
+      "name": "evento inicial gravado",
+      "ok": true,
+      "detail": "[{'schema': 1, 'index': 0, 'tick': 0, 'elapsed': 0, 'type': 'turn-start', 'detail': {'seed': 'SC-1.12.0-F12-20260618-1138|SBGR|Controlador|0|start-game', 'airport': 'SBGR', 'build': 'SC-1.12.0-F12-20260618-1138'}, 'checksum': '2aab2866', 'at': 1781794120051}, {'schema': 1, 'index': 1, 'tick': 0, 'elapsed': 0, 'type': 'initial-state', 'detail': {'aircraft': ['GLO1204', 'TAM3307', 'AZU4211', 'PTB7021', 'ONE8902', 'SID4405'], 'requests': ['SID4405:pushback', 'ONE8902:landing', 'PTB7021:pushback', 'AZU4211:landing', 'TAM3307:pushback', 'GLO1204:landing']}, 'checksum': 'e074b8fb', 'at': 1781794120204}]"
+    },
+    {
+      "name": "atalho F11 abre painel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "checkpoint manual registrado",
+      "ok": true,
+      "detail": "[{'schema': 1, 'index': 0, 'tick': 0, 'elapsed': 0, 'type': 'turn-start', 'detail': {'seed': 'SC-1.12.0-F12-20260618-1138|SBGR|Controlador|0|start-game', 'airport': 'SBGR', 'build': 'SC-1.12.0-F12-20260618-1138'}, 'checksum': '2aab2866', 'at': 1781794120051}, {'schema': 1, 'index': 1, 'tick': 0, 'elapsed': 0, 'type': 'initial-state', 'detail': {'aircraft': ['GLO1204', 'TAM3307', 'AZU4211', 'PTB7021', 'ONE8902', 'SID4405'], 'requests': ['SID4405:pushback', 'ONE8902:landing', 'PTB7021:pushback', 'AZU4211:landing', 'TAM3307:pushback', 'GLO1204:landing']}, 'checksum': 'e074b8fb', 'at': 1781794120204}, {'schema': 1, 'index': 2, 'tick': 8, 'elapsed': 0.58, 'type': 'manual-checkpoint', 'detail': {'source': 'operator'}, 'checksum': '1f74a09d', 'at': 1781794122073}]"
+    },
+    {
+      "name": "export JSON visível",
+      "ok": true,
+      "detail": "{\n  \"schema\": 1,\n  \"build\": \"SC-1.12.0-F12-20260618-1138\",\n  \"version\": \"1.12.0\",\n  \"phase\": \"F12\",\n  \"replaySchema\": 1,"
+    },
+    {
+      "name": "export contém checksum",
+      "ok": true,
+      "detail": "{'schema': 1, 'build': 'SC-1.12.0-F12-20260618-1138', 'version': '1.12.0', 'phase': 'F12', 'replaySchema': 1, 'seed': 'SC-1.12.0-F12-20260618-1138|SBGR|Controlador|0|start-game', 'seedHash': 404946290, 'tick': 8, 'elapsed': 0.58, 'startedAt': 1781794120051, 'exportedAt': 1781794122704, 'airport': 'SBGR', 'events': [{'schema': 1, 'index': 0, 'tick': 0, 'elapsed': 0, 'type': 'turn-start', 'detail': {'seed': 'SC-1.12.0-F12-20260618-1138|SBGR|Controlador|0|start-game', 'airport': 'SBGR', 'build': 'SC-1.12.0-F12-20260618-1138'}, 'checksum': '2aab2866', 'at': 1781794120051}, {'schema': 1, 'index': 1, 'tick': 0, 'elapsed': 0, 'type': 'initial-state', 'detail': {'aircraft': ['GLO1204', 'TAM3307', 'AZU4211', 'PTB7021', 'ONE8902', 'SID4405'], 'requests': ['SID4405:pushback', 'ONE8902:landing', 'PTB7021:pushback', 'AZU4211:landing', 'TAM3307:pushback', 'GLO1204:landing']}, 'checksum': 'e074b8fb', 'at': 1781794120204}, {'schema': 1, 'index': 2, 'tick': 8, 'elapsed': 0.58, 'type': 'manual-checkpoint', 'detail': {'source': 'operator'}, 'checksum': '1f74a09d', 'at': 1781794122073}], 'finalChecksum': '1f74a09d', 'state': {'aircraft': [{'id': 'AZU4211', 'kind': 'arrival', 'status': 'APP', 'x': 83.28, 'y': 12.25, 'alt': 179, 'speed': 165, 'heading': 160.6, 'fuel': 69, 'emergency': False}, {'id': 'GLO1204', 'kind': 'arrival', 'status': 'APP', 'x': 32.85, 'y': 90.9, 'alt': 162, 'speed': 157, 'heading': 284.4, 'fuel': 65, 'emergency': False}, {'id': 'ONE8902', 'kind': 'arrival', 'status': 'APP', 'x': 84.84, 'y': 16.76, 'alt': 120, 'speed': 162, 'heading': 168.3, 'fuel': 56, 'emergency': False}, {'id': 'PTB7021', 'kind': 'departure', 'status': 'PARKED', 'x': 73.04, 'y': 69.6, 'alt': 0, 'speed': 0, 'heading': 270, 'fuel': 79, 'emergency': False}, {'id': 'SID4405', 'kind': 'departure', 'status': 'PARKED', 'x': 65.36, 'y': 78.49, 'alt': 0, 'speed': 0, 'heading': 270, 'fuel': 69, 'emergency': False}, {'id': 'TAM3307', 'kind': 'departure', 'status': 'PARKED', 'x': 61.02, 'y': 70.15, 'alt': 0, 'speed': 0, 'heading': 270, 'fuel': 86, 'emergency': False}], 'requests': [{'id': 'AZU4211', 'type': 'landing', 'priority': 'warn'}, {'id': 'GLO1204', 'type': 'landing', 'priority': 'warn'}, {'id': 'ONE8902', 'type': 'landing', 'priority': 'warn'}, {'id': 'PTB7021', 'type': 'pushback', 'priority': 'normal'}, {'id': 'SID4405', 'type': 'pushback', 'priority': 'normal'}, {'id': 'TAM3307', 'type': 'pushback', 'priority': 'normal'}], 'selected': None, 'runwayOccupiedBy': None, 'score': 0, 'stats': {'landed': 0, 'departed': 0, 'conflicts': 0, 'commands': 0, 'emergencies': 0, 'requests': 6, 'denied': 0, 'runwayIncursions': 0, 'blocked': 0, 'safetyWarnings': 0, 'lowFuel': 0, 'damaged': 0, 'maydayResolved': 0}}}"
+    },
+    {
+      "name": "import do próprio replay aprovado",
+      "ok": true,
+      "detail": "{'ok': True, 'events': 3, 'checksum': '1f74a09d'}"
+    },
+    {
+      "name": "sequência reproduzida no browser",
+      "ok": true,
+      "detail": "{'a': '0.6461206434760243|0.17937225592322648', 'b': '0.6461206434760243|0.17937225592322648'}"
+    },
+    {
+      "name": "desktop: replay API disponível",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'panel': 'none', 'badge': 'block', 'det': True, 'events': 2}"
+    },
+    {
+      "name": "desktop: replay determinístico ativo",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'panel': 'none', 'badge': 'block', 'det': True, 'events': 2}"
+    },
+    {
+      "name": "desktop: botão replay visível",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'panel': 'none', 'badge': 'block', 'det': True, 'events': 2}"
+    },
+    {
+      "name": "tablet: replay API disponível",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'panel': 'none', 'badge': 'block', 'det': True, 'events': 2}"
+    },
+    {
+      "name": "tablet: replay determinístico ativo",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'panel': 'none', 'badge': 'block', 'det': True, 'events': 2}"
+    },
+    {
+      "name": "tablet: botão replay visível",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'panel': 'none', 'badge': 'block', 'det': True, 'events': 2}"
+    },
+    {
+      "name": "mobile_landscape: replay API disponível",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'panel': 'none', 'badge': 'block', 'det': True, 'events': 2}"
+    },
+    {
+      "name": "mobile_landscape: replay determinístico ativo",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'panel': 'none', 'badge': 'block', 'det': True, 'events': 2}"
+    },
+    {
+      "name": "mobile_portrait: replay API disponível",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'panel': 'none', 'badge': 'block', 'det': True, 'events': 2}"
+    },
+    {
+      "name": "mobile_portrait: replay determinístico ativo",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'panel': 'none', 'badge': 'block', 'det': True, 'events': 2}"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "selfTest": true
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "selfTest": true
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "selfTest": true
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "selfTest": true
+    }
+  },
+  "passed": 23,
+  "total": 23,
+  "failed": 0
+}

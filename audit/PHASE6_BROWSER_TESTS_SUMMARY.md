@@ -1,0 +1,46 @@
+# Fase 06 — Recuperação transacional em Chromium
+
+- Resultado: **38/38 aprovados**
+- Build: `SC-1.12.0-F12-20260618-1138`
+- Erros de console: 0
+- Exceções de página: 0
+
+## Verificações
+- [x] build F06+ carregada
+- [x] save schema 3 carregado
+- [x] contract schema 2 carregado
+- [x] test schema >= 2 carregado
+- [x] save vault schema 1 carregado
+- [x] save vault congelado
+- [x] SHA-256 do runtime correto
+- [x] arquitetura geração 6+
+- [x] autoteste interno F06+ aprovado
+- [x] snapshot revisão 1 gravado
+- [x] snapshot revisão 2 gravado
+- [x] slots primário e backup existem
+- [x] revisões são encadeadas
+- [x] corrupção JSON restaura backup
+- [x] save corrompido fica em quarentena
+- [x] telemetria registra recuperação
+- [x] adulteração de payload aciona rollback
+- [x] journal preparado pode ser inspecionado
+- [x] journal de commit confirmado é removido
+- [x] journal incompleto é resolvido sem perda
+- [x] snapshot v2 é migrado e restaurado
+- [x] migração grava payload schema 3
+- [x] migração adiciona saveId e sessionId
+- [x] telemetria registra migração
+- [x] perfil revisão 1 gravado
+- [x] perfil revisão 2 gravado
+- [x] perfil corrompido recupera backup
+- [x] backup de perfil mantém progressão íntegra
+- [x] ferramentas destrutivas bloqueadas fora de QA
+- [x] save vault permanece congelado no jogo normal
+- [x] desktop: runtime e vault ativos
+- [x] tablet: runtime e vault ativos
+- [x] mobile_landscape: runtime e vault ativos
+- [x] mobile horizontal não exibe guard
+- [x] mobile_portrait: runtime e vault ativos
+- [x] mobile vertical mantém guard de orientação
+- [x] sem exceções de página
+- [x] sem erros de console

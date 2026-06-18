@@ -1,0 +1,21 @@
+# Checklist de aceite — Fase 01
+
+- [x] Build única com versão, fase, data e hora
+- [x] Identificação visível no boot, menu e radar
+- [x] Rolagem funcional em telas não operacionais
+- [x] Menus utilizáveis em retrato e paisagem
+- [x] Orientação horizontal exigida apenas no turno mobile
+- [x] Um painel mobile por vez
+- [x] Radar preservado no celular
+- [x] Camada mobile ausente no desktop
+- [x] Dock legado removido
+- [x] Clearances explícitos
+- [x] Solicitações atendidas removidas
+- [x] Callsigns únicos
+- [x] Snapshot versionado
+- [x] Restauração funcional
+- [x] Eventos normais não registrados como falha
+- [x] Autoteste interno 19/19
+- [x] Teste estático independente
+- [x] Auditoria real em mobile e desktop
+- [x] ZIP completo e checksum SHA-256

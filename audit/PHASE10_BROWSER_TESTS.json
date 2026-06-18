@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "suite": "phase10-browser",
+  "mode": "inline-controlled-runtime",
+  "environmentLimitation": "Chromium local navigation is blocked by policy; exact app HTML/CSS/JS are loaded in memory while file integrity is verified separately.",
+  "build": {
+    "product": "Skyward Control",
+    "version": "1.12.0",
+    "phase": "F12",
+    "phaseName": "Modelo Realista de Aeronaves",
+    "channel": "alpha",
+    "build": "SC-1.12.0-F12-20260618-1138",
+    "builtAt": "2026-06-18 11:38 BRT",
+    "builtAtIso": "2026-06-18T11:38:16-03:00",
+    "schema": 3,
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "aircraftPerformanceSchema": 1,
+    "target": "Mobile-first / Tablet / Desktop"
+  },
+  "checks": [
+    {
+      "name": "build F10+ carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'version': '1.12.0', 'phase': 'F12', 'phaseName': 'Modelo Realista de Aeronaves', 'channel': 'alpha', 'build': 'SC-1.12.0-F12-20260618-1138', 'builtAt': '2026-06-18 11:38 BRT', 'builtAtIso': '2026-06-18T11:38:16-03:00', 'schema': 3, 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'aircraftPerformanceSchema': 1, 'target': 'Mobile-first / Tablet / Desktop'}"
+    },
+    {
+      "name": "accessibility schema carregado",
+      "ok": true,
+      "detail": "{'build': {'product': 'Skyward Control', 'version': '1.12.0', 'phase': 'F12', 'phaseName': 'Modelo Realista de Aeronaves', 'channel': 'alpha', 'build': 'SC-1.12.0-F12-20260618-1138', 'builtAt': '2026-06-18 11:38 BRT', 'builtAtIso': '2026-06-18T11:38:16-03:00', 'schema': 3, 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'aircraftPerformanceSchema': 1, 'target': 'Mobile-first / Tablet / Desktop'}, 'self': {'build': 'SC-1.12.0-F12-20260618-1138', 'ok': True, 'checks': [{'name': 'required dom', 'ok': True}, {'name': 'conflict predictor', 'ok': True}, {'name': 'safety advisor', 'ok': True}, {'name': 'context action generator', 'ok': True}, {'name': 'priority sorter', 'ok': True}, {'name': 'airports data fallback', 'ok': True}, {'name': 'canvas context', 'ok': True}, {'name': 'runway board', 'ok': True}, {'name': 'professional radar layer', 'ok': True}, {'name': 'weather ops', 'ok': True}, {'name': 'mission board', 'ok': True}, {'name': 'handoff advisor', 'ok': True}, {'name': 'readback line', 'ok': True}, {'name': 'command block enforcement', 'ok': True}, {'name': 'safe storage', 'ok': True}, {'name': 'build metadata', 'ok': True}, {'name': 'explicit clearances', 'ok': True}, {'name': 'snapshot schema', 'ok': True}, {'name': 'release metadata source', 'ok': True}, {'name': 'modular runtime registry', 'ok': True}, {'name': 'typescript contracts available', 'ok': True}, {'name': 'typescript build contract', 'ok': True}, {'name': 'typescript airport contract', 'ok': True}, {'name': 'typescript profile contract', 'ok': True}, {'name': 'typescript aircraft contract', 'ok': True}, {'name': 'typescript requests contract', 'ok': True}, {'name': 'quality kernel available', 'ok': True}, {'name': 'test schema metadata', 'ok': True}, {'name': 'qa bridge available', 'ok': True}, {'name': 'transactional save vault', 'ok': True}, {'name': 'pwa runtime available', 'ok': True}, {'name': 'pwa install manifest linked', 'ok': True}, {'name': 'mobile UX schema and API', 'ok': True}, {'name': 'mobile gesture classifier', 'ok': True}, {'name': 'mobile touch target', 'ok': True}, {'name': 'desktop workspace schema and API', 'ok': True}, {'name': 'desktop shortcut map', 'ok': True}, {'name': 'profile save contract', 'ok': True}, {'name': 'snapshot migrator v2 to v3', 'ok': True}, {'name': 'modular runtime sealed', 'ok': True}, {'name': 'unique callsign helper', 'ok': True}, {'name': 'replay schema and API', 'ok': True}, {'name': 'deterministic replay self check', 'ok': True}, {'name': 'deterministic replay checksum', 'ok': True}, {'name': 'aircraft performance schema and API', 'ok': True}, {'name': 'aircraft performance self check', 'ok': True}, {'name': 'aircraft performance envelope', 'ok': True}], 'errors': []}, 'api': {'schema': 1, 'ok': True, 'issues': [], 'preferences': {'schema': 1, 'uiScale': '100', 'contrast': 'normal', 'colorMode': 'standard', 'radarBrightness': '100', 'largeTargets': False, 'focusRing': True, 'reducedMotion': False, 'subtitles': True, 'masterVolume': 70, 'radioVolume': 82, 'sfxVolume': 58, 'haptics': True, 'performanceMode': 'auto', 'fpsCap': '60', 'effects': 'normal', 'touchMode': 'standard', 'shortcutHints': True}}, 'schema': 1}"
+    },
+    {
+      "name": "autoteste interno aprovado",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "self check F10 aprovado",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'issues': [], 'preferences': {'schema': 1, 'uiScale': '100', 'contrast': 'normal', 'colorMode': 'standard', 'radarBrightness': '100', 'largeTargets': False, 'focusRing': True, 'reducedMotion': False, 'subtitles': True, 'masterVolume': 70, 'radioVolume': 82, 'sfxVolume': 58, 'haptics': True, 'performanceMode': 'auto', 'fpsCap': '60', 'effects': 'normal', 'touchMode': 'standard', 'shortcutHints': True}}"
+    },
+    {
+      "name": "painel abre pelo menu",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "escala aplicada",
+      "ok": true,
+      "detail": "{'ui': '120', 'contrast': 'high', 'color': 'deuteranopia', 'large': True, 'motion': True, 'perf': 'battery', 'stored': '{\"schema\":1,\"uiScale\":\"120\",\"contrast\":\"high\",\"colorMode\":\"deuteranopia\",\"radarBrightness\":\"100\",\"largeTargets\":true,\"focusRing\":true,\"reducedMotion\":true,\"subtitles\":true,\"masterVolume\":70,\"radioVolume\":82,\"sfxVolume\":58,\"haptics\":true,\"performanceMode\":\"battery\",\"fpsCap\":\"60\",\"effects\":\"normal\",\"touchMode\":\"standard\",\"shortcutHints\":true}', 'summary': '120% • Alto contraste • Deuteranopia • BATTERY'}"
+    },
+    {
+      "name": "alto contraste aplicado",
+      "ok": true,
+      "detail": "{'ui': '120', 'contrast': 'high', 'color': 'deuteranopia', 'large': True, 'motion': True, 'perf': 'battery', 'stored': '{\"schema\":1,\"uiScale\":\"120\",\"contrast\":\"high\",\"colorMode\":\"deuteranopia\",\"radarBrightness\":\"100\",\"largeTargets\":true,\"focusRing\":true,\"reducedMotion\":true,\"subtitles\":true,\"masterVolume\":70,\"radioVolume\":82,\"sfxVolume\":58,\"haptics\":true,\"performanceMode\":\"battery\",\"fpsCap\":\"60\",\"effects\":\"normal\",\"touchMode\":\"standard\",\"shortcutHints\":true}', 'summary': '120% • Alto contraste • Deuteranopia • BATTERY'}"
+    },
+    {
+      "name": "modo de cor aplicado",
+      "ok": true,
+      "detail": "{'ui': '120', 'contrast': 'high', 'color': 'deuteranopia', 'large': True, 'motion': True, 'perf': 'battery', 'stored': '{\"schema\":1,\"uiScale\":\"120\",\"contrast\":\"high\",\"colorMode\":\"deuteranopia\",\"radarBrightness\":\"100\",\"largeTargets\":true,\"focusRing\":true,\"reducedMotion\":true,\"subtitles\":true,\"masterVolume\":70,\"radioVolume\":82,\"sfxVolume\":58,\"haptics\":true,\"performanceMode\":\"battery\",\"fpsCap\":\"60\",\"effects\":\"normal\",\"touchMode\":\"standard\",\"shortcutHints\":true}', 'summary': '120% • Alto contraste • Deuteranopia • BATTERY'}"
+    },
+    {
+      "name": "alvos grandes aplicados",
+      "ok": true,
+      "detail": "{'ui': '120', 'contrast': 'high', 'color': 'deuteranopia', 'large': True, 'motion': True, 'perf': 'battery', 'stored': '{\"schema\":1,\"uiScale\":\"120\",\"contrast\":\"high\",\"colorMode\":\"deuteranopia\",\"radarBrightness\":\"100\",\"largeTargets\":true,\"focusRing\":true,\"reducedMotion\":true,\"subtitles\":true,\"masterVolume\":70,\"radioVolume\":82,\"sfxVolume\":58,\"haptics\":true,\"performanceMode\":\"battery\",\"fpsCap\":\"60\",\"effects\":\"normal\",\"touchMode\":\"standard\",\"shortcutHints\":true}', 'summary': '120% • Alto contraste • Deuteranopia • BATTERY'}"
+    },
+    {
+      "name": "redução de movimento aplicada",
+      "ok": true,
+      "detail": "{'ui': '120', 'contrast': 'high', 'color': 'deuteranopia', 'large': True, 'motion': True, 'perf': 'battery', 'stored': '{\"schema\":1,\"uiScale\":\"120\",\"contrast\":\"high\",\"colorMode\":\"deuteranopia\",\"radarBrightness\":\"100\",\"largeTargets\":true,\"focusRing\":true,\"reducedMotion\":true,\"subtitles\":true,\"masterVolume\":70,\"radioVolume\":82,\"sfxVolume\":58,\"haptics\":true,\"performanceMode\":\"battery\",\"fpsCap\":\"60\",\"effects\":\"normal\",\"touchMode\":\"standard\",\"shortcutHints\":true}', 'summary': '120% • Alto contraste • Deuteranopia • BATTERY'}"
+    },
+    {
+      "name": "modo bateria aplicado",
+      "ok": true,
+      "detail": "{'ui': '120', 'contrast': 'high', 'color': 'deuteranopia', 'large': True, 'motion': True, 'perf': 'battery', 'stored': '{\"schema\":1,\"uiScale\":\"120\",\"contrast\":\"high\",\"colorMode\":\"deuteranopia\",\"radarBrightness\":\"100\",\"largeTargets\":true,\"focusRing\":true,\"reducedMotion\":true,\"subtitles\":true,\"masterVolume\":70,\"radioVolume\":82,\"sfxVolume\":58,\"haptics\":true,\"performanceMode\":\"battery\",\"fpsCap\":\"60\",\"effects\":\"normal\",\"touchMode\":\"standard\",\"shortcutHints\":true}', 'summary': '120% • Alto contraste • Deuteranopia • BATTERY'}"
+    },
+    {
+      "name": "preferências persistidas",
+      "ok": true,
+      "detail": "{\"schema\":1,\"uiScale\":\"120\",\"contrast\":\"high\",\"colorMode\":\"deuteranopia\",\"radarBrightness\":\"100\",\"largeTargets\":true,\"focusRing\":true,\"reducedMotion\":true,\"subtitles\":true,\"masterVolume\":70,\"radioVolume\":82,\"sfxVolume\":58,\"haptics\":true,\"performanceMode\":\"battery\",\"fpsCap\":\"60\",\"effects\":\"normal\",\"touchMode\":\"standard\",\"shortcutHints\":true}"
+    },
+    {
+      "name": "resumo visível atualizado",
+      "ok": true,
+      "detail": "120% • Alto contraste • Deuteranopia • BATTERY"
+    },
+    {
+      "name": "exporta JSON de configuração",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "reset volta ao padrão",
+      "ok": true,
+      "detail": "{'ui': '100', 'contrast': 'normal', 'color': 'standard', 'large': False}"
+    },
+    {
+      "name": "atalho F10 abre painel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "painel abre durante o turno desktop",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Alt+S abre painel durante turno",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop: API F10 disponível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop: painel escondido por padrão",
+      "ok": true,
+      "detail": "{'hud': 'flex', 'mobile': 'none', 'settings': 'none', 'panel': 'none'}"
+    },
+    {
+      "name": "desktop: workspace desktop/tablet preservado",
+      "ok": true,
+      "detail": "{'hud': 'flex', 'mobile': 'none', 'settings': 'none', 'panel': 'none'}"
+    },
+    {
+      "name": "tablet: API F10 disponível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tablet: painel escondido por padrão",
+      "ok": true,
+      "detail": "{'hud': 'flex', 'mobile': 'none', 'settings': 'none', 'panel': 'none'}"
+    },
+    {
+      "name": "tablet: workspace desktop/tablet preservado",
+      "ok": true,
+      "detail": "{'hud': 'flex', 'mobile': 'none', 'settings': 'none', 'panel': 'none'}"
+    },
+    {
+      "name": "tablet: painel abre pelo botão do turno",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile_landscape: API F10 disponível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile_landscape: painel escondido por padrão",
+      "ok": true,
+      "detail": "{'hud': 'none', 'mobile': 'block', 'settings': 'block', 'panel': 'none'}"
+    },
+    {
+      "name": "mobile_landscape: botão mobile correto",
+      "ok": true,
+      "detail": "{'hud': 'none', 'mobile': 'block', 'settings': 'block', 'panel': 'none'}"
+    },
+    {
+      "name": "mobile landscape: configurações abrem por botão",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile landscape: controles >=36px",
+      "ok": true,
+      "detail": "[54, 36, 36, 36, 36, 36, 36, 36, 54, 54, 54, 54]"
+    },
+    {
+      "name": "mobile_portrait: API F10 disponível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile_portrait: painel escondido por padrão",
+      "ok": true,
+      "detail": "{'hud': 'none', 'mobile': 'none', 'settings': 'block', 'panel': 'none'}"
+    },
+    {
+      "name": "mobile_portrait: botão mobile correto",
+      "ok": true,
+      "detail": "{'hud': 'none', 'mobile': 'none', 'settings': 'block', 'panel': 'none'}"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "selfTest": true
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "selfTest": true
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "selfTest": true
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "selfTest": true
+    }
+  },
+  "passed": 33,
+  "total": 33,
+  "failed": 0
+}

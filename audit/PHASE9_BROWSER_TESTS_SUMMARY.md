@@ -1,0 +1,50 @@
+# Fase 09 — Auditoria Chromium do workspace tablet/desktop
+
+- Resultado: **43/43 aprovados**
+- Build: `SC-1.12.0-F12-20260618-1138`
+- Ambiente: HTML, CSS e JavaScript exatos carregados em memória por bloqueio administrativo de URLs locais.
+
+## Verificações
+- [x] build F09+ carregada
+- [x] desktop schema carregado
+- [x] arquitetura geração 9+
+- [x] autoteste interno aprovado
+- [x] viewport desktop detectado
+- [x] HUD desktop visível
+- [x] workspace inicia com quatro áreas
+- [x] toolbar possui controles completos
+- [x] modo inicial balanceado
+- [x] modo radar oculta três painéis
+- [x] modo radar amplia área útil
+- [x] atalho W restaura workspace
+- [x] atalho [ alterna tráfego
+- [x] atalho ] alterna operações
+- [x] atalho B alterna dock
+- [x] Shift+A ativa análise
+- [x] análise amplia painéis
+- [x] largura ajustável funciona
+- [x] densidade compacta persiste
+- [x] atalho N seleciona solicitação
+- [x] seta alterna aeronave
+- [x] atalho 5 abre Safety
+- [x] atalho ? abre ajuda
+- [x] Escape fecha ajuda
+- [x] atalho P pausa ou retoma
+- [x] atalho C abre comandos
+- [x] desktop: modo workspace correto
+- [x] desktop: visibilidade correta do HUD
+- [x] desktop: camada mobile preservada
+- [x] wide_desktop: modo workspace correto
+- [x] wide_desktop: visibilidade correta do HUD
+- [x] wide_desktop: camada mobile preservada
+- [x] tablet: modo workspace correto
+- [x] tablet: visibilidade correta do HUD
+- [x] tablet: camada mobile preservada
+- [x] tablet: alvos touch-safe >=36px
+- [x] tablet: painéis simultâneos
+- [x] mobile_landscape: modo workspace correto
+- [x] mobile_landscape: visibilidade correta do HUD
+- [x] mobile_landscape: camada mobile preservada
+- [x] mobile_portrait: modo workspace correto
+- [x] mobile_portrait: visibilidade correta do HUD
+- [x] mobile_portrait: camada mobile preservada

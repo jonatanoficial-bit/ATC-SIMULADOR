@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "suite": "phase12-browser",
+  "mode": "inline-controlled-runtime",
+  "environmentLimitation": "Chromium local navigation is blocked by policy; exact app HTML/CSS/JS are loaded in memory while file integrity is verified separately.",
+  "build": {
+    "product": "Skyward Control",
+    "version": "1.12.0",
+    "phase": "F12",
+    "phaseName": "Modelo Realista de Aeronaves",
+    "channel": "alpha",
+    "build": "SC-1.12.0-F12-20260618-1138",
+    "builtAt": "2026-06-18 11:38 BRT",
+    "builtAtIso": "2026-06-18T11:38:16-03:00",
+    "schema": 3,
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "aircraftPerformanceSchema": 1,
+    "target": "Mobile-first / Tablet / Desktop"
+  },
+  "checks": [
+    {
+      "name": "build F12 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'version': '1.12.0', 'phase': 'F12', 'phaseName': 'Modelo Realista de Aeronaves', 'channel': 'alpha', 'build': 'SC-1.12.0-F12-20260618-1138', 'builtAt': '2026-06-18 11:38 BRT', 'builtAtIso': '2026-06-18T11:38:16-03:00', 'schema': 3, 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'aircraftPerformanceSchema': 1, 'target': 'Mobile-first / Tablet / Desktop'}"
+    },
+    {
+      "name": "performance schema carregado",
+      "ok": true,
+      "detail": "{'build': {'product': 'Skyward Control', 'version': '1.12.0', 'phase': 'F12', 'phaseName': 'Modelo Realista de Aeronaves', 'channel': 'alpha', 'build': 'SC-1.12.0-F12-20260618-1138', 'builtAt': '2026-06-18 11:38 BRT', 'builtAtIso': '2026-06-18T11:38:16-03:00', 'schema': 3, 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'aircraftPerformanceSchema': 1, 'target': 'Mobile-first / Tablet / Desktop'}, 'self': {'build': 'SC-1.12.0-F12-20260618-1138', 'ok': True, 'checks': [{'name': 'required dom', 'ok': True}, {'name': 'conflict predictor', 'ok': True}, {'name': 'safety advisor', 'ok': True}, {'name': 'context action generator', 'ok': True}, {'name': 'priority sorter', 'ok': True}, {'name': 'airports data fallback', 'ok': True}, {'name': 'canvas context', 'ok': True}, {'name': 'runway board', 'ok': True}, {'name': 'professional radar layer', 'ok': True}, {'name': 'weather ops', 'ok': True}, {'name': 'mission board', 'ok': True}, {'name': 'handoff advisor', 'ok': True}, {'name': 'readback line', 'ok': True}, {'name': 'command block enforcement', 'ok': True}, {'name': 'safe storage', 'ok': True}, {'name': 'build metadata', 'ok': True}, {'name': 'explicit clearances', 'ok': True}, {'name': 'snapshot schema', 'ok': True}, {'name': 'release metadata source', 'ok': True}, {'name': 'modular runtime registry', 'ok': True}, {'name': 'typescript contracts available', 'ok': True}, {'name': 'typescript build contract', 'ok': True}, {'name': 'typescript airport contract', 'ok': True}, {'name': 'typescript profile contract', 'ok': True}, {'name': 'typescript aircraft contract', 'ok': True}, {'name': 'typescript requests contract', 'ok': True}, {'name': 'quality kernel available', 'ok': True}, {'name': 'test schema metadata', 'ok': True}, {'name': 'qa bridge available', 'ok': True}, {'name': 'transactional save vault', 'ok': True}, {'name': 'pwa runtime available', 'ok': True}, {'name': 'pwa install manifest linked', 'ok': True}, {'name': 'mobile UX schema and API', 'ok': True}, {'name': 'mobile gesture classifier', 'ok': True}, {'name': 'mobile touch target', 'ok': True}, {'name': 'desktop workspace schema and API', 'ok': True}, {'name': 'desktop shortcut map', 'ok': True}, {'name': 'profile save contract', 'ok': True}, {'name': 'snapshot migrator v2 to v3', 'ok': True}, {'name': 'modular runtime sealed', 'ok': True}, {'name': 'unique callsign helper', 'ok': True}, {'name': 'replay schema and API', 'ok': True}, {'name': 'deterministic replay self check', 'ok': True}, {'name': 'deterministic replay checksum', 'ok': True}, {'name': 'aircraft performance schema and API', 'ok': True}, {'name': 'aircraft performance self check', 'ok': True}, {'name': 'aircraft performance envelope', 'ok': True}], 'errors': []}, 'perf': {'ok': True, 'issues': [], 'total': 9}, 'schema': 1}"
+    },
+    {
+      "name": "autoteste interno aprovado",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "self check performance aprovado",
+      "ok": true,
+      "detail": "{'ok': True, 'issues': [], 'total': 9}"
+    },
+    {
+      "name": "telemetria B752 heavy",
+      "ok": true,
+      "detail": "{'b752': {'type': 'B752', 'family': 'Boeing 757-200', 'wake': 'H', 'vRef': 146, 'targetSpeed': 155, 'envelope': 'NORMAL', 'fuelMultiplier': 1.28}, 'e190': {'type': 'E190', 'family': 'Embraer 190', 'wake': 'M', 'vRef': 126, 'targetSpeed': 135, 'envelope': 'FAST_FINAL', 'fuelMultiplier': 0.76}, 'heavyFuel': 1.85, 'neoFuel': 0.88, 'dep': {'type': 'B752', 'kind': 'departure', 'status': 'DEP', 'speed': 155.89622641509433, 'alt': 3.134020618556701, 'targetAlt': 160, 'damage': 0, 'performance': {'schema': 1, 'type': 'B752', 'family': 'Boeing 757-200', 'wake': 'H', 'className': 'High-performance narrow-body', 'engine': 'turbofan', 'vRef': 146, 'approachSpeed': 154, 'holdSpeed': 180, 'taxiSpeed': 19, 'climbFpm': 2850, 'descentFpm': 2100}, 'wakeCategory': 'H', 'targetSpeed': 205, 'envelopeState': 'LOW_ENERGY_CLIMB'}, 'app': {'type': 'E190', 'kind': 'arrival', 'status': 'APP', 'speed': 214.65408805031447, 'alt': 117.91065292096219, 'targetAlt': 45, 'damage': 0, 'performance': {'schema': 1, 'type': 'E190', 'family': 'Embraer 190', 'wake': 'M', 'className': 'Regional jet', 'engine': 'turbofan', 'vRef': 126, 'approachSpeed': 132, 'holdSpeed': 150, 'taxiSpeed': 17, 'climbFpm': 2600, 'descentFpm': 1900}, 'wakeCategory': 'M', 'targetSpeed': 139, 'envelopeState': 'NORMAL'}, 'planes': [{'id': 'GLO1204', 'type': 'A320', 'wake': 'M', 'vref': 135, 'envelope': 'NORMAL', 'targetSpeed': 149}, {'id': 'TAM3307', 'type': 'B738', 'wake': 'M', 'vref': 137, 'envelope': 'NORMAL', 'targetSpeed': 0}, {'id': 'AZU4211', 'type': 'B739', 'wake': 'M', 'vref': 141, 'envelope': 'NORMAL', 'targetSpeed': 156}, {'id': 'PTB7021', 'type': 'E190', 'wake': 'M', 'vref': 126, 'envelope': 'NORMAL', 'targetSpeed': 0}, {'id': 'ONE8902', 'type': 'A321', 'wake': 'M', 'vref': 142, 'envelope': 'NORMAL', 'targetSpeed': 157}, {'id': 'SID4405', 'type': 'B752', 'wake': 'H', 'vref': 146, 'envelope': 'NORMAL', 'targetSpeed': 0}]}"
+    },
+    {
+      "name": "E190 tem VREF menor em runtime",
+      "ok": true,
+      "detail": "{'b752': {'type': 'B752', 'family': 'Boeing 757-200', 'wake': 'H', 'vRef': 146, 'targetSpeed': 155, 'envelope': 'NORMAL', 'fuelMultiplier': 1.28}, 'e190': {'type': 'E190', 'family': 'Embraer 190', 'wake': 'M', 'vRef': 126, 'targetSpeed': 135, 'envelope': 'FAST_FINAL', 'fuelMultiplier': 0.76}, 'heavyFuel': 1.85, 'neoFuel': 0.88, 'dep': {'type': 'B752', 'kind': 'departure', 'status': 'DEP', 'speed': 155.89622641509433, 'alt': 3.134020618556701, 'targetAlt': 160, 'damage': 0, 'performance': {'schema': 1, 'type': 'B752', 'family': 'Boeing 757-200', 'wake': 'H', 'className': 'High-performance narrow-body', 'engine': 'turbofan', 'vRef': 146, 'approachSpeed': 154, 'holdSpeed': 180, 'taxiSpeed': 19, 'climbFpm': 2850, 'descentFpm': 2100}, 'wakeCategory': 'H', 'targetSpeed': 205, 'envelopeState': 'LOW_ENERGY_CLIMB'}, 'app': {'type': 'E190', 'kind': 'arrival', 'status': 'APP', 'speed': 214.65408805031447, 'alt': 117.91065292096219, 'targetAlt': 45, 'damage': 0, 'performance': {'schema': 1, 'type': 'E190', 'family': 'Embraer 190', 'wake': 'M', 'className': 'Regional jet', 'engine': 'turbofan', 'vRef': 126, 'approachSpeed': 132, 'holdSpeed': 150, 'taxiSpeed': 17, 'climbFpm': 2600, 'descentFpm': 1900}, 'wakeCategory': 'M', 'targetSpeed': 139, 'envelopeState': 'NORMAL'}, 'planes': [{'id': 'GLO1204', 'type': 'A320', 'wake': 'M', 'vref': 135, 'envelope': 'NORMAL', 'targetSpeed': 149}, {'id': 'TAM3307', 'type': 'B738', 'wake': 'M', 'vref': 137, 'envelope': 'NORMAL', 'targetSpeed': 0}, {'id': 'AZU4211', 'type': 'B739', 'wake': 'M', 'vref': 141, 'envelope': 'NORMAL', 'targetSpeed': 156}, {'id': 'PTB7021', 'type': 'E190', 'wake': 'M', 'vref': 126, 'envelope': 'NORMAL', 'targetSpeed': 0}, {'id': 'ONE8902', 'type': 'A321', 'wake': 'M', 'vref': 142, 'envelope': 'NORMAL', 'targetSpeed': 157}, {'id': 'SID4405', 'type': 'B752', 'wake': 'H', 'vref': 146, 'envelope': 'NORMAL', 'targetSpeed': 0}]}"
+    },
+    {
+      "name": "widebody consome mais que neo",
+      "ok": true,
+      "detail": "{'b752': {'type': 'B752', 'family': 'Boeing 757-200', 'wake': 'H', 'vRef': 146, 'targetSpeed': 155, 'envelope': 'NORMAL', 'fuelMultiplier': 1.28}, 'e190': {'type': 'E190', 'family': 'Embraer 190', 'wake': 'M', 'vRef': 126, 'targetSpeed': 135, 'envelope': 'FAST_FINAL', 'fuelMultiplier': 0.76}, 'heavyFuel': 1.85, 'neoFuel': 0.88, 'dep': {'type': 'B752', 'kind': 'departure', 'status': 'DEP', 'speed': 155.89622641509433, 'alt': 3.134020618556701, 'targetAlt': 160, 'damage': 0, 'performance': {'schema': 1, 'type': 'B752', 'family': 'Boeing 757-200', 'wake': 'H', 'className': 'High-performance narrow-body', 'engine': 'turbofan', 'vRef': 146, 'approachSpeed': 154, 'holdSpeed': 180, 'taxiSpeed': 19, 'climbFpm': 2850, 'descentFpm': 2100}, 'wakeCategory': 'H', 'targetSpeed': 205, 'envelopeState': 'LOW_ENERGY_CLIMB'}, 'app': {'type': 'E190', 'kind': 'arrival', 'status': 'APP', 'speed': 214.65408805031447, 'alt': 117.91065292096219, 'targetAlt': 45, 'damage': 0, 'performance': {'schema': 1, 'type': 'E190', 'family': 'Embraer 190', 'wake': 'M', 'className': 'Regional jet', 'engine': 'turbofan', 'vRef': 126, 'approachSpeed': 132, 'holdSpeed': 150, 'taxiSpeed': 17, 'climbFpm': 2600, 'descentFpm': 1900}, 'wakeCategory': 'M', 'targetSpeed': 139, 'envelopeState': 'NORMAL'}, 'planes': [{'id': 'GLO1204', 'type': 'A320', 'wake': 'M', 'vref': 135, 'envelope': 'NORMAL', 'targetSpeed': 149}, {'id': 'TAM3307', 'type': 'B738', 'wake': 'M', 'vref': 137, 'envelope': 'NORMAL', 'targetSpeed': 0}, {'id': 'AZU4211', 'type': 'B739', 'wake': 'M', 'vref': 141, 'envelope': 'NORMAL', 'targetSpeed': 156}, {'id': 'PTB7021', 'type': 'E190', 'wake': 'M', 'vref': 126, 'envelope': 'NORMAL', 'targetSpeed': 0}, {'id': 'ONE8902', 'type': 'A321', 'wake': 'M', 'vref': 142, 'envelope': 'NORMAL', 'targetSpeed': 157}, {'id': 'SID4405', 'type': 'B752', 'wake': 'H', 'vref': 146, 'envelope': 'NORMAL', 'targetSpeed': 0}]}"
+    },
+    {
+      "name": "step decolagem acelera e sobe",
+      "ok": true,
+      "detail": "{'type': 'B752', 'kind': 'departure', 'status': 'DEP', 'speed': 155.89622641509433, 'alt': 3.134020618556701, 'targetAlt': 160, 'damage': 0, 'performance': {'schema': 1, 'type': 'B752', 'family': 'Boeing 757-200', 'wake': 'H', 'className': 'High-performance narrow-body', 'engine': 'turbofan', 'vRef': 146, 'approachSpeed': 154, 'holdSpeed': 180, 'taxiSpeed': 19, 'climbFpm': 2850, 'descentFpm': 2100}, 'wakeCategory': 'H', 'targetSpeed': 205, 'envelopeState': 'LOW_ENERGY_CLIMB'}"
+    },
+    {
+      "name": "step aproximação desacelera e desce",
+      "ok": true,
+      "detail": "{'type': 'E190', 'kind': 'arrival', 'status': 'APP', 'speed': 214.65408805031447, 'alt': 117.91065292096219, 'targetAlt': 45, 'damage': 0, 'performance': {'schema': 1, 'type': 'E190', 'family': 'Embraer 190', 'wake': 'M', 'className': 'Regional jet', 'engine': 'turbofan', 'vRef': 126, 'approachSpeed': 132, 'holdSpeed': 150, 'taxiSpeed': 17, 'climbFpm': 2600, 'descentFpm': 1900}, 'wakeCategory': 'M', 'targetSpeed': 139, 'envelopeState': 'NORMAL'}"
+    },
+    {
+      "name": "tráfego inicial recebeu envelope",
+      "ok": true,
+      "detail": "[{'id': 'GLO1204', 'type': 'A320', 'wake': 'M', 'vref': 135, 'envelope': 'NORMAL', 'targetSpeed': 149}, {'id': 'TAM3307', 'type': 'B738', 'wake': 'M', 'vref': 137, 'envelope': 'NORMAL', 'targetSpeed': 0}, {'id': 'AZU4211', 'type': 'B739', 'wake': 'M', 'vref': 141, 'envelope': 'NORMAL', 'targetSpeed': 156}, {'id': 'PTB7021', 'type': 'E190', 'wake': 'M', 'vref': 126, 'envelope': 'NORMAL', 'targetSpeed': 0}, {'id': 'ONE8902', 'type': 'A321', 'wake': 'M', 'vref': 142, 'envelope': 'NORMAL', 'targetSpeed': 157}, {'id': 'SID4405', 'type': 'B752', 'wake': 'H', 'vref': 146, 'envelope': 'NORMAL', 'targetSpeed': 0}]"
+    },
+    {
+      "name": "painel selecionado mostra VREF",
+      "ok": true,
+      "detail": "{'text': '\\n    GLO1204A320 • APROXIMAÇÃO/APPAPP\\n    \\n      ALTFL141\\n      SPD137kt\\n      HDG346°\\n      POS37NM\\n      REQsolicita pouso\\n      SETORAPPWAKEMVREF135ktENVELOPENORMALFUEL57%DMG0%\\n    ', 'data': {'id': 'GLO1204', 'type': 'A320', 'vref': 135, 'envelope': 'NORMAL'}}"
+    },
+    {
+      "name": "desktop: performance API disponível",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'planes': 6, 'env': 6}"
+    },
+    {
+      "name": "desktop: aeronaves com envelope",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'planes': 6, 'env': 6}"
+    },
+    {
+      "name": "tablet: performance API disponível",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'planes': 6, 'env': 6}"
+    },
+    {
+      "name": "tablet: aeronaves com envelope",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'planes': 6, 'env': 6}"
+    },
+    {
+      "name": "mobile_landscape: performance API disponível",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'planes': 6, 'env': 6}"
+    },
+    {
+      "name": "mobile_landscape: aeronaves com envelope",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'planes': 6, 'env': 6}"
+    },
+    {
+      "name": "mobile_portrait: performance API disponível",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'planes': 6, 'env': 6}"
+    },
+    {
+      "name": "mobile_portrait: aeronaves com envelope",
+      "ok": true,
+      "detail": "{'schema': 1, 'ok': True, 'planes': 6, 'env': 6}"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "selfTest": true
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "selfTest": true
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "selfTest": true
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "selfTest": true
+    }
+  },
+  "passed": 19,
+  "total": 19,
+  "failed": 0
+}

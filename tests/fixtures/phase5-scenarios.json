@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "seed": 5005,
+  "soak": { "steps": 900, "dt": 0.1 },
+  "viewports": {
+    "desktop": { "width": 1440, "height": 900 },
+    "tablet": { "width": 1024, "height": 768 },
+    "mobile_landscape": { "width": 844, "height": 390 },
+    "mobile_portrait": { "width": 390, "height": 844 }
+  }
+}

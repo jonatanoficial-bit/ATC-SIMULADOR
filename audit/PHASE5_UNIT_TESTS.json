@@ -1,0 +1,360 @@
+{
+  "suite": "phase5-unit",
+  "schema": 1,
+  "build": "SC-1.12.0-F12-20260618-1138",
+  "passed": 70,
+  "total": 70,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "kernel executa isoladamente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API global disponível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema de teste do kernel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "versão do kernel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "kernel congelado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tabelas congeladas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "módulo registrado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp -10 em [0,100]",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp 0 em [0,100]",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp 42 em [0,100]",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp 100 em [0,100]",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp 999 em [0,100]",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp -5 em [-10,-1]",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp -99 em [-10,-1]",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp 4.5 em [4,5]",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "normalize heading -720",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "normalize heading -370",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "normalize heading -10",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "normalize heading 0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "normalize heading 90",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "normalize heading 359",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "normalize heading 360",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "normalize heading 725",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "shortest turn 0->10",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "shortest turn 10->0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "shortest turn 350->10",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "shortest turn 10->350",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "shortest turn 0->180",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "shortest turn 180->0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "shortest turn 270->90",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "shortest turn 90->270",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "distance {\"x\":0,\"y\":0} {\"x\":3,\"y\":4}",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "distance {\"x\":3,\"y\":4} {\"x\":0,\"y\":0}",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "distance {\"x\":10,\"y\":10} {\"x\":10,\"y\":10}",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "distance {\"x\":-2,\"y\":-3} {\"x\":1,\"y\":1}",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "distance {\"x\":0,\"y\":0} {\"x\":6,\"y\":8}",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "headingTo 0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "headingTo 90",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "headingTo 180",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "headingTo 270",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "headingTo 45",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "headingTo 225",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "range 0-10 @ 0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "range 0-10 @ 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "range 0-10 @ 0.5",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "range -5-5 @ 0.25",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "range 10-20 @ 2",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "range 10-20 @ -2",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "priority urgent/emergency",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "priority warn/landing",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "priority normal/takeoff",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "priority normal/pushback",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "priority warn/lowfuel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "priority warn/panpan",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "priority normal/taxi",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "priority unknown/unknown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "emergência supera pouso normal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "idade aumenta prioridade",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wake H-H x1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wake H-M x1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wake H-L x1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wake M-M x1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wake M-L x1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wake L-L x1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wake H-M x1.5",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wake X-X x1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wake M-M x0.5",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wake usa tabela operacional injetada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API não aceita mutação",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "funções essenciais presentes",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

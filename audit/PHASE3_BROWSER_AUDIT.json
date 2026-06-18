@@ -1,0 +1,329 @@
+{
+  "expectedBuild": "SC-1.3.0-F03-20260617-1249",
+  "harness": "Chromium in-memory runtime logic; asset URLs neutralized and validated statically",
+  "screens": {
+    "mobile_profile": {
+      "active": true,
+      "scrollTop": 179,
+      "maxScroll": 179,
+      "buttonBottom": 751,
+      "viewport": 844,
+      "guard": "none"
+    },
+    "mobile_game": {
+      "game": true,
+      "guard": "none",
+      "layer": "block",
+      "visiblePanels": 1,
+      "radar": {
+        "x": 13,
+        "y": 70,
+        "width": 818,
+        "height": 314
+      },
+      "viewport": {
+        "w": 844,
+        "h": 390
+      },
+      "bodyClass": "game-active game-is-active",
+      "selfTest": {
+        "build": "SC-1.3.0-F03-20260617-1249",
+        "ok": true,
+        "checks": [
+          {
+            "name": "required dom",
+            "ok": true
+          },
+          {
+            "name": "conflict predictor",
+            "ok": true
+          },
+          {
+            "name": "safety advisor",
+            "ok": true
+          },
+          {
+            "name": "context action generator",
+            "ok": true
+          },
+          {
+            "name": "priority sorter",
+            "ok": true
+          },
+          {
+            "name": "airports data fallback",
+            "ok": true
+          },
+          {
+            "name": "canvas context",
+            "ok": true
+          },
+          {
+            "name": "runway board",
+            "ok": true
+          },
+          {
+            "name": "professional radar layer",
+            "ok": true
+          },
+          {
+            "name": "weather ops",
+            "ok": true
+          },
+          {
+            "name": "mission board",
+            "ok": true
+          },
+          {
+            "name": "handoff advisor",
+            "ok": true
+          },
+          {
+            "name": "readback line",
+            "ok": true
+          },
+          {
+            "name": "command block enforcement",
+            "ok": true
+          },
+          {
+            "name": "safe storage",
+            "ok": true
+          },
+          {
+            "name": "build metadata",
+            "ok": true
+          },
+          {
+            "name": "explicit clearances",
+            "ok": true
+          },
+          {
+            "name": "snapshot schema",
+            "ok": true
+          },
+          {
+            "name": "release metadata source",
+            "ok": true
+          },
+          {
+            "name": "modular runtime registry",
+            "ok": true
+          },
+          {
+            "name": "modular runtime sealed",
+            "ok": true
+          },
+          {
+            "name": "unique callsign helper",
+            "ok": true
+          }
+        ],
+        "errors": []
+      },
+      "modules": 12,
+      "frozen": true
+    },
+    "mobile_portrait_game": {
+      "guard": "flex",
+      "bodyClass": "game-active game-is-active portrait-lock",
+      "build": "SC-1.3.0-F03-20260617-1249"
+    },
+    "tablet": {
+      "guard": "none",
+      "layer": "none",
+      "radar": {
+        "x": 204.796875,
+        "y": 81,
+        "width": 513.40625,
+        "height": 560
+      },
+      "selfTest": true,
+      "crash": false
+    },
+    "desktop": {
+      "guard": "none",
+      "layer": "none",
+      "radar": {
+        "x": 279.671875,
+        "y": 81,
+        "width": 738.0625,
+        "height": 692
+      },
+      "build": "SC-1.3.0-F03-20260617-1249",
+      "phase": "F03",
+      "arch": 3,
+      "modules": 12,
+      "selfTest": true,
+      "crash": false
+    }
+  },
+  "errors": [],
+  "runtime": {
+    "build": {
+      "product": "Skyward Control",
+      "version": "1.3.0",
+      "phase": "F03",
+      "phaseName": "Arquitetura Modular e Bundle Determinístico",
+      "channel": "alpha",
+      "build": "SC-1.3.0-F03-20260617-1249",
+      "builtAt": "2026-06-17 12:49 BRT",
+      "builtAtIso": "2026-06-17T12:49:44-03:00",
+      "schema": 2,
+      "target": "Mobile-first / Tablet / Desktop"
+    },
+    "arch": {
+      "generation": 3,
+      "strategy": "ordered-source-modules-to-classic-bundle",
+      "entry": "main.js",
+      "sourceRoot": "src/runtime",
+      "modules": [
+        "runtime-registry",
+        "01-build-and-radio",
+        "02-weather-fuel-operations",
+        "03-resilience-snapshots",
+        "04-state-airports-procedures",
+        "05-profile-navigation",
+        "06-traffic-requests",
+        "07-simulation-safety",
+        "08-radar-rendering",
+        "09-ui-clearances",
+        "10-events-selftest-bootstrap",
+        "11-mobile-runtime"
+      ],
+      "loadedAt": 1781711716556
+    },
+    "modules": [
+      "runtime-registry",
+      "01-build-and-radio",
+      "02-weather-fuel-operations",
+      "03-resilience-snapshots",
+      "04-state-airports-procedures",
+      "05-profile-navigation",
+      "06-traffic-requests",
+      "07-simulation-safety",
+      "08-radar-rendering",
+      "09-ui-clearances",
+      "10-events-selftest-bootstrap",
+      "11-mobile-runtime"
+    ],
+    "frozen": true,
+    "selfTest": {
+      "build": "SC-1.3.0-F03-20260617-1249",
+      "ok": true,
+      "checks": [
+        {
+          "name": "required dom",
+          "ok": true
+        },
+        {
+          "name": "conflict predictor",
+          "ok": true
+        },
+        {
+          "name": "safety advisor",
+          "ok": true
+        },
+        {
+          "name": "context action generator",
+          "ok": true
+        },
+        {
+          "name": "priority sorter",
+          "ok": true
+        },
+        {
+          "name": "airports data fallback",
+          "ok": true
+        },
+        {
+          "name": "canvas context",
+          "ok": true
+        },
+        {
+          "name": "runway board",
+          "ok": true
+        },
+        {
+          "name": "professional radar layer",
+          "ok": true
+        },
+        {
+          "name": "weather ops",
+          "ok": true
+        },
+        {
+          "name": "mission board",
+          "ok": true
+        },
+        {
+          "name": "handoff advisor",
+          "ok": true
+        },
+        {
+          "name": "readback line",
+          "ok": true
+        },
+        {
+          "name": "command block enforcement",
+          "ok": true
+        },
+        {
+          "name": "safe storage",
+          "ok": true
+        },
+        {
+          "name": "build metadata",
+          "ok": true
+        },
+        {
+          "name": "explicit clearances",
+          "ok": true
+        },
+        {
+          "name": "snapshot schema",
+          "ok": true
+        },
+        {
+          "name": "release metadata source",
+          "ok": true
+        },
+        {
+          "name": "modular runtime registry",
+          "ok": true
+        },
+        {
+          "name": "modular runtime sealed",
+          "ok": true
+        },
+        {
+          "name": "unique callsign helper",
+          "ok": true
+        }
+      ],
+      "errors": []
+    },
+    "title": "Skyward Control v1.3.0 — F03",
+    "crash": false
+  },
+  "checks": {
+    "build runtime": true,
+    "fase runtime": true,
+    "arquitetura geração 3": true,
+    "12 módulos carregados": true,
+    "arquitetura selada": true,
+    "autoteste interno": true,
+    "perfil mobile rolável": true,
+    "gameplay mobile horizontal": true,
+    "apenas um painel mobile": true,
+    "radar mobile visível": true,
+    "proteção retrato": true,
+    "tablet funcional": true,
+    "desktop sem camada mobile": true,
+    "desktop funcional": true,
+    "sem erros Chromium": true
+  },
+  "passed": 15,
+  "total": 15,
+  "ok": true
+}

@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "entry": "main.js",
+  "modules": [
+    {
+      "file": "00-runtime-registry.js",
+      "name": "runtime-registry",
+      "description": "Runtime architecture registry"
+    },
+    {
+      "file": "00-quality-kernel.js",
+      "name": "quality-kernel",
+      "description": "Pure deterministic production rules shared with automated tests"
+    },
+    {
+      "file": "00-typescript-contracts.js",
+      "name": "typescript-contracts",
+      "description": "TypeScript-generated domain contracts and runtime validators"
+    },
+    {
+      "file": "01-build-and-radio.js",
+      "name": "01-build-and-radio",
+      "description": "Build metadata and ATC radio/readback"
+    },
+    {
+      "file": "01-pwa-runtime.js",
+      "name": "01-pwa-runtime",
+      "description": "Installable PWA, offline cache lifecycle, controlled updates and professional fullscreen"
+    },
+    {
+      "file": "02-save-vault.js",
+      "name": "02-save-vault",
+      "description": "Transactional SHA-256 save vault, backup, journal, quarantine and rollback"
+    },
+    {
+      "file": "02-weather-fuel-operations.js",
+      "name": "02-weather-fuel-operations",
+      "description": "Weather, fuel, runway, mission and handoff operations"
+    },
+    {
+      "file": "03-resilience-snapshots.js",
+      "name": "03-resilience-snapshots",
+      "description": "Snapshots, recovery, state sanitization and DOM validation"
+    },
+    {
+      "file": "04-state-airports-procedures.js",
+      "name": "04-state-airports-procedures",
+      "description": "Runtime state, airport profiles and procedure data"
+    },
+    {
+      "file": "15-aircraft-performance.js",
+      "name": "aircraft-performance",
+      "description": "Data-driven aircraft envelopes, speeds, climb/descent, fuel burn, landing risk and performance telemetry"
+    },
+    {
+      "file": "05-profile-navigation.js",
+      "name": "05-profile-navigation",
+      "description": "Utilities, profile persistence, scenes, fullscreen and logs"
+    },
+    {
+      "file": "06-traffic-requests.js",
+      "name": "06-traffic-requests",
+      "description": "Aircraft creation, callsigns, requests and game start"
+    },
+    {
+      "file": "07-simulation-safety.js",
+      "name": "07-simulation-safety",
+      "description": "Game loop, simulation, conflict prediction and safety"
+    },
+    {
+      "file": "08-radar-rendering.js",
+      "name": "08-radar-rendering",
+      "description": "Radar, operational map, procedures, telemetry and aircraft drawing"
+    },
+    {
+      "file": "09-ui-clearances.js",
+      "name": "09-ui-clearances",
+      "description": "Traffic UI, requests, commands, clearances and action grids"
+    },
+    {
+      "file": "10-events-selftest-bootstrap.js",
+      "name": "10-events-selftest-bootstrap",
+      "description": "Desktop events, filters, safe-mode controls and self-test bootstrap"
+    },
+    {
+      "file": "11-mobile-runtime.js",
+      "name": "11-mobile-runtime",
+      "description": "Adaptive mobile UX, edge gestures, touch-safe dock, haptics and responsive viewport modes"
+    },
+    {
+      "file": "12-desktop-workspace.js",
+      "name": "desktop-workspace",
+      "description": "Professional tablet and desktop workspace, keyboard shortcuts, persistent density and resizable operational panels"
+    },
+    {
+      "file": "13-accessibility-settings.js",
+      "name": "accessibility-settings",
+      "description": "Professional accessibility, visual, audio, performance and control settings layer"
+    },
+    {
+      "file": "14-deterministic-replay.js",
+      "name": "deterministic-replay",
+      "description": "Deterministic simulation clock, seeded replay recorder, state checksums and technical replay export"
+    },
+    {
+      "file": "12-quality-test-bridge.js",
+      "name": "quality-test-bridge",
+      "description": "QA-gated integration bridge for deterministic browser scenarios"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+# Fase 05 — Testes unitários
+
+- Resultado: **70/70 aprovados**
+- Build: `SC-1.12.0-F12-20260618-1138`
+
+## Verificações
+- [x] kernel executa isoladamente
+- [x] API global disponível
+- [x] schema de teste do kernel
+- [x] versão do kernel
+- [x] kernel congelado
+- [x] tabelas congeladas
+- [x] módulo registrado
+- [x] clamp -10 em [0,100]
+- [x] clamp 0 em [0,100]
+- [x] clamp 42 em [0,100]
+- [x] clamp 100 em [0,100]
+- [x] clamp 999 em [0,100]
+- [x] clamp -5 em [-10,-1]
+- [x] clamp -99 em [-10,-1]
+- [x] clamp 4.5 em [4,5]
+- [x] normalize heading -720
+- [x] normalize heading -370
+- [x] normalize heading -10
+- [x] normalize heading 0
+- [x] normalize heading 90
+- [x] normalize heading 359
+- [x] normalize heading 360
+- [x] normalize heading 725
+- [x] shortest turn 0->10
+- [x] shortest turn 10->0
+- [x] shortest turn 350->10
+- [x] shortest turn 10->350
+- [x] shortest turn 0->180
+- [x] shortest turn 180->0
+- [x] shortest turn 270->90
+- [x] shortest turn 90->270
+- [x] distance {"x":0,"y":0} {"x":3,"y":4}
+- [x] distance {"x":3,"y":4} {"x":0,"y":0}
+- [x] distance {"x":10,"y":10} {"x":10,"y":10}
+- [x] distance {"x":-2,"y":-3} {"x":1,"y":1}
+- [x] distance {"x":0,"y":0} {"x":6,"y":8}
+- [x] headingTo 0
+- [x] headingTo 90
+- [x] headingTo 180
+- [x] headingTo 270
+- [x] headingTo 45
+- [x] headingTo 225
+- [x] range 0-10 @ 0
+- [x] range 0-10 @ 1
+- [x] range 0-10 @ 0.5
+- [x] range -5-5 @ 0.25
+- [x] range 10-20 @ 2
+- [x] range 10-20 @ -2
+- [x] priority urgent/emergency
+- [x] priority warn/landing
+- [x] priority normal/takeoff
+- [x] priority normal/pushback
+- [x] priority warn/lowfuel
+- [x] priority warn/panpan
+- [x] priority normal/taxi
+- [x] priority unknown/unknown
+- [x] emergência supera pouso normal
+- [x] idade aumenta prioridade
+- [x] wake H-H x1
+- [x] wake H-M x1
+- [x] wake H-L x1
+- [x] wake M-M x1
+- [x] wake M-L x1
+- [x] wake L-L x1
+- [x] wake H-M x1.5
+- [x] wake X-X x1
+- [x] wake M-M x0.5
+- [x] wake usa tabela operacional injetada
+- [x] API não aceita mutação
+- [x] funções essenciais presentes

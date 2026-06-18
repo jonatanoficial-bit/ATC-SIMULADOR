@@ -1,0 +1,18 @@
+SKYWARD CONTROL
+Version: 1.12.0
+Phase: F12 — Modelo Realista de Aeronaves
+Build: SC-1.12.0-F12-20260618-1138
+Built at: 2026-06-18 11:38 BRT
+Channel: alpha
+Save schema: 3
+Contract schema: 2
+Test schema: 3
+Save vault schema: 1
+PWA schema: 1
+Cache schema: 1
+UX schema: 1
+Desktop schema: 1
+Accessibility schema: 1
+Replay schema: 1
+Aircraft performance schema: 1
+Target: Mobile-first / Tablet / Desktop

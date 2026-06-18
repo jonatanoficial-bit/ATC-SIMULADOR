@@ -1,0 +1,282 @@
+{
+  "schema": 1,
+  "suite": "phase9-browser",
+  "mode": "inline-controlled-runtime",
+  "environmentLimitation": "Chromium local navigation is blocked by policy; exact app HTML/CSS/JS are loaded in memory while file integrity is verified separately.",
+  "build": {
+    "product": "Skyward Control",
+    "version": "1.12.0",
+    "phase": "F12",
+    "phaseName": "Modelo Realista de Aeronaves",
+    "channel": "alpha",
+    "build": "SC-1.12.0-F12-20260618-1138",
+    "builtAt": "2026-06-18 11:38 BRT",
+    "builtAtIso": "2026-06-18T11:38:16-03:00",
+    "schema": 3,
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "aircraftPerformanceSchema": 1,
+    "target": "Mobile-first / Tablet / Desktop"
+  },
+  "checks": [
+    {
+      "name": "build F09+ carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'version': '1.12.0', 'phase': 'F12', 'phaseName': 'Modelo Realista de Aeronaves', 'channel': 'alpha', 'build': 'SC-1.12.0-F12-20260618-1138', 'builtAt': '2026-06-18 11:38 BRT', 'builtAtIso': '2026-06-18T11:38:16-03:00', 'schema': 3, 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'aircraftPerformanceSchema': 1, 'target': 'Mobile-first / Tablet / Desktop'}"
+    },
+    {
+      "name": "desktop schema carregado",
+      "ok": true,
+      "detail": "{'schema': 1, 'mode': 'desktop'}"
+    },
+    {
+      "name": "arquitetura geração 9+",
+      "ok": true,
+      "detail": "{'generation': 10, 'strategy': 'professional-accessibility-settings-desktop-tablet-workspace-adaptive-mobile-ux-installable-offline-pwa-transactional-save-vault-quality-gated-typescript-modules', 'entry': 'main.js', 'sourceRoot': 'src/runtime', 'modules': ['runtime-registry', '00-quality-kernel', '00-typescript-contracts', '01-build-and-radio', '01-pwa-runtime', '02-save-vault', '02-weather-fuel-operations', '03-resilience-snapshots', '04-state-airports-procedures', '15-aircraft-performance', '05-profile-navigation', '06-traffic-requests', '07-simulation-safety', '08-radar-rendering', '09-ui-clearances', '10-events-selftest-bootstrap', '11-mobile-runtime', '12-desktop-workspace', '13-accessibility-settings', 'deterministic-replay', '12-quality-test-bridge'], 'loadedAt': 1781794010104}"
+    },
+    {
+      "name": "autoteste interno aprovado",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "viewport desktop detectado",
+      "ok": true,
+      "detail": "{'schema': 1, 'mode': 'desktop'}"
+    },
+    {
+      "name": "HUD desktop visível",
+      "ok": true,
+      "detail": "{'hud': 'flex', 'traffic': 'flex', 'ops': 'grid', 'bottom': 'grid', 'buttons': 12, 'radarRatio': 0.42857253086419755, 'mode': 'balanced'}"
+    },
+    {
+      "name": "workspace inicia com quatro áreas",
+      "ok": true,
+      "detail": "{'hud': 'flex', 'traffic': 'flex', 'ops': 'grid', 'bottom': 'grid', 'buttons': 12, 'radarRatio': 0.42857253086419755, 'mode': 'balanced'}"
+    },
+    {
+      "name": "toolbar possui controles completos",
+      "ok": true,
+      "detail": "{'hud': 'flex', 'traffic': 'flex', 'ops': 'grid', 'bottom': 'grid', 'buttons': 12, 'radarRatio': 0.42857253086419755, 'mode': 'balanced'}"
+    },
+    {
+      "name": "modo inicial balanceado",
+      "ok": true,
+      "detail": "{'hud': 'flex', 'traffic': 'flex', 'ops': 'grid', 'bottom': 'grid', 'buttons': 12, 'radarRatio': 0.42857253086419755, 'mode': 'balanced'}"
+    },
+    {
+      "name": "modo radar oculta três painéis",
+      "ok": true,
+      "detail": "{'cls': 'access-focus-ring access-subtitles access-shortcut-hints is-fullscreen game-active game-is-active workspace-mode-radar', 'traffic': 'none', 'ops': 'none', 'bottom': 'none', 'ratio': 0.8723950617283951}"
+    },
+    {
+      "name": "modo radar amplia área útil",
+      "ok": true,
+      "detail": "{'cls': 'access-focus-ring access-subtitles access-shortcut-hints is-fullscreen game-active game-is-active workspace-mode-radar', 'traffic': 'none', 'ops': 'none', 'bottom': 'none', 'ratio': 0.8723950617283951}"
+    },
+    {
+      "name": "atalho W restaura workspace",
+      "ok": true,
+      "detail": "{'mode': 'balanced', 'traffic': 'flex', 'ops': 'grid', 'bottom': 'grid'}"
+    },
+    {
+      "name": "atalho [ alterna tráfego",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "atalho ] alterna operações",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "atalho B alterna dock",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Shift+A ativa análise",
+      "ok": true,
+      "detail": "{'mode': 'analysis', 'left': '260px', 'right': '370px', 'bottom': '160px'}"
+    },
+    {
+      "name": "análise amplia painéis",
+      "ok": true,
+      "detail": "{'mode': 'analysis', 'left': '260px', 'right': '370px', 'bottom': '160px'}"
+    },
+    {
+      "name": "largura ajustável funciona",
+      "ok": true,
+      "detail": "260->280"
+    },
+    {
+      "name": "densidade compacta persiste",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "atalho N seleciona solicitação",
+      "ok": true,
+      "detail": "\n    GLO1204A320 • APROXIMAÇÃO/APPAPP\n    \n      ALTFL114\n      SPD139kt\n      HDG266°\n      POS63NM\n      REQsolicita pouso\n      SETORAPPWAKEMVREF135ktENVELOPENORMALFUEL67%DMG0%\n    "
+    },
+    {
+      "name": "seta alterna aeronave",
+      "ok": true,
+      "detail": "\n    GLO1204A320 • APROXIMAÇÃO/APPAPP\n    \n      ALTFL114\n      SPD139kt\n      HDG266°\n      POS63NM\n      REQsolicita pouso\n      SETORAPPWAKEMVREF135ktENVELOPENORMALFUEL67%DMG0%\n     -> \n    MAP2190A20N • APROXIMAÇÃO/APPAPP\n    \n      ALTFL144\n      SPD139kt\n      HDG17°\n      POS34NM\n      REQsolicita pouso\n      SETORAPPWAKEMVREF132ktENVELOPENORMALFUEL54%DMG0%\n    "
+    },
+    {
+      "name": "atalho 5 abre Safety",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "atalho ? abre ajuda",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Escape fecha ajuda",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "atalho P pausa ou retoma",
+      "ok": true,
+      "detail": "Ⅱ->▶"
+    },
+    {
+      "name": "atalho C abre comandos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop: modo workspace correto",
+      "ok": true,
+      "detail": "desktop"
+    },
+    {
+      "name": "desktop: visibilidade correta do HUD",
+      "ok": true,
+      "detail": "flex"
+    },
+    {
+      "name": "desktop: camada mobile preservada",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "name": "wide_desktop: modo workspace correto",
+      "ok": true,
+      "detail": "desktop"
+    },
+    {
+      "name": "wide_desktop: visibilidade correta do HUD",
+      "ok": true,
+      "detail": "flex"
+    },
+    {
+      "name": "wide_desktop: camada mobile preservada",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "name": "tablet: modo workspace correto",
+      "ok": true,
+      "detail": "tablet"
+    },
+    {
+      "name": "tablet: visibilidade correta do HUD",
+      "ok": true,
+      "detail": "flex"
+    },
+    {
+      "name": "tablet: camada mobile preservada",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "name": "tablet: alvos touch-safe >=36px",
+      "ok": true,
+      "detail": "[36, 36, 36, 36, 36, 36, 36]"
+    },
+    {
+      "name": "tablet: painéis simultâneos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile_landscape: modo workspace correto",
+      "ok": true,
+      "detail": "compact"
+    },
+    {
+      "name": "mobile_landscape: visibilidade correta do HUD",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "name": "mobile_landscape: camada mobile preservada",
+      "ok": true,
+      "detail": "block"
+    },
+    {
+      "name": "mobile_portrait: modo workspace correto",
+      "ok": true,
+      "detail": "compact"
+    },
+    {
+      "name": "mobile_portrait: visibilidade correta do HUD",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "name": "mobile_portrait: camada mobile preservada",
+      "ok": true,
+      "detail": "none"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "mode": "desktop",
+      "selfTest": true
+    },
+    "wide_desktop": {
+      "width": 1920,
+      "height": 1080,
+      "mode": "desktop",
+      "selfTest": true
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "mode": "tablet",
+      "selfTest": true
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "mode": "compact",
+      "selfTest": true
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "mode": "compact",
+      "selfTest": true
+    }
+  },
+  "passed": 43,
+  "total": 43,
+  "failed": 0
+}

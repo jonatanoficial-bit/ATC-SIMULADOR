@@ -1,0 +1,277 @@
+{
+  "schema": 1,
+  "suite": "phase6-browser",
+  "build": {
+    "product": "Skyward Control",
+    "version": "1.12.0",
+    "phase": "F12",
+    "phaseName": "Modelo Realista de Aeronaves",
+    "channel": "alpha",
+    "build": "SC-1.12.0-F12-20260618-1138",
+    "builtAt": "2026-06-18 11:38 BRT",
+    "builtAtIso": "2026-06-18T11:38:16-03:00",
+    "schema": 3,
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "aircraftPerformanceSchema": 1,
+    "target": "Mobile-first / Tablet / Desktop"
+  },
+  "checks": [
+    {
+      "name": "build F06+ carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'version': '1.12.0', 'phase': 'F12', 'phaseName': 'Modelo Realista de Aeronaves', 'channel': 'alpha', 'build': 'SC-1.12.0-F12-20260618-1138', 'builtAt': '2026-06-18 11:38 BRT', 'builtAtIso': '2026-06-18T11:38:16-03:00', 'schema': 3, 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'aircraftPerformanceSchema': 1, 'target': 'Mobile-first / Tablet / Desktop'}"
+    },
+    {
+      "name": "save schema 3 carregado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "contract schema 2 carregado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "test schema >= 2 carregado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "save vault schema 1 carregado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "save vault congelado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "SHA-256 do runtime correto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arquitetura geração 6+",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "autoteste interno F06+ aprovado",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "snapshot revisão 1 gravado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "snapshot revisão 2 gravado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "slots primário e backup existem",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "revisões são encadeadas",
+      "ok": true,
+      "detail": "{'name': 'snapshot', 'vaultSchema': 1, 'slots': {'primary': {'key': 'skyward:vault:v1:snapshot:primary', 'exists': True, 'bytes': 1843, 'value': {'vaultSchema': 1, 'name': 'snapshot', 'saveSchema': 3, 'revision': 3, 'transactionId': 'mqjm3kzp-m5ofl1zt', 'build': 'SC-1.12.0-F12-20260618-1138', 'createdAt': 1781793926917, 'reason': 'f06-rev2', 'previousHash': '007200d1b985c1c3f22eacce097b1b18e202c6f33360b549031f7dc97bee580f', 'hashAlgorithm': 'SHA-256', 'payload': {'schema': 3, 'saveId': 'save-session-mqjm3jf0-3khyxwy', 'sessionId': 'session-mqjm3jf0-3khyxwy', 'build': 'SC-1.12.0-F12-20260618-1138', 'reason': 'f06-rev2', 'at': 1781793926916, 'elapsed': 0, 'selected': 'BKP1002', 'selectedRequest': {'id': 'BKP1002', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}, 'runwayOccupiedBy': None, 'aircraft': [{'id': 'BKP1002', 'type': 'A320', 'kind': 'arrival', 'status': 'APP', 'x': 35, 'y': 30, 'heading': 90, 'speed': 170, 'alt': 80, 'targetAlt': 45, 'trail': [], 'risk': 0, 'selected': False, 'cleared': False, 'emergency': False, 'emergencyType': None, 'fuel': 60, 'fuelState': 'OK', 'damage': 0, 'hold': False, 'groundTimer': 0, 'request': 'landing', 'requestedAt': 1, 'nextFix': None, 'sector': 'APP'}], 'requests': [{'id': 'BKP1002', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}], 'score': 222, 'stats': {'landed': 0, 'departed': 0, 'conflicts': 0, 'commands': 0, 'emergencies': 0, 'requests': 6, 'denied': 0, 'runwayIncursions': 0, 'blocked': 0, 'safetyWarnings': 0, 'lowFuel': 0, 'damaged': 0, 'maydayResolved': 0}, 'mission': {'startedAt': 1532.5, 'duration': 420, 'targets': {'landed': 3, 'departed': 2, 'safety': 86, 'blockedMax': 3, 'commands': 8, 'maydayResolved': 0}, 'completed': False, 'announced': {'safety': True, 'blocked': True, 'mayday': True}, 'airport': 'SBGR'}, 'profileAirport': 'SBGR', 'profile': {'name': 'Controlador', 'avatar': 'male', 'country': 'Brasil', 'airport': 'SBGR', 'xp': 0, 'level': 1, 'score': 0, 'turns': 0}}, 'payloadHash': '3aee224e5439fcd1fed5e82e7bcf8cdeaef9cfdcf2780fd03eea6aa52692cb5c', 'envelopeHash': '8483bad8d1b6120aae1e1469152027645417deba6de70bbaccfb6daf580dbead'}, 'parseOk': True}, 'backup': {'key': 'skyward:vault:v1:snapshot:backup', 'exists': True, 'bytes': 1843, 'value': {'vaultSchema': 1, 'name': 'snapshot', 'saveSchema': 3, 'revision': 2, 'transactionId': 'mqjm3kz1-djnvjdc7', 'build': 'SC-1.12.0-F12-20260618-1138', 'createdAt': 1781793926893, 'reason': 'f06-rev1', 'previousHash': '7041d6579424a0a78ff0d6ee21228e63c13f58594f29d9ecafc3c519243706a2', 'hashAlgorithm': 'SHA-256', 'payload': {'schema': 3, 'saveId': 'save-session-mqjm3jf0-3khyxwy', 'sessionId': 'session-mqjm3jf0-3khyxwy', 'build': 'SC-1.12.0-F12-20260618-1138', 'reason': 'f06-rev1', 'at': 1781793926889, 'elapsed': 0, 'selected': 'BKP1001', 'selectedRequest': {'id': 'BKP1001', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}, 'runwayOccupiedBy': None, 'aircraft': [{'id': 'BKP1001', 'type': 'A320', 'kind': 'arrival', 'status': 'APP', 'x': 35, 'y': 30, 'heading': 90, 'speed': 170, 'alt': 80, 'targetAlt': 45, 'trail': [], 'risk': 0, 'selected': False, 'cleared': False, 'emergency': False, 'emergencyType': None, 'fuel': 60, 'fuelState': 'OK', 'damage': 0, 'hold': False, 'groundTimer': 0, 'request': 'landing', 'requestedAt': 1, 'nextFix': None, 'sector': 'APP'}], 'requests': [{'id': 'BKP1001', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}], 'score': 111, 'stats': {'landed': 0, 'departed': 0, 'conflicts': 0, 'commands': 0, 'emergencies': 0, 'requests': 6, 'denied': 0, 'runwayIncursions': 0, 'blocked': 0, 'safetyWarnings': 0, 'lowFuel': 0, 'damaged': 0, 'maydayResolved': 0}, 'mission': {'startedAt': 1532.5, 'duration': 420, 'targets': {'landed': 3, 'departed': 2, 'safety': 86, 'blockedMax': 3, 'commands': 8, 'maydayResolved': 0}, 'completed': False, 'announced': {'safety': True, 'blocked': True, 'mayday': True}, 'airport': 'SBGR'}, 'profileAirport': 'SBGR', 'profile': {'name': 'Controlador', 'avatar': 'male', 'country': 'Brasil', 'airport': 'SBGR', 'xp': 0, 'level': 1, 'score': 0, 'turns': 0}}, 'payloadHash': 'a28fd7ab18cbc0c8537e1c054108d405b4c2cb078ef809b9efb7f297ef59a574', 'envelopeHash': '007200d1b985c1c3f22eacce097b1b18e202c6f33360b549031f7dc97bee580f'}, 'parseOk': True}, 'journal': {'key': 'skyward:vault:v1:snapshot:journal', 'exists': False, 'bytes': 0, 'value': None, 'parseOk': False}, 'quarantine': {'key': 'skyward:vault:v1:snapshot:quarantine', 'exists': False, 'bytes': 0, 'value': None, 'parseOk': False}}}"
+    },
+    {
+      "name": "corrupção JSON restaura backup",
+      "ok": true,
+      "detail": "{'build': 'SC-1.12.0-F12-20260618-1138', 'testSchema': 3, 'running': True, 'paused': False, 'score': 111.00686, 'selected': 'BKP1001', 'selectedRequest': {'id': 'BKP1001', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}, 'runwayOccupiedBy': None, 'profile': {'name': 'Controlador', 'avatar': 'male', 'country': 'Brasil', 'airport': 'SBGR', 'xp': 0, 'level': 1, 'score': 0, 'turns': 0}, 'aircraft': [{'id': 'BKP1001', 'type': 'A320', 'kind': 'arrival', 'status': 'APP', 'x': 35.000056186589475, 'y': 30.001599030981044, 'heading': 86.01127680932389, 'speed': 169.49685534591197, 'alt': 79.58213058419244, 'targetAlt': 45, 'trail': [{'x': 35.000056186589475, 'y': 30.001599030981044}, {'x': 35.000056186589475, 'y': 30.001599030981044}], 'risk': 0, 'selected': True, 'cleared': False, 'emergency': False, 'emergencyType': None, 'fuel': 59.9986329, 'fuelState': 'OK', 'damage': 0, 'hold': False, 'groundTimer': 0, 'request': 'landing', 'requestedAt': 1, 'nextFix': None, 'sector': 'APP', 'performance': {'schema': 1, 'type': 'A320', 'family': 'Airbus A320ceo', 'wake': 'M', 'className': 'Narrow-body jet', 'engine': 'turbofan', 'vRef': 135, 'approachSpeed': 142, 'holdSpeed': 165, 'taxiSpeed': 18, 'climbFpm': 2300, 'descentFpm': 1900}, 'wakeCategory': 'M', 'targetSpeed': 149, 'envelopeState': 'NORMAL', 'conflictLevel': 'ok', 'conflictText': ''}], 'requests': [{'id': 'BKP1001', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}], 'stats': {'landed': 0, 'departed': 0, 'conflicts': 0, 'commands': 0, 'emergencies': 0, 'requests': 6, 'denied': 0, 'runwayIncursions': 0, 'blocked': 0, 'safetyWarnings': 0, 'lowFuel': 0, 'damaged': 0, 'maydayResolved': 0}, 'mission': {'startedAt': 1532.5, 'duration': 420, 'targets': {'landed': 3, 'departed': 2, 'safety': 86, 'blockedMax': 3, 'commands': 8, 'maydayResolved': 0}, 'completed': False, 'announced': {'safety': True, 'blocked': True, 'mayday': True}, 'airport': 'SBGR'}, 'safetyState': {'score': 100, 'level': 'ok', 'messages': ['Operação dentro dos limites.'], 'lastRisk': None}, 'weather': {'condition': 'STORM OPS', 'precip': 0.6071224678874709, 'visibilityKm': 5.053703958731439, 'ceilingFt': 1170, 'crosswindKt': 22, 'severity': 0.85, 'tick': 1.8000000000000007, 'ops': 'CAT I / EXTRA SEP'}, 'currentOpsProfile': {'runway': '09R/27L', 'layout': 'parallel', 'complexity': 1.18, 'spawn': 0.72, 'finalFix': {'x': 50, 'y': 24}, 'threshold': {'x': 82, 'y': 50}, 'gates': 'east', 'ops': 'Parallel hub', 'wind': 'E/SE', 'procedures': 'STAR MRC / SID PAG'}, 'safeMode': {'errors': [], 'contractFailures': 0, 'saveRecoveries': 1, 'saveMigrations': 0, 'lastSaveStatus': 'rollback-recovered', 'diagnostics': [{'msg': 'SAVE RECUPERADO POR ROLLBACK', 'level': 'warn', 'at': 1781793926974}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926966}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926945}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926904}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926878}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926827}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926613}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926323}, {'msg': 'Estado estabilizado: start-game', 'level': 'ok', 'at': 1781793926138}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926135}], 'perf': {'badFrames': 0, 'mode': 'normal'}}}"
+    },
+    {
+      "name": "save corrompido fica em quarentena",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "telemetria registra recuperação",
+      "ok": true,
+      "detail": "{'errors': [], 'contractFailures': 0, 'saveRecoveries': 1, 'saveMigrations': 0, 'lastSaveStatus': 'rollback-recovered', 'diagnostics': [{'msg': 'SAVE RECUPERADO POR ROLLBACK', 'level': 'warn', 'at': 1781793926974}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926966}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926945}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926904}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926878}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926827}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926613}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926323}, {'msg': 'Estado estabilizado: start-game', 'level': 'ok', 'at': 1781793926138}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926135}], 'perf': {'badFrames': 0, 'mode': 'normal'}}"
+    },
+    {
+      "name": "adulteração de payload aciona rollback",
+      "ok": true,
+      "detail": "{'build': 'SC-1.12.0-F12-20260618-1138', 'testSchema': 3, 'running': True, 'paused': False, 'score': 333, 'selected': 'HSH1001', 'selectedRequest': {'id': 'HSH1001', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}, 'runwayOccupiedBy': None, 'profile': {'name': 'Controlador', 'avatar': 'male', 'country': 'Brasil', 'airport': 'SBGR', 'xp': 0, 'level': 1, 'score': 0, 'turns': 0}, 'aircraft': [{'id': 'HSH1001', 'type': 'A320', 'kind': 'arrival', 'status': 'APP', 'x': 35, 'y': 30, 'heading': 90, 'speed': 170, 'alt': 80, 'targetAlt': 45, 'trail': [], 'risk': 0, 'selected': False, 'cleared': False, 'emergency': False, 'emergencyType': None, 'fuel': 60, 'fuelState': 'OK', 'damage': 0, 'hold': False, 'groundTimer': 0, 'request': 'landing', 'requestedAt': 1, 'nextFix': None, 'sector': 'APP'}], 'requests': [{'id': 'HSH1001', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}], 'stats': {'landed': 0, 'departed': 0, 'conflicts': 0, 'commands': 0, 'emergencies': 0, 'requests': 6, 'denied': 0, 'runwayIncursions': 0, 'blocked': 0, 'safetyWarnings': 0, 'lowFuel': 0, 'damaged': 0, 'maydayResolved': 0}, 'mission': {'startedAt': 1532.5, 'duration': 420, 'targets': {'landed': 3, 'departed': 2, 'safety': 86, 'blockedMax': 3, 'commands': 8, 'maydayResolved': 0}, 'completed': False, 'announced': {'safety': True, 'blocked': True, 'mayday': True}, 'airport': 'SBGR'}, 'safetyState': {'score': 100, 'level': 'ok', 'messages': ['Operação dentro dos limites.'], 'lastRisk': None}, 'weather': {'condition': 'STORM OPS', 'precip': 0.6106779477720818, 'visibilityKm': 5.030593339481468, 'ceilingFt': 1166, 'crosswindKt': 21, 'severity': 0.85, 'tick': 2.000000000000001, 'ops': 'CAT I / EXTRA SEP'}, 'currentOpsProfile': {'runway': '09R/27L', 'layout': 'parallel', 'complexity': 1.18, 'spawn': 0.72, 'finalFix': {'x': 50, 'y': 24}, 'threshold': {'x': 82, 'y': 50}, 'gates': 'east', 'ops': 'Parallel hub', 'wind': 'E/SE', 'procedures': 'STAR MRC / SID PAG'}, 'safeMode': {'errors': [], 'contractFailures': 0, 'saveRecoveries': 2, 'saveMigrations': 0, 'lastSaveStatus': 'rollback-recovered', 'diagnostics': [{'msg': 'SAVE RECUPERADO POR ROLLBACK', 'level': 'warn', 'at': 1781793927102}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927093}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927080}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927057}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927034}, {'msg': 'SAVE RECUPERADO POR ROLLBACK', 'level': 'warn', 'at': 1781793926974}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926966}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926945}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926904}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926878}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926827}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926613}], 'perf': {'badFrames': 0, 'mode': 'normal'}}}"
+    },
+    {
+      "name": "journal preparado pode ser inspecionado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "journal de commit confirmado é removido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "journal incompleto é resolvido sem perda",
+      "ok": true,
+      "detail": "{'ok': True, 'payload': {'schema': 3, 'saveId': 'save-session-mqjm3jf0-3khyxwy', 'sessionId': 'session-mqjm3jf0-3khyxwy', 'build': 'SC-1.12.0-F12-20260618-1138', 'reason': 'journal-b', 'at': 1781793927154, 'elapsed': 0, 'selected': 'JRN1002', 'selectedRequest': {'id': 'JRN1002', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}, 'runwayOccupiedBy': None, 'aircraft': [{'id': 'JRN1002', 'type': 'A320', 'kind': 'arrival', 'status': 'APP', 'x': 35, 'y': 30, 'heading': 90, 'speed': 170, 'alt': 80, 'targetAlt': 45, 'trail': [], 'risk': 0, 'selected': False, 'cleared': False, 'emergency': False, 'emergencyType': None, 'fuel': 60, 'fuelState': 'OK', 'damage': 0, 'hold': False, 'groundTimer': 0, 'request': 'landing', 'requestedAt': 1, 'nextFix': None, 'sector': 'APP'}], 'requests': [{'id': 'JRN1002', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}], 'score': 600, 'stats': {'landed': 0, 'departed': 0, 'conflicts': 0, 'commands': 0, 'emergencies': 0, 'requests': 6, 'denied': 0, 'runwayIncursions': 0, 'blocked': 0, 'safetyWarnings': 0, 'lowFuel': 0, 'damaged': 0, 'maydayResolved': 0}, 'mission': {'startedAt': 1532.5, 'duration': 420, 'targets': {'landed': 3, 'departed': 2, 'safety': 86, 'blockedMax': 3, 'commands': 8, 'maydayResolved': 0}, 'completed': False, 'announced': {'safety': True, 'blocked': True, 'mayday': True}, 'airport': 'SBGR'}, 'profileAirport': 'SBGR', 'profile': {'name': 'Controlador', 'avatar': 'male', 'country': 'Brasil', 'airport': 'SBGR', 'xp': 0, 'level': 1, 'score': 0, 'turns': 0}}, 'envelope': {'vaultSchema': 1, 'name': 'snapshot', 'saveSchema': 3, 'revision': 5, 'transactionId': 'mqjm3l6b-xjcbkqto', 'build': 'SC-1.12.0-F12-20260618-1138', 'createdAt': 1781793927155, 'reason': 'journal-b', 'previousHash': '1937cff1c4542a039b60aa406c42362497c95797c53e2ef2a3dca4d06397bed9', 'hashAlgorithm': 'SHA-256', 'payload': {'schema': 3, 'saveId': 'save-session-mqjm3jf0-3khyxwy', 'sessionId': 'session-mqjm3jf0-3khyxwy', 'build': 'SC-1.12.0-F12-20260618-1138', 'reason': 'journal-b', 'at': 1781793927154, 'elapsed': 0, 'selected': 'JRN1002', 'selectedRequest': {'id': 'JRN1002', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}, 'runwayOccupiedBy': None, 'aircraft': [{'id': 'JRN1002', 'type': 'A320', 'kind': 'arrival', 'status': 'APP', 'x': 35, 'y': 30, 'heading': 90, 'speed': 170, 'alt': 80, 'targetAlt': 45, 'trail': [], 'risk': 0, 'selected': False, 'cleared': False, 'emergency': False, 'emergencyType': None, 'fuel': 60, 'fuelState': 'OK', 'damage': 0, 'hold': False, 'groundTimer': 0, 'request': 'landing', 'requestedAt': 1, 'nextFix': None, 'sector': 'APP'}], 'requests': [{'id': 'JRN1002', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}], 'score': 600, 'stats': {'landed': 0, 'departed': 0, 'conflicts': 0, 'commands': 0, 'emergencies': 0, 'requests': 6, 'denied': 0, 'runwayIncursions': 0, 'blocked': 0, 'safetyWarnings': 0, 'lowFuel': 0, 'damaged': 0, 'maydayResolved': 0}, 'mission': {'startedAt': 1532.5, 'duration': 420, 'targets': {'landed': 3, 'departed': 2, 'safety': 86, 'blockedMax': 3, 'commands': 8, 'maydayResolved': 0}, 'completed': False, 'announced': {'safety': True, 'blocked': True, 'mayday': True}, 'airport': 'SBGR'}, 'profileAirport': 'SBGR', 'profile': {'name': 'Controlador', 'avatar': 'male', 'country': 'Brasil', 'airport': 'SBGR', 'xp': 0, 'level': 1, 'score': 0, 'turns': 0}}, 'payloadHash': '86953ccd1bbfaa7158c3e47840e4c0fc193fcf7b1977f13166329feb03c53c01', 'envelopeHash': '431d93013712452d578a40b5f8335b6449d694c4959f54d369484ffccd010a9b'}, 'source': 'primary', 'recovered': True, 'journalRecovery': {'ok': True, 'action': 'rolled-back'}}"
+    },
+    {
+      "name": "snapshot v2 é migrado e restaurado",
+      "ok": true,
+      "detail": "{'build': 'SC-1.12.0-F12-20260618-1138', 'testSchema': 3, 'running': True, 'paused': False, 'score': 777, 'selected': 'LEG1001', 'selectedRequest': {'id': 'LEG1001', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}, 'runwayOccupiedBy': None, 'profile': {'name': 'Controlador', 'avatar': 'male', 'country': 'Brasil', 'airport': 'SBGR', 'xp': 0, 'level': 1, 'score': 0, 'turns': 0}, 'aircraft': [{'id': 'LEG1001', 'type': 'A320', 'kind': 'arrival', 'status': 'APP', 'x': 35, 'y': 30, 'heading': 90, 'speed': 170, 'alt': 80, 'targetAlt': 45, 'trail': [], 'risk': 0, 'selected': False, 'cleared': False, 'emergency': False, 'emergencyType': None, 'fuel': 60, 'fuelState': 'OK', 'damage': 0, 'hold': False, 'groundTimer': 0, 'request': 'landing', 'requestedAt': 1, 'nextFix': None, 'sector': 'APP'}], 'requests': [{'id': 'LEG1001', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}], 'stats': {'landed': 1, 'departed': 0, 'conflicts': 0, 'commands': 0, 'emergencies': 0, 'requests': 0, 'denied': 0, 'runwayIncursions': 0, 'blocked': 0, 'safetyWarnings': 0, 'lowFuel': 0, 'damaged': 0, 'maydayResolved': 0}, 'mission': {'startedAt': 2645.0999999996275, 'duration': 420, 'targets': {'landed': 3, 'departed': 2, 'safety': 86, 'blockedMax': 3, 'commands': 8, 'maydayResolved': 0}, 'completed': False, 'announced': {'safety': True, 'blocked': True, 'mayday': True}, 'airport': 'SBGR'}, 'safetyState': {'score': 100, 'level': 'ok', 'messages': ['Operação dentro dos limites.'], 'lastRisk': None}, 'weather': {'condition': 'STORM OPS', 'precip': 0.6142291106685421, 'visibilityKm': 5.007510780654476, 'ceilingFt': 1163, 'crosswindKt': 21, 'severity': 0.85, 'tick': 2.2, 'ops': 'CAT I / EXTRA SEP'}, 'currentOpsProfile': {'runway': '09R/27L', 'layout': 'parallel', 'complexity': 1.18, 'spawn': 0.72, 'finalFix': {'x': 50, 'y': 24}, 'threshold': {'x': 82, 'y': 50}, 'gates': 'east', 'ops': 'Parallel hub', 'wind': 'E/SE', 'procedures': 'STAR MRC / SID PAG'}, 'safeMode': {'errors': [], 'contractFailures': 0, 'saveRecoveries': 2, 'saveMigrations': 1, 'lastSaveStatus': 'migrated', 'diagnostics': [{'msg': 'ESTADO SEGURO RESTAURADO', 'level': 'ok', 'at': 1781793927240}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927230}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927218}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927136}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927117}, {'msg': 'SAVE RECUPERADO POR ROLLBACK', 'level': 'warn', 'at': 1781793927102}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927093}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927080}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927057}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927034}, {'msg': 'SAVE RECUPERADO POR ROLLBACK', 'level': 'warn', 'at': 1781793926974}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926966}], 'perf': {'badFrames': 0, 'mode': 'normal'}}}"
+    },
+    {
+      "name": "migração grava payload schema 3",
+      "ok": true,
+      "detail": "{'vaultSchema': 1, 'name': 'snapshot', 'saveSchema': 3, 'revision': 1, 'transactionId': 'mqjm3l8b-tjd3ug3r', 'build': 'SC-1.12.0-F12-20260618-1138', 'createdAt': 1781793927227, 'reason': 'legacy-import:skywardGoodState_v2', 'previousHash': None, 'hashAlgorithm': 'SHA-256', 'payload': {'schema': 3, 'build': 'SC-1.5.0-F05-LEGACY', 'reason': 'legacy-test', 'at': 1000, 'elapsed': 12, 'selected': 'LEG1001', 'selectedRequest': {'id': 'LEG1001', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}, 'runwayOccupiedBy': None, 'aircraft': [{'id': 'LEG1001', 'type': 'A320', 'kind': 'arrival', 'status': 'APP', 'x': 35, 'y': 30, 'heading': 90, 'speed': 170, 'alt': 80, 'targetAlt': 45, 'trail': [], 'risk': 0, 'selected': False, 'cleared': False, 'emergency': False, 'emergencyType': None, 'fuel': 60, 'fuelState': 'OK', 'damage': 0, 'hold': False, 'groundTimer': 0, 'request': 'landing', 'requestedAt': 1, 'nextFix': None}], 'requests': [{'id': 'LEG1001', 'type': 'landing', 'priority': 'warn', 'text': 'solicita pouso', 'time': 1}], 'score': 777, 'stats': {'landed': 1, 'departed': 0, 'conflicts': 0, 'commands': 0, 'emergencies': 0, 'requests': 0, 'denied': 0, 'runwayIncursions': 0, 'blocked': 0, 'safetyWarnings': 0, 'lowFuel': 0, 'damaged': 0, 'maydayResolved': 0}, 'mission': None, 'profileAirport': 'SBGR', 'saveId': 'save-rs-0F05LEGACY', 'sessionId': 'migrated-rs', 'profile': {'name': 'Controlador', 'avatar': 'male', 'country': 'Brasil', 'airport': 'SBGR', 'xp': 0, 'level': 1, 'score': 0, 'turns': 0}}, 'payloadHash': '7720dbf889e0faa514c36427b4bbc417bd16a223ee1d627a8b57f2adc2af7d95', 'envelopeHash': '54573ef8cf60e9658f60c8c21bb225f57e503231af246dfb3db8ea912f89bd7b'}"
+    },
+    {
+      "name": "migração adiciona saveId e sessionId",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "telemetria registra migração",
+      "ok": true,
+      "detail": "{'errors': [], 'contractFailures': 0, 'saveRecoveries': 2, 'saveMigrations': 1, 'lastSaveStatus': 'migrated', 'diagnostics': [{'msg': 'ESTADO SEGURO RESTAURADO', 'level': 'ok', 'at': 1781793927240}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927230}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927218}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927136}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927117}, {'msg': 'SAVE RECUPERADO POR ROLLBACK', 'level': 'warn', 'at': 1781793927102}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927093}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927080}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927057}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793927034}, {'msg': 'SAVE RECUPERADO POR ROLLBACK', 'level': 'warn', 'at': 1781793926974}, {'msg': 'SISTEMA OK', 'level': 'ok', 'at': 1781793926966}], 'perf': {'badFrames': 0, 'mode': 'normal'}}"
+    },
+    {
+      "name": "perfil revisão 1 gravado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "perfil revisão 2 gravado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "perfil corrompido recupera backup",
+      "ok": true,
+      "detail": "{'name': 'Perfil Backup', 'avatar': 'male', 'country': 'Brasil', 'airport': 'SBGR', 'xp': 100, 'level': 2, 'score': 1000, 'turns': 5}"
+    },
+    {
+      "name": "backup de perfil mantém progressão íntegra",
+      "ok": true,
+      "detail": "{'name': 'Perfil Backup', 'avatar': 'male', 'country': 'Brasil', 'airport': 'SBGR', 'xp': 100, 'level': 2, 'score': 1000, 'turns': 5}"
+    },
+    {
+      "name": "ferramentas destrutivas bloqueadas fora de QA",
+      "ok": true,
+      "detail": "{'enabled': False, 'threw': True, 'vaultFrozen': True}"
+    },
+    {
+      "name": "save vault permanece congelado no jogo normal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop: runtime e vault ativos",
+      "ok": true,
+      "detail": "{'selfTest': True, 'game': True, 'vault': 1, 'saveSchema': 3, 'guard': False}"
+    },
+    {
+      "name": "tablet: runtime e vault ativos",
+      "ok": true,
+      "detail": "{'selfTest': True, 'game': True, 'vault': 1, 'saveSchema': 3, 'guard': False}"
+    },
+    {
+      "name": "mobile_landscape: runtime e vault ativos",
+      "ok": true,
+      "detail": "{'selfTest': True, 'game': True, 'vault': 1, 'saveSchema': 3, 'guard': False}"
+    },
+    {
+      "name": "mobile horizontal não exibe guard",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile_portrait: runtime e vault ativos",
+      "ok": true,
+      "detail": "{'selfTest': True, 'game': True, 'vault': 1, 'saveSchema': 3, 'guard': True}"
+    },
+    {
+      "name": "mobile vertical mantém guard de orientação",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "sem exceções de página",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "sem erros de console",
+      "ok": true,
+      "detail": "[]"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "layout": {
+        "selfTest": true,
+        "game": true,
+        "vault": 1,
+        "saveSchema": 3,
+        "guard": false
+      }
+    },
+    "tablet": {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "layout": {
+        "selfTest": true,
+        "game": true,
+        "vault": 1,
+        "saveSchema": 3,
+        "guard": false
+      }
+    },
+    "mobile_landscape": {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "layout": {
+        "selfTest": true,
+        "game": true,
+        "vault": 1,
+        "saveSchema": 3,
+        "guard": false
+      }
+    },
+    "mobile_portrait": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "layout": {
+        "selfTest": true,
+        "game": true,
+        "vault": 1,
+        "saveSchema": 3,
+        "guard": true
+      }
+    }
+  },
+  "passed": 38,
+  "total": 38,
+  "failed": 0
+}

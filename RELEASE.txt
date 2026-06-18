@@ -1,0 +1,7 @@
+SKYWARD CONTROL
+Commercial evolution program — Phase 12
+Version: 1.12.0
+Build: SC-1.12.0-F12-20260618-1138
+Built: 2026-06-18 11:38 BRT
+Channel: ALPHA
+Status: F12 AUDITED / RELEASE PIPELINE LOCKED

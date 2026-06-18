@@ -1,0 +1,215 @@
+{
+  "schema": 1,
+  "suite": "phase10-unit",
+  "build": "SC-1.12.0-F12-20260618-1138",
+  "passed": 41,
+  "total": 41,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "config legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "metadata legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "order legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "runtime legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fase F10+ configurada",
+      "ok": true,
+      "detail": "1.12.0/F12"
+    },
+    {
+      "name": "accessibility schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build F10+ carimbada",
+      "ok": true,
+      "detail": "SC-1.12.0-F12-20260618-1138"
+    },
+    {
+      "name": "schemas anteriores preservados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "módulo F10 oficial",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "módulo F10 antes do bridge QA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arquitetura geração 10",
+      "ok": true,
+      "detail": "12"
+    },
+    {
+      "name": "manifesto consistente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "estratégia acessibilidade registrada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "painel de acessibilidade no HTML",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "gatilhos de configurações presentes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "controles de visual presentes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "controles de áudio presentes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "controles de desempenho presentes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS aplica escala e contraste",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS aplica modos de daltonismo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS reduz movimento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS alvos grandes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API F10 congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preferências F10 persistem",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "atalhos F10 presentes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bundle sincronizado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema API 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp inferior",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp superior",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "sanitize escala inválida",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "sanitize contraste alto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "sanitize volume limita",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preferência visual aplica dataset",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "escala cria variável CSS",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "alvos grandes criam classe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "reduzir movimento cria classe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preferências salvas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "resumo legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "self check aprovado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "reset retorna padrão",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

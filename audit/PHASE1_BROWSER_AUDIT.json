@@ -1,0 +1,339 @@
+{
+  "boot": {
+    "active": "boot",
+    "build": "SC-1.1.0-F01-20260617-1143",
+    "selfTest": {
+      "build": "SC-1.1.0-F01-20260617-1143",
+      "ok": true,
+      "checks": [
+        {
+          "name": "required dom",
+          "ok": true
+        },
+        {
+          "name": "conflict predictor",
+          "ok": true
+        },
+        {
+          "name": "safety advisor",
+          "ok": true
+        },
+        {
+          "name": "context action generator",
+          "ok": true
+        },
+        {
+          "name": "priority sorter",
+          "ok": true
+        },
+        {
+          "name": "airports data fallback",
+          "ok": true
+        },
+        {
+          "name": "canvas context",
+          "ok": true
+        },
+        {
+          "name": "runway board",
+          "ok": true
+        },
+        {
+          "name": "professional radar layer",
+          "ok": true
+        },
+        {
+          "name": "weather ops",
+          "ok": true
+        },
+        {
+          "name": "mission board",
+          "ok": true
+        },
+        {
+          "name": "handoff advisor",
+          "ok": true
+        },
+        {
+          "name": "readback line",
+          "ok": true
+        },
+        {
+          "name": "command block enforcement",
+          "ok": true
+        },
+        {
+          "name": "safe storage",
+          "ok": true
+        },
+        {
+          "name": "build metadata",
+          "ok": true
+        },
+        {
+          "name": "explicit clearances",
+          "ok": true
+        },
+        {
+          "name": "snapshot schema",
+          "ok": true
+        },
+        {
+          "name": "unique callsign helper",
+          "ok": true
+        }
+      ],
+      "errors": []
+    },
+    "lastError": null
+  },
+  "profile_landscape": {
+    "bodyClass": "",
+    "guard": "none",
+    "documentClient": 390,
+    "documentScroll": 905,
+    "before": 0,
+    "after": 515,
+    "maxScroll": 515,
+    "buttonTop": 252.8125,
+    "buttonBottom": 306.8125,
+    "viewport": 390,
+    "overflow": "visible"
+  },
+  "profile_portrait": {
+    "guard": "none",
+    "documentClient": 844,
+    "documentScroll": 1023,
+    "after": 179,
+    "maxScroll": 179,
+    "buttonTop": 697,
+    "buttonBottom": 751,
+    "viewport": 844,
+    "bodyOverflow": "auto"
+  },
+  "game_mobile_initial": {
+    "bodyClass": "game-active game-is-active",
+    "guard": "none",
+    "layer": "block",
+    "visiblePanels": 1,
+    "panelActive": true,
+    "actionsActive": false,
+    "panelWidth": 320.71875,
+    "viewport": 844,
+    "radar": {
+      "x": 4,
+      "y": 61,
+      "width": 836,
+      "height": 332,
+      "top": 61,
+      "right": 840,
+      "bottom": 393,
+      "left": 4
+    },
+    "callsigns": [
+      "GLO1204",
+      "TAM3307",
+      "AZU4211",
+      "PTB7021",
+      "ONE8902",
+      "SID4405"
+    ],
+    "unique": true,
+    "requests": [
+      {
+        "id": "SID4405",
+        "type": "pushback"
+      },
+      {
+        "id": "ONE8902",
+        "type": "landing"
+      },
+      {
+        "id": "PTB7021",
+        "type": "pushback"
+      },
+      {
+        "id": "AZU4211",
+        "type": "landing"
+      },
+      {
+        "id": "TAM3307",
+        "type": "pushback"
+      },
+      {
+        "id": "GLO1204",
+        "type": "landing"
+      }
+    ],
+    "snapshot": {
+      "valid": true,
+      "reason": "start-game",
+      "aircraft": 6
+    },
+    "errors": [],
+    "genericClear": 0
+  },
+  "game_mobile_action": {
+    "selected": "GLO1204",
+    "request": {
+      "id": "GLO1204",
+      "type": "landing"
+    },
+    "visiblePanels": 1,
+    "panelDisplay": "none",
+    "actionsDisplay": "block",
+    "actionsWidth": 320.71875,
+    "ratio": 0.379998518957346,
+    "expected": "clearLanding",
+    "enabled": [
+      "vectorFinal",
+      "clearLanding",
+      "slow",
+      "descend",
+      "hold",
+      "more",
+      "left",
+      "right",
+      "slow",
+      "fast",
+      "climb",
+      "descend",
+      "hold",
+      "holdShort",
+      "vectorFinal",
+      "clearLanding",
+      "deny",
+      "emergency"
+    ],
+    "exactButton": true
+  },
+  "clearance_execution": {
+    "before": {
+      "id": "GLO1204",
+      "type": "landing"
+    },
+    "expected": "clearLanding",
+    "clicked": true,
+    "status": "FINAL",
+    "planeRequest": null,
+    "requestStillPending": false,
+    "lastReadback": "READBACK: GLO1204 autorizado pouso pista 09R/27L.",
+    "errors": []
+  },
+  "snapshot_restore": {
+    "ok": true,
+    "score": 777,
+    "running": true,
+    "paused": false,
+    "snapshotReason": "audit-restore",
+    "errors": []
+  },
+  "game_portrait": {
+    "guard": "flex",
+    "bodyClass": "game-active game-is-active portrait-lock",
+    "appPointer": "none"
+  },
+  "game_desktop": {
+    "layer": "none",
+    "mobilePanel": "none",
+    "mobileActions": "none",
+    "traffic": "flex",
+    "ops": "grid",
+    "radar": {
+      "x": 270.671875,
+      "y": 72,
+      "width": 756.0625,
+      "height": 710,
+      "top": 72,
+      "right": 1026.734375,
+      "bottom": 782,
+      "left": 270.671875
+    },
+    "bodyClass": "game-active game-is-active",
+    "errors": [],
+    "selfTest": {
+      "build": "SC-1.1.0-F01-20260617-1143",
+      "ok": true,
+      "checks": [
+        {
+          "name": "required dom",
+          "ok": true
+        },
+        {
+          "name": "conflict predictor",
+          "ok": true
+        },
+        {
+          "name": "safety advisor",
+          "ok": true
+        },
+        {
+          "name": "context action generator",
+          "ok": true
+        },
+        {
+          "name": "priority sorter",
+          "ok": true
+        },
+        {
+          "name": "airports data fallback",
+          "ok": true
+        },
+        {
+          "name": "canvas context",
+          "ok": true
+        },
+        {
+          "name": "runway board",
+          "ok": true
+        },
+        {
+          "name": "professional radar layer",
+          "ok": true
+        },
+        {
+          "name": "weather ops",
+          "ok": true
+        },
+        {
+          "name": "mission board",
+          "ok": true
+        },
+        {
+          "name": "handoff advisor",
+          "ok": true
+        },
+        {
+          "name": "readback line",
+          "ok": true
+        },
+        {
+          "name": "command block enforcement",
+          "ok": true
+        },
+        {
+          "name": "safe storage",
+          "ok": true
+        },
+        {
+          "name": "build metadata",
+          "ok": true
+        },
+        {
+          "name": "explicit clearances",
+          "ok": true
+        },
+        {
+          "name": "snapshot schema",
+          "ok": true
+        },
+        {
+          "name": "unique callsign helper",
+          "ok": true
+        }
+      ],
+      "errors": []
+    }
+  },
+  "browser_events": []
+}

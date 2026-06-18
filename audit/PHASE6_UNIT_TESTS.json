@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "suite": "phase6-unit",
+  "build": "SC-1.12.0-F12-20260618-1138",
+  "passed": 24,
+  "total": 24,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "API do vault criada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema do vault é 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "SHA-256 conhecido",
+      "ok": true,
+      "detail": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+    },
+    {
+      "name": "serialização canônica independe da ordem",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hash canônico independe da ordem",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "primeira transação é confirmada",
+      "ok": true,
+      "detail": "{\"ok\":true,\"envelope\":{\"vaultSchema\":1,\"name\":\"snapshot\",\"saveSchema\":3,\"revision\":1,\"transactionId\":\"mqjma0r2-x52unhqi\",\"build\":\"SC-1.6.0-F06-TEST\",\"createdAt\":1781794227278,\"reason\":\"first\",\"previousHash\":null,\"hashAlgorithm\":\"SHA-256\",\"payload\":{\"schema\":3,\"score\":100},\"payloadHash\":\"066073286d7cd55d9c5a5d5e2484c61bd46e18560a539ef8bf11f4b128b580e6\",\"envelopeHash\":\"b7af1208ec436639905942c45a575685dca39b80698986cef5a9927390319055\"},\"revision\":1}"
+    },
+    {
+      "name": "primeiro save ocupa slot primário",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "segunda transação incrementa revisão",
+      "ok": true,
+      "detail": "{\"ok\":true,\"envelope\":{\"vaultSchema\":1,\"name\":\"snapshot\",\"saveSchema\":3,\"revision\":2,\"transactionId\":\"mqjma0r8-zolf0d19\",\"build\":\"SC-1.6.0-F06-TEST\",\"createdAt\":1781794227284,\"reason\":\"second\",\"previousHash\":\"b7af1208ec436639905942c45a575685dca39b80698986cef5a9927390319055\",\"hashAlgorithm\":\"SHA-256\",\"payload\":{\"schema\":3,\"score\":200},\"payloadHash\":\"c8a1f281fd41e64e5427757c03fec17d08b6d1b9e65720a298cc9423ee354373\",\"envelopeHash\":\"68a2bfb8cca9fee6ea46cf59729d6557c8a91b8d282fbe3842c96c6ad8bc6dbd\"},\"revision\":2}"
+    },
+    {
+      "name": "segunda transação cria backup",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "leitura retorna versão primária mais recente",
+      "ok": true,
+      "detail": "{\"ok\":true,\"payload\":{\"schema\":3,\"score\":200},\"envelope\":{\"vaultSchema\":1,\"name\":\"snapshot\",\"saveSchema\":3,\"revision\":2,\"transactionId\":\"mqjma0r8-zolf0d19\",\"build\":\"SC-1.6.0-F06-TEST\",\"createdAt\":1781794227284,\"reason\":\"second\",\"previousHash\":\"b7af1208ec436639905942c45a575685dca39b80698986cef5a9927390319055\",\"hashAlgorithm\":\"SHA-256\",\"payload\":{\"schema\":3,\"score\":200},\"payloadHash\":\"c8a1f281fd41e64e5427757c03fec17d08b6d1b9e65720a298cc9423ee354373\",\"envelopeHash\":\"68a2bfb8cca9fee6ea46cf59729d6557c8a91b8d282fbe3842c96c6ad8bc6dbd\"},\"source\":\"primary\",\"recovered\":false,\"journalRecovery\":{\"ok\":true,\"action\":\"none\"}}"
+    },
+    {
+      "name": "JSON corrompido aciona rollback automático",
+      "ok": true,
+      "detail": "{\"ok\":true,\"envelope\":{\"vaultSchema\":1,\"name\":\"snapshot\",\"saveSchema\":3,\"revision\":1,\"transactionId\":\"mqjma0r2-x52unhqi\",\"build\":\"SC-1.6.0-F06-TEST\",\"createdAt\":1781794227278,\"reason\":\"first\",\"previousHash\":null,\"hashAlgorithm\":\"SHA-256\",\"payload\":{\"schema\":3,\"score\":100},\"payloadHash\":\"066073286d7cd55d9c5a5d5e2484c61bd46e18560a539ef8bf11f4b128b580e6\",\"envelopeHash\":\"b7af1208ec436639905942c45a575685dca39b80698986cef5a9927390319055\"},\"payload\":{\"schema\":3,\"score\":100},\"source\":\"backup\",\"recovered\":true,\"journalRecovery\":{\"ok\":true,\"action\":\"none\"}}"
+    },
+    {
+      "name": "save corrompido é enviado à quarentena",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "rollback restaura slot primário válido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "adulteração do payload é detectada pelo SHA-256",
+      "ok": true,
+      "detail": "{\"ok\":true,\"envelope\":{\"vaultSchema\":1,\"name\":\"snapshot\",\"saveSchema\":3,\"revision\":1,\"transactionId\":\"mqjma0re-jyuc2okx\",\"build\":\"SC-1.6.0-F06-TEST\",\"createdAt\":1781794227290,\"reason\":\"base\",\"previousHash\":null,\"hashAlgorithm\":\"SHA-256\",\"payload\":{\"schema\":3,\"score\":300},\"payloadHash\":\"8009bf554c1c12b8a942b0cf34e00cdc59d60da50967fbf03e2b6445625adac6\",\"envelopeHash\":\"9ce8296a17941818075c393a263ab5f9d2c6ebe719741b1b86e58170e2e481a5\"},\"payload\":{\"schema\":3,\"score\":300},\"source\":\"backup\",\"recovered\":true,\"journalRecovery\":{\"ok\":true,\"action\":\"none\"}}"
+    },
+    {
+      "name": "journal confirmado após commit interrompido",
+      "ok": true,
+      "detail": "{\"ok\":true,\"payload\":{\"schema\":3,\"score\":20},\"envelope\":{\"vaultSchema\":1,\"name\":\"journalcase\",\"saveSchema\":3,\"revision\":2,\"transactionId\":\"mqjma0rm-ot0rl0p5\",\"build\":\"SC-1.6.0-F06-TEST\",\"createdAt\":1781794227298,\"reason\":\"save\",\"previousHash\":\"82b8b8273d0b50a64a86b059d5b6a1ccbef94b342b10bbc911f83d7f87fd8742\",\"hashAlgorithm\":\"SHA-256\",\"payload\":{\"schema\":3,\"score\":20},\"payloadHash\":\"f017564bee8d338bb1f908ece25fe7479e61e664ba9139a5bc0f62515a309dfe\",\"envelopeHash\":\"1ba9853775743f4a5453e9900726e523645e70afa333e4d8ff694a2de1d74c5e\"},\"source\":\"primary\",\"recovered\":true,\"journalRecovery\":{\"ok\":true,\"action\":\"commit-confirmed\"}}"
+    },
+    {
+      "name": "journal confirmado é removido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "transação preparada incompleta sofre rollback",
+      "ok": true,
+      "detail": "{\"ok\":true,\"payload\":{\"schema\":3,\"score\":20},\"envelope\":{\"vaultSchema\":1,\"name\":\"journalcase\",\"saveSchema\":3,\"revision\":2,\"transactionId\":\"mqjma0rm-ot0rl0p5\",\"build\":\"SC-1.6.0-F06-TEST\",\"createdAt\":1781794227298,\"reason\":\"save\",\"previousHash\":\"82b8b8273d0b50a64a86b059d5b6a1ccbef94b342b10bbc911f83d7f87fd8742\",\"hashAlgorithm\":\"SHA-256\",\"payload\":{\"schema\":3,\"score\":20},\"payloadHash\":\"f017564bee8d338bb1f908ece25fe7479e61e664ba9139a5bc0f62515a309dfe\",\"envelopeHash\":\"1ba9853775743f4a5453e9900726e523645e70afa333e4d8ff694a2de1d74c5e\"},\"source\":\"primary\",\"recovered\":true,\"journalRecovery\":{\"ok\":true,\"action\":\"rolled-back\"}}"
+    },
+    {
+      "name": "envelope antigo é migrado automaticamente",
+      "ok": true,
+      "detail": "{\"ok\":true,\"payload\":{\"schema\":3,\"score\":56},\"envelope\":{\"vaultSchema\":1,\"name\":\"migration\",\"saveSchema\":3,\"revision\":2,\"transactionId\":\"mqjma0s1-8l2zvlh6\",\"build\":\"SC-1.6.0-F06-TEST\",\"createdAt\":1781794227313,\"reason\":\"schema-migration\",\"previousHash\":\"5d5e591b57dd907099120906526edbd95de1cfb293cb195ef81b047f935000ab\",\"hashAlgorithm\":\"SHA-256\",\"payload\":{\"schema\":3,\"score\":56},\"payloadHash\":\"4009d6c67d216ad8173175ff9877c7eebeaac680463b8bdee6093e5d5a73999c\",\"envelopeHash\":\"382ce24d2773a0cb0435424ce930bc46a5eb83aabcbd3d2c8e0adfd3658d1540\"},\"source\":\"migration\",\"migrated\":true,\"journalRecovery\":{\"ok\":true,\"action\":\"none\"}}"
+    },
+    {
+      "name": "migração grava envelope no schema atual",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "save legado sem envelope é importado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"payload\":{\"schema\":3,\"score\":72},\"envelope\":{\"vaultSchema\":1,\"name\":\"legacy\",\"saveSchema\":1,\"revision\":1,\"transactionId\":\"mqjma0s4-ppg0x5mc\",\"build\":\"SC-1.6.0-F06-TEST\",\"createdAt\":1781794227316,\"reason\":\"legacy-import:legacyRaw\",\"previousHash\":null,\"hashAlgorithm\":\"SHA-256\",\"payload\":{\"schema\":3,\"score\":72},\"payloadHash\":\"12e29be866569857d55c4814083bda7428b42d16978c00493ed6d37ef8f50d96\",\"envelopeHash\":\"f51776046e3d9ba25f5c40a39dda23d014715cb5ff090a8cb2e1779cf87769a7\"},\"source\":\"legacy\",\"migrated\":true,\"legacyKey\":\"legacyRaw\",\"journalRecovery\":{\"ok\":true,\"action\":\"none\"}}"
+    },
+    {
+      "name": "save legado importado recebe integridade",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema futuro desconhecido é rejeitado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"envelope\":{\"vaultSchema\":1,\"name\":\"future\",\"saveSchema\":3,\"revision\":1,\"transactionId\":\"mqjma0s5-xv8hhjyq\",\"build\":\"SC-1.6.0-F06-TEST\",\"createdAt\":1781794227317,\"reason\":\"save\",\"previousHash\":null,\"hashAlgorithm\":\"SHA-256\",\"payload\":{\"schema\":3,\"score\":80},\"payloadHash\":\"4a446b2220d9074f705d93027113244982a32964f60b69953e97193799be91ce\",\"envelopeHash\":\"043cc8163b00726d226f0603e151bfe17d8ce67ac8ccb1d53b3a34c98828dd0d\"},\"payload\":{\"schema\":3,\"score\":80},\"source\":\"backup\",\"recovered\":true,\"journalRecovery\":{\"ok\":true,\"action\":\"none\"}}"
+    },
+    {
+      "name": "payload contratualmente inválido não é gravado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "diagnósticos registram commits e recuperações",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

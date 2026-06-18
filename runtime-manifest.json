@@ -1,0 +1,204 @@
+{
+  "schema": 1,
+  "architectureGeneration": 12,
+  "strategy": "realistic-aircraft-performance-deterministic-replay-clock-professional-accessibility-settings-desktop-tablet-workspace-adaptive-mobile-ux-installable-offline-pwa-transactional-save-vault-quality-gated-typescript-modules",
+  "sourceRoot": "src/runtime",
+  "entry": "main.js",
+  "moduleCount": 21,
+  "modules": [
+    {
+      "order": 1,
+      "file": "00-runtime-registry.js",
+      "name": "runtime-registry",
+      "description": "Runtime architecture registry",
+      "lines": 14,
+      "bytes": 603,
+      "sha256": "d05b2c6d165103552aa2d4f005444cd88ccbfc7d726f354e004ee6e9d5170def"
+    },
+    {
+      "order": 2,
+      "file": "00-quality-kernel.js",
+      "name": "quality-kernel",
+      "description": "Pure deterministic production rules shared with automated tests",
+      "lines": 30,
+      "bytes": 1921,
+      "sha256": "c33e885b5217b3b73cacf62227a401f221b73ef426aa03e932102afc85e26cde"
+    },
+    {
+      "order": 3,
+      "file": "00-typescript-contracts.js",
+      "name": "typescript-contracts",
+      "description": "TypeScript-generated domain contracts and runtime validators",
+      "lines": 349,
+      "bytes": 23719,
+      "sha256": "1221d99e8ef6b74842edcd75fa48015fd288d1456c2b9057c4f9432a8468e1d3"
+    },
+    {
+      "order": 4,
+      "file": "01-build-and-radio.js",
+      "name": "01-build-and-radio",
+      "description": "Build metadata and ATC radio/readback",
+      "lines": 149,
+      "bytes": 7787,
+      "sha256": "dbe34722bfa54244a0817ec0312a01ac69ecbb25b0296a78dc6d123014a8fd1c"
+    },
+    {
+      "order": 5,
+      "file": "01-pwa-runtime.js",
+      "name": "01-pwa-runtime",
+      "description": "Installable PWA, offline cache lifecycle, controlled updates and professional fullscreen",
+      "lines": 137,
+      "bytes": 10755,
+      "sha256": "cd3a4c87fb8b7c52a59dce4cc12c5f3a88ff6c28a77c91767a145cc85d05ee6d"
+    },
+    {
+      "order": 6,
+      "file": "02-save-vault.js",
+      "name": "02-save-vault",
+      "description": "Transactional SHA-256 save vault, backup, journal, quarantine and rollback",
+      "lines": 284,
+      "bytes": 18227,
+      "sha256": "0f3cc5c7e8935e8112147756cf13e2460759893ef32fe7896ccb48354c0f7e09"
+    },
+    {
+      "order": 7,
+      "file": "02-weather-fuel-operations.js",
+      "name": "02-weather-fuel-operations",
+      "description": "Weather, fuel, runway, mission and handoff operations",
+      "lines": 288,
+      "bytes": 16757,
+      "sha256": "d6085373d11eb82648694ae65417247a94cd969cd66c8e02d60a27e4c79edd92"
+    },
+    {
+      "order": 8,
+      "file": "03-resilience-snapshots.js",
+      "name": "03-resilience-snapshots",
+      "description": "Snapshots, recovery, state sanitization and DOM validation",
+      "lines": 205,
+      "bytes": 14054,
+      "sha256": "3b106131429f91938ce5b49e48774d63f47e215a9a2efd2ec040fdb7019ea0b2"
+    },
+    {
+      "order": 9,
+      "file": "04-state-airports-procedures.js",
+      "name": "04-state-airports-procedures",
+      "description": "Runtime state, airport profiles and procedure data",
+      "lines": 111,
+      "bytes": 7664,
+      "sha256": "6fae065f9bb312c2f13a728afc7d29ab34d920de492c9afd89de74d3c7969198"
+    },
+    {
+      "order": 10,
+      "file": "15-aircraft-performance.js",
+      "name": "aircraft-performance",
+      "description": "Data-driven aircraft envelopes, speeds, climb/descent, fuel burn, landing risk and performance telemetry",
+      "lines": 136,
+      "bytes": 10653,
+      "sha256": "407e9f3f475db46de3ac428881b4bede8170a2ffa426e6d82a5f22c473ccd6e5"
+    },
+    {
+      "order": 11,
+      "file": "05-profile-navigation.js",
+      "name": "05-profile-navigation",
+      "description": "Utilities, profile persistence, scenes, fullscreen and logs",
+      "lines": 176,
+      "bytes": 11227,
+      "sha256": "c84adaf3815487fbe9aa9cc81112d69fb6c17e7a8a6bcbd5dc03e53f158766cc"
+    },
+    {
+      "order": 12,
+      "file": "06-traffic-requests.js",
+      "name": "06-traffic-requests",
+      "description": "Aircraft creation, callsigns, requests and game start",
+      "lines": 110,
+      "bytes": 8435,
+      "sha256": "76083660ed76dffdc477dfe182da049a9729c40687ba90bfaceb962b44c4f53e"
+    },
+    {
+      "order": 13,
+      "file": "07-simulation-safety.js",
+      "name": "07-simulation-safety",
+      "description": "Game loop, simulation, conflict prediction and safety",
+      "lines": 217,
+      "bytes": 15908,
+      "sha256": "36691b4a4cc31a58c8aff832c37431e587082a8c6ec23c3b1a6ca8ae07ee35eb"
+    },
+    {
+      "order": 14,
+      "file": "08-radar-rendering.js",
+      "name": "08-radar-rendering",
+      "description": "Radar, operational map, procedures, telemetry and aircraft drawing",
+      "lines": 246,
+      "bytes": 14565,
+      "sha256": "e3749cedba1d3463e2c2105db309102a86e1f46ba1297a8af0326edf9e12bbe4"
+    },
+    {
+      "order": 15,
+      "file": "09-ui-clearances.js",
+      "name": "09-ui-clearances",
+      "description": "Traffic UI, requests, commands, clearances and action grids",
+      "lines": 219,
+      "bytes": 20066,
+      "sha256": "4229c483c99ae117b8f782cd86855dcf8001bb47a8f715d3f5319f40b70bbc9a"
+    },
+    {
+      "order": 16,
+      "file": "10-events-selftest-bootstrap.js",
+      "name": "10-events-selftest-bootstrap",
+      "description": "Desktop events, filters, safe-mode controls and self-test bootstrap",
+      "lines": 97,
+      "bytes": 9442,
+      "sha256": "284b47ac5f0d1915b60a4c2e3ed2afd8471e11d394d9e18965ce77e3f7d38202"
+    },
+    {
+      "order": 17,
+      "file": "11-mobile-runtime.js",
+      "name": "11-mobile-runtime",
+      "description": "Adaptive mobile UX, edge gestures, touch-safe dock, haptics and responsive viewport modes",
+      "lines": 247,
+      "bytes": 18390,
+      "sha256": "1325cef88e0fecb136ebb81a1e0af59b8c44555204cb03b8afed170b45a716b7"
+    },
+    {
+      "order": 18,
+      "file": "12-desktop-workspace.js",
+      "name": "desktop-workspace",
+      "description": "Professional tablet and desktop workspace, keyboard shortcuts, persistent density and resizable operational panels",
+      "lines": 84,
+      "bytes": 10535,
+      "sha256": "fa48b51833cd06b55a1b0f6843bec3bfc4a5981c3344ac2c0417d4bc570cba98"
+    },
+    {
+      "order": 19,
+      "file": "13-accessibility-settings.js",
+      "name": "accessibility-settings",
+      "description": "Professional accessibility, visual, audio, performance and control settings layer",
+      "lines": 136,
+      "bytes": 8746,
+      "sha256": "7ef356346e8d891b580286a18316cc6a507c2e20f21823ce73f669fffeee8e6c"
+    },
+    {
+      "order": 20,
+      "file": "14-deterministic-replay.js",
+      "name": "deterministic-replay",
+      "description": "Deterministic simulation clock, seeded replay recorder, state checksums and technical replay export",
+      "lines": 175,
+      "bytes": 9061,
+      "sha256": "7a6a039013eade37ab95643b0f0b83f6c25b0604ea15e8e8e117e6b1d16c96c9"
+    },
+    {
+      "order": 21,
+      "file": "12-quality-test-bridge.js",
+      "name": "quality-test-bridge",
+      "description": "QA-gated integration bridge for deterministic browser scenarios",
+      "lines": 83,
+      "bytes": 8415,
+      "sha256": "ceb8a83d12330f22a25264d5684a8c0af14c3060169bfdf954731c5eadc1bf02"
+    }
+  ],
+  "bundle": {
+    "bytes": 248857,
+    "lines": 3544,
+    "sha256": "061d3e65a59f95563570c1f6bcd2c6b290892c1ed7c2be0d8a4275d81cee171d"
+  }
+}

@@ -1,0 +1,18 @@
+Skyward Control F01 audit: 17/17 aprovadas
+PASS  build em version.txt
+PASS  build no JavaScript
+PASS  metadados visíveis no HTML
+PASS  favicon embutido
+PASS  dock legado removido
+PASS  sem clearance genérico no HTML
+PASS  clearances explícitos
+PASS  mapa de clearance por solicitação
+PASS  snapshot versionado
+PASS  restauração conectada
+PASS  prevenção de callsign duplicado
+PASS  um painel mobile por vez
+PASS  menus roláveis
+PASS  guard somente no gameplay
+PASS  camada mobile oculta no desktop
+PASS  JSON válido: data/aircraft.json
+PASS  JSON válido: data/airports.json

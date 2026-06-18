@@ -1,0 +1,275 @@
+{
+  "schema": 1,
+  "suite": "phase8-unit",
+  "build": "SC-1.12.0-F12-20260618-1138",
+  "passed": 53,
+  "total": 53,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "config legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "metadata legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "order legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "runtime legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fase F08+ configurada",
+      "ok": true,
+      "detail": "1.12.0/F12"
+    },
+    {
+      "name": "UX schema válido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build F08+ carimbada",
+      "ok": true,
+      "detail": "SC-1.12.0-F12-20260618-1138"
+    },
+    {
+      "name": "metadados F08 sincronizados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "17+ módulos oficiais",
+      "ok": true,
+      "detail": "21"
+    },
+    {
+      "name": "módulo mobile na ordem oficial",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arquitetura geração 8+",
+      "ok": true,
+      "detail": 12
+    },
+    {
+      "name": "fonte expõe API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "classificador de gestos existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quatro modos responsivos existem",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "alvo de toque calculado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "gesto da borda esquerda abre pedidos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "gesto da borda direita abre ações",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "gesto vertical fecha painel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "gestos horizontais alternam aeronaves",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "toque longo abre ações",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "toque duplo abre ações",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "haptics respeita preferência",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preferências são persistidas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "painéis mutuamente exclusivos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "turno inicia radar-first",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "badges de pedidos, tráfego e safety",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "dock possui cinco botões",
+      "ok": true,
+      "detail": "5"
+    },
+    {
+      "name": "tabs ARIA controlam painéis",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "chip de aeronave selecionada presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "guia de gestos presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "toast móvel presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "safe areas aplicadas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "dock usa cinco colunas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "painel lateral preserva radar",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "touch target CSS variável",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "modo tablet tem breakpoint próprio",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "movimento reduzido respeitado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bundle contém UX F08",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API F08 executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API está congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema público correto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "844×390 classificado como mobile horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "390×844 classificado como mobile retrato",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "1024×768 classificado como tablet",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "1440×900 classificado como desktop",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "alvo móvel horizontal >=46px",
+      "ok": true,
+      "detail": "46"
+    },
+    {
+      "name": "alvo móvel retrato >=48px",
+      "ok": true,
+      "detail": "48"
+    },
+    {
+      "name": "alvo tablet >=44px",
+      "ok": true,
+      "detail": "44"
+    },
+    {
+      "name": "swipe esquerdo reconhecido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "swipe direito reconhecido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "swipe para baixo reconhecido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "swipe horizontal próximo reconhecido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "movimento curto vira toque",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

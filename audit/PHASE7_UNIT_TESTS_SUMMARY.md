@@ -1,0 +1,86 @@
+# Fase 07 — Testes unitários PWA
+
+- Resultado: **80/80 aprovados**
+- Build: `SC-1.12.0-F12-20260618-1138`
+
+## Verificações
+- [x] config legível
+- [x] manifest PWA legível
+- [x] manifesto de cache legível
+- [x] arquitetura modular legível
+- [x] fase F07+ configurada
+- [x] schemas PWA válidos
+- [x] build carimbada
+- [x] manifesto inicia no escopo relativo
+- [x] modo standalone e orientação landscape
+- [x] display override contém fullscreen
+- [x] tema escuro configurado
+- [x] três ícones PWA declarados
+- [x] ícone maskable declarado
+- [x] ícone 180px íntegro: icon-180.png
+- [x] ícone 192px íntegro: icon-192.png
+- [x] ícone 512px íntegro: icon-512.png
+- [x] ícone 512px íntegro: icon-maskable-512.png
+- [x] cache pertence à build atual
+- [x] nome de cache versionado
+- [x] estratégia de atualização controlada
+- [x] 15+ recursos precacheados
+- [x] lista de cache sem duplicações
+- [x] lista de cache sem caminhos inseguros
+- [x] cache hash válido: assets/backgrounds/BG_AIRPORT_DAY_CLEAR_V1.png
+- [x] cache tamanho válido: assets/backgrounds/BG_AIRPORT_DAY_CLEAR_V1.png
+- [x] cache hash válido: assets/backgrounds/BG_AIRPORT_NIGHT_RAIN_V1.png
+- [x] cache tamanho válido: assets/backgrounds/BG_AIRPORT_NIGHT_RAIN_V1.png
+- [x] cache hash válido: assets/backgrounds/BG_CONTROL_TOWER_REALISTIC_V1.png
+- [x] cache tamanho válido: assets/backgrounds/BG_CONTROL_TOWER_REALISTIC_V1.png
+- [x] cache hash válido: assets/characters/CHAR_CONTROLLER_FEMALE01_V1.png
+- [x] cache tamanho válido: assets/characters/CHAR_CONTROLLER_FEMALE01_V1.png
+- [x] cache hash válido: assets/characters/CHAR_CONTROLLER_MALE01_V1.png
+- [x] cache tamanho válido: assets/characters/CHAR_CONTROLLER_MALE01_V1.png
+- [x] cache hash válido: assets/icons/icon-180.png
+- [x] cache tamanho válido: assets/icons/icon-180.png
+- [x] cache hash válido: assets/icons/icon-192.png
+- [x] cache tamanho válido: assets/icons/icon-192.png
+- [x] cache hash válido: assets/icons/icon-512.png
+- [x] cache tamanho válido: assets/icons/icon-512.png
+- [x] cache hash válido: assets/icons/icon-maskable-512.png
+- [x] cache tamanho válido: assets/icons/icon-maskable-512.png
+- [x] cache hash válido: assets/maps/MAP_KATL_AIRPORT_CLEAN_V1.png
+- [x] cache tamanho válido: assets/maps/MAP_KATL_AIRPORT_CLEAN_V1.png
+- [x] cache hash válido: assets/radar/RADAR_BASE_CLEAN_V1.png
+- [x] cache tamanho válido: assets/radar/RADAR_BASE_CLEAN_V1.png
+- [x] cache hash válido: assets/ui/UI_PANEL_DARK_GLASS_V1.png
+- [x] cache tamanho válido: assets/ui/UI_PANEL_DARK_GLASS_V1.png
+- [x] cache hash válido: build-info.js
+- [x] cache tamanho válido: build-info.js
+- [x] cache hash válido: data/aircraft-performance.json
+- [x] cache tamanho válido: data/aircraft-performance.json
+- [x] cache hash válido: data/aircraft.json
+- [x] cache tamanho válido: data/aircraft.json
+- [x] cache hash válido: data/airports.json
+- [x] cache tamanho válido: data/airports.json
+- [x] cache hash válido: index.html
+- [x] cache tamanho válido: index.html
+- [x] cache hash válido: main.js
+- [x] cache tamanho válido: main.js
+- [x] cache hash válido: manifest.webmanifest
+- [x] cache tamanho válido: manifest.webmanifest
+- [x] cache hash válido: style.css
+- [x] cache tamanho válido: style.css
+- [x] app shell completo
+- [x] service worker contém build atual
+- [x] service worker não força atualização de build ativa
+- [x] service worker remove apenas caches Skyward antigos
+- [x] navegação tem fallback offline
+- [x] recursos usam cache-first
+- [x] worker informa versão ao app
+- [x] HTML liga manifesto e Apple icon
+- [x] HTML possui painel PWA e banner offline
+- [x] runtime expõe API PWA congelada
+- [x] atualização salva progresso antes de ativar
+- [x] ciclo de vida protege progresso
+- [x] registro usa updateViaCache none
+- [x] fullscreen profissional e landscape integrados
+- [x] módulo PWA pertence à ordem oficial
+- [x] arquitetura geração 7+
+- [x] 17+ módulos oficiais

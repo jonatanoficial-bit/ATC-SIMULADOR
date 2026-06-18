@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"/>
+  <meta name="theme-color" content="#05080d"/>
+  <meta name="application-name" content="Skyward Control"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Skyward Control"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <link rel="manifest" href="manifest.webmanifest"/>
+  <link rel="apple-touch-icon" href="assets/icons/icon-180.png"/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2712%27 fill=%27%2305080d%27/%3E%3Cpath d=%27M8 33h48M32 9v46M16 18l32 29M48 18L16 47%27 stroke=%27%2300e5ff%27 stroke-width=%273%27 opacity=%27.55%27/%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2723%27 fill=%27none%27 stroke=%27%2377ff88%27 stroke-width=%272%27/%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%274%27 fill=%27%23fff%27/%3E%3C/svg%3E"/>
+  <title>Skyward Control - Simulador ATC</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="orientationGuard" class="orientation-guard" role="dialog" aria-live="polite">
+  <div class="orientation-card glass">
+    <div class="rotate-icon">↻</div>
+    <h1>Gire o celular</h1>
+    <p>Skyward Control foi projetado para operação ATC em tela horizontal.</p>
+    <strong>Use o celular deitado para continuar.</strong>
+    <button id="fullscreenBtn" class="primary" type="button">ATIVAR TELA CHEIA</button>
+  </div>
+</div>
+
+<div id="crashShield" class="crash-shield" aria-live="assertive">
+  <div class="crash-card glass">
+    <h2>Modo seguro ATC</h2>
+    <p>O simulador detectou uma falha visual ou de lógica e entrou em recuperação para evitar travamento.</p>
+    <button id="safeRestoreBtn" class="primary" type="button">RESTAURAR ÚLTIMO ESTADO SEGURO</button>
+    <button id="safeRestartBtn" class="secondary" type="button">INICIAR NOVO TURNO</button>
+    <button id="safeLobbyBtn" class="secondary" type="button">VOLTAR AO LOBBY</button>
+    <small id="safeErrorText"></small>
+  </div>
+</div>
+
+
+<div id="networkBanner" class="network-banner" role="status" aria-live="polite">MODO OFFLINE • O TURNO CONTINUA PROTEGIDO</div>
+<div id="pwaPanel" class="pwa-panel" role="dialog" aria-modal="true" aria-labelledby="pwaPanelTitle" aria-hidden="true">
+  <div class="pwa-card glass">
+    <div class="pwa-head"><div><small>APP / SISTEMA</small><h2 id="pwaPanelTitle">SKYWARD CONTROL</h2></div><button type="button" class="icon" data-pwa-action="close">×</button></div>
+    <div class="pwa-status-grid">
+      <div><span>Execução</span><b id="pwaModeValue">NAVEGADOR</b></div>
+      <div><span>Rede</span><b id="pwaNetworkValue">ONLINE</b></div>
+      <div><span>Cache</span><b id="pwaCacheValue">VERIFICANDO</b></div>
+      <div><span>Atualização</span><b id="pwaUpdateValue">ATUAL</b></div>
+    </div>
+    <p id="pwaMessage">O app pode ser instalado e continuar funcionando sem internet após o primeiro carregamento completo.</p>
+    <div class="pwa-buttons">
+      <button class="primary" type="button" data-pwa-action="install">INSTALAR APP</button>
+      <button class="primary" type="button" data-pwa-action="update" hidden>ATUALIZAR COM SEGURANÇA</button>
+      <button class="secondary" type="button" data-pwa-action="fullscreen">ALTERNAR TELA CHEIA</button>
+      <button class="secondary" type="button" data-pwa-action="check-update">VERIFICAR ATUALIZAÇÃO</button>
+    </div>
+    <small class="pwa-build"><span data-build></span> • cache <span data-pwa-cache-name>—</span></small>
+  </div>
+</div>
+
+<div id="accessibilityPanel" class="accessibility-panel" role="dialog" aria-modal="true" aria-labelledby="accessibilityTitle" aria-hidden="true" data-accessibility-schema="1">
+  <div class="accessibility-card glass">
+    <div class="accessibility-head"><div><small>ACESSIBILIDADE / CONFIGURAÇÕES</small><h2 id="accessibilityTitle">CENTRAL DO CONTROLADOR</h2><span id="accessibilitySummary" data-accessibility-status>100% • Normal</span></div><button id="accessibilityPanelClose" class="icon" type="button" data-settings-action="close" aria-label="Fechar configurações">×</button></div>
+    <div class="accessibility-grid">
+      <section class="accessibility-section"><h3>Visual</h3><label>Escala da interface<select data-access-setting="uiScale"><option value="90">90% compacta</option><option value="100">100% padrão</option><option value="110">110% confortável</option><option value="120">120% grande</option><option value="130">130% máxima</option></select></label><label>Contraste<select data-access-setting="contrast"><option value="normal">Normal</option><option value="high">Alto contraste</option><option value="night">Modo noite</option></select></label><label>Daltonismo / cores<select data-access-setting="colorMode"><option value="standard">Cores padrão</option><option value="protanopia">Protanopia</option><option value="deuteranopia">Deuteranopia</option><option value="tritanopia">Tritanopia</option><option value="mono">Monocromático</option></select></label><label>Brilho do radar<input type="range" min="70" max="130" step="5" data-access-setting="radarBrightness"></label></section>
+      <section class="accessibility-section"><h3>Acessibilidade</h3><label class="check"><input type="checkbox" data-access-setting="largeTargets"> Alvos de toque maiores</label><label class="check"><input type="checkbox" data-access-setting="focusRing"> Foco visível no teclado</label><label class="check"><input type="checkbox" data-access-setting="reducedMotion"> Reduzir movimentos e flashes</label><label class="check"><input type="checkbox" data-access-setting="subtitles"> Legendas/readback sempre visíveis</label><label class="check"><input type="checkbox" data-access-setting="shortcutHints"> Mostrar dicas de atalhos</label></section>
+      <section class="accessibility-section"><h3>Áudio / tátil</h3><label>Volume geral<input type="range" min="0" max="100" step="1" data-access-setting="masterVolume"></label><label>Rádio ATC<input type="range" min="0" max="100" step="1" data-access-setting="radioVolume"></label><label>Efeitos<input type="range" min="0" max="100" step="1" data-access-setting="sfxVolume"></label><label class="check"><input type="checkbox" data-access-setting="haptics"> Vibração/háptico no mobile</label><small id="accessibilityVolumeSummary">Master 70% • Rádio 82% • FX 58%</small></section>
+      <section class="accessibility-section"><h3>Desempenho / controles</h3><label>Modo de desempenho<select data-access-setting="performanceMode"><option value="auto">Automático</option><option value="battery">Economia de bateria</option><option value="performance">Performance</option></select></label><label>Limite visual de FPS<select data-access-setting="fpsCap"><option value="30">30 FPS</option><option value="45">45 FPS</option><option value="60">60 FPS</option></select></label><label>Efeitos visuais<select data-access-setting="effects"><option value="minimal">Mínimos</option><option value="normal">Normais</option><option value="rich">Ricos</option></select></label><label>Toque mobile<select data-access-setting="touchMode"><option value="standard">Padrão</option><option value="large">Botões grandes</option><option value="compact">Compacto</option></select></label></section>
+    </div>
+    <div class="accessibility-actions"><button class="primary" type="button" data-settings-action="close">APLICAR</button><button class="secondary" type="button" data-settings-action="contrast">CICLAR CONTRASTE</button><button class="secondary" type="button" data-settings-action="reset">RESTAURAR PADRÃO</button><button class="secondary" type="button" data-settings-action="export">EXPORTAR CONFIG</button></div>
+    <textarea id="accessibilityExport" readonly placeholder="As configurações exportadas aparecerão aqui para auditoria."></textarea>
+    <small class="accessibility-foot">Atalhos: F10 ou Alt+S abre esta central. Todas as preferências são salvas localmente e entram na auditoria anti-quebra.</small>
+  </div>
+</div>
+
+<div id="app">
+  <section id="boot" class="screen active bg-tower">
+    <div class="shade"></div>
+    <div class="brand-block"><div class="vale">VALE <span>GAME</span></div><h1>SKYWARD<br><span>CONTROL</span></h1><p>YOU GUIDE. THEY TRUST.</p></div>
+    <div class="boot-card glass"><strong>SIMULADOR ATC REAL</strong><span>Radar profissional mobile-first com procedimentos ILS/SID/STAR, Safety Advisor, objetivos de turno e recursos antequebra.</span><button class="primary" data-go="menu">INICIAR SIMULADOR</button></div>
+    <footer><span data-build>carregando build</span> • <span data-build-date></span></footer>
+  </section>
+
+  <section id="menu" class="screen bg-rain">
+    <div class="shade"></div>
+    <header class="topbar"><div class="logo-mini">SKYWARD<br><span>CONTROL</span></div><div class="build-pill"><span data-build-version>v—</span><br><span data-build-date></span><small data-build></small></div></header>
+    <main class="menu-main"><h2>Controle de Tráfego Aéreo</h2><p>Interface radar-first com comandos adaptativos, gestos mobile, procedimentos ILS/SID/STAR e proteção anti-quebra.</p><button class="primary" data-go="profile">NOVO PERFIL / CARREIRA</button><button class="secondary" data-go="lobby">CONTINUAR CARREIRA</button><button class="secondary" data-go="training">TREINAMENTO</button><div class="pwa-menu-actions"><button id="installAppBtn" class="primary" type="button" data-pwa-action="install">INSTALAR APP</button><button class="secondary" type="button" data-pwa-action="fullscreen">TELA CHEIA</button><button class="secondary" type="button" data-pwa-action="open">STATUS OFFLINE / APP</button><button class="secondary" type="button" data-settings-action="open">ACESSIBILIDADE / CONFIG</button></div><small id="pwaMenuStatus" class="pwa-menu-status">Preparando recursos offline...</small></main>
+  </section>
+
+  <section id="profile" class="screen bg-day">
+    <div class="shade light"></div>
+    <header class="topbar"><button class="icon" data-go="menu">‹</button><div class="title">CRIAR PERFIL</div></header>
+    <main class="profile-card glass"><h2>Seu controlador</h2><p class="muted">Escolha avatar, nome e aeroporto base para iniciar a carreira.</p><label>Avatar</label><div class="avatars"><button class="avatar selected" data-avatar="male"><img src="assets/characters/CHAR_CONTROLLER_MALE01_V1.png" alt="Controlador masculino"></button><button class="avatar" data-avatar="female"><img src="assets/characters/CHAR_CONTROLLER_FEMALE01_V1.png" alt="Controladora feminina"></button></div><label>Nome do controlador</label><input id="pilotName" maxlength="20" placeholder="Digite seu nome" value="Controlador"/><label>País de origem</label><select id="countrySelect"><option value="Brasil">Brasil</option><option value="Portugal">Portugal</option><option value="Estados Unidos">Estados Unidos</option><option value="Espanha">Espanha</option></select><label>Aeroporto base inicial</label><select id="airportSelect"></select><button class="primary" data-go="lobby">SALVAR E CONTINUAR</button></main>
+  </section>
+
+  <section id="training" class="screen bg-tower">
+    <div class="shade"></div>
+    <header class="topbar"><button class="icon" data-go="menu">‹</button><div class="title">TREINAMENTO ATC</div></header>
+    <main class="glass scroll training"><h2>Procedimento básico</h2><p><b>Nova lógica:</b> aeronaves fazem solicitações. O controlador seleciona a solicitação e emite clearance.</p><p><b>Pistas:</b> a pista ativa aparece destacada, com cabeceiras, saídas rápidas e ocupação.</p><p><b>Chegadas:</b> aeronave em APP pede pouso. Use FINAL/CLEAR LAND quando a pista estiver livre.</p><p><b>Saídas:</b> aeronave no gate pede pushback, depois taxi, lineup e takeoff.</p><p><b>Segurança:</b> pista ocupada, aproximação mal sequenciada ou separação perdida geram penalidade e game over.</p><button class="primary" data-go="game">INICIAR RADAR</button></main>
+  </section>
+
+  <section id="lobby" class="screen bg-tower">
+    <div class="shade"></div>
+    <header class="topbar"><button class="icon" data-go="menu">☰</button><div class="logo-mini">SKYWARD<br><span>CONTROL</span></div><div class="score">★ <span id="profileScore">0</span></div></header>
+    <main class="lobby-grid"><div class="glass pilot-panel"><img id="lobbyAvatar" src="assets/characters/CHAR_CONTROLLER_MALE01_V1.png" alt="Avatar"><div><small>BEM-VINDO DE VOLTA</small><h2 id="lobbyName">CONTROLADOR</h2><p id="careerLine">Nível 1 • Brasil</p></div></div><div class="glass airport-card"><div class="airport-head"><div><small>AEROPORTO SELECIONADO</small><h2 id="airportTitle">SBGR - SÃO PAULO</h2></div><button class="secondary small" data-go="airports">TROCAR</button></div><p id="airportDesc">Escolha seu aeroporto base.</p><img id="airportImage" src="assets/backgrounds/BG_AIRPORT_DAY_CLEAR_V1.png" alt="Aeroporto"><button class="primary" data-go="game">INICIAR TURNO ATC</button></div><div class="glass progress-panel"><h3>Carreira</h3><div class="career-stats"><span>Nível</span><b id="careerLevel">1</b></div><div class="career-stats"><span>XP</span><b id="careerXp">0 / 1000</b></div><div class="career-stats"><span>Turnos</span><b id="careerTurns">0</b></div></div></main>
+  </section>
+
+  <section id="airports" class="screen bg-day">
+    <div class="shade"></div>
+    <header class="topbar"><button class="icon" data-go="lobby">‹</button><div class="title">ESCOLHER AEROPORTO</div></header>
+    <main class="airport-select-wrap"><div class="glass airport-info"><h2>Brasil primeiro</h2><p>Guarulhos, Congonhas, Viracopos e outros aeroportos brasileiros estão no modo carreira. Mapas específicos serão refinados fase a fase.</p></div><div id="airportGrid" class="airport-grid"></div></main>
+  </section>
+
+  <section id="game" class="screen game-screen atc-scene">
+    <header class="atc-top glass">
+      <button class="icon atc-back" data-go="lobby">‹</button>
+      <div class="atc-brand"><b>SKYWARD CONTROL</b><span>SIMULADOR ATC</span></div>
+      <div class="atc-status"><small>AEROPORTO</small><b id="gameAirport">SBGR</b><span id="gameAirportFull">Guarulhos</span></div>
+      <div class="atc-status"><small>SETOR</small><b id="sectorIndicator">TWR</b><span id="sectorHelp">Torre ativa</span></div>
+      <div class="atc-status"><small>TEMPO</small><b id="clock">00:00</b><span id="runwayTextTop">RWY 09/27</span></div>
+      <div class="atc-status"><small>PONTOS</small><b id="score">0</b><span id="scoreDelta">turno</span></div>
+      <div class="atc-status weather"><small id="weatherTemp">23°C</small><b id="weather">VARIÁVEL</b><span id="weatherWind">vento leve</span></div>
+      <button id="replayBadge" class="icon atc-replay" type="button" data-replay-action="open" aria-label="Abrir replay técnico">REPLAY</button>
+      <button id="accessibilityBadge" class="icon atc-settings" type="button" data-settings-action="open" aria-label="Abrir acessibilidade e configurações">ACESS</button>
+      <button id="gameFullscreenBtn" class="icon atc-fullscreen" type="button" data-pwa-action="fullscreen" aria-label="Alternar tela cheia">⛶</button>
+      <button id="pauseBtn" class="icon atc-pause">Ⅱ</button>
+    </header>
+
+    <main class="atc-mobile-layout">
+      <aside class="traffic-stack glass">
+        <div class="traffic-tabs">
+          <button class="traffic-tab active" data-traffic-tab="arrivals">ENT</button>
+          <button class="traffic-tab" data-traffic-tab="departures">SAI</button>
+          <button class="traffic-tab" data-traffic-tab="groundList">SOLO</button>
+        </div>
+        <div class="traffic-title"><b id="trafficTitle">ENTRADAS</b><span id="trafficCount">0</span></div>
+        <div id="arrivals" class="traffic-list active"></div>
+        <div id="departures" class="traffic-list"></div>
+        <div id="groundList" class="traffic-list"></div>
+      </aside>
+
+      <section class="scope-column">
+        <section class="radar-shell glass">
+          <canvas id="radar"></canvas><div id="radarModeBadge" class="radar-mode-badge">SCOPE PROFISSIONAL • <span data-build-version>v—</span> <span data-build-phase>F—</span></div>
+          <div class="scope-overlay top-left">SCOPE ATC • <span id="runwayStatus">RWY LIVRE</span></div>
+          <div class="scope-overlay bottom-left" id="radarHint">Toque numa aeronave ou solicitação para controlar.</div>
+          <div class="scope-overlay bottom-right" id="seqStatus">SEQ: ---</div>
+        </section>
+        <section class="bottom-dock glass" id="bottomDock">
+          <div class="dock-tabs">
+            <button class="dock-tab active" data-dock="comms">COMMS</button>
+            <button class="dock-tab" data-dock="selected">AERONAVE</button>
+            <button class="dock-tab" data-dock="help">AJUDA</button>
+            <button class="dock-tab" data-dock="filters">FILTROS</button><button class="dock-tab" data-dock="safety">SAFETY</button>
+          </div>
+          <div class="dock-body active" id="dock-comms"><div id="log"></div></div>
+          <div class="dock-body" id="dock-selected"><div id="selectedBox" class="selected-box atc-selected">Nenhuma aeronave selecionada</div></div>
+          <div class="dock-body" id="dock-help"><b>Fluxo:</b> selecione aeronave → leia o pedido → emita comando contextual → acompanhe COMMS.</div>
+          <div class="dock-body" id="dock-filters"><label><input data-filter="labels" type="checkbox" checked> etiquetas</label><label><input data-filter="vectors" type="checkbox" checked> vetores</label><label><input data-filter="safety" type="checkbox" checked> segurança</label><label><input data-filter="final" type="checkbox" checked> final</label><label><input data-filter="procedures" type="checkbox" checked> procedimentos</label><label><input data-filter="range" type="checkbox" checked> alcance</label><label><input data-filter="map" type="checkbox" checked> mapa base</label><label><input data-filter="wx" type="checkbox" checked> clima</label><label><input data-filter="fuel" type="checkbox" checked> combustível</label><label><input data-filter="emerg" type="checkbox" checked> emergência</label></div><div class="dock-body" id="dock-safety"><div id="safetyAdvisor" class="safety-advisor">Safety Advisor aguardando tráfego.</div><div id="runwayBoard" class="runway-board">RWY aguardando tráfego.</div><div id="weatherBoard" class="weather-board">WX aguardando dados.</div><div id="fuelBoard" class="fuel-board">FUEL / EMERG aguardando dados.</div><div id="airportOpsBoard" class="airport-ops-board">AIRPORT OPS aguardando dados.</div></div>
+        </section>
+      </section>
+
+      <aside class="ops-panel glass">
+        <section class="active-call">
+          <div class="panel-mini-title">PEDIDO ATUAL <span class="live-dot">AO VIVO</span></div>
+          <div id="freqCall" class="freq-call compact">Aguardando chamada...</div><div id="readbackLine" class="readback-line">READBACK: aguardando transmissão.</div>
+        </section>
+
+        <section class="request-queue">
+          <div class="panel-mini-title">FILA DE SOLICITAÇÕES <b id="requestsCount">0</b></div>
+          <div id="requests" class="request-list atc"></div>
+          <button id="nextRequestBtn" class="queue-next" type="button">PRÓXIMA SOLICITAÇÃO</button>
+        </section>
+
+        <section class="diagnostic-line">
+          <div id="opsDiagnostic" class="ops-diagnostic ok">SISTEMA OK</div><div id="safetyScore" class="safety-score ok">SAFETY 100%</div>
+        </section>
+
+        <section class="mission-panel">
+          <div class="panel-mini-title">OBJETIVOS DO TURNO <b id="missionTimer">00:00</b></div>
+          <div id="missionBoard" class="mission-board">Carregando missão...</div>
+          <div id="handoffAdvisor" class="handoff-advisor">Handoff Advisor aguardando seleção.</div>
+        </section>
+
+        <section class="context-actions">
+          <div class="panel-mini-title">AÇÕES ATC CONTEXTUAIS</div>
+          <div id="actionGrid" class="action-grid"></div>
+          <button id="moreCommandsBtn" class="more-command" type="button">MAIS COMANDOS</button>
+        </section>
+      </aside>
+    </main>
+
+    <section id="desktopWorkspaceHud" class="desktop-workspace-hud glass" aria-label="Workspace ATC para telas grandes" data-desktop-schema="1">
+      <div class="desktop-workspace-group desktop-workspace-modes" role="group" aria-label="Modos do workspace">
+        <button type="button" data-workspace-action="balanced" title="Workspace balanceado (W)">BALANCEADO</button>
+        <button type="button" data-workspace-action="radar" title="Foco total no radar (R)">RADAR</button>
+        <button type="button" data-workspace-action="analysis" title="Análise ampliada (Shift+A)">ANÁLISE</button>
+      </div>
+      <div class="desktop-workspace-group desktop-workspace-panels" role="group" aria-label="Painéis operacionais">
+        <button type="button" data-workspace-action="traffic" title="Mostrar ou ocultar tráfego ([)">TRÁFEGO</button>
+        <button type="button" data-workspace-action="ops" title="Mostrar ou ocultar operações (])">OPS</button>
+        <button type="button" data-workspace-action="bottom" title="Mostrar ou ocultar dock (B)">DOCK</button>
+      </div>
+      <div id="desktopWorkspaceStatus" class="desktop-workspace-status" aria-live="polite"><b>WORKSPACE</b><span>Balanceado</span></div>
+      <div class="desktop-workspace-group desktop-workspace-tools" role="group" aria-label="Ajustes do workspace">
+        <button type="button" data-workspace-action="narrow-left" aria-label="Reduzir painel de tráfego">L−</button>
+        <button type="button" data-workspace-action="wide-left" aria-label="Ampliar painel de tráfego">L+</button>
+        <button type="button" data-workspace-action="narrow-right" aria-label="Reduzir painel operacional">R−</button>
+        <button type="button" data-workspace-action="wide-right" aria-label="Ampliar painel operacional">R+</button>
+        <button type="button" data-workspace-action="density" title="Alternar densidade compacta">DENSIDADE</button>
+        <button type="button" data-workspace-action="help" title="Atalhos de teclado (?)">?</button><button type="button" data-settings-action="open" title="Acessibilidade e configurações (F10)">ACESS</button>
+      </div>
+    </section>
+
+    <div id="desktopShortcutSheet" class="desktop-shortcut-sheet" role="dialog" aria-modal="true" aria-labelledby="desktopShortcutTitle" aria-hidden="true">
+      <div class="desktop-shortcut-card glass">
+        <div class="desktop-shortcut-head"><div><small>ESTAÇÃO DE CONTROLE</small><b id="desktopShortcutTitle">ATALHOS DO WORKSPACE</b></div><button id="desktopShortcutClose" type="button" aria-label="Fechar atalhos">×</button></div>
+        <div class="desktop-shortcut-grid">
+          <span><kbd>W</kbd> Balanceado</span><span><kbd>R</kbd> Foco radar</span><span><kbd>Shift+A</kbd> Análise</span>
+          <span><kbd>[</kbd> Tráfego</span><span><kbd>]</kbd> Operações</span><span><kbd>B</kbd> Dock</span>
+          <span><kbd>1–5</kbd> Abas inferiores</span><span><kbd>N</kbd> Próximo pedido</span><span><kbd>← / →</kbd> Alternar aeronave</span>
+          <span><kbd>A</kbd> Entradas</span><span><kbd>D</kbd> Saídas</span><span><kbd>G</kbd> Solo</span>
+          <span><kbd>C</kbd> Comandos</span><span><kbd>P</kbd> Pausar</span><span><kbd>Esc</kbd> Fechar / limpar</span>
+        </div>
+        <p>Os atalhos são desativados automaticamente enquanto você digita em campos de formulário.</p>
+      </div>
+    </div>
+
+    <div id="replayPanel" class="replay-panel" role="dialog" aria-modal="true" aria-labelledby="replayPanelTitle" aria-hidden="true" data-replay-schema="1">
+      <div class="replay-card glass">
+        <div class="replay-head"><div><small>REPLAY / QA TÉCNICO</small><b id="replayPanelTitle">RELÓGIO DETERMINÍSTICO</b></div><button class="icon" type="button" data-replay-action="close" aria-label="Fechar replay">×</button></div>
+        <div class="replay-grid"><div><span>Status</span><b id="replayStatusValue">AGUARDANDO TURNO</b></div><div><span>Seed</span><b id="replaySeedValue">—</b></div><div><span>Schema</span><b>Replay 1</b></div></div>
+        <p>O replay registra seed, comandos, checkpoints e checksum do estado para auditoria técnica reproduzível.</p>
+        <div class="replay-actions"><button class="primary" type="button" data-replay-action="checkpoint">CRIAR CHECKPOINT</button><button class="secondary" type="button" data-replay-action="export">EXPORTAR JSON</button></div>
+        <textarea id="replayExportText" readonly placeholder="O JSON exportado aparecerá aqui após o checkpoint/export."></textarea>
+      </div>
+    </div>
+
+    <div id="moreCommandSheet" class="command-sheet">
+      <div class="sheet-card glass">
+        <div class="sheet-head"><b>MAIS COMANDOS ATC</b><button id="closeMoreCommands" class="icon">×</button></div>
+        <div id="moreActionGrid" class="more-action-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="result" class="screen bg-rain"><div class="shade"></div><main class="result-card glass"><h1 id="resultTitle">FIM DE TURNO</h1><p id="resultReason">Turno encerrado.</p><div class="big-score"><span id="finalScore">0</span> ★</div><div class="stats" id="finalStats"></div><button class="primary" data-go="game">TENTAR NOVAMENTE</button><button class="secondary" data-go="lobby">VOLTAR AO LOBBY</button></main></section>
+</div>
+<script src="build-info.js"></script>
+<script src="main.js"></script>
+
+
+<div id="mobileAtcLayer" class="mobile-atc-layer" aria-live="polite" data-ux-schema="1">
+  <button id="mobileMiniStatus" class="mobile-mini-status" type="button" aria-label="Abrir status de segurança">SBGR • RWY • SAFETY</button>
+  <button id="mobileSettingsBtn" class="mobile-settings-btn" type="button" data-settings-action="open" aria-label="Abrir acessibilidade e configurações">⚙</button>
+  <button id="mobileSelectedChip" class="mobile-selected-chip" type="button" aria-label="Abrir comandos da aeronave selecionada" hidden>
+    <b id="mobileSelectedChipId">---</b><span id="mobileSelectedChipData">SEM SELEÇÃO</span>
+  </button>
+
+  <section id="mobilePanel" class="mobile-panel" data-mobile-panel="requests" role="dialog" aria-modal="false" aria-labelledby="mobilePanelTitle" aria-hidden="true">
+    <div class="mobile-drag-handle" aria-hidden="true"></div>
+    <div class="mobile-panel-head"><b id="mobilePanelTitle">PEDIDOS ATC</b><button id="mobilePanelClose" type="button" aria-label="Fechar painel">×</button></div>
+    <div id="mobilePanelBody" class="mobile-panel-body"></div>
+  </section>
+
+  <section id="mobileActionSheet" class="mobile-action-sheet" aria-label="Comandos da aeronave selecionada" aria-hidden="true">
+    <div class="mobile-drag-handle" aria-hidden="true"></div>
+    <div class="mobile-action-head">
+      <div><small>AERONAVE SELECIONADA</small><b id="mobileSelectedTitle">---</b></div>
+      <button id="mobileDeselect" type="button">LIMPAR</button>
+    </div>
+    <div id="mobilePrimaryActions" class="mobile-primary-actions"></div>
+    <button id="mobileMoreToggle" class="mobile-more-toggle" type="button" aria-expanded="false">MAIS COMANDOS</button>
+    <div id="mobileMoreActions" class="mobile-more-actions"></div>
+  </section>
+
+  <nav id="mobileDockV2" class="mobile-dock-v2" aria-label="Controles móveis ATC">
+    <button class="mobile-nav" data-mobile-tab="requests" aria-label="Pedidos" aria-controls="mobilePanel" aria-expanded="false"><span>PEDIDOS</span><b id="mobileRequestsBadge" class="mobile-badge" hidden>0</b></button>
+    <button class="mobile-nav" data-mobile-tab="traffic" aria-label="Tráfego" aria-controls="mobilePanel" aria-expanded="false"><span>TRÁFEGO</span><b id="mobileTrafficBadge" class="mobile-badge">0</b></button>
+    <button class="mobile-nav mobile-nav-primary" data-mobile-tab="actions" aria-label="Comandos" aria-controls="mobileActionSheet" aria-expanded="false"><span>COMANDOS</span></button>
+    <button class="mobile-nav" data-mobile-tab="comms" aria-label="Comunicações" aria-controls="mobilePanel" aria-expanded="false"><span>COMMS</span></button>
+    <button class="mobile-nav" data-mobile-tab="safety" aria-label="Segurança" aria-controls="mobilePanel" aria-expanded="false"><span>SAFETY</span><b id="mobileSafetyBadge" class="mobile-badge" hidden>!</b></button>
+  </nav>
+
+  <div id="mobileGestureCoach" class="mobile-gesture-coach" role="dialog" aria-label="Guia de gestos" hidden>
+    <div class="gesture-coach-card">
+      <b>CONTROLE POR GESTOS</b>
+      <span>Deslize da borda esquerda: pedidos</span>
+      <span>Deslize da borda direita: comandos</span>
+      <span>Toque prolongado na aeronave: ações</span>
+      <button id="mobileGestureCoachClose" type="button">ENTENDI</button>
+    </div>
+  </div>
+  <div id="mobileToast" class="mobile-toast" role="status" aria-live="polite"></div>
+</div>
+
+</body>
+</html>

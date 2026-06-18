@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "contractSchema": 2,
+  "typescript": "5.8+",
+  "strict": true,
+  "tsconfig": "tsconfig.json",
+  "sources": [
+    {
+      "file": "src/types/domain.ts",
+      "lines": 189,
+      "bytes": 4834,
+      "sha256": "eba886f156859c37ac2c61d6c3b6e6e69ae3d1af33e3427ea214f7533e32b8b1"
+    },
+    {
+      "file": "src/contracts/runtime-contracts.ts",
+      "lines": 264,
+      "bytes": 21932,
+      "sha256": "ae1dda1339914606371d53edb554924eba530c10ea14654dbf8d9e972f28ed68"
+    }
+  ],
+  "output": {
+    "file": "src/runtime/00-typescript-contracts.js",
+    "lines": 349,
+    "bytes": 23719,
+    "sha256": "1221d99e8ef6b74842edcd75fa48015fd288d1456c2b9057c4f9432a8468e1d3"
+  }
+}

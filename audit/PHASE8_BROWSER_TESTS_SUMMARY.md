@@ -1,0 +1,44 @@
+# Fase 08 — Auditoria Chromium da UX móvel
+
+- Resultado: **37/37 aprovados**
+- Build: `SC-1.12.0-F12-20260618-1138`
+- Ambiente: HTML, CSS e JavaScript exatos carregados em memória por bloqueio administrativo de URLs locais.
+
+## Verificações
+- [x] build F08+ carregada
+- [x] UX schema carregado
+- [x] arquitetura geração 8+
+- [x] autoteste interno aprovado
+- [x] viewport mobile horizontal detectado
+- [x] alvo de toque mobile >=46px
+- [x] turno inicia sem painel cobrindo radar
+- [x] dock operacional possui cinco áreas
+- [x] camada móvel está visível
+- [x] radar ocupa maior parte do viewport
+- [x] badges refletem tráfego e pedidos
+- [x] dataset responsivo sincronizado
+- [x] todos os botões têm alvo >=44px
+- [x] tráfego abre painel único
+- [x] lista mostra oito aeronaves
+- [x] painel lateral preserva pelo menos 55% do radar
+- [x] seleção troca painel por action sheet
+- [x] chip mostra aeronave selecionada
+- [x] ações contextuais disponíveis
+- [x] swipe para baixo fecha action sheet
+- [x] swipe da borda esquerda abre pedidos
+- [x] swipe da borda direita abre comandos
+- [x] preferência háptica alterna
+- [x] preferência háptica persiste
+- [x] guia de gestos pode ser reaberto
+- [x] desktop: modo responsivo correto
+- [x] desktop: turno inicia
+- [x] desktop: camada móvel adequada
+- [x] tablet: modo responsivo correto
+- [x] tablet: turno inicia
+- [x] tablet: camada móvel adequada
+- [x] mobile_landscape: modo responsivo correto
+- [x] mobile_landscape: turno inicia
+- [x] mobile_landscape: camada móvel adequada
+- [x] mobile_portrait: modo responsivo correto
+- [x] retrato mantém menus roláveis
+- [x] retrato não bloqueia menus

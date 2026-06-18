@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "suite": "phase11-unit",
+  "build": "SC-1.12.0-F12-20260618-1138",
+  "passed": 20,
+  "total": 20,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F11+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.12.0\",\"phase\":\"F12\",\"phaseName\":\"Modelo Realista de Aeronaves\",\"channel\":\"alpha\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.12.0-F12-20260618-1138\",\"builtAt\":\"2026-06-18 11:38 BRT\",\"builtAtIso\":\"2026-06-18T11:38:16-03:00\",\"aircraftPerformanceSchema\":1}"
+    },
+    {
+      "name": "marcador de módulo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada no código",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "seed hash implementado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PRNG mulberry implementado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "exportação JSON implementada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "importação validada implementada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wrappers start/command",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hash determinístico",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck determinístico",
+      "ok": true,
+      "detail": "[object Object]"
+    },
+    {
+      "name": "mesma seed repete sequência",
+      "ok": true,
+      "detail": "0.81267331,0.52482125,0.56319586 0.81267331,0.52482125,0.56319586"
+    },
+    {
+      "name": "seed diferente muda sequência",
+      "ok": true,
+      "detail": "0.81267331,0.52482125,0.56319586 0.90618144,0.11039513,0.69395988"
+    },
+    {
+      "name": "export schema/build",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "export contém evento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "checksum estável",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "import aceita payload",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "estado resumo seguro",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "storage recebe último replay",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

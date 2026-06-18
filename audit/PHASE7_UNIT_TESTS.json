@@ -1,0 +1,410 @@
+{
+  "schema": 1,
+  "suite": "phase7-unit",
+  "build": "SC-1.12.0-F12-20260618-1138",
+  "passed": 80,
+  "total": 80,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "config legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest PWA legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifesto de cache legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arquitetura modular legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fase F07+ configurada",
+      "ok": true,
+      "detail": "1.12.0/F12"
+    },
+    {
+      "name": "schemas PWA válidos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build carimbada",
+      "ok": true,
+      "detail": "SC-1.12.0-F12-20260618-1138"
+    },
+    {
+      "name": "manifesto inicia no escopo relativo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "modo standalone e orientação landscape",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "display override contém fullscreen",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tema escuro configurado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "três ícones PWA declarados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ícone maskable declarado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ícone 180px íntegro: icon-180.png",
+      "ok": true,
+      "detail": "{\"w\":180,\"h\":180,\"sig\":true}"
+    },
+    {
+      "name": "ícone 192px íntegro: icon-192.png",
+      "ok": true,
+      "detail": "{\"w\":192,\"h\":192,\"sig\":true}"
+    },
+    {
+      "name": "ícone 512px íntegro: icon-512.png",
+      "ok": true,
+      "detail": "{\"w\":512,\"h\":512,\"sig\":true}"
+    },
+    {
+      "name": "ícone 512px íntegro: icon-maskable-512.png",
+      "ok": true,
+      "detail": "{\"w\":512,\"h\":512,\"sig\":true}"
+    },
+    {
+      "name": "cache pertence à build atual",
+      "ok": true,
+      "detail": "SC-1.12.0-F12-20260618-1138 != SC-1.12.0-F12-20260618-1138"
+    },
+    {
+      "name": "nome de cache versionado",
+      "ok": true,
+      "detail": "skyward-control-1-sc-1.12.0-f12-20260618-1138"
+    },
+    {
+      "name": "estratégia de atualização controlada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "15+ recursos precacheados",
+      "ok": true,
+      "detail": "20"
+    },
+    {
+      "name": "lista de cache sem duplicações",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "lista de cache sem caminhos inseguros",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/backgrounds/BG_AIRPORT_DAY_CLEAR_V1.png",
+      "ok": true,
+      "detail": "d71f3404791a6dae5bac65dda6a5c587d788c7bc474e9895feb771d2f1114488 != d71f3404791a6dae5bac65dda6a5c587d788c7bc474e9895feb771d2f1114488"
+    },
+    {
+      "name": "cache tamanho válido: assets/backgrounds/BG_AIRPORT_DAY_CLEAR_V1.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/backgrounds/BG_AIRPORT_NIGHT_RAIN_V1.png",
+      "ok": true,
+      "detail": "6421c35cb3ec8427be77c1ae3f9300812d8149b5027dcd1ae2cefa8d3d3395f0 != 6421c35cb3ec8427be77c1ae3f9300812d8149b5027dcd1ae2cefa8d3d3395f0"
+    },
+    {
+      "name": "cache tamanho válido: assets/backgrounds/BG_AIRPORT_NIGHT_RAIN_V1.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/backgrounds/BG_CONTROL_TOWER_REALISTIC_V1.png",
+      "ok": true,
+      "detail": "de706eb9fed06a0899f79043635333e8476f3aeced63f2e80c805748ccb0ec31 != de706eb9fed06a0899f79043635333e8476f3aeced63f2e80c805748ccb0ec31"
+    },
+    {
+      "name": "cache tamanho válido: assets/backgrounds/BG_CONTROL_TOWER_REALISTIC_V1.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/characters/CHAR_CONTROLLER_FEMALE01_V1.png",
+      "ok": true,
+      "detail": "0303d8740948297a2d1889333783cbbb3ea2e9002715bff109f1cb8ffc282dc0 != 0303d8740948297a2d1889333783cbbb3ea2e9002715bff109f1cb8ffc282dc0"
+    },
+    {
+      "name": "cache tamanho válido: assets/characters/CHAR_CONTROLLER_FEMALE01_V1.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/characters/CHAR_CONTROLLER_MALE01_V1.png",
+      "ok": true,
+      "detail": "6c39e910ecb36f777ff59c834f7f4515d3594ebf0b6aa65fc2640a05db163336 != 6c39e910ecb36f777ff59c834f7f4515d3594ebf0b6aa65fc2640a05db163336"
+    },
+    {
+      "name": "cache tamanho válido: assets/characters/CHAR_CONTROLLER_MALE01_V1.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/icons/icon-180.png",
+      "ok": true,
+      "detail": "6ed9765196b8c4a0aac8c0a940135b02986390ba232dbbe1d26755a42cd839e8 != 6ed9765196b8c4a0aac8c0a940135b02986390ba232dbbe1d26755a42cd839e8"
+    },
+    {
+      "name": "cache tamanho válido: assets/icons/icon-180.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/icons/icon-192.png",
+      "ok": true,
+      "detail": "99457c347247b67ed7503d968aa2d5ba9cbe849b84789c217b8194b748f63723 != 99457c347247b67ed7503d968aa2d5ba9cbe849b84789c217b8194b748f63723"
+    },
+    {
+      "name": "cache tamanho válido: assets/icons/icon-192.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/icons/icon-512.png",
+      "ok": true,
+      "detail": "7fe140f09a402889c8a9e51d1ec7d216d9b70a3fd30961b2b97dfae91e229be9 != 7fe140f09a402889c8a9e51d1ec7d216d9b70a3fd30961b2b97dfae91e229be9"
+    },
+    {
+      "name": "cache tamanho válido: assets/icons/icon-512.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/icons/icon-maskable-512.png",
+      "ok": true,
+      "detail": "c6f09df82dd2fd29b05aa93b30a617519ddb14a6ef15f9678017ffab4cf7b601 != c6f09df82dd2fd29b05aa93b30a617519ddb14a6ef15f9678017ffab4cf7b601"
+    },
+    {
+      "name": "cache tamanho válido: assets/icons/icon-maskable-512.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/maps/MAP_KATL_AIRPORT_CLEAN_V1.png",
+      "ok": true,
+      "detail": "a6c703bb6f01389a8d1b53b59032dc51b4142a64fdc83b264534181761757c47 != a6c703bb6f01389a8d1b53b59032dc51b4142a64fdc83b264534181761757c47"
+    },
+    {
+      "name": "cache tamanho válido: assets/maps/MAP_KATL_AIRPORT_CLEAN_V1.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/radar/RADAR_BASE_CLEAN_V1.png",
+      "ok": true,
+      "detail": "5b28afc6cea7c7edb0d6e09c61dfa8654636e23df399be3b131772b952ba512b != 5b28afc6cea7c7edb0d6e09c61dfa8654636e23df399be3b131772b952ba512b"
+    },
+    {
+      "name": "cache tamanho válido: assets/radar/RADAR_BASE_CLEAN_V1.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: assets/ui/UI_PANEL_DARK_GLASS_V1.png",
+      "ok": true,
+      "detail": "9b0901b89fc315d5b31ef009c5981c4b54cbe683e7f8176e3d305da8cb6df943 != 9b0901b89fc315d5b31ef009c5981c4b54cbe683e7f8176e3d305da8cb6df943"
+    },
+    {
+      "name": "cache tamanho válido: assets/ui/UI_PANEL_DARK_GLASS_V1.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: build-info.js",
+      "ok": true,
+      "detail": "e141856e9a2796415d370991984743a7fe51a3da51366f60533f28c69656f5e8 != e141856e9a2796415d370991984743a7fe51a3da51366f60533f28c69656f5e8"
+    },
+    {
+      "name": "cache tamanho válido: build-info.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: data/aircraft-performance.json",
+      "ok": true,
+      "detail": "299b915eea0a06e9069c11da4ef799c97f4d268a5b0eeb0225677da85f71e7d3 != 299b915eea0a06e9069c11da4ef799c97f4d268a5b0eeb0225677da85f71e7d3"
+    },
+    {
+      "name": "cache tamanho válido: data/aircraft-performance.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: data/aircraft.json",
+      "ok": true,
+      "detail": "5fbc7b7a833d995de19747e49768ad297d2b417e1c9e68ec3670d5d07332636d != 5fbc7b7a833d995de19747e49768ad297d2b417e1c9e68ec3670d5d07332636d"
+    },
+    {
+      "name": "cache tamanho válido: data/aircraft.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: data/airports.json",
+      "ok": true,
+      "detail": "2908723bc368e9c28e3ca927ba0511613b43ec215263124a65c93316fa70e74e != 2908723bc368e9c28e3ca927ba0511613b43ec215263124a65c93316fa70e74e"
+    },
+    {
+      "name": "cache tamanho válido: data/airports.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: index.html",
+      "ok": true,
+      "detail": "b75f40d69f8ed15db9175ae82b65e49cbd5c812d2661ed849c97e3f4afb76e3d != b75f40d69f8ed15db9175ae82b65e49cbd5c812d2661ed849c97e3f4afb76e3d"
+    },
+    {
+      "name": "cache tamanho válido: index.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: main.js",
+      "ok": true,
+      "detail": "061d3e65a59f95563570c1f6bcd2c6b290892c1ed7c2be0d8a4275d81cee171d != 061d3e65a59f95563570c1f6bcd2c6b290892c1ed7c2be0d8a4275d81cee171d"
+    },
+    {
+      "name": "cache tamanho válido: main.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: manifest.webmanifest",
+      "ok": true,
+      "detail": "74e0620a66988c3e358a9146e1fad609149ffb1c94fdafad54bd7347ab2e32b5 != 74e0620a66988c3e358a9146e1fad609149ffb1c94fdafad54bd7347ab2e32b5"
+    },
+    {
+      "name": "cache tamanho válido: manifest.webmanifest",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache hash válido: style.css",
+      "ok": true,
+      "detail": "91844f186618de2dd44e6728f464877d622c9c66b1fcb83f4de724776aa88c2f != 91844f186618de2dd44e6728f464877d622c9c66b1fcb83f4de724776aa88c2f"
+    },
+    {
+      "name": "cache tamanho válido: style.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "app shell completo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "service worker contém build atual",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "service worker não força atualização de build ativa",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "service worker remove apenas caches Skyward antigos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "navegação tem fallback offline",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "recursos usam cache-first",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "worker informa versão ao app",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML liga manifesto e Apple icon",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML possui painel PWA e banner offline",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "runtime expõe API PWA congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "atualização salva progresso antes de ativar",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ciclo de vida protege progresso",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "registro usa updateViaCache none",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fullscreen profissional e landscape integrados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "módulo PWA pertence à ordem oficial",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arquitetura geração 7+",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "17+ módulos oficiais",
+      "ok": true,
+      "detail": "21"
+    }
+  ]
+}

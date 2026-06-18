@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "none",
+    "lib": ["ES2020", "DOM"],
+    "strict": true,
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": false,
+    "exactOptionalPropertyTypes": false,
+    "useDefineForClassFields": false,
+    "removeComments": false,
+    "noEmitOnError": true,
+    "outFile": "src/runtime/00-typescript-contracts.js",
+    "sourceMap": false,
+    "declaration": false,
+    "skipLibCheck": true
+  },
+  "files": [
+    "src/types/domain.ts",
+    "src/contracts/runtime-contracts.ts"
+  ]
+}

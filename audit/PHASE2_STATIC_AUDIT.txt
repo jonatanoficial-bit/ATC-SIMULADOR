@@ -1,0 +1,107 @@
+Source validation: 47/47 aprovadas
+PASS  arquivo obrigatório: index.html
+PASS  arquivo obrigatório: style.css
+PASS  arquivo obrigatório: main.js
+PASS  arquivo obrigatório: build-info.js
+PASS  arquivo obrigatório: release-metadata.json
+PASS  arquivo obrigatório: version.txt
+PASS  arquivo obrigatório: data/aircraft.json
+PASS  arquivo obrigatório: data/airports.json
+PASS  arquivo obrigatório: config/release.json
+PASS  arquivo obrigatório: tools/release.mjs
+PASS  arquivo obrigatório: tools/verify-integrity.mjs
+PASS  arquivo obrigatório: tests/phase1-audit.mjs
+PASS  arquivo obrigatório: tests/phase2-audit.mjs
+PASS  arquivo obrigatório: tests/pipeline-guard.mjs
+PASS  config de release válida
+PASS  release-metadata.json válido
+PASS  JSON válido: data/aircraft.json
+PASS  JSON válido: data/airports.json
+PASS  JSON válido: package.json
+PASS  JSON válido: BUILD_HISTORY.json
+PASS  main.js sem erro de sintaxe
+PASS  build-info.js sem erro de sintaxe
+PASS  metadado consistente: product
+PASS  metadado consistente: version
+PASS  metadado consistente: phase
+PASS  metadado consistente: phaseName
+PASS  metadado consistente: channel
+PASS  metadado consistente: saveSchema
+PASS  metadado consistente: target
+PASS  metadado consistente: build
+PASS  metadado consistente: builtAt
+PASS  metadado consistente: builtAtIso
+PASS  build segue padrão oficial
+PASS  package.json segue versão da release
+PASS  build-info carregado antes do jogo
+PASS  HTML sem versão comercial hardcoded
+PASS  main.js usa metadados gerados
+PASS  main.js sem build F01 hardcoded
+PASS  fase visível gerada em runtime
+PASS  recurso referenciado existe: style.css
+PASS  recurso referenciado existe: assets/characters/CHAR_CONTROLLER_MALE01_V1.png
+PASS  recurso referenciado existe: assets/characters/CHAR_CONTROLLER_FEMALE01_V1.png
+PASS  recurso referenciado existe: assets/backgrounds/BG_AIRPORT_DAY_CLEAR_V1.png
+PASS  recurso referenciado existe: build-info.js
+PASS  recurso referenciado existe: main.js
+PASS  recurso referenciado existe: assets/backgrounds/BG_CONTROL_TOWER_REALISTIC_V1.png
+PASS  recurso referenciado existe: assets/backgrounds/BG_AIRPORT_NIGHT_RAIN_V1.png
+Skyward Control F01 regression: 17/17 aprovadas
+PASS  build gerada em version.txt
+PASS  metadados visíveis no HTML
+PASS  favicon embutido
+PASS  dock legado removido
+PASS  sem clearance genérico no HTML
+PASS  clearances explícitos
+PASS  mapa de clearance por solicitação
+PASS  snapshot versionado por schema
+PASS  migração de snapshot legado
+PASS  restauração conectada
+PASS  prevenção de callsign duplicado
+PASS  um painel mobile por vez
+PASS  menus roláveis
+PASS  guard somente no gameplay
+PASS  camada mobile oculta no desktop
+PASS  JSON válido: data/aircraft.json
+PASS  JSON válido: data/airports.json
+Skyward Control F02 audit: 30/30 aprovadas
+PASS  fonte única consistente: product
+PASS  fonte única consistente: version
+PASS  fonte única consistente: phase
+PASS  fonte única consistente: phaseName
+PASS  fonte única consistente: channel
+PASS  fonte única consistente: saveSchema
+PASS  fonte única consistente: target
+PASS  fonte única consistente: build
+PASS  fonte única consistente: builtAt
+PASS  fonte única consistente: builtAtIso
+PASS  versão F02 correta
+PASS  build oficial válida
+PASS  runtime gerado contém build
+PASS  runtime gerado contém fase
+PASS  version.txt gerado
+PASS  RELEASE.txt gerado
+PASS  BUILD_NOTES gerado
+PASS  histórico contém build
+PASS  package.json sincronizado
+PASS  scripts npm disponíveis
+PASS  pipeline sem dependências externas npm
+PASS  release valida antes de empacotar
+PASS  reempacotamento preserva stamp auditado
+PASS  manifesto gerado no staging
+PASS  checksum externo do ZIP
+PASS  metadados não hardcoded no HTML
+PASS  build-info precede main.js
+PASS  snapshot independe da fase
+PASS  config SemVer
+PASS  data ISO BRT
+Pipeline guard: 8/8 aprovadas
+PASS  configuração válida aceita
+PASS  SemVer inválido bloqueado
+PASS  fase inválida bloqueada
+PASS  schema inválido bloqueado
+PASS  build determinística em BRT
+PASS  timestamp BRT determinístico
+PASS  manifesto inclui arquivo
+PASS  adulteração muda SHA-256
+STAMPED SC-1.2.0-F02-20260617-1213

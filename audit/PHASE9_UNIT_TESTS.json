@@ -1,0 +1,190 @@
+{
+  "schema": 1,
+  "suite": "phase9-unit",
+  "build": "SC-1.12.0-F12-20260618-1138",
+  "passed": 36,
+  "total": 36,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "config legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "metadata legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "order legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "runtime legível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fase F09+ configurada",
+      "ok": true,
+      "detail": "1.12.0/F12"
+    },
+    {
+      "name": "desktop schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build F09+ carimbada",
+      "ok": true,
+      "detail": "SC-1.12.0-F12-20260618-1138"
+    },
+    {
+      "name": "metadados sincronizados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "18 módulos oficiais",
+      "ok": true,
+      "detail": "21"
+    },
+    {
+      "name": "módulo desktop oficial",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arquitetura geração 9+",
+      "ok": true,
+      "detail": "12"
+    },
+    {
+      "name": "manifesto consistente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HUD desktop presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "três modos de workspace presentes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "controles de painel presentes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ajustes de largura presentes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ajuda de atalhos presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS usa variáveis de workspace",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "modo radar remove painéis",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "modo análise amplia painéis",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tablet possui HUD touch-safe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile oculta workspace desktop",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API desktop congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preferências persistentes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "atalhos ignoram campos de edição",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bundle sincronizado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "viewport desktop",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "viewport tablet",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "viewport compacto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp inferior",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clamp superior",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "atalho N",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "atalho Shift+A",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "atalho 5 abre safety",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preferências saneadas",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

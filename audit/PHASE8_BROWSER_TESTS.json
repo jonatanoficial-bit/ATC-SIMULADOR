@@ -1,0 +1,246 @@
+{
+  "schema": 1,
+  "suite": "phase8-browser",
+  "mode": "inline-controlled-runtime",
+  "environmentLimitation": "Chromium local navigation is blocked by policy; exact app HTML/CSS/JS are loaded in memory while file integrity is verified separately.",
+  "build": {
+    "product": "Skyward Control",
+    "version": "1.12.0",
+    "phase": "F12",
+    "phaseName": "Modelo Realista de Aeronaves",
+    "channel": "alpha",
+    "build": "SC-1.12.0-F12-20260618-1138",
+    "builtAt": "2026-06-18 11:38 BRT",
+    "builtAtIso": "2026-06-18T11:38:16-03:00",
+    "schema": 3,
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "aircraftPerformanceSchema": 1,
+    "target": "Mobile-first / Tablet / Desktop"
+  },
+  "checks": [
+    {
+      "name": "build F08+ carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'version': '1.12.0', 'phase': 'F12', 'phaseName': 'Modelo Realista de Aeronaves', 'channel': 'alpha', 'build': 'SC-1.12.0-F12-20260618-1138', 'builtAt': '2026-06-18 11:38 BRT', 'builtAtIso': '2026-06-18T11:38:16-03:00', 'schema': 3, 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'aircraftPerformanceSchema': 1, 'target': 'Mobile-first / Tablet / Desktop'}"
+    },
+    {
+      "name": "UX schema carregado",
+      "ok": true,
+      "detail": "{'schema': 1, 'mode': 'mobile-landscape', 'target': 46}"
+    },
+    {
+      "name": "arquitetura geração 8+",
+      "ok": true,
+      "detail": "{'generation': 10, 'strategy': 'professional-accessibility-settings-desktop-tablet-workspace-adaptive-mobile-ux-installable-offline-pwa-transactional-save-vault-quality-gated-typescript-modules', 'entry': 'main.js', 'sourceRoot': 'src/runtime', 'modules': ['runtime-registry', '00-quality-kernel', '00-typescript-contracts', '01-build-and-radio', '01-pwa-runtime', '02-save-vault', '02-weather-fuel-operations', '03-resilience-snapshots', '04-state-airports-procedures', '15-aircraft-performance', '05-profile-navigation', '06-traffic-requests', '07-simulation-safety', '08-radar-rendering', '09-ui-clearances', '10-events-selftest-bootstrap', '11-mobile-runtime', '12-desktop-workspace', '13-accessibility-settings', 'deterministic-replay', '12-quality-test-bridge'], 'loadedAt': 1781793983856}"
+    },
+    {
+      "name": "autoteste interno aprovado",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "viewport mobile horizontal detectado",
+      "ok": true,
+      "detail": "{'schema': 1, 'mode': 'mobile-landscape', 'target': 46}"
+    },
+    {
+      "name": "alvo de toque mobile >=46px",
+      "ok": true,
+      "detail": "{'schema': 1, 'mode': 'mobile-landscape', 'target': 46}"
+    },
+    {
+      "name": "turno inicia sem painel cobrindo radar",
+      "ok": true,
+      "detail": "{'panel': False, 'actions': False, 'dock': 5, 'layer': 'block', 'radarRatio': 0.8051768137076194, 'requestBadge': '8', 'trafficBadge': '8', 'mode': 'mobile-landscape'}"
+    },
+    {
+      "name": "dock operacional possui cinco áreas",
+      "ok": true,
+      "detail": "{'panel': False, 'actions': False, 'dock': 5, 'layer': 'block', 'radarRatio': 0.8051768137076194, 'requestBadge': '8', 'trafficBadge': '8', 'mode': 'mobile-landscape'}"
+    },
+    {
+      "name": "camada móvel está visível",
+      "ok": true,
+      "detail": "{'panel': False, 'actions': False, 'dock': 5, 'layer': 'block', 'radarRatio': 0.8051768137076194, 'requestBadge': '8', 'trafficBadge': '8', 'mode': 'mobile-landscape'}"
+    },
+    {
+      "name": "radar ocupa maior parte do viewport",
+      "ok": true,
+      "detail": "{'panel': False, 'actions': False, 'dock': 5, 'layer': 'block', 'radarRatio': 0.8051768137076194, 'requestBadge': '8', 'trafficBadge': '8', 'mode': 'mobile-landscape'}"
+    },
+    {
+      "name": "badges refletem tráfego e pedidos",
+      "ok": true,
+      "detail": "{'panel': False, 'actions': False, 'dock': 5, 'layer': 'block', 'radarRatio': 0.8051768137076194, 'requestBadge': '8', 'trafficBadge': '8', 'mode': 'mobile-landscape'}"
+    },
+    {
+      "name": "dataset responsivo sincronizado",
+      "ok": true,
+      "detail": "{'panel': False, 'actions': False, 'dock': 5, 'layer': 'block', 'radarRatio': 0.8051768137076194, 'requestBadge': '8', 'trafficBadge': '8', 'mode': 'mobile-landscape'}"
+    },
+    {
+      "name": "todos os botões têm alvo >=44px",
+      "ok": true,
+      "detail": "[52, 52, 52, 52, 52]"
+    },
+    {
+      "name": "tráfego abre painel único",
+      "ok": true,
+      "detail": "{'panel': True, 'actions': False, 'rows': 8, 'width': 0.4099896327014218}"
+    },
+    {
+      "name": "lista mostra oito aeronaves",
+      "ok": true,
+      "detail": "{'panel': True, 'actions': False, 'rows': 8, 'width': 0.4099896327014218}"
+    },
+    {
+      "name": "painel lateral preserva pelo menos 55% do radar",
+      "ok": true,
+      "detail": "{'panel': True, 'actions': False, 'rows': 8, 'width': 0.4099896327014218}"
+    },
+    {
+      "name": "seleção troca painel por action sheet",
+      "ok": true,
+      "detail": "{'panel': False, 'actions': True, 'chip': True, 'commands': 6, 'selected': 'GLO1204'}"
+    },
+    {
+      "name": "chip mostra aeronave selecionada",
+      "ok": true,
+      "detail": "{'panel': False, 'actions': True, 'chip': True, 'commands': 6, 'selected': 'GLO1204'}"
+    },
+    {
+      "name": "ações contextuais disponíveis",
+      "ok": true,
+      "detail": "{'panel': False, 'actions': True, 'chip': True, 'commands': 6, 'selected': 'GLO1204'}"
+    },
+    {
+      "name": "swipe para baixo fecha action sheet",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "swipe da borda esquerda abre pedidos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "swipe da borda direita abre comandos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preferência háptica alterna",
+      "ok": true,
+      "detail": "True->False"
+    },
+    {
+      "name": "preferência háptica persiste",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "guia de gestos pode ser reaberto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop: modo responsivo correto",
+      "ok": true,
+      "detail": "desktop"
+    },
+    {
+      "name": "desktop: turno inicia",
+      "ok": true,
+      "detail": "{'mobile': 'none', 'game': True}"
+    },
+    {
+      "name": "desktop: camada móvel adequada",
+      "ok": true,
+      "detail": "{'mobile': 'none', 'game': True}"
+    },
+    {
+      "name": "tablet: modo responsivo correto",
+      "ok": true,
+      "detail": "tablet"
+    },
+    {
+      "name": "tablet: turno inicia",
+      "ok": true,
+      "detail": "{'mobile': 'none', 'game': True}"
+    },
+    {
+      "name": "tablet: camada móvel adequada",
+      "ok": true,
+      "detail": "{'mobile': 'none', 'game': True}"
+    },
+    {
+      "name": "mobile_landscape: modo responsivo correto",
+      "ok": true,
+      "detail": "mobile-landscape"
+    },
+    {
+      "name": "mobile_landscape: turno inicia",
+      "ok": true,
+      "detail": "{'mobile': 'block', 'game': True}"
+    },
+    {
+      "name": "mobile_landscape: camada móvel adequada",
+      "ok": true,
+      "detail": "{'mobile': 'block', 'game': True}"
+    },
+    {
+      "name": "mobile_portrait: modo responsivo correto",
+      "ok": true,
+      "detail": "mobile-portrait"
+    },
+    {
+      "name": "retrato mantém menus roláveis",
+      "ok": true,
+      "detail": "{'scrollTop': 0, 'scrollHeight': 1023, 'clientHeight': 1023, 'guard': 'none'}"
+    },
+    {
+      "name": "retrato não bloqueia menus",
+      "ok": true,
+      "detail": "{'scrollTop': 0, 'scrollHeight': 1023, 'clientHeight': 1023, 'guard': 'none'}"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "mode": "desktop",
+      "selfTest": true
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "mode": "tablet",
+      "selfTest": true
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "mode": "mobile-landscape",
+      "selfTest": true
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "mode": "mobile-portrait",
+      "selfTest": true
+    }
+  },
+  "passed": 37,
+  "total": 37,
+  "failed": 0
+}

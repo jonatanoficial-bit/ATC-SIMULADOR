@@ -1,0 +1,59 @@
+# Fase 08 — Testes unitários de UX móvel
+
+- Resultado: **53/53 aprovados**
+- Build: `SC-1.12.0-F12-20260618-1138`
+
+## Verificações
+- [x] config legível
+- [x] metadata legível
+- [x] order legível
+- [x] runtime legível
+- [x] fase F08+ configurada
+- [x] UX schema válido
+- [x] build F08+ carimbada
+- [x] metadados F08 sincronizados
+- [x] 17+ módulos oficiais
+- [x] módulo mobile na ordem oficial
+- [x] arquitetura geração 8+
+- [x] fonte expõe API congelada
+- [x] classificador de gestos existe
+- [x] quatro modos responsivos existem
+- [x] alvo de toque calculado
+- [x] gesto da borda esquerda abre pedidos
+- [x] gesto da borda direita abre ações
+- [x] gesto vertical fecha painel
+- [x] gestos horizontais alternam aeronaves
+- [x] toque longo abre ações
+- [x] toque duplo abre ações
+- [x] haptics respeita preferência
+- [x] preferências são persistidas
+- [x] painéis mutuamente exclusivos
+- [x] turno inicia radar-first
+- [x] badges de pedidos, tráfego e safety
+- [x] dock possui cinco botões
+- [x] tabs ARIA controlam painéis
+- [x] chip de aeronave selecionada presente
+- [x] guia de gestos presente
+- [x] toast móvel presente
+- [x] safe areas aplicadas
+- [x] dock usa cinco colunas
+- [x] painel lateral preserva radar
+- [x] touch target CSS variável
+- [x] modo tablet tem breakpoint próprio
+- [x] movimento reduzido respeitado
+- [x] bundle contém UX F08
+- [x] API F08 executa em isolamento
+- [x] API está congelada
+- [x] schema público correto
+- [x] 844×390 classificado como mobile horizontal
+- [x] 390×844 classificado como mobile retrato
+- [x] 1024×768 classificado como tablet
+- [x] 1440×900 classificado como desktop
+- [x] alvo móvel horizontal >=46px
+- [x] alvo móvel retrato >=48px
+- [x] alvo tablet >=44px
+- [x] swipe esquerdo reconhecido
+- [x] swipe direito reconhecido
+- [x] swipe para baixo reconhecido
+- [x] swipe horizontal próximo reconhecido
+- [x] movimento curto vira toque

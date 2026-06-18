@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "pwaSchema": 1,
+  "cacheSchema": 1,
+  "build": "SC-1.12.0-F12-20260618-1138",
+  "builtAt": "2026-06-18 11:38 BRT",
+  "cacheName": "skyward-control-1-sc-1.12.0-f12-20260618-1138",
+  "scope": "./",
+  "strategy": "versioned-precache-controlled-update-network-first-navigation",
+  "files": [
+    {
+      "url": "./assets/backgrounds/BG_AIRPORT_DAY_CLEAR_V1.png",
+      "file": "assets/backgrounds/BG_AIRPORT_DAY_CLEAR_V1.png",
+      "bytes": 2530716,
+      "sha256": "d71f3404791a6dae5bac65dda6a5c587d788c7bc474e9895feb771d2f1114488"
+    },
+    {
+      "url": "./assets/backgrounds/BG_AIRPORT_NIGHT_RAIN_V1.png",
+      "file": "assets/backgrounds/BG_AIRPORT_NIGHT_RAIN_V1.png",
+      "bytes": 2386632,
+      "sha256": "6421c35cb3ec8427be77c1ae3f9300812d8149b5027dcd1ae2cefa8d3d3395f0"
+    },
+    {
+      "url": "./assets/backgrounds/BG_CONTROL_TOWER_REALISTIC_V1.png",
+      "file": "assets/backgrounds/BG_CONTROL_TOWER_REALISTIC_V1.png",
+      "bytes": 2040376,
+      "sha256": "de706eb9fed06a0899f79043635333e8476f3aeced63f2e80c805748ccb0ec31"
+    },
+    {
+      "url": "./assets/characters/CHAR_CONTROLLER_FEMALE01_V1.png",
+      "file": "assets/characters/CHAR_CONTROLLER_FEMALE01_V1.png",
+      "bytes": 1953274,
+      "sha256": "0303d8740948297a2d1889333783cbbb3ea2e9002715bff109f1cb8ffc282dc0"
+    },
+    {
+      "url": "./assets/characters/CHAR_CONTROLLER_MALE01_V1.png",
+      "file": "assets/characters/CHAR_CONTROLLER_MALE01_V1.png",
+      "bytes": 2023251,
+      "sha256": "6c39e910ecb36f777ff59c834f7f4515d3594ebf0b6aa65fc2640a05db163336"
+    },
+    {
+      "url": "./assets/icons/icon-180.png",
+      "file": "assets/icons/icon-180.png",
+      "bytes": 5313,
+      "sha256": "6ed9765196b8c4a0aac8c0a940135b02986390ba232dbbe1d26755a42cd839e8"
+    },
+    {
+      "url": "./assets/icons/icon-192.png",
+      "file": "assets/icons/icon-192.png",
+      "bytes": 5760,
+      "sha256": "99457c347247b67ed7503d968aa2d5ba9cbe849b84789c217b8194b748f63723"
+    },
+    {
+      "url": "./assets/icons/icon-512.png",
+      "file": "assets/icons/icon-512.png",
+      "bytes": 15873,
+      "sha256": "7fe140f09a402889c8a9e51d1ec7d216d9b70a3fd30961b2b97dfae91e229be9"
+    },
+    {
+      "url": "./assets/icons/icon-maskable-512.png",
+      "file": "assets/icons/icon-maskable-512.png",
+      "bytes": 15510,
+      "sha256": "c6f09df82dd2fd29b05aa93b30a617519ddb14a6ef15f9678017ffab4cf7b601"
+    },
+    {
+      "url": "./assets/maps/MAP_KATL_AIRPORT_CLEAN_V1.png",
+      "file": "assets/maps/MAP_KATL_AIRPORT_CLEAN_V1.png",
+      "bytes": 2277066,
+      "sha256": "a6c703bb6f01389a8d1b53b59032dc51b4142a64fdc83b264534181761757c47"
+    },
+    {
+      "url": "./assets/radar/RADAR_BASE_CLEAN_V1.png",
+      "file": "assets/radar/RADAR_BASE_CLEAN_V1.png",
+      "bytes": 1685722,
+      "sha256": "5b28afc6cea7c7edb0d6e09c61dfa8654636e23df399be3b131772b952ba512b"
+    },
+    {
+      "url": "./assets/ui/UI_PANEL_DARK_GLASS_V1.png",
+      "file": "assets/ui/UI_PANEL_DARK_GLASS_V1.png",
+      "bytes": 1529828,
+      "sha256": "9b0901b89fc315d5b31ef009c5981c4b54cbe683e7f8176e3d305da8cb6df943"
+    },
+    {
+      "url": "./build-info.js",
+      "file": "build-info.js",
+      "bytes": 666,
+      "sha256": "e141856e9a2796415d370991984743a7fe51a3da51366f60533f28c69656f5e8"
+    },
+    {
+      "url": "./data/aircraft-performance.json",
+      "file": "data/aircraft-performance.json",
+      "bytes": 5656,
+      "sha256": "299b915eea0a06e9069c11da4ef799c97f4d268a5b0eeb0225677da85f71e7d3"
+    },
+    {
+      "url": "./data/aircraft.json",
+      "file": "data/aircraft.json",
+      "bytes": 1147,
+      "sha256": "5fbc7b7a833d995de19747e49768ad297d2b417e1c9e68ec3670d5d07332636d"
+    },
+    {
+      "url": "./data/airports.json",
+      "file": "data/airports.json",
+      "bytes": 4613,
+      "sha256": "2908723bc368e9c28e3ca927ba0511613b43ec215263124a65c93316fa70e74e"
+    },
+    {
+      "url": "./index.html",
+      "file": "index.html",
+      "bytes": 29327,
+      "sha256": "b75f40d69f8ed15db9175ae82b65e49cbd5c812d2661ed849c97e3f4afb76e3d"
+    },
+    {
+      "url": "./main.js",
+      "file": "main.js",
+      "bytes": 248857,
+      "sha256": "061d3e65a59f95563570c1f6bcd2c6b290892c1ed7c2be0d8a4275d81cee171d"
+    },
+    {
+      "url": "./manifest.webmanifest",
+      "file": "manifest.webmanifest",
+      "bytes": 1016,
+      "sha256": "74e0620a66988c3e358a9146e1fad609149ffb1c94fdafad54bd7347ab2e32b5"
+    },
+    {
+      "url": "./style.css",
+      "file": "style.css",
+      "bytes": 90698,
+      "sha256": "91844f186618de2dd44e6728f464877d622c9c66b1fcb83f4de724776aa88c2f"
+    }
+  ]
+}

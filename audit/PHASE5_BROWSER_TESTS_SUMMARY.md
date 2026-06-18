@@ -1,0 +1,76 @@
+# Fase 05 — Cenários integrados em Chromium
+
+- Resultado: **67/67 aprovados**
+- Build: `SC-1.12.0-F12-20260618-1138`
+- Soak: 900 passos em 0.277s
+- Erros de console: 0
+- Exceções de página: 0
+
+## Verificações
+- [x] baseline F05 carregada
+- [x] test schema atual carregado
+- [x] arquitetura geração 5+
+- [x] runtime modular selado
+- [x] kernel de qualidade selado
+- [x] bridge QA habilitado e selado
+- [x] autoteste interno aprovado
+- [x] turno inicia com tráfego controlado
+- [x] callsigns iniciais únicos
+- [x] solicitações iniciais vinculadas
+- [x] estado inicial cumpre contrato de aeronaves
+- [x] estado inicial cumpre contrato de solicitações
+- [x] geração de tráfego reproduzível por seed
+- [x] seeds diferentes geram cenários diferentes
+- [x] tráfego determinístico mantém callsigns únicos
+- [x] clearance de pouso leva chegada para FINAL
+- [x] pouso protege pista pela aeronave autorizada
+- [x] pedido de pouso é removido após clearance
+- [x] pouso é bloqueado com pista ocupada
+- [x] pedido permanece após bloqueio de pista
+- [x] pushback muda status corretamente
+- [x] pedido pushback é removido
+- [x] táxi muda status corretamente
+- [x] line up muda status e ocupa pista
+- [x] decolagem muda status para DEP
+- [x] decolagem aplica envelope inicial
+- [x] emergência recebe prioridade operacional
+- [x] pedido de emergência é encerrado
+- [x] clearance incompatível é bloqueado
+- [x] vetor final reduz perfil de chegada
+- [x] redução de velocidade aplica passo de 10 kt
+- [x] descida aplica passo de FL10
+- [x] espera alterna status HOLD
+- [x] vetor final para partida é bloqueado
+- [x] fila seleciona emergência antes de pouso normal
+- [x] preditor detecta conflito convergente
+- [x] conflito recebe nível operacional
+- [x] wake heavy-medium excede medium-medium
+- [x] wake heavy-light é o maior cenário testado
+- [x] snapshot é gravado
+- [x] snapshot é restaurado
+- [x] snapshot recupera pontuação e aeronave
+- [x] saneamento remove callsign duplicado
+- [x] saneamento limita envelope da aeronave
+- [x] soak executa todos os passos
+- [x] soak preserva contrato das aeronaves
+- [x] soak preserva contrato das solicitações
+- [x] soak completa sem congelamento
+- [x] soak respeita limite anti-sobrecarga
+- [x] bridge mutável desabilitado em gameplay normal
+- [x] desktop: gameplay ativo
+- [x] desktop: autoteste aprovado
+- [x] desktop: test schema presente
+- [x] desktop não exibe guard de orientação
+- [x] tablet: gameplay ativo
+- [x] tablet: autoteste aprovado
+- [x] tablet: test schema presente
+- [x] mobile horizontal mantém perfil rolável
+- [x] mobile horizontal preserva radar
+- [x] mobile horizontal usa painel único
+- [x] mobile horizontal sem guard de orientação
+- [x] mobile_portrait: gameplay ativo
+- [x] mobile_portrait: autoteste aprovado
+- [x] mobile_portrait: test schema presente
+- [x] mobile vertical protege turno com guard
+- [x] sem exceções de página
+- [x] sem erros de console

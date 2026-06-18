@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "suite": "phase7-browser",
+  "mode": "inline-controlled-pwa-api",
+  "environmentLimitation": "Chromium blocks local and synthetic navigations by administrator policy; Service Worker lifecycle is executed separately in phase7 unit tests.",
+  "build": {
+    "product": "Skyward Control",
+    "version": "1.12.0",
+    "phase": "F12",
+    "phaseName": "Modelo Realista de Aeronaves",
+    "channel": "alpha",
+    "build": "SC-1.12.0-F12-20260618-1138",
+    "builtAt": "2026-06-18 11:38 BRT",
+    "builtAtIso": "2026-06-18T11:38:16-03:00",
+    "schema": 3,
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "aircraftPerformanceSchema": 1,
+    "target": "Mobile-first / Tablet / Desktop"
+  },
+  "checks": [
+    {
+      "name": "build F07+ carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'version': '1.12.0', 'phase': 'F12', 'phaseName': 'Modelo Realista de Aeronaves', 'channel': 'alpha', 'build': 'SC-1.12.0-F12-20260618-1138', 'builtAt': '2026-06-18 11:38 BRT', 'builtAtIso': '2026-06-18T11:38:16-03:00', 'schema': 3, 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'aircraftPerformanceSchema': 1, 'target': 'Mobile-first / Tablet / Desktop'}"
+    },
+    {
+      "name": "schemas PWA carregados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arquitetura geração 7+",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "autoteste interno aprovado",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "API PWA registrada no navegador controlado",
+      "ok": true,
+      "detail": "{'schema': 1, 'cacheSchema': 1, 'supported': True, 'online': True, 'standalone': False, 'installable': False, 'registered': True, 'waiting': False, 'cacheReady': True, 'cacheName': '', 'fullscreen': False, 'build': 'SC-1.12.0-F12-20260618-1138', 'history': [{'event': 'registered', 'detail': 'https://pwa-test.invalid/', 'at': 1781793961598}]}"
+    },
+    {
+      "name": "mensagem do worker atualiza cache visível",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "painel PWA abre",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "painel informa rede e cache",
+      "ok": true,
+      "detail": "{'network': 'ONLINE', 'cache': 'PRONTO', 'update': 'ATUAL'}"
+    },
+    {
+      "name": "fullscreen alterna sem quebrar interface",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "saída do fullscreen funciona",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "evento offline ativa modo protegido",
+      "ok": true,
+      "detail": "{'online': False, 'banner': True, 'airports': 20, 'message': 'OFFLINE • cache pronto • navegador'}"
+    },
+    {
+      "name": "dados operacionais continuam acessíveis no ensaio offline",
+      "ok": true,
+      "detail": "{'online': False, 'banner': True, 'airports': 20, 'message': 'OFFLINE • cache pronto • navegador'}"
+    },
+    {
+      "name": "retorno online detectado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop: turno inicia com controle fullscreen",
+      "ok": true,
+      "detail": "{'game': True, 'fullBtn': True, 'guard': 'none', 'mobile': 'none'}"
+    },
+    {
+      "name": "desktop mantém camada mobile oculta",
+      "ok": true,
+      "detail": "{'game': True, 'fullBtn': True, 'guard': 'none', 'mobile': 'none'}"
+    },
+    {
+      "name": "tablet: turno inicia com controle fullscreen",
+      "ok": true,
+      "detail": "{'game': True, 'fullBtn': True, 'guard': 'none', 'mobile': 'none'}"
+    },
+    {
+      "name": "mobile_landscape: turno inicia com controle fullscreen",
+      "ok": true,
+      "detail": "{'game': True, 'fullBtn': True, 'guard': 'none', 'mobile': 'block'}"
+    },
+    {
+      "name": "mobile horizontal mantém camada operacional",
+      "ok": true,
+      "detail": "{'game': True, 'fullBtn': True, 'guard': 'none', 'mobile': 'block'}"
+    },
+    {
+      "name": "mobile retrato mantém perfil totalmente acessível",
+      "ok": true,
+      "detail": "{'scrollable': False, 'fits': True, 'buttonReachable': False, 'scrollHeight': 1023, 'clientHeight': 1023}"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "selfTest": true
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "selfTest": true
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "selfTest": true
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "selfTest": true
+    }
+  },
+  "passed": 19,
+  "total": 19,
+  "failed": 0
+}
