@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "suite": "phase19-unit",
+  "build": "SC-1.19.0-F19-20260618-2106",
+  "passed": 16,
+  "total": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F19+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.19.0\",\"phase\":\"F19\",\"phaseName\":\"Incidentes Operacionais Complexos, Panes, Bird Strike, Evacuação e Emergência Multiagência\",\"channel\":\"alpha\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.19.0-F19-20260618-2106\",\"builtAt\":\"2026-06-18 21:06 BRT\",\"builtAtIso\":\"2026-06-18T21:06:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1}"
+    },
+    {
+      "name": "módulo F19 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo incidentes e agências",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"types\":7,\"agencies\":10}"
+    },
+    {
+      "name": "incidente inicia",
+      "ok": true,
+      "detail": "{\"id\":\"INC-00000\",\"typeId\":\"ENGINE_FAILURE\",\"name\":\"Falha de motor após V1\",\"severity\":\"critical\",\"phase\":\"departure\",\"startedAt\":100000,\"targetId\":\"TAM1234\",\"requiredAgencies\":[\"ARFF\",\"TOWER\",\"APPROACH\",\"AIRLINE_OPS\"],\"requiredActions\":[\"declare_mayday\",\"priority_vectors\",\"hold_all_departures\",\"clear_emergency_landing\"],\"completedActions\":[],\"dispatchedAgencies\":[],\"runwayClosureMin\":22,\"scorePenalty\":320,\"economyPenalty\":52000,\"careerStress\":15,\"status\":\"ACTIVE\",\"reason\":\"unit-test\"}"
+    },
+    {
+      "name": "alvo vira emergência",
+      "ok": true,
+      "detail": "{\"id\":\"TAM1234\",\"kind\":\"arrival\",\"status\":\"EMERG\",\"emergency\":true,\"incidentId\":\"INC-00000\",\"emergencyType\":\"Falha de motor após V1\",\"request\":[\"emergency\",\"urgent\"]}"
+    },
+    {
+      "name": "pista fecha em incidente crítico",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "clearance bloqueado com pista fechada",
+      "ok": true,
+      "detail": "{\"level\":\"danger\",\"block\":true,\"msg\":\"Pista fechada por incidente operacional.\"}"
+    },
+    {
+      "name": "score de resolução alto após ações",
+      "ok": true,
+      "detail": "100"
+    },
+    {
+      "name": "incidente resolvido e histórico",
+      "ok": true,
+      "detail": "[{\"id\":\"INC-00000\",\"typeId\":\"ENGINE_FAILURE\",\"name\":\"Falha de motor após V1\",\"severity\":\"critical\",\"phase\":\"departure\",\"startedAt\":100000,\"targetId\":\"TAM1234\",\"requiredAgencies\":[\"ARFF\",\"TOWER\",\"APPROACH\",\"AIRLINE_OPS\"],\"requiredActions\":[\"declare_mayday\",\"priority_vectors\",\"hold_all_departures\",\"clear_emergency_landing\"],\"completedActions\":[\"declare_mayday\",\"priority_vectors\",\"hold_all_departures\",\"clear_emergency_landing\"],\"dispatchedAgencies\":[\"ARFF\",\"TOWER\",\"APPROACH\",\"AIRLINE_OPS\"],\"runwayClosureMin\":22,\"scorePenalty\":320,\"economyPenalty\":52000,\"careerStress\":15,\"status\":\"RESOLVED\",\"reason\":\"unit-test\",\"resolvedAt\":100000,\"resolutionScore\":100,\"grade\":\"EXCELLENT\"}]"
+    },
+    {
+      "name": "impacto econômico registrado",
+      "ok": true,
+      "detail": "{\"cost\":65300,\"closures\":1,\"failed\":0,\"resolved\":1}"
+    },
+    {
+      "name": "reabertura forçada funciona",
+      "ok": true,
+      "detail": "false"
+    }
+  ]
+}

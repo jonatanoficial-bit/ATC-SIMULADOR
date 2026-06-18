@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "suite": "phase14-unit",
+  "build": "SC-1.14.0-F14-20260618-1634",
+  "passed": 16,
+  "total": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F14+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.14.0\",\"phase\":\"F14\",\"phaseName\":\"Safety Director de Solo, Hotspots e Runway Incursion\",\"channel\":\"alpha\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.14.0-F14-20260618-1634\",\"builtAt\":\"2026-06-18 16:34 BRT\",\"builtAtIso\":\"2026-06-18T16:34:48-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1}"
+    },
+    {
+      "name": "módulo F14 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo hotspots schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hotspots cobrem 5 aeroportos",
+      "ok": true,
+      "detail": "SBGR,SBSP,SBKP,SBBR,KATL"
+    },
+    {
+      "name": "KATL possui 3 hotspots",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"airports\":5}"
+    },
+    {
+      "name": "hotspots SBGR retornam",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "runway incursion detectada",
+      "ok": true,
+      "detail": "[{\"level\":\"danger\",\"id\":\"TAM1001\",\"d\":0,\"msg\":\"Runway incursion: TAM1001 entrou na área protegida da 09R/27L.\"},{\"level\":\"danger\",\"id\":\"GLO2002\",\"d\":0.3999999999999986,\"msg\":\"Runway incursion: GLO2002 entrou na área protegida da 09R/27L.\"}]"
+    },
+    {
+      "name": "taxi conflict detectado",
+      "ok": true,
+      "detail": "[{\"level\":\"danger\",\"a\":\"TAM1001\",\"b\":\"GLO2002\",\"d\":0.8944271909999127,\"msg\":\"Conflito de solo TAM1001/GLO2002: 0.9 NM\"}]"
+    },
+    {
+      "name": "surface state danger",
+      "ok": true,
+      "detail": "{\"schema\":1,\"score\":14,\"level\":\"danger\",\"alerts\":[{\"level\":\"danger\",\"id\":\"TAM1001\",\"d\":0,\"msg\":\"Runway incursion: TAM1001 entrou na área protegida da 09R/27L.\"},{\"level\":\"danger\",\"id\":\"GLO2002\",\"d\":0.3999999999999986,\"msg\":\"Runway incursion: GLO2002 entrou na área protegida da 09R/27L.\"},{\"level\":\"danger\",\"a\":\"TAM1001\",\"b\":\"GLO2002\",\"d\":0.8944271909999127,\"msg\":\"Conflito de solo TAM1001/GLO2002: 0.9 NM\"}],\"lastIncursionAt\":3000,\"lastTaxiConflictAt\":3000,\"runwayProtected\":false,\"hotspots\":[]}"
+    },
+    {
+      "name": "line up bloqueado por incursion/short final",
+      "ok": true,
+      "detail": "{\"level\":\"danger\",\"block\":true,\"msg\":\"Runway incursion: TAM1001 entrou na área protegida da 09R/27L.\"}"
+    },
+    {
+      "name": "taxi aprovado fora de conflito",
+      "ok": true,
+      "detail": "{\"level\":\"ok\",\"block\":false,\"msg\":\"Surface safety aprovado.\"}"
+    },
+    {
+      "name": "hotspot ativo identificado",
+      "ok": true,
+      "detail": "[{\"id\":\"HS-TAXI-A\",\"label\":\"Taxiway A merge\",\"type\":\"taxi-converge\",\"severity\":\"warn\",\"occupants\":[\"TAM1001\"]}]"
+    }
+  ]
+}

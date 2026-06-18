@@ -1,0 +1,234 @@
+{
+  "schema": 1,
+  "version": "2026.06-f19",
+  "description": "Complex operational incidents, runway closures, emergency agencies and ATC response playbooks.",
+  "incidentTypes": [
+    {
+      "id": "BIRD_STRIKE",
+      "name": "Bird strike na decolagem",
+      "severity": "high",
+      "phase": "departure",
+      "probabilityWeight": 0.18,
+      "runwayClosureMin": 18,
+      "requiredAgencies": [
+        "ARFF",
+        "WILDLIFE",
+        "OPS"
+      ],
+      "requiredActions": [
+        "stop_departures",
+        "inspect_runway",
+        "vector_return",
+        "coordinate_arff"
+      ],
+      "scorePenalty": 220,
+      "economyPenalty": 38000,
+      "careerStress": 10
+    },
+    {
+      "id": "ENGINE_FAILURE",
+      "name": "Falha de motor após V1",
+      "severity": "critical",
+      "phase": "departure",
+      "probabilityWeight": 0.13,
+      "runwayClosureMin": 22,
+      "requiredAgencies": [
+        "ARFF",
+        "TOWER",
+        "APPROACH",
+        "AIRLINE_OPS"
+      ],
+      "requiredActions": [
+        "declare_mayday",
+        "priority_vectors",
+        "hold_all_departures",
+        "clear_emergency_landing"
+      ],
+      "scorePenalty": 320,
+      "economyPenalty": 52000,
+      "careerStress": 15
+    },
+    {
+      "id": "MEDICAL_EVAC",
+      "name": "Evacuação médica a bordo",
+      "severity": "medium",
+      "phase": "arrival",
+      "probabilityWeight": 0.16,
+      "runwayClosureMin": 0,
+      "requiredAgencies": [
+        "MEDICAL",
+        "OPS",
+        "AIRLINE_OPS"
+      ],
+      "requiredActions": [
+        "priority_landing",
+        "assign_gate_medical",
+        "notify_medical"
+      ],
+      "scorePenalty": 120,
+      "economyPenalty": 18000,
+      "careerStress": 7
+    },
+    {
+      "id": "GEAR_UNSAFE",
+      "name": "Trem de pouso inseguro",
+      "severity": "critical",
+      "phase": "arrival",
+      "probabilityWeight": 0.12,
+      "runwayClosureMin": 35,
+      "requiredAgencies": [
+        "ARFF",
+        "TOWER",
+        "APPROACH",
+        "OPS"
+      ],
+      "requiredActions": [
+        "low_pass_inspection",
+        "emergency_landing",
+        "foam_standby",
+        "close_runway"
+      ],
+      "scorePenalty": 360,
+      "economyPenalty": 65000,
+      "careerStress": 18
+    },
+    {
+      "id": "RUNWAY_FOD",
+      "name": "FOD na pista",
+      "severity": "high",
+      "phase": "surface",
+      "probabilityWeight": 0.2,
+      "runwayClosureMin": 14,
+      "requiredAgencies": [
+        "OPS",
+        "GROUND",
+        "INSPECTION"
+      ],
+      "requiredActions": [
+        "close_runway",
+        "reroute_taxi",
+        "inspect_runway",
+        "reopen_runway"
+      ],
+      "scorePenalty": 180,
+      "economyPenalty": 26000,
+      "careerStress": 6
+    },
+    {
+      "id": "BRAKE_FIRE",
+      "name": "Superaquecimento/fogo nos freios",
+      "severity": "high",
+      "phase": "surface",
+      "probabilityWeight": 0.14,
+      "runwayClosureMin": 20,
+      "requiredAgencies": [
+        "ARFF",
+        "GROUND",
+        "OPS"
+      ],
+      "requiredActions": [
+        "stop_aircraft",
+        "coordinate_arff",
+        "evacuate_if_needed"
+      ],
+      "scorePenalty": 240,
+      "economyPenalty": 42000,
+      "careerStress": 12
+    },
+    {
+      "id": "SECURITY_EVAC",
+      "name": "Evacuação de terminal / alerta de segurança",
+      "severity": "medium",
+      "phase": "airport",
+      "probabilityWeight": 0.09,
+      "runwayClosureMin": 0,
+      "requiredAgencies": [
+        "SECURITY",
+        "OPS",
+        "AIRLINE_OPS"
+      ],
+      "requiredActions": [
+        "ground_delay_program",
+        "gate_hold",
+        "coordinate_security"
+      ],
+      "scorePenalty": 160,
+      "economyPenalty": 36000,
+      "careerStress": 9
+    }
+  ],
+  "agencies": {
+    "ARFF": {
+      "name": "Resgate e Combate a Incêndio",
+      "responseMin": 3,
+      "cost": 8000
+    },
+    "WILDLIFE": {
+      "name": "Controle de fauna",
+      "responseMin": 8,
+      "cost": 3500
+    },
+    "OPS": {
+      "name": "Operações aeroportuárias",
+      "responseMin": 5,
+      "cost": 4200
+    },
+    "GROUND": {
+      "name": "Controle de solo",
+      "responseMin": 2,
+      "cost": 1800
+    },
+    "TOWER": {
+      "name": "Torre",
+      "responseMin": 1,
+      "cost": 1200
+    },
+    "APPROACH": {
+      "name": "Aproximação",
+      "responseMin": 2,
+      "cost": 1500
+    },
+    "AIRLINE_OPS": {
+      "name": "COA companhia aérea",
+      "responseMin": 6,
+      "cost": 2600
+    },
+    "MEDICAL": {
+      "name": "Equipe médica",
+      "responseMin": 7,
+      "cost": 5200
+    },
+    "INSPECTION": {
+      "name": "Inspeção de pista",
+      "responseMin": 6,
+      "cost": 4600
+    },
+    "SECURITY": {
+      "name": "Segurança aeroportuária",
+      "responseMin": 5,
+      "cost": 6000
+    }
+  },
+  "resolutionGrades": [
+    {
+      "id": "EXCELLENT",
+      "name": "Resposta excelente",
+      "minScore": 88
+    },
+    {
+      "id": "CONTROLLED",
+      "name": "Controlado",
+      "minScore": 70
+    },
+    {
+      "id": "DELAYED",
+      "name": "Resposta atrasada",
+      "minScore": 48
+    },
+    {
+      "id": "FAILED",
+      "name": "Falha crítica",
+      "minScore": 0
+    }
+  ]
+}

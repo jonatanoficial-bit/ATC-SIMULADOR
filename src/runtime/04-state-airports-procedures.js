@@ -18,7 +18,7 @@ let spawnTimer = 0;
 let requestTimer = 0;
 let logLines = [];
 let runwayOccupiedBy = null;
-let stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
+let stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, surfaceConflicts:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
 let mission = null;
 let missionHistory = [];
 let conflictPredictions = [];
@@ -30,13 +30,16 @@ const FUEL_RULES = { arrivalBurn:0.010, departureBurn:0.006, emergencyThreshold:
 let emergencyDirector = { active:false, target:null, message:'Sem emergência ativa.', lastTick:0 };
 
 const SIM_SPEED = 0.092;
-const runway = { name:'09/27', x1:18, y1:50, x2:82, y2:50, width:6.2, exits:[32,45,56,68] };
-const gates = [
+let runway = { name:'09/27', x1:18, y1:50, x2:82, y2:50, width:6.2, exits:[32,45,56,68] };
+let gates = [
   {x:55,y:70, label:'A'}, {x:61,y:70, label:'A'}, {x:67,y:70, label:'B'}, {x:73,y:70, label:'B'},
   {x:58,y:78, label:'C'}, {x:65,y:78, label:'C'}, {x:72,y:78, label:'D'}, {x:78,y:77, label:'D'}
 ];
-const holdingPoints = [{x:31,y:57},{x:47,y:57},{x:64,y:57},{x:78,y:57}];
-const finalFix = {x:52, y:26};
+let holdingPoints = [{x:31,y:57},{x:47,y:57},{x:64,y:57},{x:78,y:57}];
+let finalFix = {x:52, y:26};
+let activeAirportGraph = null;
+let secondaryRunways = [];
+let airportSurfaceState = { activeRunway:null, taxiwayCount:0, gateCount:0, holdingCount:0 };
 
 const AIRPORT_OPS_PROFILES = {
   SBGR:{runway:'09R/27L', layout:'parallel', complexity:1.18, spawn:0.72, finalFix:{x:50,y:24}, threshold:{x:82,y:50}, gates:'east', ops:'Parallel hub', wind:'E/SE', procedures:'STAR MRC / SID PAG'},
@@ -73,12 +76,17 @@ function renderAirportOpsBoard(){
   try{
     const box=document.querySelector('#airportOpsBoard'); if(!box) return;
     const a=airport(), p=currentOpsProfile||airportOpsProfile();
+    const graph=activeAirportGraph;
     box.innerHTML=`<div class="airport-ops-head"><b>AIRPORT OPS</b><span>${a.icao}</span></div>
       <div class="airport-ops-grid">
         <div><small>RWY</small><b>${p.runway}</b></div>
         <div><small>LAYOUT</small><b>${p.layout}</b></div>
         <div><small>OPS</small><b>${p.ops}</b></div>
         <div><small>PROC</small><b>${p.procedures}</b></div>
+        <div><small>GATES</small><b>${graph?.gates?.length || gates.length}</b></div>
+        <div><small>TAXIWAYS</small><b>${graph?.taxiways?.length || 0}</b></div>
+        <div><small>HOLDS</small><b>${graph?.holdingPoints?.length || holdingPoints.length}</b></div>
+        <div><small>GRAPH</small><b>${graph ? 'ATIVO' : 'GENÉRICO'}</b></div>
       </div>`;
   }catch(e){ safeLogError(e,'airport-ops-board'); }
 }

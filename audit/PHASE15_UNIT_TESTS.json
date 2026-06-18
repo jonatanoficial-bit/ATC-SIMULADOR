@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "suite": "phase15-unit",
+  "build": "SC-1.15.0-F15-20260618-1718",
+  "passed": 17,
+  "total": 17,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F15+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.15.0\",\"phase\":\"F15\",\"phaseName\":\"Meteorologia Avançada IFR/VFR\",\"channel\":\"alpha\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.15.0-F15-20260618-1718\",\"builtAt\":\"2026-06-18 17:18 BRT\",\"builtAtIso\":\"2026-06-18T17:18:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1}"
+    },
+    {
+      "name": "módulo F15 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo tem 5 perfis",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "perfil LIFR presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"profiles\":5}"
+    },
+    {
+      "name": "VMC aplica VFR",
+      "ok": true,
+      "detail": "{\"schema\":1,\"profileId\":\"VMC_CLEAR\",\"flightRules\":\"VFR\",\"visibilityKm\":10,\"ceilingFt\":6500,\"windDir\":90,\"windKt\":8,\"gustKt\":12,\"crosswindKt\":4,\"rainMmH\":0,\"runwayCondition\":\"DRY\",\"brakingAction\":\"GOOD\",\"severity\":0.12,\"arrivalSpacingNm\":5,\"departureSpacingSec\":55,\"rvrMeters\":10000,\"ifrActive\":false,\"updatedAt\":1000,\"advisory\":[\"VFR • VIS 10 km • TETO 6500 ft\",\"Vento 90/8G12 kt • XWIND 4 kt\"]}"
+    },
+    {
+      "name": "FOG aplica LIFR",
+      "ok": true,
+      "detail": "{\"schema\":1,\"profileId\":\"FOG_RVR\",\"flightRules\":\"LIFR\",\"visibilityKm\":0.8,\"ceilingFt\":180,\"windDir\":70,\"windKt\":5,\"gustKt\":8,\"crosswindKt\":2,\"rainMmH\":0.2,\"runwayCondition\":\"DAMP\",\"brakingAction\":\"MEDIUM\",\"severity\":0.84,\"arrivalSpacingNm\":11,\"departureSpacingSec\":135,\"rvrMeters\":531,\"ifrActive\":true,\"updatedAt\":1000,\"advisory\":[\"LIFR • VIS 0.8 km • TETO 180 ft\",\"Vento 70/5G8 kt • XWIND 2 kt\",\"Pista DAMP • frenagem MEDIUM\",\"RVR 531 m: operação de baixa visibilidade\",\"Aumente separação e evite autorizações simultâneas.\"]}"
+    },
+    {
+      "name": "risco severo maior que VMC",
+      "ok": true,
+      "detail": "{\"impactVmc\":{\"risk\":7,\"arrivalSpacingNm\":5,\"departureSpacingSec\":55,\"landingPenalty\":3,\"takeoffPenalty\":2,\"allowVfr\":true},\"impactStorm\":{\"risk\":100,\"arrivalSpacingNm\":12,\"departureSpacingSec\":150,\"landingPenalty\":42,\"takeoffPenalty\":34,\"allowVfr\":false}}"
+    },
+    {
+      "name": "pouso em TS gera alerta ou bloqueio",
+      "ok": true,
+      "detail": "{\"level\":\"warn\",\"block\":false,\"msg\":\"Clima severo: aplicar 12 NM na final.\"}"
+    },
+    {
+      "name": "decolagem bloqueia crosswind severo",
+      "ok": true,
+      "detail": "{\"xwind\":{\"schema\":1,\"profileId\":\"XWIND\",\"flightRules\":\"IFR\",\"visibilityKm\":8,\"ceilingFt\":1500,\"windDir\":270,\"windKt\":35,\"gustKt\":48,\"crosswindKt\":33,\"rainMmH\":0,\"runwayCondition\":\"DRY\",\"brakingAction\":\"GOOD\",\"severity\":0.7,\"arrivalSpacingNm\":5,\"departureSpacingSec\":55,\"rvrMeters\":8000,\"ifrActive\":true,\"updatedAt\":1000,\"advisory\":[\"IFR • VIS 8 km • TETO 1500 ft\",\"Vento 270/35G48 kt • XWIND 33 kt\",\"Aumente separação e evite autorizações simultâneas.\"]},\"takeoff\":{\"level\":\"danger\",\"block\":true,\"msg\":\"Decolagem bloqueada por crosswind severo.\"}}"
+    },
+    {
+      "name": "risco de pouso climático positivo",
+      "ok": true,
+      "detail": "55"
+    },
+    {
+      "name": "risco de decolagem climático positivo",
+      "ok": true,
+      "detail": "29"
+    },
+    {
+      "name": "perfil por aeroporto retorna válido",
+      "ok": true,
+      "detail": "{\"id\":\"FOG_RVR\",\"label\":\"Fog / RVR operations\",\"flightRules\":\"LIFR\",\"visibilityKm\":0.8,\"ceilingFt\":180,\"rainMmH\":0.2,\"windDir\":70,\"windKt\":5,\"gustKt\":8,\"crosswindKt\":2,\"runwayCondition\":\"DAMP\",\"brakingAction\":\"MEDIUM\",\"severity\":0.84,\"arrivalSpacingNm\":11,\"departureSpacingSec\":135}"
+    }
+  ]
+}

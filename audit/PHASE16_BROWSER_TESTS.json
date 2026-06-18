@@ -1,0 +1,163 @@
+{
+  "schema": 1,
+  "suite": "phase16-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para procedimentos publicados.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.16.0",
+    "phase": "F16",
+    "phaseName": "Procedimentos Reais SID/STAR, ILS, RNAV, Aproximação Perdida e Holdings",
+    "channel": "alpha",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.16.0-F16-20260618-1810",
+    "builtAt": "2026-06-18 18:10 BRT",
+    "builtAtIso": "2026-06-18T18:10:00-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1,
+    "weatherOpsSchema": 1,
+    "procedureOpsSchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F16 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.16.0', 'phase': 'F16', 'phaseName': 'Procedimentos Reais SID/STAR, ILS, RNAV, Aproximação Perdida e Holdings', 'channel': 'alpha', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.16.0-F16-20260618-1810', 'builtAt': '2026-06-18 18:10 BRT', 'builtAtIso': '2026-06-18T18:10:00-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1, 'weatherOpsSchema': 1, 'procedureOpsSchema': 1}"
+    },
+    {
+      "name": "main bundle inclui módulo 19",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_PROCEDURES no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui SBGR SBSP KATL",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui SID STAR APPROACH",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui missed e hold",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui procedures-f16.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "início de turno inicializa procedimentos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "simulação usa guidance de procedimento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "UI integra chegada publicada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "UI integra SID de decolagem",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "UI integra missed approach",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "render desenha overlay publicado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F16 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema procedureOpsSchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload existe raiz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload existe docs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém caminho Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém repo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ILS/RNAV presentes no SBGR",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 20,
+  "failed": 0,
+  "total": 20
+}

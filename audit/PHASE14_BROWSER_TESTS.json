@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "suite": "phase14-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para safety de superfície.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.14.0",
+    "phase": "F14",
+    "phaseName": "Safety Director de Solo, Hotspots e Runway Incursion",
+    "channel": "alpha",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.14.0-F14-20260618-1634",
+    "builtAt": "2026-06-18 16:34 BRT",
+    "builtAtIso": "2026-06-18T16:34:48-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F14 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.14.0', 'phase': 'F14', 'phaseName': 'Safety Director de Solo, Hotspots e Runway Incursion', 'channel': 'alpha', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.14.0-F14-20260618-1634', 'builtAt': '2026-06-18 16:34 BRT', 'builtAtIso': '2026-06-18T16:34:48-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1}"
+    },
+    {
+      "name": "schema surfaceSafetySchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "main bundle inclui módulo 17",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_SURFACE_SAFETY no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "módulo detecta runway incursion",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "módulo detecta taxi conflicts",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "módulo possui hotspots",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "simulação chama surface director",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "commandRisk consulta surface risk",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "UI mostra Surface",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stats incluem surface conflicts",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui aeroportos-chave",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hotspots danger presentes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui surface-hotspots.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F14 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bundle geração 14",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pipeline contém phase14",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hotspots totais >= 10",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 18,
+  "failed": 0,
+  "total": 18
+}

@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "version": "2026.06-f15",
+  "description": "Advanced operational weather profiles for Skyward Control F15",
+  "profiles": {
+    "VMC_CLEAR": {
+      "label": "VMC clear",
+      "flightRules": "VFR",
+      "visibilityKm": 10,
+      "ceilingFt": 6500,
+      "rainMmH": 0,
+      "windDir": 90,
+      "windKt": 8,
+      "gustKt": 12,
+      "crosswindKt": 4,
+      "runwayCondition": "DRY",
+      "brakingAction": "GOOD",
+      "severity": 0.12,
+      "arrivalSpacingNm": 5,
+      "departureSpacingSec": 55
+    },
+    "IFR_LOW_CEILING": {
+      "label": "IFR low ceiling",
+      "flightRules": "IFR",
+      "visibilityKm": 5,
+      "ceilingFt": 900,
+      "rainMmH": 0.8,
+      "windDir": 110,
+      "windKt": 13,
+      "gustKt": 20,
+      "crosswindKt": 9,
+      "runwayCondition": "DAMP",
+      "brakingAction": "GOOD_TO_MEDIUM",
+      "severity": 0.48,
+      "arrivalSpacingNm": 7,
+      "departureSpacingSec": 75
+    },
+    "LIFR_RAIN": {
+      "label": "LIFR heavy rain",
+      "flightRules": "LIFR",
+      "visibilityKm": 1.8,
+      "ceilingFt": 350,
+      "rainMmH": 7.5,
+      "windDir": 130,
+      "windKt": 19,
+      "gustKt": 31,
+      "crosswindKt": 16,
+      "runwayCondition": "WET",
+      "brakingAction": "MEDIUM",
+      "severity": 0.78,
+      "arrivalSpacingNm": 10,
+      "departureSpacingSec": 120
+    },
+    "THUNDERSTORM_CELLS": {
+      "label": "TS cells nearby",
+      "flightRules": "IFR",
+      "visibilityKm": 3.2,
+      "ceilingFt": 1200,
+      "rainMmH": 12,
+      "windDir": 240,
+      "windKt": 22,
+      "gustKt": 42,
+      "crosswindKt": 24,
+      "runwayCondition": "WET",
+      "brakingAction": "MEDIUM_TO_POOR",
+      "severity": 0.92,
+      "arrivalSpacingNm": 12,
+      "departureSpacingSec": 150
+    },
+    "FOG_RVR": {
+      "label": "Fog / RVR operations",
+      "flightRules": "LIFR",
+      "visibilityKm": 0.8,
+      "ceilingFt": 180,
+      "rainMmH": 0.2,
+      "windDir": 70,
+      "windKt": 5,
+      "gustKt": 8,
+      "crosswindKt": 2,
+      "runwayCondition": "DAMP",
+      "brakingAction": "MEDIUM",
+      "severity": 0.84,
+      "arrivalSpacingNm": 11,
+      "departureSpacingSec": 135
+    }
+  },
+  "airportBias": {
+    "SBGR": [
+      "VMC_CLEAR",
+      "IFR_LOW_CEILING",
+      "LIFR_RAIN",
+      "THUNDERSTORM_CELLS"
+    ],
+    "SBSP": [
+      "VMC_CLEAR",
+      "IFR_LOW_CEILING",
+      "FOG_RVR",
+      "LIFR_RAIN"
+    ],
+    "SBKP": [
+      "VMC_CLEAR",
+      "IFR_LOW_CEILING",
+      "THUNDERSTORM_CELLS"
+    ],
+    "SBBR": [
+      "VMC_CLEAR",
+      "IFR_LOW_CEILING",
+      "THUNDERSTORM_CELLS"
+    ],
+    "KATL": [
+      "VMC_CLEAR",
+      "IFR_LOW_CEILING",
+      "LIFR_RAIN",
+      "THUNDERSTORM_CELLS",
+      "FOG_RVR"
+    ]
+  }
+}

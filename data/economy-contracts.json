@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "version": "2026.06-f18",
+  "description": "Airport operational economy: budget, delay cost, fines, efficiency and airline service contracts.",
+  "baseCurrency": "USD",
+  "airportBudgets": {
+    "SBGR": {
+      "annualBudgetM": 220,
+      "shiftBudget": 185000,
+      "delayCostPerMin": 95,
+      "fuelServiceRevenue": 48,
+      "movementRevenue": 620
+    },
+    "SBSP": {
+      "annualBudgetM": 130,
+      "shiftBudget": 105000,
+      "delayCostPerMin": 120,
+      "fuelServiceRevenue": 35,
+      "movementRevenue": 520
+    },
+    "SBKP": {
+      "annualBudgetM": 150,
+      "shiftBudget": 125000,
+      "delayCostPerMin": 85,
+      "fuelServiceRevenue": 55,
+      "movementRevenue": 590
+    },
+    "SBBR": {
+      "annualBudgetM": 145,
+      "shiftBudget": 118000,
+      "delayCostPerMin": 90,
+      "fuelServiceRevenue": 42,
+      "movementRevenue": 560
+    },
+    "KATL": {
+      "annualBudgetM": 520,
+      "shiftBudget": 420000,
+      "delayCostPerMin": 140,
+      "fuelServiceRevenue": 70,
+      "movementRevenue": 780
+    }
+  },
+  "airlineContracts": [
+    {
+      "id": "AZUL_REGIONAL",
+      "name": "Azul Regional Flow",
+      "airline": "AZU",
+      "onTimeTarget": 0.82,
+      "safetyTarget": 0.9,
+      "bonus": 42000,
+      "penalty": 28000,
+      "priority": "regional connectivity"
+    },
+    {
+      "id": "GOL_DOMESTIC",
+      "name": "GOL Domestic Bank",
+      "airline": "GLO",
+      "onTimeTarget": 0.8,
+      "safetyTarget": 0.88,
+      "bonus": 38000,
+      "penalty": 26000,
+      "priority": "domestic peak banks"
+    },
+    {
+      "id": "LATAM_TRUNK",
+      "name": "LATAM Trunk Routes",
+      "airline": "TAM",
+      "onTimeTarget": 0.84,
+      "safetyTarget": 0.92,
+      "bonus": 52000,
+      "penalty": 36000,
+      "priority": "high capacity trunk"
+    },
+    {
+      "id": "DELTA_INTL",
+      "name": "Delta International Hub",
+      "airline": "DAL",
+      "onTimeTarget": 0.86,
+      "safetyTarget": 0.93,
+      "bonus": 68000,
+      "penalty": 46000,
+      "priority": "international bank"
+    },
+    {
+      "id": "CARGO_NIGHT",
+      "name": "Night Cargo SLA",
+      "airline": "CGO",
+      "onTimeTarget": 0.78,
+      "safetyTarget": 0.91,
+      "bonus": 45000,
+      "penalty": 30000,
+      "priority": "cargo punctuality"
+    }
+  ],
+  "fineTable": {
+    "conflict": 18000,
+    "runwayIncursion": 55000,
+    "surfaceConflict": 22000,
+    "deniedClearance": 3500,
+    "hardLandingInspection": 12000,
+    "missedEmergency": 75000
+  },
+  "efficiencyWeights": {
+    "landed": 1.25,
+    "departed": 1.05,
+    "requestsHandled": 0.35,
+    "commands": -0.04,
+    "denied": -0.45,
+    "conflicts": -2.0,
+    "surfaceConflicts": -1.2,
+    "runwayIncursions": -4.0
+  },
+  "bands": [
+    {
+      "id": "LOSS",
+      "name": "Prejuízo operacional",
+      "min": -99999999
+    },
+    {
+      "id": "TIGHT",
+      "name": "Margem apertada",
+      "min": 0
+    },
+    {
+      "id": "STABLE",
+      "name": "Operação estável",
+      "min": 35000
+    },
+    {
+      "id": "PROFITABLE",
+      "name": "Operação lucrativa",
+      "min": 95000
+    },
+    {
+      "id": "EXCELLENT",
+      "name": "Eficiência excelente",
+      "min": 180000
+    }
+  ]
+}

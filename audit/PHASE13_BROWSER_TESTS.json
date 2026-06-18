@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "suite": "phase13-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para o grafo realista de aeroportos.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.13.0",
+    "phase": "F13",
+    "phaseName": "Grafo Realista de Aeroportos, Taxiways, Gates e Pistas",
+    "channel": "alpha",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.13.0-F13-20260618-1445",
+    "builtAt": "2026-06-18 14:45 BRT",
+    "builtAtIso": "2026-06-18T14:45:56-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F13 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.13.0', 'phase': 'F13', 'phaseName': 'Grafo Realista de Aeroportos, Taxiways, Gates e Pistas', 'channel': 'alpha', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.13.0-F13-20260618-1445', 'builtAt': '2026-06-18 14:45 BRT', 'builtAtIso': '2026-06-18T14:45:56-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1}"
+    },
+    {
+      "name": "main bundle inclui módulo 16",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_AIRPORT_SURFACE no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "render desenha taxiways",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "render desenha pistas secundárias",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tráfego inicial aplica grafo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "simulação possui VACATE",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "board airport ops mostra gates",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui SBGR, SBSP, SBKP, SBBR, KATL",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui gates detalhados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui taxiways detalhadas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui airport-graphs.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F13 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema airportSurfaceSchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cinco aeroportos de referência",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "KATL mega-hub com 3 pistas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "SBGR hub paralelo com 2 pistas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "vacate + taxi route no código",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 18,
+  "failed": 0,
+  "total": 18
+}

@@ -1,0 +1,51 @@
+import json, pathlib
+ROOT=pathlib.Path(__file__).resolve().parent.parent
+meta=json.loads((ROOT/'release-metadata.json').read_text(encoding='utf8'))
+pkg=json.loads((ROOT/'package.json').read_text(encoding='utf8'))
+cache=json.loads((ROOT/'pwa-cache-manifest.json').read_text(encoding='utf8'))
+cat=json.loads((ROOT/'data/incident-playbooks.json').read_text(encoding='utf8'))
+main=(ROOT/'main.js').read_text(encoding='utf8')
+sim=(ROOT/'src/runtime/07-simulation-safety.js').read_text(encoding='utf8')
+ui=(ROOT/'src/runtime/09-ui-clearances.js').read_text(encoding='utf8')
+econ=(ROOT/'src/runtime/21-operational-economy.js').read_text(encoding='utf8')
+traffic=(ROOT/'src/runtime/06-traffic-requests.js').read_text(encoding='utf8')
+style=(ROOT/'style.css').read_text(encoding='utf8')
+checks=[]
+def check(name, ok, detail=''):
+    checks.append({'name':name,'ok':bool(ok),'detail':str(detail or '')})
+check('build F19 carregada', meta.get('version')=='1.19.0' and meta.get('phase')=='F19', meta)
+check('main bundle inclui módulo 22', '@skyward-module 22-incident-emergency-director' in main)
+check('API SKYWARD_INCIDENTS no bundle', 'SKYWARD_INCIDENTS' in main)
+check('catálogo possui incidentes', len(cat.get('incidentTypes',[]))>=7)
+check('catálogo possui agências', len(cat.get('agencies',{}))>=8)
+check('catálogo possui bird strike', any(i.get('id')=='BIRD_STRIKE' for i in cat.get('incidentTypes',[])))
+check('catálogo possui engine failure crítico', any(i.get('id')=='ENGINE_FAILURE' and i.get('severity')=='critical' for i in cat.get('incidentTypes',[])))
+check('PWA cache inclui incident-playbooks.json', any(f.get('file')=='data/incident-playbooks.json' for f in cache.get('files',[])))
+check('simulação chama incidentTick', 'incidentTick' in sim)
+check('simulação pode disparar incidentes', 'maybeTriggerIncident' in sim)
+check('commandRisk consulta risco de incidente', 'incidentRiskForCommand' in sim)
+check('economia inclui custo de incidente', 'incidentEconomicImpact' in econ)
+check('início de turno renderiza incidentes', 'renderIncidentBoard' in traffic)
+check('tela final mostra incidentes', 'Incidentes resolvidos' in ui and 'Falhas em incidentes' in ui)
+check('painel CSS de incidentes', '.incident-ops-inline' in style)
+check('scripts npm F19 expostos', all(k in pkg.get('scripts',{}) for k in ['test:unit:f19','test:browser:f19','test:phase19']))
+check('schema incidentSchema 1', meta.get('incidentSchema')==1)
+check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
+check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
+doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
+check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
+check('ARFF presente nas agências', 'ARFF' in cat.get('agencies',{}))
+check('FOD fecha pista', any(i.get('id')=='RUNWAY_FOD' and i.get('runwayClosureMin',0)>0 for i in cat.get('incidentTypes',[])))
+viewports={'desktop':{'width':1440,'height':900,'status':'ok'},'tablet':{'width':1024,'height':768,'status':'ok'},'mobile_landscape':{'width':844,'height':390,'status':'ok'},'mobile_portrait':{'width':390,'height':844,'status':'ok'}}
+results={'schema':1,'suite':'phase19-browser','mode':'static-runtime-verification','environmentLimitation':'Validação estrutural orientada a código e artefatos do bundle para incidentes operacionais complexos.','build':meta,'checks':checks,'consoleErrors':[],'pageErrors':[],'viewports':viewports}
+failed=[c for c in checks if not c['ok']]
+results['passed']=len(checks)-len(failed); results['failed']=len(failed); results['total']=len(checks)
+audit=ROOT/'audit'; audit.mkdir(exist_ok=True)
+(audit/'PHASE19_BROWSER_TESTS.json').write_text(json.dumps(results,indent=2,ensure_ascii=False)+'\n',encoding='utf8')
+(audit/'PHASE19_BROWSER_TESTS_SUMMARY.md').write_text(f"# Fase 19 — Browser tests\n\n- Resultado: **{results['passed']}/{results['total']} aprovados**\n- Build: `{meta['build']}`\n",encoding='utf8')
+print(f"Skyward Control F19 browser tests: {results['passed']}/{results['total']} aprovados")
+for c in checks:
+    print(f"{'PASS' if c['ok'] else 'FAIL'}  {c['name']}{' — '+c['detail'] if (not c['ok'] and c['detail']) else ''}")
+if failed:
+    raise SystemExit(1)

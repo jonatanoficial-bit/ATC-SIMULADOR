@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "suite": "phase13-unit",
+  "build": "SC-1.13.0-F13-20260618-1445",
+  "passed": 23,
+  "total": 23,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F13+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.13.0\",\"phase\":\"F13\",\"phaseName\":\"Grafo Realista de Aeroportos, Taxiways, Gates e Pistas\",\"channel\":\"alpha\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.13.0-F13-20260618-1445\",\"builtAt\":\"2026-06-18 14:45 BRT\",\"builtAtIso\":\"2026-06-18T14:45:56-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1}"
+    },
+    {
+      "name": "módulo F13 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo cobre 5 aeroportos",
+      "ok": true,
+      "detail": "SBGR,SBSP,SBKP,SBBR,KATL"
+    },
+    {
+      "name": "SBGR possui múltiplas taxiways",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "KATL possui pistas múltiplas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"summary\":5}"
+    },
+    {
+      "name": "SBGR retornado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "apply sincroniza pista",
+      "ok": true,
+      "detail": "{\"name\":\"09R/27L\",\"x1\":17,\"y1\":49,\"x2\":84,\"y2\":49,\"width\":6,\"exits\":[33,47,60,72]}"
+    },
+    {
+      "name": "apply carrega gates",
+      "ok": true,
+      "detail": "6"
+    },
+    {
+      "name": "apply carrega holding points",
+      "ok": true,
+      "detail": "4"
+    },
+    {
+      "name": "apply registra secundárias",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "runway heading coerente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "rota pushback existe",
+      "ok": true,
+      "detail": "[{\"x\":58,\"y\":72}]"
+    },
+    {
+      "name": "rota taxi existe",
+      "ok": true,
+      "detail": "[{\"x\":58,\"y\":72},{\"x\":58,\"y\":56},{\"x\":48,\"y\":56}]"
+    },
+    {
+      "name": "rota lineup existe",
+      "ok": true,
+      "detail": "[{\"x\":27,\"y\":49}]"
+    },
+    {
+      "name": "stepSurfaceRoute progride",
+      "ok": true,
+      "detail": "{\"steps\":120,\"x\":46,\"y\":56,\"leg\":2}"
+    },
+    {
+      "name": "saída de pista encontrada",
+      "ok": true,
+      "detail": "{\"id\":\"E3\",\"x\":60,\"y\":54}"
+    },
+    {
+      "name": "rota vacate existe",
+      "ok": true,
+      "detail": "[{\"x\":60,\"y\":54},{\"x\":82,\"y\":56}]"
+    },
+    {
+      "name": "summary reflete grafo",
+      "ok": true,
+      "detail": "{\"airport\":\"SBGR\",\"graph\":\"São Paulo / Guarulhos\",\"runways\":2,\"taxiways\":6,\"gates\":6,\"holds\":4,\"activeRunway\":\"09R/27L\"}"
+    }
+  ]
+}

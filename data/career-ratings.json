@@ -1,0 +1,196 @@
+{
+  "schema": 1,
+  "version": "2026.06-f17",
+  "description": "Controller career progression, ratings, fatigue, reputation and shift evaluation.",
+  "licenses": [
+    {
+      "id": "STUDENT",
+      "name": "Aluno Controlador",
+      "minXp": 0,
+      "maxComplexity": 1.0,
+      "permissions": [
+        "OBSERVE",
+        "BASIC_GROUND"
+      ]
+    },
+    {
+      "id": "LOCAL_GROUND",
+      "name": "Licença Solo Local",
+      "minXp": 900,
+      "maxComplexity": 1.2,
+      "permissions": [
+        "GROUND",
+        "PUSHBACK",
+        "TAXI"
+      ]
+    },
+    {
+      "id": "LOCAL_TOWER",
+      "name": "Licença Torre Local",
+      "minXp": 2200,
+      "maxComplexity": 1.45,
+      "permissions": [
+        "GROUND",
+        "TOWER",
+        "TAKEOFF",
+        "LANDING"
+      ]
+    },
+    {
+      "id": "APP_PROCEDURAL",
+      "name": "Aproximação Procedural",
+      "minXp": 5200,
+      "maxComplexity": 1.75,
+      "permissions": [
+        "TOWER",
+        "APP",
+        "STAR",
+        "SID",
+        "HOLD"
+      ]
+    },
+    {
+      "id": "APP_RADAR",
+      "name": "Aproximação Radar",
+      "minXp": 9500,
+      "maxComplexity": 2.0,
+      "permissions": [
+        "APP",
+        "RADAR",
+        "IFR",
+        "RNAV",
+        "ILS"
+      ]
+    },
+    {
+      "id": "SUPERVISOR",
+      "name": "Supervisor Operacional",
+      "minXp": 15000,
+      "maxComplexity": 2.4,
+      "permissions": [
+        "SUPERVISE",
+        "EMERGENCY",
+        "INTERNATIONAL_HUB"
+      ]
+    }
+  ],
+  "ratings": [
+    {
+      "id": "TWR_TRAINEE",
+      "name": "Tower Trainee",
+      "minShifts": 0,
+      "minSafety": 0
+    },
+    {
+      "id": "GROUND_CERTIFIED",
+      "name": "Ground Certified",
+      "minShifts": 3,
+      "minSafety": 65
+    },
+    {
+      "id": "TOWER_CERTIFIED",
+      "name": "Tower Certified",
+      "minShifts": 7,
+      "minSafety": 72
+    },
+    {
+      "id": "APPROACH_RATED",
+      "name": "Approach Rated",
+      "minShifts": 12,
+      "minSafety": 78
+    },
+    {
+      "id": "IFR_RATED",
+      "name": "IFR / Low Visibility Rated",
+      "minShifts": 18,
+      "minSafety": 82
+    },
+    {
+      "id": "SENIOR_CONTROLLER",
+      "name": "Senior Controller",
+      "minShifts": 28,
+      "minSafety": 86
+    }
+  ],
+  "shiftTypes": [
+    {
+      "id": "DAY_VFR",
+      "name": "Turno diurno VFR",
+      "fatigue": 4,
+      "reputationWeight": 1.0
+    },
+    {
+      "id": "NIGHT_IFR",
+      "name": "Turno noturno IFR",
+      "fatigue": 8,
+      "reputationWeight": 1.25
+    },
+    {
+      "id": "PEAK_HUB",
+      "name": "Pico de hub internacional",
+      "fatigue": 11,
+      "reputationWeight": 1.45
+    },
+    {
+      "id": "LOW_VIS",
+      "name": "Baixa visibilidade / LIFR",
+      "fatigue": 13,
+      "reputationWeight": 1.6
+    },
+    {
+      "id": "EMERGENCY_DESK",
+      "name": "Mesa de emergência",
+      "fatigue": 15,
+      "reputationWeight": 1.8
+    }
+  ],
+  "fatigueBands": [
+    {
+      "id": "FIT",
+      "name": "Apto",
+      "max": 25
+    },
+    {
+      "id": "TIRED",
+      "name": "Cansado",
+      "max": 55
+    },
+    {
+      "id": "FATIGUED",
+      "name": "Fadigado",
+      "max": 78
+    },
+    {
+      "id": "UNSAFE",
+      "name": "Inseguro",
+      "max": 100
+    }
+  ],
+  "reputationBands": [
+    {
+      "id": "LOCAL",
+      "name": "Local",
+      "min": 0
+    },
+    {
+      "id": "REGIONAL",
+      "name": "Regional",
+      "min": 120
+    },
+    {
+      "id": "NATIONAL",
+      "name": "Nacional",
+      "min": 300
+    },
+    {
+      "id": "INTERNATIONAL",
+      "name": "Internacional",
+      "min": 650
+    },
+    {
+      "id": "ELITE",
+      "name": "Elite",
+      "min": 1100
+    }
+  ]
+}

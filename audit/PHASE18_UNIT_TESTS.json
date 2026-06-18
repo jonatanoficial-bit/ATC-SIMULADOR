@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "suite": "phase18-unit",
+  "build": "SC-1.18.0-F18-20260618-2002",
+  "passed": 16,
+  "total": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F18+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.18.0\",\"phase\":\"F18\",\"phaseName\":\"Economia Operacional, Orçamento, Eficiência, Multas e Contratos de Companhias\",\"channel\":\"alpha\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.18.0-F18-20260618-2002\",\"builtAt\":\"2026-06-18 20:02 BRT\",\"builtAtIso\":\"2026-06-18T20:02:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1}"
+    },
+    {
+      "name": "módulo F18 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo orçamentos e contratos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"budgets\":5,\"contracts\":5}"
+    },
+    {
+      "name": "budget SBGR válido",
+      "ok": true,
+      "detail": "{\"annualBudgetM\":220,\"shiftBudget\":185000,\"delayCostPerMin\":95,\"fuelServiceRevenue\":48,\"movementRevenue\":620}"
+    },
+    {
+      "name": "eficiência diferencia turno bom e ruim",
+      "ok": true,
+      "detail": "{\"goodEff\":100,\"badEff\":0}"
+    },
+    {
+      "name": "delay operacional positivo",
+      "ok": true,
+      "detail": "24"
+    },
+    {
+      "name": "contratos geram avaliação",
+      "ok": true,
+      "detail": "[{\"id\":\"AZUL_REGIONAL\",\"name\":\"Azul Regional Flow\",\"airline\":\"AZU\",\"achieved\":true,\"bonus\":42000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true},{\"id\":\"GOL_DOMESTIC\",\"name\":\"GOL Domestic Bank\",\"airline\":\"GLO\",\"achieved\":true,\"bonus\":38000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true},{\"id\":\"LATAM_TRUNK\",\"name\":\"LATAM Trunk Routes\",\"airline\":\"TAM\",\"achieved\":true,\"bonus\":52000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true},{\"id\":\"DELTA_INTL\",\"name\":\"Delta International Hub\",\"airline\":\"DAL\",\"achieved\":true,\"bonus\":68000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true},{\"id\":\"CARGO_NIGHT\",\"name\":\"Night Cargo SLA\",\"airline\":\"CGO\",\"achieved\":true,\"bonus\":45000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true}]"
+    },
+    {
+      "name": "evaluate gera resultado econômico",
+      "ok": true,
+      "detail": "{\"build\":\"SC-1.18.0-F18-20260618-2002\",\"airport\":\"SBGR\",\"profit\":117958,\"revenue\":205828,\"costs\":87870,\"fines\":0,\"delayMinutes\":9,\"efficiency\":100,\"onTimeRatio\":0.91,\"safety\":92,\"band\":\"PROFITABLE\",\"contracts\":[{\"id\":\"AZUL_REGIONAL\",\"name\":\"Azul Regional Flow\",\"airline\":\"AZU\",\"achieved\":true,\"bonus\":42000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true},{\"id\":\"GOL_DOMESTIC\",\"name\":\"GOL Domestic Bank\",\"airline\":\"GLO\",\"achieved\":true,\"bonus\":38000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true},{\"id\":\"LATAM_TRUNK\",\"name\":\"LATAM Trunk Routes\",\"airline\":\"TAM\",\"achieved\":true,\"bonus\":52000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true},{\"id\":\"DELTA_INTL\",\"name\":\"Delta International Hub\",\"airline\":\"DAL\",\"achieved\":false,\"bonus\":0,\"penalty\":46000,\"eligible\":true,\"safetyOk\":false,\"onTimeOk\":true},{\"id\":\"CARGO_NIGHT\",\"name\":\"Night Cargo SLA\",\"airline\":\"CGO\",\"achieved\":true,\"bonus\":45000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true}]}"
+    },
+    {
+      "name": "histórico econômico registra turno",
+      "ok": true,
+      "detail": "[{\"build\":\"SC-1.18.0-F18-20260618-2002\",\"airport\":\"SBGR\",\"profit\":117958,\"revenue\":205828,\"costs\":87870,\"fines\":0,\"delayMinutes\":9,\"efficiency\":100,\"onTimeRatio\":0.91,\"safety\":92,\"band\":\"PROFITABLE\",\"contracts\":[{\"id\":\"AZUL_REGIONAL\",\"name\":\"Azul Regional Flow\",\"airline\":\"AZU\",\"achieved\":true,\"bonus\":42000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true},{\"id\":\"GOL_DOMESTIC\",\"name\":\"GOL Domestic Bank\",\"airline\":\"GLO\",\"achieved\":true,\"bonus\":38000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true},{\"id\":\"LATAM_TRUNK\",\"name\":\"LATAM Trunk Routes\",\"airline\":\"TAM\",\"achieved\":true,\"bonus\":52000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true},{\"id\":\"DELTA_INTL\",\"name\":\"Delta International Hub\",\"airline\":\"DAL\",\"achieved\":false,\"bonus\":0,\"penalty\":46000,\"eligible\":true,\"safetyOk\":false,\"onTimeOk\":true},{\"id\":\"CARGO_NIGHT\",\"name\":\"Night Cargo SLA\",\"airline\":\"CGO\",\"achieved\":true,\"bonus\":45000,\"penalty\":0,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":true}]}]"
+    },
+    {
+      "name": "turno ruim gera multas",
+      "ok": true,
+      "detail": "{\"build\":\"SC-1.18.0-F18-20260618-2002\",\"airport\":\"SBSP\",\"profit\":-389160,\"revenue\":1455,\"costs\":390615,\"fines\":264500,\"delayMinutes\":62,\"efficiency\":0,\"onTimeRatio\":0,\"safety\":92,\"band\":\"LOSS\",\"contracts\":[{\"id\":\"AZUL_REGIONAL\",\"name\":\"Azul Regional Flow\",\"airline\":\"AZU\",\"achieved\":false,\"bonus\":0,\"penalty\":28000,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":false},{\"id\":\"GOL_DOMESTIC\",\"name\":\"GOL Domestic Bank\",\"airline\":\"GLO\",\"achieved\":false,\"bonus\":0,\"penalty\":0,\"eligible\":false,\"safetyOk\":true,\"onTimeOk\":false},{\"id\":\"LATAM_TRUNK\",\"name\":\"LATAM Trunk Routes\",\"airline\":\"TAM\",\"achieved\":false,\"bonus\":0,\"penalty\":36000,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":false},{\"id\":\"DELTA_INTL\",\"name\":\"Delta International Hub\",\"airline\":\"DAL\",\"achieved\":false,\"bonus\":0,\"penalty\":0,\"eligible\":false,\"safetyOk\":false,\"onTimeOk\":false},{\"id\":\"CARGO_NIGHT\",\"name\":\"Night Cargo SLA\",\"airline\":\"CGO\",\"achieved\":false,\"bonus\":0,\"penalty\":30000,\"eligible\":true,\"safetyOk\":true,\"onTimeOk\":false}]}"
+    },
+    {
+      "name": "bandas econômicas funcionam",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

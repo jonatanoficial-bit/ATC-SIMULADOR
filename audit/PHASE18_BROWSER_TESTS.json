@@ -1,0 +1,165 @@
+{
+  "schema": 1,
+  "suite": "phase18-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para economia operacional.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.18.0",
+    "phase": "F18",
+    "phaseName": "Economia Operacional, Orçamento, Eficiência, Multas e Contratos de Companhias",
+    "channel": "alpha",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.18.0-F18-20260618-2002",
+    "builtAt": "2026-06-18 20:02 BRT",
+    "builtAtIso": "2026-06-18T20:02:00-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1,
+    "weatherOpsSchema": 1,
+    "procedureOpsSchema": 1,
+    "careerSchema": 1,
+    "economySchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F18 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.18.0', 'phase': 'F18', 'phaseName': 'Economia Operacional, Orçamento, Eficiência, Multas e Contratos de Companhias', 'channel': 'alpha', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.18.0-F18-20260618-2002', 'builtAt': '2026-06-18 20:02 BRT', 'builtAtIso': '2026-06-18T20:02:00-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1, 'weatherOpsSchema': 1, 'procedureOpsSchema': 1, 'careerSchema': 1, 'economySchema': 1}"
+    },
+    {
+      "name": "main bundle inclui módulo 21",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_ECONOMY no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui orçamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui contratos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui multas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui economy-contracts.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "início de turno renderiza economia",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fim de turno avalia economia",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tela final mostra economia",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "painel CSS de economia",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F18 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema economySchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado raiz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado docs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém caminho Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém repo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "KATL orçamento maior que SBGR",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "contrato LATAM presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bandas econômicas presentes",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 20,
+  "failed": 0,
+  "total": 20
+}

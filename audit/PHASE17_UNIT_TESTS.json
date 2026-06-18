@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "suite": "phase17-unit",
+  "build": "SC-1.17.0-F17-20260618-1905",
+  "passed": 16,
+  "total": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F17+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.17.0\",\"phase\":\"F17\",\"phaseName\":\"Carreira Operacional Profunda, Licenças, Ratings, Turnos, Fadiga e Reputação\",\"channel\":\"alpha\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.17.0-F17-20260618-1905\",\"builtAt\":\"2026-06-18 19:05 BRT\",\"builtAtIso\":\"2026-06-18T19:05:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1}"
+    },
+    {
+      "name": "módulo F17 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo licenças e ratings",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"licenses\":6,\"ratings\":6}"
+    },
+    {
+      "name": "supervisor por XP",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "senior por turnos e segurança",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "safety diferencia turno bom e ruim",
+      "ok": true,
+      "detail": "{\"safe\":100,\"bad\":0}"
+    },
+    {
+      "name": "evaluate gera XP carreira",
+      "ok": true,
+      "detail": "{\"career\":{\"schema\":1,\"totalXp\":1105,\"licenseId\":\"LOCAL_GROUND\",\"ratingId\":\"TWR_TRAINEE\",\"reputation\":56,\"fatigue\":20,\"shifts\":1,\"averageSafety\":100,\"promotions\":[{\"build\":\"SC-1.17.0-F17-20260618-1905\",\"at\":\"2026-06-18T21:47:52.365Z\",\"items\":[\"Licença: Licença Solo Local\"]}],\"history\":[{\"build\":\"SC-1.17.0-F17-20260618-1905\",\"airport\":\"SBGR\",\"finalScore\":3600,\"safety\":100,\"xpGain\":1105,\"repDelta\":56,\"fatigueDelta\":24,\"shiftType\":\"EMERGENCY_DESK\",\"failed\":false}],\"lastShift\":{\"build\":\"SC-1.17.0-F17-20260618-1905\",\"airport\":\"SBGR\",\"finalScore\":3600,\"safety\":100,\"xpGain\":1105,\"repDelta\":56,\"fatigueDelta\":24,\"shiftType\":\"EMERGENCY_DESK\",\"failed\":false}},\"shift\":{\"build\":\"SC-1.17.0-F17-20260618-1905\",\"airport\":\"SBGR\",\"finalScore\":3600,\"safety\":100,\"xpGain\":1105,\"repDelta\":56,\"fatigueDelta\":24,\"shiftType\":\"EMERGENCY_DESK\",\"failed\":false},\"promoted\":[\"Licença: Licença Solo Local\"]}"
+    },
+    {
+      "name": "evaluate registra histórico",
+      "ok": true,
+      "detail": "[{\"build\":\"SC-1.17.0-F17-20260618-1905\",\"airport\":\"SBGR\",\"finalScore\":3600,\"safety\":100,\"xpGain\":1105,\"repDelta\":56,\"fatigueDelta\":24,\"shiftType\":\"EMERGENCY_DESK\",\"failed\":false}]"
+    },
+    {
+      "name": "fadiga aumenta após turno",
+      "ok": true,
+      "detail": "20"
+    },
+    {
+      "name": "descanso reduz fadiga",
+      "ok": true,
+      "detail": "{\"schema\":1,\"totalXp\":1105,\"licenseId\":\"LOCAL_GROUND\",\"ratingId\":\"TWR_TRAINEE\",\"reputation\":56,\"fatigue\":0,\"shifts\":1,\"averageSafety\":100,\"promotions\":[{\"build\":\"SC-1.17.0-F17-20260618-1905\",\"at\":\"2026-06-18T21:47:52.365Z\",\"items\":[\"Licença: Licença Solo Local\"]}],\"history\":[{\"build\":\"SC-1.17.0-F17-20260618-1905\",\"airport\":\"SBGR\",\"finalScore\":3600,\"safety\":100,\"xpGain\":1105,\"repDelta\":56,\"fatigueDelta\":24,\"shiftType\":\"EMERGENCY_DESK\",\"failed\":false}],\"lastShift\":{\"build\":\"SC-1.17.0-F17-20260618-1905\",\"airport\":\"SBGR\",\"finalScore\":3600,\"safety\":100,\"xpGain\":1105,\"repDelta\":56,\"fatigueDelta\":24,\"shiftType\":\"EMERGENCY_DESK\",\"failed\":false},\"license\":{\"id\":\"LOCAL_GROUND\",\"name\":\"Licença Solo Local\",\"minXp\":900,\"maxComplexity\":1.2,\"permissions\":[\"GROUND\",\"PUSHBACK\",\"TAXI\"]},\"rating\":{\"id\":\"TWR_TRAINEE\",\"name\":\"Tower Trainee\",\"minShifts\":0,\"minSafety\":0},\"fatigueBand\":{\"id\":\"FIT\",\"name\":\"Apto\",\"max\":25},\"reputationBand\":{\"id\":\"LOCAL\",\"name\":\"Local\",\"min\":0}}"
+    },
+    {
+      "name": "bandas de reputação funcionam",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}
