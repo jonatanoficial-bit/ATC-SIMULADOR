@@ -1,0 +1,212 @@
+{
+  "schema": 1,
+  "version": "2026.06-f24",
+  "description": "Gold Master packaging, player manual, final store/PWA checklist and publication lock.",
+  "goldMasterGates": [
+    {
+      "id": "RUNTIME_LOCK",
+      "name": "Runtime congelado e versionado",
+      "required": true,
+      "weight": 12
+    },
+    {
+      "id": "PWA_PACKAGE",
+      "name": "PWA/cache final",
+      "required": true,
+      "weight": 10
+    },
+    {
+      "id": "PLAYER_MANUAL",
+      "name": "Manual do jogador incluso",
+      "required": true,
+      "weight": 14
+    },
+    {
+      "id": "STORE_CHECKLIST",
+      "name": "Checklist loja/PWA completo",
+      "required": true,
+      "weight": 12
+    },
+    {
+      "id": "PUBLIC_RELEASE_NOTES",
+      "name": "Notas públicas de release",
+      "required": true,
+      "weight": 9
+    },
+    {
+      "id": "UPLOAD_PATHS",
+      "name": "Caminhos de upload inclusos",
+      "required": true,
+      "weight": 8
+    },
+    {
+      "id": "FINAL_AUDIT",
+      "name": "Auditoria final Gold Master",
+      "required": true,
+      "weight": 15
+    },
+    {
+      "id": "OFFLINE_SAFE",
+      "name": "Rodável sem servidor externo",
+      "required": true,
+      "weight": 8
+    },
+    {
+      "id": "MOBILE_READY",
+      "name": "Mobile-first validado",
+      "required": true,
+      "weight": 12
+    }
+  ],
+  "manualSections": [
+    {
+      "id": "START",
+      "title": "Primeiro acesso",
+      "topics": [
+        "perfil",
+        "aeroporto",
+        "turno",
+        "fullscreen"
+      ]
+    },
+    {
+      "id": "RADAR",
+      "title": "Radar e separação",
+      "topics": [
+        "altitude",
+        "heading",
+        "speed",
+        "sequenciamento"
+      ]
+    },
+    {
+      "id": "GROUND",
+      "title": "Solo e taxi",
+      "topics": [
+        "pushback",
+        "taxiway",
+        "holding point",
+        "runway incursion"
+      ]
+    },
+    {
+      "id": "PROCEDURES",
+      "title": "Procedimentos",
+      "topics": [
+        "SID",
+        "STAR",
+        "ILS",
+        "RNAV",
+        "holdings"
+      ]
+    },
+    {
+      "id": "WEATHER",
+      "title": "Meteorologia",
+      "topics": [
+        "VFR",
+        "IFR",
+        "LIFR",
+        "RVR",
+        "crosswind"
+      ]
+    },
+    {
+      "id": "CAREER",
+      "title": "Carreira",
+      "topics": [
+        "licenças",
+        "ratings",
+        "fadiga",
+        "reputação"
+      ]
+    },
+    {
+      "id": "ECONOMY",
+      "title": "Economia e rede",
+      "topics": [
+        "contratos",
+        "slots",
+        "conexões",
+        "alternados"
+      ]
+    },
+    {
+      "id": "INCIDENTS",
+      "title": "Incidentes",
+      "topics": [
+        "ARFF",
+        "FOD",
+        "bird strike",
+        "evacuação"
+      ]
+    },
+    {
+      "id": "CONTROL_ROOM",
+      "title": "Control Room",
+      "topics": [
+        "ranking",
+        "replay",
+        "comparação"
+      ]
+    },
+    {
+      "id": "PUBLICATION",
+      "title": "Instalação/PWA",
+      "topics": [
+        "GitHub Pages",
+        "cache",
+        "mobile",
+        "atualização"
+      ]
+    }
+  ],
+  "storeChecklist": [
+    {
+      "id": "APP_NAME",
+      "name": "Nome e versão visíveis"
+    },
+    {
+      "id": "DESCRIPTION",
+      "name": "Descrição curta e longa"
+    },
+    {
+      "id": "SCREENSHOTS",
+      "name": "Screenshots mobile/desktop pendentes para captura manual"
+    },
+    {
+      "id": "PWA_MANIFEST",
+      "name": "Manifest PWA presente"
+    },
+    {
+      "id": "SERVICE_WORKER",
+      "name": "Service worker/cache presente"
+    },
+    {
+      "id": "PRIVACY_NOTE",
+      "name": "Nota de privacidade/offline"
+    },
+    {
+      "id": "SUPPORT_NOTE",
+      "name": "Nota de suporte e contato"
+    },
+    {
+      "id": "QA_REPORT",
+      "name": "Relatório QA/GM anexado"
+    }
+  ],
+  "publicationNotes": {
+    "track": "gold-master",
+    "manualFile": "docs/PLAYER_MANUAL_F24.md",
+    "qaFile": "docs/GOLD_MASTER_QA_F24.md",
+    "minimumManualQA": [
+      "Android landscape",
+      "iOS Safari",
+      "Desktop Chrome",
+      "PWA instalada"
+    ],
+    "knownLimitations": [
+      "Multiplayer é local/assíncrono por replay; não há servidor em tempo real nesta build."
+    ]
+  }
+}

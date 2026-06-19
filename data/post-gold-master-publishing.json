@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "version": "2026.06-f25",
+  "description": "Post-Gold Master real device QA, final screenshots, bug report triage and GitHub Pages/PWA publishing kit.",
+  "realDeviceMatrix": [
+    {
+      "id": "ANDROID_CHROME_LANDSCAPE",
+      "name": "Android Chrome landscape",
+      "required": true,
+      "viewport": "844x390",
+      "focus": [
+        "fullscreen",
+        "touch",
+        "scroll",
+        "performance"
+      ]
+    },
+    {
+      "id": "ANDROID_PWA_INSTALLED",
+      "name": "Android PWA installed",
+      "required": true,
+      "viewport": "mobile",
+      "focus": [
+        "offline",
+        "cache",
+        "add_to_home"
+      ]
+    },
+    {
+      "id": "IOS_SAFARI_LANDSCAPE",
+      "name": "iOS Safari landscape",
+      "required": true,
+      "viewport": "844x390",
+      "focus": [
+        "safe_area",
+        "touch",
+        "audio_unlock"
+      ]
+    },
+    {
+      "id": "DESKTOP_CHROME",
+      "name": "Desktop Chrome",
+      "required": true,
+      "viewport": "1440x900",
+      "focus": [
+        "keyboard",
+        "layout",
+        "performance"
+      ]
+    },
+    {
+      "id": "TABLET_BROWSER",
+      "name": "Tablet browser",
+      "required": false,
+      "viewport": "1024x768",
+      "focus": [
+        "layout",
+        "density",
+        "touch"
+      ]
+    }
+  ],
+  "screenshotPlan": [
+    {
+      "id": "MENU",
+      "name": "Menu profissional / build visível",
+      "viewport": "mobile_landscape",
+      "required": true
+    },
+    {
+      "id": "RADAR",
+      "name": "Radar em operação",
+      "viewport": "mobile_landscape",
+      "required": true
+    },
+    {
+      "id": "PROCEDURES",
+      "name": "Procedimentos SID/STAR/ILS/RNAV",
+      "viewport": "desktop",
+      "required": true
+    },
+    {
+      "id": "INCIDENT",
+      "name": "Incidente com painel Incident Ops",
+      "viewport": "mobile_landscape",
+      "required": true
+    },
+    {
+      "id": "RESULTS",
+      "name": "Tela final com carreira/economia/RC/GM",
+      "viewport": "desktop",
+      "required": true
+    },
+    {
+      "id": "PWA",
+      "name": "PWA instalada / offline",
+      "viewport": "mobile",
+      "required": true
+    }
+  ],
+  "bugTriage": [
+    {
+      "id": "BLOCKER",
+      "name": "Quebra total / tela branca / boot falha",
+      "sla": "corrigir antes de publicar"
+    },
+    {
+      "id": "CRITICAL",
+      "name": "Comando impossível / save corrompido / fluxo travado",
+      "sla": "corrigir antes de promover"
+    },
+    {
+      "id": "MAJOR",
+      "name": "Layout ruim / botão inacessível / scroll falho",
+      "sla": "corrigir no hotfix"
+    },
+    {
+      "id": "MINOR",
+      "name": "Texto, estética, micro ajuste",
+      "sla": "pode seguir se documentado"
+    }
+  ],
+  "publishingSteps": [
+    {
+      "id": "UNZIP",
+      "name": "Extrair ZIP completo na pasta oficial"
+    },
+    {
+      "id": "COPY",
+      "name": "Sobrescrever pasta local ATC 3 NOVO"
+    },
+    {
+      "id": "GIT_STATUS",
+      "name": "Verificar git status"
+    },
+    {
+      "id": "COMMIT",
+      "name": "Commit da build F25"
+    },
+    {
+      "id": "PUSH",
+      "name": "Push force para GitHub se necessário"
+    },
+    {
+      "id": "PAGES",
+      "name": "Ativar GitHub Pages na branch main"
+    },
+    {
+      "id": "VERIFY",
+      "name": "Abrir URL pública e testar PWA"
+    }
+  ],
+  "githubPages": {
+    "repo": "https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git",
+    "branch": "main",
+    "path": "/",
+    "localGitBashPath": "/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO",
+    "expectedUrlPattern": "https://jonatanoficial-bit.github.io/ATC-SIMULADOR/"
+  },
+  "manualQAStatus": {
+    "automatedReady": true,
+    "requiresHumanDeviceQA": true,
+    "screenshotsPending": true,
+    "canPublishToGitHubPages": true
+  }
+}

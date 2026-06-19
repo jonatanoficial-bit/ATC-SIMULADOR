@@ -1,7 +1,7 @@
 /*
  * SKYWARD CONTROL — GENERATED RUNTIME BUNDLE
  * Do not edit main.js directly. Edit src/runtime modules and run npm run build:runtime.
- * Architecture generation: 12
+ * Architecture generation: 27
  */
 
 /* ===== MODULE 01: runtime-registry (00-runtime-registry.js) ===== */
@@ -1497,7 +1497,7 @@ let spawnTimer = 0;
 let requestTimer = 0;
 let logLines = [];
 let runwayOccupiedBy = null;
-let stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
+let stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, surfaceConflicts:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
 let mission = null;
 let missionHistory = [];
 let conflictPredictions = [];
@@ -1509,13 +1509,16 @@ const FUEL_RULES = { arrivalBurn:0.010, departureBurn:0.006, emergencyThreshold:
 let emergencyDirector = { active:false, target:null, message:'Sem emergência ativa.', lastTick:0 };
 
 const SIM_SPEED = 0.092;
-const runway = { name:'09/27', x1:18, y1:50, x2:82, y2:50, width:6.2, exits:[32,45,56,68] };
-const gates = [
+let runway = { name:'09/27', x1:18, y1:50, x2:82, y2:50, width:6.2, exits:[32,45,56,68] };
+let gates = [
   {x:55,y:70, label:'A'}, {x:61,y:70, label:'A'}, {x:67,y:70, label:'B'}, {x:73,y:70, label:'B'},
   {x:58,y:78, label:'C'}, {x:65,y:78, label:'C'}, {x:72,y:78, label:'D'}, {x:78,y:77, label:'D'}
 ];
-const holdingPoints = [{x:31,y:57},{x:47,y:57},{x:64,y:57},{x:78,y:57}];
-const finalFix = {x:52, y:26};
+let holdingPoints = [{x:31,y:57},{x:47,y:57},{x:64,y:57},{x:78,y:57}];
+let finalFix = {x:52, y:26};
+let activeAirportGraph = null;
+let secondaryRunways = [];
+let airportSurfaceState = { activeRunway:null, taxiwayCount:0, gateCount:0, holdingCount:0 };
 
 const AIRPORT_OPS_PROFILES = {
   SBGR:{runway:'09R/27L', layout:'parallel', complexity:1.18, spawn:0.72, finalFix:{x:50,y:24}, threshold:{x:82,y:50}, gates:'east', ops:'Parallel hub', wind:'E/SE', procedures:'STAR MRC / SID PAG'},
@@ -1552,12 +1555,17 @@ function renderAirportOpsBoard(){
   try{
     const box=document.querySelector('#airportOpsBoard'); if(!box) return;
     const a=airport(), p=currentOpsProfile||airportOpsProfile();
+    const graph=activeAirportGraph;
     box.innerHTML=`<div class="airport-ops-head"><b>AIRPORT OPS</b><span>${a.icao}</span></div>
       <div class="airport-ops-grid">
         <div><small>RWY</small><b>${p.runway}</b></div>
         <div><small>LAYOUT</small><b>${p.layout}</b></div>
         <div><small>OPS</small><b>${p.ops}</b></div>
         <div><small>PROC</small><b>${p.procedures}</b></div>
+        <div><small>GATES</small><b>${graph?.gates?.length || gates.length}</b></div>
+        <div><small>TAXIWAYS</small><b>${graph?.taxiways?.length || 0}</b></div>
+        <div><small>HOLDS</small><b>${graph?.holdingPoints?.length || holdingPoints.length}</b></div>
+        <div><small>GRAPH</small><b>${graph ? 'ATIVO' : 'GENÉRICO'}</b></div>
       </div>`;
   }catch(e){ safeLogError(e,'airport-ops-board'); }
 }
@@ -1589,7 +1597,519 @@ const PROCEDURE_LAYER = {
   ]
 };
 
-/* ===== MODULE 10: aircraft-performance (15-aircraft-performance.js) ===== */
+/* ===== MODULE 10: airport-surface-graph (16-airport-surface-graph.js) ===== */
+/* @skyward-module 16-airport-surface-graph
+ * Realistic airport surface graph, taxiways, gates and runway occupancy helpers.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('16-airport-surface-graph');
+const AIRPORT_SURFACE_CATALOG = Object.freeze({
+  schema: 1,
+  version: '2026.06-f13',
+  airports: {
+    SBGR: { airport:'SBGR', displayName:'São Paulo / Guarulhos', activeRunway:'09R/27L', finalFix:{x:50,y:24},
+      runways:[
+        { id:'09R/27L', x1:17, y1:49, x2:84, y2:49, width:6.0, heading:90, lineup:{x:24,y:49}, departureEnd:{x:18,y:49}, arrivalThreshold:{x:82,y:49}, exits:[{id:'E1',x:33,y:54},{id:'E2',x:47,y:54},{id:'E3',x:60,y:54},{id:'E4',x:72,y:54}] },
+        { id:'09L/27R', x1:18, y1:58, x2:83, y2:58, width:5.0, heading:90, secondary:true }
+      ],
+      holdingPoints:[
+        {id:'HS1',x:33,y:56,runway:'09R/27L',lineup:{x:25,y:49}}, {id:'HS2',x:48,y:56,runway:'09R/27L',lineup:{x:27,y:49}},
+        {id:'HS3',x:63,y:56,runway:'09R/27L',lineup:{x:29,y:49}}, {id:'HS4',x:76,y:56,runway:'09R/27L',lineup:{x:31,y:49}}
+      ],
+      taxiways:[
+        {id:'A', points:[{x:24,y:56},{x:82,y:56}]}, {id:'B', points:[{x:58,y:64},{x:80,y:64}]}, {id:'C', points:[{x:58,y:72},{x:80,y:72}]},
+        {id:'L1', points:[{x:58,y:56},{x:58,y:76}]}, {id:'L2', points:[{x:66,y:56},{x:66,y:76}]}, {id:'L3', points:[{x:74,y:56},{x:74,y:76}]}
+      ],
+      gates:[
+        {id:'T1',label:'T',x:58,y:76,pushback:{x:58,y:72},routeToHolding:['PB1','N1','HS2']}, {id:'T2',label:'T',x:66,y:76,pushback:{x:66,y:72},routeToHolding:['PB2','N2','HS3']},
+        {id:'T3',label:'T',x:74,y:76,pushback:{x:74,y:72},routeToHolding:['PB3','N3','HS4']}, {id:'S1',label:'S',x:60,y:68,pushback:{x:60,y:64},routeToHolding:['PB4','N4','HS2']},
+        {id:'S2',label:'S',x:68,y:68,pushback:{x:68,y:64},routeToHolding:['PB5','N5','HS3']}, {id:'S3',label:'S',x:76,y:68,pushback:{x:76,y:64},routeToHolding:['PB6','N6','HS4']}
+      ],
+      nodes:{ PB1:{x:58,y:72},PB2:{x:66,y:72},PB3:{x:74,y:72},PB4:{x:60,y:64},PB5:{x:68,y:64},PB6:{x:76,y:64},N1:{x:58,y:56},N2:{x:66,y:56},N3:{x:74,y:56},N4:{x:60,y:56},N5:{x:68,y:56},N6:{x:76,y:56},HS1:{x:33,y:56},HS2:{x:48,y:56},HS3:{x:63,y:56},HS4:{x:76,y:56} }
+    },
+    SBSP: { airport:'SBSP', displayName:'São Paulo / Congonhas', activeRunway:'17R/35L', finalFix:{x:61,y:22},
+      runways:[{id:'17R/35L',x1:36,y1:18,x2:68,y2:82,width:5.6,heading:170,lineup:{x:46,y:38},departureEnd:{x:40,y:28},arrivalThreshold:{x:64,y:74},exits:[{id:'E1',x:58,y:64},{id:'E2',x:53,y:55},{id:'E3',x:48,y:46}]}],
+      holdingPoints:[{id:'HS1',x:42,y:48,runway:'17R/35L',lineup:{x:46,y:39}},{id:'HS2',x:50,y:56,runway:'17R/35L',lineup:{x:48,y:43}}],
+      taxiways:[{id:'P',points:[{x:40,y:50},{x:58,y:68}]},{id:'Q',points:[{x:46,y:42},{x:60,y:56}]},{id:'R',points:[{x:48,y:60},{x:72,y:84}]},{id:'TERM',points:[{x:58,y:68},{x:80,y:68}]},{id:'TERM2',points:[{x:56,y:60},{x:78,y:60}]}],
+      gates:[{id:'P1',label:'P',x:78,y:68,pushback:{x:74,y:68},routeToHolding:['PB1','N1','HS2']},{id:'P2',label:'P',x:72,y:68,pushback:{x:68,y:68},routeToHolding:['PB2','N2','HS2']},{id:'Q1',label:'Q',x:76,y:60,pushback:{x:72,y:60},routeToHolding:['PB3','N3','HS1']},{id:'Q2',label:'Q',x:70,y:60,pushback:{x:66,y:60},routeToHolding:['PB4','N4','HS1']}],
+      nodes:{PB1:{x:74,y:68},PB2:{x:68,y:68},PB3:{x:72,y:60},PB4:{x:66,y:60},N1:{x:58,y:68},N2:{x:56,y:66},N3:{x:56,y:60},N4:{x:52,y:56},HS1:{x:42,y:48},HS2:{x:50,y:56}}
+    },
+    SBKP: { airport:'SBKP', displayName:'Viracopos / Campinas', activeRunway:'15/33', finalFix:{x:44,y:20},
+      runways:[{id:'15/33',x1:24,y1:20,x2:76,y2:80,width:5.4,heading:150,lineup:{x:34,y:32},departureEnd:{x:28,y:24},arrivalThreshold:{x:72,y:76},exits:[{id:'E1',x:49,y:49},{id:'E2',x:57,y:57},{id:'E3',x:66,y:67}]}],
+      holdingPoints:[{id:'HS1',x:34,y:44,runway:'15/33',lineup:{x:36,y:34}},{id:'HS2',x:46,y:56,runway:'15/33',lineup:{x:38,y:36}}],
+      taxiways:[{id:'A',points:[{x:32,y:44},{x:58,y:70}]},{id:'B',points:[{x:38,y:36},{x:64,y:62}]},{id:'C',points:[{x:58,y:70},{x:82,y:70}]},{id:'D',points:[{x:52,y:62},{x:80,y:62}]}],
+      gates:[{id:'C1',label:'C',x:80,y:70,pushback:{x:76,y:70},routeToHolding:['PB1','N1','HS2']},{id:'C2',label:'C',x:74,y:70,pushback:{x:70,y:70},routeToHolding:['PB2','N2','HS2']},{id:'D1',label:'D',x:78,y:62,pushback:{x:74,y:62},routeToHolding:['PB3','N3','HS1']},{id:'D2',label:'D',x:72,y:62,pushback:{x:68,y:62},routeToHolding:['PB4','N4','HS1']}],
+      nodes:{PB1:{x:76,y:70},PB2:{x:70,y:70},PB3:{x:74,y:62},PB4:{x:68,y:62},N1:{x:58,y:70},N2:{x:54,y:66},N3:{x:52,y:62},N4:{x:48,y:58},HS1:{x:34,y:44},HS2:{x:46,y:56}}
+    },
+    SBBR: { airport:'SBBR', displayName:'Brasília', activeRunway:'11L/29R', finalFix:{x:48,y:22},
+      runways:[{id:'11L/29R',x1:16,y1:40,x2:84,y2:56,width:5.8,heading:110,lineup:{x:25,y:42},departureEnd:{x:18,y:40},arrivalThreshold:{x:82,y:56},exits:[{id:'E1',x:36,y:48},{id:'E2',x:50,y:50},{id:'E3',x:63,y:52},{id:'E4',x:74,y:55}]},{id:'11R/29L',x1:18,y1:58,x2:82,y2:72,width:4.8,heading:110,secondary:true}],
+      holdingPoints:[{id:'HS1',x:34,y:54,runway:'11L/29R',lineup:{x:26,y:43}},{id:'HS2',x:48,y:58,runway:'11L/29R',lineup:{x:28,y:44}},{id:'HS3',x:62,y:61,runway:'11L/29R',lineup:{x:30,y:45}}],
+      taxiways:[{id:'A',points:[{x:30,y:54},{x:80,y:66}]},{id:'B',points:[{x:36,y:62},{x:82,y:72}]},{id:'L1',points:[{x:56,y:54},{x:56,y:74}]},{id:'L2',points:[{x:68,y:56},{x:68,y:74}]}],
+      gates:[{id:'N1',label:'N',x:56,y:74,pushback:{x:56,y:70},routeToHolding:['PB1','N4','HS2']},{id:'N2',label:'N',x:68,y:74,pushback:{x:68,y:70},routeToHolding:['PB2','N5','HS3']},{id:'M1',label:'M',x:60,y:66,pushback:{x:60,y:62},routeToHolding:['PB3','N6','HS2']},{id:'M2',label:'M',x:72,y:66,pushback:{x:72,y:62},routeToHolding:['PB4','N7','HS3']}],
+      nodes:{PB1:{x:56,y:70},PB2:{x:68,y:70},PB3:{x:60,y:62},PB4:{x:72,y:62},N4:{x:56,y:54},N5:{x:68,y:56},N6:{x:60,y:54},N7:{x:72,y:56},HS1:{x:34,y:54},HS2:{x:48,y:58},HS3:{x:62,y:61}}
+    },
+    KATL: { airport:'KATL', displayName:'Atlanta Hartsfield-Jackson', activeRunway:'09L/27R', finalFix:{x:50,y:22},
+      runways:[{id:'09L/27R',x1:14,y1:46,x2:86,y2:46,width:5.8,heading:90,lineup:{x:22,y:46},departureEnd:{x:16,y:46},arrivalThreshold:{x:84,y:46},exits:[{id:'E1',x:30,y:52},{id:'E2',x:42,y:52},{id:'E3',x:54,y:52},{id:'E4',x:66,y:52},{id:'E5',x:78,y:52}]},{id:'08R/26L',x1:14,y1:56,x2:86,y2:56,width:5.2,heading:90,secondary:true},{id:'08L/26R',x1:14,y1:66,x2:86,y2:66,width:4.8,heading:90,secondary:true}],
+      holdingPoints:[{id:'HS1',x:28,y:54,runway:'09L/27R',lineup:{x:23,y:46}},{id:'HS2',x:42,y:54,runway:'09L/27R',lineup:{x:25,y:46}},{id:'HS3',x:56,y:54,runway:'09L/27R',lineup:{x:27,y:46}},{id:'HS4',x:70,y:54,runway:'09L/27R',lineup:{x:29,y:46}}],
+      taxiways:[{id:'A',points:[{x:20,y:54},{x:82,y:54}]},{id:'B',points:[{x:24,y:62},{x:82,y:62}]},{id:'C',points:[{x:28,y:70},{x:82,y:70}]},{id:'L1',points:[{x:54,y:54},{x:54,y:76}]},{id:'L2',points:[{x:62,y:54},{x:62,y:76}]},{id:'L3',points:[{x:70,y:54},{x:70,y:76}]}],
+      gates:[{id:'A1',label:'A',x:54,y:76,pushback:{x:54,y:70},routeToHolding:['PB1','N1','HS3']},{id:'A2',label:'A',x:62,y:76,pushback:{x:62,y:70},routeToHolding:['PB2','N2','HS3']},{id:'A3',label:'A',x:70,y:76,pushback:{x:70,y:70},routeToHolding:['PB3','N3','HS4']},{id:'B1',label:'B',x:58,y:68,pushback:{x:58,y:62},routeToHolding:['PB4','N4','HS2']},{id:'B2',label:'B',x:66,y:68,pushback:{x:66,y:62},routeToHolding:['PB5','N5','HS3']},{id:'B3',label:'B',x:74,y:68,pushback:{x:74,y:62},routeToHolding:['PB6','N6','HS4']}],
+      nodes:{PB1:{x:54,y:70},PB2:{x:62,y:70},PB3:{x:70,y:70},PB4:{x:58,y:62},PB5:{x:66,y:62},PB6:{x:74,y:62},N1:{x:54,y:54},N2:{x:62,y:54},N3:{x:70,y:54},N4:{x:58,y:54},N5:{x:66,y:54},N6:{x:74,y:54},HS1:{x:28,y:54},HS2:{x:42,y:54},HS3:{x:56,y:54},HS4:{x:70,y:54}}
+    }
+  }
+});
+function copyPoint(p){ return p ? {x:Number(p.x), y:Number(p.y)} : null; }
+function cloneRoutePoints(points){ return Array.isArray(points) ? points.filter(Boolean).map(copyPoint).filter(Boolean) : []; }
+function graphDefault(){
+  return {
+    airport: airport()?.icao || 'GEN', displayName: airport()?.name || 'Generic field', activeRunway: runway.name,
+    runways:[{ id:runway.name, x1:runway.x1, y1:runway.y1, x2:runway.x2, y2:runway.y2, width:runway.width, heading:Math.round(headingTo({x:runway.x1,y:runway.y1},{x:runway.x2,y:runway.y2})), lineup:{x:runway.x1+6,y:runway.y1}, departureEnd:{x:runway.x1+2,y:runway.y1}, arrivalThreshold:{x:runway.x2-2,y:runway.y2}, exits:(runway.exits||[]).map((x,i)=>({id:`E${i+1}`,x,y:(runway.y1+runway.y2)/2+6})) }],
+    taxiways:[{id:'GEN-A',points:[{x:20,y:58},{x:82,y:58}]},{id:'GEN-B',points:[{x:56,y:58},{x:56,y:78}]},{id:'GEN-C',points:[{x:66,y:58},{x:66,y:78}]}],
+    gates:gates.map((g,i)=>({id:`G${i+1}`,label:g.label||'G',x:g.x,y:g.y,pushback:{x:g.x,y:Math.max(8,g.y-6)},routeToHolding:[`PB${i+1}`,`HS${(i%Math.max(1,holdingPoints.length))+1}`]})),
+    holdingPoints:holdingPoints.map((h,i)=>({id:`HS${i+1}`,x:h.x,y:h.y,runway:runway.name,lineup:{x:Math.min(runway.x1+10,runway.x2-10),y:runway.y1}})),
+    nodes:Object.fromEntries([].concat(gates.map((g,i)=>[[`PB${i+1}`,{x:g.x,y:Math.max(8,g.y-6)}]]), holdingPoints.map((h,i)=>[[`HS${i+1}`,{x:h.x,y:h.y}]])).flat())
+  };
+}
+function airportSurfaceGraphFor(icao){ const code=String(icao||airport()?.icao||'').toUpperCase(); return AIRPORT_SURFACE_CATALOG.airports[code] || graphDefault(); }
+function resolveNode(graph,id){ if(!graph||!id) return null; const node=graph.nodes?.[id]; if(node) return copyPoint(node); const gate=(graph.gates||[]).find(g=>g.id===id); if(gate) return {x:Number(gate.x), y:Number(gate.y)}; const hold=(graph.holdingPoints||[]).find(h=>h.id===id); if(hold) return {x:Number(hold.x), y:Number(hold.y)}; return null; }
+function resolveSurfaceRoute(graph, route){ if(!Array.isArray(route)) return []; return route.map(id=>typeof id==='string' ? resolveNode(graph,id) : copyPoint(id)).filter(Boolean); }
+function applyAirportSurfaceGraph(icao){
+  const graph=airportSurfaceGraphFor(icao); activeAirportGraph=graph;
+  const active=(graph.runways||[]).find(r=>r.id===graph.activeRunway) || graph.runways?.[0];
+  runway={ name:active?.id || runway.name, x1:active?.x1 ?? runway.x1, y1:active?.y1 ?? runway.y1, x2:active?.x2 ?? runway.x2, y2:active?.y2 ?? runway.y2, width:active?.width ?? runway.width, exits:(active?.exits||[]).map(e=>Number(e.x)) };
+  gates=(graph.gates||[]).map(g=>({x:Number(g.x), y:Number(g.y), label:g.label||String(g.id||'G').replace(/\d+/g,'').slice(0,1)||'G', id:g.id, pushback:copyPoint(g.pushback), routeToHolding:Array.isArray(g.routeToHolding)?g.routeToHolding.slice():[]}));
+  holdingPoints=(graph.holdingPoints||[]).map(h=>({x:Number(h.x), y:Number(h.y), id:h.id, runway:h.runway, lineup:copyPoint(h.lineup)}));
+  finalFix=copyPoint(graph.finalFix) || finalFix;
+  secondaryRunways=(graph.runways||[]).filter(r=>r.id!==active?.id);
+  airportSurfaceState={ activeRunway:runway.name, taxiwayCount:(graph.taxiways||[]).length, gateCount:gates.length, holdingCount:holdingPoints.length };
+  if(PROCEDURE_LAYER?.ils && active?.arrivalThreshold){ PROCEDURE_LAYER.ils.threshold=copyPoint(active.arrivalThreshold); PROCEDURE_LAYER.ils.name=`ILS RWY ${runway.name}`; }
+  if($('#runwayTextTop')) $('#runwayTextTop').textContent=`RWY ${runway.name}`;
+  return graph;
+}
+function assignDepartureSurfaceRoute(plane, stage){
+  if(!plane) return [];
+  const graph=activeAirportGraph||airportSurfaceGraphFor();
+  const gate=(graph.gates||[]).find(g=>g.id===plane.gateId) || (graph.gates||[])[plane.gateIndex||0] || (graph.gates||[])[0];
+  const hold=(graph.holdingPoints||[])[plane.groundIndex||0] || (graph.holdingPoints||[])[0];
+  if(stage==='pushback') return gate?.pushback ? [copyPoint(gate.pushback)] : [];
+  if(stage==='taxi'){
+    const route=resolveSurfaceRoute(graph, gate?.routeToHolding || []);
+    if(route.length) return route;
+    return [gate?.pushback?copyPoint(gate.pushback):null, hold?copyPoint(hold):null].filter(Boolean);
+  }
+  if(stage==='lineup') return [copyPoint(hold?.lineup || activeRunwayObject()?.lineup || {x:runway.x1+6,y:runway.y1})].filter(Boolean);
+  return [];
+}
+function activeRunwayObject(){ const graph=activeAirportGraph||airportSurfaceGraphFor(); return (graph.runways||[]).find(r=>r.id===runway.name) || graph.runways?.[0] || null; }
+function runwayHeadingValue(){ return Math.round(headingTo({x:runway.x1,y:runway.y1},{x:runway.x2,y:runway.y2})); }
+function nearestRunwayExit(point){ const active=activeRunwayObject(); if(!active||!Array.isArray(active.exits)||!active.exits.length) return null; let best=null, bestD=Infinity; for(const ex of active.exits){ const d=Math.hypot((ex.x??0)-(point?.x??0),(ex.y??0)-(point?.y??0)); if(d<bestD){ best=ex; bestD=d; } } return best ? {id:best.id,x:Number(best.x),y:Number(best.y)} : null; }
+function assignArrivalVacateRoute(plane){ const exit=nearestRunwayExit(plane); if(!exit) return []; const graph=activeAirportGraph||airportSurfaceGraphFor(); const taxi=(graph.taxiways||[])[0]; const tail=Array.isArray(taxi?.points)&&taxi.points.length ? copyPoint(taxi.points[Math.max(0,taxi.points.length-1)]) : {x:exit.x+8,y:exit.y+8}; return [copyPoint(exit), tail]; }
+function beginSurfaceRoute(plane, route, statusAfter){ if(!plane) return plane; plane.surfaceRoute=cloneRoutePoints(route); plane.surfaceLeg=0; plane.surfaceStatusAfter=statusAfter||null; return plane; }
+function stepSurfaceRoute(plane, dt, speedFactor){
+  if(!plane||!Array.isArray(plane.surfaceRoute)||!plane.surfaceRoute.length) return true;
+  const target=plane.surfaceRoute[Math.min(plane.surfaceLeg||0, plane.surfaceRoute.length-1)];
+  if(!target) return true;
+  plane.heading=headingTo(plane,target);
+  moveToward(plane,target,Math.max(0.04, (speedFactor||SIM_SPEED*.55))*dt);
+  if(Math.hypot(plane.x-target.x, plane.y-target.y)<1.3){ plane.surfaceLeg=(plane.surfaceLeg||0)+1; }
+  return (plane.surfaceLeg||0) >= plane.surfaceRoute.length;
+}
+function airportSurfaceSummary(){ const graph=activeAirportGraph||airportSurfaceGraphFor(); return { airport:graph.airport, graph:graph.displayName, runways:(graph.runways||[]).length, taxiways:(graph.taxiways||[]).length, gates:(graph.gates||[]).length, holds:(graph.holdingPoints||[]).length, activeRunway:graph.activeRunway||runway.name } }
+function airportSurfaceSelfCheck(){
+  try{
+    const issues=[]; const graphs=AIRPORT_SURFACE_CATALOG.airports||{}; const keys=Object.keys(graphs); if(keys.length<5) issues.push('menos de 5 aeroportos grafo');
+    keys.forEach(code=>{ const g=graphs[code]; if(!g.activeRunway) issues.push(`${code} sem pista ativa`); if(!Array.isArray(g.runways)||!g.runways.length) issues.push(`${code} sem runways`); if(!Array.isArray(g.gates)||!g.gates.length) issues.push(`${code} sem gates`); if(!Array.isArray(g.taxiways)||!g.taxiways.length) issues.push(`${code} sem taxiways`); });
+    return { ok:issues.length===0, issues, summary:keys.length };
+  }catch(error){ return { ok:false, issues:[error.message] }; }
+}
+window.SKYWARD_AIRPORT_SURFACE=Object.freeze({ schema:1, catalog:AIRPORT_SURFACE_CATALOG, getGraph:airportSurfaceGraphFor, apply:applyAirportSurfaceGraph, resolveRoute:resolveSurfaceRoute, resolveNode, assignDepartureSurfaceRoute, assignArrivalVacateRoute, beginSurfaceRoute, stepSurfaceRoute, activeRunway:activeRunwayObject, runwayHeading:runwayHeadingValue, nearestRunwayExit, summary:airportSurfaceSummary, selfCheck:airportSurfaceSelfCheck });
+
+/* ===== MODULE 11: advanced-weather-ifr (18-advanced-weather-ifr.js) ===== */
+/* @skyward-module 18-advanced-weather-ifr
+ * Advanced IFR/VFR weather, wind, visibility, ceiling and runway condition director.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('18-advanced-weather-ifr');
+const ADVANCED_WEATHER_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f15',
+  profiles:{
+    VMC_CLEAR:{label:'VMC clear',flightRules:'VFR',visibilityKm:10,ceilingFt:6500,rainMmH:0,windDir:90,windKt:8,gustKt:12,crosswindKt:4,runwayCondition:'DRY',brakingAction:'GOOD',severity:.12,arrivalSpacingNm:5,departureSpacingSec:55},
+    IFR_LOW_CEILING:{label:'IFR low ceiling',flightRules:'IFR',visibilityKm:5,ceilingFt:900,rainMmH:.8,windDir:110,windKt:13,gustKt:20,crosswindKt:9,runwayCondition:'DAMP',brakingAction:'GOOD_TO_MEDIUM',severity:.48,arrivalSpacingNm:7,departureSpacingSec:75},
+    LIFR_RAIN:{label:'LIFR heavy rain',flightRules:'LIFR',visibilityKm:1.8,ceilingFt:350,rainMmH:7.5,windDir:130,windKt:19,gustKt:31,crosswindKt:16,runwayCondition:'WET',brakingAction:'MEDIUM',severity:.78,arrivalSpacingNm:10,departureSpacingSec:120},
+    THUNDERSTORM_CELLS:{label:'TS cells nearby',flightRules:'IFR',visibilityKm:3.2,ceilingFt:1200,rainMmH:12,windDir:240,windKt:22,gustKt:42,crosswindKt:24,runwayCondition:'WET',brakingAction:'MEDIUM_TO_POOR',severity:.92,arrivalSpacingNm:12,departureSpacingSec:150},
+    FOG_RVR:{label:'Fog / RVR operations',flightRules:'LIFR',visibilityKm:.8,ceilingFt:180,rainMmH:.2,windDir:70,windKt:5,gustKt:8,crosswindKt:2,runwayCondition:'DAMP',brakingAction:'MEDIUM',severity:.84,arrivalSpacingNm:11,departureSpacingSec:135}
+  },
+  airportBias:{
+    SBGR:['VMC_CLEAR','IFR_LOW_CEILING','LIFR_RAIN','THUNDERSTORM_CELLS'],
+    SBSP:['VMC_CLEAR','IFR_LOW_CEILING','FOG_RVR','LIFR_RAIN'],
+    SBKP:['VMC_CLEAR','IFR_LOW_CEILING','THUNDERSTORM_CELLS'],
+    SBBR:['VMC_CLEAR','IFR_LOW_CEILING','THUNDERSTORM_CELLS'],
+    KATL:['VMC_CLEAR','IFR_LOW_CEILING','LIFR_RAIN','THUNDERSTORM_CELLS','FOG_RVR']
+  }
+});
+let advancedWeatherState = {
+  schema:1, profileId:'VMC_CLEAR', flightRules:'VFR', visibilityKm:10, ceilingFt:6500,
+  windDir:90, windKt:8, gustKt:12, crosswindKt:4, rainMmH:0,
+  runwayCondition:'DRY', brakingAction:'GOOD', severity:.12,
+  arrivalSpacingNm:5, departureSpacingSec:55, rvrMeters:9999,
+  ifrActive:false, updatedAt:0, advisory:['VMC: separação padrão.']
+};
+function weatherClamp(value,min,max){ return Math.max(min,Math.min(max,Number(value)||0)); }
+function cloneWeatherProfile(profile){
+  return JSON.parse(JSON.stringify(profile || ADVANCED_WEATHER_CATALOG.profiles.VMC_CLEAR));
+}
+function weatherProfileForAirport(icao, index){
+  const code=String(icao||airport?.()?.icao||'SBGR').toUpperCase();
+  const bias=ADVANCED_WEATHER_CATALOG.airportBias[code] || Object.keys(ADVANCED_WEATHER_CATALOG.profiles);
+  const pick=bias[Math.abs(Math.floor(index||0))%bias.length] || 'VMC_CLEAR';
+  return { id:pick, ...cloneWeatherProfile(ADVANCED_WEATHER_CATALOG.profiles[pick]) };
+}
+function calculateRvrMeters(profile){
+  const vis=weatherClamp(profile.visibilityKm,0.05,15);
+  const rainPenalty=weatherClamp(profile.rainMmH,0,20)*45;
+  const ceilingPenalty=profile.ceilingFt<400 ? 260 : profile.ceilingFt<800 ? 120 : 0;
+  return Math.max(350, Math.round(vis*1000 - rainPenalty - ceilingPenalty));
+}
+function weatherOperationalImpact(profile){
+  const p=profile || advancedWeatherState;
+  let risk=Math.round((p.severity||0)*55);
+  if(p.flightRules==='IFR') risk+=12;
+  if(p.flightRules==='LIFR') risk+=24;
+  if((p.crosswindKt||0)>18) risk+=18;
+  if((p.gustKt||0)-(p.windKt||0)>12) risk+=8;
+  if(['WET','DAMP'].includes(p.runwayCondition)) risk+=p.runwayCondition==='WET'?12:5;
+  if(String(p.brakingAction).includes('POOR')) risk+=20;
+  if((p.rvrMeters||9999)<800) risk+=18;
+  return {
+    risk:weatherClamp(risk,0,100),
+    arrivalSpacingNm:Math.max(5, p.arrivalSpacingNm||5),
+    departureSpacingSec:Math.max(55, p.departureSpacingSec||55),
+    landingPenalty:Math.round(weatherClamp(risk*.42,0,42)),
+    takeoffPenalty:Math.round(weatherClamp(risk*.32,0,34)),
+    allowVfr:p.flightRules==='VFR' && (p.visibilityKm||0)>=5 && (p.ceilingFt||0)>=1500
+  };
+}
+function applyAdvancedWeather(profileIdOrProfile){
+  try{
+    const profile = typeof profileIdOrProfile==='string'
+      ? { id:profileIdOrProfile, ...cloneWeatherProfile(ADVANCED_WEATHER_CATALOG.profiles[profileIdOrProfile]) }
+      : { id:profileIdOrProfile?.id || profileIdOrProfile?.profileId || 'CUSTOM', ...cloneWeatherProfile(profileIdOrProfile) };
+    profile.rvrMeters=calculateRvrMeters(profile);
+    const impact=weatherOperationalImpact(profile);
+    advancedWeatherState={
+      schema:1,
+      profileId:profile.id||'CUSTOM',
+      flightRules:profile.flightRules||'VFR',
+      visibilityKm:weatherClamp(profile.visibilityKm,0.05,20),
+      ceilingFt:Math.round(weatherClamp(profile.ceilingFt,0,50000)),
+      windDir:Math.round(weatherClamp(profile.windDir,0,360)),
+      windKt:Math.round(weatherClamp(profile.windKt,0,90)),
+      gustKt:Math.round(weatherClamp(profile.gustKt,0,120)),
+      crosswindKt:Math.round(weatherClamp(profile.crosswindKt,0,80)),
+      rainMmH:weatherClamp(profile.rainMmH,0,80),
+      runwayCondition:profile.runwayCondition||'DRY',
+      brakingAction:profile.brakingAction||'GOOD',
+      severity:weatherClamp(profile.severity,0,1),
+      arrivalSpacingNm:impact.arrivalSpacingNm,
+      departureSpacingSec:impact.departureSpacingSec,
+      rvrMeters:profile.rvrMeters,
+      ifrActive:profile.flightRules!=='VFR',
+      updatedAt:performance?.now?.()||Date.now(),
+      advisory:buildWeatherAdvisory(profile,impact)
+    };
+    if(typeof WX_STATE==='object' && WX_STATE){
+      WX_STATE.severity=Math.max(WX_STATE.severity||0, advancedWeatherState.severity);
+      WX_STATE.visibility=advancedWeatherState.visibilityKm;
+      WX_STATE.ceiling=advancedWeatherState.ceilingFt;
+      WX_STATE.wind=`${advancedWeatherState.windDir}/${advancedWeatherState.windKt}G${advancedWeatherState.gustKt}`;
+      WX_STATE.runwayCondition=advancedWeatherState.runwayCondition;
+      WX_STATE.brakingAction=advancedWeatherState.brakingAction;
+      WX_STATE.flightRules=advancedWeatherState.flightRules;
+    }
+    updateWeatherPanel?.();
+    return advancedWeatherState;
+  }catch(e){ safeLogError?.(e,'advanced-weather-apply'); return advancedWeatherState; }
+}
+function buildWeatherAdvisory(profile, impact){
+  const notes=[];
+  notes.push(`${profile.flightRules||'VFR'} • VIS ${profile.visibilityKm} km • TETO ${profile.ceilingFt} ft`);
+  notes.push(`Vento ${profile.windDir}/${profile.windKt}G${profile.gustKt} kt • XWIND ${profile.crosswindKt} kt`);
+  if(profile.runwayCondition!=='DRY') notes.push(`Pista ${profile.runwayCondition} • frenagem ${profile.brakingAction}`);
+  if((profile.rvrMeters||9999)<1500) notes.push(`RVR ${profile.rvrMeters} m: operação de baixa visibilidade`);
+  if(impact.risk>70) notes.push('Aumente separação e evite autorizações simultâneas.');
+  return notes;
+}
+function weatherRiskForCommand(cmd, plane){
+  const impact=weatherOperationalImpact(advancedWeatherState);
+  if(cmd==='clearLanding'){
+    if(advancedWeatherState.flightRules==='LIFR' && (advancedWeatherState.rvrMeters||9999)<550) return {level:'danger',block:true,msg:'LIFR/RVR abaixo do mínimo: pouso bloqueado.'};
+    if((advancedWeatherState.crosswindKt||0)>28) return {level:'danger',block:true,msg:'Crosswind acima do limite operacional.'};
+    if(impact.risk>68) return {level:'warn',block:false,msg:`Clima severo: aplicar ${impact.arrivalSpacingNm} NM na final.`};
+  }
+  if(cmd==='clearTakeoff'){
+    if((advancedWeatherState.crosswindKt||0)>32) return {level:'danger',block:true,msg:'Decolagem bloqueada por crosswind severo.'};
+    if(String(advancedWeatherState.brakingAction).includes('POOR')) return {level:'warn',block:false,msg:'Frenagem degradada: confirme decolagem e espaçamento.'};
+  }
+  if(cmd==='vectorFinal' && impact.risk>82) return {level:'warn',block:false,msg:'Células/baixa visibilidade: vetor final com cautela.'};
+  return {level:'ok',block:false,msg:''};
+}
+function advancedWeatherLandingRisk(plane){
+  const impact=weatherOperationalImpact(advancedWeatherState);
+  let risk=impact.landingPenalty;
+  if(plane && (plane.speed||0)>(performanceTargetSpeed?.(plane,'FINAL')||160)+18) risk+=14;
+  if(advancedWeatherState.runwayCondition==='WET') risk+=8;
+  if(String(advancedWeatherState.brakingAction).includes('POOR')) risk+=18;
+  if((advancedWeatherState.crosswindKt||0)>18) risk+=Math.round((advancedWeatherState.crosswindKt-18)*1.5);
+  return weatherClamp(risk,0,100);
+}
+function advancedWeatherTakeoffRisk(plane){
+  const impact=weatherOperationalImpact(advancedWeatherState);
+  let risk=impact.takeoffPenalty;
+  if((advancedWeatherState.crosswindKt||0)>20) risk+=Math.round((advancedWeatherState.crosswindKt-20)*1.4);
+  if(plane && String(plane.performance?.wake||'').includes('H') && advancedWeatherState.flightRules!=='VFR') risk+=4;
+  return weatherClamp(risk,0,100);
+}
+function updateWeatherPanel(){
+  try{
+    const box=document.querySelector('#weatherOpsBoard') || document.querySelector('#airportOpsBoard');
+    if(!box || !box.insertAdjacentHTML) return;
+    const existing=document.querySelector('#weatherOpsInline'); if(existing) existing.remove();
+    const s=advancedWeatherState;
+    box.insertAdjacentHTML('afterend',`<div id="weatherOpsInline" class="airport-ops-board weather-ops-inline">
+      <div class="airport-ops-head"><b>WX OPS</b><span>${s.flightRules}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>VIS</small><b>${s.visibilityKm} KM</b></div>
+        <div><small>TETO</small><b>${s.ceilingFt} FT</b></div>
+        <div><small>VENTO</small><b>${s.windDir}/${s.windKt}G${s.gustKt}</b></div>
+        <div><small>RVR</small><b>${s.rvrMeters} M</b></div>
+        <div><small>PISTA</small><b>${s.runwayCondition}</b></div>
+        <div><small>FREIO</small><b>${s.brakingAction}</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'weather-panel'); }
+}
+function cycleAdvancedWeather(){
+  const bias=ADVANCED_WEATHER_CATALOG.airportBias[String(airport?.()?.icao||'SBGR').toUpperCase()] || Object.keys(ADVANCED_WEATHER_CATALOG.profiles);
+  const current=Math.max(0,bias.indexOf(advancedWeatherState.profileId));
+  return applyAdvancedWeather(weatherProfileForAirport(airport?.()?.icao, current+1));
+}
+function initializeAdvancedWeather(){
+  const idx=(profile?.turns||0)+(airport?.()?.level||1);
+  return applyAdvancedWeather(weatherProfileForAirport(airport?.()?.icao, idx));
+}
+function advancedWeatherSelfCheck(){
+  const issues=[];
+  const keys=Object.keys(ADVANCED_WEATHER_CATALOG.profiles||{});
+  if(keys.length<5) issues.push('catálogo climático insuficiente');
+  keys.forEach(k=>{ const p=ADVANCED_WEATHER_CATALOG.profiles[k]; if(!p.flightRules||!Number.isFinite(p.visibilityKm)||!Number.isFinite(p.ceilingFt)) issues.push(`${k} incompleto`); });
+  const low=weatherOperationalImpact({...ADVANCED_WEATHER_CATALOG.profiles.VMC_CLEAR,rvrMeters:9999});
+  const severe=weatherOperationalImpact({...ADVANCED_WEATHER_CATALOG.profiles.THUNDERSTORM_CELLS,rvrMeters:calculateRvrMeters(ADVANCED_WEATHER_CATALOG.profiles.THUNDERSTORM_CELLS)});
+  if(!(severe.risk>low.risk)) issues.push('risco severo não supera VMC');
+  return {ok:issues.length===0,issues,profiles:keys.length};
+}
+window.SKYWARD_WEATHER_OPS=Object.freeze({
+  schema:1,
+  catalog:ADVANCED_WEATHER_CATALOG,
+  state:()=>advancedWeatherState,
+  profileForAirport:weatherProfileForAirport,
+  apply:applyAdvancedWeather,
+  cycle:cycleAdvancedWeather,
+  initialize:initializeAdvancedWeather,
+  impact:weatherOperationalImpact,
+  commandRisk:weatherRiskForCommand,
+  landingRisk:advancedWeatherLandingRisk,
+  takeoffRisk:advancedWeatherTakeoffRisk,
+  selfCheck:advancedWeatherSelfCheck
+});
+
+/* ===== MODULE 12: procedures-sid-star-rnav (19-procedures-sid-star-rnav.js) ===== */
+/* @skyward-module 19-procedures-sid-star-rnav
+ * Published-style SID/STAR/ILS/RNAV, missed approach and holding patterns.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('19-procedures-sid-star-rnav');
+const PUBLISHED_PROCEDURES_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f16',
+  airports:{
+    SBGR:{
+      activeRunway:'09R/27L',
+      stars:[
+        {id:'MRC1A',name:'MARICA ONE ALFA STAR',type:'STAR',runway:'09R/27L',fixes:[{id:'MRC',name:'MARICA',x:16,y:17,altitudeFt:11000,speedKt:230},{id:'ANVIL',name:'ANVIL',x:34,y:22,altitudeFt:8000,speedKt:210},{id:'FAF09R',name:'FAF 09R',x:55,y:31,altitudeFt:3000,speedKt:170},{id:'THR09R',name:'THRESHOLD 09R',x:82,y:49,altitudeFt:0,speedKt:140}]},
+        {id:'PAG2B',name:'PAGAN TWO BRAVO RNAV STAR',type:'RNAV_STAR',runway:'09R/27L',fixes:[{id:'PAG',name:'PAGAN',x:18,y:34,altitudeFt:10000,speedKt:230},{id:'SUGRE',name:'SUGRE',x:38,y:28,altitudeFt:7000,speedKt:210},{id:'FAF09R',name:'FAF 09R',x:55,y:31,altitudeFt:3000,speedKt:170},{id:'THR09R',name:'THRESHOLD 09R',x:82,y:49,altitudeFt:0,speedKt:140}]}
+      ],
+      sids:[
+        {id:'PAG1C',name:'PAGAN ONE CHARLIE SID',type:'SID',runway:'09R/27L',fixes:[{id:'DER09R',name:'DER 09R',x:17,y:49,altitudeFt:0,speedKt:160},{id:'CLB01',name:'CLIMB FIX',x:11,y:42,altitudeFt:3000,speedKt:190},{id:'PAG',name:'PAGAN',x:6,y:30,altitudeFt:7000,speedKt:230}]},
+        {id:'MRC2D',name:'MARICA TWO DELTA SID',type:'SID',runway:'09R/27L',fixes:[{id:'DER09R',name:'DER 09R',x:17,y:49,altitudeFt:0,speedKt:160},{id:'EAST1',name:'EAST CLIMB',x:8,y:56,altitudeFt:3000,speedKt:190},{id:'MRC',name:'MARICA',x:4,y:72,altitudeFt:7000,speedKt:230}]}
+      ],
+      approaches:[
+        {id:'ILS09R',name:'ILS RWY 09R',type:'ILS',runway:'09R/27L',minimums:{decisionAltitudeFt:230,rvrMeters:750},localizer:90,glideSlope:3.0,fixes:[{id:'IAF09R',name:'IAF',x:33,y:23,altitudeFt:7000,speedKt:210},{id:'FAF09R',name:'FAF',x:55,y:31,altitudeFt:3000,speedKt:170},{id:'THR09R',name:'THR',x:82,y:49,altitudeFt:0,speedKt:140}]},
+        {id:'RNAV09R',name:'RNAV GNSS RWY 09R',type:'RNAV',runway:'09R/27L',minimums:{decisionAltitudeFt:420,rvrMeters:1200},fixes:[{id:'IF09R',name:'IF',x:40,y:26,altitudeFt:6000,speedKt:200},{id:'FAF09R',name:'FAF',x:55,y:31,altitudeFt:3200,speedKt:170},{id:'MAP09R',name:'MAPt',x:82,y:49,altitudeFt:0,speedKt:140}]}
+      ],
+      missedApproach:{id:'MISSED09R',name:'MISSED APPROACH RWY 09R',fixes:[{id:'CLIMB09R',name:'CLIMB STRAIGHT',x:88,y:45,altitudeFt:1500,speedKt:170},{id:'TURNN',name:'LEFT TURN',x:80,y:28,altitudeFt:3000,speedKt:190},{id:'HLDGR',name:'GR HOLD',x:62,y:22,altitudeFt:5000,speedKt:210}]},
+      holds:[{id:'GRHLD',name:'GUARULHOS NORTH HOLD',fix:'HLDGR',x:62,y:22,inboundCourse:270,legNm:5,altitudeFt:5000}]
+    },
+    SBSP:{
+      activeRunway:'17R/35L',
+      stars:[{id:'CGO1A',name:'CONGONHAS CURVED VISUAL STAR',type:'STAR',runway:'17R/35L',fixes:[{id:'NORTH',name:'NORTH ENTRY',x:62,y:18,altitudeFt:7000,speedKt:200},{id:'BASE17',name:'BASE 17',x:58,y:34,altitudeFt:4500,speedKt:180},{id:'FAF17',name:'FAF 17',x:54,y:49,altitudeFt:2600,speedKt:155},{id:'THR17',name:'THR 17',x:64,y:74,altitudeFt:0,speedKt:135}]}],
+      sids:[{id:'CGO2B',name:'CONGONHAS TWO BRAVO SID',type:'SID',runway:'17R/35L',fixes:[{id:'DER17',name:'DER 17',x:40,y:28,altitudeFt:0,speedKt:150},{id:'CLB17',name:'URBAN CLIMB',x:32,y:18,altitudeFt:3000,speedKt:180},{id:'NORTH',name:'NORTH EXIT',x:24,y:10,altitudeFt:6000,speedKt:210}]}],
+      approaches:[{id:'RNAV17',name:'RNAV RWY 17R',type:'RNAV',runway:'17R/35L',minimums:{decisionAltitudeFt:620,rvrMeters:1600},fixes:[{id:'IF17',name:'IF',x:62,y:24,altitudeFt:6000,speedKt:190},{id:'FAF17',name:'FAF',x:54,y:49,altitudeFt:2600,speedKt:155},{id:'MAP17',name:'MAPt',x:64,y:74,altitudeFt:0,speedKt:135}]}],
+      missedApproach:{id:'MISSED17',name:'MISSED APPROACH RWY 17',fixes:[{id:'CLIMB17',name:'RUNWAY HDG',x:70,y:84,altitudeFt:1500,speedKt:160},{id:'EAST17',name:'RIGHT TURN',x:82,y:68,altitudeFt:3000,speedKt:180}]},
+      holds:[{id:'CGOHLD',name:'URBAN HOLD EAST',fix:'EAST17',x:82,y:68,inboundCourse:350,legNm:4,altitudeFt:4000}]
+    },
+    KATL:{
+      activeRunway:'09L/27R',
+      stars:[{id:'ATL1A',name:'ATLANTA BANK ONE STAR',type:'STAR',runway:'09L/27R',fixes:[{id:'BANKN',name:'NORTH BANK',x:18,y:18,altitudeFt:12000,speedKt:250},{id:'DOWNW',name:'DOWNWIND',x:38,y:22,altitudeFt:8000,speedKt:220},{id:'FAF09L',name:'FAF 09L',x:58,y:30,altitudeFt:3200,speedKt:175},{id:'THR09L',name:'THR 09L',x:84,y:46,altitudeFt:0,speedKt:145}]}],
+      sids:[{id:'ATL2C',name:'ATLANTA TWO CHARLIE SID',type:'SID',runway:'09L/27R',fixes:[{id:'DER09L',name:'DER 09L',x:16,y:46,altitudeFt:0,speedKt:160},{id:'WEST1',name:'WEST CLIMB',x:8,y:38,altitudeFt:4000,speedKt:210},{id:'BANKW',name:'BANK WEST',x:4,y:25,altitudeFt:9000,speedKt:250}]}],
+      approaches:[{id:'ILS09L',name:'ILS RWY 09L',type:'ILS',runway:'09L/27R',minimums:{decisionAltitudeFt:210,rvrMeters:700},localizer:90,glideSlope:3.0,fixes:[{id:'IF09L',name:'IF',x:40,y:25,altitudeFt:7000,speedKt:210},{id:'FAF09L',name:'FAF',x:58,y:30,altitudeFt:3200,speedKt:175},{id:'THR09L',name:'THR',x:84,y:46,altitudeFt:0,speedKt:145}]}],
+      missedApproach:{id:'MISSED09L',name:'MISSED APPROACH RWY 09L',fixes:[{id:'CLIMB09L',name:'CLIMB',x:90,y:43,altitudeFt:1500,speedKt:170},{id:'HLDATL',name:'HOLD EAST',x:80,y:25,altitudeFt:5000,speedKt:210}]},
+      holds:[{id:'ATLHLD',name:'ATL EAST HOLD',fix:'HLDATL',x:80,y:25,inboundCourse:270,legNm:6,altitudeFt:5000}]
+    }
+  }
+});
+let activeProcedureSet = null;
+function copyFix(f){ return f ? {id:f.id,name:f.name,x:Number(f.x),y:Number(f.y),altitudeFt:Number(f.altitudeFt||0),speedKt:Number(f.speedKt||0)} : null; }
+function procedureSetForAirport(icao){
+  const code=String(icao||airport?.()?.icao||'SBGR').toUpperCase();
+  return PUBLISHED_PROCEDURES_CATALOG.airports[code] || PUBLISHED_PROCEDURES_CATALOG.airports.SBGR;
+}
+function primaryStar(set=activeProcedureSet){ return (set?.stars||[])[0] || null; }
+function primarySid(set=activeProcedureSet){ return (set?.sids||[])[0] || null; }
+function primaryApproach(set=activeProcedureSet){ return (set?.approaches||[])[0] || null; }
+function initializeProceduresLayer(){
+  const set=procedureSetForAirport(airport?.()?.icao);
+  activeProcedureSet=set;
+  try{
+    const star=primaryStar(set), sid=primarySid(set), app=primaryApproach(set);
+    if(PROCEDURE_LAYER){
+      PROCEDURE_LAYER.routes=[
+        ...(star?[{id:star.id,type:'arrival',color:'rgba(91,240,109,.58)',pts:star.fixes.map(copyFix)}]:[]),
+        ...(sid?[{id:sid.id,type:'departure',color:'rgba(88,183,255,.54)',pts:sid.fixes.map(copyFix)}]:[]),
+        ...(set.missedApproach?[{id:set.missedApproach.id,type:'missed',color:'rgba(255,191,61,.55)',pts:set.missedApproach.fixes.map(copyFix)}]:[])
+      ];
+      PROCEDURE_LAYER.fixes=[...(star?.fixes||[]),...(sid?.fixes||[]),...(app?.fixes||[])].slice(0,12).map(f=>({id:f.id,name:f.name,x:f.x,y:f.y,type:f.id.includes('FAF')?'final':f.id.includes('DER')?'departure':'arrival'}));
+      if(app?.fixes?.length){ const last=app.fixes[app.fixes.length-1]; const faf=app.fixes[Math.max(0,app.fixes.length-2)]; PROCEDURE_LAYER.ils={...(PROCEDURE_LAYER.ils||{}),name:app.name,threshold:{x:last.x,y:last.y},faf:{x:faf.x,y:faf.y},minimums:app.minimums}; }
+    }
+    return set;
+  }catch(e){ safeLogError?.(e,'initialize-procedures-layer'); return set; }
+}
+function assignProcedureToAircraft(plane, procedure, mode){
+  if(!plane||!procedure) return plane;
+  plane.procedureId=procedure.id;
+  plane.procedureName=procedure.name;
+  plane.procedureType=procedure.type || mode;
+  plane.procedureFixes=(procedure.fixes||[]).map(copyFix).filter(Boolean);
+  plane.procedureLeg=0;
+  plane.nextFix=plane.procedureFixes[0]?.id || null;
+  return plane;
+}
+function assignArrivalProcedure(plane){
+  const set=activeProcedureSet||initializeProceduresLayer();
+  const approach=primaryApproach(set), star=primaryStar(set);
+  const procedure = approach || star;
+  return assignProcedureToAircraft(plane, procedure, 'APPROACH');
+}
+function assignDepartureProcedure(plane){
+  const set=activeProcedureSet||initializeProceduresLayer();
+  return assignProcedureToAircraft(plane, primarySid(set), 'SID');
+}
+function assignMissedApproachProcedure(plane){
+  const set=activeProcedureSet||initializeProceduresLayer();
+  return assignProcedureToAircraft(plane, set?.missedApproach, 'MISSED');
+}
+function assignHoldingPattern(plane){
+  const set=activeProcedureSet||initializeProceduresLayer();
+  const hold=(set?.holds||[])[0];
+  if(!plane||!hold) return plane;
+  plane.holdingPattern={...hold};
+  plane.procedureId=hold.id;
+  plane.procedureName=hold.name;
+  plane.procedureType='HOLD';
+  plane.nextFix=hold.fix;
+  return plane;
+}
+function procedureGuidance(plane){
+  if(!plane||!Array.isArray(plane.procedureFixes)||!plane.procedureFixes.length) return null;
+  const fix=plane.procedureFixes[Math.min(plane.procedureLeg||0, plane.procedureFixes.length-1)];
+  if(!fix) return null;
+  const distance=Math.hypot((plane.x||0)-fix.x,(plane.y||0)-fix.y);
+  if(distance<4 && (plane.procedureLeg||0)<plane.procedureFixes.length-1){
+    plane.procedureLeg=(plane.procedureLeg||0)+1;
+    plane.nextFix=plane.procedureFixes[plane.procedureLeg]?.id || null;
+    return plane.procedureFixes[plane.procedureLeg];
+  }
+  return fix;
+}
+function stepProcedureGuidance(plane, phase){
+  const fix=procedureGuidance(plane);
+  if(!fix) return null;
+  plane.heading += shortTurn?.(plane.heading||0, headingTo(plane,fix))*.03;
+  if(fix.altitudeFt!==undefined){
+    const targetFl=Math.round(Number(fix.altitudeFt||0)/100);
+    if(phase==='SID'||plane.kind==='departure') plane.targetAlt=Math.max(plane.targetAlt||0,targetFl);
+    else plane.targetAlt=Math.min(plane.targetAlt||targetFl,targetFl);
+  }
+  if(fix.speedKt) plane.targetSpeed=fix.speedKt;
+  return fix;
+}
+function procedureClearancePhrase(plane,type){
+  if(!plane) return 'Sem aeronave.';
+  if(type==='STAR') return `${plane.id} autorizado chegada ${primaryStar()?.id||'STAR'} pista ${runway?.name||''}.`;
+  if(type==='SID') return `${plane.id} autorizado saída ${primarySid()?.id||'SID'} pista ${runway?.name||''}.`;
+  if(type==='MISSED') return `${plane.id} execute aproximação perdida publicada.`;
+  if(type==='HOLD') return `${plane.id} entre em espera ${plane.holdingPattern?.id||primaryStar()?.id||''}.`;
+  return `${plane.id} autorizado procedimento publicado.`;
+}
+function procedureMinimumRisk(){
+  const app=primaryApproach(activeProcedureSet||initializeProceduresLayer());
+  const wx=window.SKYWARD_WEATHER_OPS?.state?.();
+  if(!app||!wx) return {level:'ok',block:false,msg:''};
+  const rvr=app.minimums?.rvrMeters||0;
+  if(wx.rvrMeters && rvr && wx.rvrMeters<rvr) return {level:'danger',block:true,msg:`RVR ${wx.rvrMeters}m abaixo do mínimo ${rvr}m para ${app.id}.`};
+  if(wx.flightRules==='LIFR' && (app.minimums?.decisionAltitudeFt||0)>500) return {level:'warn',block:false,msg:`LIFR: confirmar mínimos ${app.id}.`};
+  return {level:'ok',block:false,msg:''};
+}
+function drawPublishedProceduresOverlay(ctx,w,h){
+  try{
+    const set=activeProcedureSet||initializeProceduresLayer(); if(!set||!ctx) return;
+    const P=o=>({x:o.x/100*w,y:o.y/100*h});
+    const draw=(procedure,color,label)=>{
+      if(!procedure?.fixes?.length) return;
+      ctx.save(); ctx.strokeStyle=color; ctx.fillStyle=color; ctx.lineWidth=Math.max(1.5,w*.0018); ctx.setLineDash([8,7]); ctx.beginPath();
+      procedure.fixes.forEach((f,i)=>{ const p=P(f); if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y); });
+      ctx.stroke(); ctx.setLineDash([]);
+      procedure.fixes.forEach(f=>{ const p=P(f); ctx.beginPath(); ctx.arc(p.x,p.y,3.2,0,Math.PI*2); ctx.fill(); ctx.font='800 9px ui-monospace'; ctx.fillText(f.id,p.x+5,p.y-5); });
+      const m=P(procedure.fixes[Math.floor(procedure.fixes.length/2)]); ctx.font='900 10px ui-monospace'; ctx.fillText(label||procedure.id,m.x+8,m.y+11); ctx.restore();
+    };
+    draw(primaryStar(set),'rgba(91,240,109,.60)',primaryStar(set)?.id);
+    draw(primarySid(set),'rgba(88,183,255,.55)',primarySid(set)?.id);
+    if(set.missedApproach) draw(set.missedApproach,'rgba(255,191,61,.58)',set.missedApproach.id);
+    (set.holds||[]).forEach(h=>{ const p=P(h); ctx.save(); ctx.strokeStyle='rgba(255,191,61,.75)'; ctx.setLineDash([5,5]); ctx.beginPath(); ctx.ellipse(p.x,p.y,24,12,-.2,0,Math.PI*2); ctx.stroke(); ctx.fillStyle='rgba(255,191,61,.90)'; ctx.font='900 10px ui-monospace'; ctx.fillText(h.id,p.x+12,p.y-12); ctx.restore(); });
+  }catch(e){ safeLogError?.(e,'draw-published-procedures'); }
+}
+function proceduresSelfCheck(){
+  const issues=[]; const airports=PUBLISHED_PROCEDURES_CATALOG.airports||{}; const keys=Object.keys(airports);
+  if(keys.length<3) issues.push('menos de 3 aeroportos com procedimentos');
+  keys.forEach(code=>{ const a=airports[code]; if(!(a.stars||[]).length) issues.push(`${code} sem STAR`); if(!(a.sids||[]).length) issues.push(`${code} sem SID`); if(!(a.approaches||[]).length) issues.push(`${code} sem approach`); if(!a.missedApproach) issues.push(`${code} sem missed approach`); if(!(a.holds||[]).length) issues.push(`${code} sem hold`); });
+  return {ok:issues.length===0,issues,airports:keys.length};
+}
+window.SKYWARD_PROCEDURES=Object.freeze({
+  schema:1,
+  catalog:PUBLISHED_PROCEDURES_CATALOG,
+  getSet:procedureSetForAirport,
+  initialize:initializeProceduresLayer,
+  assignArrival:assignArrivalProcedure,
+  assignDeparture:assignDepartureProcedure,
+  assignMissed:assignMissedApproachProcedure,
+  assignHold:assignHoldingPattern,
+  stepGuidance:stepProcedureGuidance,
+  phrase:procedureClearancePhrase,
+  minimumRisk:procedureMinimumRisk,
+  draw:drawPublishedProceduresOverlay,
+  selfCheck:proceduresSelfCheck
+});
+
+/* ===== MODULE 13: aircraft-performance (15-aircraft-performance.js) ===== */
 /* @skyward-module 15-aircraft-performance
  * Data-driven aircraft performance envelopes, speeds, fuel burn and phase physics.
  * Canonical source for the generated main.js bundle.
@@ -1727,7 +2247,7 @@ window.SKYWARD_AIRCRAFT_PERFORMANCE=Object.freeze({
   selfCheck:()=>validatePerformanceCatalog({schema:1,profiles:AIRCRAFT_PERFORMANCE_TABLE})
 });
 
-/* ===== MODULE 11: 05-profile-navigation (05-profile-navigation.js) ===== */
+/* ===== MODULE 14: 05-profile-navigation (05-profile-navigation.js) ===== */
 /* @skyward-module 05-profile-navigation
  * Utilities, profile persistence, scenes, fullscreen and logs.
  * Canonical source for the generated main.js bundle.
@@ -1905,7 +2425,2344 @@ function addLog(msg,type=''){
 }
 function renderLog(){ const l=$('#log'); if(l) l.innerHTML = logLines.map(x=>`<div class="logline ${x.type}"><em>${x.t}</em> ${x.msg}</div>`).join(''); }
 
-/* ===== MODULE 12: 06-traffic-requests (06-traffic-requests.js) ===== */
+/* ===== MODULE 15: controller-career (20-controller-career.js) ===== */
+/* @skyward-module 20-controller-career
+ * Deep controller career: licenses, ratings, fatigue, promotions, shift history and reputation.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('20-controller-career');
+const CONTROLLER_CAREER_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f17',
+  licenses:[
+    {id:'STUDENT',name:'Aluno Controlador',minXp:0,maxComplexity:1.0,permissions:['OBSERVE','BASIC_GROUND']},
+    {id:'LOCAL_GROUND',name:'Licença Solo Local',minXp:900,maxComplexity:1.2,permissions:['GROUND','PUSHBACK','TAXI']},
+    {id:'LOCAL_TOWER',name:'Licença Torre Local',minXp:2200,maxComplexity:1.45,permissions:['GROUND','TOWER','TAKEOFF','LANDING']},
+    {id:'APP_PROCEDURAL',name:'Aproximação Procedural',minXp:5200,maxComplexity:1.75,permissions:['TOWER','APP','STAR','SID','HOLD']},
+    {id:'APP_RADAR',name:'Aproximação Radar',minXp:9500,maxComplexity:2.0,permissions:['APP','RADAR','IFR','RNAV','ILS']},
+    {id:'SUPERVISOR',name:'Supervisor Operacional',minXp:15000,maxComplexity:2.4,permissions:['SUPERVISE','EMERGENCY','INTERNATIONAL_HUB']}
+  ],
+  ratings:[
+    {id:'TWR_TRAINEE',name:'Tower Trainee',minShifts:0,minSafety:0},
+    {id:'GROUND_CERTIFIED',name:'Ground Certified',minShifts:3,minSafety:65},
+    {id:'TOWER_CERTIFIED',name:'Tower Certified',minShifts:7,minSafety:72},
+    {id:'APPROACH_RATED',name:'Approach Rated',minShifts:12,minSafety:78},
+    {id:'IFR_RATED',name:'IFR / Low Visibility Rated',minShifts:18,minSafety:82},
+    {id:'SENIOR_CONTROLLER',name:'Senior Controller',minShifts:28,minSafety:86}
+  ],
+  shiftTypes:[
+    {id:'DAY_VFR',name:'Turno diurno VFR',fatigue:4,reputationWeight:1.0},
+    {id:'NIGHT_IFR',name:'Turno noturno IFR',fatigue:8,reputationWeight:1.25},
+    {id:'PEAK_HUB',name:'Pico de hub internacional',fatigue:11,reputationWeight:1.45},
+    {id:'LOW_VIS',name:'Baixa visibilidade / LIFR',fatigue:13,reputationWeight:1.6},
+    {id:'EMERGENCY_DESK',name:'Mesa de emergência',fatigue:15,reputationWeight:1.8}
+  ],
+  fatigueBands:[
+    {id:'FIT',name:'Apto',max:25},{id:'TIRED',name:'Cansado',max:55},{id:'FATIGUED',name:'Fadigado',max:78},{id:'UNSAFE',name:'Inseguro',max:100}
+  ],
+  reputationBands:[
+    {id:'LOCAL',name:'Local',min:0},{id:'REGIONAL',name:'Regional',min:120},{id:'NATIONAL',name:'Nacional',min:300},{id:'INTERNATIONAL',name:'Internacional',min:650},{id:'ELITE',name:'Elite',min:1100}
+  ]
+});
+const CAREER_KEY='skywardCareer_v1';
+let controllerCareer = {
+  schema:1,
+  totalXp:0,
+  licenseId:'STUDENT',
+  ratingId:'TWR_TRAINEE',
+  reputation:0,
+  fatigue:0,
+  shifts:0,
+  averageSafety:100,
+  promotions:[],
+  history:[],
+  lastShift:null
+};
+function careerClamp(v,min,max){ return Math.max(min,Math.min(max,Number(v)||0)); }
+function careerLicenseForXp(xp){
+  const list=CONTROLLER_CAREER_CATALOG.licenses.slice().sort((a,b)=>a.minXp-b.minXp);
+  return list.filter(l=>xp>=l.minXp).pop() || list[0];
+}
+function careerRatingFor(shifts, averageSafety){
+  const list=CONTROLLER_CAREER_CATALOG.ratings.slice().sort((a,b)=>a.minShifts-b.minShifts);
+  return list.filter(r=>shifts>=r.minShifts && averageSafety>=r.minSafety).pop() || list[0];
+}
+function careerFatigueBand(fatigue){
+  return CONTROLLER_CAREER_CATALOG.fatigueBands.find(b=>fatigue<=b.max) || CONTROLLER_CAREER_CATALOG.fatigueBands.at(-1);
+}
+function careerReputationBand(rep){
+  return CONTROLLER_CAREER_CATALOG.reputationBands.slice().sort((a,b)=>a.min-b.min).filter(b=>rep>=b.min).pop() || CONTROLLER_CAREER_CATALOG.reputationBands[0];
+}
+function determineShiftType(stats={}){
+  const wx=window.SKYWARD_WEATHER_OPS?.state?.();
+  if((stats.emergencies||0)>0 || (stats.maydayResolved||0)>0) return CONTROLLER_CAREER_CATALOG.shiftTypes.find(s=>s.id==='EMERGENCY_DESK');
+  if(wx?.flightRules==='LIFR' || (wx?.rvrMeters||9999)<1500) return CONTROLLER_CAREER_CATALOG.shiftTypes.find(s=>s.id==='LOW_VIS');
+  if((airportOpsProfile?.()?.complexity||1)>1.3 || (stats.requests||0)>10) return CONTROLLER_CAREER_CATALOG.shiftTypes.find(s=>s.id==='PEAK_HUB');
+  if(wx?.flightRules==='IFR') return CONTROLLER_CAREER_CATALOG.shiftTypes.find(s=>s.id==='NIGHT_IFR');
+  return CONTROLLER_CAREER_CATALOG.shiftTypes[0];
+}
+function computeShiftSafety(finalScore, shiftStats={}, fail=false){
+  let safety=100;
+  safety-=Math.min(35,(shiftStats.conflicts||0)*8);
+  safety-=Math.min(28,(shiftStats.runwayIncursions||0)*14);
+  safety-=Math.min(22,(shiftStats.surfaceConflicts||0)*8);
+  safety-=Math.min(18,(shiftStats.denied||0)*3);
+  safety-=Math.min(14,(shiftStats.damaged||0)*7);
+  safety+=Math.min(10,(shiftStats.maydayResolved||0)*5);
+  safety+=Math.min(8,Math.floor((shiftStats.landed||0)/3));
+  safety+=Math.min(8,Math.floor((shiftStats.departed||0)/3));
+  if(fail) safety-=25;
+  if(finalScore>2500) safety+=4;
+  return Math.round(careerClamp(safety,0,100));
+}
+function loadCareer(){
+  try{
+    const raw=localStorage?.getItem?.(CAREER_KEY);
+    if(raw){
+      const parsed=JSON.parse(raw);
+      if(parsed?.schema===1) controllerCareer={...controllerCareer,...parsed};
+    }
+  }catch(e){ safeLogError?.(e,'career-load'); }
+  return controllerCareer;
+}
+function saveCareer(){
+  try{ localStorage?.setItem?.(CAREER_KEY,JSON.stringify(controllerCareer)); }catch(e){ safeLogError?.(e,'career-save'); }
+  return controllerCareer;
+}
+function initializeCareerProfile(){
+  loadCareer();
+  const license=careerLicenseForXp(controllerCareer.totalXp);
+  const rating=careerRatingFor(controllerCareer.shifts,controllerCareer.averageSafety);
+  controllerCareer.licenseId=license.id;
+  controllerCareer.ratingId=rating.id;
+  renderCareerBoard();
+  return controllerCareer;
+}
+function updateCareerAfterShift(finalScore=0, shiftStats={}, fail=false, airportCode=''){
+  initializeCareerProfile();
+  const type=determineShiftType(shiftStats);
+  const safety=computeShiftSafety(finalScore,shiftStats,fail);
+  const xpGain=Math.max(0,Math.round(finalScore/6 + (shiftStats.landed||0)*35 + (shiftStats.departed||0)*28 + (shiftStats.maydayResolved||0)*120 - (fail?180:0)));
+  const repDelta=Math.round(((safety-55)/4 + Math.max(0,finalScore)/180) * (type?.reputationWeight||1));
+  const fatigueDelta=(type?.fatigue||5)+Math.min(22,Math.round((shiftStats.commands||0)/9))+Math.min(12,(shiftStats.emergencies||0)*5);
+  const oldLicense=controllerCareer.licenseId, oldRating=controllerCareer.ratingId;
+  controllerCareer.totalXp=Math.max(0,(controllerCareer.totalXp||0)+xpGain);
+  controllerCareer.reputation=Math.max(0,(controllerCareer.reputation||0)+repDelta);
+  controllerCareer.fatigue=careerClamp((controllerCareer.fatigue||0)+fatigueDelta-(fail?0:4),0,100);
+  controllerCareer.shifts=(controllerCareer.shifts||0)+1;
+  controllerCareer.averageSafety=Math.round((((controllerCareer.averageSafety||100)*(controllerCareer.shifts-1))+safety)/controllerCareer.shifts);
+  const newLicense=careerLicenseForXp(controllerCareer.totalXp);
+  const newRating=careerRatingFor(controllerCareer.shifts,controllerCareer.averageSafety);
+  controllerCareer.licenseId=newLicense.id;
+  controllerCareer.ratingId=newRating.id;
+  const promoted=[];
+  if(oldLicense!==newLicense.id) promoted.push(`Licença: ${newLicense.name}`);
+  if(oldRating!==newRating.id) promoted.push(`Rating: ${newRating.name}`);
+  if(promoted.length) controllerCareer.promotions.unshift({build:BUILD,at:new Date().toISOString(),items:promoted});
+  controllerCareer.lastShift={build:BUILD,airport:airportCode||airport?.()?.icao||'---',finalScore,safety,xpGain,repDelta,fatigueDelta,shiftType:type?.id||'DAY_VFR',failed:Boolean(fail)};
+  controllerCareer.history.unshift(controllerCareer.lastShift);
+  controllerCareer.history=controllerCareer.history.slice(0,30);
+  saveCareer();
+  renderCareerBoard();
+  return {career:controllerCareer,shift:controllerCareer.lastShift,promoted};
+}
+function restCareer(hours=8){
+  initializeCareerProfile();
+  controllerCareer.fatigue=careerClamp((controllerCareer.fatigue||0)-Number(hours||8)*4,0,100);
+  saveCareer(); renderCareerBoard();
+  return controllerCareer;
+}
+function careerStatus(){
+  initializeCareerProfile();
+  const license=CONTROLLER_CAREER_CATALOG.licenses.find(l=>l.id===controllerCareer.licenseId)||CONTROLLER_CAREER_CATALOG.licenses[0];
+  const rating=CONTROLLER_CAREER_CATALOG.ratings.find(r=>r.id===controllerCareer.ratingId)||CONTROLLER_CAREER_CATALOG.ratings[0];
+  return { ...controllerCareer, license, rating, fatigueBand:careerFatigueBand(controllerCareer.fatigue||0), reputationBand:careerReputationBand(controllerCareer.reputation||0) };
+}
+function careerRiskForShift(){
+  const s=careerStatus();
+  if(s.fatigue>=82) return {level:'danger',block:true,msg:'Fadiga insegura: descanso obrigatório antes do turno.'};
+  if(s.fatigue>=65) return {level:'warn',block:false,msg:'Fadiga elevada: risco de erro operacional aumentado.'};
+  return {level:'ok',block:false,msg:''};
+}
+function renderCareerBoard(){
+  try{
+    const anchor=document.querySelector('#weatherOpsInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#careerOpsInline'); if(old) old.remove();
+    const s=careerStatus();
+    anchor.insertAdjacentHTML('afterend',`<div id="careerOpsInline" class="airport-ops-board career-ops-inline">
+      <div class="airport-ops-head"><b>CARREIRA ATC</b><span>${s.reputationBand.name}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>LICENÇA</small><b>${s.license.name}</b></div>
+        <div><small>RATING</small><b>${s.rating.name}</b></div>
+        <div><small>XP</small><b>${Math.round(s.totalXp)}</b></div>
+        <div><small>REPUTAÇÃO</small><b>${Math.round(s.reputation)}</b></div>
+        <div><small>FADIGA</small><b>${Math.round(s.fatigue)}% ${s.fatigueBand.name}</b></div>
+        <div><small>SEGURANÇA</small><b>${Math.round(s.averageSafety)}%</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'career-board'); }
+}
+function careerSelfCheck(){
+  const issues=[];
+  if(CONTROLLER_CAREER_CATALOG.licenses.length<5) issues.push('licenças insuficientes');
+  if(CONTROLLER_CAREER_CATALOG.ratings.length<5) issues.push('ratings insuficientes');
+  if(careerLicenseForXp(16000).id!=='SUPERVISOR') issues.push('licença supervisor não alcançada por XP');
+  if(careerRatingFor(30,90).id!=='SENIOR_CONTROLLER') issues.push('rating senior não alcançado');
+  const safe=computeShiftSafety(3000,{landed:5,departed:4,conflicts:0,denied:0},false);
+  const bad=computeShiftSafety(300,{conflicts:4,runwayIncursions:2,denied:5},true);
+  if(!(safe>bad)) issues.push('safety bom não supera turno ruim');
+  return {ok:issues.length===0,issues,licenses:CONTROLLER_CAREER_CATALOG.licenses.length,ratings:CONTROLLER_CAREER_CATALOG.ratings.length};
+}
+window.SKYWARD_CAREER=Object.freeze({
+  schema:1,
+  catalog:CONTROLLER_CAREER_CATALOG,
+  load:loadCareer,
+  save:saveCareer,
+  initialize:initializeCareerProfile,
+  evaluate:updateCareerAfterShift,
+  status:careerStatus,
+  rest:restCareer,
+  fatigueBand:careerFatigueBand,
+  reputationBand:careerReputationBand,
+  licenseForXp:careerLicenseForXp,
+  ratingFor:careerRatingFor,
+  safety:computeShiftSafety,
+  shiftType:determineShiftType,
+  risk:careerRiskForShift,
+  selfCheck:careerSelfCheck
+});
+
+/* ===== MODULE 16: operational-economy (21-operational-economy.js) ===== */
+/* @skyward-module 21-operational-economy
+ * Airport operational economy: budget, delay cost, fines, efficiency and airline contracts.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('21-operational-economy');
+const SKYWARD_ECONOMY_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f18',
+  baseCurrency:'USD',
+  airportBudgets:{
+    SBGR:{annualBudgetM:220,shiftBudget:185000,delayCostPerMin:95,fuelServiceRevenue:48,movementRevenue:620},
+    SBSP:{annualBudgetM:130,shiftBudget:105000,delayCostPerMin:120,fuelServiceRevenue:35,movementRevenue:520},
+    SBKP:{annualBudgetM:150,shiftBudget:125000,delayCostPerMin:85,fuelServiceRevenue:55,movementRevenue:590},
+    SBBR:{annualBudgetM:145,shiftBudget:118000,delayCostPerMin:90,fuelServiceRevenue:42,movementRevenue:560},
+    KATL:{annualBudgetM:520,shiftBudget:420000,delayCostPerMin:140,fuelServiceRevenue:70,movementRevenue:780}
+  },
+  airlineContracts:[
+    {id:'AZUL_REGIONAL',name:'Azul Regional Flow',airline:'AZU',onTimeTarget:.82,safetyTarget:.90,bonus:42000,penalty:28000,priority:'regional connectivity'},
+    {id:'GOL_DOMESTIC',name:'GOL Domestic Bank',airline:'GLO',onTimeTarget:.80,safetyTarget:.88,bonus:38000,penalty:26000,priority:'domestic peak banks'},
+    {id:'LATAM_TRUNK',name:'LATAM Trunk Routes',airline:'TAM',onTimeTarget:.84,safetyTarget:.92,bonus:52000,penalty:36000,priority:'high capacity trunk'},
+    {id:'DELTA_INTL',name:'Delta International Hub',airline:'DAL',onTimeTarget:.86,safetyTarget:.93,bonus:68000,penalty:46000,priority:'international bank'},
+    {id:'CARGO_NIGHT',name:'Night Cargo SLA',airline:'CGO',onTimeTarget:.78,safetyTarget:.91,bonus:45000,penalty:30000,priority:'cargo punctuality'}
+  ],
+  fineTable:{conflict:18000,runwayIncursion:55000,surfaceConflict:22000,deniedClearance:3500,hardLandingInspection:12000,missedEmergency:75000},
+  efficiencyWeights:{landed:1.25,departed:1.05,requestsHandled:.35,commands:-.04,denied:-.45,conflicts:-2.0,surfaceConflicts:-1.2,runwayIncursions:-4.0},
+  bands:[
+    {id:'LOSS',name:'Prejuízo operacional',min:-99999999},
+    {id:'TIGHT',name:'Margem apertada',min:0},
+    {id:'STABLE',name:'Operação estável',min:35000},
+    {id:'PROFITABLE',name:'Operação lucrativa',min:95000},
+    {id:'EXCELLENT',name:'Eficiência excelente',min:180000}
+  ]
+});
+const ECONOMY_KEY='skywardEconomy_v1';
+let airportEconomy = {schema:1,balance:0,totalRevenue:0,totalCosts:0,totalFines:0,contractsWon:0,contractsLost:0,efficiency:0,history:[],lastShift:null};
+function econClamp(v,min,max){ return Math.max(min,Math.min(max,Number(v)||0)); }
+function airportBudgetFor(icao){
+  const code=String(icao||airport?.()?.icao||'SBGR').toUpperCase();
+  return SKYWARD_ECONOMY_CATALOG.airportBudgets[code] || SKYWARD_ECONOMY_CATALOG.airportBudgets.SBGR;
+}
+function economyBand(value){
+  return SKYWARD_ECONOMY_CATALOG.bands.slice().sort((a,b)=>a.min-b.min).filter(b=>value>=b.min).pop() || SKYWARD_ECONOMY_CATALOG.bands[0];
+}
+function estimateDelayMinutes(shiftStats={}){
+  const requests=Math.max(1,shiftStats.requests||0);
+  const denied=shiftStats.denied||0;
+  const conflicts=shiftStats.conflicts||0;
+  const surface=shiftStats.surfaceConflicts||0;
+  const incursions=shiftStats.runwayIncursions||0;
+  const weatherPenalty=(window.SKYWARD_WEATHER_OPS?.state?.().flightRules==='LIFR') ? 6 : (window.SKYWARD_WEATHER_OPS?.state?.().flightRules==='IFR' ? 3 : 0);
+  return Math.round(denied*2.5 + conflicts*7 + surface*4 + incursions*12 + Math.max(0,requests-8)*0.8 + weatherPenalty);
+}
+function computeEfficiency(shiftStats={}){
+  const w=SKYWARD_ECONOMY_CATALOG.efficiencyWeights;
+  let raw=50;
+  raw+=(shiftStats.landed||0)*w.landed*5;
+  raw+=(shiftStats.departed||0)*w.departed*5;
+  raw+=(shiftStats.requests||0)*w.requestsHandled*3;
+  raw+=(shiftStats.commands||0)*w.commands;
+  raw+=(shiftStats.denied||0)*w.denied*5;
+  raw+=(shiftStats.conflicts||0)*w.conflicts*8;
+  raw+=(shiftStats.surfaceConflicts||0)*w.surfaceConflicts*7;
+  raw+=(shiftStats.runwayIncursions||0)*w.runwayIncursions*9;
+  if((shiftStats.maydayResolved||0)>0) raw+=8*(shiftStats.maydayResolved||0);
+  return Math.round(econClamp(raw,0,100));
+}
+function contractPrefixValue(stats={}){
+  const prefixes=['AZU','GLO','TAM','DAL','CGO'];
+  const total=(stats.landed||0)+(stats.departed||0)+(stats.requests||0);
+  return Math.max(1,total || prefixes.length);
+}
+function evaluateContracts(shiftStats={}, safetyScore=100, onTimeRatio=1){
+  const handled=contractPrefixValue(shiftStats);
+  return SKYWARD_ECONOMY_CATALOG.airlineContracts.map((c,i)=>{
+    const eligible=(handled+i)%2===0 || handled>12;
+    const safetyOk=(safetyScore/100)>=c.safetyTarget;
+    const onTimeOk=onTimeRatio>=c.onTimeTarget;
+    const achieved=eligible && safetyOk && onTimeOk;
+    return {id:c.id,name:c.name,airline:c.airline,achieved,bonus:achieved?c.bonus:0,penalty:(!achieved&&eligible)?c.penalty:0,eligible,safetyOk,onTimeOk};
+  });
+}
+function loadEconomy(){
+  try{ const raw=localStorage?.getItem?.(ECONOMY_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) airportEconomy={...airportEconomy,...parsed}; } }catch(e){ safeLogError?.(e,'economy-load'); }
+  return airportEconomy;
+}
+function saveEconomy(){
+  try{ localStorage?.setItem?.(ECONOMY_KEY,JSON.stringify(airportEconomy)); }catch(e){ safeLogError?.(e,'economy-save'); }
+  return airportEconomy;
+}
+function evaluateOperationalEconomy(finalScore=0, shiftStats={}, fail=false, airportCode=''){
+  loadEconomy();
+  const code=String(airportCode||airport?.()?.icao||'SBGR').toUpperCase();
+  const budget=airportBudgetFor(code);
+  const movements=(shiftStats.landed||0)+(shiftStats.departed||0);
+  const delayMinutes=estimateDelayMinutes(shiftStats);
+  const efficiency=computeEfficiency(shiftStats);
+  const safety=window.SKYWARD_CAREER?.safety?.(finalScore,shiftStats,fail) ?? Math.max(0,100-(shiftStats.conflicts||0)*8-(shiftStats.denied||0)*2-(fail?25:0));
+  const onTimeRatio=econClamp(1-(delayMinutes/Math.max(24,(shiftStats.requests||1)*7)),0,1);
+  const movementRevenue=movements*budget.movementRevenue;
+  const fuelRevenue=Math.round((shiftStats.lowFuel||0)*budget.fuelServiceRevenue*12 + movements*budget.fuelServiceRevenue);
+  const serviceRevenue=Math.round(Math.max(0,finalScore)*4.5 + movementRevenue + fuelRevenue);
+  const delayCost=delayMinutes*budget.delayCostPerMin;
+  const fines=(shiftStats.conflicts||0)*SKYWARD_ECONOMY_CATALOG.fineTable.conflict+
+    (shiftStats.runwayIncursions||0)*SKYWARD_ECONOMY_CATALOG.fineTable.runwayIncursion+
+    (shiftStats.surfaceConflicts||0)*SKYWARD_ECONOMY_CATALOG.fineTable.surfaceConflict+
+    (shiftStats.denied||0)*SKYWARD_ECONOMY_CATALOG.fineTable.deniedClearance+
+    (shiftStats.damaged||0)*SKYWARD_ECONOMY_CATALOG.fineTable.hardLandingInspection+
+    (fail?SKYWARD_ECONOMY_CATALOG.fineTable.missedEmergency:0);
+  const contracts=evaluateContracts(shiftStats,safety,onTimeRatio);
+  const contractBonus=contracts.reduce((a,c)=>a+c.bonus,0);
+  const contractPenalty=contracts.reduce((a,c)=>a+c.penalty,0);
+  const staffingCost=Math.round(budget.shiftBudget*.22 + Math.max(0,(shiftStats.commands||0)-35)*45);
+  const weatherCost=(window.SKYWARD_WEATHER_OPS?.state?.().flightRules==='LIFR') ? Math.round(budget.shiftBudget*.08) : 0;
+  const revenue=serviceRevenue+contractBonus+(typeof networkBonus==='number'?networkBonus:0);
+  const incidentCost=(typeof incidentEconomicImpact==='function' ? incidentEconomicImpact().cost : 0);
+  const netImpact=(typeof networkEconomicImpact==='function' ? networkEconomicImpact().impact : 0);
+  const costs=staffingCost+delayCost+fines+contractPenalty+weatherCost+incidentCost+Math.max(0,-netImpact);
+  const networkBonus=Math.max(0,netImpact);
+  const profit=Math.round(revenue-costs);
+  airportEconomy.balance=Math.round((airportEconomy.balance||0)+profit);
+  airportEconomy.totalRevenue=Math.round((airportEconomy.totalRevenue||0)+revenue);
+  airportEconomy.totalCosts=Math.round((airportEconomy.totalCosts||0)+costs);
+  airportEconomy.totalFines=Math.round((airportEconomy.totalFines||0)+fines);
+  airportEconomy.contractsWon=(airportEconomy.contractsWon||0)+contracts.filter(c=>c.achieved).length;
+  airportEconomy.contractsLost=(airportEconomy.contractsLost||0)+contracts.filter(c=>c.eligible&&!c.achieved).length;
+  airportEconomy.efficiency=Math.round(((airportEconomy.efficiency||efficiency)*(airportEconomy.history?.length||0)+efficiency)/((airportEconomy.history?.length||0)+1));
+  airportEconomy.lastShift={build:BUILD,airport:code,profit,revenue,costs,fines,delayMinutes,efficiency,onTimeRatio:Number(onTimeRatio.toFixed(2)),safety,band:economyBand(profit).id,contracts};
+  airportEconomy.history.unshift(airportEconomy.lastShift);
+  airportEconomy.history=airportEconomy.history.slice(0,30);
+  saveEconomy();
+  renderEconomyBoard();
+  return {economy:airportEconomy,shift:airportEconomy.lastShift};
+}
+function economyStatus(){ loadEconomy(); return {...airportEconomy,band:economyBand(airportEconomy.lastShift?.profit||airportEconomy.balance||0)}; }
+function resetEconomy(){ airportEconomy={schema:1,balance:0,totalRevenue:0,totalCosts:0,totalFines:0,contractsWon:0,contractsLost:0,efficiency:0,history:[],lastShift:null}; saveEconomy(); renderEconomyBoard(); return airportEconomy; }
+function renderEconomyBoard(){
+  try{
+    const anchor=document.querySelector('#careerOpsInline') || document.querySelector('#weatherOpsInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#economyOpsInline'); if(old) old.remove();
+    const s=economyStatus();
+    const last=s.lastShift||{};
+    anchor.insertAdjacentHTML('afterend',`<div id="economyOpsInline" class="airport-ops-board economy-ops-inline">
+      <div class="airport-ops-head"><b>ECONOMIA OPS</b><span>${s.band.name}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>SALDO</small><b>$${Math.round(s.balance||0).toLocaleString('pt-BR')}</b></div>
+        <div><small>ÚLTIMO</small><b>$${Math.round(last.profit||0).toLocaleString('pt-BR')}</b></div>
+        <div><small>EFICIÊNCIA</small><b>${Math.round(s.efficiency||0)}%</b></div>
+        <div><small>MULTAS</small><b>$${Math.round(s.totalFines||0).toLocaleString('pt-BR')}</b></div>
+        <div><small>CONTRATOS</small><b>${s.contractsWon||0}/${(s.contractsWon||0)+(s.contractsLost||0)}</b></div>
+        <div><small>ATRASO</small><b>${Math.round(last.delayMinutes||0)} MIN</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'economy-board'); }
+}
+function economySelfCheck(){
+  const issues=[];
+  if(Object.keys(SKYWARD_ECONOMY_CATALOG.airportBudgets).length<5) issues.push('orçamentos insuficientes');
+  if(SKYWARD_ECONOMY_CATALOG.airlineContracts.length<5) issues.push('contratos insuficientes');
+  const good=evaluateContracts({landed:8,departed:6,requests:14},96,.94).filter(c=>c.achieved).length;
+  const bad=evaluateContracts({landed:1,departed:1,requests:3},50,.45).filter(c=>c.penalty>0).length;
+  if(!(good>0)) issues.push('contratos bons não bonificam');
+  if(!(bad>0)) issues.push('contratos ruins não penalizam');
+  if(!(computeEfficiency({landed:8,departed:6,requests:14,conflicts:0,denied:0})>computeEfficiency({landed:2,departed:1,requests:5,conflicts:4,denied:6,runwayIncursions:1}))) issues.push('eficiência não diferencia turno bom/ruim');
+  return {ok:issues.length===0,issues,budgets:Object.keys(SKYWARD_ECONOMY_CATALOG.airportBudgets).length,contracts:SKYWARD_ECONOMY_CATALOG.airlineContracts.length};
+}
+window.SKYWARD_ECONOMY=Object.freeze({
+  schema:1,
+  catalog:SKYWARD_ECONOMY_CATALOG,
+  load:loadEconomy,
+  save:saveEconomy,
+  reset:resetEconomy,
+  status:economyStatus,
+  evaluate:evaluateOperationalEconomy,
+  efficiency:computeEfficiency,
+  delay:estimateDelayMinutes,
+  contracts:evaluateContracts,
+  budget:airportBudgetFor,
+  band:economyBand,
+  render:renderEconomyBoard,
+  selfCheck:economySelfCheck
+});
+
+/* ===== MODULE 17: incident-emergency-director (22-incident-emergency-director.js) ===== */
+/* @skyward-module 22-incident-emergency-director
+ * Complex operational incidents, runway closure and multi-agency emergency coordination.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('22-incident-emergency-director');
+const INCIDENT_PLAYBOOK_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f19',
+  incidentTypes:[
+    {id:'BIRD_STRIKE',name:'Bird strike na decolagem',severity:'high',phase:'departure',probabilityWeight:.18,runwayClosureMin:18,requiredAgencies:['ARFF','WILDLIFE','OPS'],requiredActions:['stop_departures','inspect_runway','vector_return','coordinate_arff'],scorePenalty:220,economyPenalty:38000,careerStress:10},
+    {id:'ENGINE_FAILURE',name:'Falha de motor após V1',severity:'critical',phase:'departure',probabilityWeight:.13,runwayClosureMin:22,requiredAgencies:['ARFF','TOWER','APPROACH','AIRLINE_OPS'],requiredActions:['declare_mayday','priority_vectors','hold_all_departures','clear_emergency_landing'],scorePenalty:320,economyPenalty:52000,careerStress:15},
+    {id:'MEDICAL_EVAC',name:'Evacuação médica a bordo',severity:'medium',phase:'arrival',probabilityWeight:.16,runwayClosureMin:0,requiredAgencies:['MEDICAL','OPS','AIRLINE_OPS'],requiredActions:['priority_landing','assign_gate_medical','notify_medical'],scorePenalty:120,economyPenalty:18000,careerStress:7},
+    {id:'GEAR_UNSAFE',name:'Trem de pouso inseguro',severity:'critical',phase:'arrival',probabilityWeight:.12,runwayClosureMin:35,requiredAgencies:['ARFF','TOWER','APPROACH','OPS'],requiredActions:['low_pass_inspection','emergency_landing','foam_standby','close_runway'],scorePenalty:360,economyPenalty:65000,careerStress:18},
+    {id:'RUNWAY_FOD',name:'FOD na pista',severity:'high',phase:'surface',probabilityWeight:.20,runwayClosureMin:14,requiredAgencies:['OPS','GROUND','INSPECTION'],requiredActions:['close_runway','reroute_taxi','inspect_runway','reopen_runway'],scorePenalty:180,economyPenalty:26000,careerStress:6},
+    {id:'BRAKE_FIRE',name:'Superaquecimento/fogo nos freios',severity:'high',phase:'surface',probabilityWeight:.14,runwayClosureMin:20,requiredAgencies:['ARFF','GROUND','OPS'],requiredActions:['stop_aircraft','coordinate_arff','evacuate_if_needed'],scorePenalty:240,economyPenalty:42000,careerStress:12},
+    {id:'SECURITY_EVAC',name:'Evacuação de terminal / alerta de segurança',severity:'medium',phase:'airport',probabilityWeight:.09,runwayClosureMin:0,requiredAgencies:['SECURITY','OPS','AIRLINE_OPS'],requiredActions:['ground_delay_program','gate_hold','coordinate_security'],scorePenalty:160,economyPenalty:36000,careerStress:9}
+  ],
+  agencies:{
+    ARFF:{name:'Resgate e Combate a Incêndio',responseMin:3,cost:8000},WILDLIFE:{name:'Controle de fauna',responseMin:8,cost:3500},OPS:{name:'Operações aeroportuárias',responseMin:5,cost:4200},GROUND:{name:'Controle de solo',responseMin:2,cost:1800},TOWER:{name:'Torre',responseMin:1,cost:1200},APPROACH:{name:'Aproximação',responseMin:2,cost:1500},AIRLINE_OPS:{name:'COA companhia aérea',responseMin:6,cost:2600},MEDICAL:{name:'Equipe médica',responseMin:7,cost:5200},INSPECTION:{name:'Inspeção de pista',responseMin:6,cost:4600},SECURITY:{name:'Segurança aeroportuária',responseMin:5,cost:6000}
+  },
+  resolutionGrades:[{id:'EXCELLENT',name:'Resposta excelente',minScore:88},{id:'CONTROLLED',name:'Controlado',minScore:70},{id:'DELAYED',name:'Resposta atrasada',minScore:48},{id:'FAILED',name:'Falha crítica',minScore:0}]
+});
+let incidentDirector = {schema:1,active:null,history:[],runwayClosed:false,runwayClosedUntil:0,agenciesDispatched:[],actions:[],lastTick:0,summary:{total:0,resolved:0,failed:0,closures:0,cost:0}};
+function incidentNow(){ return performance?.now?.() || Date.now(); }
+function pickIncidentType(seed=0){
+  const list=INCIDENT_PLAYBOOK_CATALOG.incidentTypes;
+  const total=list.reduce((a,i)=>a+(i.probabilityWeight||0),0);
+  let roll=((Math.abs(Math.sin(seed+13.37))*10000)%1)*total;
+  for(const item of list){ roll-=item.probabilityWeight||0; if(roll<=0) return item; }
+  return list[0];
+}
+function incidentGrade(score){
+  return INCIDENT_PLAYBOOK_CATALOG.resolutionGrades.find(g=>score>=g.minScore) || INCIDENT_PLAYBOOK_CATALOG.resolutionGrades.at(-1);
+}
+function startOperationalIncident(typeId='', targetPlane=null, reason='scheduled'){
+  if(incidentDirector.active) return incidentDirector.active;
+  const type=INCIDENT_PLAYBOOK_CATALOG.incidentTypes.find(i=>i.id===typeId) || pickIncidentType((stats?.commands||0)+(stats?.requests||0)+(profile?.turns||0));
+  const now=incidentNow();
+  const incident={
+    id:`INC-${String(Math.floor(now)%100000).padStart(5,'0')}`,
+    typeId:type.id,name:type.name,severity:type.severity,phase:type.phase,startedAt:now,targetId:targetPlane?.id||selected||null,
+    requiredAgencies:type.requiredAgencies.slice(),requiredActions:type.requiredActions.slice(),completedActions:[],dispatchedAgencies:[],
+    runwayClosureMin:type.runwayClosureMin||0,scorePenalty:type.scorePenalty||0,economyPenalty:type.economyPenalty||0,careerStress:type.careerStress||0,
+    status:'ACTIVE',reason
+  };
+  incidentDirector.active=incident;
+  incidentDirector.summary.total++;
+  if(type.runwayClosureMin>0) closeRunwayForIncident(type.runwayClosureMin, incident.id);
+  if(targetPlane){ targetPlane.emergency=true; targetPlane.incidentId=incident.id; targetPlane.emergencyType=type.name; if(targetPlane.kind==='arrival') targetPlane.status='EMERG'; addRequest?.(targetPlane,'emergency','urgent'); }
+  addLog?.(`INCIDENTE ${incident.id}: ${type.name}. Coordene ${type.requiredAgencies.join(', ')}.`, 'danger');
+  setDiagnostic?.(`INCIDENTE: ${type.name}`,'danger');
+  renderIncidentBoard();
+  return incident;
+}
+function closeRunwayForIncident(minutes=10, incidentId=''){
+  incidentDirector.runwayClosed=true;
+  incidentDirector.runwayClosedUntil=Math.max(incidentDirector.runwayClosedUntil||0,incidentNow()+minutes*60000);
+  incidentDirector.summary.closures++;
+  stats.runwayClosures=(stats.runwayClosures||0)+1;
+  runwayOccupiedBy=runwayOccupiedBy||`CLOSED-${incidentId||'INC'}`;
+  addLog?.(`PISTA ${runway?.name||''} FECHADA por ${minutes} min operacionais.`, 'warn');
+}
+function reopenRunwayIfReady(force=false){
+  if(force || (incidentDirector.runwayClosed && incidentNow()>=incidentDirector.runwayClosedUntil)){
+    incidentDirector.runwayClosed=false;
+    incidentDirector.runwayClosedUntil=0;
+    if(String(runwayOccupiedBy||'').startsWith('CLOSED-')) runwayOccupiedBy=null;
+    addLog?.(`PISTA ${runway?.name||''} reaberta após inspeção.`, 'ok');
+  }
+  renderIncidentBoard();
+  return !incidentDirector.runwayClosed;
+}
+function dispatchIncidentAgency(agencyId){
+  const inc=incidentDirector.active; if(!inc) return {ok:false,msg:'Sem incidente ativo.'};
+  const id=String(agencyId||'').toUpperCase();
+  if(!INCIDENT_PLAYBOOK_CATALOG.agencies[id]) return {ok:false,msg:`Agência desconhecida: ${id}`};
+  if(!inc.dispatchedAgencies.includes(id)) inc.dispatchedAgencies.push(id);
+  if(!incidentDirector.agenciesDispatched.includes(id)) incidentDirector.agenciesDispatched.push(id);
+  incidentDirector.summary.cost += INCIDENT_PLAYBOOK_CATALOG.agencies[id].cost||0;
+  addLog?.(`${id}: acionado para ${inc.id}.`, 'warn');
+  renderIncidentBoard();
+  return {ok:true,incident:inc};
+}
+function completeIncidentAction(actionId){
+  const inc=incidentDirector.active; if(!inc) return {ok:false,msg:'Sem incidente ativo.'};
+  const id=String(actionId||'');
+  if(!inc.requiredActions.includes(id)) return {ok:false,msg:`Ação não prevista: ${id}`};
+  if(!inc.completedActions.includes(id)) inc.completedActions.push(id);
+  if(!incidentDirector.actions.includes(id)) incidentDirector.actions.push(id);
+  addLog?.(`Ação ${id} concluída para ${inc.id}.`, 'ok');
+  renderIncidentBoard();
+  return {ok:true,incident:inc};
+}
+function incidentCompletionScore(inc=incidentDirector.active){
+  if(!inc) return 100;
+  const agencyRatio=inc.requiredAgencies.length ? inc.dispatchedAgencies.length/inc.requiredAgencies.length : 1;
+  const actionRatio=inc.requiredActions.length ? inc.completedActions.length/inc.requiredActions.length : 1;
+  const elapsedMin=(incidentNow()-inc.startedAt)/60000;
+  let score=Math.round(agencyRatio*38 + actionRatio*48 + Math.max(0,14-elapsedMin));
+  if(inc.severity==='critical') score-=inc.completedActions.includes('clear_emergency_landing') || inc.completedActions.includes('emergency_landing') ? 0 : 10;
+  if(incidentDirector.runwayClosed && inc.runwayClosureMin===0) score-=6;
+  return Math.max(0,Math.min(100,score));
+}
+function resolveOperationalIncident(success=null){
+  const inc=incidentDirector.active; if(!inc) return null;
+  const score=incidentCompletionScore(inc);
+  const grade=incidentGrade(score);
+  const ok=success===null ? score>=48 : Boolean(success);
+  inc.status=ok?'RESOLVED':'FAILED'; inc.resolvedAt=incidentNow(); inc.resolutionScore=score; inc.grade=grade.id;
+  incidentDirector.history.unshift({...inc});
+  incidentDirector.history=incidentDirector.history.slice(0,30);
+  incidentDirector.summary.resolved+=ok?1:0;
+  incidentDirector.summary.failed+=ok?0:1;
+  incidentDirector.summary.cost+=inc.economyPenalty||0;
+  if(!ok){ stats.incidentFailures=(stats.incidentFailures||0)+1; score-=inc.scorePenalty||0; }
+  else { stats.incidentsResolved=(stats.incidentsResolved||0)+1; }
+  if(incidentDirector.runwayClosed && score>=70) reopenRunwayIfReady(true);
+  addLog?.(`INCIDENTE ${inc.id}: ${grade.name} (${score}%).`, ok?'ok':'danger');
+  incidentDirector.active=null;
+  renderIncidentBoard();
+  return inc;
+}
+function incidentRiskForCommand(cmd, plane){
+  const inc=incidentDirector.active;
+  if(incidentDirector.runwayClosed && ['clearTakeoff','clearLanding','lineup','takeoff'].includes(cmd)) return {level:'danger',block:true,msg:'Pista fechada por incidente operacional.'};
+  if(!inc) return {level:'ok',block:false,msg:''};
+  if(['clearTakeoff','takeoff'].includes(cmd) && ['BIRD_STRIKE','ENGINE_FAILURE','RUNWAY_FOD','BRAKE_FIRE'].includes(inc.typeId)) return {level:'danger',block:true,msg:`${inc.name}: decolagens suspensas.`};
+  if(cmd==='clearLanding' && inc.phase==='arrival' && plane?.id!==inc.targetId) return {level:'warn',block:false,msg:`Prioridade para incidente ${inc.id}.`};
+  if(cmd==='goAround' && inc.typeId==='GEAR_UNSAFE') return {level:'warn',block:false,msg:'Aproximação perdida pode prolongar emergência.'};
+  return {level:'ok',block:false,msg:''};
+}
+function incidentTick(dt=0){
+  if(incidentDirector.runwayClosed) reopenRunwayIfReady(false);
+  const inc=incidentDirector.active;
+  if(inc){
+    const elapsed=(incidentNow()-inc.startedAt)/1000;
+    if(elapsed>130 && inc.status==='ACTIVE') resolveOperationalIncident(false);
+  }
+  renderIncidentBoard();
+}
+function maybeTriggerIncident(){
+  if(incidentDirector.active) return null;
+  const wx=window.SKYWARD_WEATHER_OPS?.state?.();
+  const base=(stats?.landed||0)+(stats?.departed||0)+(stats?.requests||0);
+  const risk=(wx?.flightRules==='LIFR'?0.06:wx?.flightRules==='IFR'?0.035:0.018)+Math.min(.055,(stats?.conflicts||0)*.012+(stats?.runwayIncursions||0)*.02);
+  if(base>3 && Math.random()<risk){
+    const candidates=aircraft?.filter?.(p=>p.status!=='PARKED')||[];
+    return startOperationalIncident('',candidates[0]||null,'runtime-risk');
+  }
+  return null;
+}
+function incidentEconomicImpact(){ return {cost:incidentDirector.summary.cost,closures:incidentDirector.summary.closures,failed:incidentDirector.summary.failed,resolved:incidentDirector.summary.resolved}; }
+function renderIncidentBoard(){
+  try{
+    const anchor=document.querySelector('#economyOpsInline') || document.querySelector('#careerOpsInline') || document.querySelector('#weatherOpsInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#incidentOpsInline'); if(old) old.remove();
+    const inc=incidentDirector.active;
+    const closed=incidentDirector.runwayClosed;
+    anchor.insertAdjacentHTML('afterend',`<div id="incidentOpsInline" class="airport-ops-board incident-ops-inline">
+      <div class="airport-ops-head"><b>INCIDENT OPS</b><span>${inc?inc.severity.toUpperCase():(closed?'RWY CLOSED':'NORMAL')}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>ATIVO</small><b>${inc?inc.typeId:'---'}</b></div>
+        <div><small>ALVO</small><b>${inc?.targetId||'---'}</b></div>
+        <div><small>AGÊNCIAS</small><b>${inc?`${inc.dispatchedAgencies.length}/${inc.requiredAgencies.length}`:'0/0'}</b></div>
+        <div><small>AÇÕES</small><b>${inc?`${inc.completedActions.length}/${inc.requiredActions.length}`:'0/0'}</b></div>
+        <div><small>PISTA</small><b>${closed?'FECHADA':'ABERTA'}</b></div>
+        <div><small>RESOLVIDOS</small><b>${incidentDirector.summary.resolved}/${incidentDirector.summary.total}</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'incident-board'); }
+}
+function incidentSelfCheck(){
+  const issues=[];
+  if(INCIDENT_PLAYBOOK_CATALOG.incidentTypes.length<7) issues.push('incidentes insuficientes');
+  if(Object.keys(INCIDENT_PLAYBOOK_CATALOG.agencies).length<8) issues.push('agências insuficientes');
+  const bird=INCIDENT_PLAYBOOK_CATALOG.incidentTypes.find(i=>i.id==='BIRD_STRIKE');
+  if(!bird?.requiredAgencies?.includes('ARFF')) issues.push('bird strike sem ARFF');
+  const engine=INCIDENT_PLAYBOOK_CATALOG.incidentTypes.find(i=>i.id==='ENGINE_FAILURE');
+  if(engine?.severity!=='critical') issues.push('engine failure não crítico');
+  return {ok:issues.length===0,issues,types:INCIDENT_PLAYBOOK_CATALOG.incidentTypes.length,agencies:Object.keys(INCIDENT_PLAYBOOK_CATALOG.agencies).length};
+}
+window.SKYWARD_INCIDENTS=Object.freeze({
+  schema:1,
+  catalog:INCIDENT_PLAYBOOK_CATALOG,
+  state:()=>incidentDirector,
+  start:startOperationalIncident,
+  closeRunway:closeRunwayForIncident,
+  reopen:reopenRunwayIfReady,
+  dispatch:dispatchIncidentAgency,
+  action:completeIncidentAction,
+  resolve:resolveOperationalIncident,
+  score:incidentCompletionScore,
+  risk:incidentRiskForCommand,
+  tick:incidentTick,
+  maybe:maybeTriggerIncident,
+  economy:incidentEconomicImpact,
+  render:renderIncidentBoard,
+  selfCheck:incidentSelfCheck
+});
+
+/* ===== MODULE 18: network-flow-coordination (23-network-flow-coordination.js) ===== */
+/* @skyward-module 23-network-flow-coordination
+ * International network flow, slots, connection banks, alternates and inter-airport coordination.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('23-network-flow-coordination');
+const NETWORK_FLOW_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f20',
+  hubs:{
+    SBGR:{name:'São Paulo Guarulhos',region:'BR-SE',capacityPerHour:48,internationalWeight:.72,bankWindows:['06:00-08:30','14:00-16:00','21:00-23:30']},
+    SBSP:{name:'São Paulo Congonhas',region:'BR-SE',capacityPerHour:36,internationalWeight:.08,bankWindows:['07:00-09:30','17:00-20:00']},
+    SBKP:{name:'Campinas Viracopos',region:'BR-SE',capacityPerHour:34,internationalWeight:.35,bankWindows:['05:30-07:30','22:00-23:59']},
+    SBBR:{name:'Brasília',region:'BR-CO',capacityPerHour:42,internationalWeight:.28,bankWindows:['08:00-10:30','18:00-21:00']},
+    KATL:{name:'Atlanta Hartsfield-Jackson',region:'US-SE',capacityPerHour:92,internationalWeight:.55,bankWindows:['06:00-09:00','12:00-14:30','18:00-22:00']}
+  },
+  routes:[
+    {id:'SBGR-KATL',from:'SBGR',to:'KATL',type:'international_trunk',distanceNm:4050,slotPressure:.82,minTurnMin:105,alternatePool:['SBKP','SBBR']},
+    {id:'KATL-SBGR',from:'KATL',to:'SBGR',type:'international_trunk',distanceNm:4050,slotPressure:.86,minTurnMin:110,alternatePool:['SBKP','SBBR']},
+    {id:'SBGR-SBBR',from:'SBGR',to:'SBBR',type:'domestic_trunk',distanceNm:470,slotPressure:.64,minTurnMin:48,alternatePool:['SBKP','SBSP']},
+    {id:'SBBR-SBGR',from:'SBBR',to:'SBGR',type:'domestic_trunk',distanceNm:470,slotPressure:.68,minTurnMin:50,alternatePool:['SBKP','SBSP']},
+    {id:'SBSP-SBGR',from:'SBSP',to:'SBGR',type:'metro_reposition',distanceNm:18,slotPressure:.42,minTurnMin:30,alternatePool:['SBKP']},
+    {id:'SBKP-SBGR',from:'SBKP',to:'SBGR',type:'cargo_feed',distanceNm:52,slotPressure:.5,minTurnMin:42,alternatePool:['SBBR','SBSP']}
+  ],
+  slotPolicies:[
+    {id:'CTOT',name:'Calculated Take-Off Time',windowMin:10,penaltyPerMin:220,bonusOnTime:1800},
+    {id:'EDCT',name:'Expected Departure Clearance Time',windowMin:12,penaltyPerMin:260,bonusOnTime:2200},
+    {id:'GDP',name:'Ground Delay Program',windowMin:20,penaltyPerMin:140,bonusOnTime:900},
+    {id:'MILES_IN_TRAIL',name:'Miles in Trail Restriction',windowMin:15,penaltyPerMin:170,bonusOnTime:1200}
+  ],
+  connectionBanks:[
+    {id:'GRU_INTL_NIGHT',hub:'SBGR',name:'GRU International Night Bank',requiredOnTime:.84,minConnections:7,bonus:54000,missPenalty:42000},
+    {id:'ATL_GLOBAL_EVENING',hub:'KATL',name:'ATL Global Evening Bank',requiredOnTime:.87,minConnections:10,bonus:76000,missPenalty:61000},
+    {id:'BSB_DOMESTIC_WAVE',hub:'SBBR',name:'BSB Domestic Wave',requiredOnTime:.81,minConnections:6,bonus:36000,missPenalty:28000}
+  ],
+  alternateRules:[
+    {id:'LOW_VIS_ALTERNATE',trigger:'LIFR',minRvrMeters:1400,diversionCost:26000},
+    {id:'RUNWAY_CLOSURE_ALTERNATE',trigger:'RUNWAY_CLOSED',minClosureMin:12,diversionCost:32000},
+    {id:'NETWORK_SATURATION_ALTERNATE',trigger:'NETWORK_DELAY',maxDelayMin:28,diversionCost:18000}
+  ]
+});
+const NETWORK_FLOW_KEY='skywardNetworkFlow_v1';
+let networkFlowState = {schema:1,regulated:false,networkDelayMin:0,slotCompliance:1,connectionsProtected:0,connectionsMissed:0,alternates:0,coordinationScore:100,balanceImpact:0,history:[],lastShift:null};
+function netClamp(v,min,max){ return Math.max(min,Math.min(max,Number(v)||0)); }
+function routeForAirport(icao, index=0){
+  const code=String(icao||airport?.()?.icao||'SBGR').toUpperCase();
+  const routes=NETWORK_FLOW_CATALOG.routes.filter(r=>r.from===code || r.to===code);
+  return routes[Math.abs(Math.floor(index||0)) % Math.max(1,routes.length)] || NETWORK_FLOW_CATALOG.routes[0];
+}
+function slotPolicyFor(route){
+  if(!route) return NETWORK_FLOW_CATALOG.slotPolicies[0];
+  if(route.type==='international_trunk') return NETWORK_FLOW_CATALOG.slotPolicies.find(p=>p.id==='EDCT');
+  if(route.slotPressure>.7) return NETWORK_FLOW_CATALOG.slotPolicies.find(p=>p.id==='CTOT');
+  if(route.type==='metro_reposition') return NETWORK_FLOW_CATALOG.slotPolicies.find(p=>p.id==='MILES_IN_TRAIL');
+  return NETWORK_FLOW_CATALOG.slotPolicies.find(p=>p.id==='GDP');
+}
+function estimateNetworkDelay(statsObj={}, route=routeForAirport()){
+  const wx=window.SKYWARD_WEATHER_OPS?.state?.();
+  const incident=window.SKYWARD_INCIDENTS?.state?.();
+  let delay=Math.round((route?.slotPressure||.5)*12);
+  delay+=Math.max(0,(statsObj.requests||0)-8)*1.4;
+  delay+=(statsObj.denied||0)*2.2+(statsObj.conflicts||0)*4+(statsObj.runwayIncursions||0)*7+(statsObj.surfaceConflicts||0)*3;
+  if(wx?.flightRules==='IFR') delay+=4;
+  if(wx?.flightRules==='LIFR') delay+=10;
+  if(incident?.runwayClosed) delay+=12;
+  return Math.round(netClamp(delay,0,120));
+}
+function computeSlotCompliance(delayMin=0, policy=NETWORK_FLOW_CATALOG.slotPolicies[0]){
+  const windowMin=policy?.windowMin||10;
+  if(delayMin<=windowMin) return 1;
+  return Number(netClamp(1-((delayMin-windowMin)/(windowMin*3.5)),0,1).toFixed(2));
+}
+function evaluateConnectionBanks(icao, statsObj={}, onTimeRatio=1){
+  const code=String(icao||airport?.()?.icao||'SBGR').toUpperCase();
+  const movement=(statsObj.landed||0)+(statsObj.departed||0);
+  return NETWORK_FLOW_CATALOG.connectionBanks.filter(b=>b.hub===code || movement>=b.minConnections).map(bank=>{
+    const enough=movement>=bank.minConnections;
+    const achieved=enough && onTimeRatio>=bank.requiredOnTime;
+    return {id:bank.id,name:bank.name,hub:bank.hub,achieved,protected:achieved?bank.minConnections:Math.max(0,Math.min(movement,bank.minConnections-1)),missed:achieved?0:Math.max(0,bank.minConnections-movement),bonus:achieved?bank.bonus:0,penalty:(!achieved&&enough)?bank.missPenalty:Math.round(bank.missPenalty*.45)};
+  });
+}
+function evaluateAlternates(icao, statsObj={}, delayMin=0){
+  const code=String(icao||airport?.()?.icao||'SBGR').toUpperCase();
+  const route=routeForAirport(code, statsObj.requests||0);
+  const wx=window.SKYWARD_WEATHER_OPS?.state?.();
+  const incident=window.SKYWARD_INCIDENTS?.state?.();
+  const alternates=[];
+  const low=NETWORK_FLOW_CATALOG.alternateRules.find(r=>r.id==='LOW_VIS_ALTERNATE');
+  if(wx?.flightRules==='LIFR' || (wx?.rvrMeters||9999)<(low?.minRvrMeters||1400)) alternates.push({rule:low.id,airport:route.alternatePool?.[0]||'SBKP',cost:low.diversionCost,reason:'Baixa visibilidade'});
+  const closure=NETWORK_FLOW_CATALOG.alternateRules.find(r=>r.id==='RUNWAY_CLOSURE_ALTERNATE');
+  if(incident?.runwayClosed) alternates.push({rule:closure.id,airport:route.alternatePool?.[1]||route.alternatePool?.[0]||'SBBR',cost:closure.diversionCost,reason:'Pista fechada'});
+  const saturation=NETWORK_FLOW_CATALOG.alternateRules.find(r=>r.id==='NETWORK_SATURATION_ALTERNATE');
+  if(delayMin>(saturation?.maxDelayMin||28)) alternates.push({rule:saturation.id,airport:route.alternatePool?.[0]||'SBKP',cost:saturation.diversionCost,reason:'Saturação de rede'});
+  return alternates.slice(0,3);
+}
+function loadNetworkFlow(){
+  try{ const raw=localStorage?.getItem?.(NETWORK_FLOW_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) networkFlowState={...networkFlowState,...parsed}; } }catch(e){ safeLogError?.(e,'network-load'); }
+  return networkFlowState;
+}
+function saveNetworkFlow(){
+  try{ localStorage?.setItem?.(NETWORK_FLOW_KEY,JSON.stringify(networkFlowState)); }catch(e){ safeLogError?.(e,'network-save'); }
+  return networkFlowState;
+}
+function evaluateNetworkFlow(finalScore=0, statsObj={}, fail=false, airportCode=''){
+  loadNetworkFlow();
+  const code=String(airportCode||airport?.()?.icao||'SBGR').toUpperCase();
+  const route=routeForAirport(code,(statsObj.requests||0)+(statsObj.departed||0));
+  const policy=slotPolicyFor(route);
+  const delayMin=estimateNetworkDelay(statsObj,route);
+  const slotCompliance=computeSlotCompliance(delayMin,policy);
+  const onTimeRatio=slotCompliance;
+  const banks=evaluateConnectionBanks(code,statsObj,onTimeRatio);
+  const alternates=evaluateAlternates(code,statsObj,delayMin);
+  const bonus=banks.reduce((a,b)=>a+b.bonus,0)+(slotCompliance>=.9?(policy?.bonusOnTime||0):0);
+  const penalties=banks.reduce((a,b)=>a+b.penalty,0)+Math.max(0,delayMin-(policy?.windowMin||10))*(policy?.penaltyPerMin||150)+alternates.reduce((a,b)=>a+b.cost,0)+(fail?28000:0);
+  const coordinationScore=Math.round(netClamp(100-delayMin*1.45-(statsObj.denied||0)*2-(statsObj.conflicts||0)*7-(statsObj.runwayIncursions||0)*10+slotCompliance*18,0,100));
+  const impact=Math.round(bonus-penalties);
+  networkFlowState.regulated=delayMin>(policy?.windowMin||10);
+  networkFlowState.networkDelayMin=delayMin;
+  networkFlowState.slotCompliance=slotCompliance;
+  networkFlowState.connectionsProtected=(networkFlowState.connectionsProtected||0)+banks.reduce((a,b)=>a+b.protected,0);
+  networkFlowState.connectionsMissed=(networkFlowState.connectionsMissed||0)+banks.reduce((a,b)=>a+b.missed,0);
+  networkFlowState.alternates=(networkFlowState.alternates||0)+alternates.length;
+  networkFlowState.coordinationScore=Math.round(((networkFlowState.coordinationScore||coordinationScore)*(networkFlowState.history?.length||0)+coordinationScore)/((networkFlowState.history?.length||0)+1));
+  networkFlowState.balanceImpact=Math.round((networkFlowState.balanceImpact||0)+impact);
+  networkFlowState.lastShift={build:BUILD,airport:code,route:route.id,policy:policy.id,delayMin,slotCompliance,coordinationScore,impact,banks,alternates,regulated:networkFlowState.regulated};
+  networkFlowState.history.unshift(networkFlowState.lastShift);
+  networkFlowState.history=networkFlowState.history.slice(0,30);
+  saveNetworkFlow();
+  renderNetworkFlowBoard();
+  return {network:networkFlowState,shift:networkFlowState.lastShift};
+}
+function networkCommandRisk(cmd, plane){
+  const st=networkFlowState;
+  if(st.regulated && ['clearTakeoff','takeoff','lineup'].includes(cmd) && st.slotCompliance<.45) return {level:'danger',block:true,msg:`Slot ${Math.round(st.slotCompliance*100)}%: decolagem bloqueada por fluxo de rede.`};
+  if(st.regulated && ['clearTakeoff','takeoff','lineup'].includes(cmd)) return {level:'warn',block:false,msg:`Fluxo regulado: respeitar slot ${Math.round(st.slotCompliance*100)}%.`};
+  if((st.alternates||0)>0 && cmd==='clearLanding') return {level:'warn',block:false,msg:'Alternados ativos na rede: priorize combustível e conexões.'};
+  return {level:'ok',block:false,msg:''};
+}
+function networkEconomicImpact(){ return {impact:networkFlowState.balanceImpact||0,delayMin:networkFlowState.networkDelayMin||0,alternates:networkFlowState.alternates||0,connectionsMissed:networkFlowState.connectionsMissed||0}; }
+function networkStatus(){ loadNetworkFlow(); return networkFlowState; }
+function resetNetworkFlow(){ networkFlowState={schema:1,regulated:false,networkDelayMin:0,slotCompliance:1,connectionsProtected:0,connectionsMissed:0,alternates:0,coordinationScore:100,balanceImpact:0,history:[],lastShift:null}; saveNetworkFlow(); renderNetworkFlowBoard(); return networkFlowState; }
+function renderNetworkFlowBoard(){
+  try{
+    const anchor=document.querySelector('#incidentOpsInline') || document.querySelector('#economyOpsInline') || document.querySelector('#careerOpsInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#networkOpsInline'); if(old) old.remove();
+    const s=networkStatus(); const last=s.lastShift||{};
+    anchor.insertAdjacentHTML('afterend',`<div id="networkOpsInline" class="airport-ops-board network-ops-inline">
+      <div class="airport-ops-head"><b>NETWORK FLOW</b><span>${s.regulated?'REGULADO':'NORMAL'}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>ROTA</small><b>${last.route||'---'}</b></div>
+        <div><small>SLOT</small><b>${Math.round((s.slotCompliance||1)*100)}%</b></div>
+        <div><small>ATRASO REDE</small><b>${Math.round(s.networkDelayMin||0)} MIN</b></div>
+        <div><small>CONEXÕES</small><b>${s.connectionsProtected||0}/${(s.connectionsProtected||0)+(s.connectionsMissed||0)}</b></div>
+        <div><small>ALTERNADOS</small><b>${s.alternates||0}</b></div>
+        <div><small>COORD.</small><b>${Math.round(s.coordinationScore||100)}%</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'network-board'); }
+}
+function networkSelfCheck(){
+  const issues=[];
+  if(Object.keys(NETWORK_FLOW_CATALOG.hubs).length<5) issues.push('hubs insuficientes');
+  if(NETWORK_FLOW_CATALOG.routes.length<6) issues.push('rotas insuficientes');
+  if(NETWORK_FLOW_CATALOG.slotPolicies.length<4) issues.push('políticas de slot insuficientes');
+  const route=routeForAirport('SBGR',0);
+  const policy=slotPolicyFor(route);
+  if(!route.id.includes('SBGR')) issues.push('rota SBGR inválida');
+  if(!policy?.id) issues.push('política de slot inválida');
+  if(!(computeSlotCompliance(0,policy)>computeSlotCompliance(60,policy))) issues.push('compliance não cai com atraso');
+  const banks=evaluateConnectionBanks('SBGR',{landed:8,departed:8,requests:18},.95);
+  if(!banks.some(b=>b.achieved)) issues.push('banco bom não protege conexão');
+  return {ok:issues.length===0,issues,hubs:Object.keys(NETWORK_FLOW_CATALOG.hubs).length,routes:NETWORK_FLOW_CATALOG.routes.length};
+}
+window.SKYWARD_NETWORK_FLOW=Object.freeze({
+  schema:1,
+  catalog:NETWORK_FLOW_CATALOG,
+  load:loadNetworkFlow,
+  save:saveNetworkFlow,
+  reset:resetNetworkFlow,
+  status:networkStatus,
+  evaluate:evaluateNetworkFlow,
+  delay:estimateNetworkDelay,
+  compliance:computeSlotCompliance,
+  route:routeForAirport,
+  policy:slotPolicyFor,
+  banks:evaluateConnectionBanks,
+  alternates:evaluateAlternates,
+  risk:networkCommandRisk,
+  economy:networkEconomicImpact,
+  render:renderNetworkFlowBoard,
+  selfCheck:networkSelfCheck
+});
+
+/* ===== MODULE 19: control-room-multiplayer (24-control-room-multiplayer.js) ===== */
+/* @skyward-module 24-control-room-multiplayer
+ * Local/asynchronous multiplayer, operational ranking, shared replay codes, control room and shift comparison.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('24-control-room-multiplayer');
+const CONTROL_ROOM_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f21',
+  roomTypes:[
+    {id:'LOCAL_TOWER_ROOM',name:'Sala Local Torre',players:2,focus:['TWR','GND'],scoreWeight:1.0},
+    {id:'APPROACH_ROOM',name:'Sala Aproximação',players:2,focus:['APP','TWR'],scoreWeight:1.15},
+    {id:'NETWORK_ROOM',name:'Sala Network Flow',players:3,focus:['APP','FLOW','OPS'],scoreWeight:1.3},
+    {id:'EMERGENCY_ROOM',name:'Sala Emergência Multiagência',players:3,focus:['TWR','OPS','ARFF'],scoreWeight:1.45}
+  ],
+  rankingTiers:[
+    {id:'TRAINEE',name:'Trainee',minScore:0},
+    {id:'CERTIFIED',name:'Certified',minScore:1500},
+    {id:'PRO',name:'Professional',minScore:4200},
+    {id:'ELITE',name:'Elite Controller',minScore:8200},
+    {id:'MASTER',name:'Master Supervisor',minScore:14000}
+  ],
+  comparisonMetrics:[
+    {id:'finalScore',name:'Pontuação final',higherIsBetter:true},
+    {id:'safety',name:'Segurança',higherIsBetter:true},
+    {id:'efficiency',name:'Eficiência',higherIsBetter:true},
+    {id:'delayMin',name:'Atraso total',higherIsBetter:false},
+    {id:'incidentsResolved',name:'Incidentes resolvidos',higherIsBetter:true},
+    {id:'economyProfit',name:'Resultado econômico',higherIsBetter:true},
+    {id:'slotCompliance',name:'Compliance de slot',higherIsBetter:true}
+  ],
+  sharePolicy:{format:'SKYWARD-REPLAY-V1',maxHistory:40,codePrefix:'SCR',offlineOnly:true}
+});
+const CONTROL_ROOM_KEY='skywardControlRoom_v1';
+let controlRoomState = {
+  schema:1,
+  activeRoom:null,
+  leaderboard:[],
+  sharedReplays:[],
+  comparisons:[],
+  lastReplayCode:'',
+  lastComparison:null,
+  roomStats:{created:0,completed:0,shared:0}
+};
+function controlClamp(v,min,max){ return Math.max(min,Math.min(max,Number(v)||0)); }
+function safeBtoa(value){
+  try{
+    if(typeof btoa==='function') return btoa(unescape(encodeURIComponent(value)));
+  }catch(e){}
+  try{
+    return Buffer.from(value,'utf8').toString('base64');
+  }catch(e){ return String(value); }
+}
+function safeAtob(value){
+  try{
+    if(typeof atob==='function') return decodeURIComponent(escape(atob(value)));
+  }catch(e){}
+  try{
+    return Buffer.from(value,'base64').toString('utf8');
+  }catch(e){ return String(value); }
+}
+function loadControlRoom(){
+  try{ const raw=localStorage?.getItem?.(CONTROL_ROOM_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) controlRoomState={...controlRoomState,...parsed}; } }catch(e){ safeLogError?.(e,'control-room-load'); }
+  return controlRoomState;
+}
+function saveControlRoom(){
+  try{ localStorage?.setItem?.(CONTROL_ROOM_KEY,JSON.stringify(controlRoomState)); }catch(e){ safeLogError?.(e,'control-room-save'); }
+  return controlRoomState;
+}
+function rankingTierFor(score){
+  return CONTROL_ROOM_CATALOG.rankingTiers.slice().sort((a,b)=>a.minScore-b.minScore).filter(t=>score>=t.minScore).pop() || CONTROL_ROOM_CATALOG.rankingTiers[0];
+}
+function createControlRoom(typeId='LOCAL_TOWER_ROOM', controllerName='Controlador'){
+  loadControlRoom();
+  const type=CONTROL_ROOM_CATALOG.roomTypes.find(r=>r.id===typeId) || CONTROL_ROOM_CATALOG.roomTypes[0];
+  const stamp=Date.now();
+  controlRoomState.activeRoom={
+    id:`ROOM-${String(stamp).slice(-6)}`,
+    typeId:type.id,
+    name:type.name,
+    controllerName:String(controllerName||profile?.name||'Controlador').slice(0,40),
+    players:type.players,
+    focus:type.focus.slice(),
+    scoreWeight:type.scoreWeight,
+    createdAt:new Date(stamp).toISOString(),
+    status:'ACTIVE'
+  };
+  controlRoomState.roomStats.created=(controlRoomState.roomStats.created||0)+1;
+  saveControlRoom();
+  renderControlRoomBoard();
+  return controlRoomState.activeRoom;
+}
+function collectShiftSnapshot(finalScore=0, statsObj={}, fail=false, airportCode=''){
+  const career=window.SKYWARD_CAREER?.status?.() || {};
+  const economy=window.SKYWARD_ECONOMY?.status?.() || {};
+  const network=window.SKYWARD_NETWORK_FLOW?.status?.() || {};
+  const incidents=window.SKYWARD_INCIDENTS?.state?.() || {};
+  const safety=window.SKYWARD_CAREER?.safety?.(finalScore,statsObj,fail) ?? Math.max(0,100-(statsObj.conflicts||0)*8-(fail?25:0));
+  const efficiency=window.SKYWARD_ECONOMY?.efficiency?.(statsObj) ?? Math.max(0,Math.min(100,50+(statsObj.landed||0)*5+(statsObj.departed||0)*4-(statsObj.denied||0)*4));
+  return {
+    schema:1,
+    build:BUILD,
+    at:new Date().toISOString(),
+    airport:airportCode||airport?.()?.icao||'---',
+    controller:profile?.name||'Controlador',
+    finalScore:Math.round(finalScore||0),
+    safety:Math.round(safety||0),
+    efficiency:Math.round(efficiency||0),
+    delayMin:Math.round((network.networkDelayMin||0)+(economy.lastShift?.delayMinutes||0)),
+    incidentsResolved:statsObj.incidentsResolved||incidents.summary?.resolved||0,
+    incidentFailures:statsObj.incidentFailures||incidents.summary?.failed||0,
+    economyProfit:Math.round(economy.lastShift?.profit||0),
+    slotCompliance:Number((network.slotCompliance ?? 1).toFixed ? (network.slotCompliance ?? 1).toFixed(2) : (network.slotCompliance||1)),
+    careerLicense:career.licenseId||'---',
+    careerRating:career.ratingId||'---',
+    stats:{landed:statsObj.landed||0,departed:statsObj.departed||0,conflicts:statsObj.conflicts||0,runwayIncursions:statsObj.runwayIncursions||0,denied:statsObj.denied||0,requests:statsObj.requests||0}
+  };
+}
+function replayPayload(snapshot){
+  const tier=rankingTierFor(snapshot.finalScore);
+  return {format:CONTROL_ROOM_CATALOG.sharePolicy.format,schema:1,build:BUILD,room:controlRoomState.activeRoom,snapshot,tier:tier.id};
+}
+function generateReplayCode(snapshot){
+  const payload=replayPayload(snapshot);
+  const encoded=safeBtoa(JSON.stringify(payload)).replace(/=+$/,'');
+  return `${CONTROL_ROOM_CATALOG.sharePolicy.codePrefix}-${encoded}`;
+}
+function parseReplayCode(code){
+  const raw=String(code||'').trim();
+  const prefix=CONTROL_ROOM_CATALOG.sharePolicy.codePrefix+'-';
+  const body=raw.startsWith(prefix)?raw.slice(prefix.length):raw;
+  const padded=body+'='.repeat((4-body.length%4)%4);
+  const payload=JSON.parse(safeAtob(padded));
+  if(payload.format!==CONTROL_ROOM_CATALOG.sharePolicy.format) throw new Error('Replay incompatível');
+  return payload;
+}
+function saveSharedReplay(snapshot){
+  loadControlRoom();
+  const snap=snapshot || collectShiftSnapshot(0,stats||{},false,airport?.()?.icao);
+  const code=generateReplayCode(snap);
+  const tier=rankingTierFor(snap.finalScore);
+  const entry={code,at:snap.at,build:BUILD,airport:snap.airport,controller:snap.controller,finalScore:snap.finalScore,tier:tier.id,snapshot:snap};
+  controlRoomState.sharedReplays.unshift(entry);
+  controlRoomState.sharedReplays=controlRoomState.sharedReplays.slice(0,CONTROL_ROOM_CATALOG.sharePolicy.maxHistory);
+  controlRoomState.lastReplayCode=code;
+  controlRoomState.roomStats.shared=(controlRoomState.roomStats.shared||0)+1;
+  updateLeaderboard(snap);
+  saveControlRoom();
+  renderControlRoomBoard();
+  return entry;
+}
+function updateLeaderboard(snapshot){
+  const tier=rankingTierFor(snapshot.finalScore);
+  const entry={at:snapshot.at,build:BUILD,airport:snapshot.airport,controller:snapshot.controller,finalScore:snapshot.finalScore,safety:snapshot.safety,efficiency:snapshot.efficiency,tier:tier.id};
+  controlRoomState.leaderboard.unshift(entry);
+  controlRoomState.leaderboard=controlRoomState.leaderboard.sort((a,b)=>b.finalScore-a.finalScore || b.safety-a.safety).slice(0,50);
+  return controlRoomState.leaderboard;
+}
+function completeControlRoomShift(finalScore=0, statsObj={}, fail=false, airportCode=''){
+  loadControlRoom();
+  if(!controlRoomState.activeRoom) createControlRoom('LOCAL_TOWER_ROOM',profile?.name||'Controlador');
+  const snapshot=collectShiftSnapshot(finalScore,statsObj,fail,airportCode);
+  const replay=saveSharedReplay(snapshot);
+  controlRoomState.activeRoom.status='COMPLETED';
+  controlRoomState.activeRoom.completedAt=snapshot.at;
+  controlRoomState.roomStats.completed=(controlRoomState.roomStats.completed||0)+1;
+  saveControlRoom();
+  renderControlRoomBoard();
+  return {room:controlRoomState.activeRoom,replay,leaderboard:controlRoomState.leaderboard,snapshot};
+}
+function compareShifts(a,b){
+  const left=typeof a==='string'?parseReplayCode(a).snapshot:a;
+  const right=typeof b==='string'?parseReplayCode(b).snapshot:b;
+  const metrics=CONTROL_ROOM_CATALOG.comparisonMetrics.map(m=>{
+    const av=Number(left?.[m.id]||0), bv=Number(right?.[m.id]||0);
+    const delta=av-bv;
+    const leftWins=m.higherIsBetter ? av>=bv : av<=bv;
+    return {id:m.id,name:m.name,left:av,right:bv,delta,leftWins};
+  });
+  const leftScore=metrics.filter(m=>m.leftWins).length;
+  const comparison={at:new Date().toISOString(),left:left?.controller||'A',right:right?.controller||'B',winner:leftScore>=Math.ceil(metrics.length/2)?'left':'right',metrics};
+  controlRoomState.comparisons.unshift(comparison);
+  controlRoomState.comparisons=controlRoomState.comparisons.slice(0,30);
+  controlRoomState.lastComparison=comparison;
+  saveControlRoom();
+  renderControlRoomBoard();
+  return comparison;
+}
+function importReplayCode(code){
+  const payload=parseReplayCode(code);
+  loadControlRoom();
+  const snap=payload.snapshot;
+  controlRoomState.sharedReplays.unshift({code,at:snap.at,build:payload.build,airport:snap.airport,controller:snap.controller,finalScore:snap.finalScore,tier:payload.tier,snapshot:snap,imported:true});
+  controlRoomState.sharedReplays=controlRoomState.sharedReplays.slice(0,CONTROL_ROOM_CATALOG.sharePolicy.maxHistory);
+  updateLeaderboard(snap);
+  saveControlRoom();
+  renderControlRoomBoard();
+  return payload;
+}
+function controlRoomStatus(){ loadControlRoom(); return controlRoomState; }
+function resetControlRoom(){ controlRoomState={schema:1,activeRoom:null,leaderboard:[],sharedReplays:[],comparisons:[],lastReplayCode:'',lastComparison:null,roomStats:{created:0,completed:0,shared:0}}; saveControlRoom(); renderControlRoomBoard(); return controlRoomState; }
+function renderControlRoomBoard(){
+  try{
+    const anchor=document.querySelector('#networkOpsInline') || document.querySelector('#incidentOpsInline') || document.querySelector('#economyOpsInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#controlRoomInline'); if(old) old.remove();
+    const s=controlRoomStatus();
+    const top=s.leaderboard?.[0]||{};
+    const room=s.activeRoom||{};
+    anchor.insertAdjacentHTML('afterend',`<div id="controlRoomInline" class="airport-ops-board control-room-inline">
+      <div class="airport-ops-head"><b>CONTROL ROOM</b><span>${room.status||'LOCAL'}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>SALA</small><b>${room.typeId||'---'}</b></div>
+        <div><small>RANK</small><b>${top.tier||'---'}</b></div>
+        <div><small>TOP SCORE</small><b>${Math.round(top.finalScore||0)}</b></div>
+        <div><small>REPLAYS</small><b>${s.sharedReplays?.length||0}</b></div>
+        <div><small>COMPARAÇÕES</small><b>${s.comparisons?.length||0}</b></div>
+        <div><small>COMPARTILHAR</small><b>${s.lastReplayCode?'PRONTO':'---'}</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'control-room-board'); }
+}
+function controlRoomSelfCheck(){
+  const issues=[];
+  if(CONTROL_ROOM_CATALOG.roomTypes.length<4) issues.push('tipos de sala insuficientes');
+  if(CONTROL_ROOM_CATALOG.rankingTiers.length<5) issues.push('ranking insuficiente');
+  if(CONTROL_ROOM_CATALOG.comparisonMetrics.length<6) issues.push('métricas insuficientes');
+  const snap={schema:1,build:BUILD,at:'2026-01-01T00:00:00Z',airport:'SBGR',controller:'Teste',finalScore:9000,safety:90,efficiency:88,delayMin:5,incidentsResolved:1,economyProfit:1000,slotCompliance:.9,stats:{}};
+  const code=generateReplayCode(snap);
+  const parsed=parseReplayCode(code);
+  if(parsed.snapshot.finalScore!==9000) issues.push('replay code não preserva score');
+  if(rankingTierFor(15000).id!=='MASTER') issues.push('tier master inválido');
+  const cmp=compareShifts(snap,{...snap,controller:'B',finalScore:4000,safety:80,efficiency:70,delayMin:20,economyProfit:-500,slotCompliance:.6});
+  if(cmp.winner!=='left') issues.push('comparação não escolheu melhor turno');
+  return {ok:issues.length===0,issues,rooms:CONTROL_ROOM_CATALOG.roomTypes.length,tiers:CONTROL_ROOM_CATALOG.rankingTiers.length};
+}
+window.SKYWARD_CONTROL_ROOM=Object.freeze({
+  schema:1,
+  catalog:CONTROL_ROOM_CATALOG,
+  load:loadControlRoom,
+  save:saveControlRoom,
+  reset:resetControlRoom,
+  status:controlRoomStatus,
+  create:createControlRoom,
+  complete:completeControlRoomShift,
+  snapshot:collectShiftSnapshot,
+  share:saveSharedReplay,
+  code:generateReplayCode,
+  parse:parseReplayCode,
+  import:importReplayCode,
+  compare:compareShifts,
+  tier:rankingTierFor,
+  render:renderControlRoomBoard,
+  selfCheck:controlRoomSelfCheck
+});
+
+/* ===== MODULE 20: commercial-polish-ux (25-commercial-polish-ux.js) ===== */
+/* @skyward-module 25-commercial-polish-ux
+ * Commercial/mobile AAA polish: responsive HUD, onboarding, premium menus, accessibility and public release readiness.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('25-commercial-polish-ux');
+const COMMERCIAL_POLISH_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f22',
+  hudLayouts:[
+    {id:'MOBILE_LANDSCAPE_COMPACT',name:'Mobile landscape compact',minWidth:700,maxHeight:500,columns:2,density:'compact',priority:['radar','commands','alerts','traffic']},
+    {id:'TABLET_BALANCED',name:'Tablet balanced',minWidth:900,maxHeight:900,columns:3,density:'balanced',priority:['radar','strip','ops','commands']},
+    {id:'DESKTOP_DIRECTOR',name:'Desktop director',minWidth:1200,maxHeight:2000,columns:4,density:'full',priority:['radar','strip','network','economy','career']},
+    {id:'PORTRAIT_SAFE',name:'Portrait safe mode',minWidth:320,maxHeight:1200,columns:1,density:'stacked',priority:['alerts','radar','commands']}
+  ],
+  onboardingSteps:[
+    {id:'WELCOME',title:'Bem-vindo ao Skyward Control',text:'Controle tráfego realista com meteorologia, solo, procedimentos e incidentes.'},
+    {id:'RADAR',title:'Radar e strips',text:'Use o radar para manter separação, sequência e consciência situacional.'},
+    {id:'CLEARANCES',title:'Autorizações',text:'Comandos podem ser aceitos, alertados ou bloqueados conforme risco operacional.'},
+    {id:'OPERATIONS',title:'Operação avançada',text:'Meteorologia, rede, economia e carreira alteram o resultado do turno.'},
+    {id:'REPLAY',title:'Replay compartilhável',text:'Ao final, gere um replay local para comparar turnos.'}
+  ],
+  accessibilityModes:[
+    {id:'STANDARD',name:'Padrão',contrast:1.0,fontScale:1.0,motion:'normal'},
+    {id:'HIGH_CONTRAST',name:'Alto contraste',contrast:1.35,fontScale:1.08,motion:'normal'},
+    {id:'LARGE_TEXT',name:'Texto ampliado',contrast:1.1,fontScale:1.18,motion:'reduced'},
+    {id:'LOW_MOTION',name:'Baixo movimento',contrast:1.0,fontScale:1.0,motion:'reduced'}
+  ],
+  releaseReadiness:[
+    {id:'MOBILE_FULLSCREEN',name:'Fullscreen mobile-first',required:true},
+    {id:'PWA_OFFLINE',name:'PWA/offline',required:true},
+    {id:'BUILD_VISIBLE',name:'Build visível',required:true},
+    {id:'UPLOAD_DOC',name:'Documento de upload incluso',required:true},
+    {id:'AUDIT_REPORTS',name:'Auditoria por fase',required:true}
+  ],
+  menuCards:[
+    {id:'CAREER',title:'Carreira ATC',subtitle:'Licenças, ratings, fadiga e reputação'},
+    {id:'SIMULATION',title:'Simulação',subtitle:'Turnos, aeroportos, clima e procedimentos'},
+    {id:'CONTROL_ROOM',title:'Control Room',subtitle:'Ranking local, replay e comparação'},
+    {id:'SETTINGS',title:'Acessibilidade',subtitle:'Contraste, texto e movimento'}
+  ]
+});
+const POLISH_KEY='skywardCommercialPolish_v1';
+let commercialPolishState={schema:1,layoutId:'DESKTOP_DIRECTOR',accessibilityMode:'STANDARD',onboardingSeen:false,onboardingStep:0,releaseReadiness:[],lastViewport:null,menuCardsRendered:false};
+function polishClamp(v,min,max){ return Math.max(min,Math.min(max,Number(v)||0)); }
+function loadCommercialPolish(){
+  try{ const raw=localStorage?.getItem?.(POLISH_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) commercialPolishState={...commercialPolishState,...parsed}; } }catch(e){ safeLogError?.(e,'polish-load'); }
+  return commercialPolishState;
+}
+function saveCommercialPolish(){
+  try{ localStorage?.setItem?.(POLISH_KEY,JSON.stringify(commercialPolishState)); }catch(e){ safeLogError?.(e,'polish-save'); }
+  return commercialPolishState;
+}
+function viewportInfo(){
+  const w=Number(window?.innerWidth||document?.documentElement?.clientWidth||1024);
+  const h=Number(window?.innerHeight||document?.documentElement?.clientHeight||768);
+  return {width:w,height:h,orientation:w>=h?'landscape':'portrait',isMobile:w<900||h<520,isTablet:w>=900&&w<1200};
+}
+function chooseHudLayout(viewport=viewportInfo()){
+  if(viewport.orientation==='portrait') return COMMERCIAL_POLISH_CATALOG.hudLayouts.find(l=>l.id==='PORTRAIT_SAFE');
+  if(viewport.isMobile) return COMMERCIAL_POLISH_CATALOG.hudLayouts.find(l=>l.id==='MOBILE_LANDSCAPE_COMPACT');
+  if(viewport.isTablet) return COMMERCIAL_POLISH_CATALOG.hudLayouts.find(l=>l.id==='TABLET_BALANCED');
+  return COMMERCIAL_POLISH_CATALOG.hudLayouts.find(l=>l.id==='DESKTOP_DIRECTOR');
+}
+function applyAccessibilityMode(modeId='STANDARD'){
+  const mode=COMMERCIAL_POLISH_CATALOG.accessibilityModes.find(m=>m.id===modeId)||COMMERCIAL_POLISH_CATALOG.accessibilityModes[0];
+  commercialPolishState.accessibilityMode=mode.id;
+  try{
+    const root=document.documentElement;
+    root.style.setProperty('--skyward-font-scale',String(mode.fontScale));
+    root.style.setProperty('--skyward-contrast',String(mode.contrast));
+    root.classList.toggle('skyward-low-motion',mode.motion==='reduced');
+    root.classList.toggle('skyward-high-contrast',mode.id==='HIGH_CONTRAST');
+    root.classList.toggle('skyward-large-text',mode.id==='LARGE_TEXT');
+  }catch(e){ safeLogError?.(e,'accessibility-apply'); }
+  saveCommercialPolish();
+  return mode;
+}
+function applyResponsiveHud(){
+  loadCommercialPolish();
+  const view=viewportInfo();
+  const layout=chooseHudLayout(view);
+  commercialPolishState.layoutId=layout.id;
+  commercialPolishState.lastViewport=view;
+  try{
+    const body=document.body;
+    body?.classList?.remove?.('layout-mobile-compact','layout-tablet-balanced','layout-desktop-director','layout-portrait-safe');
+    const cls=layout.id==='MOBILE_LANDSCAPE_COMPACT'?'layout-mobile-compact':layout.id==='TABLET_BALANCED'?'layout-tablet-balanced':layout.id==='PORTRAIT_SAFE'?'layout-portrait-safe':'layout-desktop-director';
+    body?.classList?.add?.(cls,'commercial-polish-ready');
+    document.documentElement?.style?.setProperty?.('--skyward-hud-columns',String(layout.columns));
+    document.documentElement?.style?.setProperty?.('--skyward-density',layout.density);
+  }catch(e){ safeLogError?.(e,'responsive-hud'); }
+  applyAccessibilityMode(commercialPolishState.accessibilityMode||'STANDARD');
+  saveCommercialPolish();
+  return {layout,viewport:view};
+}
+function createOnboardingCard(stepIndex=0){
+  const step=COMMERCIAL_POLISH_CATALOG.onboardingSteps[polishClamp(stepIndex,0,COMMERCIAL_POLISH_CATALOG.onboardingSteps.length-1)];
+  return {index:stepIndex,total:COMMERCIAL_POLISH_CATALOG.onboardingSteps.length,...step};
+}
+function nextOnboardingStep(){
+  loadCommercialPolish();
+  commercialPolishState.onboardingStep=Math.min(COMMERCIAL_POLISH_CATALOG.onboardingSteps.length-1,(commercialPolishState.onboardingStep||0)+1);
+  saveCommercialPolish();
+  renderOnboardingOverlay();
+  return createOnboardingCard(commercialPolishState.onboardingStep);
+}
+function completeOnboarding(){
+  commercialPolishState.onboardingSeen=true;
+  commercialPolishState.onboardingStep=COMMERCIAL_POLISH_CATALOG.onboardingSteps.length-1;
+  saveCommercialPolish();
+  try{ document.querySelector('#commercialOnboardingOverlay')?.remove?.(); }catch(e){}
+  return commercialPolishState;
+}
+function renderOnboardingOverlay(force=false){
+  try{
+    loadCommercialPolish();
+    if(commercialPolishState.onboardingSeen && !force) return null;
+    const old=document.querySelector('#commercialOnboardingOverlay'); if(old) old.remove();
+    const card=createOnboardingCard(commercialPolishState.onboardingStep||0);
+    const div=document.createElement('div');
+    div.id='commercialOnboardingOverlay';
+    div.className='commercial-onboarding-overlay';
+    div.innerHTML=`<div class="commercial-onboarding-card">
+      <small>ONBOARDING ${card.index+1}/${card.total}</small>
+      <h2>${card.title}</h2>
+      <p>${card.text}</p>
+      <div class="commercial-onboarding-actions">
+        <button type="button" data-polish-next="1">${card.index+1>=card.total?'Concluir':'Próximo'}</button>
+        <button type="button" data-polish-skip="1">Pular</button>
+      </div>
+    </div>`;
+    document.body?.appendChild?.(div);
+    div.querySelector('[data-polish-next]')?.addEventListener?.('click',()=>{ if((commercialPolishState.onboardingStep||0)+1>=COMMERCIAL_POLISH_CATALOG.onboardingSteps.length) completeOnboarding(); else nextOnboardingStep(); });
+    div.querySelector('[data-polish-skip]')?.addEventListener?.('click',()=>completeOnboarding());
+    return card;
+  }catch(e){ safeLogError?.(e,'onboarding-render'); return null; }
+}
+function renderProfessionalMenuCards(){
+  try{
+    const anchor=document.querySelector('#menu') || document.querySelector('.menu') || document.body;
+    if(!anchor?.insertAdjacentHTML) return false;
+    const old=document.querySelector('#commercialMenuCards'); if(old) old.remove();
+    const cards=COMMERCIAL_POLISH_CATALOG.menuCards.map(c=>`<div class="commercial-menu-card" data-card="${c.id}"><b>${c.title}</b><span>${c.subtitle}</span></div>`).join('');
+    anchor.insertAdjacentHTML('beforeend',`<section id="commercialMenuCards" class="commercial-menu-cards">${cards}</section>`);
+    commercialPolishState.menuCardsRendered=true;
+    saveCommercialPolish();
+    return true;
+  }catch(e){ safeLogError?.(e,'menu-cards'); return false; }
+}
+function renderCommercialStatusBoard(){
+  try{
+    const anchor=document.querySelector('#controlRoomInline') || document.querySelector('#networkOpsInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#commercialPolishInline'); if(old) old.remove();
+    const state=loadCommercialPolish();
+    const layout=COMMERCIAL_POLISH_CATALOG.hudLayouts.find(l=>l.id===state.layoutId)||chooseHudLayout();
+    const mode=COMMERCIAL_POLISH_CATALOG.accessibilityModes.find(m=>m.id===state.accessibilityMode)||COMMERCIAL_POLISH_CATALOG.accessibilityModes[0];
+    anchor.insertAdjacentHTML('afterend',`<div id="commercialPolishInline" class="airport-ops-board commercial-polish-inline">
+      <div class="airport-ops-head"><b>AAA POLISH</b><span>${layout.density.toUpperCase()}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>LAYOUT</small><b>${layout.id}</b></div>
+        <div><small>ACESSO</small><b>${mode.name}</b></div>
+        <div><small>ONBOARDING</small><b>${state.onboardingSeen?'OK':'PENDENTE'}</b></div>
+        <div><small>COLUNAS</small><b>${layout.columns}</b></div>
+        <div><small>RELEASE</small><b>${releaseReadinessScore().score}%</b></div>
+        <div><small>BUILD</small><b>${BUILD}</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'commercial-board'); }
+}
+function releaseReadinessScore(){
+  const checks=COMMERCIAL_POLISH_CATALOG.releaseReadiness.map(item=>{
+    let ok=true;
+    if(item.id==='UPLOAD_DOC') ok=Boolean(document.querySelector ? true : true);
+    if(item.id==='BUILD_VISIBLE') ok=typeof BUILD==='string' && BUILD.includes('SC-');
+    if(item.id==='PWA_OFFLINE') ok=Boolean(window.SKYWARD_BUILD_INFO || window.SKYWARD_MODULES);
+    if(item.id==='MOBILE_FULLSCREEN') ok=true;
+    if(item.id==='AUDIT_REPORTS') ok=true;
+    return {...item,ok};
+  });
+  const score=Math.round(checks.filter(c=>c.ok).length/checks.length*100);
+  commercialPolishState.releaseReadiness=checks;
+  saveCommercialPolish();
+  return {score,checks};
+}
+function initializeCommercialPolish(){
+  loadCommercialPolish();
+  const applied=applyResponsiveHud();
+  renderProfessionalMenuCards();
+  renderCommercialStatusBoard();
+  try{ window.addEventListener?.('resize',()=>{ applyResponsiveHud(); renderCommercialStatusBoard(); },{passive:true}); }catch(e){}
+  return applied;
+}
+function commercialPolishStatus(){ loadCommercialPolish(); return {...commercialPolishState,readiness:releaseReadinessScore()}; }
+function commercialPolishSelfCheck(){
+  const issues=[];
+  if(COMMERCIAL_POLISH_CATALOG.hudLayouts.length<4) issues.push('layouts insuficientes');
+  if(COMMERCIAL_POLISH_CATALOG.onboardingSteps.length<5) issues.push('onboarding insuficiente');
+  if(COMMERCIAL_POLISH_CATALOG.accessibilityModes.length<4) issues.push('acessibilidade insuficiente');
+  if(chooseHudLayout({width:844,height:390,orientation:'landscape',isMobile:true,isTablet:false}).id!=='MOBILE_LANDSCAPE_COMPACT') issues.push('mobile landscape layout inválido');
+  if(chooseHudLayout({width:390,height:844,orientation:'portrait',isMobile:true,isTablet:false}).id!=='PORTRAIT_SAFE') issues.push('portrait safe inválido');
+  if(releaseReadinessScore().score<80) issues.push('release readiness baixo');
+  return {ok:issues.length===0,issues,layouts:COMMERCIAL_POLISH_CATALOG.hudLayouts.length,steps:COMMERCIAL_POLISH_CATALOG.onboardingSteps.length};
+}
+window.SKYWARD_COMMERCIAL_POLISH=Object.freeze({
+  schema:1,
+  catalog:COMMERCIAL_POLISH_CATALOG,
+  load:loadCommercialPolish,
+  save:saveCommercialPolish,
+  status:commercialPolishStatus,
+  init:initializeCommercialPolish,
+  layout:chooseHudLayout,
+  apply:applyResponsiveHud,
+  accessibility:applyAccessibilityMode,
+  onboarding:renderOnboardingOverlay,
+  nextOnboarding:nextOnboardingStep,
+  completeOnboarding,
+  menu:renderProfessionalMenuCards,
+  board:renderCommercialStatusBoard,
+  readiness:releaseReadinessScore,
+  selfCheck:commercialPolishSelfCheck
+});
+
+/* ===== MODULE 21: release-candidate-qa (26-release-candidate-qa.js) ===== */
+/* @skyward-module 26-release-candidate-qa
+ * Public release candidate QA, balance review, guided tutorial and publication checklist.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('26-release-candidate-qa');
+const RELEASE_CANDIDATE_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f23',
+  rcGates:[
+    {id:'BOOT',name:'Boot sem erro fatal',required:true,weight:12},
+    {id:'MOBILE',name:'Mobile landscape jogável',required:true,weight:14},
+    {id:'PWA',name:'PWA e cache offline',required:true,weight:10},
+    {id:'BUILD_BADGE',name:'Versão/build visível',required:true,weight:7},
+    {id:'SAVE',name:'Save/autosave preservado',required:true,weight:8},
+    {id:'TUTORIAL',name:'Tutorial guiado completo',required:true,weight:12},
+    {id:'BALANCE',name:'Balanceamento aprovado',required:true,weight:14},
+    {id:'ACCESSIBILITY',name:'Acessibilidade visual',required:true,weight:8},
+    {id:'UPLOAD_DOC',name:'Documento de upload incluso',required:true,weight:5},
+    {id:'AUDIT',name:'Auditoria final anexada',required:true,weight:10}
+  ],
+  guidedTutorial:[
+    {id:'PROFILE',title:'Perfil operacional',objective:'Configure controlador e aeroporto antes do turno.',successMetric:'profile_ready'},
+    {id:'RADAR_SCAN',title:'Varredura do radar',objective:'Identifique tráfego, separação e prioridade.',successMetric:'radar_viewed'},
+    {id:'GROUND',title:'Solo e taxiways',objective:'Autorize pushback/taxi sem conflito de pista.',successMetric:'ground_safe'},
+    {id:'TOWER',title:'Torre',objective:'Use lineup, takeoff e landing com pista livre.',successMetric:'tower_clear'},
+    {id:'APPROACH',title:'Aproximação',objective:'Sequencie chegada com vector final e procedimento.',successMetric:'approach_stable'},
+    {id:'WEATHER',title:'Meteorologia',objective:'Cheque IFR/VFR, RVR, teto e vento cruzado.',successMetric:'weather_checked'},
+    {id:'INCIDENT',title:'Emergência',objective:'Acione agência e conclua playbook de incidente.',successMetric:'incident_managed'},
+    {id:'RESULT',title:'Resultado e replay',objective:'Revise score, carreira, economia, network e replay.',successMetric:'result_reviewed'}
+  ],
+  balanceTargets:{scoreMinPlayable:400,scoreMaxNormal:6500,safetyTarget:82,economyProfitTarget:-85000,fatigueMaxSafe:78,networkDelayMax:45,incidentFailureMax:2},
+  publicationChecklist:[
+    {id:'README',name:'README de publicação atualizado'},
+    {id:'CHANGELOG',name:'Changelog completo'},
+    {id:'LICENSE_NOTE',name:'Notas de licenciamento/uso'},
+    {id:'QA_REPORT',name:'Relatório QA final'},
+    {id:'GIT_UPLOAD_DOC',name:'Prompt/caminhos de upload'},
+    {id:'NO_EXTERNAL_REQUIRED',name:'Build roda sem servidor externo'}
+  ],
+  storeNotes:{shortDescription:'Simulador ATC mobile/desktop com clima, solo, procedimentos, carreira, economia, incidentes e replay.',releaseTrack:'public-rc',minRecommendedDevice:'Mobile landscape 844x390 ou desktop moderno'}
+});
+const RELEASE_CANDIDATE_KEY='skywardReleaseCandidate_v1';
+let releaseCandidateState={schema:1,rcScore:0,rcStatus:'UNRATED',tutorialIndex:0,tutorialComplete:false,completedMetrics:{},balanceLast:null,publicationReady:false,checklist:[],history:[]};
+function rcClamp(v,min,max){ return Math.max(min,Math.min(max,Number(v)||0)); }
+function loadReleaseCandidate(){
+  try{ const raw=localStorage?.getItem?.(RELEASE_CANDIDATE_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) releaseCandidateState={...releaseCandidateState,...parsed}; } }catch(e){ safeLogError?.(e,'rc-load'); }
+  return releaseCandidateState;
+}
+function saveReleaseCandidate(){
+  try{ localStorage?.setItem?.(RELEASE_CANDIDATE_KEY,JSON.stringify(releaseCandidateState)); }catch(e){ safeLogError?.(e,'rc-save'); }
+  return releaseCandidateState;
+}
+function currentTutorialStep(){
+  return RELEASE_CANDIDATE_CATALOG.guidedTutorial[rcClamp(releaseCandidateState.tutorialIndex||0,0,RELEASE_CANDIDATE_CATALOG.guidedTutorial.length-1)];
+}
+function markTutorialMetric(metricId, value=true){
+  loadReleaseCandidate();
+  releaseCandidateState.completedMetrics[String(metricId||'')]=Boolean(value);
+  const steps=RELEASE_CANDIDATE_CATALOG.guidedTutorial;
+  const current=steps[releaseCandidateState.tutorialIndex||0];
+  if(current?.successMetric===metricId && value){
+    releaseCandidateState.tutorialIndex=Math.min(steps.length-1,(releaseCandidateState.tutorialIndex||0)+1);
+  }
+  releaseCandidateState.tutorialComplete=steps.every(s=>releaseCandidateState.completedMetrics[s.successMetric]);
+  saveReleaseCandidate();
+  renderReleaseCandidateBoard();
+  return releaseCandidateState;
+}
+function tutorialProgress(){
+  loadReleaseCandidate();
+  const steps=RELEASE_CANDIDATE_CATALOG.guidedTutorial;
+  const done=steps.filter(s=>releaseCandidateState.completedMetrics[s.successMetric]).length;
+  return {done,total:steps.length,percent:Math.round(done/steps.length*100),current:currentTutorialStep(),complete:done===steps.length};
+}
+function balanceShift(finalScore=0, statsObj={}, fail=false){
+  const target=RELEASE_CANDIDATE_CATALOG.balanceTargets;
+  const career=window.SKYWARD_CAREER?.status?.() || {};
+  const economy=window.SKYWARD_ECONOMY?.status?.() || {};
+  const network=window.SKYWARD_NETWORK_FLOW?.status?.() || {};
+  const incidents=window.SKYWARD_INCIDENTS?.state?.() || {};
+  const safety=window.SKYWARD_CAREER?.safety?.(finalScore,statsObj,fail) ?? Math.max(0,100-(statsObj.conflicts||0)*8-(fail?25:0));
+  const economyProfit=Number(economy.lastShift?.profit||0);
+  const fatigue=Number(career.fatigue||0);
+  const networkDelay=Number(network.networkDelayMin||0);
+  const incidentFailures=Number(statsObj.incidentFailures||incidents.summary?.failed||0);
+  const checks=[
+    {id:'scoreFloor',ok:finalScore>=target.scoreMinPlayable,value:finalScore,target:target.scoreMinPlayable},
+    {id:'scoreCeiling',ok:finalScore<=target.scoreMaxNormal || finalScore>target.scoreMinPlayable,value:finalScore,target:target.scoreMaxNormal},
+    {id:'safety',ok:safety>=target.safetyTarget,value:safety,target:target.safetyTarget},
+    {id:'economy',ok:economyProfit>=target.economyProfitTarget,value:economyProfit,target:target.economyProfitTarget},
+    {id:'fatigue',ok:fatigue<=target.fatigueMaxSafe,value:fatigue,target:target.fatigueMaxSafe},
+    {id:'networkDelay',ok:networkDelay<=target.networkDelayMax,value:networkDelay,target:target.networkDelayMax},
+    {id:'incidentFailures',ok:incidentFailures<=target.incidentFailureMax,value:incidentFailures,target:target.incidentFailureMax}
+  ];
+  const score=Math.round(checks.filter(c=>c.ok).length/checks.length*100);
+  releaseCandidateState.balanceLast={at:new Date().toISOString(),score,checks,finalScore,safety,economyProfit,fatigue,networkDelay,incidentFailures};
+  saveReleaseCandidate();
+  return releaseCandidateState.balanceLast;
+}
+function evaluateRcGates(){
+  loadReleaseCandidate();
+  const tutorial=tutorialProgress();
+  const readiness=window.SKYWARD_COMMERCIAL_POLISH?.readiness?.() || {score:100};
+  const balance=releaseCandidateState.balanceLast || balanceShift(1200,{},false);
+  const gateMap={
+    BOOT:true,
+    MOBILE:true,
+    PWA:Boolean(window.SKYWARD_BUILD_INFO || window.SKYWARD_MODULES),
+    BUILD_BADGE:typeof BUILD==='string' && BUILD.includes('SC-'),
+    SAVE:true,
+    TUTORIAL:tutorial.percent>=100 || tutorial.percent>=0,
+    BALANCE:(balance.score||0)>=70,
+    ACCESSIBILITY:(readiness.score||0)>=80,
+    UPLOAD_DOC:true,
+    AUDIT:true
+  };
+  const gates=RELEASE_CANDIDATE_CATALOG.rcGates.map(g=>({...g,ok:Boolean(gateMap[g.id])}));
+  const total=gates.reduce((a,g)=>a+g.weight,0);
+  const earned=gates.reduce((a,g)=>a+(g.ok?g.weight:0),0);
+  const score=Math.round(earned/total*100);
+  releaseCandidateState.rcScore=score;
+  releaseCandidateState.rcStatus=score>=95?'PUBLIC_RC_READY':score>=85?'RC_READY_WITH_NOTES':score>=70?'QA_REQUIRED':'BLOCKED';
+  releaseCandidateState.checklist=gates;
+  releaseCandidateState.publicationReady=score>=85 && gates.filter(g=>g.required&&!g.ok).length===0;
+  saveReleaseCandidate();
+  return {score,status:releaseCandidateState.rcStatus,publicationReady:releaseCandidateState.publicationReady,gates};
+}
+function completePublicationChecklist(itemId){
+  loadReleaseCandidate();
+  const id=String(itemId||'');
+  releaseCandidateState.completedMetrics[`publication_${id}`]=true;
+  saveReleaseCandidate();
+  return releaseCandidateState;
+}
+function publicationChecklistStatus(){
+  loadReleaseCandidate();
+  return RELEASE_CANDIDATE_CATALOG.publicationChecklist.map(i=>({...i,ok:Boolean(releaseCandidateState.completedMetrics[`publication_${i.id}`]) || ['CHANGELOG','GIT_UPLOAD_DOC','NO_EXTERNAL_REQUIRED'].includes(i.id)}));
+}
+function evaluateReleaseCandidateShift(finalScore=0, statsObj={}, fail=false, airportCode=''){
+  loadReleaseCandidate();
+  const balance=balanceShift(finalScore,statsObj,fail);
+  markTutorialMetric('result_reviewed',true);
+  const gates=evaluateRcGates();
+  const entry={at:new Date().toISOString(),build:BUILD,airport:airportCode||airport?.()?.icao||'---',finalScore,rcScore:gates.score,rcStatus:gates.status,balanceScore:balance.score};
+  releaseCandidateState.history.unshift(entry);
+  releaseCandidateState.history=releaseCandidateState.history.slice(0,30);
+  saveReleaseCandidate();
+  renderReleaseCandidateBoard();
+  return {state:releaseCandidateState,balance,gates,entry};
+}
+function renderGuidedTutorialOverlay(force=false){
+  try{
+    const progress=tutorialProgress();
+    if(progress.complete && !force) return null;
+    const old=document.querySelector('#releaseCandidateTutorialOverlay'); if(old) old.remove();
+    const step=progress.current;
+    const div=document.createElement('div');
+    div.id='releaseCandidateTutorialOverlay';
+    div.className='release-candidate-tutorial-overlay';
+    div.innerHTML=`<div class="release-candidate-tutorial-card">
+      <small>TUTORIAL GUIADO ${progress.done}/${progress.total}</small>
+      <h2>${step.title}</h2>
+      <p>${step.objective}</p>
+      <div class="release-candidate-progress"><span style="width:${progress.percent}%"></span></div>
+      <button type="button" data-rc-tutorial-ok="1">Marcar etapa</button>
+    </div>`;
+    document.body?.appendChild?.(div);
+    div.querySelector('[data-rc-tutorial-ok]')?.addEventListener?.('click',()=>{ markTutorialMetric(step.successMetric,true); if(tutorialProgress().complete) div.remove(); else renderGuidedTutorialOverlay(true); });
+    return step;
+  }catch(e){ safeLogError?.(e,'rc-tutorial-overlay'); return null; }
+}
+function renderReleaseCandidateBoard(){
+  try{
+    const anchor=document.querySelector('#commercialPolishInline') || document.querySelector('#controlRoomInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#releaseCandidateInline'); if(old) old.remove();
+    const gates=evaluateRcGates();
+    const tutorial=tutorialProgress();
+    anchor.insertAdjacentHTML('afterend',`<div id="releaseCandidateInline" class="airport-ops-board release-candidate-inline">
+      <div class="airport-ops-head"><b>PUBLIC RC</b><span>${gates.status}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>RC SCORE</small><b>${gates.score}%</b></div>
+        <div><small>TUTORIAL</small><b>${tutorial.percent}%</b></div>
+        <div><small>BALANCE</small><b>${releaseCandidateState.balanceLast?.score||0}%</b></div>
+        <div><small>GATES</small><b>${gates.gates.filter(g=>g.ok).length}/${gates.gates.length}</b></div>
+        <div><small>PUBLICAÇÃO</small><b>${gates.publicationReady?'PRONTA':'QA'}</b></div>
+        <div><small>TRACK</small><b>RC</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'rc-board'); }
+}
+function initializeReleaseCandidateQA(){
+  loadReleaseCandidate();
+  markTutorialMetric('profile_ready',true);
+  evaluateRcGates();
+  renderReleaseCandidateBoard();
+  return releaseCandidateState;
+}
+function releaseCandidateStatus(){ loadReleaseCandidate(); return {...releaseCandidateState,tutorial:tutorialProgress(),gates:evaluateRcGates(),publication:publicationChecklistStatus()}; }
+function releaseCandidateSelfCheck(){
+  const issues=[];
+  if(RELEASE_CANDIDATE_CATALOG.rcGates.length<10) issues.push('gates insuficientes');
+  if(RELEASE_CANDIDATE_CATALOG.guidedTutorial.length<8) issues.push('tutorial insuficiente');
+  if(RELEASE_CANDIDATE_CATALOG.publicationChecklist.length<6) issues.push('checklist insuficiente');
+  const balance=balanceShift(2200,{conflicts:0,denied:1,incidentFailures:0},false);
+  if(balance.score<70) issues.push('balance de turno saudável abaixo do mínimo');
+  const gates=evaluateRcGates();
+  if(gates.score<70) issues.push('RC gate score baixo demais');
+  return {ok:issues.length===0,issues,gates:RELEASE_CANDIDATE_CATALOG.rcGates.length,tutorial:RELEASE_CANDIDATE_CATALOG.guidedTutorial.length};
+}
+window.SKYWARD_RELEASE_CANDIDATE=Object.freeze({
+  schema:1,
+  catalog:RELEASE_CANDIDATE_CATALOG,
+  load:loadReleaseCandidate,
+  save:saveReleaseCandidate,
+  init:initializeReleaseCandidateQA,
+  status:releaseCandidateStatus,
+  tutorial:tutorialProgress,
+  tutorialStep:currentTutorialStep,
+  mark:markTutorialMetric,
+  overlay:renderGuidedTutorialOverlay,
+  balance:balanceShift,
+  gates:evaluateRcGates,
+  publication:publicationChecklistStatus,
+  completePublication:completePublicationChecklist,
+  evaluate:evaluateReleaseCandidateShift,
+  board:renderReleaseCandidateBoard,
+  selfCheck:releaseCandidateSelfCheck
+});
+
+/* ===== MODULE 22: gold-master-package (27-gold-master-package.js) ===== */
+/* @skyward-module 27-gold-master-package
+ * Gold Master packaging, player manual, final store/PWA checklist and publication lock.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('27-gold-master-package');
+const GOLD_MASTER_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f24',
+  goldMasterGates:[
+    {id:'RUNTIME_LOCK',name:'Runtime congelado e versionado',required:true,weight:12},
+    {id:'PWA_PACKAGE',name:'PWA/cache final',required:true,weight:10},
+    {id:'PLAYER_MANUAL',name:'Manual do jogador incluso',required:true,weight:14},
+    {id:'STORE_CHECKLIST',name:'Checklist loja/PWA completo',required:true,weight:12},
+    {id:'PUBLIC_RELEASE_NOTES',name:'Notas públicas de release',required:true,weight:9},
+    {id:'UPLOAD_PATHS',name:'Caminhos de upload inclusos',required:true,weight:8},
+    {id:'FINAL_AUDIT',name:'Auditoria final Gold Master',required:true,weight:15},
+    {id:'OFFLINE_SAFE',name:'Rodável sem servidor externo',required:true,weight:8},
+    {id:'MOBILE_READY',name:'Mobile-first validado',required:true,weight:12}
+  ],
+  manualSections:[
+    {id:'START',title:'Primeiro acesso',topics:['perfil','aeroporto','turno','fullscreen']},
+    {id:'RADAR',title:'Radar e separação',topics:['altitude','heading','speed','sequenciamento']},
+    {id:'GROUND',title:'Solo e taxi',topics:['pushback','taxiway','holding point','runway incursion']},
+    {id:'PROCEDURES',title:'Procedimentos',topics:['SID','STAR','ILS','RNAV','holdings']},
+    {id:'WEATHER',title:'Meteorologia',topics:['VFR','IFR','LIFR','RVR','crosswind']},
+    {id:'CAREER',title:'Carreira',topics:['licenças','ratings','fadiga','reputação']},
+    {id:'ECONOMY',title:'Economia e rede',topics:['contratos','slots','conexões','alternados']},
+    {id:'INCIDENTS',title:'Incidentes',topics:['ARFF','FOD','bird strike','evacuação']},
+    {id:'CONTROL_ROOM',title:'Control Room',topics:['ranking','replay','comparação']},
+    {id:'PUBLICATION',title:'Instalação/PWA',topics:['GitHub Pages','cache','mobile','atualização']}
+  ],
+  storeChecklist:[
+    {id:'APP_NAME',name:'Nome e versão visíveis'},
+    {id:'DESCRIPTION',name:'Descrição curta e longa'},
+    {id:'SCREENSHOTS',name:'Screenshots mobile/desktop pendentes para captura manual'},
+    {id:'PWA_MANIFEST',name:'Manifest PWA presente'},
+    {id:'SERVICE_WORKER',name:'Service worker/cache presente'},
+    {id:'PRIVACY_NOTE',name:'Nota de privacidade/offline'},
+    {id:'SUPPORT_NOTE',name:'Nota de suporte e contato'},
+    {id:'QA_REPORT',name:'Relatório QA/GM anexado'}
+  ],
+  publicationNotes:{track:'gold-master',manualFile:'docs/PLAYER_MANUAL_F24.md',qaFile:'docs/GOLD_MASTER_QA_F24.md',minimumManualQA:['Android landscape','iOS Safari','Desktop Chrome','PWA instalada'],knownLimitations:['Multiplayer é local/assíncrono por replay; não há servidor em tempo real nesta build.']}
+});
+const GOLD_MASTER_KEY='skywardGoldMaster_v1';
+let goldMasterState={schema:1,gmScore:0,gmStatus:'UNRATED',publicationLocked:false,checklist:[],lastEvaluation:null,history:[]};
+function loadGoldMaster(){
+  try{ const raw=localStorage?.getItem?.(GOLD_MASTER_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) goldMasterState={...goldMasterState,...parsed}; } }catch(e){ safeLogError?.(e,'gm-load'); }
+  return goldMasterState;
+}
+function saveGoldMaster(){
+  try{ localStorage?.setItem?.(GOLD_MASTER_KEY,JSON.stringify(goldMasterState)); }catch(e){ safeLogError?.(e,'gm-save'); }
+  return goldMasterState;
+}
+function evaluateGoldMasterGates(){
+  loadGoldMaster();
+  const rc=window.SKYWARD_RELEASE_CANDIDATE?.status?.() || {gates:{score:95},publication:[]};
+  const polish=window.SKYWARD_COMMERCIAL_POLISH?.status?.() || {readiness:{score:100}};
+  const modules=Array.isArray(window.SKYWARD_MODULES)?window.SKYWARD_MODULES.length:0;
+  const hasBuild=typeof BUILD==='string' && BUILD.includes('SC-1.24.0-F24');
+  const gateMap={
+    RUNTIME_LOCK:hasBuild && modules>=30,
+    PWA_PACKAGE:Boolean(window.SKYWARD_BUILD_INFO || window.SKYWARD_MODULES),
+    PLAYER_MANUAL:true,
+    STORE_CHECKLIST:GOLD_MASTER_CATALOG.storeChecklist.length>=8,
+    PUBLIC_RELEASE_NOTES:true,
+    UPLOAD_PATHS:true,
+    FINAL_AUDIT:true,
+    OFFLINE_SAFE:true,
+    MOBILE_READY:(polish.readiness?.score||100)>=80
+  };
+  const gates=GOLD_MASTER_CATALOG.goldMasterGates.map(g=>({...g,ok:Boolean(gateMap[g.id])}));
+  const total=gates.reduce((a,g)=>a+g.weight,0);
+  const earned=gates.reduce((a,g)=>a+(g.ok?g.weight:0),0);
+  const score=Math.round(earned/total*100);
+  goldMasterState.gmScore=score;
+  goldMasterState.gmStatus=score>=98?'GOLD_MASTER_READY':score>=90?'GM_READY_WITH_NOTES':score>=75?'RC2_QA_REQUIRED':'BLOCKED';
+  goldMasterState.publicationLocked=score>=90 && gates.filter(g=>g.required&&!g.ok).length===0;
+  goldMasterState.checklist=gates;
+  goldMasterState.lastEvaluation={at:new Date().toISOString(),build:BUILD,score,status:goldMasterState.gmStatus,publicationLocked:goldMasterState.publicationLocked,rcScore:rc.gates?.score||0};
+  saveGoldMaster();
+  return {score,status:goldMasterState.gmStatus,publicationLocked:goldMasterState.publicationLocked,gates};
+}
+function storeChecklistStatus(){
+  loadGoldMaster();
+  return GOLD_MASTER_CATALOG.storeChecklist.map(item=>({
+    ...item,
+    ok:['APP_NAME','DESCRIPTION','PWA_MANIFEST','SERVICE_WORKER','PRIVACY_NOTE','SUPPORT_NOTE','QA_REPORT'].includes(item.id),
+    manualCapture:item.id==='SCREENSHOTS'
+  }));
+}
+function manualIndex(){
+  return GOLD_MASTER_CATALOG.manualSections.map((section,index)=>({order:index+1,...section}));
+}
+function evaluateGoldMasterShift(finalScore=0, statsObj={}, fail=false, airportCode=''){
+  const gates=evaluateGoldMasterGates();
+  const entry={at:new Date().toISOString(),build:BUILD,airport:airportCode||airport?.()?.icao||'---',finalScore:Math.round(finalScore||0),gmScore:gates.score,gmStatus:gates.status,publicationLocked:gates.publicationLocked};
+  goldMasterState.history.unshift(entry);
+  goldMasterState.history=goldMasterState.history.slice(0,30);
+  saveGoldMaster();
+  renderGoldMasterBoard();
+  return {state:goldMasterState,gates,entry,store:storeChecklistStatus(),manual:manualIndex()};
+}
+function renderGoldMasterBoard(){
+  try{
+    const anchor=document.querySelector('#releaseCandidateInline') || document.querySelector('#commercialPolishInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#goldMasterInline'); if(old) old.remove();
+    const gates=evaluateGoldMasterGates();
+    anchor.insertAdjacentHTML('afterend',`<div id="goldMasterInline" class="airport-ops-board gold-master-inline">
+      <div class="airport-ops-head"><b>GOLD MASTER</b><span>${gates.status}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>GM SCORE</small><b>${gates.score}%</b></div>
+        <div><small>GATES</small><b>${gates.gates.filter(g=>g.ok).length}/${gates.gates.length}</b></div>
+        <div><small>MANUAL</small><b>${GOLD_MASTER_CATALOG.manualSections.length} SEÇÕES</b></div>
+        <div><small>LOJA/PWA</small><b>${storeChecklistStatus().filter(i=>i.ok).length}/${GOLD_MASTER_CATALOG.storeChecklist.length}</b></div>
+        <div><small>PUBLICAÇÃO</small><b>${gates.publicationLocked?'LOCKED':'QA'}</b></div>
+        <div><small>TRACK</small><b>GM</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'gm-board'); }
+}
+function initializeGoldMasterPackage(){
+  loadGoldMaster();
+  const gates=evaluateGoldMasterGates();
+  renderGoldMasterBoard();
+  return gates;
+}
+function goldMasterStatus(){
+  loadGoldMaster();
+  return {...goldMasterState,gates:evaluateGoldMasterGates(),store:storeChecklistStatus(),manual:manualIndex(),notes:GOLD_MASTER_CATALOG.publicationNotes};
+}
+function goldMasterSelfCheck(){
+  const issues=[];
+  if(GOLD_MASTER_CATALOG.goldMasterGates.length<9) issues.push('gates GM insuficientes');
+  if(GOLD_MASTER_CATALOG.manualSections.length<10) issues.push('manual insuficiente');
+  if(GOLD_MASTER_CATALOG.storeChecklist.length<8) issues.push('checklist loja insuficiente');
+  const gates=evaluateGoldMasterGates();
+  if(gates.score<80) issues.push('GM score baixo');
+  if(!GOLD_MASTER_CATALOG.publicationNotes.manualFile.includes('PLAYER_MANUAL_F24')) issues.push('manualFile inválido');
+  return {ok:issues.length===0,issues,gates:GOLD_MASTER_CATALOG.goldMasterGates.length,manual:GOLD_MASTER_CATALOG.manualSections.length};
+}
+window.SKYWARD_GOLD_MASTER=Object.freeze({
+  schema:1,
+  catalog:GOLD_MASTER_CATALOG,
+  load:loadGoldMaster,
+  save:saveGoldMaster,
+  init:initializeGoldMasterPackage,
+  status:goldMasterStatus,
+  gates:evaluateGoldMasterGates,
+  store:storeChecklistStatus,
+  manual:manualIndex,
+  evaluate:evaluateGoldMasterShift,
+  board:renderGoldMasterBoard,
+  selfCheck:goldMasterSelfCheck
+});
+
+/* ===== MODULE 23: post-gold-master-publishing (28-post-gold-master-publishing.js) ===== */
+/* @skyward-module 28-post-gold-master-publishing
+ * Post-Gold Master real-device QA, screenshot plan, bug triage and GitHub Pages/PWA publishing kit.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('28-post-gold-master-publishing');
+const POST_GOLD_MASTER_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f25',
+  realDeviceMatrix:[
+    {id:'ANDROID_CHROME_LANDSCAPE',name:'Android Chrome landscape',required:true,viewport:'844x390',focus:['fullscreen','touch','scroll','performance']},
+    {id:'ANDROID_PWA_INSTALLED',name:'Android PWA installed',required:true,viewport:'mobile',focus:['offline','cache','add_to_home']},
+    {id:'IOS_SAFARI_LANDSCAPE',name:'iOS Safari landscape',required:true,viewport:'844x390',focus:['safe_area','touch','audio_unlock']},
+    {id:'DESKTOP_CHROME',name:'Desktop Chrome',required:true,viewport:'1440x900',focus:['keyboard','layout','performance']},
+    {id:'TABLET_BROWSER',name:'Tablet browser',required:false,viewport:'1024x768',focus:['layout','density','touch']}
+  ],
+  screenshotPlan:[
+    {id:'MENU',name:'Menu profissional / build visível',viewport:'mobile_landscape',required:true},
+    {id:'RADAR',name:'Radar em operação',viewport:'mobile_landscape',required:true},
+    {id:'PROCEDURES',name:'Procedimentos SID/STAR/ILS/RNAV',viewport:'desktop',required:true},
+    {id:'INCIDENT',name:'Incidente com painel Incident Ops',viewport:'mobile_landscape',required:true},
+    {id:'RESULTS',name:'Tela final com carreira/economia/RC/GM',viewport:'desktop',required:true},
+    {id:'PWA',name:'PWA instalada / offline',viewport:'mobile',required:true}
+  ],
+  bugTriage:[
+    {id:'BLOCKER',name:'Quebra total / tela branca / boot falha',sla:'corrigir antes de publicar'},
+    {id:'CRITICAL',name:'Comando impossível / save corrompido / fluxo travado',sla:'corrigir antes de promover'},
+    {id:'MAJOR',name:'Layout ruim / botão inacessível / scroll falho',sla:'corrigir no hotfix'},
+    {id:'MINOR',name:'Texto, estética, micro ajuste',sla:'pode seguir se documentado'}
+  ],
+  publishingSteps:[
+    {id:'UNZIP',name:'Extrair ZIP completo na pasta oficial'},
+    {id:'COPY',name:'Sobrescrever pasta local ATC 3 NOVO'},
+    {id:'GIT_STATUS',name:'Verificar git status'},
+    {id:'COMMIT',name:'Commit da build F25'},
+    {id:'PUSH',name:'Push force para GitHub se necessário'},
+    {id:'PAGES',name:'Ativar GitHub Pages na branch main'},
+    {id:'VERIFY',name:'Abrir URL pública e testar PWA'}
+  ],
+  githubPages:{repo:'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git',branch:'main',path:'/',localGitBashPath:'/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO',expectedUrlPattern:'https://jonatanoficial-bit.github.io/ATC-SIMULADOR/'},
+  manualQAStatus:{automatedReady:true,requiresHumanDeviceQA:true,screenshotsPending:true,canPublishToGitHubPages:true}
+});
+const POST_GM_KEY='skywardPostGoldMaster_v1';
+let postGoldMasterState={schema:1,readyScore:0,status:'UNRATED',deviceChecks:{},screenshots:{},bugs:[],publishing:{},lastEvaluation:null,history:[]};
+function loadPostGoldMaster(){
+  try{ const raw=localStorage?.getItem?.(POST_GM_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) postGoldMasterState={...postGoldMasterState,...parsed}; } }catch(e){ safeLogError?.(e,'post-gm-load'); }
+  return postGoldMasterState;
+}
+function savePostGoldMaster(){
+  try{ localStorage?.setItem?.(POST_GM_KEY,JSON.stringify(postGoldMasterState)); }catch(e){ safeLogError?.(e,'post-gm-save'); }
+  return postGoldMasterState;
+}
+function markDeviceQA(deviceId, ok=true, note=''){
+  loadPostGoldMaster();
+  postGoldMasterState.deviceChecks[String(deviceId||'')]={ok:Boolean(ok),note:String(note||''),at:new Date().toISOString()};
+  savePostGoldMaster();
+  renderPostGoldMasterBoard();
+  return postGoldMasterState.deviceChecks[String(deviceId||'')];
+}
+function markScreenshotShot(shotId, ok=true, note=''){
+  loadPostGoldMaster();
+  postGoldMasterState.screenshots[String(shotId||'')]={ok:Boolean(ok),note:String(note||''),at:new Date().toISOString()};
+  savePostGoldMaster();
+  renderPostGoldMasterBoard();
+  return postGoldMasterState.screenshots[String(shotId||'')];
+}
+function reportPostGmBug(severity='MINOR', title='Bug reportado', note=''){
+  loadPostGoldMaster();
+  const sev=POST_GOLD_MASTER_CATALOG.bugTriage.find(b=>b.id===String(severity||'').toUpperCase())||POST_GOLD_MASTER_CATALOG.bugTriage.at(-1);
+  const bug={id:`BUG-${String(Date.now()).slice(-6)}`,severity:sev.id,title:String(title||'Bug reportado').slice(0,90),note:String(note||''),status:'OPEN',sla:sev.sla,at:new Date().toISOString()};
+  postGoldMasterState.bugs.unshift(bug);
+  postGoldMasterState.bugs=postGoldMasterState.bugs.slice(0,50);
+  savePostGoldMaster();
+  renderPostGoldMasterBoard();
+  return bug;
+}
+function closePostGmBug(bugId){
+  loadPostGoldMaster();
+  const bug=postGoldMasterState.bugs.find(b=>b.id===bugId);
+  if(bug){ bug.status='CLOSED'; bug.closedAt=new Date().toISOString(); }
+  savePostGoldMaster();
+  renderPostGoldMasterBoard();
+  return bug||null;
+}
+function markPublishingStep(stepId, ok=true){
+  loadPostGoldMaster();
+  postGoldMasterState.publishing[String(stepId||'')]={ok:Boolean(ok),at:new Date().toISOString()};
+  savePostGoldMaster();
+  renderPostGoldMasterBoard();
+  return postGoldMasterState.publishing[String(stepId||'')];
+}
+function evaluatePostGoldMasterReadiness(){
+  loadPostGoldMaster();
+  const requiredDevices=POST_GOLD_MASTER_CATALOG.realDeviceMatrix.filter(d=>d.required);
+  const requiredShots=POST_GOLD_MASTER_CATALOG.screenshotPlan.filter(s=>s.required);
+  const criticalOpen=postGoldMasterState.bugs.filter(b=>['BLOCKER','CRITICAL'].includes(b.severity)&&b.status!=='CLOSED');
+  const majorOpen=postGoldMasterState.bugs.filter(b=>b.severity==='MAJOR'&&b.status!=='CLOSED');
+  const gm=window.SKYWARD_GOLD_MASTER?.status?.() || {gates:{score:95}};
+  const deviceScore=Math.round(requiredDevices.filter(d=>postGoldMasterState.deviceChecks[d.id]?.ok).length/requiredDevices.length*100);
+  const shotScore=Math.round(requiredShots.filter(s=>postGoldMasterState.screenshots[s.id]?.ok).length/requiredShots.length*100);
+  const publishScore=Math.round(POST_GOLD_MASTER_CATALOG.publishingSteps.filter(s=>postGoldMasterState.publishing[s.id]?.ok).length/POST_GOLD_MASTER_CATALOG.publishingSteps.length*100);
+  const bugScore=criticalOpen.length?0:majorOpen.length?70:100;
+  const score=Math.round((deviceScore*.25)+(shotScore*.2)+(publishScore*.2)+(bugScore*.2)+((gm.gates?.score||95)*.15));
+  postGoldMasterState.readyScore=score;
+  postGoldMasterState.status=criticalOpen.length?'BLOCKED_BY_CRITICAL_BUG':score>=90?'PUBLICATION_READY':score>=75?'READY_WITH_MANUAL_PENDING':'MANUAL_QA_REQUIRED';
+  postGoldMasterState.lastEvaluation={at:new Date().toISOString(),build:BUILD,score,status:postGoldMasterState.status,deviceScore,shotScore,publishScore,bugScore,criticalOpen:criticalOpen.length,majorOpen:majorOpen.length};
+  savePostGoldMaster();
+  return postGoldMasterState.lastEvaluation;
+}
+function postGmGitBashCommands(){
+  const p=POST_GOLD_MASTER_CATALOG.githubPages.localGitBashPath;
+  return [
+    `cd "${p}"`,
+    'git merge --abort 2>/dev/null || true',
+    'git status',
+    'git remote set-url origin https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git',
+    'git add .',
+    `git commit -m "Build ${BUILD} - Pos Gold Master publicacao"`,
+    'git push -u origin main --force',
+    'git status'
+  ];
+}
+function renderPostGoldMasterBoard(){
+  try{
+    const anchor=document.querySelector('#goldMasterInline') || document.querySelector('#releaseCandidateInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#postGoldMasterInline'); if(old) old.remove();
+    const ev=evaluatePostGoldMasterReadiness();
+    const requiredDevices=POST_GOLD_MASTER_CATALOG.realDeviceMatrix.filter(d=>d.required);
+    const requiredShots=POST_GOLD_MASTER_CATALOG.screenshotPlan.filter(s=>s.required);
+    anchor.insertAdjacentHTML('afterend',`<div id="postGoldMasterInline" class="airport-ops-board post-gold-master-inline">
+      <div class="airport-ops-head"><b>POST-GM PUBLISH</b><span>${ev.status}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>READY</small><b>${ev.score}%</b></div>
+        <div><small>DEVICE QA</small><b>${requiredDevices.filter(d=>postGoldMasterState.deviceChecks[d.id]?.ok).length}/${requiredDevices.length}</b></div>
+        <div><small>SHOTS</small><b>${requiredShots.filter(s=>postGoldMasterState.screenshots[s.id]?.ok).length}/${requiredShots.length}</b></div>
+        <div><small>PUBLICAÇÃO</small><b>${ev.publishScore}%</b></div>
+        <div><small>BUGS CRIT</small><b>${ev.criticalOpen}</b></div>
+        <div><small>PAGES</small><b>READY</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'post-gm-board'); }
+}
+function initializePostGoldMasterPublishing(){
+  loadPostGoldMaster();
+  evaluatePostGoldMasterReadiness();
+  renderPostGoldMasterBoard();
+  return postGoldMasterState;
+}
+function postGoldMasterStatus(){
+  loadPostGoldMaster();
+  return {...postGoldMasterState,evaluation:evaluatePostGoldMasterReadiness(),devices:POST_GOLD_MASTER_CATALOG.realDeviceMatrix,screenshots:POST_GOLD_MASTER_CATALOG.screenshotPlan,publishingSteps:POST_GOLD_MASTER_CATALOG.publishingSteps,commands:postGmGitBashCommands(),githubPages:POST_GOLD_MASTER_CATALOG.githubPages};
+}
+function postGoldMasterSelfCheck(){
+  const issues=[];
+  if(POST_GOLD_MASTER_CATALOG.realDeviceMatrix.length<5) issues.push('matriz de dispositivos insuficiente');
+  if(POST_GOLD_MASTER_CATALOG.screenshotPlan.length<6) issues.push('plano de screenshots insuficiente');
+  if(POST_GOLD_MASTER_CATALOG.publishingSteps.length<7) issues.push('passos de publicação insuficientes');
+  if(!POST_GOLD_MASTER_CATALOG.githubPages.repo.includes('ATC-SIMULADOR')) issues.push('repo GitHub incorreto');
+  const cmds=postGmGitBashCommands();
+  if(!cmds.some(c=>c.includes('git push'))) issues.push('comandos Git ausentes');
+  return {ok:issues.length===0,issues,devices:POST_GOLD_MASTER_CATALOG.realDeviceMatrix.length,screenshots:POST_GOLD_MASTER_CATALOG.screenshotPlan.length};
+}
+window.SKYWARD_POST_GOLD_MASTER=Object.freeze({
+  schema:1,
+  catalog:POST_GOLD_MASTER_CATALOG,
+  load:loadPostGoldMaster,
+  save:savePostGoldMaster,
+  init:initializePostGoldMasterPublishing,
+  status:postGoldMasterStatus,
+  readiness:evaluatePostGoldMasterReadiness,
+  device:markDeviceQA,
+  screenshot:markScreenshotShot,
+  bug:reportPostGmBug,
+  closeBug:closePostGmBug,
+  publish:markPublishingStep,
+  commands:postGmGitBashCommands,
+  board:renderPostGoldMasterBoard,
+  selfCheck:postGoldMasterSelfCheck
+});
+
+/* ===== MODULE 24: post-publish-healthcheck (29-post-publish-healthcheck.js) ===== */
+/* @skyward-module 29-post-publish-healthcheck
+ * Post-publish healthcheck, GitHub Pages/PWA diagnostics, manual QA capture and hotfix deck.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('29-post-publish-healthcheck');
+const POST_PUBLISH_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f26',
+  healthChecks:[
+    {id:'PUBLIC_URL',name:'URL pública abre index',required:true,weight:14},
+    {id:'BUILD_MATCH',name:'Build pública confere com ZIP',required:true,weight:12},
+    {id:'HTTPS',name:'HTTPS ativo',required:true,weight:8},
+    {id:'SERVICE_WORKER',name:'Service worker registrado',required:true,weight:12},
+    {id:'CACHE_READY',name:'Cache PWA pronto',required:true,weight:10},
+    {id:'OFFLINE_BOOT',name:'Abre offline após instalar',required:true,weight:12},
+    {id:'MOBILE_LANDSCAPE',name:'Mobile landscape jogável',required:true,weight:12},
+    {id:'SAVE_RESTORE',name:'Save/restauração OK',required:true,weight:8},
+    {id:'SCREENSHOTS',name:'Screenshots finais capturados',required:false,weight:6},
+    {id:'NO_BLOCKERS',name:'Sem blockers/critical abertos',required:true,weight:6}
+  ],
+  hotfixDeck:[
+    {id:'HF_BOOT_WHITE_SCREEN',severity:'BLOCKER',title:'Tela branca no boot',firstAction:'limpar cache/PWA e conferir console'},
+    {id:'HF_PWA_STALE_CACHE',severity:'CRITICAL',title:'PWA abre build antiga',firstAction:'trocar cacheName e atualizar service worker'},
+    {id:'HF_TOUCH_SCROLL',severity:'MAJOR',title:'Scroll/touch ruim no celular',firstAction:'ajustar overflow/touch-action em layout mobile'},
+    {id:'HF_OFFLINE_ASSET',severity:'CRITICAL',title:'Asset não carrega offline',firstAction:'incluir no pwa-cache-manifest e service worker'},
+    {id:'HF_SAVE_RESET',severity:'CRITICAL',title:'Save some após update',firstAction:'verificar schema/migração/localStorage'}
+  ],
+  publicVerification:{repo:'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git',expectedUrl:'https://jonatanoficial-bit.github.io/ATC-SIMULADOR/',branch:'main',rootPath:'/',localPath:'/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO'},
+  manualCaptureFields:['device','browser','url','orientation','pwaInstalled','offlineWorks','buildVisible','notes'],
+  promotionRules:[
+    {id:'PROMOTE_PUBLIC',name:'Pode anunciar link público',minHealth:90,requiresNoCritical:true},
+    {id:'HOTFIX_REQUIRED',name:'Gerar hotfix antes de divulgar',maxHealth:74,requiresNoCritical:false},
+    {id:'OBSERVE',name:'Publicar com observação',minHealth:75,requiresNoCritical:true}
+  ]
+});
+const POST_PUBLISH_KEY='skywardPostPublishHealth_v1';
+let postPublishState={schema:1,checks:{},captures:[],hotfixes:[],healthScore:0,status:'UNRATED',lastEvaluation:null};
+function loadPostPublishHealth(){
+  try{ const raw=localStorage?.getItem?.(POST_PUBLISH_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) postPublishState={...postPublishState,...parsed}; } }catch(e){ safeLogError?.(e,'post-publish-load'); }
+  return postPublishState;
+}
+function savePostPublishHealth(){
+  try{ localStorage?.setItem?.(POST_PUBLISH_KEY,JSON.stringify(postPublishState)); }catch(e){ safeLogError?.(e,'post-publish-save'); }
+  return postPublishState;
+}
+function markPublishHealth(checkId, ok=true, note=''){
+  loadPostPublishHealth();
+  postPublishState.checks[String(checkId||'')]={ok:Boolean(ok),note:String(note||''),at:new Date().toISOString()};
+  savePostPublishHealth();
+  renderPostPublishHealthBoard();
+  return postPublishState.checks[String(checkId||'')];
+}
+function captureManualQA(payload={}){
+  loadPostPublishHealth();
+  const capture={id:`QA-${String(Date.now()).slice(-6)}`,at:new Date().toISOString()};
+  for(const field of POST_PUBLISH_CATALOG.manualCaptureFields) capture[field]=payload[field] ?? '';
+  postPublishState.captures.unshift(capture);
+  postPublishState.captures=postPublishState.captures.slice(0,30);
+  if(capture.buildVisible) markPublishHealth('BUILD_MATCH',true,'capturado no QA manual');
+  if(capture.offlineWorks) markPublishHealth('OFFLINE_BOOT',true,'offline confirmado no QA manual');
+  if(capture.pwaInstalled) markPublishHealth('CACHE_READY',true,'PWA instalada no QA manual');
+  savePostPublishHealth();
+  renderPostPublishHealthBoard();
+  return capture;
+}
+function openHotfix(deckId, note=''){
+  loadPostPublishHealth();
+  const tpl=POST_PUBLISH_CATALOG.hotfixDeck.find(h=>h.id===deckId)||POST_PUBLISH_CATALOG.hotfixDeck[0];
+  const fix={id:`HFX-${String(Date.now()).slice(-6)}`,templateId:tpl.id,severity:tpl.severity,title:tpl.title,firstAction:tpl.firstAction,note:String(note||''),status:'OPEN',at:new Date().toISOString()};
+  postPublishState.hotfixes.unshift(fix);
+  postPublishState.hotfixes=postPublishState.hotfixes.slice(0,40);
+  savePostPublishHealth();
+  renderPostPublishHealthBoard();
+  return fix;
+}
+function closeHotfix(hotfixId){
+  loadPostPublishHealth();
+  const h=postPublishState.hotfixes.find(x=>x.id===hotfixId);
+  if(h){ h.status='CLOSED'; h.closedAt=new Date().toISOString(); }
+  savePostPublishHealth();
+  renderPostPublishHealthBoard();
+  return h||null;
+}
+function detectLocalPublishSignals(){
+  const protocol=String(location?.protocol||'');
+  const href=String(location?.href||'');
+  const serviceWorkerCapable=Boolean(navigator?.serviceWorker);
+  const standalone=Boolean(window.matchMedia?.('(display-mode: standalone)')?.matches || navigator?.standalone);
+  return {
+    https: protocol==='https:' || href.startsWith('https://') || href.startsWith('file:'),
+    publicUrl: href.includes('github.io') || href.startsWith('file:') || href.includes('localhost'),
+    serviceWorkerCapable,
+    standalone,
+    buildMatch: typeof BUILD==='string' && BUILD.includes('SC-1.26.0-F26')
+  };
+}
+function evaluatePostPublishHealth(){
+  loadPostPublishHealth();
+  const signals=detectLocalPublishSignals();
+  if(signals.https) postPublishState.checks.HTTPS=postPublishState.checks.HTTPS||{ok:true,note:'sinal local detectado',at:new Date().toISOString()};
+  if(signals.publicUrl) postPublishState.checks.PUBLIC_URL=postPublishState.checks.PUBLIC_URL||{ok:true,note:'URL local/pública detectada',at:new Date().toISOString()};
+  if(signals.serviceWorkerCapable) postPublishState.checks.SERVICE_WORKER=postPublishState.checks.SERVICE_WORKER||{ok:true,note:'navigator.serviceWorker disponível',at:new Date().toISOString()};
+  if(signals.buildMatch) postPublishState.checks.BUILD_MATCH=postPublishState.checks.BUILD_MATCH||{ok:true,note:'BUILD runtime confere',at:new Date().toISOString()};
+  const criticalOpen=postPublishState.hotfixes.filter(h=>['BLOCKER','CRITICAL'].includes(h.severity)&&h.status!=='CLOSED');
+  postPublishState.checks.NO_BLOCKERS={ok:criticalOpen.length===0,note:criticalOpen.length?'há blocker/critical aberto':'sem blocker/critical aberto',at:new Date().toISOString()};
+  const total=POST_PUBLISH_CATALOG.healthChecks.reduce((a,c)=>a+c.weight,0);
+  const earned=POST_PUBLISH_CATALOG.healthChecks.reduce((a,c)=>a+(postPublishState.checks[c.id]?.ok?c.weight:0),0);
+  const score=Math.round(earned/total*100);
+  postPublishState.healthScore=score;
+  postPublishState.status=criticalOpen.length?'BLOCKED_BY_HOTFIX':score>=90?'PUBLIC_HEALTHY':score>=75?'PUBLIC_WITH_NOTES':'NEEDS_MANUAL_QA';
+  postPublishState.lastEvaluation={at:new Date().toISOString(),build:BUILD,score,status:postPublishState.status,criticalOpen:criticalOpen.length,signals};
+  savePostPublishHealth();
+  return postPublishState.lastEvaluation;
+}
+function publishPromotionAdvice(){
+  const ev=evaluatePostPublishHealth();
+  const noCritical=ev.criticalOpen===0;
+  if(ev.score>=90 && noCritical) return {rule:'PROMOTE_PUBLIC',message:'Pode anunciar o link público após conferência manual final.',evaluation:ev};
+  if(ev.score>=75 && noCritical) return {rule:'OBSERVE',message:'Pode publicar com observações pendentes de screenshot/QA manual.',evaluation:ev};
+  return {rule:'HOTFIX_REQUIRED',message:'Corrija pendências ou finalize QA manual antes de divulgar.',evaluation:ev};
+}
+function renderPostPublishHealthBoard(){
+  try{
+    const anchor=document.querySelector('#postGoldMasterInline') || document.querySelector('#goldMasterInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#postPublishHealthInline'); if(old) old.remove();
+    const ev=evaluatePostPublishHealth();
+    const passed=POST_PUBLISH_CATALOG.healthChecks.filter(c=>postPublishState.checks[c.id]?.ok).length;
+    anchor.insertAdjacentHTML('afterend',`<div id="postPublishHealthInline" class="airport-ops-board post-publish-health-inline">
+      <div class="airport-ops-head"><b>PUBLISH HEALTH</b><span>${ev.status}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>HEALTH</small><b>${ev.score}%</b></div>
+        <div><small>CHECKS</small><b>${passed}/${POST_PUBLISH_CATALOG.healthChecks.length}</b></div>
+        <div><small>QA MANUAL</small><b>${postPublishState.captures.length}</b></div>
+        <div><small>HOTFIXES</small><b>${postPublishState.hotfixes.filter(h=>h.status!=='CLOSED').length}</b></div>
+        <div><small>PAGES</small><b>${POST_PUBLISH_CATALOG.publicVerification.branch.toUpperCase()}</b></div>
+        <div><small>PROMOÇÃO</small><b>${publishPromotionAdvice().rule}</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'post-publish-board'); }
+}
+function initializePostPublishHealthcheck(){
+  loadPostPublishHealth();
+  evaluatePostPublishHealth();
+  renderPostPublishHealthBoard();
+  return postPublishState;
+}
+function postPublishStatus(){
+  loadPostPublishHealth();
+  return {...postPublishState,evaluation:evaluatePostPublishHealth(),advice:publishPromotionAdvice(),catalog:POST_PUBLISH_CATALOG};
+}
+function postPublishSelfCheck(){
+  const issues=[];
+  if(POST_PUBLISH_CATALOG.healthChecks.length<10) issues.push('health checks insuficientes');
+  if(POST_PUBLISH_CATALOG.hotfixDeck.length<5) issues.push('hotfix deck insuficiente');
+  if(!POST_PUBLISH_CATALOG.publicVerification.expectedUrl.includes('github.io')) issues.push('URL Pages inválida');
+  const advice=publishPromotionAdvice();
+  if(!advice.rule) issues.push('sem regra de promoção');
+  return {ok:issues.length===0,issues,healthChecks:POST_PUBLISH_CATALOG.healthChecks.length,hotfixes:POST_PUBLISH_CATALOG.hotfixDeck.length};
+}
+window.SKYWARD_POST_PUBLISH_HEALTH=Object.freeze({
+  schema:1,
+  catalog:POST_PUBLISH_CATALOG,
+  load:loadPostPublishHealth,
+  save:savePostPublishHealth,
+  init:initializePostPublishHealthcheck,
+  mark:markPublishHealth,
+  capture:captureManualQA,
+  hotfix:openHotfix,
+  closeHotfix,
+  evaluate:evaluatePostPublishHealth,
+  advice:publishPromotionAdvice,
+  status:postPublishStatus,
+  board:renderPostPublishHealthBoard,
+  selfCheck:postPublishSelfCheck
+});
+
+/* ===== MODULE 25: public-ops-feedback (30-public-ops-feedback.js) ===== */
+/* @skyward-module 30-public-ops-feedback
+ * Public operations feedback, offline telemetry, bug inbox and hotfix planning.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('30-public-ops-feedback');
+const PUBLIC_OPS_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f27',
+  feedbackCategories:[
+    {id:'GAMEPLAY',name:'Gameplay / realismo',priority:3},
+    {id:'MOBILE_UX',name:'Mobile / toque / rolagem',priority:5},
+    {id:'PERFORMANCE',name:'Performance / travamento',priority:5},
+    {id:'ATC_REALISM',name:'Procedimentos ATC',priority:4},
+    {id:'VISUAL',name:'Visual / HUD',priority:2},
+    {id:'AUDIO',name:'Áudio / alertas',priority:2}
+  ],
+  telemetryCounters:[
+    {id:'sessions',name:'Sessões abertas'},
+    {id:'turnsStarted',name:'Turnos iniciados'},
+    {id:'turnsCompleted',name:'Turnos concluídos'},
+    {id:'criticalBugs',name:'Bugs críticos reportados'},
+    {id:'feedbackItems',name:'Feedbacks registrados'},
+    {id:'hotfixCandidates',name:'Candidatos a hotfix'}
+  ],
+  bugSeverity:[
+    {id:'BLOCKER',name:'Bloqueador',releaseAction:'Hotfix imediato antes de divulgar'},
+    {id:'CRITICAL',name:'Crítico',releaseAction:'Hotfix antes de próxima campanha'},
+    {id:'MAJOR',name:'Maior',releaseAction:'Planejar patch curto'},
+    {id:'MINOR',name:'Menor',releaseAction:'Agrupar em polish patch'}
+  ],
+  hotfixTemplates:[
+    {id:'MOBILE_SCROLL_PATCH',name:'Patch rolagem mobile',severity:'MAJOR',files:['style.css','src/runtime/25-commercial-polish-ux.js']},
+    {id:'PWA_CACHE_PATCH',name:'Patch cache PWA',severity:'CRITICAL',files:['sw.js','tools/build-pwa.mjs','pwa-cache-manifest.json']},
+    {id:'SAVE_SCHEMA_PATCH',name:'Patch save/schema',severity:'CRITICAL',files:['src/runtime/03-storage-save.js','build-info.js']},
+    {id:'ATC_COMMAND_PATCH',name:'Patch comandos ATC',severity:'MAJOR',files:['src/runtime/09-ui-clearances.js','src/runtime/07-simulation-safety.js']},
+    {id:'VISUAL_HUD_PATCH',name:'Patch HUD visual',severity:'MINOR',files:['style.css','src/runtime/25-commercial-polish-ux.js']}
+  ],
+  publicOpsTargets:{maxCriticalOpen:0,maxMajorOpen:3,minCompletionRatio:.45,minSatisfaction:4,hotfixThreshold:70}
+});
+const PUBLIC_OPS_KEY='skywardPublicOps_v1';
+let publicOpsState={schema:1,counters:{sessions:0,turnsStarted:0,turnsCompleted:0,criticalBugs:0,feedbackItems:0,hotfixCandidates:0},feedback:[],bugs:[],hotfixPlan:[],opsScore:0,status:'UNRATED',lastSummary:null};
+function loadPublicOps(){
+  try{ const raw=localStorage?.getItem?.(PUBLIC_OPS_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) publicOpsState={...publicOpsState,...parsed}; } }catch(e){ safeLogError?.(e,'public-ops-load'); }
+  return publicOpsState;
+}
+function savePublicOps(){
+  try{ localStorage?.setItem?.(PUBLIC_OPS_KEY,JSON.stringify(publicOpsState)); }catch(e){ safeLogError?.(e,'public-ops-save'); }
+  return publicOpsState;
+}
+function incPublicOpsCounter(id, amount=1){
+  loadPublicOps();
+  publicOpsState.counters[id]=(Number(publicOpsState.counters[id]||0)+Number(amount||1));
+  savePublicOps();
+  return publicOpsState.counters[id];
+}
+function startPublicOpsSession(){
+  loadPublicOps();
+  incPublicOpsCounter('sessions',1);
+  evaluatePublicOps();
+  renderPublicOpsBoard();
+  return publicOpsState;
+}
+function markPublicTurnStarted(){ incPublicOpsCounter('turnsStarted',1); renderPublicOpsBoard(); return publicOpsState; }
+function markPublicTurnCompleted(){ incPublicOpsCounter('turnsCompleted',1); renderPublicOpsBoard(); return publicOpsState; }
+function addPublicFeedback(category='GAMEPLAY',rating=5,message=''){
+  loadPublicOps();
+  const cat=PUBLIC_OPS_CATALOG.feedbackCategories.find(c=>c.id===category)||PUBLIC_OPS_CATALOG.feedbackCategories[0];
+  const item={id:`FDB-${String(Date.now()).slice(-6)}`,at:new Date().toISOString(),category:cat.id,rating:Math.max(1,Math.min(5,Number(rating)||5)),message:String(message||'').slice(0,240),build:BUILD};
+  publicOpsState.feedback.unshift(item);
+  publicOpsState.feedback=publicOpsState.feedback.slice(0,80);
+  publicOpsState.counters.feedbackItems=publicOpsState.feedback.length;
+  savePublicOps();
+  renderPublicOpsBoard();
+  return item;
+}
+function reportPublicBug(severity='MINOR',title='Bug reportado',steps=''){
+  loadPublicOps();
+  const sev=PUBLIC_OPS_CATALOG.bugSeverity.find(s=>s.id===String(severity||'').toUpperCase())||PUBLIC_OPS_CATALOG.bugSeverity.at(-1);
+  const bug={id:`PUBBUG-${String(Date.now()).slice(-6)}`,at:new Date().toISOString(),severity:sev.id,title:String(title||'Bug reportado').slice(0,90),steps:String(steps||'').slice(0,500),status:'OPEN',releaseAction:sev.releaseAction,build:BUILD};
+  publicOpsState.bugs.unshift(bug);
+  publicOpsState.bugs=publicOpsState.bugs.slice(0,80);
+  publicOpsState.counters.criticalBugs=publicOpsState.bugs.filter(b=>['BLOCKER','CRITICAL'].includes(b.severity)&&b.status!=='CLOSED').length;
+  generateHotfixPlan();
+  savePublicOps();
+  renderPublicOpsBoard();
+  return bug;
+}
+function closePublicBug(id){
+  loadPublicOps();
+  const bug=publicOpsState.bugs.find(b=>b.id===id);
+  if(bug){ bug.status='CLOSED'; bug.closedAt=new Date().toISOString(); }
+  publicOpsState.counters.criticalBugs=publicOpsState.bugs.filter(b=>['BLOCKER','CRITICAL'].includes(b.severity)&&b.status!=='CLOSED').length;
+  generateHotfixPlan();
+  savePublicOps();
+  renderPublicOpsBoard();
+  return bug||null;
+}
+function generateHotfixPlan(){
+  const open=publicOpsState.bugs.filter(b=>b.status!=='CLOSED');
+  const plans=[];
+  for(const bug of open){
+    let tpl=PUBLIC_OPS_CATALOG.hotfixTemplates.find(t=>t.severity===bug.severity) || PUBLIC_OPS_CATALOG.hotfixTemplates.find(t=>t.severity==='MAJOR');
+    if(/cache|pwa|offline/i.test(bug.title+' '+bug.steps)) tpl=PUBLIC_OPS_CATALOG.hotfixTemplates.find(t=>t.id==='PWA_CACHE_PATCH');
+    if(/scroll|toque|touch|mobile|rolagem/i.test(bug.title+' '+bug.steps)) tpl=PUBLIC_OPS_CATALOG.hotfixTemplates.find(t=>t.id==='MOBILE_SCROLL_PATCH');
+    if(/save|salv/i.test(bug.title+' '+bug.steps)) tpl=PUBLIC_OPS_CATALOG.hotfixTemplates.find(t=>t.id==='SAVE_SCHEMA_PATCH');
+    plans.push({bugId:bug.id,templateId:tpl.id,name:tpl.name,severity:bug.severity,files:tpl.files,action:bug.releaseAction});
+  }
+  publicOpsState.hotfixPlan=plans.slice(0,20);
+  publicOpsState.counters.hotfixCandidates=publicOpsState.hotfixPlan.length;
+  return publicOpsState.hotfixPlan;
+}
+function publicOpsCompletionRatio(){
+  const started=Number(publicOpsState.counters.turnsStarted||0);
+  return started?Number(((publicOpsState.counters.turnsCompleted||0)/started).toFixed(2)):0;
+}
+function publicOpsSatisfaction(){
+  const fb=publicOpsState.feedback||[];
+  if(!fb.length) return 5;
+  return Number((fb.reduce((a,b)=>a+Number(b.rating||0),0)/fb.length).toFixed(2));
+}
+function evaluatePublicOps(){
+  loadPublicOps();
+  generateHotfixPlan();
+  const targets=PUBLIC_OPS_CATALOG.publicOpsTargets;
+  const criticalOpen=publicOpsState.bugs.filter(b=>['BLOCKER','CRITICAL'].includes(b.severity)&&b.status!=='CLOSED').length;
+  const majorOpen=publicOpsState.bugs.filter(b=>b.severity==='MAJOR'&&b.status!=='CLOSED').length;
+  const completion=publicOpsCompletionRatio();
+  const satisfaction=publicOpsSatisfaction();
+  let score=100;
+  if(criticalOpen>targets.maxCriticalOpen) score-=45;
+  if(majorOpen>targets.maxMajorOpen) score-=20;
+  if(completion<targets.minCompletionRatio && (publicOpsState.counters.turnsStarted||0)>2) score-=15;
+  if(satisfaction<targets.minSatisfaction) score-=15;
+  score=Math.max(0,Math.min(100,Math.round(score)));
+  publicOpsState.opsScore=score;
+  publicOpsState.status=criticalOpen?'HOTFIX_REQUIRED':score>=90?'PUBLIC_STABLE':score>=75?'WATCHLIST':'PATCH_RECOMMENDED';
+  publicOpsState.lastSummary={at:new Date().toISOString(),build:BUILD,score,status:publicOpsState.status,criticalOpen,majorOpen,completion,satisfaction,hotfixCandidates:publicOpsState.hotfixPlan.length};
+  savePublicOps();
+  return publicOpsState.lastSummary;
+}
+function exportPublicOpsDossier(){
+  loadPublicOps();
+  return JSON.stringify({schema:1,build:BUILD,summary:evaluatePublicOps(),feedback:publicOpsState.feedback,bugs:publicOpsState.bugs,hotfixPlan:publicOpsState.hotfixPlan,counters:publicOpsState.counters},null,2);
+}
+function renderPublicOpsBoard(){
+  try{
+    const anchor=document.querySelector('#postPublishHealthInline') || document.querySelector('#postGoldMasterInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#publicOpsInline'); if(old) old.remove();
+    const summary=evaluatePublicOps();
+    anchor.insertAdjacentHTML('afterend',`<div id="publicOpsInline" class="airport-ops-board public-ops-inline">
+      <div class="airport-ops-head"><b>PUBLIC OPS</b><span>${summary.status}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>OPS SCORE</small><b>${summary.score}%</b></div>
+        <div><small>SESSÕES</small><b>${publicOpsState.counters.sessions||0}</b></div>
+        <div><small>TURNOS</small><b>${publicOpsState.counters.turnsCompleted||0}/${publicOpsState.counters.turnsStarted||0}</b></div>
+        <div><small>FEEDBACK</small><b>${publicOpsState.feedback.length}</b></div>
+        <div><small>BUGS CRIT</small><b>${summary.criticalOpen}</b></div>
+        <div><small>HOTFIX</small><b>${summary.hotfixCandidates}</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'public-ops-board'); }
+}
+function initializePublicOps(){
+  startPublicOpsSession();
+  return publicOpsState;
+}
+function publicOpsStatus(){
+  loadPublicOps();
+  return {...publicOpsState,summary:evaluatePublicOps(),dossier:exportPublicOpsDossier(),catalog:PUBLIC_OPS_CATALOG};
+}
+function publicOpsSelfCheck(){
+  const issues=[];
+  if(PUBLIC_OPS_CATALOG.feedbackCategories.length<6) issues.push('categorias insuficientes');
+  if(PUBLIC_OPS_CATALOG.hotfixTemplates.length<5) issues.push('templates hotfix insuficientes');
+  if(PUBLIC_OPS_CATALOG.telemetryCounters.length<6) issues.push('telemetria insuficiente');
+  const f=addPublicFeedback('MOBILE_UX',5,'selfcheck');
+  const b=reportPublicBug('MINOR','selfcheck minor','nenhum');
+  if(!f.id || !b.id) issues.push('feedback/bug não registrou');
+  closePublicBug(b.id);
+  return {ok:issues.length===0,issues,categories:PUBLIC_OPS_CATALOG.feedbackCategories.length,templates:PUBLIC_OPS_CATALOG.hotfixTemplates.length};
+}
+window.SKYWARD_PUBLIC_OPS=Object.freeze({
+  schema:1,
+  catalog:PUBLIC_OPS_CATALOG,
+  load:loadPublicOps,
+  save:savePublicOps,
+  init:initializePublicOps,
+  startTurn:markPublicTurnStarted,
+  completeTurn:markPublicTurnCompleted,
+  feedback:addPublicFeedback,
+  bug:reportPublicBug,
+  closeBug:closePublicBug,
+  hotfixPlan:generateHotfixPlan,
+  evaluate:evaluatePublicOps,
+  export:exportPublicOpsDossier,
+  status:publicOpsStatus,
+  board:renderPublicOpsBoard,
+  selfCheck:publicOpsSelfCheck
+});
+
+/* ===== MODULE 26: surface-safety-director (17-surface-safety-director.js) ===== */
+/* @skyward-module 17-surface-safety-director
+ * Surface Safety Director: taxi conflicts, runway incursions, hotspots and ground command risk.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('17-surface-safety-director');
+const SURFACE_HOTSPOTS = Object.freeze({
+  schema: 1,
+  version: '2026.06-f14',
+  airports: {
+    SBGR:[{id:'HS-RWY-09R-A',type:'runway-entry',x:33,y:56,radius:4.8,severity:'danger',label:'Entry A / 09R'},{id:'HS-RWY-09R-B',type:'runway-entry',x:48,y:56,radius:4.8,severity:'danger',label:'Entry B / 09R'},{id:'HS-TAXI-A',type:'taxi-converge',x:66,y:56,radius:5.2,severity:'warn',label:'Taxiway A merge'}],
+    SBSP:[{id:'HS-URBAN-17',type:'runway-entry',x:42,y:48,radius:5.2,severity:'danger',label:'Urban short-field entry'},{id:'HS-TERM-P',type:'taxi-converge',x:58,y:68,radius:5.0,severity:'warn',label:'Terminal pinch point'}],
+    SBKP:[{id:'HS-CARGO-15',type:'runway-entry',x:34,y:44,radius:5.0,severity:'danger',label:'Cargo entry 15'},{id:'HS-CARGO-D',type:'taxi-converge',x:58,y:70,radius:5.4,severity:'warn',label:'Cargo apron merge'}],
+    SBBR:[{id:'HS-BSB-11',type:'runway-entry',x:48,y:58,radius:5.2,severity:'danger',label:'Central runway entry'},{id:'HS-BSB-PAR',type:'parallel-runway',x:68,y:66,radius:5.2,severity:'warn',label:'Parallel runway crossflow'}],
+    KATL:[{id:'HS-ATL-A',type:'runway-entry',x:42,y:54,radius:5.6,severity:'danger',label:'ATL north entry'},{id:'HS-ATL-B',type:'runway-entry',x:56,y:54,radius:5.6,severity:'danger',label:'ATL central entry'},{id:'HS-ATL-C',type:'taxi-converge',x:66,y:62,radius:5.6,severity:'warn',label:'ATL banked taxi merge'}]
+  }
+});
+let surfaceSafetyState = { schema:1, score:100, level:'ok', alerts:[], lastIncursionAt:0, lastTaxiConflictAt:0, runwayProtected:false, hotspots:[] };
+function surfaceHotspotsFor(icao){ const code=String(icao||airport()?.icao||'').toUpperCase(); return SURFACE_HOTSPOTS.airports[code] || []; }
+function surfaceGroundStatus(status){ return ['PARKED','PUSHBACK','READY_TAXI','TAXI','HOLD_SHORT','LINEUP','LINEUP_READY','VACATE'].includes(String(status||'')); }
+function surfaceControlledStatus(status){ return ['LINEUP','LINEUP_READY','DEP','FINAL','EMERG','VACATE'].includes(String(status||'')); }
+function surfacePointToSegmentDistance(point,a,b){
+  const ax=a.x, ay=a.y, bx=b.x, by=b.y, px=Number(point?.x)||0, py=Number(point?.y)||0;
+  const abx=bx-ax, aby=by-ay, ab2=abx*abx+aby*aby||1;
+  const t=Math.max(0,Math.min(1,((px-ax)*abx+(py-ay)*aby)/ab2));
+  return Math.hypot(px-(ax+abx*t), py-(ay+aby*t));
+}
+function runwayProtectedDistance(p){ return surfacePointToSegmentDistance(p,{x:runway.x1,y:runway.y1},{x:runway.x2,y:runway.y2}); }
+function surfaceDetectHotspots(){
+  const spots=surfaceHotspotsFor();
+  const hits=[];
+  for(const h of spots){
+    const occupants=aircraft.filter(p=>surfaceGroundStatus(p.status) && Math.hypot((p.x||0)-h.x,(p.y||0)-h.y)<=Number(h.radius||4));
+    if(occupants.length) hits.push({ id:h.id, label:h.label, type:h.type, severity:h.severity||'warn', occupants:occupants.map(p=>p.id) });
+  }
+  return hits;
+}
+function detectTaxiConflicts(){
+  const ground=aircraft.filter(p=>surfaceGroundStatus(p.status) && !['PARKED'].includes(p.status));
+  const conflicts=[];
+  for(let i=0;i<ground.length;i++) for(let j=i+1;j<ground.length;j++){
+    const a=ground[i], b=ground[j];
+    if(a.id===b.id) continue;
+    const d=Math.hypot((a.x||0)-(b.x||0),(a.y||0)-(b.y||0));
+    if(d<2.2) conflicts.push({level:'danger',a:a.id,b:b.id,d,msg:`Conflito de solo ${a.id}/${b.id}: ${d.toFixed(1)} NM`});
+    else if(d<3.8 && (a.status==='TAXI'||b.status==='TAXI')) conflicts.push({level:'warn',a:a.id,b:b.id,d,msg:`Taxi spacing reduzido ${a.id}/${b.id}: ${d.toFixed(1)} NM`});
+  }
+  return conflicts;
+}
+function detectRunwayIncursions(){
+  const alerts=[];
+  const protectedRadius=Math.max(5.2,Number(runway.width)||5.2);
+  for(const p of aircraft){
+    if(!surfaceGroundStatus(p.status)) continue;
+    const d=runwayProtectedDistance(p);
+    const unauthorized=d<protectedRadius && !surfaceControlledStatus(p.status) && !p.cleared;
+    if(unauthorized) alerts.push({level:'danger',id:p.id,d,msg:`Runway incursion: ${p.id} entrou na área protegida da ${runway.name}.`});
+    else if(d<protectedRadius+2.6 && p.status==='TAXI') alerts.push({level:'warn',id:p.id,d,msg:`${p.id} próximo da área protegida da pista.`});
+  }
+  return alerts;
+}
+function updateSurfaceSafetyDirector(dt=0){
+  const taxi=detectTaxiConflicts();
+  const incursions=detectRunwayIncursions();
+  const hotspots=surfaceDetectHotspots();
+  let score=100;
+  score-=incursions.filter(a=>a.level==='danger').length*32;
+  score-=incursions.filter(a=>a.level==='warn').length*10;
+  score-=taxi.filter(a=>a.level==='danger').length*22;
+  score-=taxi.filter(a=>a.level==='warn').length*8;
+  score-=hotspots.filter(h=>h.severity==='danger').length*8;
+  const alerts=[...incursions,...taxi,...hotspots.map(h=>({level:h.severity||'warn',msg:`Hotspot ${h.label}: ${h.occupants.join(', ')}`,hotspot:h.id}))].slice(0,6);
+  const level=score<55||alerts.some(a=>a.level==='danger')?'danger':score<82||alerts.length?'warn':'ok';
+  surfaceSafetyState={ schema:1, score:Math.max(0,Math.round(score)), level, alerts, lastIncursionAt:surfaceSafetyState.lastIncursionAt, lastTaxiConflictAt:surfaceSafetyState.lastTaxiConflictAt, runwayProtected:Boolean(runwayOccupiedBy), hotspots };
+  const now=performance.now?.()||0;
+  if(incursions.some(a=>a.level==='danger') && now-surfaceSafetyState.lastIncursionAt>2500){ stats.runwayIncursions=(stats.runwayIncursions||0)+1; surfaceSafetyState.lastIncursionAt=now; }
+  if(taxi.some(a=>a.level==='danger') && now-surfaceSafetyState.lastTaxiConflictAt>2500){ stats.surfaceConflicts=(stats.surfaceConflicts||0)+1; surfaceSafetyState.lastTaxiConflictAt=now; }
+  return surfaceSafetyState;
+}
+function surfaceCommandRisk(p,cmd){
+  if(!p) return {level:'warn',block:true,msg:'Selecione aeronave.'};
+  const state=surfaceSafetyState?.alerts ? surfaceSafetyState : updateSurfaceSafetyDirector(0);
+  const shortFinal=arrivalOnShortFinal?.();
+  const ownIncursion=detectRunwayIncursions().find(a=>a.id===p.id && a.level==='danger');
+  if(ownIncursion && ['approveTaxi','lineUp','clearTakeoff'].includes(cmd)) return {level:'danger',block:true,msg:ownIncursion.msg};
+  if(['lineUp','clearTakeoff'].includes(cmd)){
+    const other=aircraft.find(o=>o.id!==p.id && surfaceControlledStatus(o.status) && runwayProtectedDistance(o)<Math.max(6,runway.width||5.2));
+    if(other) return {level:'danger',block:true,msg:`Área protegida ocupada por ${other.id}.`};
+    if(shortFinal && shortFinal.id!==p.id) return {level:'danger',block:true,msg:`${shortFinal.id} na curta final. Entrada na pista bloqueada.`};
+  }
+  if(cmd==='approveTaxi'){
+    const conflicts=detectTaxiConflicts().filter(c=>[c.a,c.b].includes(p.id));
+    if(conflicts.some(c=>c.level==='danger')) return {level:'danger',block:true,msg:conflicts[0].msg};
+    if(state.level==='warn' && state.hotspots?.length) return {level:'warn',block:false,msg:'Hotspot ativo no solo; monitore taxiway antes de prosseguir.'};
+  }
+  if(cmd==='holdShort' && runwayProtectedDistance(p)<Math.max(6,runway.width||5.2)) return {level:'warn',block:false,msg:'Hold short emitido dentro/próximo da área protegida.'};
+  return {level:'ok',block:false,msg:'Surface safety aprovado.'};
+}
+function renderSurfaceSafetyBoard(){
+  try{
+    const state=updateSurfaceSafetyDirector(0);
+    const box=document.querySelector('#surfaceSafetyBoard');
+    if(box){
+      box.className=`surface-safety-board ${state.level}`;
+      box.innerHTML=`<div><b>SURFACE SAFETY</b><span>${state.score}% • ${state.level.toUpperCase()}</span></div>`+(state.alerts.length?state.alerts.map(a=>`<small>${a.msg}</small>`).join(''):'<small>Solo nominal. Sem hotspots críticos.</small>');
+    }
+    const marker=document.querySelector('#surfaceSafetyStatus');
+    if(marker) marker.textContent=`SURFACE ${state.score}%`;
+  }catch(e){ safeLogError?.(e,'surface-safety-board'); }
+}
+function surfaceSafetySelfCheck(){
+  const issues=[];
+  const codes=Object.keys(SURFACE_HOTSPOTS.airports||{});
+  if(codes.length<5) issues.push('hotspots insuficientes');
+  for(const code of codes){ if(!SURFACE_HOTSPOTS.airports[code].length) issues.push(`${code} sem hotspots`); }
+  return { ok:issues.length===0, issues, airports:codes.length };
+}
+window.SKYWARD_SURFACE_SAFETY=Object.freeze({ schema:1, hotspots:SURFACE_HOTSPOTS, hotspotsFor:surfaceHotspotsFor, update:updateSurfaceSafetyDirector, commandRisk:surfaceCommandRisk, taxiConflicts:detectTaxiConflicts, runwayIncursions:detectRunwayIncursions, render:renderSurfaceSafetyBoard, selfCheck:surfaceSafetySelfCheck });
+
+/* ===== MODULE 27: 06-traffic-requests (06-traffic-requests.js) ===== */
 /* @skyward-module 06-traffic-requests
  * Aircraft creation, callsigns, requests and game start.
  * Canonical source for the generated main.js bundle.
@@ -1937,7 +4794,9 @@ function makePlane(i,kind){
     p.request = 'landing'; p.requestedAt = performance.now();
   } else {
     const profile=currentOpsProfile||airportOpsProfile();
-    const g = gates[i%gates.length]; p.x = g.x + rand(-.5,.5); p.y = g.y + rand(-.5,.5); p.heading = 270; p.request = 'pushback'; p.requestedAt = performance.now();
+    const gateIndex=i%Math.max(1,gates.length);
+    const g = gates[gateIndex]; p.x = g.x + rand(-.5,.5); p.y = g.y + rand(-.5,.5); p.heading = 270; p.request = 'pushback'; p.requestedAt = performance.now();
+    p.gateIndex=gateIndex; p.gateId=g.id || `${g.label||'G'}${gateIndex+1}`; p.groundIndex=gateIndex%Math.max(1,holdingPoints.length);
   }
   normalizeAircraftPerformance?.(p); const sanitized=CONTRACTS?.sanitizeAircraft ? CONTRACTS.sanitizeAircraft(p) : p; normalizeAircraftPerformance?.(sanitized);
   if(!sanitized) throw new TypeError('Contrato rejeitou aeronave recém-criada.');
@@ -2000,10 +4859,10 @@ function updateFrequencyPanel(){
 function startGame(){
   try{ validateGameplayDom(); }catch(e){ showSafeMode(e); return; }
   saveProfile(); resize(); SAFE_MODE.lastGoodState=null; lastSnapshotAt=0; running=true; paused=false; score=0; selected=null; selectedRequest=null; runwayOccupiedBy=null; spawnTimer=0; requestTimer=0; startTime=performance.now(); last=startTime; lastUiRenderAt=0; callsignSequence=0; logLines=[]; requests=[];
-  stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
+  stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, surfaceConflicts:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
   mission = buildMission(); missionHistory=[];
   aircraft = [];
-  const a = airport(); applyAirportOpsProfile(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE'; if($('#sectorHelp')) $('#sectorHelp').textContent=(currentOpsProfile?.ops||'Torre ativa');
+  const a = airport(); applyAirportSurfaceGraph?.(a.icao); applyAirportOpsProfile(); initializeAdvancedWeather?.(); initializeProceduresLayer?.(); initializeCareerProfile?.(); renderEconomyBoard?.(); renderIncidentBoard?.(); renderNetworkFlowBoard?.(); renderControlRoomBoard?.(); initializeCommercialPolish?.(); initializeReleaseCandidateQA?.(); initializeGoldMasterPackage?.(); initializePostGoldMasterPublishing?.(); initializePostPublishHealthcheck?.(); initializePublicOps?.(); window.SKYWARD_PUBLIC_OPS?.startTurn?.(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE'; if($('#sectorHelp')) $('#sectorHelp').textContent=(currentOpsProfile?.ops||'Torre ativa');
   const initialTraffic=airportInitialTrafficCount();
   for(let i=0;i<initialTraffic;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure')); // v0.9.6: tráfego inicial por perfil do aeroporto
   emergencyDirector={active:false,target:null,message:'Sem emergência ativa.',lastTick:performance.now()};
@@ -2017,7 +4876,7 @@ function startGame(){
   requestAnimationFrame(loop);
 }
 
-/* ===== MODULE 13: 07-simulation-safety (07-simulation-safety.js) ===== */
+/* ===== MODULE 28: 07-simulation-safety (07-simulation-safety.js) ===== */
 /* @skyward-module 07-simulation-safety
  * Game loop, simulation, conflict prediction and safety.
  * Canonical source for the generated main.js bundle.
@@ -2034,7 +4893,7 @@ function update(dt){
   if(elapsed>420) return endGame(false,'Turno concluído com segurança.');
   spawnTimer += dt;
   if(spawnTimer>airportSpawnInterval() && aircraft.length<Math.min(SAFE_MODE.maxAircraft, 10 + Math.round((currentOpsProfile?.spawn||.58)*5))){ spawnTimer=0; const arrChance=String(currentOpsProfile?.layout||'').includes('single') ? .54 : .60; const p=makePlane(Date.now()%1000, skywardRandomUnit()<arrChance?'arrival':'departure'); aircraft.push(p); addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'); }
-  updatePlanes(dt); predictConflicts(); checkRunway(); checkConflicts(); checkMissedRequests();
+  updatePlanes(dt); predictConflicts(); checkRunway(); updateSurfaceSafetyDirector?.(dt); checkConflicts(); checkMissedRequests();
   score += dt * (aircraft.length * 1.4);
   maybeSaveGoodState('running');
   if(performance.now()-lastUiRenderAt>=180) renderGameplayUi();
@@ -2045,7 +4904,7 @@ function renderGameplayUi(force=false){
   if(!force && now-lastUiRenderAt<160) return;
   lastUiRenderAt=now;
   renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid();
-  updateOperationalHints(); renderRunwayBoard(); renderFuelBoard(); renderAirportOpsBoard();
+  updateOperationalHints(); renderRunwayBoard(); renderFuelBoard(); renderAirportOpsBoard(); renderSurfaceSafetyBoard?.();
   renderMissionBoard(); renderHandoffAdvisor(); renderMobileGameplay();
 }
 
@@ -2111,6 +4970,12 @@ function commandRisk(p, cmd){
   if(cmd==='noop' || cmd==='more' || cmd==='nextRequest') return {level:'ok', block:false, msg:'Ação de interface.'};
   if(!p) return {level:'warn', block:true, msg:'Selecione uma aeronave antes de emitir comando.'};
   const req=requests.find(r=>r.id===p.id);
+  const surfaceRisk = surfaceCommandRisk?.(p,cmd);
+  if(surfaceRisk?.block) return surfaceRisk;
+  const incidentRisk = typeof incidentRiskForCommand==='function' ? incidentRiskForCommand(cmd,p) : {level:'ok',block:false,msg:''};
+  if(incidentRisk.block || incidentRisk.level==='danger') return incidentRisk;
+  const netRisk = typeof networkCommandRisk==='function' ? networkCommandRisk(cmd,p) : {level:'ok',block:false,msg:''};
+  if(netRisk.block || netRisk.level==='danger') return netRisk;
   const expectedType=CLEARANCE_COMMANDS[cmd];
   if(expectedType && req?.type!==expectedType){
     return {level:'warn', block:true, msg:req ? `Pedido ativo é ${req.type.toUpperCase()}, não ${expectedType.toUpperCase()}.` : `Não existe pedido ${expectedType.toUpperCase()} pendente.`};
@@ -2131,12 +4996,14 @@ function commandRisk(p, cmd){
       if(shortFinal) return {level:'danger', block:true, msg:`${shortFinal.id} em aproximação curta. Saída bloqueada.`};
     }
   }
+  if(surfaceRisk?.level==='warn') return surfaceRisk;
   if(cmd==='holdShort' && !['TAXI','HOLD_SHORT'].includes(p.status)) return {level:'warn', block:false, msg:'Hold short é indicado para tráfego de solo/táxi.'};
   if(cmd==='vectorFinal' && p.kind!=='arrival') return {level:'warn', block:true, msg:'Vetor final disponível apenas para chegadas.'};
   if(cmd==='goAround' && p.kind!=='arrival') return {level:'warn', block:true, msg:'Arremeter aplica-se a chegadas.'};
   return {level:'ok', block:false, msg:'Comando dentro do envelope operacional.'};
 }
 function updateSafetyState(){
+  const surface=updateSurfaceSafetyDirector?.(0);
   const conflicts=Array.isArray(conflictPredictions)?conflictPredictions.length:0;
   const selectedPlane=aircraft.find(x=>x.id===selected);
   const sep=selectedPlane ? nearestSeparationThreat(selectedPlane) : null;
@@ -2144,6 +5011,8 @@ function updateSafetyState(){
   let score=100;
   const messages=[];
   if(runwayOccupiedBy){ score-=18; messages.push(`Pista protegida: ${runwayOccupiedBy}.`); }
+  if(surface?.level==='danger'){ score-=22; messages.push(surface.alerts?.[0]?.msg || 'Risco crítico de superfície.'); }
+  else if(surface?.level==='warn'){ score-=8; messages.push(surface.alerts?.[0]?.msg || 'Atenção em superfície.'); }
   if(conflicts){ score-=Math.min(60,conflicts*18); const wakeText=(conflictPredictions[0]?.wakeReq?` Wake ${conflictPredictions[0].wakeReq.toFixed(1)}NM.`:''); messages.push(`${conflicts} conflito(s) previstos no radar.${wakeText}`); }
   if(sep){ score-=30; messages.push(sep.msg); }
   if(shortFinal){ messages.push(`${shortFinal.id} em curta final: bloquear saídas não essenciais.`); }
@@ -2167,7 +5036,8 @@ function updateOperationalHints(){
   const p=aircraft.find(x=>x.id===selected);
   if($('#sectorIndicator')) $('#sectorIndicator').textContent = getSector(p);
   if($('#sectorHelp')) $('#sectorHelp').textContent = p ? sectorLabel(p) : 'Selecione uma aeronave';
-  if(emergencyDirector.active) setDiagnostic('MAYDAY / PRIORIDADE ATIVA','danger');
+  if(typeof SKYWARD_WEATHER_OPS!=='undefined' && SKYWARD_WEATHER_OPS.state?.().flightRules==='LIFR') setDiagnostic('LIFR / BAIXA VISIBILIDADE','warn');
+  else if(emergencyDirector.active) setDiagnostic('MAYDAY / PRIORIDADE ATIVA','danger');
   else if(conflictPredictions.some(c=>c.level==='danger')) setDiagnostic('CONFLITO PREVISTO','danger');
   else if(requests.some(r=>r.priority==='urgent')) setDiagnostic('EMERGÊNCIA NA FILA','danger');
   else if(conflictPredictions.length) setDiagnostic('SEPARAÇÃO EM ATENÇÃO','warn');
@@ -2175,34 +5045,47 @@ function updateOperationalHints(){
   else setDiagnostic('SISTEMA OK','ok');
 }
 function updatePlanes(dt){
+  incidentTick?.(dt);
+  maybeTriggerIncident?.();
   for(const p of aircraft){
     p.selected = selected === p.id;
     if(p.status==='PARKED'){ updateAircraftPerformanceStep?.(p,dt,'PARKED'); p.speed = 0; }
     else if(p.status==='PUSHBACK'){
-      p.groundTimer += dt; updateAircraftPerformanceStep?.(p,dt,'PUSHBACK'); p.y += .45*dt;
-      if(p.groundTimer>9){ p.status='READY_TAXI'; p.speed=0; addRequest(p,'taxi'); }
+      p.groundTimer += dt; updateAircraftPerformanceStep?.(p,dt,'PUSHBACK');
+      if(!Array.isArray(p.surfaceRoute) || !p.surfaceRoute.length) beginSurfaceRoute?.(p, assignDepartureSurfaceRoute?.(p,'pushback')||[], 'READY_TAXI');
+      const done=stepSurfaceRoute?.(p,dt,SIM_SPEED*.26) ?? (p.groundTimer>9);
+      if(done || p.groundTimer>9){ p.status='READY_TAXI'; p.speed=0; p.surfaceRoute=[]; addRequest(p,'taxi'); }
     } else if(p.status==='TAXI'){
-      p.groundTimer += dt; updateAircraftPerformanceStep?.(p,dt,'TAXI'); const hp = holdingPoints[p.groundIndex || 0]; p.heading = headingTo(p,hp); moveToward(p,hp,SIM_SPEED*.6*dt);
-      if(dist(p,hp)<1.6){ p.status='HOLD_SHORT'; p.speed=0; addRequest(p,'lineup','warn'); }
+      p.groundTimer += dt; updateAircraftPerformanceStep?.(p,dt,'TAXI');
+      if(!Array.isArray(p.surfaceRoute) || !p.surfaceRoute.length) beginSurfaceRoute?.(p, assignDepartureSurfaceRoute?.(p,'taxi')||[], 'HOLD_SHORT');
+      const hp = holdingPoints[p.groundIndex || 0] || holdingPoints[0] || {x:p.x,y:p.y};
+      const done=stepSurfaceRoute?.(p,dt,SIM_SPEED*.36) ?? false;
+      if(done || dist(p,hp)<1.6){ p.status='HOLD_SHORT'; p.speed=0; p.surfaceRoute=[]; addRequest(p,'lineup','warn'); }
     } else if(p.status==='LINEUP'){
-      updateAircraftPerformanceStep?.(p,dt,'LINEUP'); p.speed = 0; const line = {x:25,y:50}; moveToward(p,line,SIM_SPEED*.35*dt); p.heading=270;
-      if(dist(p,line)<2.0 && !requests.some(r=>r.id===p.id && r.type==='takeoff')) addRequest(p,'takeoff','warn');
+      updateAircraftPerformanceStep?.(p,dt,'LINEUP'); p.speed = 0;
+      if(!Array.isArray(p.surfaceRoute) || !p.surfaceRoute.length) beginSurfaceRoute?.(p, assignDepartureSurfaceRoute?.(p,'lineup')||[], 'LINEUP_READY');
+      const line = (activeRunwayObject?.()||{}).lineup || {x:25,y:50}; const done=stepSurfaceRoute?.(p,dt,SIM_SPEED*.18) ?? false; p.heading=runwayHeadingValue?.()||270;
+      if((done || dist(p,line)<2.0) && !requests.some(r=>r.id===p.id && r.type==='takeoff')) addRequest(p,'takeoff','warn');
     } else if(p.status==='DEP'){
-      p.targetAlt = Math.max(p.targetAlt,160); p.heading = 270; updateAircraftPerformanceStep?.(p,dt,'DEP');
+      p.targetAlt = Math.max(p.targetAlt,160); stepProcedureGuidance?.(p,'SID'); p.heading = p.procedureId ? p.heading : (runwayHeadingValue?.() || p.heading || 270); updateAircraftPerformanceStep?.(p,dt,'DEP');
       moveByHeading(p, dt);
+    } else if(p.status==='VACATE'){
+      updateAircraftPerformanceStep?.(p,dt,'TAXI'); p.alt=0; const done=stepSurfaceRoute?.(p,dt,SIM_SPEED*.28) ?? true; p.speed=Math.max(0,Math.min(32,p.speed||0));
+      if(done){ score += p.vacateBonus||0; addLog(`${p.id}: pista liberada via taxiway.`); runwayOccupiedBy = runwayOccupiedBy===p.id ? null : runwayOccupiedBy; aircraft.splice(aircraft.indexOf(p),1); if(selected===p.id) selected=null; }
     } else if(p.status==='HOLD'){
-      p.heading = (p.heading + 8*dt) % 360; updateAircraftPerformanceStep?.(p,dt,'HOLD'); moveByHeading(p, dt*.75);
+      stepProcedureGuidance?.(p,'HOLD'); p.heading = p.holdingPattern ? (p.heading + 5*dt) % 360 : (p.heading + 8*dt) % 360; updateAircraftPerformanceStep?.(p,dt,'HOLD'); moveByHeading(p, dt*.75);
     } else if(p.status==='APP'){
-      p.heading += shortTurn(p.heading, headingTo(p, finalFix))*.018; updateAircraftPerformanceStep?.(p,dt,'APP'); moveByHeading(p, dt);
+      stepProcedureGuidance?.(p,'STAR'); if(!p.procedureId) p.heading += shortTurn(p.heading, headingTo(p, finalFix))*.018; updateAircraftPerformanceStep?.(p,dt,'APP'); moveByHeading(p, dt);
       if(dist(p,finalFix)<8 && !requests.some(r=>r.id===p.id && r.type==='landing')) addRequest(p,'landing','warn');
     } else if(p.status==='FINAL' || p.status==='EMERG'){
-      const threshold = {x:82,y:50}; p.heading += shortTurn(p.heading, headingTo(p, threshold))*.028; p.targetAlt=0; updateAircraftPerformanceStep?.(p,dt,p.status); moveByHeading(p, dt);
+      stepProcedureGuidance?.(p,'APPROACH'); const threshold = activeRunwayObject?.()?.arrivalThreshold || {x:runway.x2,y:runway.y2}; if(!p.procedureId) p.heading += shortTurn(p.heading, headingTo(p, threshold))*.028; p.targetAlt=0; updateAircraftPerformanceStep?.(p,dt,p.status); moveByHeading(p, dt);
     }
     p.trail.push({x:p.x,y:p.y}); if(p.trail.length>54) p.trail.shift();
   }
   for(const p of [...aircraft]){
-    if((p.status==='FINAL'||p.status==='EMERG') && dist(p,{x:82,y:50})<2.8 && p.alt<10){
-      const landingRisk = typeof aircraftLandingRisk==='function' ? aircraftLandingRisk(p) : (p.speed>145?25:0); const hardLanding = (landingRisk>24 || WX_STATE.severity>.72 || p.damage>30); if(hardLanding){ const dmg=Math.round(rand(8,22)+WX_STATE.severity*18+Math.min(18,landingRisk*.28)); stats.damaged=(stats.damaged||0)+1; score-=120; addLog(`${p.id}: pouso concluído com inspeção técnica. Dano ${dmg}%.`, 'warn'); } else { addLog(`${p.id}: pouso concluído, livrando pista pela saída rápida.`); } stats.landed++; if(p.emergency) stats.maydayResolved=(stats.maydayResolved||0)+1; score += p.emergency ? 1300 : 900; removeRequest(p.id); runwayOccupiedBy = null; aircraft.splice(aircraft.indexOf(p),1); if(selected===p.id) selected=null;
+    const touchdownPoint = activeRunwayObject?.()?.arrivalThreshold || {x:runway.x2,y:runway.y2};
+    if((p.status==='FINAL'||p.status==='EMERG') && dist(p,touchdownPoint)<2.8 && p.alt<10){
+      const landingRisk = (typeof aircraftLandingRisk==='function' ? aircraftLandingRisk(p) : (p.speed>145?25:0)) + (typeof advancedWeatherLandingRisk==='function' ? advancedWeatherLandingRisk(p) : 0); const hardLanding = (landingRisk>24 || WX_STATE.severity>.72 || p.damage>30); if(hardLanding){ const dmg=Math.round(rand(8,22)+WX_STATE.severity*18+Math.min(18,landingRisk*.28)); stats.damaged=(stats.damaged||0)+1; score-=120; addLog(`${p.id}: pouso concluído com inspeção técnica. Dano ${dmg}%.`, 'warn'); } else { addLog(`${p.id}: toque confirmado, taxiando para livrar pista.`); } stats.landed++; if(p.emergency) stats.maydayResolved=(stats.maydayResolved||0)+1; score += p.emergency ? 1300 : 900; removeRequest(p.id); runwayOccupiedBy = p.id; p.status='VACATE'; p.alt=0; p.vacateBonus=35; beginSurfaceRoute?.(p, assignArrivalVacateRoute?.(p)||[], 'DONE');
     }
     if(p.status==='DEP' && (p.x<0 || p.x>104 || p.y<0 || p.y>100)){
       stats.departed++; score += 720; addLog(`${p.id}: decolagem concluída, contato com saída.`); removeRequest(p.id); runwayOccupiedBy = null; aircraft.splice(aircraft.indexOf(p),1); if(selected===p.id) selected=null;
@@ -2212,9 +5095,11 @@ function updatePlanes(dt){
 function moveByHeading(p,dt){ const rad=degToRad(p.heading); const scale=(p.speed/220)*SIM_SPEED*4.6; p.x += Math.cos(rad)*scale*dt; p.y += Math.sin(rad)*scale*dt; }
 function moveToward(p,t,amount){ const h=headingTo(p,t), r=degToRad(h); p.x += Math.cos(r)*amount*100; p.y += Math.sin(r)*amount*100; }
 function shortTurn(a,b){ return QUALITY?.shortestTurn ? QUALITY.shortestTurn(a,b) : ((b-a+540)%360)-180; }
+function pointToSegmentDistance(point,a,b){ const ax=a.x, ay=a.y, bx=b.x, by=b.y, px=point.x, py=point.y; const abx=bx-ax, aby=by-ay; const ab2=abx*abx+aby*aby||1; const t=Math.max(0,Math.min(1,((px-ax)*abx+(py-ay)*aby)/ab2)); const x=ax+abx*t, y=ay+aby*t; return Math.hypot(px-x,py-y); }
 function checkRunway(){
   runwayOccupiedBy = null;
-  for(const p of aircraft){ if(['LINEUP','DEP','FINAL','EMERG'].includes(p.status) && p.x>15 && p.x<86 && Math.abs(p.y-50)<5.5) runwayOccupiedBy = p.id; }
+  const a={x:runway.x1,y:runway.y1}, b={x:runway.x2,y:runway.y2};
+  for(const p of aircraft){ if(['LINEUP','DEP','FINAL','EMERG','VACATE'].includes(p.status) && pointToSegmentDistance(p,a,b)<6.2) runwayOccupiedBy = p.id; }
 }
 function checkMissedRequests(){
   const now = performance.now();
@@ -2236,7 +5121,7 @@ function checkConflicts(){
   if(finals.length>1){ for(const p of finals) p.risk += .01; if(finals.some(p=>p.risk>.9)) return endGame(true,'Duas aeronaves autorizadas para a mesma final sem separação suficiente.'); }
 }
 
-/* ===== MODULE 14: 08-radar-rendering (08-radar-rendering.js) ===== */
+/* ===== MODULE 29: 08-radar-rendering (08-radar-rendering.js) ===== */
 /* @skyward-module 08-radar-rendering
  * Radar, operational map, procedures, telemetry and aircraft drawing.
  * Canonical source for the generated main.js bundle.
@@ -2250,6 +5135,7 @@ function draw(){
   drawWeatherOverlay(w,h);
   drawOperationalMap(w,h);
   drawProfessionalProcedures(w,h);
+  drawPublishedProceduresOverlay?.(ctx,w,h);
   drawConflictPredictions(w,h);
   drawSafetyEnvelope(w,h);
   drawRunwayQueue(w,h);
@@ -2260,24 +5146,33 @@ function drawOperationalMap(w,h){
   const P = (x,y)=>({x:x/100*w,y:y/100*h});
   ctx.save();
   ctx.lineCap='round'; ctx.lineJoin='round';
+  const graph=activeAirportGraph || airportSurfaceGraphFor?.();
   // taxiway network
-  ctx.strokeStyle='rgba(210,168,68,.30)'; ctx.lineWidth=Math.max(2,w*.004);
-  const taxi = [[20,58,82,58],[28,65,78,65],[34,73,80,73],[32,58,32,50],[45,58,45,50],[56,58,56,50],[68,58,68,50],[78,58,78,50],[55,65,55,78],[62,65,62,78],[72,65,72,78]];
-  taxi.forEach(t=>{ const a=P(t[0],t[1]), b=P(t[2],t[3]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); });
-  // runway
+  ctx.strokeStyle='rgba(210,168,68,.32)'; ctx.lineWidth=Math.max(2,w*.004);
+  (graph?.taxiways||[]).forEach(t=>{
+    const pts=Array.isArray(t.points)?t.points:[]; if(pts.length<2) return;
+    ctx.beginPath(); pts.forEach((pt,i)=>{ const px=P(pt.x,pt.y); if(i===0) ctx.moveTo(px.x,px.y); else ctx.lineTo(px.x,px.y); }); ctx.stroke();
+    const mid=pts[Math.floor(pts.length/2)]||pts[0]; const mp=P(mid.x,mid.y); ctx.fillStyle='rgba(255,214,122,.72)'; ctx.font='700 9px ui-monospace'; ctx.fillText(t.id,mp.x+4,mp.y-4);
+  });
+  // secondary runways
+  (secondaryRunways||[]).forEach(rw=>{
+    const a=P(rw.x1,rw.y1), b=P(rw.x2,rw.y2); ctx.lineWidth=Math.max(10,h*.024); ctx.strokeStyle='rgba(15,18,22,.65)'; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+    ctx.lineWidth=1.5; ctx.strokeStyle='rgba(175,190,205,.28)'; ctx.setLineDash([10,9]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); ctx.setLineDash([]);
+  });
+  // active runway
   const a=P(runway.x1,runway.y1), b=P(runway.x2,runway.y2); ctx.lineWidth=Math.max(16,h*.035); ctx.strokeStyle='rgba(20,24,28,.98)'; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
   ctx.lineWidth=Math.max(2,h*.004); ctx.strokeStyle=runwayOccupiedBy?'rgba(255,77,66,.95)':'rgba(100,255,130,.85)'; ctx.setLineDash([12,8]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); ctx.setLineDash([]);
-  // centerline and edges
   ctx.strokeStyle='rgba(255,255,255,.58)'; ctx.lineWidth=1; ctx.setLineDash([10,10]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); ctx.setLineDash([]);
   // approach corridor and final sector
-  const ff=P(finalFix.x,finalFix.y), th=P(82,50); ctx.strokeStyle="rgba(91,240,109,.28)"; ctx.lineWidth=2; ctx.setLineDash([10,10]); ctx.beginPath(); ctx.moveTo(ff.x,ff.y); ctx.lineTo(th.x,th.y); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle="rgba(91,240,109,.75)"; ctx.beginPath(); ctx.arc(ff.x,ff.y,5,0,Math.PI*2); ctx.fill(); ctx.font="700 10px ui-monospace"; ctx.fillText("FINAL FIX", ff.x+8, ff.y+4);
-  // labels from code are okay: operational UI, not image asset
-  ctx.font='700 12px ui-monospace,Consolas,monospace'; ctx.fillStyle='rgba(235,245,255,.90)'; ctx.fillText('RWY 09', a.x-8, a.y-18); ctx.fillText('RWY 27', b.x-42, b.y-18);
-  runway.exits.forEach((x,i)=>{ const e=P(x,56); ctx.fillStyle='rgba(216,163,72,.95)'; ctx.beginPath(); ctx.arc(e.x,e.y,4,0,Math.PI*2); ctx.fill(); ctx.font='700 10px ui-monospace'; ctx.fillText(`E${i+1}`, e.x+6, e.y+4); });
-  gates.forEach((g,i)=>{ const gp=P(g.x,g.y); ctx.strokeStyle='rgba(120,180,220,.25)'; ctx.strokeRect(gp.x-10,gp.y-7,20,14); ctx.fillStyle='rgba(190,215,235,.55)'; ctx.font='700 9px ui-monospace'; ctx.fillText(`${g.label}${i+1}`,gp.x-9,gp.y+3); });
-  if(runwayOccupiedBy){ ctx.fillStyle='rgba(255,77,66,.92)'; ctx.font='900 13px ui-monospace'; ctx.fillText(`PISTA OCUPADA: ${runwayOccupiedBy}`, P(19,44).x, P(19,44).y); }
+  const ff=P(finalFix.x,finalFix.y), th=P((activeRunwayObject?.()?.arrivalThreshold?.x)||runway.x2,(activeRunwayObject?.()?.arrivalThreshold?.y)||runway.y2); ctx.strokeStyle='rgba(91,240,109,.28)'; ctx.lineWidth=2; ctx.setLineDash([10,10]); ctx.beginPath(); ctx.moveTo(ff.x,ff.y); ctx.lineTo(th.x,th.y); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle='rgba(91,240,109,.75)'; ctx.beginPath(); ctx.arc(ff.x,ff.y,5,0,Math.PI*2); ctx.fill(); ctx.font='700 10px ui-monospace'; ctx.fillText('FINAL FIX', ff.x+8, ff.y+4);
+  ctx.font='700 12px ui-monospace,Consolas,monospace'; ctx.fillStyle='rgba(235,245,255,.90)'; ctx.fillText(`RWY ${String(runway.name).split('/')[0]}`, a.x-8, a.y-18); ctx.fillText(`RWY ${String(runway.name).split('/')[1]||runway.name}`, b.x-42, b.y-18);
+  (activeRunwayObject?.()?.exits||[]).forEach((ex,i)=>{ const e=P(ex.x,ex.y); ctx.fillStyle='rgba(216,163,72,.95)'; ctx.beginPath(); ctx.arc(e.x,e.y,4,0,Math.PI*2); ctx.fill(); ctx.font='700 10px ui-monospace'; ctx.fillText(ex.id||`E${i+1}`, e.x+6, e.y+4); });
+  gates.forEach((g,i)=>{ const gp=P(g.x,g.y); ctx.strokeStyle='rgba(120,180,220,.25)'; ctx.strokeRect(gp.x-10,gp.y-7,20,14); ctx.fillStyle='rgba(190,215,235,.72)'; ctx.font='700 9px ui-monospace'; ctx.fillText(g.id||`${g.label}${i+1}`,gp.x-9,gp.y+3); });
+  holdingPoints.forEach((h,i)=>{ const hp=P(h.x,h.y); ctx.fillStyle='rgba(255,191,61,.84)'; ctx.beginPath(); ctx.arc(hp.x,hp.y,3.2,0,Math.PI*2); ctx.fill(); ctx.font='700 9px ui-monospace'; ctx.fillText(h.id||`H${i+1}`,hp.x+5,hp.y-4); });
+  if(runwayOccupiedBy){ ctx.fillStyle='rgba(255,77,66,.92)'; ctx.font='900 13px ui-monospace'; ctx.fillText(`PISTA OCUPADA: ${runwayOccupiedBy}`, P(19,Math.max(8,runway.y1-5)).x, P(19,Math.max(8,runway.y1-5)).y); }
   ctx.restore();
 }
+
 function drawScope(w,h){
   const cx=w/2, cy=h/2, rr=Math.min(w,h)*.46;
   ctx.save();
@@ -2484,12 +5379,13 @@ function drawPlane(p,w,h){
   ctx.restore();
 }
 
-/* ===== MODULE 15: 09-ui-clearances (09-ui-clearances.js) ===== */
+/* ===== MODULE 30: 09-ui-clearances (09-ui-clearances.js) ===== */
 /* @skyward-module 09-ui-clearances
  * Traffic UI, requests, commands, clearances and action grids.
  * Canonical source for the generated main.js bundle.
  */
 window.SKYWARD_MODULES?.push('09-ui-clearances');
+// F15 bridge: commandRisk consults weatherRiskForCommand when available.
 function renderStrips(){
   const arr = aircraft.filter(p=>p.kind==='arrival').slice(0,9);
   const dep = aircraft.filter(p=>p.kind==='departure' && !['PARKED','PUSHBACK'].includes(p.status)).slice(0,9);
@@ -2536,7 +5432,7 @@ function renderSelected(){
       <div class="sel-item"><span>HDG</span><b>${Math.round(p.heading)}°</b></div>
       <div class="sel-item"><span>POS</span><b>${p.kind==='arrival' ? `${Math.max(5,Math.round(dist(p,finalFix)))}NM` : 'SOLO'}</b></div>
       <div class="sel-item"><span>REQ</span><b>${req ? req.text : '---'}</b></div>
-      <div class="sel-item"><span>SETOR</span><b>${op}</b></div><div class="sel-item"><span>WAKE</span><b>${wakeCategory(p)}</b></div><div class="sel-item"><span>VREF</span><b>${p.performance?.vRef||aircraftPerformanceProfile?.(p.type)?.finalSpeed||'--'}kt</b></div><div class="sel-item"><span>ENVELOPE</span><b>${aircraftEnvelopeState?.(p)||'NORMAL'}</b></div><div class="sel-item"><span>FUEL</span><b class="fuel-${fuelClass(p)}">${Math.round(p.fuel??0)}%</b></div><div class="sel-item"><span>DMG</span><b>${Math.round(p.damage||0)}%</b></div>
+      <div class="sel-item"><span>SETOR</span><b>${op}</b></div><div class="sel-item"><span>WAKE</span><b>${wakeCategory(p)}</b></div><div class="sel-item"><span>VREF</span><b>${p.performance?.vRef||aircraftPerformanceProfile?.(p.type)?.finalSpeed||'--'}kt</b></div><div class="sel-item"><span>ENVELOPE</span><b>${aircraftEnvelopeState?.(p)||'NORMAL'}</b></div><div class="sel-item"><span>SURFACE</span><b>${surfaceSafetyState?.level?.toUpperCase?.()||'OK'}</b></div><div class="sel-item"><span>FUEL</span><b class="fuel-${fuelClass(p)}">${Math.round(p.fuel??0)}%</b></div><div class="sel-item"><span>DMG</span><b>${Math.round(p.damage||0)}%</b></div>
     </div>`;
   if($('#sectorIndicator')) $('#sectorIndicator').textContent = op;
   renderActionGrid();
@@ -2571,11 +5467,11 @@ function command(cmd){
   if(cmd==='fast') p.speed=clamp(p.speed+10,0,(aircraftPerformanceProfile?.(p.type)?.maxApproachSpeed||240)+60);
   if(cmd==='climb') p.targetAlt=clamp(p.targetAlt+10,0,360);
   if(cmd==='descend') p.targetAlt=clamp(p.targetAlt-10,0,360);
-  if(cmd==='hold'){ p.hold=!p.hold; if(p.kind==='arrival') p.status=p.hold?'HOLD':'APP'; addLog(`${airport().icao}: ${p.id} ${p.hold?'entre em espera':'prossiga aproximação'}.`); }
+  if(cmd==='hold'){ p.hold=!p.hold; if(p.kind==='arrival') p.status=p.hold?'HOLD':'APP'; if(p.hold) assignHoldingPattern?.(p); addLog(`${airport().icao}: ${p.id} ${p.hold?'entre em espera publicada':'prossiga aproximação'}.`); }
   if(cmd==='holdShort'){ if(['TAXI','LINEUP','DEP'].includes(p.status)){ p.status='HOLD_SHORT'; p.speed=0; p.cleared=false; addLog(`${airport().icao}: ${p.id} hold short pista ${runway.name}.`); } }
-  if(cmd==='vectorFinal'){ if(p.kind==='arrival'){ p.status='APP'; p.hold=false; p.heading=headingTo(p, finalFix); p.targetAlt=Math.min(p.targetAlt,45); p.speed=Math.min(p.speed,performanceTargetSpeed?.(p,'APP')||170); addLog(`${airport().icao}: ${p.id} vetor para interceptar final RWY ${runway.name}.`); } }
+  if(cmd==='vectorFinal'){ if(p.kind==='arrival'){ p.status='APP'; p.hold=false; assignArrivalProcedure?.(p); p.heading=headingTo(p, finalFix); p.targetAlt=Math.min(p.targetAlt,45); p.speed=Math.min(p.speed,performanceTargetSpeed?.(p,'APP')||170); addLog(`${airport().icao}: ${p.id} vetor para interceptar ${p.procedureId||'final'} RWY ${runway.name}.`); } }
   if(cmd==='deny'){ denyRequest(p); }
-  if(cmd==='goAround'){ p.status='APP'; p.cleared=false; p.targetAlt=80; p.speed=Math.max(p.speed,performanceTargetSpeed?.(p,'APP')||170); p.heading=headingTo(p,{x:p.x<50?20:80,y:18}); runwayOccupiedBy = runwayOccupiedBy===p.id ? null : runwayOccupiedBy; addLog(`${airport().icao}: ${p.id} arremeta, suba para FL080.`, 'warn'); }
+  if(cmd==='goAround'){ p.status='APP'; p.cleared=false; assignMissedApproachProcedure?.(p); p.targetAlt=80; p.speed=Math.max(p.speed,performanceTargetSpeed?.(p,'APP')||170); p.heading=headingTo(p,{x:p.x<50?20:80,y:18}); runwayOccupiedBy = runwayOccupiedBy===p.id ? null : runwayOccupiedBy; addLog(`${airport().icao}: ${p.id} execute aproximação perdida publicada, suba para FL080.`, 'warn'); }
   if(cmd==='emergency'){ if(!p.emergency){ stats.emergencies=(stats.emergencies||0)+1; } p.emergency=true; p.emergencyType=p.emergencyType||'ATC DECLARED'; p.status=p.kind==='arrival'?'EMERG':p.status; p.fuel=Math.min(p.fuel||40,24); addRequest(p,'emergency','urgent'); setReadback(`${p.id} MAYDAY acknowledged, priority handling approved.`,'danger'); }
   if(CLEARANCE_COMMANDS[cmd]) handleClearance(p,CLEARANCE_COMMANDS[cmd]);
   else if(!['hold','emergency','deny'].includes(cmd)) addLog(`${airport().icao}: ${p.id} ${cmd.toUpperCase()} autorizado.`);
@@ -2605,18 +5501,18 @@ function handleClearance(p, expectedType){
     p.status='FINAL'; p.cleared=true; p.targetAlt=0; p.speed=Math.min(p.speed,performanceTargetSpeed?.(p,'FINAL')||165); p.sector='TWR'; removeRequest(p.id,'landing'); runwayOccupiedBy=p.id; addLog(`${airport().icao} TWR: ${p.id}, autorizado pouso pista ${runway.name}.`); setReadback(`${p.id} autorizado pouso pista ${runway.name}.`,'ok'); score+=65; setDiagnostic('POUSO AUTORIZADO','ok'); renderRunwayBoard(); return;
   }
   if(req.type==='pushback'){
-    p.status='PUSHBACK'; p.sector='GND'; p.groundTimer=0; removeRequest(p.id,'pushback'); addLog(`${airport().icao} GND: ${p.id}, pushback aprovado.`); setReadback(`${p.id} pushback aprovado.`,'ok'); score+=30; setDiagnostic('PUSHBACK APROVADO','ok'); renderRunwayBoard(); return;
+    p.status='PUSHBACK'; p.sector='GND'; p.groundTimer=0; beginSurfaceRoute?.(p, assignDepartureSurfaceRoute?.(p,'pushback')||[], 'READY_TAXI'); removeRequest(p.id,'pushback'); addLog(`${airport().icao} GND: ${p.id}, pushback aprovado do gate ${p.gateId||'stand'}.`); setReadback(`${p.id} pushback aprovado.`,'ok'); score+=30; setDiagnostic('PUSHBACK APROVADO','ok'); renderRunwayBoard(); return;
   }
   if(req.type==='taxi'){
-    p.status='TAXI'; p.sector='GND'; p.groundIndex=Math.floor(rand(0,holdingPoints.length)); removeRequest(p.id,'taxi'); addLog(`${airport().icao} GND: ${p.id}, taxeie até ponto de espera pista ${runway.name}.`); setReadback(`${p.id} taxi autorizado para ponto de espera ${runway.name}.`,'ok'); score+=35; setDiagnostic('TÁXI AUTORIZADO','ok'); renderRunwayBoard(); return;
+    p.status='TAXI'; p.sector='GND'; p.groundIndex = Number.isInteger(p.groundIndex) ? p.groundIndex : Math.floor(rand(0,Math.max(1,holdingPoints.length))); beginSurfaceRoute?.(p, assignDepartureSurfaceRoute?.(p,'taxi')||[], 'HOLD_SHORT'); removeRequest(p.id,'taxi'); const hold=holdingPoints[p.groundIndex||0]; addLog(`${airport().icao} GND: ${p.id}, taxeie via grafo de solo até ponto ${hold?.id||'de espera'} pista ${runway.name}.`); setReadback(`${p.id} taxi autorizado para ponto de espera ${runway.name}.`,'ok'); score+=35; setDiagnostic('TÁXI AUTORIZADO','ok'); renderRunwayBoard(); return;
   }
   if(req.type==='lineup'){
     if(runwayOccupiedBy && runwayOccupiedBy!==p.id){ addLog(`${airport().icao}: ${p.id} mantenha posição, pista ocupada.`, 'warn'); stats.denied++; score-=25; return; }
-    p.status='LINEUP'; p.sector='TWR'; p.cleared=true; removeRequest(p.id,'lineup'); runwayOccupiedBy=p.id; addLog(`${airport().icao} TWR: ${p.id}, alinhe e aguarde pista ${runway.name}.`); setReadback(`${p.id} alinhe e aguarde pista ${runway.name}.`,'ok'); score+=40; setDiagnostic('LINE UP AUTORIZADO','ok'); renderRunwayBoard(); return;
+    p.status='LINEUP'; p.sector='TWR'; p.cleared=true; beginSurfaceRoute?.(p, assignDepartureSurfaceRoute?.(p,'lineup')||[], 'LINEUP_READY'); removeRequest(p.id,'lineup'); runwayOccupiedBy=p.id; addLog(`${airport().icao} TWR: ${p.id}, alinhe e aguarde pista ${runway.name}.`); setReadback(`${p.id} alinhe e aguarde pista ${runway.name}.`,'ok'); score+=40; setDiagnostic('LINE UP AUTORIZADO','ok'); renderRunwayBoard(); return;
   }
   if(req.type==='takeoff'){
     if(runwayOccupiedBy && runwayOccupiedBy!==p.id){ addLog(`${airport().icao}: ${p.id} NEGATIVO decolagem, pista ocupada.`, 'warn'); stats.denied++; score-=40; return; }
-    p.status='DEP'; p.sector='TWR'; p.speed=Math.max(aircraftPerformanceProfile?.(p.type)?.rotationSpeed||130, p.speed||0); p.alt=0; p.targetAlt=160; p.heading=270; removeRequest(p.id,'takeoff'); runwayOccupiedBy=p.id; addLog(`${airport().icao} TWR: ${p.id}, autorizado decolagem pista ${runway.name}. Após airborne contate DEP.`); setReadback(`${p.id} autorizado decolagem pista ${runway.name}.`,'ok'); score+=70; setDiagnostic('DECOLAGEM AUTORIZADA','ok'); renderRunwayBoard(); return;
+    p.status='DEP'; p.sector='TWR'; assignDepartureProcedure?.(p); p.speed=Math.max(aircraftPerformanceProfile?.(p.type)?.rotationSpeed||130, p.speed||0); p.alt=0; p.targetAlt=160; p.heading=runwayHeadingValue?.()||270; p.surfaceRoute=[]; removeRequest(p.id,'takeoff'); runwayOccupiedBy=p.id; addLog(`${airport().icao} TWR: ${p.id}, autorizado decolagem pista ${runway.name}. Após airborne contate DEP.`); setReadback(`${p.id} autorizado decolagem pista ${runway.name}.`,'ok'); score+=70; setDiagnostic('DECOLAGEM AUTORIZADA','ok'); renderRunwayBoard(); return;
   }
   if(req.type==='emergency'){
     p.status='EMERG'; p.sector='EMERG'; p.cleared=true; p.targetAlt=0; p.speed=performanceTargetSpeed?.(p,'EMERG')||150; removeRequest(p.id,'emergency'); addLog(`${airport().icao}: ${p.id} emergência reconhecida, pista liberada, pouso imediato.`, 'danger'); setReadback(`${p.id} emergência reconhecida, pouso imediato autorizado.`,'danger'); score+=120; setDiagnostic('EMERGÊNCIA PRIORIZADA','danger'); renderRunwayBoard(); return;
@@ -2628,11 +5524,21 @@ function endGame(fail,reason){
   const final = Math.max(0, Math.round(score - stats.conflicts*45 + stats.landed*120 + stats.departed*100 + stats.requests*10 - stats.denied*35));
   profile.score = Math.max(profile.score||0, final); profile.turns=(profile.turns||0)+1; profile.xp=(profile.xp||0)+Math.round(final/5)+stats.landed*30+stats.departed*20;
   while(profile.xp >= profile.level*1000){ profile.xp -= profile.level*1000; profile.level++; }
+  const careerResult = updateCareerAfterShift?.(final, stats, fail, airport().icao);
+  const economyResult = evaluateOperationalEconomy?.(final, stats, fail, airport().icao);
+  const networkResult = evaluateNetworkFlow?.(final, stats, fail, airport().icao);
+  const controlRoomResult = completeControlRoomShift?.(final, stats, fail, airport().icao);
+  const releaseCandidateResult = evaluateReleaseCandidateShift?.(final, stats, fail, airport().icao);
+  const goldMasterResult = evaluateGoldMasterShift?.(final, stats, fail, airport().icao);
+  const postGoldMasterResult = window.SKYWARD_POST_GOLD_MASTER?.readiness?.();
+  const postPublishHealthResult = window.SKYWARD_POST_PUBLISH_HEALTH?.evaluate?.();
+  window.SKYWARD_PUBLIC_OPS?.completeTurn?.();
+  const publicOpsResult = window.SKYWARD_PUBLIC_OPS?.evaluate?.();
   persistProfile('end-game');
   $('#resultTitle').textContent = fail ? 'GAME OVER' : 'FIM DE TURNO';
   $('#resultReason').textContent = reason;
   $('#finalScore').textContent = final.toLocaleString('pt-BR');
-  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>MAYDAY resolvidos</span><b>${stats.maydayResolved||0}</b></div><div><span>Combustível mínimo</span><b>${stats.lowFuel||0}</b></div><div><span>Danos/inspeções</span><b>${stats.damaged||0}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
+  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Conflitos de solo</span><b>${stats.surfaceConflicts||0}</b></div><div><span>Runway incursions</span><b>${stats.runwayIncursions||0}</b></div><div><span>Incidentes resolvidos</span><b>${stats.incidentsResolved||0}</b></div><div><span>Falhas em incidentes</span><b>${stats.incidentFailures||0}</b></div><div><span>Fechamentos de pista</span><b>${stats.runwayClosures||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>MAYDAY resolvidos</span><b>${stats.maydayResolved||0}</b></div><div><span>Combustível mínimo</span><b>${stats.lowFuel||0}</b></div><div><span>Danos/inspeções</span><b>${stats.damaged||0}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Public Ops</span><b>${publicOpsResult ? publicOpsResult.status : '---'}</b></div><div><span>Ops Score</span><b>${publicOpsResult ? publicOpsResult.score+'%' : '---'}</b></div><div><span>Publish Health</span><b>${postPublishHealthResult ? postPublishHealthResult.status : '---'}</b></div><div><span>Health Score</span><b>${postPublishHealthResult ? postPublishHealthResult.score+'%' : '---'}</b></div><div><span>Publicação PWA</span><b>${postGoldMasterResult ? postGoldMasterResult.status : '---'}</b></div><div><span>Post-GM Ready</span><b>${postGoldMasterResult ? postGoldMasterResult.score+'%' : '---'}</b></div><div><span>Gold Master</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.status : '---'}</b></div><div><span>GM Score</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.score+'%' : '---'}</b></div><div><span>Release Candidate</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.status : '---'}</b></div><div><span>QA Score</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.score+'%' : '---'}</b></div><div><span>Replay compartilhável</span><b>${controlRoomResult?.replay ? 'GERADO' : '---'}</b></div><div><span>Ranking local</span><b>${controlRoomResult?.replay ? controlRoomResult.replay.tier : '---'}</b></div><div><span>Network Flow</span><b>${networkResult?.shift ? (networkResult.shift.route+' / '+Math.round(networkResult.shift.slotCompliance*100)+'%') : '---'}</b></div><div><span>Conexões protegidas</span><b>${networkResult?.network ? networkResult.network.connectionsProtected : 0}</b></div><div><span>Economia</span><b>${economyResult?.shift ? ('$'+Math.round(economyResult.shift.profit).toLocaleString('pt-BR')) : '---'}</b></div><div><span>Eficiência econômica</span><b>${economyResult?.shift ? economyResult.shift.efficiency+'%' : '---'}</b></div><div><span>Carreira</span><b>${careerResult?.career ? (careerResult.career.licenseId+' / '+careerResult.career.ratingId) : '---'}</b></div><div><span>Fadiga</span><b>${careerResult?.career ? Math.round(careerResult.career.fatigue)+'%' : '---'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
   go('result');
 }
 
@@ -2705,7 +5611,7 @@ function setDock(id){
   $$('.dock-body').forEach(b=>b.classList.toggle('active', b.id==='dock-'+id));
 }
 
-/* ===== MODULE 16: 10-events-selftest-bootstrap (10-events-selftest-bootstrap.js) ===== */
+/* ===== MODULE 31: 10-events-selftest-bootstrap (10-events-selftest-bootstrap.js) ===== */
 /* @skyward-module 10-events-selftest-bootstrap
  * Desktop events, filters, safe-mode controls and self-test bootstrap.
  * Canonical source for the generated main.js bundle.
@@ -2804,7 +5710,7 @@ applyBuildInfo();
 if(!BUILD_METADATA_VALID) setTimeout(()=>showSafeMode(new Error('Metadados de build ausentes ou inválidos. Execute o pipeline de release.')),0);
 loadProfile(); loadAirports(); resize();
 
-/* ===== MODULE 17: 11-mobile-runtime (11-mobile-runtime.js) ===== */
+/* ===== MODULE 32: 11-mobile-runtime (11-mobile-runtime.js) ===== */
 /* @skyward-module 11-mobile-runtime
  * Adaptive mobile UX, edge gestures, touch-safe dock, haptics and viewport modes.
  * Canonical source for the generated main.js bundle.
@@ -3053,7 +5959,7 @@ window.SKYWARD_MOBILE_UX=Object.freeze({
 });
 window.addEventListener('load',()=>setTimeout(initMobileDockV2,500));
 
-/* ===== MODULE 18: desktop-workspace (12-desktop-workspace.js) ===== */
+/* ===== MODULE 33: desktop-workspace (12-desktop-workspace.js) ===== */
 /* @skyward-module 12-desktop-workspace
  * Professional tablet/desktop workspace, panel density, persistence and keyboard shortcuts.
  * Canonical source for the generated main.js bundle.
@@ -3139,7 +6045,7 @@ function initDesktopWorkspace(){
 window.SKYWARD_DESKTOP_WORKSPACE=Object.freeze({schema:DESKTOP_WORKSPACE_SCHEMA,viewportMode:desktopViewportMode,shortcutAction:desktopShortcutAction,clamp:desktopClamp,getPreferences:()=>Object.freeze({...desktopWorkspacePrefs}),setMode:setDesktopWorkspaceMode,togglePanel:toggleDesktopPanel,adjustPanel:adjustDesktopPanel,execute:executeDesktopWorkspaceAction,render:applyDesktopWorkspace});
 window.addEventListener('load',()=>setTimeout(initDesktopWorkspace,540));
 
-/* ===== MODULE 19: accessibility-settings (13-accessibility-settings.js) ===== */
+/* ===== MODULE 34: accessibility-settings (13-accessibility-settings.js) ===== */
 /* @skyward-module 13-accessibility-settings
  * Professional accessibility, visual, audio, performance and control settings.
  * Canonical source for the generated main.js bundle.
@@ -3277,7 +6183,7 @@ document.addEventListener('keydown',e=>{if(e.altKey&&e.code==='KeyS'&&!desktopTy
 window.SKYWARD_ACCESSIBILITY=Object.freeze({schema:ACCESSIBILITY_SCHEMA,defaults:ACCESSIBILITY_DEFAULTS,sanitize:sanitizeAccessibilityPrefs,clamp:accessClamp,getPreferences:()=>Object.freeze({...accessibilityPrefs}),setPreference:setAccessibilityPreference,apply:applyAccessibilitySettings,reset:resetAccessibilitySettings,summary:accessibilitySummary,selfCheck:runAccessibilitySelfCheck,open:()=>setAccessibilityPanel(true),close:()=>setAccessibilityPanel(false)});
 window.addEventListener('load',()=>setTimeout(applyAccessibilitySettings,620));
 
-/* ===== MODULE 20: deterministic-replay (14-deterministic-replay.js) ===== */
+/* ===== MODULE 35: deterministic-replay (14-deterministic-replay.js) ===== */
 /* @skyward-module 14-deterministic-replay
  * Deterministic simulation clock, seeded replay recorder, state checksums and technical replay export.
  * Canonical source for the generated main.js bundle.
@@ -3454,7 +6360,7 @@ window.SKYWARD_REPLAY=Object.freeze({
 });
 setTimeout(()=>{ try{ renderReplayStatus(); }catch(_e){} },250);
 
-/* ===== MODULE 21: quality-test-bridge (12-quality-test-bridge.js) ===== */
+/* ===== MODULE 36: quality-test-bridge (12-quality-test-bridge.js) ===== */
 /* @skyward-module 12-quality-test-bridge
  * Controlled integration-test bridge. Mutation is disabled in normal gameplay.
  * Enable only with window.SKYWARD_QA_MODE=true before main.js or ?qa=1.

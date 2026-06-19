@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase22-unit",
+  "build": "SC-1.22.0-F22-20260619-1212",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F22+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.22.0\",\"phase\":\"F22\",\"phaseName\":\"Polimento Comercial Mobile AAA, HUD Responsivo, Onboarding, Menus Profissionais e Acessibilidade Visual\",\"channel\":\"alpha\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.22.0-F22-20260619-1212\",\"builtAt\":\"2026-06-19 12:12 BRT\",\"builtAtIso\":\"2026-06-19T12:12:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1}"
+    },
+    {
+      "name": "módulo F22 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo layouts onboarding acessibilidade",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"layouts\":4,\"steps\":5}"
+    },
+    {
+      "name": "layout mobile landscape correto",
+      "ok": true,
+      "detail": "{\"id\":\"MOBILE_LANDSCAPE_COMPACT\",\"name\":\"Mobile landscape compact\",\"minWidth\":700,\"maxHeight\":500,\"columns\":2,\"density\":\"compact\",\"priority\":[\"radar\",\"commands\",\"alerts\",\"traffic\"]}"
+    },
+    {
+      "name": "layout portrait safe correto",
+      "ok": true,
+      "detail": "{\"id\":\"PORTRAIT_SAFE\",\"name\":\"Portrait safe mode\",\"minWidth\":320,\"maxHeight\":1200,\"columns\":1,\"density\":\"stacked\",\"priority\":[\"alerts\",\"radar\",\"commands\"]}"
+    },
+    {
+      "name": "apply responsive retorna layout",
+      "ok": true,
+      "detail": "{\"layout\":{\"id\":\"MOBILE_LANDSCAPE_COMPACT\",\"name\":\"Mobile landscape compact\",\"minWidth\":700,\"maxHeight\":500,\"columns\":2,\"density\":\"compact\",\"priority\":[\"radar\",\"commands\",\"alerts\",\"traffic\"]},\"viewport\":{\"width\":844,\"height\":390,\"orientation\":\"landscape\",\"isMobile\":true,\"isTablet\":false}}"
+    },
+    {
+      "name": "acessibilidade alto contraste aplicada",
+      "ok": true,
+      "detail": "{\"id\":\"HIGH_CONTRAST\",\"name\":\"Alto contraste\",\"contrast\":1.35,\"fontScale\":1.08,\"motion\":\"normal\"}"
+    },
+    {
+      "name": "onboarding retorna card",
+      "ok": true,
+      "detail": "{\"index\":0,\"total\":5,\"id\":\"WELCOME\",\"title\":\"Bem-vindo ao Skyward Control\",\"text\":\"Controle tráfego realista com meteorologia, solo, procedimentos e incidentes.\"}"
+    },
+    {
+      "name": "release readiness alto",
+      "ok": true,
+      "detail": "{\"score\":100,\"checks\":[{\"id\":\"MOBILE_FULLSCREEN\",\"name\":\"Fullscreen mobile-first\",\"required\":true,\"ok\":true},{\"id\":\"PWA_OFFLINE\",\"name\":\"PWA/offline\",\"required\":true,\"ok\":true},{\"id\":\"BUILD_VISIBLE\",\"name\":\"Build visível\",\"required\":true,\"ok\":true},{\"id\":\"UPLOAD_DOC\",\"name\":\"Documento de upload incluso\",\"required\":true,\"ok\":true},{\"id\":\"AUDIT_REPORTS\",\"name\":\"Auditoria por fase\",\"required\":true,\"ok\":true}]}"
+    },
+    {
+      "name": "status contém readiness",
+      "ok": true,
+      "detail": "{\"schema\":1,\"layoutId\":\"MOBILE_LANDSCAPE_COMPACT\",\"accessibilityMode\":\"HIGH_CONTRAST\",\"onboardingSeen\":false,\"onboardingStep\":0,\"releaseReadiness\":[{\"id\":\"MOBILE_FULLSCREEN\",\"name\":\"Fullscreen mobile-first\",\"required\":true,\"ok\":true},{\"id\":\"PWA_OFFLINE\",\"name\":\"PWA/offline\",\"required\":true,\"ok\":true},{\"id\":\"BUILD_VISIBLE\",\"name\":\"Build visível\",\"required\":true,\"ok\":true},{\"id\":\"UPLOAD_DOC\",\"name\":\"Documento de upload incluso\",\"required\":true,\"ok\":true},{\"id\":\"AUDIT_REPORTS\",\"name\":\"Auditoria por fase\",\"required\":true,\"ok\":true}],\"lastViewport\":{\"width\":844,\"height\":390,\"orientation\":\"landscape\",\"isMobile\":true,\"isTablet\":false},\"menuCardsRendered\":false,\"readiness\":{\"score\":100,\"checks\":[{\"id\":\"MOBILE_FULLSCREEN\",\"name\":\"Fullscreen mobile-first\",\"required\":true,\"ok\":true},{\"id\":\"PWA_OFFLINE\",\"name\":\"PWA/offline\",\"required\":true,\"ok\":true},{\"id\":\"BUILD_VISIBLE\",\"name\":\"Build visível\",\"required\":true,\"ok\":true},{\"id\":\"UPLOAD_DOC\",\"name\":\"Documento de upload incluso\",\"required\":true,\"ok\":true},{\"id\":\"AUDIT_REPORTS\",\"name\":\"Auditoria por fase\",\"required\":true,\"ok\":true}]}}"
+    }
+  ]
+}

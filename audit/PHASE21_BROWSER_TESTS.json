@@ -1,0 +1,173 @@
+{
+  "schema": 1,
+  "suite": "phase21-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para control room local/offline.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.21.0",
+    "phase": "F21",
+    "phaseName": "Multiplayer Assíncrono Local, Ranking Operacional, Replay Compartilhável e Sala de Controle",
+    "channel": "alpha",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.21.0-F21-20260619-1125",
+    "builtAt": "2026-06-19 11:25 BRT",
+    "builtAtIso": "2026-06-19T11:25:00-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1,
+    "weatherOpsSchema": 1,
+    "procedureOpsSchema": 1,
+    "careerSchema": 1,
+    "economySchema": 1,
+    "incidentSchema": 1,
+    "networkFlowSchema": 1,
+    "controlRoomSchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F21 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.21.0', 'phase': 'F21', 'phaseName': 'Multiplayer Assíncrono Local, Ranking Operacional, Replay Compartilhável e Sala de Controle', 'channel': 'alpha', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.21.0-F21-20260619-1125', 'builtAt': '2026-06-19 11:25 BRT', 'builtAtIso': '2026-06-19T11:25:00-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1, 'weatherOpsSchema': 1, 'procedureOpsSchema': 1, 'careerSchema': 1, 'economySchema': 1, 'incidentSchema': 1, 'networkFlowSchema': 1, 'controlRoomSchema': 1}"
+    },
+    {
+      "name": "main bundle inclui módulo 24",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_CONTROL_ROOM no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui salas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui ranking tiers",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui métricas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui control-room-ranking.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "início de turno renderiza control room",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fim de turno completa control room",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tela final mostra replay",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "painel CSS de control room",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F21 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema controlRoomSchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado raiz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado docs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém caminho Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém repo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "NETWORK_ROOM presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "EMERGENCY_ROOM presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "MASTER tier presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "share policy offline",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 21,
+  "failed": 0,
+  "total": 21
+}

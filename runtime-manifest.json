@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "architectureGeneration": 12,
-  "strategy": "realistic-aircraft-performance-deterministic-replay-clock-professional-accessibility-settings-desktop-tablet-workspace-adaptive-mobile-ux-installable-offline-pwa-transactional-save-vault-quality-gated-typescript-modules",
+  "architectureGeneration": 27,
+  "strategy": "advanced-advanced-weather-ifr-vfr-surface-safety-director-public-ops-feedback-telemetry-hotfix-post-publish-healthcheck-github-pages-pwa-hotfix-post-gold-master-real-device-qa-screenshots-github-pages-gold-master-packaging-final-store-pwa-player-manual-public-release-candidate-qa-final-balance-guided-tutorial-commercial-mobile-aaa-polish-responsive-hud-onboarding-local-async-control-room-ranking-shared-replay-international-network-flow-slots-connections-alternates-complex-operational-incidents-emergency-multiagency-airport-operational-economy-contracts-delay-costs-efficiency-deep-controller-career-licenses-ratings-fatigue-reputation-published-procedures-sid-star-ils-rnav-holdings-advanced-ifr-vfr-weather-realistic-airport-surface-graph-realistic-aircraft-performance-deterministic-replay-clock-professional-accessibility-settings-desktop-tablet-workspace-adaptive-mobile-ux-installable-offline-pwa-transactional-save-vault-quality-gated-typescript-modules",
   "sourceRoot": "src/runtime",
   "entry": "main.js",
-  "moduleCount": 21,
+  "moduleCount": 36,
   "modules": [
     {
       "order": 1,
@@ -83,12 +83,39 @@
       "file": "04-state-airports-procedures.js",
       "name": "04-state-airports-procedures",
       "description": "Runtime state, airport profiles and procedure data",
-      "lines": 111,
-      "bytes": 7664,
-      "sha256": "6fae065f9bb312c2f13a728afc7d29ab34d920de492c9afd89de74d3c7969198"
+      "lines": 119,
+      "bytes": 8212,
+      "sha256": "6d9112e17660e84d63a371823e081fffedfb806f5cc003960a56cfef8b29d224"
     },
     {
       "order": 10,
+      "file": "16-airport-surface-graph.js",
+      "name": "airport-surface-graph",
+      "description": "Realistic airport surface graph, taxiways, gates and runway occupancy routing",
+      "lines": 124,
+      "bytes": 15469,
+      "sha256": "f0b80447038dbf9e1707a408f017c9793ff2a2664af24e6df39781b9638cab3f"
+    },
+    {
+      "order": 11,
+      "file": "18-advanced-weather-ifr.js",
+      "name": "advanced-weather-ifr",
+      "description": "Advanced IFR/VFR weather, wind, RVR, visibility, ceiling and runway condition director",
+      "lines": 197,
+      "bytes": 11825,
+      "sha256": "05960423bbf661782725c5e23eaf94524ff1475ed37eec7a03f0b62b2be19705"
+    },
+    {
+      "order": 12,
+      "file": "19-procedures-sid-star-rnav.js",
+      "name": "procedures-sid-star-rnav",
+      "description": "Published-style SID, STAR, ILS, RNAV, missed approach and holding pattern director",
+      "lines": 185,
+      "bytes": 13782,
+      "sha256": "8d4b81648a742a225e573fe2cba1573f1ed55837e22ee7a420272c1c0c0f32b5"
+    },
+    {
+      "order": 13,
       "file": "15-aircraft-performance.js",
       "name": "aircraft-performance",
       "description": "Data-driven aircraft envelopes, speeds, climb/descent, fuel burn, landing risk and performance telemetry",
@@ -97,7 +124,7 @@
       "sha256": "407e9f3f475db46de3ac428881b4bede8170a2ffa426e6d82a5f22c473ccd6e5"
     },
     {
-      "order": 11,
+      "order": 14,
       "file": "05-profile-navigation.js",
       "name": "05-profile-navigation",
       "description": "Utilities, profile persistence, scenes, fullscreen and logs",
@@ -106,43 +133,151 @@
       "sha256": "c84adaf3815487fbe9aa9cc81112d69fb6c17e7a8a6bcbd5dc03e53f158766cc"
     },
     {
-      "order": 12,
-      "file": "06-traffic-requests.js",
-      "name": "06-traffic-requests",
-      "description": "Aircraft creation, callsigns, requests and game start",
-      "lines": 110,
-      "bytes": 8435,
-      "sha256": "76083660ed76dffdc477dfe182da049a9729c40687ba90bfaceb962b44c4f53e"
-    },
-    {
-      "order": 13,
-      "file": "07-simulation-safety.js",
-      "name": "07-simulation-safety",
-      "description": "Game loop, simulation, conflict prediction and safety",
-      "lines": 217,
-      "bytes": 15908,
-      "sha256": "36691b4a4cc31a58c8aff832c37431e587082a8c6ec23c3b1a6ca8ae07ee35eb"
-    },
-    {
-      "order": 14,
-      "file": "08-radar-rendering.js",
-      "name": "08-radar-rendering",
-      "description": "Radar, operational map, procedures, telemetry and aircraft drawing",
-      "lines": 246,
-      "bytes": 14565,
-      "sha256": "e3749cedba1d3463e2c2105db309102a86e1f46ba1297a8af0326edf9e12bbe4"
-    },
-    {
       "order": 15,
-      "file": "09-ui-clearances.js",
-      "name": "09-ui-clearances",
-      "description": "Traffic UI, requests, commands, clearances and action grids",
-      "lines": 219,
-      "bytes": 20066,
-      "sha256": "4229c483c99ae117b8f782cd86855dcf8001bb47a8f715d3f5319f40b70bbc9a"
+      "file": "20-controller-career.js",
+      "name": "controller-career",
+      "description": "Deep controller career, licenses, ratings, fatigue, shift evaluation and reputation",
+      "lines": 206,
+      "bytes": 11235,
+      "sha256": "abe784a70bb74d3274b1e2f82245da326dff7641bab481f1bd21db2582bc2a8f"
     },
     {
       "order": 16,
+      "file": "21-operational-economy.js",
+      "name": "operational-economy",
+      "description": "Operational economy, airport budget, airline contracts, delay costs, fines and efficiency",
+      "lines": 182,
+      "bytes": 11957,
+      "sha256": "70c04868f356ac9e1a7289e25f0e10a0f81850b230183d2997e566bedb061a1c"
+    },
+    {
+      "order": 17,
+      "file": "22-incident-emergency-director.js",
+      "name": "incident-emergency-director",
+      "description": "Complex incidents, runway closure and multi-agency emergency coordination director",
+      "lines": 200,
+      "bytes": 14194,
+      "sha256": "01d41602bbdcda0a61bdd44e06d0bddf373d292d487b286a0e2d257a5fdcd166"
+    },
+    {
+      "order": 18,
+      "file": "23-network-flow-coordination.js",
+      "name": "network-flow-coordination",
+      "description": "International network flow, slots, connection banks, alternates and inter-airport coordination",
+      "lines": 193,
+      "bytes": 13809,
+      "sha256": "d4c90ac54da7ccaf9a68731a913cf04ea357ae1e6e4a621686b0bebcc1843a0f"
+    },
+    {
+      "order": 19,
+      "file": "24-control-room-multiplayer.js",
+      "name": "control-room-multiplayer",
+      "description": "Local asynchronous multiplayer, leaderboard, shared replay codes, control room and shift comparison",
+      "lines": 254,
+      "bytes": 13104,
+      "sha256": "ce92333c8bdd715e45a076ad450828083f641fc8884278038e01e850631fc11f"
+    },
+    {
+      "order": 20,
+      "file": "25-commercial-polish-ux.js",
+      "name": "commercial-polish-ux",
+      "description": "Commercial mobile AAA polish, responsive HUD, onboarding, premium menus and accessibility",
+      "lines": 222,
+      "bytes": 13178,
+      "sha256": "b61a51786c2f867cabbe7b2e78f96e29c9d886eac0417b555df9056c5e51b91f"
+    },
+    {
+      "order": 21,
+      "file": "26-release-candidate-qa.js",
+      "name": "release-candidate-qa",
+      "description": "Public release candidate QA, final balance review, guided tutorial and publication checklist",
+      "lines": 229,
+      "bytes": 13488,
+      "sha256": "1b9d8a44ce10bc9265e906779c74a9f5808caae9b38457698388bce0f41054fa"
+    },
+    {
+      "order": 22,
+      "file": "27-gold-master-package.js",
+      "name": "gold-master-package",
+      "description": "Gold Master packaging, player manual, final store/PWA checklist and publication lock",
+      "lines": 155,
+      "bytes": 8853,
+      "sha256": "ba078b846ecf42974864594bf1ca9255f3a6c900884fc608faadf9e41fdcf638"
+    },
+    {
+      "order": 23,
+      "file": "28-post-gold-master-publishing.js",
+      "name": "post-gold-master-publishing",
+      "description": "Post-Gold Master real device QA, screenshots, bug triage and GitHub Pages publishing kit",
+      "lines": 179,
+      "bytes": 10713,
+      "sha256": "7da8f419cf78cee02f19f3b5ab18c2e523c4b36ccb2d044bff5e19575abe7a5b"
+    },
+    {
+      "order": 24,
+      "file": "29-post-publish-healthcheck.js",
+      "name": "post-publish-healthcheck",
+      "description": "Post-publish GitHub Pages/PWA healthcheck, manual QA capture and hotfix deck",
+      "lines": 176,
+      "bytes": 10778,
+      "sha256": "550ad80fc4cf0f7472ce43cd235ff275c54b1eab5b43706b1340ca0922bb8420"
+    },
+    {
+      "order": 25,
+      "file": "30-public-ops-feedback.js",
+      "name": "public-ops-feedback",
+      "description": "Public operations feedback, offline telemetry, bug inbox and hotfix planning",
+      "lines": 200,
+      "bytes": 10884,
+      "sha256": "a1e9c3b565f29c2bd9c72d7104f1b55bd75ac1c9f18378bccaaab98ec610200c"
+    },
+    {
+      "order": 26,
+      "file": "17-surface-safety-director.js",
+      "name": "surface-safety-director",
+      "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk",
+      "lines": 117,
+      "bytes": 8726,
+      "sha256": "65ea3273d6a272d0ee7f2756fbda0d6b371deac1ade21fb8b3c3c64ef9499c3e"
+    },
+    {
+      "order": 27,
+      "file": "06-traffic-requests.js",
+      "name": "06-traffic-requests",
+      "description": "Aircraft creation, callsigns, requests and game start",
+      "lines": 112,
+      "bytes": 9109,
+      "sha256": "d02b1b69211761ae0c636f4815a0162a6d0197e6bd3d1a3fd5cf6009f7df1ae0"
+    },
+    {
+      "order": 28,
+      "file": "07-simulation-safety.js",
+      "name": "07-simulation-safety",
+      "description": "Game loop, simulation, conflict prediction and safety",
+      "lines": 243,
+      "bytes": 19112,
+      "sha256": "5732f6c73266927cb654e7de23bf5e0b92eba9e489c2dc8e50d4fc30f01ab6ef"
+    },
+    {
+      "order": 29,
+      "file": "08-radar-rendering.js",
+      "name": "08-radar-rendering",
+      "description": "Radar, operational map, procedures, telemetry and aircraft drawing",
+      "lines": 256,
+      "bytes": 15688,
+      "sha256": "d8f7d534d5b1c9c476ed906b9392539b8c397f3774451f2fcb52f41ccc5b2437"
+    },
+    {
+      "order": 30,
+      "file": "09-ui-clearances.js",
+      "name": "09-ui-clearances",
+      "description": "Traffic UI, requests, commands, clearances and action grids",
+      "lines": 230,
+      "bytes": 24225,
+      "sha256": "400f538cef7b6f4700457c642fc3e6593801dc6e9784420edd6a52f51b3431cd"
+    },
+    {
+      "order": 31,
       "file": "10-events-selftest-bootstrap.js",
       "name": "10-events-selftest-bootstrap",
       "description": "Desktop events, filters, safe-mode controls and self-test bootstrap",
@@ -151,7 +286,7 @@
       "sha256": "284b47ac5f0d1915b60a4c2e3ed2afd8471e11d394d9e18965ce77e3f7d38202"
     },
     {
-      "order": 17,
+      "order": 32,
       "file": "11-mobile-runtime.js",
       "name": "11-mobile-runtime",
       "description": "Adaptive mobile UX, edge gestures, touch-safe dock, haptics and responsive viewport modes",
@@ -160,7 +295,7 @@
       "sha256": "1325cef88e0fecb136ebb81a1e0af59b8c44555204cb03b8afed170b45a716b7"
     },
     {
-      "order": 18,
+      "order": 33,
       "file": "12-desktop-workspace.js",
       "name": "desktop-workspace",
       "description": "Professional tablet and desktop workspace, keyboard shortcuts, persistent density and resizable operational panels",
@@ -169,7 +304,7 @@
       "sha256": "fa48b51833cd06b55a1b0f6843bec3bfc4a5981c3344ac2c0417d4bc570cba98"
     },
     {
-      "order": 19,
+      "order": 34,
       "file": "13-accessibility-settings.js",
       "name": "accessibility-settings",
       "description": "Professional accessibility, visual, audio, performance and control settings layer",
@@ -178,7 +313,7 @@
       "sha256": "7ef356346e8d891b580286a18316cc6a507c2e20f21823ce73f669fffeee8e6c"
     },
     {
-      "order": 20,
+      "order": 35,
       "file": "14-deterministic-replay.js",
       "name": "deterministic-replay",
       "description": "Deterministic simulation clock, seeded replay recorder, state checksums and technical replay export",
@@ -187,7 +322,7 @@
       "sha256": "7a6a039013eade37ab95643b0f0b83f6c25b0604ea15e8e8e117e6b1d16c96c9"
     },
     {
-      "order": 21,
+      "order": 36,
       "file": "12-quality-test-bridge.js",
       "name": "quality-test-bridge",
       "description": "QA-gated integration bridge for deterministic browser scenarios",
@@ -197,8 +332,8 @@
     }
   ],
   "bundle": {
-    "bytes": 248857,
-    "lines": 3544,
-    "sha256": "061d3e65a59f95563570c1f6bcd2c6b290892c1ed7c2be0d8a4275d81cee171d"
+    "bytes": 441818,
+    "lines": 6450,
+    "sha256": "013b6c80e04c4df3dc3ffeefa6a0a7dd67e5670c34cc40ab7a93dbc1d78f3df8"
   }
 }

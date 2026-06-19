@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "suite": "phase21-unit",
+  "build": "SC-1.21.0-F21-20260619-1125",
+  "passed": 17,
+  "total": 17,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F21+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.21.0\",\"phase\":\"F21\",\"phaseName\":\"Multiplayer Assíncrono Local, Ranking Operacional, Replay Compartilhável e Sala de Controle\",\"channel\":\"alpha\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.21.0-F21-20260619-1125\",\"builtAt\":\"2026-06-19 11:25 BRT\",\"builtAtIso\":\"2026-06-19T11:25:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1}"
+    },
+    {
+      "name": "módulo F21 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo salas ranking métricas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"rooms\":4,\"tiers\":5}"
+    },
+    {
+      "name": "cria sala network",
+      "ok": true,
+      "detail": "{\"id\":\"ROOM-496473\",\"typeId\":\"NETWORK_ROOM\",\"name\":\"Sala Network Flow\",\"controllerName\":\"Jonatan Vale\",\"players\":3,\"focus\":[\"APP\",\"FLOW\",\"OPS\"],\"scoreWeight\":1.3,\"createdAt\":\"2026-06-19T13:41:36.473Z\",\"status\":\"ACTIVE\"}"
+    },
+    {
+      "name": "snapshot completo",
+      "ok": true,
+      "detail": "{\"schema\":1,\"build\":\"SC-1.21.0-F21-20260619-1125\",\"at\":\"2026-06-19T13:41:36.473Z\",\"airport\":\"SBGR\",\"controller\":\"Jonatan\",\"finalScore\":6500,\"safety\":91,\"efficiency\":87,\"delayMin\":10,\"incidentsResolved\":1,\"incidentFailures\":0,\"economyProfit\":12000,\"slotCompliance\":0.92,\"careerLicense\":\"APP_RADAR\",\"careerRating\":\"IFR_RATED\",\"stats\":{\"landed\":8,\"departed\":7,\"conflicts\":0,\"runwayIncursions\":0,\"denied\":1,\"requests\":18}}"
+    },
+    {
+      "name": "código de replay prefixado",
+      "ok": true,
+      "detail": "SCR-eyJmb3Jt"
+    },
+    {
+      "name": "parse preserva replay",
+      "ok": true,
+      "detail": "{\"schema\":1,\"build\":\"SC-1.21.0-F21-20260619-1125\",\"at\":\"2026-06-19T13:41:36.473Z\",\"airport\":\"SBGR\",\"controller\":\"Jonatan\",\"finalScore\":6500,\"safety\":91,\"efficiency\":87,\"delayMin\":10,\"incidentsResolved\":1,\"incidentFailures\":0,\"economyProfit\":12000,\"slotCompliance\":0.92,\"careerLicense\":\"APP_RADAR\",\"careerRating\":\"IFR_RATED\",\"stats\":{\"landed\":8,\"departed\":7,\"conflicts\":0,\"runwayIncursions\":0,\"denied\":1,\"requests\":18}}"
+    },
+    {
+      "name": "share salva replay",
+      "ok": true,
+      "detail": "{\"code\":\"SCR-eyJmb3JtYXQiOiJTS1lXQVJELVJFUExBWS1WMSIsInNjaGVtYSI6MSwiYnVpbGQiOiJTQy0xLjIxLjAtRjIxLTIwMjYwNjE5LTExMjUiLCJyb29tIjp7ImlkIjoiUk9PTS00OTY0NzMiLCJ0eXBlSWQiOiJORVRXT1JLX1JPT00iLCJuYW1lIjoiU2FsYSBOZXR3b3JrIEZsb3ciLCJjb250cm9sbGVyTmFtZSI6IkpvbmF0YW4gVmFsZSIsInBsYXllcnMiOjMsImZvY3VzIjpbIkFQUCIsIkZMT1ciLCJPUFMiXSwic2NvcmVXZWlnaHQiOjEuMywiY3JlYXRlZEF0IjoiMjAyNi0wNi0xOVQxMzo0MTozNi40NzNaIiwic3RhdHVzIjoiQUNUSVZFIn0sInNuYXBzaG90Ijp7InNjaGVtYSI6MSwiYnVpbGQiOiJTQy0xLjIxLjAtRjIxLTIwMjYwNjE5LTExMjUiLCJhdCI6IjIwMjYtMDYtMTlUMTM6NDE6MzYuNDczWiIsImFpcnBvcnQiOiJTQkdSIiwiY29udHJvbGxlciI6IkpvbmF0YW4iLCJmaW5hbFNjb3JlIjo2NTAwLCJzYWZldHkiOjkxLCJlZmZpY2llbmN5Ijo4NywiZGVsYXlNaW4iOjEwLCJpbmNpZGVudHNSZXNvbHZlZCI6MSwiaW5jaWRlbnRGYWlsdXJlcyI6MCwiZWNvbm9teVByb2ZpdCI6MTIwMDAsInNsb3RDb21wbGlhbmNlIjowLjkyLCJjYXJlZXJMaWNlbnNlIjoiQVBQX1JBREFSIiwiY2FyZWVyUmF0aW5nIjoiSUZSX1JBVEVEIiwic3RhdHMiOnsibGFuZGVkIjo4LCJkZXBhcnRlZCI6NywiY29uZmxpY3RzIjowLCJydW53YXlJbmN1cnNpb25zIjowLCJkZW5pZWQiOjEsInJlcXVlc3RzIjoxOH19LCJ0aWVyIjoiUFJPIn0\",\"at\":\"2026-06-19T13:41:36.473Z\",\"build\":\"SC-1.21.0-F21-20260619-1125\",\"airport\":\"SBGR\",\"controller\":\"Jonatan\",\"finalScore\":6500,\"tier\":\"PRO\",\"snapshot\":{\"schema\":1,\"build\":\"SC-1.21.0-F21-20260619-1125\",\"at\":\"2026-06-19T13:41:36.473Z\",\"airport\":\"SBGR\",\"controller\":\"Jonatan\",\"finalScore\":6500,\"safety\":91,\"efficiency\":87,\"delayMin\":10,\"incidentsResolved\":1,\"incidentFailures\":0,\"economyProfit\":12000,\"slotCompliance\":0.92,\"careerLicense\":\"APP_RADAR\",\"careerRating\":\"IFR_RATED\",\"stats\":{\"landed\":8,\"departed\":7,\"conflicts\":0,\"runwayIncursions\":0,\"denied\":1,\"requests\":18}}}"
+    },
+    {
+      "name": "complete atualiza ranking",
+      "ok": true,
+      "detail": "{\"code\":\"SCR-eyJmb3JtYXQiOiJTS1lXQVJELVJFUExBWS1WMSIsInNjaGVtYSI6MSwiYnVpbGQiOiJTQy0xLjIxLjAtRjIxLTIwMjYwNjE5LTExMjUiLCJyb29tIjp7ImlkIjoiUk9PTS00OTY0NzMiLCJ0eXBlSWQiOiJORVRXT1JLX1JPT00iLCJuYW1lIjoiU2FsYSBOZXR3b3JrIEZsb3ciLCJjb250cm9sbGVyTmFtZSI6IkpvbmF0YW4gVmFsZSIsInBsYXllcnMiOjMsImZvY3VzIjpbIkFQUCIsIkZMT1ciLCJPUFMiXSwic2NvcmVXZWlnaHQiOjEuMywiY3JlYXRlZEF0IjoiMjAyNi0wNi0xOVQxMzo0MTozNi40NzNaIiwic3RhdHVzIjoiQUNUSVZFIn0sInNuYXBzaG90Ijp7InNjaGVtYSI6MSwiYnVpbGQiOiJTQy0xLjIxLjAtRjIxLTIwMjYwNjE5LTExMjUiLCJhdCI6IjIwMjYtMDYtMTlUMTM6NDE6MzYuNDczWiIsImFpcnBvcnQiOiJTQkdSIiwiY29udHJvbGxlciI6IkpvbmF0YW4iLCJmaW5hbFNjb3JlIjo3MDAwLCJzYWZldHkiOjkxLCJlZmZpY2llbmN5Ijo4NywiZGVsYXlNaW4iOjEwLCJpbmNpZGVudHNSZXNvbHZlZCI6MSwiaW5jaWRlbnRGYWlsdXJlcyI6MCwiZWNvbm9teVByb2ZpdCI6MTIwMDAsInNsb3RDb21wbGlhbmNlIjowLjkyLCJjYXJlZXJMaWNlbnNlIjoiQVBQX1JBREFSIiwiY2FyZWVyUmF0aW5nIjoiSUZSX1JBVEVEIiwic3RhdHMiOnsibGFuZGVkIjo5LCJkZXBhcnRlZCI6NywiY29uZmxpY3RzIjowLCJydW53YXlJbmN1cnNpb25zIjowLCJkZW5pZWQiOjAsInJlcXVlc3RzIjoyMH19LCJ0aWVyIjoiUFJPIn0\",\"at\":\"2026-06-19T13:41:36.473Z\",\"build\":\"SC-1.21.0-F21-20260619-1125\",\"airport\":\"SBGR\",\"controller\":\"Jonatan\",\"finalScore\":7000,\"tier\":\"PRO\",\"snapshot\":{\"schema\":1,\"build\":\"SC-1.21.0-F21-20260619-1125\",\"at\":\"2026-06-19T13:41:36.473Z\",\"airport\":\"SBGR\",\"controller\":\"Jonatan\",\"finalScore\":7000,\"safety\":91,\"efficiency\":87,\"delayMin\":10,\"incidentsResolved\":1,\"incidentFailures\":0,\"economyProfit\":12000,\"slotCompliance\":0.92,\"careerLicense\":\"APP_RADAR\",\"careerRating\":\"IFR_RATED\",\"stats\":{\"landed\":9,\"departed\":7,\"conflicts\":0,\"runwayIncursions\":0,\"denied\":0,\"requests\":20}}}"
+    },
+    {
+      "name": "import replay funciona",
+      "ok": true,
+      "detail": "{\"schema\":1,\"build\":\"SC-1.21.0-F21-20260619-1125\",\"at\":\"2026-06-19T13:41:36.473Z\",\"airport\":\"SBGR\",\"controller\":\"Jonatan\",\"finalScore\":6500,\"safety\":91,\"efficiency\":87,\"delayMin\":10,\"incidentsResolved\":1,\"incidentFailures\":0,\"economyProfit\":12000,\"slotCompliance\":0.92,\"careerLicense\":\"APP_RADAR\",\"careerRating\":\"IFR_RATED\",\"stats\":{\"landed\":8,\"departed\":7,\"conflicts\":0,\"runwayIncursions\":0,\"denied\":1,\"requests\":18}}"
+    },
+    {
+      "name": "comparação escolhe melhor turno",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-19T13:41:36.474Z\",\"left\":\"Jonatan\",\"right\":\"Outro\",\"winner\":\"left\",\"metrics\":[{\"id\":\"finalScore\",\"name\":\"Pontuação final\",\"left\":6500,\"right\":3000,\"delta\":3500,\"leftWins\":true},{\"id\":\"safety\",\"name\":\"Segurança\",\"left\":91,\"right\":70,\"delta\":21,\"leftWins\":true},{\"id\":\"efficiency\",\"name\":\"Eficiência\",\"left\":87,\"right\":60,\"delta\":27,\"leftWins\":true},{\"id\":\"delayMin\",\"name\":\"Atraso total\",\"left\":10,\"right\":30,\"delta\":-20,\"leftWins\":true},{\"id\":\"incidentsResolved\",\"name\":\"Incidentes resolvidos\",\"left\":1,\"right\":1,\"delta\":0,\"leftWins\":true},{\"id\":\"economyProfit\",\"name\":\"Resultado econômico\",\"left\":12000,\"right\":-1000,\"delta\":13000,\"leftWins\":true},{\"id\":\"slotCompliance\",\"name\":\"Compliance de slot\",\"left\":0.92,\"right\":0.5,\"delta\":0.42000000000000004,\"leftWins\":true}]}"
+    },
+    {
+      "name": "tier master válido",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

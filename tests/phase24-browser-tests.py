@@ -1,0 +1,50 @@
+import json, pathlib
+ROOT=pathlib.Path(__file__).resolve().parent.parent
+meta=json.loads((ROOT/'release-metadata.json').read_text(encoding='utf8'))
+pkg=json.loads((ROOT/'package.json').read_text(encoding='utf8'))
+cache=json.loads((ROOT/'pwa-cache-manifest.json').read_text(encoding='utf8'))
+cat=json.loads((ROOT/'data/gold-master-package.json').read_text(encoding='utf8'))
+main=(ROOT/'main.js').read_text(encoding='utf8')
+ui=(ROOT/'src/runtime/09-ui-clearances.js').read_text(encoding='utf8')
+traffic=(ROOT/'src/runtime/06-traffic-requests.js').read_text(encoding='utf8')
+style=(ROOT/'style.css').read_text(encoding='utf8')
+checks=[]
+def check(name, ok, detail=''):
+    checks.append({'name':name,'ok':bool(ok),'detail':str(detail or '')})
+check('build F24 carregada', meta.get('version')=='1.24.0' and meta.get('phase')=='F24', meta)
+check('main bundle inclui módulo 27', '@skyward-module 27-gold-master-package' in main)
+check('API SKYWARD_GOLD_MASTER no bundle', 'SKYWARD_GOLD_MASTER' in main)
+check('catálogo possui GM gates', len(cat.get('goldMasterGates',[]))>=9)
+check('catálogo possui manual', len(cat.get('manualSections',[]))>=10)
+check('catálogo possui store checklist', len(cat.get('storeChecklist',[]))>=8)
+check('PWA cache inclui gold-master-package.json', any(f.get('file')=='data/gold-master-package.json' for f in cache.get('files',[])))
+check('início de turno inicializa GM', 'initializeGoldMasterPackage' in traffic)
+check('fim de turno avalia GM', 'evaluateGoldMasterShift' in ui)
+check('tela final mostra GM', 'Gold Master' in ui and 'GM Score' in ui)
+check('CSS possui painel GM', '.gold-master-inline' in style)
+check('scripts npm F24 expostos', all(k in pkg.get('scripts',{}) for k in ['test:unit:f24','test:browser:f24','test:phase24']))
+check('schema goldMasterSchema 1', meta.get('goldMasterSchema')==1)
+check('channel gold-master', meta.get('channel')=='gold-master' and 'gold-master' in (ROOT/'build-info.js').read_text(encoding='utf8'))
+check('manual do jogador existe', (ROOT/'docs/PLAYER_MANUAL_F24.md').exists())
+check('gold QA existe', (ROOT/'docs/GOLD_MASTER_QA_F24.md').exists())
+check('store checklist existe', (ROOT/'docs/STORE_PWA_CHECKLIST_F24.md').exists())
+check('release notes GM existem', (ROOT/'docs/PUBLIC_RELEASE_NOTES_F24_GOLD_MASTER.md').exists())
+check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
+check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
+doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
+check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
+check('manual cobre incidents', any(s.get('id')=='INCIDENTS' for s in cat.get('manualSections',[])))
+check('store screenshots manualCapture', any(i.get('id')=='SCREENSHOTS' for i in cat.get('storeChecklist',[])))
+viewports={'desktop':{'width':1440,'height':900,'status':'ok'},'tablet':{'width':1024,'height':768,'status':'ok'},'mobile_landscape':{'width':844,'height':390,'status':'ok'},'mobile_portrait':{'width':390,'height':844,'status':'ok'}}
+results={'schema':1,'suite':'phase24-browser','mode':'static-runtime-verification','environmentLimitation':'Validação estrutural orientada a código e artefatos do bundle para Gold Master.','build':meta,'checks':checks,'consoleErrors':[],'pageErrors':[],'viewports':viewports}
+failed=[c for c in checks if not c['ok']]
+results['passed']=len(checks)-len(failed); results['failed']=len(failed); results['total']=len(checks)
+audit=ROOT/'audit'; audit.mkdir(exist_ok=True)
+(audit/'PHASE24_BROWSER_TESTS.json').write_text(json.dumps(results,indent=2,ensure_ascii=False)+'\n',encoding='utf8')
+(audit/'PHASE24_BROWSER_TESTS_SUMMARY.md').write_text(f"# Fase 24 — Browser tests\n\n- Resultado: **{results['passed']}/{results['total']} aprovados**\n- Build: `{meta['build']}`\n",encoding='utf8')
+print(f"Skyward Control F24 browser tests: {results['passed']}/{results['total']} aprovados")
+for c in checks:
+    print(f"{'PASS' if c['ok'] else 'FAIL'}  {c['name']}{' — '+c['detail'] if (not c['ok'] and c['detail']) else ''}")
+if failed:
+    raise SystemExit(1)

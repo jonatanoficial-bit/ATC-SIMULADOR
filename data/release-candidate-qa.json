@@ -1,0 +1,157 @@
+{
+  "schema": 1,
+  "version": "2026.06-f23",
+  "description": "Public release candidate QA, balance review, guided tutorial and publication checklist.",
+  "rcGates": [
+    {
+      "id": "BOOT",
+      "name": "Boot sem erro fatal",
+      "required": true,
+      "weight": 12
+    },
+    {
+      "id": "MOBILE",
+      "name": "Mobile landscape jogável",
+      "required": true,
+      "weight": 14
+    },
+    {
+      "id": "PWA",
+      "name": "PWA e cache offline",
+      "required": true,
+      "weight": 10
+    },
+    {
+      "id": "BUILD_BADGE",
+      "name": "Versão/build visível",
+      "required": true,
+      "weight": 7
+    },
+    {
+      "id": "SAVE",
+      "name": "Save/autosave preservado",
+      "required": true,
+      "weight": 8
+    },
+    {
+      "id": "TUTORIAL",
+      "name": "Tutorial guiado completo",
+      "required": true,
+      "weight": 12
+    },
+    {
+      "id": "BALANCE",
+      "name": "Balanceamento aprovado",
+      "required": true,
+      "weight": 14
+    },
+    {
+      "id": "ACCESSIBILITY",
+      "name": "Acessibilidade visual",
+      "required": true,
+      "weight": 8
+    },
+    {
+      "id": "UPLOAD_DOC",
+      "name": "Documento de upload incluso",
+      "required": true,
+      "weight": 5
+    },
+    {
+      "id": "AUDIT",
+      "name": "Auditoria final anexada",
+      "required": true,
+      "weight": 10
+    }
+  ],
+  "guidedTutorial": [
+    {
+      "id": "PROFILE",
+      "title": "Perfil operacional",
+      "objective": "Configure controlador e aeroporto antes do turno.",
+      "successMetric": "profile_ready"
+    },
+    {
+      "id": "RADAR_SCAN",
+      "title": "Varredura do radar",
+      "objective": "Identifique tráfego, separação e prioridade.",
+      "successMetric": "radar_viewed"
+    },
+    {
+      "id": "GROUND",
+      "title": "Solo e taxiways",
+      "objective": "Autorize pushback/taxi sem conflito de pista.",
+      "successMetric": "ground_safe"
+    },
+    {
+      "id": "TOWER",
+      "title": "Torre",
+      "objective": "Use lineup, takeoff e landing com pista livre.",
+      "successMetric": "tower_clear"
+    },
+    {
+      "id": "APPROACH",
+      "title": "Aproximação",
+      "objective": "Sequencie chegada com vector final e procedimento.",
+      "successMetric": "approach_stable"
+    },
+    {
+      "id": "WEATHER",
+      "title": "Meteorologia",
+      "objective": "Cheque IFR/VFR, RVR, teto e vento cruzado.",
+      "successMetric": "weather_checked"
+    },
+    {
+      "id": "INCIDENT",
+      "title": "Emergência",
+      "objective": "Acione agência e conclua playbook de incidente.",
+      "successMetric": "incident_managed"
+    },
+    {
+      "id": "RESULT",
+      "title": "Resultado e replay",
+      "objective": "Revise score, carreira, economia, network e replay.",
+      "successMetric": "result_reviewed"
+    }
+  ],
+  "balanceTargets": {
+    "scoreMinPlayable": 400,
+    "scoreMaxNormal": 6500,
+    "safetyTarget": 82,
+    "economyProfitTarget": -85000,
+    "fatigueMaxSafe": 78,
+    "networkDelayMax": 45,
+    "incidentFailureMax": 2
+  },
+  "publicationChecklist": [
+    {
+      "id": "README",
+      "name": "README de publicação atualizado"
+    },
+    {
+      "id": "CHANGELOG",
+      "name": "Changelog completo"
+    },
+    {
+      "id": "LICENSE_NOTE",
+      "name": "Notas de licenciamento/uso"
+    },
+    {
+      "id": "QA_REPORT",
+      "name": "Relatório QA final"
+    },
+    {
+      "id": "GIT_UPLOAD_DOC",
+      "name": "Prompt/caminhos de upload"
+    },
+    {
+      "id": "NO_EXTERNAL_REQUIRED",
+      "name": "Build roda sem servidor externo"
+    }
+  ],
+  "storeNotes": {
+    "shortDescription": "Simulador ATC mobile/desktop com clima, solo, procedimentos, carreira, economia, incidentes e replay.",
+    "releaseTrack": "public-rc",
+    "minRecommendedDevice": "Mobile landscape 844x390 ou desktop moderno"
+  }
+}

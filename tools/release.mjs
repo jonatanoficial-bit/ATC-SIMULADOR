@@ -70,6 +70,15 @@ run(process.execPath, ['tests/phase11-audit.mjs', '--prepackage']);
 run(process.execPath, ['tests/phase12-unit-tests.mjs', '--report']);
 if (reuseBrowserReports) requirePassedBrowserReport('audit/PHASE12_BROWSER_TESTS.json'); else run('python3', ['tests/phase12-browser-tests.py']);
 run(process.execPath, ['tests/phase12-audit.mjs', '--prepackage']);
+run(process.execPath, ['tests/phase13-unit-tests.mjs', '--report']);
+if (reuseBrowserReports) requirePassedBrowserReport('audit/PHASE13_BROWSER_TESTS.json'); else run('python3', ['tests/phase13-browser-tests.py']);
+run(process.execPath, ['tests/phase13-audit.mjs', '--prepackage']);
+run(process.execPath, ['tests/phase14-unit-tests.mjs', '--report']);
+if (reuseBrowserReports) requirePassedBrowserReport('audit/PHASE14_BROWSER_TESTS.json'); else run('python3', ['tests/phase14-browser-tests.py']);
+run(process.execPath, ['tests/phase14-audit.mjs', '--prepackage']);
+run(process.execPath, ['tests/phase15-unit-tests.mjs', '--report']);
+if (reuseBrowserReports) requirePassedBrowserReport('audit/PHASE15_BROWSER_TESTS.json'); else run('python3', ['tests/phase15-browser-tests.py']);
+run(process.execPath, ['tests/phase15-audit.mjs', '--prepackage']);
 run(process.execPath, ['tests/pipeline-guard.mjs']);
 
 if (!has('--package')) {
@@ -112,6 +121,12 @@ run(process.execPath, ['tests/phase11-unit-tests.mjs'], stage);
 run(process.execPath, ['tests/phase11-audit.mjs'], stage);
 run(process.execPath, ['tests/phase12-unit-tests.mjs'], stage);
 run(process.execPath, ['tests/phase12-audit.mjs'], stage);
+run(process.execPath, ['tests/phase13-unit-tests.mjs'], stage);
+run(process.execPath, ['tests/phase13-audit.mjs'], stage);
+run(process.execPath, ['tests/phase14-unit-tests.mjs'], stage);
+run(process.execPath, ['tests/phase14-audit.mjs'], stage);
+run(process.execPath, ['tests/phase15-unit-tests.mjs'], stage);
+run(process.execPath, ['tests/phase15-audit.mjs'], stage);
 
 const zipPath = path.join(outputDir, `${folderName}.zip`);
 fs.rmSync(zipPath, { force:true });

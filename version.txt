@@ -1,9 +1,9 @@
 SKYWARD CONTROL
-Version: 1.12.0
-Phase: F12 — Modelo Realista de Aeronaves
-Build: SC-1.12.0-F12-20260618-1138
-Built at: 2026-06-18 11:38 BRT
-Channel: alpha
+Version: 1.27.0
+Phase: F27 — Operação Pública Contínua, Feedback Local, Telemetria Offline, Bug Inbox e Hotfix Planner
+Build: SC-1.27.0-F27-20260619-1704
+Built at: 2026-06-19 17:04 BRT
+Channel: public-ops
 Save schema: 3
 Contract schema: 2
 Test schema: 3
@@ -15,4 +15,19 @@ Desktop schema: 1
 Accessibility schema: 1
 Replay schema: 1
 Aircraft performance schema: 1
+Airport surface schema: 1
+Surface safety schema: 1
+Weather ops schema: 1
+Procedure ops schema: 1
+Career schema: 1
+Economy schema: 1
+Incident schema: 1
+Network flow schema: 1
+Control room schema: 1
+Commercial polish schema: 1
+Release candidate schema: 1
+Gold master schema: 1
+Post Gold Master schema: 1
+Post Publish Health schema: 1
+Public Ops schema: 1
 Target: Mobile-first / Tablet / Desktop

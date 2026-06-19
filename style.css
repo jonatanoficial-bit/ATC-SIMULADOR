@@ -779,3 +779,96 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .replay-card{width:min(680px,calc(100vw - 28px));max-height:min(84vh,760px);overflow:auto;padding:18px;border:1px solid rgba(0,229,255,.24)}
 .replay-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.replay-head small{color:#78e8ff}.replay-head b{display:block;font-size:1.25rem}.replay-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0}.replay-grid div{background:rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px}.replay-grid span{display:block;color:#9bb6c4;font-size:.76rem}.replay-grid b{font-size:.88rem;word-break:break-word}.replay-actions{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}#replayExportText{width:100%;min-height:170px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.32);color:#dffcff;padding:10px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.76rem;resize:vertical}
 @media (max-width:980px){.atc-replay{min-width:52px;font-size:.62rem}.replay-panel{align-items:flex-end;padding:8px}.replay-card{width:100%;max-height:78vh;padding:14px}.replay-grid{grid-template-columns:1fr}.replay-actions button{min-height:44px;flex:1}}
+
+/* F17 Career board */
+.career-ops-inline{border-color:rgba(154,210,255,.28);background:linear-gradient(180deg,rgba(24,43,63,.72),rgba(8,15,24,.74));}
+.career-ops-inline .airport-ops-head span{color:#9ad2ff;}
+
+/* F18 Economy board */
+.economy-ops-inline{border-color:rgba(255,214,122,.30);background:linear-gradient(180deg,rgba(58,42,12,.72),rgba(16,12,7,.78));}
+.economy-ops-inline .airport-ops-head span{color:#ffd67a;}
+
+/* F19 Incident board */
+.incident-ops-inline{border-color:rgba(255,91,82,.34);background:linear-gradient(180deg,rgba(75,22,18,.76),rgba(20,8,7,.82));}
+.incident-ops-inline .airport-ops-head span{color:#ff9b93;}
+
+/* F20 Network flow board */
+.network-ops-inline{border-color:rgba(126,185,255,.34);background:linear-gradient(180deg,rgba(14,38,72,.78),rgba(5,14,28,.84));}
+.network-ops-inline .airport-ops-head span{color:#9dc9ff;}
+
+/* F21 Control room board */
+.control-room-inline{border-color:rgba(179,135,255,.36);background:linear-gradient(180deg,rgba(42,24,79,.78),rgba(15,8,31,.86));}
+.control-room-inline .airport-ops-head span{color:#d3b9ff;}
+
+/* F22 Commercial AAA polish */
+:root{--skyward-font-scale:1;--skyward-contrast:1;--skyward-hud-columns:4;--skyward-density:full}
+.commercial-polish-ready{font-size:calc(100% * var(--skyward-font-scale));filter:contrast(var(--skyward-contrast))}
+.skyward-low-motion *{scroll-behavior:auto!important;animation-duration:.001ms!important;transition-duration:.001ms!important}
+.skyward-high-contrast{--panel:rgba(0,0,0,.92);--text:#fff}
+.skyward-large-text button,.skyward-large-text .airport-ops-board{font-size:1.08em}
+.layout-mobile-compact .airport-ops-board{font-size:.82rem}
+.layout-mobile-compact .airport-ops-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.layout-tablet-balanced .airport-ops-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.layout-desktop-director .airport-ops-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.layout-portrait-safe .airport-ops-grid{grid-template-columns:1fr}
+.layout-portrait-safe{overflow:auto;touch-action:pan-y}
+.commercial-polish-inline{border-color:rgba(118,255,214,.36);background:linear-gradient(180deg,rgba(11,58,52,.78),rgba(5,22,22,.86))}
+.commercial-polish-inline .airport-ops-head span{color:#93ffe6}
+.commercial-onboarding-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,8,16,.72);display:grid;place-items:center;padding:18px;backdrop-filter:blur(8px)}
+.commercial-onboarding-card{width:min(520px,92vw);border:1px solid rgba(147,255,230,.35);background:linear-gradient(180deg,rgba(8,23,38,.96),rgba(2,9,16,.96));border-radius:22px;padding:22px;color:#fff;box-shadow:0 28px 80px rgba(0,0,0,.45)}
+.commercial-onboarding-card small{color:#93ffe6;font-weight:900;letter-spacing:.12em}
+.commercial-onboarding-card h2{margin:.4rem 0;font-size:clamp(1.2rem,4vw,2rem)}
+.commercial-onboarding-card p{line-height:1.45;color:rgba(255,255,255,.86)}
+.commercial-onboarding-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.commercial-onboarding-actions button{flex:1;border:1px solid rgba(147,255,230,.35);background:rgba(147,255,230,.13);color:#fff;border-radius:14px;padding:12px;font-weight:900}
+.commercial-menu-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0}
+.commercial-menu-card{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);border-radius:18px;padding:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.commercial-menu-card b{display:block;font-size:1rem;color:#fff}
+.commercial-menu-card span{display:block;margin-top:4px;color:rgba(255,255,255,.72);font-size:.85rem}
+@media (max-height:520px) and (orientation:landscape){
+  .commercial-onboarding-card{padding:14px;border-radius:16px}
+  .commercial-onboarding-card h2{font-size:1.2rem}
+  .commercial-onboarding-card p{font-size:.9rem}
+}
+
+/* F23 Public Release Candidate QA */
+.release-candidate-inline{border-color:rgba(255,232,117,.42);background:linear-gradient(180deg,rgba(76,61,12,.80),rgba(25,20,5,.88))}
+.release-candidate-inline .airport-ops-head span{color:#ffe875}
+.release-candidate-tutorial-overlay{position:fixed;inset:0;z-index:10000;background:rgba(2,4,10,.78);display:grid;place-items:center;padding:18px;backdrop-filter:blur(10px)}
+.release-candidate-tutorial-card{width:min(560px,94vw);border:1px solid rgba(255,232,117,.42);background:linear-gradient(180deg,rgba(38,35,14,.97),rgba(8,10,14,.98));border-radius:22px;padding:22px;color:#fff;box-shadow:0 30px 90px rgba(0,0,0,.48)}
+.release-candidate-tutorial-card small{color:#ffe875;font-weight:900;letter-spacing:.12em}
+.release-candidate-tutorial-card h2{margin:.45rem 0;font-size:clamp(1.25rem,4vw,2rem)}
+.release-candidate-tutorial-card p{line-height:1.45;color:rgba(255,255,255,.86)}
+.release-candidate-progress{height:9px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;margin:16px 0}
+.release-candidate-progress span{display:block;height:100%;background:linear-gradient(90deg,#ffe875,#9dffdf)}
+.release-candidate-tutorial-card button{width:100%;border:1px solid rgba(255,232,117,.44);background:rgba(255,232,117,.14);color:#fff;border-radius:14px;padding:12px;font-weight:900}
+
+/* F24 Gold Master Package */
+.gold-master-inline{border-color:rgba(255,199,88,.48);background:linear-gradient(180deg,rgba(86,57,8,.84),rgba(26,15,3,.9));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 26px rgba(255,199,88,.08)}
+.gold-master-inline .airport-ops-head span{color:#ffc758}
+.gold-master-inline b{letter-spacing:.01em}
+.gold-master-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,199,88,.45);border-radius:999px;padding:4px 9px;background:rgba(255,199,88,.12);font-weight:900}
+
+/* F25 Post Gold Master Publishing */
+.post-gold-master-inline{border-color:rgba(126,255,168,.48);background:linear-gradient(180deg,rgba(12,70,31,.82),rgba(5,24,12,.92));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 26px rgba(126,255,168,.08)}
+.post-gold-master-inline .airport-ops-head span{color:#91ffb7}
+.post-gold-master-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(126,255,168,.45);border-radius:999px;padding:4px 9px;background:rgba(126,255,168,.12);font-weight:900}
+.post-gm-checklist{display:grid;gap:8px;margin:10px 0}
+.post-gm-checklist .ok{color:#91ffb7}
+.post-gm-checklist .pending{color:#ffd27a}
+
+/* F26 Post Publish Healthcheck */
+.post-publish-health-inline{border-color:rgba(111,214,255,.50);background:linear-gradient(180deg,rgba(10,55,78,.84),rgba(3,19,30,.92));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 26px rgba(111,214,255,.08)}
+.post-publish-health-inline .airport-ops-head span{color:#8fe2ff}
+.post-publish-health-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(111,214,255,.45);border-radius:999px;padding:4px 9px;background:rgba(111,214,255,.12);font-weight:900}
+.publish-health-warn{color:#ffd27a}
+.publish-health-ok{color:#91ffb7}
+.publish-health-block{color:#ff918c}
+
+/* F27 Public Operations */
+.public-ops-inline{border-color:rgba(203,162,255,.50);background:linear-gradient(180deg,rgba(55,28,85,.84),rgba(22,9,36,.92));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 26px rgba(203,162,255,.08)}
+.public-ops-inline .airport-ops-head span{color:#d9bbff}
+.public-ops-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(203,162,255,.45);border-radius:999px;padding:4px 9px;background:rgba(203,162,255,.12);font-weight:900}
+.public-ops-danger{color:#ff918c}
+.public-ops-watch{color:#ffd27a}
+.public-ops-stable{color:#91ffb7}

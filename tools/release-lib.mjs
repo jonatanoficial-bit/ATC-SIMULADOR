@@ -45,6 +45,9 @@ export function validateConfig(config) {
   if (!Number.isInteger(config.accessibilitySchema) || config.accessibilitySchema < 1) throw new Error('accessibilitySchema inválido');
   if (!Number.isInteger(config.replaySchema) || config.replaySchema < 1) throw new Error('replaySchema inválido');
   if (config.aircraftPerformanceSchema !== undefined && (!Number.isInteger(config.aircraftPerformanceSchema) || config.aircraftPerformanceSchema < 1)) throw new Error('aircraftPerformanceSchema inválido');
+  if (config.airportSurfaceSchema !== undefined && (!Number.isInteger(config.airportSurfaceSchema) || config.airportSurfaceSchema < 1)) throw new Error('airportSurfaceSchema inválido');
+  if (config.surfaceSafetySchema !== undefined && (!Number.isInteger(config.surfaceSafetySchema) || config.surfaceSafetySchema < 1)) throw new Error('surfaceSafetySchema inválido');
+  if (config.weatherOpsSchema !== undefined && (!Number.isInteger(config.weatherOpsSchema) || config.weatherOpsSchema < 1)) throw new Error('weatherOpsSchema inválido');
   return true;
 }
 
@@ -76,6 +79,9 @@ export function writeGeneratedFiles(root, metadata) {
     accessibilitySchema: metadata.accessibilitySchema,
     replaySchema: metadata.replaySchema,
     aircraftPerformanceSchema: metadata.aircraftPerformanceSchema || 1,
+    airportSurfaceSchema: metadata.airportSurfaceSchema || 1,
+    surfaceSafetySchema: metadata.surfaceSafetySchema || 1, weatherOpsSchema: metadata.weatherOpsSchema || 1,
+    weatherOpsSchema: metadata.weatherOpsSchema || 1,
     target: metadata.target
   };
   fs.writeFileSync(path.join(root, 'build-info.js'),
@@ -99,6 +105,9 @@ export function writeGeneratedFiles(root, metadata) {
     `Accessibility schema: ${metadata.accessibilitySchema}`,
     `Replay schema: ${metadata.replaySchema}`,
     `Aircraft performance schema: ${metadata.aircraftPerformanceSchema || 1}`,
+    `Airport surface schema: ${metadata.airportSurfaceSchema || 1}`,
+    `Surface safety schema: ${metadata.surfaceSafetySchema || 1}`,
+    `Weather ops schema: ${metadata.weatherOpsSchema || 1}`,
     `Target: ${metadata.target}`, 
     ''
   ].join('\n'));
@@ -130,7 +139,7 @@ export function writeGeneratedFiles(root, metadata) {
   history.unshift({
     build: metadata.build, version: metadata.version, phase: metadata.phase,
     phaseName: metadata.phaseName, builtAt: metadata.builtAt,
-    builtAtIso: metadata.builtAtIso, channel: metadata.channel, saveSchema: metadata.saveSchema, contractSchema: metadata.contractSchema, testSchema: metadata.testSchema, saveVaultSchema: metadata.saveVaultSchema, pwaSchema: metadata.pwaSchema, cacheSchema: metadata.cacheSchema, uxSchema: metadata.uxSchema, desktopSchema: metadata.desktopSchema, accessibilitySchema: metadata.accessibilitySchema, replaySchema: metadata.replaySchema
+    builtAtIso: metadata.builtAtIso, channel: metadata.channel, saveSchema: metadata.saveSchema, contractSchema: metadata.contractSchema, testSchema: metadata.testSchema, saveVaultSchema: metadata.saveVaultSchema, pwaSchema: metadata.pwaSchema, cacheSchema: metadata.cacheSchema, uxSchema: metadata.uxSchema, desktopSchema: metadata.desktopSchema, accessibilitySchema: metadata.accessibilitySchema, replaySchema: metadata.replaySchema, aircraftPerformanceSchema: metadata.aircraftPerformanceSchema || 1, airportSurfaceSchema: metadata.airportSurfaceSchema || 1
   });
   writeJson(historyPath, history.slice(0, 100));
 }

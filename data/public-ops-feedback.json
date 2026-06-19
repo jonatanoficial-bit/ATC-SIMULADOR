@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "version": "2026.06-f27",
+  "description": "Public operations feedback, offline telemetry, bug inbox and hotfix planning.",
+  "feedbackCategories": [
+    {
+      "id": "GAMEPLAY",
+      "name": "Gameplay / realismo",
+      "priority": 3
+    },
+    {
+      "id": "MOBILE_UX",
+      "name": "Mobile / toque / rolagem",
+      "priority": 5
+    },
+    {
+      "id": "PERFORMANCE",
+      "name": "Performance / travamento",
+      "priority": 5
+    },
+    {
+      "id": "ATC_REALISM",
+      "name": "Procedimentos ATC",
+      "priority": 4
+    },
+    {
+      "id": "VISUAL",
+      "name": "Visual / HUD",
+      "priority": 2
+    },
+    {
+      "id": "AUDIO",
+      "name": "Áudio / alertas",
+      "priority": 2
+    }
+  ],
+  "telemetryCounters": [
+    {
+      "id": "sessions",
+      "name": "Sessões abertas"
+    },
+    {
+      "id": "turnsStarted",
+      "name": "Turnos iniciados"
+    },
+    {
+      "id": "turnsCompleted",
+      "name": "Turnos concluídos"
+    },
+    {
+      "id": "criticalBugs",
+      "name": "Bugs críticos reportados"
+    },
+    {
+      "id": "feedbackItems",
+      "name": "Feedbacks registrados"
+    },
+    {
+      "id": "hotfixCandidates",
+      "name": "Candidatos a hotfix"
+    }
+  ],
+  "bugSeverity": [
+    {
+      "id": "BLOCKER",
+      "name": "Bloqueador",
+      "releaseAction": "Hotfix imediato antes de divulgar"
+    },
+    {
+      "id": "CRITICAL",
+      "name": "Crítico",
+      "releaseAction": "Hotfix antes de próxima campanha"
+    },
+    {
+      "id": "MAJOR",
+      "name": "Maior",
+      "releaseAction": "Planejar patch curto"
+    },
+    {
+      "id": "MINOR",
+      "name": "Menor",
+      "releaseAction": "Agrupar em polish patch"
+    }
+  ],
+  "hotfixTemplates": [
+    {
+      "id": "MOBILE_SCROLL_PATCH",
+      "name": "Patch rolagem mobile",
+      "severity": "MAJOR",
+      "files": [
+        "style.css",
+        "src/runtime/25-commercial-polish-ux.js"
+      ]
+    },
+    {
+      "id": "PWA_CACHE_PATCH",
+      "name": "Patch cache PWA",
+      "severity": "CRITICAL",
+      "files": [
+        "sw.js",
+        "tools/build-pwa.mjs",
+        "pwa-cache-manifest.json"
+      ]
+    },
+    {
+      "id": "SAVE_SCHEMA_PATCH",
+      "name": "Patch save/schema",
+      "severity": "CRITICAL",
+      "files": [
+        "src/runtime/03-storage-save.js",
+        "build-info.js"
+      ]
+    },
+    {
+      "id": "ATC_COMMAND_PATCH",
+      "name": "Patch comandos ATC",
+      "severity": "MAJOR",
+      "files": [
+        "src/runtime/09-ui-clearances.js",
+        "src/runtime/07-simulation-safety.js"
+      ]
+    },
+    {
+      "id": "VISUAL_HUD_PATCH",
+      "name": "Patch HUD visual",
+      "severity": "MINOR",
+      "files": [
+        "style.css",
+        "src/runtime/25-commercial-polish-ux.js"
+      ]
+    }
+  ],
+  "publicOpsTargets": {
+    "maxCriticalOpen": 0,
+    "maxMajorOpen": 3,
+    "minCompletionRatio": 0.45,
+    "minSatisfaction": 4,
+    "hotfixThreshold": 70
+  }
+}

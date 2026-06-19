@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "suite": "phase20-unit",
+  "build": "SC-1.20.0-F20-20260619-1040",
+  "passed": 18,
+  "total": 18,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F20+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.20.0\",\"phase\":\"F20\",\"phaseName\":\"Tráfego Internacional Avançado, Slots, Fluxo de Rede, Conexões, Alternados e Coordenação entre Aeroportos\",\"channel\":\"alpha\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.20.0-F20-20260619-1040\",\"builtAt\":\"2026-06-19 10:40 BRT\",\"builtAtIso\":\"2026-06-19T10:40:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1}"
+    },
+    {
+      "name": "módulo F20 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo hubs rotas slots",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"hubs\":5,\"routes\":6}"
+    },
+    {
+      "name": "rota SBGR válida",
+      "ok": true,
+      "detail": "{\"id\":\"SBGR-KATL\",\"from\":\"SBGR\",\"to\":\"KATL\",\"type\":\"international_trunk\",\"distanceNm\":4050,\"slotPressure\":0.82,\"minTurnMin\":105,\"alternatePool\":[\"SBKP\",\"SBBR\"]}"
+    },
+    {
+      "name": "política de slot válida",
+      "ok": true,
+      "detail": "{\"id\":\"EDCT\",\"name\":\"Expected Departure Clearance Time\",\"windowMin\":12,\"penaltyPerMin\":260,\"bonusOnTime\":2200}"
+    },
+    {
+      "name": "compliance cai com atraso",
+      "ok": true,
+      "detail": "{\"compGood\":1,\"compBad\":0}"
+    },
+    {
+      "name": "delay de rede positivo",
+      "ok": true,
+      "detail": "54"
+    },
+    {
+      "name": "bancos protegem conexões",
+      "ok": true,
+      "detail": "[{\"id\":\"GRU_INTL_NIGHT\",\"name\":\"GRU International Night Bank\",\"hub\":\"SBGR\",\"achieved\":true,\"protected\":7,\"missed\":0,\"bonus\":54000,\"penalty\":18900},{\"id\":\"ATL_GLOBAL_EVENING\",\"name\":\"ATL Global Evening Bank\",\"hub\":\"KATL\",\"achieved\":true,\"protected\":10,\"missed\":0,\"bonus\":76000,\"penalty\":27450},{\"id\":\"BSB_DOMESTIC_WAVE\",\"name\":\"BSB Domestic Wave\",\"hub\":\"SBBR\",\"achieved\":true,\"protected\":6,\"missed\":0,\"bonus\":36000,\"penalty\":12600}]"
+    },
+    {
+      "name": "alternados acionados",
+      "ok": true,
+      "detail": "[{\"rule\":\"LOW_VIS_ALTERNATE\",\"airport\":\"SBKP\",\"cost\":26000,\"reason\":\"Baixa visibilidade\"},{\"rule\":\"RUNWAY_CLOSURE_ALTERNATE\",\"airport\":\"SBSP\",\"cost\":32000,\"reason\":\"Pista fechada\"},{\"rule\":\"NETWORK_SATURATION_ALTERNATE\",\"airport\":\"SBKP\",\"cost\":18000,\"reason\":\"Saturação de rede\"}]"
+    },
+    {
+      "name": "evaluate gera network shift",
+      "ok": true,
+      "detail": "{\"build\":\"SC-1.20.0-F20-20260619-1040\",\"airport\":\"SBGR\",\"route\":\"SBBR-SBGR\",\"policy\":\"GDP\",\"delayMin\":49,\"slotCompliance\":0.59,\"coordinationScore\":38,\"impact\":-211060,\"banks\":[{\"id\":\"GRU_INTL_NIGHT\",\"name\":\"GRU International Night Bank\",\"hub\":\"SBGR\",\"achieved\":false,\"protected\":6,\"missed\":0,\"bonus\":0,\"penalty\":42000},{\"id\":\"ATL_GLOBAL_EVENING\",\"name\":\"ATL Global Evening Bank\",\"hub\":\"KATL\",\"achieved\":false,\"protected\":9,\"missed\":0,\"bonus\":0,\"penalty\":61000},{\"id\":\"BSB_DOMESTIC_WAVE\",\"name\":\"BSB Domestic Wave\",\"hub\":\"SBBR\",\"achieved\":false,\"protected\":5,\"missed\":0,\"bonus\":0,\"penalty\":28000}],\"alternates\":[{\"rule\":\"LOW_VIS_ALTERNATE\",\"airport\":\"SBKP\",\"cost\":26000,\"reason\":\"Baixa visibilidade\"},{\"rule\":\"RUNWAY_CLOSURE_ALTERNATE\",\"airport\":\"SBSP\",\"cost\":32000,\"reason\":\"Pista fechada\"},{\"rule\":\"NETWORK_SATURATION_ALTERNATE\",\"airport\":\"SBKP\",\"cost\":18000,\"reason\":\"Saturação de rede\"}],\"regulated\":true}"
+    },
+    {
+      "name": "histórico network registra turno",
+      "ok": true,
+      "detail": "[{\"build\":\"SC-1.20.0-F20-20260619-1040\",\"airport\":\"SBGR\",\"route\":\"SBBR-SBGR\",\"policy\":\"GDP\",\"delayMin\":49,\"slotCompliance\":0.59,\"coordinationScore\":38,\"impact\":-211060,\"banks\":[{\"id\":\"GRU_INTL_NIGHT\",\"name\":\"GRU International Night Bank\",\"hub\":\"SBGR\",\"achieved\":false,\"protected\":6,\"missed\":0,\"bonus\":0,\"penalty\":42000},{\"id\":\"ATL_GLOBAL_EVENING\",\"name\":\"ATL Global Evening Bank\",\"hub\":\"KATL\",\"achieved\":false,\"protected\":9,\"missed\":0,\"bonus\":0,\"penalty\":61000},{\"id\":\"BSB_DOMESTIC_WAVE\",\"name\":\"BSB Domestic Wave\",\"hub\":\"SBBR\",\"achieved\":false,\"protected\":5,\"missed\":0,\"bonus\":0,\"penalty\":28000}],\"alternates\":[{\"rule\":\"LOW_VIS_ALTERNATE\",\"airport\":\"SBKP\",\"cost\":26000,\"reason\":\"Baixa visibilidade\"},{\"rule\":\"RUNWAY_CLOSURE_ALTERNATE\",\"airport\":\"SBSP\",\"cost\":32000,\"reason\":\"Pista fechada\"},{\"rule\":\"NETWORK_SATURATION_ALTERNATE\",\"airport\":\"SBKP\",\"cost\":18000,\"reason\":\"Saturação de rede\"}],\"regulated\":true}]"
+    },
+    {
+      "name": "risk retorna objeto operacional",
+      "ok": true,
+      "detail": "{\"level\":\"warn\",\"block\":false,\"msg\":\"Fluxo regulado: respeitar slot 59%.\"}"
+    },
+    {
+      "name": "impacto econômico consultável",
+      "ok": true,
+      "detail": "{\"impact\":-211060,\"delayMin\":49,\"alternates\":3,\"connectionsMissed\":0}"
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "schema": 1,
+  "suite": "phase26-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para Post Publish Healthcheck.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.26.0",
+    "phase": "F26",
+    "phaseName": "Publicação Assistida, Diagnóstico GitHub Pages/PWA, Health Check Pós-Upload e Hotfix Deck",
+    "channel": "post-publish-healthcheck",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.26.0-F26-20260619-1602",
+    "builtAt": "2026-06-19 16:02 BRT",
+    "builtAtIso": "2026-06-19T16:02:00-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1,
+    "weatherOpsSchema": 1,
+    "procedureOpsSchema": 1,
+    "careerSchema": 1,
+    "economySchema": 1,
+    "incidentSchema": 1,
+    "networkFlowSchema": 1,
+    "controlRoomSchema": 1,
+    "commercialPolishSchema": 1,
+    "releaseCandidateSchema": 1,
+    "goldMasterSchema": 1,
+    "postGoldMasterSchema": 1,
+    "postPublishHealthSchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F26 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.26.0', 'phase': 'F26', 'phaseName': 'Publicação Assistida, Diagnóstico GitHub Pages/PWA, Health Check Pós-Upload e Hotfix Deck', 'channel': 'post-publish-healthcheck', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.26.0-F26-20260619-1602', 'builtAt': '2026-06-19 16:02 BRT', 'builtAtIso': '2026-06-19T16:02:00-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1, 'weatherOpsSchema': 1, 'procedureOpsSchema': 1, 'careerSchema': 1, 'economySchema': 1, 'incidentSchema': 1, 'networkFlowSchema': 1, 'controlRoomSchema': 1, 'commercialPolishSchema': 1, 'releaseCandidateSchema': 1, 'goldMasterSchema': 1, 'postGoldMasterSchema': 1, 'postPublishHealthSchema': 1}"
+    },
+    {
+      "name": "main bundle inclui módulo 29",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_POST_PUBLISH_HEALTH no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui health checks",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui hotfix deck",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui promotion rules",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui post-publish-healthcheck.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "início de turno inicializa F26",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fim de turno mostra F26",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS possui painel publish health",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F26 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema postPublishHealthSchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "channel post-publish-healthcheck",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc healthcheck existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc QA publicação existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc hotfix existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc comandos upload existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado raiz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado docs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém caminho Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém repo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "URL Pages catalog correta",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hotfix boot presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "health check offline presente",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 24,
+  "failed": 0,
+  "total": 24
+}

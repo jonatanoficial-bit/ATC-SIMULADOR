@@ -48,6 +48,21 @@
       "description": "Runtime state, airport profiles and procedure data"
     },
     {
+      "file": "16-airport-surface-graph.js",
+      "name": "airport-surface-graph",
+      "description": "Realistic airport surface graph, taxiways, gates and runway occupancy routing"
+    },
+    {
+      "file": "18-advanced-weather-ifr.js",
+      "name": "advanced-weather-ifr",
+      "description": "Advanced IFR/VFR weather, wind, RVR, visibility, ceiling and runway condition director"
+    },
+    {
+      "file": "19-procedures-sid-star-rnav.js",
+      "name": "procedures-sid-star-rnav",
+      "description": "Published-style SID, STAR, ILS, RNAV, missed approach and holding pattern director"
+    },
+    {
       "file": "15-aircraft-performance.js",
       "name": "aircraft-performance",
       "description": "Data-driven aircraft envelopes, speeds, climb/descent, fuel burn, landing risk and performance telemetry"
@@ -56,6 +71,66 @@
       "file": "05-profile-navigation.js",
       "name": "05-profile-navigation",
       "description": "Utilities, profile persistence, scenes, fullscreen and logs"
+    },
+    {
+      "file": "20-controller-career.js",
+      "name": "controller-career",
+      "description": "Deep controller career, licenses, ratings, fatigue, shift evaluation and reputation"
+    },
+    {
+      "file": "21-operational-economy.js",
+      "name": "operational-economy",
+      "description": "Operational economy, airport budget, airline contracts, delay costs, fines and efficiency"
+    },
+    {
+      "file": "22-incident-emergency-director.js",
+      "name": "incident-emergency-director",
+      "description": "Complex incidents, runway closure and multi-agency emergency coordination director"
+    },
+    {
+      "file": "23-network-flow-coordination.js",
+      "name": "network-flow-coordination",
+      "description": "International network flow, slots, connection banks, alternates and inter-airport coordination"
+    },
+    {
+      "file": "24-control-room-multiplayer.js",
+      "name": "control-room-multiplayer",
+      "description": "Local asynchronous multiplayer, leaderboard, shared replay codes, control room and shift comparison"
+    },
+    {
+      "file": "25-commercial-polish-ux.js",
+      "name": "commercial-polish-ux",
+      "description": "Commercial mobile AAA polish, responsive HUD, onboarding, premium menus and accessibility"
+    },
+    {
+      "file": "26-release-candidate-qa.js",
+      "name": "release-candidate-qa",
+      "description": "Public release candidate QA, final balance review, guided tutorial and publication checklist"
+    },
+    {
+      "file": "27-gold-master-package.js",
+      "name": "gold-master-package",
+      "description": "Gold Master packaging, player manual, final store/PWA checklist and publication lock"
+    },
+    {
+      "file": "28-post-gold-master-publishing.js",
+      "name": "post-gold-master-publishing",
+      "description": "Post-Gold Master real device QA, screenshots, bug triage and GitHub Pages publishing kit"
+    },
+    {
+      "file": "29-post-publish-healthcheck.js",
+      "name": "post-publish-healthcheck",
+      "description": "Post-publish GitHub Pages/PWA healthcheck, manual QA capture and hotfix deck"
+    },
+    {
+      "file": "30-public-ops-feedback.js",
+      "name": "public-ops-feedback",
+      "description": "Public operations feedback, offline telemetry, bug inbox and hotfix planning"
+    },
+    {
+      "file": "17-surface-safety-director.js",
+      "name": "surface-safety-director",
+      "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"
     },
     {
       "file": "06-traffic-requests.js",

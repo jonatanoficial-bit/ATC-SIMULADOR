@@ -1,0 +1,169 @@
+{
+  "schema": 1,
+  "version": "2026.06-f22",
+  "description": "Commercial/mobile AAA polish: responsive HUD, onboarding, premium menus, accessibility and public release readiness.",
+  "hudLayouts": [
+    {
+      "id": "MOBILE_LANDSCAPE_COMPACT",
+      "name": "Mobile landscape compact",
+      "minWidth": 700,
+      "maxHeight": 500,
+      "columns": 2,
+      "density": "compact",
+      "priority": [
+        "radar",
+        "commands",
+        "alerts",
+        "traffic"
+      ]
+    },
+    {
+      "id": "TABLET_BALANCED",
+      "name": "Tablet balanced",
+      "minWidth": 900,
+      "maxHeight": 900,
+      "columns": 3,
+      "density": "balanced",
+      "priority": [
+        "radar",
+        "strip",
+        "ops",
+        "commands"
+      ]
+    },
+    {
+      "id": "DESKTOP_DIRECTOR",
+      "name": "Desktop director",
+      "minWidth": 1200,
+      "maxHeight": 2000,
+      "columns": 4,
+      "density": "full",
+      "priority": [
+        "radar",
+        "strip",
+        "network",
+        "economy",
+        "career"
+      ]
+    },
+    {
+      "id": "PORTRAIT_SAFE",
+      "name": "Portrait safe mode",
+      "minWidth": 320,
+      "maxHeight": 1200,
+      "columns": 1,
+      "density": "stacked",
+      "priority": [
+        "alerts",
+        "radar",
+        "commands"
+      ]
+    }
+  ],
+  "onboardingSteps": [
+    {
+      "id": "WELCOME",
+      "title": "Bem-vindo ao Skyward Control",
+      "text": "Controle tráfego realista com meteorologia, solo, procedimentos e incidentes."
+    },
+    {
+      "id": "RADAR",
+      "title": "Radar e strips",
+      "text": "Use o radar para manter separação, sequência e consciência situacional."
+    },
+    {
+      "id": "CLEARANCES",
+      "title": "Autorizações",
+      "text": "Comandos podem ser aceitos, alertados ou bloqueados conforme risco operacional."
+    },
+    {
+      "id": "OPERATIONS",
+      "title": "Operação avançada",
+      "text": "Meteorologia, rede, economia e carreira alteram o resultado do turno."
+    },
+    {
+      "id": "REPLAY",
+      "title": "Replay compartilhável",
+      "text": "Ao final, gere um replay local para comparar turnos."
+    }
+  ],
+  "accessibilityModes": [
+    {
+      "id": "STANDARD",
+      "name": "Padrão",
+      "contrast": 1.0,
+      "fontScale": 1.0,
+      "motion": "normal"
+    },
+    {
+      "id": "HIGH_CONTRAST",
+      "name": "Alto contraste",
+      "contrast": 1.35,
+      "fontScale": 1.08,
+      "motion": "normal"
+    },
+    {
+      "id": "LARGE_TEXT",
+      "name": "Texto ampliado",
+      "contrast": 1.1,
+      "fontScale": 1.18,
+      "motion": "reduced"
+    },
+    {
+      "id": "LOW_MOTION",
+      "name": "Baixo movimento",
+      "contrast": 1.0,
+      "fontScale": 1.0,
+      "motion": "reduced"
+    }
+  ],
+  "releaseReadiness": [
+    {
+      "id": "MOBILE_FULLSCREEN",
+      "name": "Fullscreen mobile-first",
+      "required": true
+    },
+    {
+      "id": "PWA_OFFLINE",
+      "name": "PWA/offline",
+      "required": true
+    },
+    {
+      "id": "BUILD_VISIBLE",
+      "name": "Build visível",
+      "required": true
+    },
+    {
+      "id": "UPLOAD_DOC",
+      "name": "Documento de upload incluso",
+      "required": true
+    },
+    {
+      "id": "AUDIT_REPORTS",
+      "name": "Auditoria por fase",
+      "required": true
+    }
+  ],
+  "menuCards": [
+    {
+      "id": "CAREER",
+      "title": "Carreira ATC",
+      "subtitle": "Licenças, ratings, fadiga e reputação"
+    },
+    {
+      "id": "SIMULATION",
+      "title": "Simulação",
+      "subtitle": "Turnos, aeroportos, clima e procedimentos"
+    },
+    {
+      "id": "CONTROL_ROOM",
+      "title": "Control Room",
+      "subtitle": "Ranking local, replay e comparação"
+    },
+    {
+      "id": "SETTINGS",
+      "title": "Acessibilidade",
+      "subtitle": "Contraste, texto e movimento"
+    }
+  ]
+}

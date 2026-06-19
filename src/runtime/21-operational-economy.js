@@ -111,9 +111,11 @@ function evaluateOperationalEconomy(finalScore=0, shiftStats={}, fail=false, air
   const contractPenalty=contracts.reduce((a,c)=>a+c.penalty,0);
   const staffingCost=Math.round(budget.shiftBudget*.22 + Math.max(0,(shiftStats.commands||0)-35)*45);
   const weatherCost=(window.SKYWARD_WEATHER_OPS?.state?.().flightRules==='LIFR') ? Math.round(budget.shiftBudget*.08) : 0;
-  const revenue=serviceRevenue+contractBonus;
+  const revenue=serviceRevenue+contractBonus+(typeof networkBonus==='number'?networkBonus:0);
   const incidentCost=(typeof incidentEconomicImpact==='function' ? incidentEconomicImpact().cost : 0);
-  const costs=staffingCost+delayCost+fines+contractPenalty+weatherCost+incidentCost;
+  const netImpact=(typeof networkEconomicImpact==='function' ? networkEconomicImpact().impact : 0);
+  const costs=staffingCost+delayCost+fines+contractPenalty+weatherCost+incidentCost+Math.max(0,-netImpact);
+  const networkBonus=Math.max(0,netImpact);
   const profit=Math.round(revenue-costs);
   airportEconomy.balance=Math.round((airportEconomy.balance||0)+profit);
   airportEconomy.totalRevenue=Math.round((airportEconomy.totalRevenue||0)+revenue);

@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.12.0-F12-20260618-1138",
-  "builtAt": "2026-06-18 11:38 BRT",
-  "cacheName": "skyward-control-1-sc-1.12.0-f12-20260618-1138",
+  "build": "SC-1.27.0-F27-20260619-1704",
+  "builtAt": "2026-06-19 17:04 BRT",
+  "cacheName": "skyward-control-1-sc-1.27.0-f27-20260619-1704",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,8 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 666,
-      "sha256": "e141856e9a2796415d370991984743a7fe51a3da51366f60533f28c69656f5e8"
+      "bytes": 1137,
+      "sha256": "c79d0188ba5b041ecfaa91a47d00118f63e9d344e35b0c32b3c7b4579a1e53a6"
     },
     {
       "url": "./data/aircraft-performance.json",
@@ -99,10 +99,100 @@
       "sha256": "5fbc7b7a833d995de19747e49768ad297d2b417e1c9e68ec3670d5d07332636d"
     },
     {
+      "url": "./data/airport-graphs.json",
+      "file": "data/airport-graphs.json",
+      "bytes": 25859,
+      "sha256": "29c0ee11c68d702017fafd62dfda6c7d8b0c7ac700e8a428e64f0dedfa64d373"
+    },
+    {
       "url": "./data/airports.json",
       "file": "data/airports.json",
       "bytes": 4613,
       "sha256": "2908723bc368e9c28e3ca927ba0511613b43ec215263124a65c93316fa70e74e"
+    },
+    {
+      "url": "./data/career-ratings.json",
+      "file": "data/career-ratings.json",
+      "bytes": 3664,
+      "sha256": "e91893153a3339988742034a8889bc5c3f1e1fe68369644308fb9f740b6c3466"
+    },
+    {
+      "url": "./data/control-room-ranking.json",
+      "file": "data/control-room-ranking.json",
+      "bytes": 2283,
+      "sha256": "5127617ddaef15796de9f0e06bd2fb73958274ac5dfa062d5f532efca1ca08c8"
+    },
+    {
+      "url": "./data/economy-contracts.json",
+      "file": "data/economy-contracts.json",
+      "bytes": 3199,
+      "sha256": "dae133a6375f4c3ac9e4464317b589929984153526adb0db19203661a1aa382f"
+    },
+    {
+      "url": "./data/gold-master-package.json",
+      "file": "data/gold-master-package.json",
+      "bytes": 4213,
+      "sha256": "b3b3f505199bec6f38fe7e0778ec5ee98089beeb05b1c9c8a12be0aa97f5fb5d"
+    },
+    {
+      "url": "./data/incident-playbooks.json",
+      "file": "data/incident-playbooks.json",
+      "bytes": 5217,
+      "sha256": "10b6dccc7a4161531bd8fc9ed89fc1a22eaff709dd52dd517bc24f572fcf0c31"
+    },
+    {
+      "url": "./data/network-flow-slots.json",
+      "file": "data/network-flow-slots.json",
+      "bytes": 4630,
+      "sha256": "d56068110d91f7df30334e22380c0a345c700bb55c1def5d163e31936f35eb39"
+    },
+    {
+      "url": "./data/post-gold-master-publishing.json",
+      "file": "data/post-gold-master-publishing.json",
+      "bytes": 3797,
+      "sha256": "9991f07172a460620ecd4b41396d8c835ccf6f61f7aac0e2fcc8b1654af6c72b"
+    },
+    {
+      "url": "./data/post-publish-healthcheck.json",
+      "file": "data/post-publish-healthcheck.json",
+      "bytes": 3264,
+      "sha256": "42657acb17935fec471905cfd7650695fb5d02a7f0121622851e2bf8604be6c8"
+    },
+    {
+      "url": "./data/procedures-f16.json",
+      "file": "data/procedures-f16.json",
+      "bytes": 13664,
+      "sha256": "5ec0eeebe38c68d8e42a86e160f21245d063aee2213bd37c704ccf92a1a55ebd"
+    },
+    {
+      "url": "./data/public-ops-feedback.json",
+      "file": "data/public-ops-feedback.json",
+      "bytes": 2947,
+      "sha256": "4bc5418e665b56f0726c05940b085234666127c1d25181d50ef33f7ef498e0c5"
+    },
+    {
+      "url": "./data/release-candidate-qa.json",
+      "file": "data/release-candidate-qa.json",
+      "bytes": 3834,
+      "sha256": "46db73e45e5182293923bdd33055168af1b0dbfb88ea884f71fc5675e61fe7bb"
+    },
+    {
+      "url": "./data/surface-hotspots.json",
+      "file": "data/surface-hotspots.json",
+      "bytes": 1841,
+      "sha256": "48a9ef383cc6f31e038860da68c8ec9ccf8877532c0639ab9f2b9600df1de603"
+    },
+    {
+      "url": "./data/ux-polish-presets.json",
+      "file": "data/ux-polish-presets.json",
+      "bytes": 3816,
+      "sha256": "d30195b71add6d51cd7148e8c0d32978a0529660a0b6ba150feaeda78ea65fac"
+    },
+    {
+      "url": "./data/weather-profiles.json",
+      "file": "data/weather-profiles.json",
+      "bytes": 2708,
+      "sha256": "221d6c9b0ece729432c0b6397781d3d4e3b4a8333a5901a7d36aaf0466c36581"
     },
     {
       "url": "./index.html",
@@ -113,8 +203,8 @@
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 248857,
-      "sha256": "061d3e65a59f95563570c1f6bcd2c6b290892c1ed7c2be0d8a4275d81cee171d"
+      "bytes": 441818,
+      "sha256": "013b6c80e04c4df3dc3ffeefa6a0a7dd67e5670c34cc40ab7a93dbc1d78f3df8"
     },
     {
       "url": "./manifest.webmanifest",
@@ -125,8 +215,8 @@
     {
       "url": "./style.css",
       "file": "style.css",
-      "bytes": 90698,
-      "sha256": "91844f186618de2dd44e6728f464877d622c9c66b1fcb83f4de724776aa88c2f"
+      "bytes": 98237,
+      "sha256": "5578fdc10f5c9aba220e9b8b99b516ef586fb5bfdb571d4f5b83023f3483fac5"
     }
   ]
 }

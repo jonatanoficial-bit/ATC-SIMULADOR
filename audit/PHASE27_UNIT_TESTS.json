@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "suite": "phase27-unit",
+  "build": "SC-1.27.0-F27-20260619-1704",
+  "passed": 16,
+  "total": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F27+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.27.0\",\"phase\":\"F27\",\"phaseName\":\"Operação Pública Contínua, Feedback Local, Telemetria Offline, Bug Inbox e Hotfix Planner\",\"channel\":\"public-ops\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.27.0-F27-20260619-1704\",\"builtAt\":\"2026-06-19 17:04 BRT\",\"builtAtIso\":\"2026-06-19T17:04:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1}"
+    },
+    {
+      "name": "módulo F27 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo feedback telemetria hotfix",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"categories\":6,\"templates\":5}"
+    },
+    {
+      "name": "init gera sessão",
+      "ok": true,
+      "detail": "{\"sessions\":1,\"turnsStarted\":0,\"turnsCompleted\":0,\"criticalBugs\":0,\"feedbackItems\":2,\"hotfixCandidates\":0}"
+    },
+    {
+      "name": "feedback registrado",
+      "ok": true,
+      "detail": "{\"id\":\"FDB-309320\",\"at\":\"2026-06-19T19:11:49.320Z\",\"category\":\"MOBILE_UX\",\"rating\":4,\"message\":\"Rolagem boa no mobile\",\"build\":\"SC-1.27.0-F27-20260619-1704\"}"
+    },
+    {
+      "name": "bug crítico registrado",
+      "ok": true,
+      "detail": "{\"id\":\"PUBBUG-309320\",\"at\":\"2026-06-19T19:11:49.320Z\",\"severity\":\"CRITICAL\",\"title\":\"PWA cache antigo\",\"steps\":\"abre versão antiga offline\",\"status\":\"OPEN\",\"releaseAction\":\"Hotfix antes de próxima campanha\",\"build\":\"SC-1.27.0-F27-20260619-1704\"}"
+    },
+    {
+      "name": "hotfix plan gerado",
+      "ok": true,
+      "detail": "[{\"bugId\":\"PUBBUG-309320\",\"templateId\":\"PWA_CACHE_PATCH\",\"name\":\"Patch cache PWA\",\"severity\":\"CRITICAL\",\"files\":[\"sw.js\",\"tools/build-pwa.mjs\",\"pwa-cache-manifest.json\"],\"action\":\"Hotfix antes de próxima campanha\"}]"
+    },
+    {
+      "name": "summary detecta hotfix required",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-19T19:11:49.321Z\",\"build\":\"SC-1.27.0-F27-20260619-1704\",\"score\":55,\"status\":\"HOTFIX_REQUIRED\",\"criticalOpen\":1,\"majorOpen\":0,\"completion\":1,\"satisfaction\":4.67,\"hotfixCandidates\":1}"
+    },
+    {
+      "name": "bug fechado melhora status",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-19T19:11:49.321Z\",\"build\":\"SC-1.27.0-F27-20260619-1704\",\"score\":100,\"status\":\"PUBLIC_STABLE\",\"criticalOpen\":0,\"majorOpen\":0,\"completion\":1,\"satisfaction\":4.67,\"hotfixCandidates\":0}"
+    },
+    {
+      "name": "dossiê exportável",
+      "ok": true,
+      "detail": "{\n  \"schema\": 1,\n  \"build\": \"SC-1.27.0-F27-20260619-1704\",\n  \"summary\": {\n    \"at\": \"2026-06-19T19:11:49.321Z\",\n    \"bui"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "{\"maxCriticalOpen\":0,\"maxMajorOpen\":3,\"minCompletionRatio\":0.45,\"minSatisfaction\":4,\"hotfixThreshold\":70}"
+    }
+  ]
+}

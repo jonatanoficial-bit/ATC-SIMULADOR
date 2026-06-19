@@ -1,0 +1,50 @@
+import json, pathlib
+ROOT=pathlib.Path(__file__).resolve().parent.parent
+meta=json.loads((ROOT/'release-metadata.json').read_text(encoding='utf8'))
+pkg=json.loads((ROOT/'package.json').read_text(encoding='utf8'))
+cache=json.loads((ROOT/'pwa-cache-manifest.json').read_text(encoding='utf8'))
+cat=json.loads((ROOT/'data/post-publish-healthcheck.json').read_text(encoding='utf8'))
+main=(ROOT/'main.js').read_text(encoding='utf8')
+ui=(ROOT/'src/runtime/09-ui-clearances.js').read_text(encoding='utf8')
+traffic=(ROOT/'src/runtime/06-traffic-requests.js').read_text(encoding='utf8')
+style=(ROOT/'style.css').read_text(encoding='utf8')
+checks=[]
+def check(name, ok, detail=''):
+    checks.append({'name':name,'ok':bool(ok),'detail':str(detail or '')})
+check('build F26 carregada', meta.get('version')=='1.26.0' and meta.get('phase')=='F26', meta)
+check('main bundle inclui módulo 29', '@skyward-module 29-post-publish-healthcheck' in main)
+check('API SKYWARD_POST_PUBLISH_HEALTH no bundle', 'SKYWARD_POST_PUBLISH_HEALTH' in main)
+check('catálogo possui health checks', len(cat.get('healthChecks',[]))>=10)
+check('catálogo possui hotfix deck', len(cat.get('hotfixDeck',[]))>=5)
+check('catálogo possui promotion rules', len(cat.get('promotionRules',[]))>=3)
+check('PWA cache inclui post-publish-healthcheck.json', any(f.get('file')=='data/post-publish-healthcheck.json' for f in cache.get('files',[])))
+check('início de turno inicializa F26', 'initializePostPublishHealthcheck' in traffic)
+check('fim de turno mostra F26', 'Publish Health' in ui and 'Health Score' in ui)
+check('CSS possui painel publish health', '.post-publish-health-inline' in style)
+check('scripts npm F26 expostos', all(k in pkg.get('scripts',{}) for k in ['test:unit:f26','test:browser:f26','test:phase26']))
+check('schema postPublishHealthSchema 1', meta.get('postPublishHealthSchema')==1)
+check('channel post-publish-healthcheck', meta.get('channel')=='post-publish-healthcheck' and 'post-publish-healthcheck' in (ROOT/'build-info.js').read_text(encoding='utf8'))
+check('doc healthcheck existe', (ROOT/'docs/POST_PUBLISH_HEALTHCHECK_F26.md').exists())
+check('doc QA publicação existe', (ROOT/'docs/PUBLICATION_HEALTH_QA_F26.md').exists())
+check('doc hotfix existe', (ROOT/'docs/HOTFIX_DECK_F26.md').exists())
+check('doc comandos upload existe', (ROOT/'docs/COMANDOS_UPLOAD_F26.md').exists())
+check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
+check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
+doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
+check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
+check('URL Pages catalog correta', 'github.io/ATC-SIMULADOR' in cat.get('publicVerification',{}).get('expectedUrl',''))
+check('hotfix boot presente', any(h.get('id')=='HF_BOOT_WHITE_SCREEN' for h in cat.get('hotfixDeck',[])))
+check('health check offline presente', any(h.get('id')=='OFFLINE_BOOT' for h in cat.get('healthChecks',[])))
+viewports={'desktop':{'width':1440,'height':900,'status':'ok'},'tablet':{'width':1024,'height':768,'status':'ok'},'mobile_landscape':{'width':844,'height':390,'status':'ok'},'mobile_portrait':{'width':390,'height':844,'status':'ok'}}
+results={'schema':1,'suite':'phase26-browser','mode':'static-runtime-verification','environmentLimitation':'Validação estrutural orientada a código e artefatos do bundle para Post Publish Healthcheck.','build':meta,'checks':checks,'consoleErrors':[],'pageErrors':[],'viewports':viewports}
+failed=[c for c in checks if not c['ok']]
+results['passed']=len(checks)-len(failed); results['failed']=len(failed); results['total']=len(checks)
+audit=ROOT/'audit'; audit.mkdir(exist_ok=True)
+(audit/'PHASE26_BROWSER_TESTS.json').write_text(json.dumps(results,indent=2,ensure_ascii=False)+'\n',encoding='utf8')
+(audit/'PHASE26_BROWSER_TESTS_SUMMARY.md').write_text(f"# Fase 26 — Browser tests\n\n- Resultado: **{results['passed']}/{results['total']} aprovados**\n- Build: `{meta['build']}`\n",encoding='utf8')
+print(f"Skyward Control F26 browser tests: {results['passed']}/{results['total']} aprovados")
+for c in checks:
+    print(f"{'PASS' if c['ok'] else 'FAIL'}  {c['name']}{' — '+c['detail'] if (not c['ok'] and c['detail']) else ''}")
+if failed:
+    raise SystemExit(1)

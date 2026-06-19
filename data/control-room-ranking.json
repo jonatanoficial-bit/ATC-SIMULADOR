@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "version": "2026.06-f21",
+  "description": "Local/asynchronous multiplayer, leaderboard, shared replay, control rooms and shift comparison.",
+  "roomTypes": [
+    {
+      "id": "LOCAL_TOWER_ROOM",
+      "name": "Sala Local Torre",
+      "players": 2,
+      "focus": [
+        "TWR",
+        "GND"
+      ],
+      "scoreWeight": 1.0
+    },
+    {
+      "id": "APPROACH_ROOM",
+      "name": "Sala Aproximação",
+      "players": 2,
+      "focus": [
+        "APP",
+        "TWR"
+      ],
+      "scoreWeight": 1.15
+    },
+    {
+      "id": "NETWORK_ROOM",
+      "name": "Sala Network Flow",
+      "players": 3,
+      "focus": [
+        "APP",
+        "FLOW",
+        "OPS"
+      ],
+      "scoreWeight": 1.3
+    },
+    {
+      "id": "EMERGENCY_ROOM",
+      "name": "Sala Emergência Multiagência",
+      "players": 3,
+      "focus": [
+        "TWR",
+        "OPS",
+        "ARFF"
+      ],
+      "scoreWeight": 1.45
+    }
+  ],
+  "rankingTiers": [
+    {
+      "id": "TRAINEE",
+      "name": "Trainee",
+      "minScore": 0
+    },
+    {
+      "id": "CERTIFIED",
+      "name": "Certified",
+      "minScore": 1500
+    },
+    {
+      "id": "PRO",
+      "name": "Professional",
+      "minScore": 4200
+    },
+    {
+      "id": "ELITE",
+      "name": "Elite Controller",
+      "minScore": 8200
+    },
+    {
+      "id": "MASTER",
+      "name": "Master Supervisor",
+      "minScore": 14000
+    }
+  ],
+  "comparisonMetrics": [
+    {
+      "id": "finalScore",
+      "name": "Pontuação final",
+      "higherIsBetter": true
+    },
+    {
+      "id": "safety",
+      "name": "Segurança",
+      "higherIsBetter": true
+    },
+    {
+      "id": "efficiency",
+      "name": "Eficiência",
+      "higherIsBetter": true
+    },
+    {
+      "id": "delayMin",
+      "name": "Atraso total",
+      "higherIsBetter": false
+    },
+    {
+      "id": "incidentsResolved",
+      "name": "Incidentes resolvidos",
+      "higherIsBetter": true
+    },
+    {
+      "id": "economyProfit",
+      "name": "Resultado econômico",
+      "higherIsBetter": true
+    },
+    {
+      "id": "slotCompliance",
+      "name": "Compliance de slot",
+      "higherIsBetter": true
+    }
+  ],
+  "sharePolicy": {
+    "format": "SKYWARD-REPLAY-V1",
+    "maxHistory": 40,
+    "codePrefix": "SCR",
+    "offlineOnly": true
+  }
+}

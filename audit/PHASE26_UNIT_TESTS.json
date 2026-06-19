@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "suite": "phase26-unit",
+  "build": "SC-1.26.0-F26-20260619-1602",
+  "passed": 14,
+  "total": 14,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F26+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.26.0\",\"phase\":\"F26\",\"phaseName\":\"Publicação Assistida, Diagnóstico GitHub Pages/PWA, Health Check Pós-Upload e Hotfix Deck\",\"channel\":\"post-publish-healthcheck\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.26.0-F26-20260619-1602\",\"builtAt\":\"2026-06-19 16:02 BRT\",\"builtAtIso\":\"2026-06-19T16:02:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1}"
+    },
+    {
+      "name": "módulo F26 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo health hotfix promotion",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"healthChecks\":10,\"hotfixes\":5}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"checks\":{\"HTTPS\":{\"ok\":true,\"note\":\"sinal local detectado\",\"at\":\"2026-06-19T18:05:12.256Z\"},\"PUBLIC_URL\":{\"ok\":true,\"note\":\"URL local/pública detectada\",\"at\":\"2026-06-19T18:05:12.257Z\"},\"SERVICE_WORKER\":{\"ok\":true,\"note\":\"navigator.serviceWorker disponível\",\"at\":\"2026-06-19T18:05:12.257Z\"},\"BUILD_MATCH\":{\"ok\":true,\"note\":\"BUILD runtime confere\",\"at\":\"2026-06-19T18:05:12.257Z\"},\"NO_BLOCKERS\":{\"ok\":true,\"note\":\"sem blocker/critical aberto\",\"at\":\"2026-06-19T18:05:12.257Z\"}},\"captures\":[],\"hotfixes\":[],\"healthScore\":52,\"status\":\"NEEDS_MANUAL_QA\",\"lastEvaluation\":{\"at\":\"2026-06-19T18:05:12.257Z\",\"build\":\"SC-1.26.0-F26-20260619-1602\",\"score\":52,\"status\":\"NEEDS_MANUAL_QA\",\"criticalOpen\":0,\"signals\":{\"https\":true,\"publicUrl\":true,\"serviceWorkerCapable\":true,\"standalone\":false,\"buildMatch\":true}}}"
+    },
+    {
+      "name": "captura manual registrada",
+      "ok": true,
+      "detail": "{\"id\":\"QA-312257\",\"at\":\"2026-06-19T18:05:12.257Z\",\"device\":\"Android\",\"browser\":\"Chrome\",\"url\":\"https://jonatanoficial-bit.github.io/ATC-SIMULADOR/\",\"orientation\":\"landscape\",\"pwaInstalled\":true,\"offlineWorks\":true,\"buildVisible\":true,\"notes\":\"ok\"}"
+    },
+    {
+      "name": "hotfix aberto",
+      "ok": true,
+      "detail": "{\"id\":\"HFX-312257\",\"templateId\":\"HF_TOUCH_SCROLL\",\"severity\":\"MAJOR\",\"title\":\"Scroll/touch ruim no celular\",\"firstAction\":\"ajustar overflow/touch-action em layout mobile\",\"note\":\"teste\",\"status\":\"OPEN\",\"at\":\"2026-06-19T18:05:12.257Z\"}"
+    },
+    {
+      "name": "health avaliado",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-19T18:05:12.258Z\",\"build\":\"SC-1.26.0-F26-20260619-1602\",\"score\":100,\"status\":\"PUBLIC_HEALTHY\",\"criticalOpen\":0,\"signals\":{\"https\":true,\"publicUrl\":true,\"serviceWorkerCapable\":true,\"standalone\":false,\"buildMatch\":true}}"
+    },
+    {
+      "name": "advice retorna regra",
+      "ok": true,
+      "detail": "{\"rule\":\"PROMOTE_PUBLIC\",\"message\":\"Pode anunciar o link público após conferência manual final.\",\"evaluation\":{\"at\":\"2026-06-19T18:05:12.258Z\",\"build\":\"SC-1.26.0-F26-20260619-1602\",\"score\":100,\"status\":\"PUBLIC_HEALTHY\",\"criticalOpen\":0,\"signals\":{\"https\":true,\"publicUrl\":true,\"serviceWorkerCapable\":true,\"standalone\":false,\"buildMatch\":true}}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "{\"repo\":\"https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git\",\"expectedUrl\":\"https://jonatanoficial-bit.github.io/ATC-SIMULADOR/\",\"branch\":\"main\",\"rootPath\":\"/\",\"localPath\":\"/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO\"}"
+    }
+  ]
+}

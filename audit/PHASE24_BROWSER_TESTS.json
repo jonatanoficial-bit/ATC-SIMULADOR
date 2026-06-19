@@ -1,0 +1,191 @@
+{
+  "schema": 1,
+  "suite": "phase24-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para Gold Master.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.24.0",
+    "phase": "F24",
+    "phaseName": "RC2 Gold Master, Manual do Jogador, Empacotamento Definitivo e Checklist Final Loja/PWA",
+    "channel": "gold-master",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.24.0-F24-20260619-1402",
+    "builtAt": "2026-06-19 14:02 BRT",
+    "builtAtIso": "2026-06-19T14:02:00-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1,
+    "weatherOpsSchema": 1,
+    "procedureOpsSchema": 1,
+    "careerSchema": 1,
+    "economySchema": 1,
+    "incidentSchema": 1,
+    "networkFlowSchema": 1,
+    "controlRoomSchema": 1,
+    "commercialPolishSchema": 1,
+    "releaseCandidateSchema": 1,
+    "goldMasterSchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F24 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.24.0', 'phase': 'F24', 'phaseName': 'RC2 Gold Master, Manual do Jogador, Empacotamento Definitivo e Checklist Final Loja/PWA', 'channel': 'gold-master', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.24.0-F24-20260619-1402', 'builtAt': '2026-06-19 14:02 BRT', 'builtAtIso': '2026-06-19T14:02:00-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1, 'weatherOpsSchema': 1, 'procedureOpsSchema': 1, 'careerSchema': 1, 'economySchema': 1, 'incidentSchema': 1, 'networkFlowSchema': 1, 'controlRoomSchema': 1, 'commercialPolishSchema': 1, 'releaseCandidateSchema': 1, 'goldMasterSchema': 1}"
+    },
+    {
+      "name": "main bundle inclui módulo 27",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_GOLD_MASTER no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui GM gates",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui manual",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui store checklist",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui gold-master-package.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "início de turno inicializa GM",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fim de turno avalia GM",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tela final mostra GM",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS possui painel GM",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F24 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema goldMasterSchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "channel gold-master",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manual do jogador existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "gold QA existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "store checklist existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "release notes GM existem",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado raiz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado docs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém caminho Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém repo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manual cobre incidents",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "store screenshots manualCapture",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 24,
+  "failed": 0,
+  "total": 24
+}

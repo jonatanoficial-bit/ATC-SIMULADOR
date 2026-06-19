@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "suite": "phase24-unit",
+  "build": "SC-1.24.0-F24-20260619-1402",
+  "passed": 14,
+  "total": 14,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F24+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.24.0\",\"phase\":\"F24\",\"phaseName\":\"RC2 Gold Master, Manual do Jogador, Empacotamento Definitivo e Checklist Final Loja/PWA\",\"channel\":\"gold-master\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.24.0-F24-20260619-1402\",\"builtAt\":\"2026-06-19 14:02 BRT\",\"builtAtIso\":\"2026-06-19T14:02:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1}"
+    },
+    {
+      "name": "módulo F24 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo gates manual store",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"gates\":9,\"manual\":10}"
+    },
+    {
+      "name": "gates GM calculados",
+      "ok": true,
+      "detail": "{\"score\":100,\"status\":\"GOLD_MASTER_READY\",\"publicationLocked\":true,\"gates\":[{\"id\":\"RUNTIME_LOCK\",\"name\":\"Runtime congelado e versionado\",\"required\":true,\"weight\":12,\"ok\":true},{\"id\":\"PWA_PACKAGE\",\"name\":\"PWA/cache final\",\"required\":true,\"weight\":10,\"ok\":true},{\"id\":\"PLAYER_MANUAL\",\"name\":\"Manual do jogador incluso\",\"required\":true,\"weight\":14,\"ok\":true},{\"id\":\"STORE_CHECKLIST\",\"name\":\"Checklist loja/PWA completo\",\"required\":true,\"weight\":12,\"ok\":true},{\"id\":\"PUBLIC_RELEASE_NOTES\",\"name\":\"Notas públicas de release\",\"required\":true,\"weight\":9,\"ok\":true},{\"id\":\"UPLOAD_PATHS\",\"name\":\"Caminhos de upload inclusos\",\"required\":true,\"weight\":8,\"ok\":true},{\"id\":\"FINAL_AUDIT\",\"name\":\"Auditoria final Gold Master\",\"required\":true,\"weight\":15,\"ok\":true},{\"id\":\"OFFLINE_SAFE\",\"name\":\"Rodável sem servidor externo\",\"required\":true,\"weight\":8,\"ok\":true},{\"id\":\"MOBILE_READY\",\"name\":\"Mobile-first validado\",\"required\":true,\"weight\":12,\"ok\":true}]}"
+    },
+    {
+      "name": "store checklist disponível",
+      "ok": true,
+      "detail": "[{\"id\":\"APP_NAME\",\"name\":\"Nome e versão visíveis\",\"ok\":true,\"manualCapture\":false},{\"id\":\"DESCRIPTION\",\"name\":\"Descrição curta e longa\",\"ok\":true,\"manualCapture\":false},{\"id\":\"SCREENSHOTS\",\"name\":\"Screenshots mobile/desktop pendentes para captura manual\",\"ok\":false,\"manualCapture\":true},{\"id\":\"PWA_MANIFEST\",\"name\":\"Manifest PWA presente\",\"ok\":true,\"manualCapture\":false},{\"id\":\"SERVICE_WORKER\",\"name\":\"Service worker/cache presente\",\"ok\":true,\"manualCapture\":false},{\"id\":\"PRIVACY_NOTE\",\"name\":\"Nota de privacidade/offline\",\"ok\":true,\"manualCapture\":false},{\"id\":\"SUPPORT_NOTE\",\"name\":\"Nota de suporte e contato\",\"ok\":true,\"manualCapture\":false},{\"id\":\"QA_REPORT\",\"name\":\"Relatório QA/GM anexado\",\"ok\":true,\"manualCapture\":false}]"
+    },
+    {
+      "name": "manual possui seções",
+      "ok": true,
+      "detail": "[{\"order\":1,\"id\":\"START\",\"title\":\"Primeiro acesso\",\"topics\":[\"perfil\",\"aeroporto\",\"turno\",\"fullscreen\"]},{\"order\":2,\"id\":\"RADAR\",\"title\":\"Radar e separação\",\"topics\":[\"altitude\",\"heading\",\"speed\",\"sequenciamento\"]}]"
+    },
+    {
+      "name": "init retorna gates",
+      "ok": true,
+      "detail": "{\"score\":100,\"status\":\"GOLD_MASTER_READY\",\"publicationLocked\":true,\"gates\":[{\"id\":\"RUNTIME_LOCK\",\"name\":\"Runtime congelado e versionado\",\"required\":true,\"weight\":12,\"ok\":true},{\"id\":\"PWA_PACKAGE\",\"name\":\"PWA/cache final\",\"required\":true,\"weight\":10,\"ok\":true},{\"id\":\"PLAYER_MANUAL\",\"name\":\"Manual do jogador incluso\",\"required\":true,\"weight\":14,\"ok\":true},{\"id\":\"STORE_CHECKLIST\",\"name\":\"Checklist loja/PWA completo\",\"required\":true,\"weight\":12,\"ok\":true},{\"id\":\"PUBLIC_RELEASE_NOTES\",\"name\":\"Notas públicas de release\",\"required\":true,\"weight\":9,\"ok\":true},{\"id\":\"UPLOAD_PATHS\",\"name\":\"Caminhos de upload inclusos\",\"required\":true,\"weight\":8,\"ok\":true},{\"id\":\"FINAL_AUDIT\",\"name\":\"Auditoria final Gold Master\",\"required\":true,\"weight\":15,\"ok\":true},{\"id\":\"OFFLINE_SAFE\",\"name\":\"Rodável sem servidor externo\",\"required\":true,\"weight\":8,\"ok\":true},{\"id\":\"MOBILE_READY\",\"name\":\"Mobile-first validado\",\"required\":true,\"weight\":12,\"ok\":true}]}"
+    },
+    {
+      "name": "evaluate gera entry GM",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-19T14:31:12.451Z\",\"build\":\"SC-1.24.0-F24-20260619-1402\",\"airport\":\"SBGR\",\"finalScore\":4200,\"gmScore\":100,\"gmStatus\":\"GOLD_MASTER_READY\",\"publicationLocked\":true}"
+    },
+    {
+      "name": "status contém store manual notes",
+      "ok": true,
+      "detail": "{\"track\":\"gold-master\",\"manualFile\":\"docs/PLAYER_MANUAL_F24.md\",\"qaFile\":\"docs/GOLD_MASTER_QA_F24.md\",\"minimumManualQA\":[\"Android landscape\",\"iOS Safari\",\"Desktop Chrome\",\"PWA instalada\"],\"knownLimitations\":[\"Multiplayer é local/assíncrono por replay; não há servidor em tempo real nesta build.\"]}"
+    }
+  ]
+}

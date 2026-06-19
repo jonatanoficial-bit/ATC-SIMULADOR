@@ -1,0 +1,217 @@
+{
+  "schema": 1,
+  "version": "2026.06-f20",
+  "description": "International network flow, airport slots, connection banks, alternates and inter-airport coordination.",
+  "hubs": {
+    "SBGR": {
+      "name": "São Paulo Guarulhos",
+      "region": "BR-SE",
+      "capacityPerHour": 48,
+      "internationalWeight": 0.72,
+      "bankWindows": [
+        "06:00-08:30",
+        "14:00-16:00",
+        "21:00-23:30"
+      ]
+    },
+    "SBSP": {
+      "name": "São Paulo Congonhas",
+      "region": "BR-SE",
+      "capacityPerHour": 36,
+      "internationalWeight": 0.08,
+      "bankWindows": [
+        "07:00-09:30",
+        "17:00-20:00"
+      ]
+    },
+    "SBKP": {
+      "name": "Campinas Viracopos",
+      "region": "BR-SE",
+      "capacityPerHour": 34,
+      "internationalWeight": 0.35,
+      "bankWindows": [
+        "05:30-07:30",
+        "22:00-23:59"
+      ]
+    },
+    "SBBR": {
+      "name": "Brasília",
+      "region": "BR-CO",
+      "capacityPerHour": 42,
+      "internationalWeight": 0.28,
+      "bankWindows": [
+        "08:00-10:30",
+        "18:00-21:00"
+      ]
+    },
+    "KATL": {
+      "name": "Atlanta Hartsfield-Jackson",
+      "region": "US-SE",
+      "capacityPerHour": 92,
+      "internationalWeight": 0.55,
+      "bankWindows": [
+        "06:00-09:00",
+        "12:00-14:30",
+        "18:00-22:00"
+      ]
+    }
+  },
+  "routes": [
+    {
+      "id": "SBGR-KATL",
+      "from": "SBGR",
+      "to": "KATL",
+      "type": "international_trunk",
+      "distanceNm": 4050,
+      "slotPressure": 0.82,
+      "minTurnMin": 105,
+      "alternatePool": [
+        "SBKP",
+        "SBBR"
+      ]
+    },
+    {
+      "id": "KATL-SBGR",
+      "from": "KATL",
+      "to": "SBGR",
+      "type": "international_trunk",
+      "distanceNm": 4050,
+      "slotPressure": 0.86,
+      "minTurnMin": 110,
+      "alternatePool": [
+        "SBKP",
+        "SBBR"
+      ]
+    },
+    {
+      "id": "SBGR-SBBR",
+      "from": "SBGR",
+      "to": "SBBR",
+      "type": "domestic_trunk",
+      "distanceNm": 470,
+      "slotPressure": 0.64,
+      "minTurnMin": 48,
+      "alternatePool": [
+        "SBKP",
+        "SBSP"
+      ]
+    },
+    {
+      "id": "SBBR-SBGR",
+      "from": "SBBR",
+      "to": "SBGR",
+      "type": "domestic_trunk",
+      "distanceNm": 470,
+      "slotPressure": 0.68,
+      "minTurnMin": 50,
+      "alternatePool": [
+        "SBKP",
+        "SBSP"
+      ]
+    },
+    {
+      "id": "SBSP-SBGR",
+      "from": "SBSP",
+      "to": "SBGR",
+      "type": "metro_reposition",
+      "distanceNm": 18,
+      "slotPressure": 0.42,
+      "minTurnMin": 30,
+      "alternatePool": [
+        "SBKP"
+      ]
+    },
+    {
+      "id": "SBKP-SBGR",
+      "from": "SBKP",
+      "to": "SBGR",
+      "type": "cargo_feed",
+      "distanceNm": 52,
+      "slotPressure": 0.5,
+      "minTurnMin": 42,
+      "alternatePool": [
+        "SBBR",
+        "SBSP"
+      ]
+    }
+  ],
+  "slotPolicies": [
+    {
+      "id": "CTOT",
+      "name": "Calculated Take-Off Time",
+      "windowMin": 10,
+      "penaltyPerMin": 220,
+      "bonusOnTime": 1800
+    },
+    {
+      "id": "EDCT",
+      "name": "Expected Departure Clearance Time",
+      "windowMin": 12,
+      "penaltyPerMin": 260,
+      "bonusOnTime": 2200
+    },
+    {
+      "id": "GDP",
+      "name": "Ground Delay Program",
+      "windowMin": 20,
+      "penaltyPerMin": 140,
+      "bonusOnTime": 900
+    },
+    {
+      "id": "MILES_IN_TRAIL",
+      "name": "Miles in Trail Restriction",
+      "windowMin": 15,
+      "penaltyPerMin": 170,
+      "bonusOnTime": 1200
+    }
+  ],
+  "connectionBanks": [
+    {
+      "id": "GRU_INTL_NIGHT",
+      "hub": "SBGR",
+      "name": "GRU International Night Bank",
+      "requiredOnTime": 0.84,
+      "minConnections": 7,
+      "bonus": 54000,
+      "missPenalty": 42000
+    },
+    {
+      "id": "ATL_GLOBAL_EVENING",
+      "hub": "KATL",
+      "name": "ATL Global Evening Bank",
+      "requiredOnTime": 0.87,
+      "minConnections": 10,
+      "bonus": 76000,
+      "missPenalty": 61000
+    },
+    {
+      "id": "BSB_DOMESTIC_WAVE",
+      "hub": "SBBR",
+      "name": "BSB Domestic Wave",
+      "requiredOnTime": 0.81,
+      "minConnections": 6,
+      "bonus": 36000,
+      "missPenalty": 28000
+    }
+  ],
+  "alternateRules": [
+    {
+      "id": "LOW_VIS_ALTERNATE",
+      "trigger": "LIFR",
+      "minRvrMeters": 1400,
+      "diversionCost": 26000
+    },
+    {
+      "id": "RUNWAY_CLOSURE_ALTERNATE",
+      "trigger": "RUNWAY_CLOSED",
+      "minClosureMin": 12,
+      "diversionCost": 32000
+    },
+    {
+      "id": "NETWORK_SATURATION_ALTERNATE",
+      "trigger": "NETWORK_DELAY",
+      "maxDelayMin": 28,
+      "diversionCost": 18000
+    }
+  ]
+}

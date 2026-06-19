@@ -1,3 +1,171 @@
+## SC-1.27.0-F27-20260619-1704 — Public Ops Feedback & Hotfix Planner
+
+- Adicionado módulo oficial `30-public-ops-feedback.js`.
+- Criado catálogo `data/public-ops-feedback.json`.
+- Adicionado feedback local/offline.
+- Adicionada telemetria local de sessões e turnos.
+- Adicionada caixa de bugs com severidade.
+- Adicionado hotfix planner automático.
+- Adicionado dossiê JSON exportável.
+- Adicionado painel `PUBLIC OPS`.
+- Tela final mostra Public Ops e Ops Score.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F27.
+
+## SC-1.26.0-F26-20260619-1602 — Post Publish Healthcheck
+
+- Adicionado módulo oficial `29-post-publish-healthcheck.js`.
+- Criado catálogo `data/post-publish-healthcheck.json`.
+- Adicionados health checks para GitHub Pages/PWA.
+- Adicionado hotfix deck pós-publicação.
+- Adicionada captura manual de QA.
+- Adicionado status de promoção/divulgação.
+- Adicionado painel `PUBLISH HEALTH`.
+- Tela final mostra Publish Health e Health Score.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F26.
+
+## SC-1.25.0-F25-20260619-1508 — Post Gold Master Publishing Kit
+
+- Adicionado módulo oficial `28-post-gold-master-publishing.js`.
+- Criado catálogo `data/post-gold-master-publishing.json`.
+- Adicionado plano de QA em dispositivo real.
+- Adicionado plano de screenshots finais.
+- Adicionado template de bug report.
+- Adicionado guia GitHub Pages/PWA.
+- Adicionado painel `POST-GM PUBLISH`.
+- Tela final mostra Publicação PWA e Post-GM Ready.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F25.
+
+## SC-1.24.0-F24-20260619-1402 — Gold Master Package
+
+- Adicionado módulo oficial `27-gold-master-package.js`.
+- Criado catálogo `data/gold-master-package.json` com gates GM, manual, loja/PWA e publicação.
+- Adicionado `docs/PLAYER_MANUAL_F24.md`.
+- Adicionado `docs/GOLD_MASTER_QA_F24.md`.
+- Adicionado `docs/STORE_PWA_CHECKLIST_F24.md`.
+- Adicionado painel `GOLD MASTER`.
+- Tela final mostra Gold Master e GM Score.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F24.
+
+## SC-1.23.0-F23-20260619-1310 — Public Release Candidate
+
+- Adicionado módulo oficial `26-release-candidate-qa.js`.
+- Criado catálogo `data/release-candidate-qa.json` com gates RC, tutorial guiado, balanceamento e publicação.
+- Implementado tutorial guiado completo com 8 etapas.
+- Implementado balanceamento final de score, segurança, economia, fadiga, rede e incidentes.
+- Implementado status de release candidate e publicação.
+- Painel `PUBLIC RC` durante o turno.
+- Tela final mostra Release Candidate e QA Score.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F23.
+
+## SC-1.22.0-F22-20260619-1212 — Polimento Comercial Mobile AAA
+
+- Adicionado módulo oficial `25-commercial-polish-ux.js`.
+- Criado catálogo `data/ux-polish-presets.json` com layouts, onboarding, acessibilidade, menus e release readiness.
+- Implementado HUD responsivo por viewport.
+- Implementados mobile landscape compacto, portrait safe mode, tablet balanced e desktop director.
+- Implementado onboarding em etapas.
+- Implementados modos de acessibilidade visual.
+- Implementados menu cards profissionais.
+- Painel `AAA POLISH` durante o turno.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F22.
+
+## SC-1.21.0-F21-20260619-1125 — Control Room, Ranking Local e Replay Compartilhável
+
+- Adicionado módulo oficial `24-control-room-multiplayer.js`.
+- Criado catálogo `data/control-room-ranking.json` com salas, ranking, tiers e métricas.
+- Implementado replay compartilhável offline por código.
+- Implementado ranking operacional local.
+- Implementada comparação entre turnos.
+- Integrado snapshot de turno ao resultado final.
+- Painel `CONTROL ROOM` durante o turno.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F21.
+
+## SC-1.20.0-F20-20260619-1040 — Tráfego Internacional e Network Flow
+
+- Adicionado módulo oficial `23-network-flow-coordination.js`.
+- Criado catálogo `data/network-flow-slots.json` com hubs, rotas, slots, bancos de conexão e alternados.
+- Implementados CTOT, EDCT, GDP e Miles-in-Trail.
+- Implementados atraso de rede, compliance de slot, conexões protegidas/perdidas e alternados.
+- Network flow passa a impactar comandos críticos, resultado final e economia.
+- Painel `NETWORK FLOW` durante o turno.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F20.
+
+## SC-1.19.0-F19-20260618-2106 — Incidentes Operacionais Complexos
+
+- Adicionado módulo oficial `22-incident-emergency-director.js`.
+- Criado catálogo `data/incident-playbooks.json` com incidentes, agências e playbooks.
+- Implementados bird strike, falha de motor, evacuação médica, trem de pouso inseguro, FOD, fogo nos freios e alerta de segurança.
+- Integrado fechamento de pista, coordenação multiagência e pontuação de resposta.
+- Incidentes passam a impactar clearances, economia e estatísticas finais.
+- Painel `INCIDENT OPS` durante o turno.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F19.
+
+## SC-1.18.0-F18-20260618-2002 — Economia Operacional
+
+- Adicionado módulo oficial `21-operational-economy.js`.
+- Criado catálogo `data/economy-contracts.json` com orçamento, multas, custos de atraso e contratos SLA.
+- Integrada economia ao fim do turno com lucro/prejuízo, eficiência, multas e contratos.
+- Painel `ECONOMIA OPS` durante o turno.
+- Tela final passa a mostrar economia e eficiência econômica.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F18.
+
+## SC-1.17.0-F17-20260618-1905 — Carreira Operacional Profunda
+
+- Adicionado módulo oficial `20-controller-career.js`.
+- Criado catálogo `data/career-ratings.json` com licenças, ratings, turnos, fadiga e reputação.
+- Integrada avaliação de carreira ao fim do turno.
+- Tela final passa a mostrar carreira e fadiga.
+- Adicionado painel `CARREIRA ATC` durante o turno.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F17.
+
+## SC-1.16.0-F16-20260618-1810 — Procedimentos SID/STAR/ILS/RNAV
+
+- Adicionado módulo oficial `19-procedures-sid-star-rnav.js`.
+- Criado catálogo `data/procedures-f16.json` com SID, STAR, ILS, RNAV, missed approach e holdings.
+- Integrado vector final, hold, go-around e decolagem a procedimentos publicados.
+- Radar passa a desenhar overlay de procedimentos publicados.
+- Incluído documento `UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md` com os caminhos oficiais de upload via Git Bash.
+- Adicionados testes unitários, browser/estruturais e auditoria F16.
+
+## SC-1.15.0-F15-20260618-1718 — Meteorologia Avançada IFR/VFR
+
+- Adicionado módulo oficial `18-advanced-weather-ifr.js` com API protegida `SKYWARD_WEATHER_OPS`.
+- Criado catálogo `data/weather-profiles.json` com perfis VFR, IFR, LIFR, chuva forte, trovoadas e nevoeiro/RVR.
+- Integrados visibilidade, teto, RVR, vento, rajada, crosswind, chuva, condição de pista e braking action.
+- Comandos críticos passam a consultar risco meteorológico quando disponível.
+- Risco de pouso passa a considerar clima, pista molhada e frenagem degradada.
+- PWA cache atualizado para funcionamento offline com perfis meteorológicos.
+- Adicionados testes unitários, browser/estruturais e auditoria F15.
+
+## SC-1.14.0-F14 — Safety Director de Solo, Hotspots e Runway Incursion
+
+- Adicionado módulo oficial `17-surface-safety-director.js`.
+- Criado catálogo auditável `data/surface-hotspots.json`.
+- Integradas detecções de runway incursion, taxi conflict e hotspots ativos.
+- `commandRisk()` agora consulta risco de superfície antes de line-up, takeoff e taxi.
+- Safety Advisor e estatísticas finais exibem risco/conflitos de solo.
+- PWA cache atualizado com hotspots de superfície.
+- Adicionados testes unitários, browser/estruturais e auditoria F14 ao pipeline.
+
+## SC-1.13.0-F13 — Grafo Realista de Aeroportos, Taxiways, Gates e Pistas
+
+- Adicionado módulo oficial `16-airport-surface-graph.js` com API congelada de superfície aeroportuária.
+- Criado catálogo auditável `data/airport-graphs.json` com SBGR, SBSP, SBKP, SBBR e KATL.
+- Integradas rotas de pushback, taxi, line up, decolagem e vacate runway ao runtime.
+- Radar operacional agora desenha taxiways, gates, holding points e pistas secundárias.
+- AIRPORT OPS passa a exibir contagem de gates, taxiways e holds do aeroporto carregado.
+- Adicionados testes unitários, browser/estruturais e auditoria F13 ao pipeline.
 
 ## SC-1.12.0-F12 — Modelo Realista de Aeronaves
 

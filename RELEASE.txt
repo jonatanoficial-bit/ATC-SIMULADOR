@@ -1,7 +1,7 @@
 SKYWARD CONTROL
-Commercial evolution program — Phase 12
-Version: 1.12.0
-Build: SC-1.12.0-F12-20260618-1138
-Built: 2026-06-18 11:38 BRT
-Channel: ALPHA
-Status: F12 AUDITED / RELEASE PIPELINE LOCKED
+Public Operations Feedback Layer — Phase 27
+Version: 1.27.0
+Build: SC-1.27.0-F27-20260619-1704
+Built: 2026-06-19 17:04 BRT
+Channel: PUBLIC-OPS
+Status: F27 PUBLIC OPS AUDITED

@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "version": "2026.06-f26",
+  "description": "Post-publish healthcheck, GitHub Pages/PWA diagnostics, manual QA capture and hotfix deck.",
+  "healthChecks": [
+    {
+      "id": "PUBLIC_URL",
+      "name": "URL pública abre index",
+      "required": true,
+      "weight": 14
+    },
+    {
+      "id": "BUILD_MATCH",
+      "name": "Build pública confere com ZIP",
+      "required": true,
+      "weight": 12
+    },
+    {
+      "id": "HTTPS",
+      "name": "HTTPS ativo",
+      "required": true,
+      "weight": 8
+    },
+    {
+      "id": "SERVICE_WORKER",
+      "name": "Service worker registrado",
+      "required": true,
+      "weight": 12
+    },
+    {
+      "id": "CACHE_READY",
+      "name": "Cache PWA pronto",
+      "required": true,
+      "weight": 10
+    },
+    {
+      "id": "OFFLINE_BOOT",
+      "name": "Abre offline após instalar",
+      "required": true,
+      "weight": 12
+    },
+    {
+      "id": "MOBILE_LANDSCAPE",
+      "name": "Mobile landscape jogável",
+      "required": true,
+      "weight": 12
+    },
+    {
+      "id": "SAVE_RESTORE",
+      "name": "Save/restauração OK",
+      "required": true,
+      "weight": 8
+    },
+    {
+      "id": "SCREENSHOTS",
+      "name": "Screenshots finais capturados",
+      "required": false,
+      "weight": 6
+    },
+    {
+      "id": "NO_BLOCKERS",
+      "name": "Sem blockers/critical abertos",
+      "required": true,
+      "weight": 6
+    }
+  ],
+  "hotfixDeck": [
+    {
+      "id": "HF_BOOT_WHITE_SCREEN",
+      "severity": "BLOCKER",
+      "title": "Tela branca no boot",
+      "firstAction": "limpar cache/PWA e conferir console"
+    },
+    {
+      "id": "HF_PWA_STALE_CACHE",
+      "severity": "CRITICAL",
+      "title": "PWA abre build antiga",
+      "firstAction": "trocar cacheName e atualizar service worker"
+    },
+    {
+      "id": "HF_TOUCH_SCROLL",
+      "severity": "MAJOR",
+      "title": "Scroll/touch ruim no celular",
+      "firstAction": "ajustar overflow/touch-action em layout mobile"
+    },
+    {
+      "id": "HF_OFFLINE_ASSET",
+      "severity": "CRITICAL",
+      "title": "Asset não carrega offline",
+      "firstAction": "incluir no pwa-cache-manifest e service worker"
+    },
+    {
+      "id": "HF_SAVE_RESET",
+      "severity": "CRITICAL",
+      "title": "Save some após update",
+      "firstAction": "verificar schema/migração/localStorage"
+    }
+  ],
+  "publicVerification": {
+    "repo": "https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git",
+    "expectedUrl": "https://jonatanoficial-bit.github.io/ATC-SIMULADOR/",
+    "branch": "main",
+    "rootPath": "/",
+    "localPath": "/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO"
+  },
+  "manualCaptureFields": [
+    "device",
+    "browser",
+    "url",
+    "orientation",
+    "pwaInstalled",
+    "offlineWorks",
+    "buildVisible",
+    "notes"
+  ],
+  "promotionRules": [
+    {
+      "id": "PROMOTE_PUBLIC",
+      "name": "Pode anunciar link público",
+      "minHealth": 90,
+      "requiresNoCritical": true
+    },
+    {
+      "id": "HOTFIX_REQUIRED",
+      "name": "Gerar hotfix antes de divulgar",
+      "maxHealth": 74,
+      "requiresNoCritical": false
+    },
+    {
+      "id": "OBSERVE",
+      "name": "Publicar com observação",
+      "minHealth": 75,
+      "requiresNoCritical": true
+    }
+  ]
+}

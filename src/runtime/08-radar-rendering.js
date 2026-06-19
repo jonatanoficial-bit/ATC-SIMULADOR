@@ -11,6 +11,7 @@ function draw(){
   drawWeatherOverlay(w,h);
   drawOperationalMap(w,h);
   drawProfessionalProcedures(w,h);
+  drawPublishedProceduresOverlay?.(ctx,w,h);
   drawConflictPredictions(w,h);
   drawSafetyEnvelope(w,h);
   drawRunwayQueue(w,h);
@@ -21,24 +22,33 @@ function drawOperationalMap(w,h){
   const P = (x,y)=>({x:x/100*w,y:y/100*h});
   ctx.save();
   ctx.lineCap='round'; ctx.lineJoin='round';
+  const graph=activeAirportGraph || airportSurfaceGraphFor?.();
   // taxiway network
-  ctx.strokeStyle='rgba(210,168,68,.30)'; ctx.lineWidth=Math.max(2,w*.004);
-  const taxi = [[20,58,82,58],[28,65,78,65],[34,73,80,73],[32,58,32,50],[45,58,45,50],[56,58,56,50],[68,58,68,50],[78,58,78,50],[55,65,55,78],[62,65,62,78],[72,65,72,78]];
-  taxi.forEach(t=>{ const a=P(t[0],t[1]), b=P(t[2],t[3]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); });
-  // runway
+  ctx.strokeStyle='rgba(210,168,68,.32)'; ctx.lineWidth=Math.max(2,w*.004);
+  (graph?.taxiways||[]).forEach(t=>{
+    const pts=Array.isArray(t.points)?t.points:[]; if(pts.length<2) return;
+    ctx.beginPath(); pts.forEach((pt,i)=>{ const px=P(pt.x,pt.y); if(i===0) ctx.moveTo(px.x,px.y); else ctx.lineTo(px.x,px.y); }); ctx.stroke();
+    const mid=pts[Math.floor(pts.length/2)]||pts[0]; const mp=P(mid.x,mid.y); ctx.fillStyle='rgba(255,214,122,.72)'; ctx.font='700 9px ui-monospace'; ctx.fillText(t.id,mp.x+4,mp.y-4);
+  });
+  // secondary runways
+  (secondaryRunways||[]).forEach(rw=>{
+    const a=P(rw.x1,rw.y1), b=P(rw.x2,rw.y2); ctx.lineWidth=Math.max(10,h*.024); ctx.strokeStyle='rgba(15,18,22,.65)'; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+    ctx.lineWidth=1.5; ctx.strokeStyle='rgba(175,190,205,.28)'; ctx.setLineDash([10,9]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); ctx.setLineDash([]);
+  });
+  // active runway
   const a=P(runway.x1,runway.y1), b=P(runway.x2,runway.y2); ctx.lineWidth=Math.max(16,h*.035); ctx.strokeStyle='rgba(20,24,28,.98)'; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
   ctx.lineWidth=Math.max(2,h*.004); ctx.strokeStyle=runwayOccupiedBy?'rgba(255,77,66,.95)':'rgba(100,255,130,.85)'; ctx.setLineDash([12,8]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); ctx.setLineDash([]);
-  // centerline and edges
   ctx.strokeStyle='rgba(255,255,255,.58)'; ctx.lineWidth=1; ctx.setLineDash([10,10]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); ctx.setLineDash([]);
   // approach corridor and final sector
-  const ff=P(finalFix.x,finalFix.y), th=P(82,50); ctx.strokeStyle="rgba(91,240,109,.28)"; ctx.lineWidth=2; ctx.setLineDash([10,10]); ctx.beginPath(); ctx.moveTo(ff.x,ff.y); ctx.lineTo(th.x,th.y); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle="rgba(91,240,109,.75)"; ctx.beginPath(); ctx.arc(ff.x,ff.y,5,0,Math.PI*2); ctx.fill(); ctx.font="700 10px ui-monospace"; ctx.fillText("FINAL FIX", ff.x+8, ff.y+4);
-  // labels from code are okay: operational UI, not image asset
-  ctx.font='700 12px ui-monospace,Consolas,monospace'; ctx.fillStyle='rgba(235,245,255,.90)'; ctx.fillText('RWY 09', a.x-8, a.y-18); ctx.fillText('RWY 27', b.x-42, b.y-18);
-  runway.exits.forEach((x,i)=>{ const e=P(x,56); ctx.fillStyle='rgba(216,163,72,.95)'; ctx.beginPath(); ctx.arc(e.x,e.y,4,0,Math.PI*2); ctx.fill(); ctx.font='700 10px ui-monospace'; ctx.fillText(`E${i+1}`, e.x+6, e.y+4); });
-  gates.forEach((g,i)=>{ const gp=P(g.x,g.y); ctx.strokeStyle='rgba(120,180,220,.25)'; ctx.strokeRect(gp.x-10,gp.y-7,20,14); ctx.fillStyle='rgba(190,215,235,.55)'; ctx.font='700 9px ui-monospace'; ctx.fillText(`${g.label}${i+1}`,gp.x-9,gp.y+3); });
-  if(runwayOccupiedBy){ ctx.fillStyle='rgba(255,77,66,.92)'; ctx.font='900 13px ui-monospace'; ctx.fillText(`PISTA OCUPADA: ${runwayOccupiedBy}`, P(19,44).x, P(19,44).y); }
+  const ff=P(finalFix.x,finalFix.y), th=P((activeRunwayObject?.()?.arrivalThreshold?.x)||runway.x2,(activeRunwayObject?.()?.arrivalThreshold?.y)||runway.y2); ctx.strokeStyle='rgba(91,240,109,.28)'; ctx.lineWidth=2; ctx.setLineDash([10,10]); ctx.beginPath(); ctx.moveTo(ff.x,ff.y); ctx.lineTo(th.x,th.y); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle='rgba(91,240,109,.75)'; ctx.beginPath(); ctx.arc(ff.x,ff.y,5,0,Math.PI*2); ctx.fill(); ctx.font='700 10px ui-monospace'; ctx.fillText('FINAL FIX', ff.x+8, ff.y+4);
+  ctx.font='700 12px ui-monospace,Consolas,monospace'; ctx.fillStyle='rgba(235,245,255,.90)'; ctx.fillText(`RWY ${String(runway.name).split('/')[0]}`, a.x-8, a.y-18); ctx.fillText(`RWY ${String(runway.name).split('/')[1]||runway.name}`, b.x-42, b.y-18);
+  (activeRunwayObject?.()?.exits||[]).forEach((ex,i)=>{ const e=P(ex.x,ex.y); ctx.fillStyle='rgba(216,163,72,.95)'; ctx.beginPath(); ctx.arc(e.x,e.y,4,0,Math.PI*2); ctx.fill(); ctx.font='700 10px ui-monospace'; ctx.fillText(ex.id||`E${i+1}`, e.x+6, e.y+4); });
+  gates.forEach((g,i)=>{ const gp=P(g.x,g.y); ctx.strokeStyle='rgba(120,180,220,.25)'; ctx.strokeRect(gp.x-10,gp.y-7,20,14); ctx.fillStyle='rgba(190,215,235,.72)'; ctx.font='700 9px ui-monospace'; ctx.fillText(g.id||`${g.label}${i+1}`,gp.x-9,gp.y+3); });
+  holdingPoints.forEach((h,i)=>{ const hp=P(h.x,h.y); ctx.fillStyle='rgba(255,191,61,.84)'; ctx.beginPath(); ctx.arc(hp.x,hp.y,3.2,0,Math.PI*2); ctx.fill(); ctx.font='700 9px ui-monospace'; ctx.fillText(h.id||`H${i+1}`,hp.x+5,hp.y-4); });
+  if(runwayOccupiedBy){ ctx.fillStyle='rgba(255,77,66,.92)'; ctx.font='900 13px ui-monospace'; ctx.fillText(`PISTA OCUPADA: ${runwayOccupiedBy}`, P(19,Math.max(8,runway.y1-5)).x, P(19,Math.max(8,runway.y1-5)).y); }
   ctx.restore();
 }
+
 function drawScope(w,h){
   const cx=w/2, cy=h/2, rr=Math.min(w,h)*.46;
   ctx.save();

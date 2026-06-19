@@ -14,7 +14,7 @@ function update(dt){
   if(elapsed>420) return endGame(false,'Turno concluído com segurança.');
   spawnTimer += dt;
   if(spawnTimer>airportSpawnInterval() && aircraft.length<Math.min(SAFE_MODE.maxAircraft, 10 + Math.round((currentOpsProfile?.spawn||.58)*5))){ spawnTimer=0; const arrChance=String(currentOpsProfile?.layout||'').includes('single') ? .54 : .60; const p=makePlane(Date.now()%1000, skywardRandomUnit()<arrChance?'arrival':'departure'); aircraft.push(p); addRequest(p,p.request,p.kind==='arrival'?'warn':'normal'); }
-  updatePlanes(dt); predictConflicts(); checkRunway(); checkConflicts(); checkMissedRequests();
+  updatePlanes(dt); predictConflicts(); checkRunway(); updateSurfaceSafetyDirector?.(dt); checkConflicts(); checkMissedRequests();
   score += dt * (aircraft.length * 1.4);
   maybeSaveGoodState('running');
   if(performance.now()-lastUiRenderAt>=180) renderGameplayUi();
@@ -25,7 +25,7 @@ function renderGameplayUi(force=false){
   if(!force && now-lastUiRenderAt<160) return;
   lastUiRenderAt=now;
   renderStrips(); renderSelected(); renderRequests(); updateFrequencyPanel(); renderActionGrid();
-  updateOperationalHints(); renderRunwayBoard(); renderFuelBoard(); renderAirportOpsBoard();
+  updateOperationalHints(); renderRunwayBoard(); renderFuelBoard(); renderAirportOpsBoard(); renderSurfaceSafetyBoard?.();
   renderMissionBoard(); renderHandoffAdvisor(); renderMobileGameplay();
 }
 
@@ -91,6 +91,12 @@ function commandRisk(p, cmd){
   if(cmd==='noop' || cmd==='more' || cmd==='nextRequest') return {level:'ok', block:false, msg:'Ação de interface.'};
   if(!p) return {level:'warn', block:true, msg:'Selecione uma aeronave antes de emitir comando.'};
   const req=requests.find(r=>r.id===p.id);
+  const surfaceRisk = surfaceCommandRisk?.(p,cmd);
+  if(surfaceRisk?.block) return surfaceRisk;
+  const incidentRisk = typeof incidentRiskForCommand==='function' ? incidentRiskForCommand(cmd,p) : {level:'ok',block:false,msg:''};
+  if(incidentRisk.block || incidentRisk.level==='danger') return incidentRisk;
+  const netRisk = typeof networkCommandRisk==='function' ? networkCommandRisk(cmd,p) : {level:'ok',block:false,msg:''};
+  if(netRisk.block || netRisk.level==='danger') return netRisk;
   const expectedType=CLEARANCE_COMMANDS[cmd];
   if(expectedType && req?.type!==expectedType){
     return {level:'warn', block:true, msg:req ? `Pedido ativo é ${req.type.toUpperCase()}, não ${expectedType.toUpperCase()}.` : `Não existe pedido ${expectedType.toUpperCase()} pendente.`};
@@ -111,12 +117,14 @@ function commandRisk(p, cmd){
       if(shortFinal) return {level:'danger', block:true, msg:`${shortFinal.id} em aproximação curta. Saída bloqueada.`};
     }
   }
+  if(surfaceRisk?.level==='warn') return surfaceRisk;
   if(cmd==='holdShort' && !['TAXI','HOLD_SHORT'].includes(p.status)) return {level:'warn', block:false, msg:'Hold short é indicado para tráfego de solo/táxi.'};
   if(cmd==='vectorFinal' && p.kind!=='arrival') return {level:'warn', block:true, msg:'Vetor final disponível apenas para chegadas.'};
   if(cmd==='goAround' && p.kind!=='arrival') return {level:'warn', block:true, msg:'Arremeter aplica-se a chegadas.'};
   return {level:'ok', block:false, msg:'Comando dentro do envelope operacional.'};
 }
 function updateSafetyState(){
+  const surface=updateSurfaceSafetyDirector?.(0);
   const conflicts=Array.isArray(conflictPredictions)?conflictPredictions.length:0;
   const selectedPlane=aircraft.find(x=>x.id===selected);
   const sep=selectedPlane ? nearestSeparationThreat(selectedPlane) : null;
@@ -124,6 +132,8 @@ function updateSafetyState(){
   let score=100;
   const messages=[];
   if(runwayOccupiedBy){ score-=18; messages.push(`Pista protegida: ${runwayOccupiedBy}.`); }
+  if(surface?.level==='danger'){ score-=22; messages.push(surface.alerts?.[0]?.msg || 'Risco crítico de superfície.'); }
+  else if(surface?.level==='warn'){ score-=8; messages.push(surface.alerts?.[0]?.msg || 'Atenção em superfície.'); }
   if(conflicts){ score-=Math.min(60,conflicts*18); const wakeText=(conflictPredictions[0]?.wakeReq?` Wake ${conflictPredictions[0].wakeReq.toFixed(1)}NM.`:''); messages.push(`${conflicts} conflito(s) previstos no radar.${wakeText}`); }
   if(sep){ score-=30; messages.push(sep.msg); }
   if(shortFinal){ messages.push(`${shortFinal.id} em curta final: bloquear saídas não essenciais.`); }
@@ -147,7 +157,8 @@ function updateOperationalHints(){
   const p=aircraft.find(x=>x.id===selected);
   if($('#sectorIndicator')) $('#sectorIndicator').textContent = getSector(p);
   if($('#sectorHelp')) $('#sectorHelp').textContent = p ? sectorLabel(p) : 'Selecione uma aeronave';
-  if(emergencyDirector.active) setDiagnostic('MAYDAY / PRIORIDADE ATIVA','danger');
+  if(typeof SKYWARD_WEATHER_OPS!=='undefined' && SKYWARD_WEATHER_OPS.state?.().flightRules==='LIFR') setDiagnostic('LIFR / BAIXA VISIBILIDADE','warn');
+  else if(emergencyDirector.active) setDiagnostic('MAYDAY / PRIORIDADE ATIVA','danger');
   else if(conflictPredictions.some(c=>c.level==='danger')) setDiagnostic('CONFLITO PREVISTO','danger');
   else if(requests.some(r=>r.priority==='urgent')) setDiagnostic('EMERGÊNCIA NA FILA','danger');
   else if(conflictPredictions.length) setDiagnostic('SEPARAÇÃO EM ATENÇÃO','warn');
@@ -155,34 +166,47 @@ function updateOperationalHints(){
   else setDiagnostic('SISTEMA OK','ok');
 }
 function updatePlanes(dt){
+  incidentTick?.(dt);
+  maybeTriggerIncident?.();
   for(const p of aircraft){
     p.selected = selected === p.id;
     if(p.status==='PARKED'){ updateAircraftPerformanceStep?.(p,dt,'PARKED'); p.speed = 0; }
     else if(p.status==='PUSHBACK'){
-      p.groundTimer += dt; updateAircraftPerformanceStep?.(p,dt,'PUSHBACK'); p.y += .45*dt;
-      if(p.groundTimer>9){ p.status='READY_TAXI'; p.speed=0; addRequest(p,'taxi'); }
+      p.groundTimer += dt; updateAircraftPerformanceStep?.(p,dt,'PUSHBACK');
+      if(!Array.isArray(p.surfaceRoute) || !p.surfaceRoute.length) beginSurfaceRoute?.(p, assignDepartureSurfaceRoute?.(p,'pushback')||[], 'READY_TAXI');
+      const done=stepSurfaceRoute?.(p,dt,SIM_SPEED*.26) ?? (p.groundTimer>9);
+      if(done || p.groundTimer>9){ p.status='READY_TAXI'; p.speed=0; p.surfaceRoute=[]; addRequest(p,'taxi'); }
     } else if(p.status==='TAXI'){
-      p.groundTimer += dt; updateAircraftPerformanceStep?.(p,dt,'TAXI'); const hp = holdingPoints[p.groundIndex || 0]; p.heading = headingTo(p,hp); moveToward(p,hp,SIM_SPEED*.6*dt);
-      if(dist(p,hp)<1.6){ p.status='HOLD_SHORT'; p.speed=0; addRequest(p,'lineup','warn'); }
+      p.groundTimer += dt; updateAircraftPerformanceStep?.(p,dt,'TAXI');
+      if(!Array.isArray(p.surfaceRoute) || !p.surfaceRoute.length) beginSurfaceRoute?.(p, assignDepartureSurfaceRoute?.(p,'taxi')||[], 'HOLD_SHORT');
+      const hp = holdingPoints[p.groundIndex || 0] || holdingPoints[0] || {x:p.x,y:p.y};
+      const done=stepSurfaceRoute?.(p,dt,SIM_SPEED*.36) ?? false;
+      if(done || dist(p,hp)<1.6){ p.status='HOLD_SHORT'; p.speed=0; p.surfaceRoute=[]; addRequest(p,'lineup','warn'); }
     } else if(p.status==='LINEUP'){
-      updateAircraftPerformanceStep?.(p,dt,'LINEUP'); p.speed = 0; const line = {x:25,y:50}; moveToward(p,line,SIM_SPEED*.35*dt); p.heading=270;
-      if(dist(p,line)<2.0 && !requests.some(r=>r.id===p.id && r.type==='takeoff')) addRequest(p,'takeoff','warn');
+      updateAircraftPerformanceStep?.(p,dt,'LINEUP'); p.speed = 0;
+      if(!Array.isArray(p.surfaceRoute) || !p.surfaceRoute.length) beginSurfaceRoute?.(p, assignDepartureSurfaceRoute?.(p,'lineup')||[], 'LINEUP_READY');
+      const line = (activeRunwayObject?.()||{}).lineup || {x:25,y:50}; const done=stepSurfaceRoute?.(p,dt,SIM_SPEED*.18) ?? false; p.heading=runwayHeadingValue?.()||270;
+      if((done || dist(p,line)<2.0) && !requests.some(r=>r.id===p.id && r.type==='takeoff')) addRequest(p,'takeoff','warn');
     } else if(p.status==='DEP'){
-      p.targetAlt = Math.max(p.targetAlt,160); p.heading = 270; updateAircraftPerformanceStep?.(p,dt,'DEP');
+      p.targetAlt = Math.max(p.targetAlt,160); stepProcedureGuidance?.(p,'SID'); p.heading = p.procedureId ? p.heading : (runwayHeadingValue?.() || p.heading || 270); updateAircraftPerformanceStep?.(p,dt,'DEP');
       moveByHeading(p, dt);
+    } else if(p.status==='VACATE'){
+      updateAircraftPerformanceStep?.(p,dt,'TAXI'); p.alt=0; const done=stepSurfaceRoute?.(p,dt,SIM_SPEED*.28) ?? true; p.speed=Math.max(0,Math.min(32,p.speed||0));
+      if(done){ score += p.vacateBonus||0; addLog(`${p.id}: pista liberada via taxiway.`); runwayOccupiedBy = runwayOccupiedBy===p.id ? null : runwayOccupiedBy; aircraft.splice(aircraft.indexOf(p),1); if(selected===p.id) selected=null; }
     } else if(p.status==='HOLD'){
-      p.heading = (p.heading + 8*dt) % 360; updateAircraftPerformanceStep?.(p,dt,'HOLD'); moveByHeading(p, dt*.75);
+      stepProcedureGuidance?.(p,'HOLD'); p.heading = p.holdingPattern ? (p.heading + 5*dt) % 360 : (p.heading + 8*dt) % 360; updateAircraftPerformanceStep?.(p,dt,'HOLD'); moveByHeading(p, dt*.75);
     } else if(p.status==='APP'){
-      p.heading += shortTurn(p.heading, headingTo(p, finalFix))*.018; updateAircraftPerformanceStep?.(p,dt,'APP'); moveByHeading(p, dt);
+      stepProcedureGuidance?.(p,'STAR'); if(!p.procedureId) p.heading += shortTurn(p.heading, headingTo(p, finalFix))*.018; updateAircraftPerformanceStep?.(p,dt,'APP'); moveByHeading(p, dt);
       if(dist(p,finalFix)<8 && !requests.some(r=>r.id===p.id && r.type==='landing')) addRequest(p,'landing','warn');
     } else if(p.status==='FINAL' || p.status==='EMERG'){
-      const threshold = {x:82,y:50}; p.heading += shortTurn(p.heading, headingTo(p, threshold))*.028; p.targetAlt=0; updateAircraftPerformanceStep?.(p,dt,p.status); moveByHeading(p, dt);
+      stepProcedureGuidance?.(p,'APPROACH'); const threshold = activeRunwayObject?.()?.arrivalThreshold || {x:runway.x2,y:runway.y2}; if(!p.procedureId) p.heading += shortTurn(p.heading, headingTo(p, threshold))*.028; p.targetAlt=0; updateAircraftPerformanceStep?.(p,dt,p.status); moveByHeading(p, dt);
     }
     p.trail.push({x:p.x,y:p.y}); if(p.trail.length>54) p.trail.shift();
   }
   for(const p of [...aircraft]){
-    if((p.status==='FINAL'||p.status==='EMERG') && dist(p,{x:82,y:50})<2.8 && p.alt<10){
-      const landingRisk = typeof aircraftLandingRisk==='function' ? aircraftLandingRisk(p) : (p.speed>145?25:0); const hardLanding = (landingRisk>24 || WX_STATE.severity>.72 || p.damage>30); if(hardLanding){ const dmg=Math.round(rand(8,22)+WX_STATE.severity*18+Math.min(18,landingRisk*.28)); stats.damaged=(stats.damaged||0)+1; score-=120; addLog(`${p.id}: pouso concluído com inspeção técnica. Dano ${dmg}%.`, 'warn'); } else { addLog(`${p.id}: pouso concluído, livrando pista pela saída rápida.`); } stats.landed++; if(p.emergency) stats.maydayResolved=(stats.maydayResolved||0)+1; score += p.emergency ? 1300 : 900; removeRequest(p.id); runwayOccupiedBy = null; aircraft.splice(aircraft.indexOf(p),1); if(selected===p.id) selected=null;
+    const touchdownPoint = activeRunwayObject?.()?.arrivalThreshold || {x:runway.x2,y:runway.y2};
+    if((p.status==='FINAL'||p.status==='EMERG') && dist(p,touchdownPoint)<2.8 && p.alt<10){
+      const landingRisk = (typeof aircraftLandingRisk==='function' ? aircraftLandingRisk(p) : (p.speed>145?25:0)) + (typeof advancedWeatherLandingRisk==='function' ? advancedWeatherLandingRisk(p) : 0); const hardLanding = (landingRisk>24 || WX_STATE.severity>.72 || p.damage>30); if(hardLanding){ const dmg=Math.round(rand(8,22)+WX_STATE.severity*18+Math.min(18,landingRisk*.28)); stats.damaged=(stats.damaged||0)+1; score-=120; addLog(`${p.id}: pouso concluído com inspeção técnica. Dano ${dmg}%.`, 'warn'); } else { addLog(`${p.id}: toque confirmado, taxiando para livrar pista.`); } stats.landed++; if(p.emergency) stats.maydayResolved=(stats.maydayResolved||0)+1; score += p.emergency ? 1300 : 900; removeRequest(p.id); runwayOccupiedBy = p.id; p.status='VACATE'; p.alt=0; p.vacateBonus=35; beginSurfaceRoute?.(p, assignArrivalVacateRoute?.(p)||[], 'DONE');
     }
     if(p.status==='DEP' && (p.x<0 || p.x>104 || p.y<0 || p.y>100)){
       stats.departed++; score += 720; addLog(`${p.id}: decolagem concluída, contato com saída.`); removeRequest(p.id); runwayOccupiedBy = null; aircraft.splice(aircraft.indexOf(p),1); if(selected===p.id) selected=null;
@@ -192,9 +216,11 @@ function updatePlanes(dt){
 function moveByHeading(p,dt){ const rad=degToRad(p.heading); const scale=(p.speed/220)*SIM_SPEED*4.6; p.x += Math.cos(rad)*scale*dt; p.y += Math.sin(rad)*scale*dt; }
 function moveToward(p,t,amount){ const h=headingTo(p,t), r=degToRad(h); p.x += Math.cos(r)*amount*100; p.y += Math.sin(r)*amount*100; }
 function shortTurn(a,b){ return QUALITY?.shortestTurn ? QUALITY.shortestTurn(a,b) : ((b-a+540)%360)-180; }
+function pointToSegmentDistance(point,a,b){ const ax=a.x, ay=a.y, bx=b.x, by=b.y, px=point.x, py=point.y; const abx=bx-ax, aby=by-ay; const ab2=abx*abx+aby*aby||1; const t=Math.max(0,Math.min(1,((px-ax)*abx+(py-ay)*aby)/ab2)); const x=ax+abx*t, y=ay+aby*t; return Math.hypot(px-x,py-y); }
 function checkRunway(){
   runwayOccupiedBy = null;
-  for(const p of aircraft){ if(['LINEUP','DEP','FINAL','EMERG'].includes(p.status) && p.x>15 && p.x<86 && Math.abs(p.y-50)<5.5) runwayOccupiedBy = p.id; }
+  const a={x:runway.x1,y:runway.y1}, b={x:runway.x2,y:runway.y2};
+  for(const p of aircraft){ if(['LINEUP','DEP','FINAL','EMERG','VACATE'].includes(p.status) && pointToSegmentDistance(p,a,b)<6.2) runwayOccupiedBy = p.id; }
 }
 function checkMissedRequests(){
   const now = performance.now();
