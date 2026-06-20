@@ -1,0 +1,237 @@
+{
+  "schema": 1,
+  "version": "2026.06-f29",
+  "description": "ATC instructor coach, post-shift debriefing, adaptive study plan and personalized training recommendations.",
+  "coachDomains": [
+    {
+      "id": "SAFETY",
+      "name": "Segurança operacional",
+      "priority": 5,
+      "signals": [
+        "conflicts",
+        "runwayIncursions",
+        "fail"
+      ]
+    },
+    {
+      "id": "RUNWAY",
+      "name": "Pista e solo",
+      "priority": 5,
+      "signals": [
+        "lineup",
+        "clearTakeoff",
+        "holdShort"
+      ]
+    },
+    {
+      "id": "APPROACH",
+      "name": "Aproximação e vetoração",
+      "priority": 4,
+      "signals": [
+        "vectorFinal",
+        "spacing",
+        "altitude"
+      ]
+    },
+    {
+      "id": "WEATHER",
+      "name": "Meteorologia e mínimos",
+      "priority": 4,
+      "signals": [
+        "rvr",
+        "crosswind",
+        "missedApproach"
+      ]
+    },
+    {
+      "id": "NETWORK",
+      "name": "Slots e fluxo de rede",
+      "priority": 3,
+      "signals": [
+        "slotCompliance",
+        "connectionsProtected",
+        "alternatePlan"
+      ]
+    },
+    {
+      "id": "ECONOMY",
+      "name": "Eficiência e custo operacional",
+      "priority": 3,
+      "signals": [
+        "delay",
+        "profit",
+        "denied"
+      ]
+    },
+    {
+      "id": "CAREER",
+      "name": "Carreira e fadiga",
+      "priority": 2,
+      "signals": [
+        "fatigue",
+        "rating",
+        "license"
+      ]
+    }
+  ],
+  "debriefLevels": [
+    {
+      "id": "EXCELLENT",
+      "name": "Excelente",
+      "minScore": 90,
+      "tone": "reforço positivo"
+    },
+    {
+      "id": "PROFICIENT",
+      "name": "Proficiente",
+      "minScore": 75,
+      "tone": "ajustes pontuais"
+    },
+    {
+      "id": "DEVELOPING",
+      "name": "Em desenvolvimento",
+      "minScore": 55,
+      "tone": "treino guiado"
+    },
+    {
+      "id": "REMEDIAL",
+      "name": "Remediação necessária",
+      "minScore": 0,
+      "tone": "revisão obrigatória"
+    }
+  ],
+  "studyCards": [
+    {
+      "id": "HOLD_SHORT",
+      "domain": "RUNWAY",
+      "title": "Holding point antes da pista",
+      "minutes": 8,
+      "drill": "Repita taxi + hold short antes de qualquer lineup."
+    },
+    {
+      "id": "SEPARATION",
+      "domain": "SAFETY",
+      "title": "Separação mínima",
+      "minutes": 10,
+      "drill": "Treine spacing antes de liberar pouso/decolagem."
+    },
+    {
+      "id": "MISSED_APPROACH",
+      "domain": "WEATHER",
+      "title": "Aproximação perdida",
+      "minutes": 12,
+      "drill": "Pratique ILS/RNAV com arremetida e holding."
+    },
+    {
+      "id": "VECTORING",
+      "domain": "APPROACH",
+      "title": "Vetoração final",
+      "minutes": 12,
+      "drill": "Ajuste heading, altitude e speed até estabilizar final."
+    },
+    {
+      "id": "SLOT_FLOW",
+      "domain": "NETWORK",
+      "title": "CTOT/EDCT e conexões",
+      "minutes": 15,
+      "drill": "Proteja banco de conexão sem estourar slot."
+    },
+    {
+      "id": "DELAY_COST",
+      "domain": "ECONOMY",
+      "title": "Atraso e custo",
+      "minutes": 10,
+      "drill": "Compare negar comando vs sequenciar com atraso menor."
+    },
+    {
+      "id": "FATIGUE",
+      "domain": "CAREER",
+      "title": "Fadiga operacional",
+      "minutes": 6,
+      "drill": "Revise quando aceitar turnos e quando descansar."
+    }
+  ],
+  "adaptiveRules": [
+    {
+      "id": "RULE_INCursion",
+      "if": "runwayIncursions>0",
+      "domain": "RUNWAY",
+      "cards": [
+        "HOLD_SHORT",
+        "SEPARATION"
+      ]
+    },
+    {
+      "id": "RULE_CONFLICT",
+      "if": "conflicts>0",
+      "domain": "SAFETY",
+      "cards": [
+        "SEPARATION",
+        "VECTORING"
+      ]
+    },
+    {
+      "id": "RULE_LOW_SCORE",
+      "if": "finalScore<targetScore",
+      "domain": "SAFETY",
+      "cards": [
+        "SEPARATION",
+        "DELAY_COST"
+      ]
+    },
+    {
+      "id": "RULE_WEATHER",
+      "if": "weatherRisk>=70",
+      "domain": "WEATHER",
+      "cards": [
+        "MISSED_APPROACH"
+      ]
+    },
+    {
+      "id": "RULE_SLOT",
+      "if": "slotCompliance<0.75",
+      "domain": "NETWORK",
+      "cards": [
+        "SLOT_FLOW"
+      ]
+    },
+    {
+      "id": "RULE_ECONOMY",
+      "if": "economyProfit<0",
+      "domain": "ECONOMY",
+      "cards": [
+        "DELAY_COST"
+      ]
+    },
+    {
+      "id": "RULE_FATIGUE",
+      "if": "fatigue>70",
+      "domain": "CAREER",
+      "cards": [
+        "FATIGUE"
+      ]
+    }
+  ],
+  "coachBadges": [
+    {
+      "id": "SAFE_HANDS",
+      "name": "Mãos seguras",
+      "condition": "3 turnos sem conflito"
+    },
+    {
+      "id": "RUNWAY_MASTER",
+      "name": "Mestre de pista",
+      "condition": "5 turnos sem incursão"
+    },
+    {
+      "id": "IFR_STUDENT",
+      "name": "Aluno IFR",
+      "condition": "concluir treino meteorológico"
+    },
+    {
+      "id": "FLOW_PLANNER",
+      "name": "Planejador de fluxo",
+      "condition": "3 turnos com slot compliance alto"
+    }
+  ]
+}

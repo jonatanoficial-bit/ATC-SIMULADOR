@@ -1,3 +1,45 @@
+## SC-1.30.0-F30-20260620-1905 — International ATC Campaign
+
+- Adicionado módulo oficial `33-international-campaign.js`.
+- Criado catálogo `data/international-campaign.json`.
+- Adicionadas regiões internacionais.
+- Adicionadas temporadas.
+- Adicionados contratos por aeroporto.
+- Adicionados reputação e orçamento de campanha.
+- Adicionados eventos de calendário e milestones.
+- Adicionado painel `INTL CAMPAIGN`.
+- Tela final mostra Campanha Intl e Contrato ativo.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F30.
+
+## SC-1.29.0-F29-20260620-1815 — ATC Instructor Coach & Adaptive Debriefing
+
+- Adicionado módulo oficial `32-training-coach-debriefing.js`.
+- Criado catálogo `data/training-coach-debriefing.json`.
+- Adicionado instrutor ATC local/offline.
+- Adicionado debriefing pós-turno.
+- Adicionado plano de estudo adaptativo.
+- Adicionados cards de estudo.
+- Adicionados badges de evolução.
+- Adicionado painel `ATC COACH`.
+- Tela final mostra Instrutor ATC e Plano de estudo.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F29.
+
+## SC-1.28.0-F28-20260620-1745 — ATC Academy & Certification
+
+- Adicionado módulo oficial `31-training-academy-certification.js`.
+- Criado catálogo `data/training-academy-scenarios.json`.
+- Adicionadas trilhas de treinamento.
+- Adicionadas missões guiadas.
+- Adicionadas provas de certificação.
+- Adicionada rubrica de avaliação.
+- Adicionadas recomendações de estudo.
+- Adicionado painel `ATC ACADEMY`.
+- Tela final mostra Academia ATC e Próxima missão.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F28.
+
 ## SC-1.27.0-F27-20260619-1704 — Public Ops Feedback & Hotfix Planner
 
 - Adicionado módulo oficial `30-public-ops-feedback.js`.

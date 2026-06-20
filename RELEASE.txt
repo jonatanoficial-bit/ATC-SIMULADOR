@@ -1,7 +1,7 @@
 SKYWARD CONTROL
-Public Operations Feedback Layer — Phase 27
-Version: 1.27.0
-Build: SC-1.27.0-F27-20260619-1704
-Built: 2026-06-19 17:04 BRT
-Channel: PUBLIC-OPS
-Status: F27 PUBLIC OPS AUDITED
+International Campaign Evolution — Phase 30
+Version: 1.30.0
+Build: SC-1.30.0-F30-20260620-1905
+Built: 2026-06-20 19:05 BRT
+Channel: INTERNATIONAL-CAMPAIGN
+Status: F30 INTERNATIONAL CAMPAIGN AUDITED

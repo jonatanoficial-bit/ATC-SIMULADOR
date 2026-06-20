@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "suite": "phase29-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para Training Coach.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.29.0",
+    "phase": "F29",
+    "phaseName": "Instrutor ATC, Debriefing Pós-Turno, Coaching Adaptativo e Plano de Estudo Personalizado",
+    "channel": "training-coach",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.29.0-F29-20260620-1815",
+    "builtAt": "2026-06-20 18:15 BRT",
+    "builtAtIso": "2026-06-20T18:15:00-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1,
+    "weatherOpsSchema": 1,
+    "procedureOpsSchema": 1,
+    "careerSchema": 1,
+    "economySchema": 1,
+    "incidentSchema": 1,
+    "networkFlowSchema": 1,
+    "controlRoomSchema": 1,
+    "commercialPolishSchema": 1,
+    "releaseCandidateSchema": 1,
+    "goldMasterSchema": 1,
+    "postGoldMasterSchema": 1,
+    "postPublishHealthSchema": 1,
+    "publicOpsSchema": 1,
+    "trainingAcademySchema": 1,
+    "trainingCoachSchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F29 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.29.0', 'phase': 'F29', 'phaseName': 'Instrutor ATC, Debriefing Pós-Turno, Coaching Adaptativo e Plano de Estudo Personalizado', 'channel': 'training-coach', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.29.0-F29-20260620-1815', 'builtAt': '2026-06-20 18:15 BRT', 'builtAtIso': '2026-06-20T18:15:00-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1, 'weatherOpsSchema': 1, 'procedureOpsSchema': 1, 'careerSchema': 1, 'economySchema': 1, 'incidentSchema': 1, 'networkFlowSchema': 1, 'controlRoomSchema': 1, 'commercialPolishSchema': 1, 'releaseCandidateSchema': 1, 'goldMasterSchema': 1, 'postGoldMasterSchema': 1, 'postPublishHealthSchema': 1, 'publicOpsSchema': 1, 'trainingAcademySchema': 1, 'trainingCoachSchema': 1}"
+    },
+    {
+      "name": "main bundle inclui módulo 32",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_TRAINING_COACH no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui domínios",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui study cards",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui adaptive rules",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui training-coach-debriefing.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "início de turno inicializa F29",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fim de turno mostra F29",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS possui painel coach",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F29 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema trainingCoachSchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "channel training-coach",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc instrutor existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc plano estudo existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado raiz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado docs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém caminho Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém repo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "card holding presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "badge flow presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "regra slot presente",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 22,
+  "failed": 0,
+  "total": 22
+}

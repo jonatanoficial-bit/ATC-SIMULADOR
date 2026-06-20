@@ -1,0 +1,210 @@
+{
+  "schema": 1,
+  "version": "2026.06-f28",
+  "description": "ATC training academy, guided missions, certification exams and structured scenario progression.",
+  "tracks": [
+    {
+      "id": "BASIC_TOWER",
+      "name": "Torre Básica",
+      "order": 1,
+      "requiredRating": "STUDENT"
+    },
+    {
+      "id": "GROUND_CONTROL",
+      "name": "Controle de Solo",
+      "order": 2,
+      "requiredRating": "LOCAL_GROUND"
+    },
+    {
+      "id": "APPROACH_RADAR",
+      "name": "Aproximação Radar",
+      "order": 3,
+      "requiredRating": "APP_PROCEDURAL"
+    },
+    {
+      "id": "IFR_PROCEDURES",
+      "name": "Procedimentos IFR",
+      "order": 4,
+      "requiredRating": "APP_RADAR"
+    },
+    {
+      "id": "EMERGENCY_OPS",
+      "name": "Emergências e Multiagência",
+      "order": 5,
+      "requiredRating": "SUPERVISOR"
+    },
+    {
+      "id": "NETWORK_FLOW",
+      "name": "Network Flow e Slots",
+      "order": 6,
+      "requiredRating": "SUPERVISOR"
+    }
+  ],
+  "missions": [
+    {
+      "id": "TWR_01",
+      "track": "BASIC_TOWER",
+      "title": "Primeira decolagem segura",
+      "airport": "SBSP",
+      "durationMin": 8,
+      "targetScore": 600,
+      "objectives": [
+        "lineup",
+        "clearTakeoff",
+        "noIncursion"
+      ]
+    },
+    {
+      "id": "TWR_02",
+      "track": "BASIC_TOWER",
+      "title": "Sequência de pouso simples",
+      "airport": "SBSP",
+      "durationMin": 10,
+      "targetScore": 900,
+      "objectives": [
+        "clearLanding",
+        "spacing",
+        "runwayVacated"
+      ]
+    },
+    {
+      "id": "GND_01",
+      "track": "GROUND_CONTROL",
+      "title": "Taxi e holding point",
+      "airport": "SBGR",
+      "durationMin": 12,
+      "targetScore": 1100,
+      "objectives": [
+        "pushback",
+        "taxi",
+        "holdShort"
+      ]
+    },
+    {
+      "id": "APP_01",
+      "track": "APPROACH_RADAR",
+      "title": "Vetoração final",
+      "airport": "SBGR",
+      "durationMin": 15,
+      "targetScore": 1600,
+      "objectives": [
+        "vectorFinal",
+        "altitude",
+        "speed"
+      ]
+    },
+    {
+      "id": "IFR_01",
+      "track": "IFR_PROCEDURES",
+      "title": "ILS e aproximação perdida",
+      "airport": "SBGR",
+      "durationMin": 18,
+      "targetScore": 2200,
+      "objectives": [
+        "assignILS",
+        "missedApproach",
+        "hold"
+      ]
+    },
+    {
+      "id": "EMR_01",
+      "track": "EMERGENCY_OPS",
+      "title": "Bird strike com ARFF",
+      "airport": "SBGR",
+      "durationMin": 20,
+      "targetScore": 2600,
+      "objectives": [
+        "declareEmergency",
+        "ARFF",
+        "closeRunway"
+      ]
+    },
+    {
+      "id": "NET_01",
+      "track": "NETWORK_FLOW",
+      "title": "Slots e conexão protegida",
+      "airport": "KATL",
+      "durationMin": 22,
+      "targetScore": 3000,
+      "objectives": [
+        "slotCompliance",
+        "connectionBank",
+        "alternatePlan"
+      ]
+    }
+  ],
+  "exams": [
+    {
+      "id": "EXAM_TOWER_LOCAL",
+      "name": "Certificação Torre Local",
+      "track": "BASIC_TOWER",
+      "minScore": 1800,
+      "maxErrors": 2,
+      "awards": "LOCAL_TOWER"
+    },
+    {
+      "id": "EXAM_GROUND",
+      "name": "Certificação Solo",
+      "track": "GROUND_CONTROL",
+      "minScore": 2200,
+      "maxErrors": 2,
+      "awards": "GROUND_CERTIFIED"
+    },
+    {
+      "id": "EXAM_APPROACH",
+      "name": "Certificação Aproximação",
+      "track": "APPROACH_RADAR",
+      "minScore": 3200,
+      "maxErrors": 3,
+      "awards": "APPROACH_RATED"
+    },
+    {
+      "id": "EXAM_SUPERVISOR",
+      "name": "Certificação Supervisor",
+      "track": "EMERGENCY_OPS",
+      "minScore": 4200,
+      "maxErrors": 3,
+      "awards": "SENIOR_CONTROLLER"
+    }
+  ],
+  "rubric": [
+    {
+      "id": "SAFETY",
+      "name": "Segurança",
+      "weight": 40
+    },
+    {
+      "id": "PROCEDURE",
+      "name": "Procedimento correto",
+      "weight": 25
+    },
+    {
+      "id": "EFFICIENCY",
+      "name": "Eficiência",
+      "weight": 20
+    },
+    {
+      "id": "COMMUNICATION",
+      "name": "Comunicação/fluxo",
+      "weight": 15
+    }
+  ],
+  "remediation": [
+    {
+      "id": "RUNWAY_INCURSION",
+      "message": "Revise holding point e autorização de pista."
+    },
+    {
+      "id": "LOW_SCORE",
+      "message": "Repita missão com foco em separação e economia de comandos."
+    },
+    {
+      "id": "WEATHER_RISK",
+      "message": "Revise RVR, teto, vento cruzado e aproximação perdida."
+    },
+    {
+      "id": "SLOT_MISS",
+      "message": "Revise CTOT/EDCT, bancos de conexão e alternados."
+    }
+  ]
+}

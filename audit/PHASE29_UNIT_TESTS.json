@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase29-unit",
+  "build": "SC-1.29.0-F29-20260620-1815",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F29+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.29.0\",\"phase\":\"F29\",\"phaseName\":\"Instrutor ATC, Debriefing Pós-Turno, Coaching Adaptativo e Plano de Estudo Personalizado\",\"channel\":\"training-coach\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.29.0-F29-20260620-1815\",\"builtAt\":\"2026-06-20 18:15 BRT\",\"builtAtIso\":\"2026-06-20T18:15:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1}"
+    },
+    {
+      "name": "módulo F29 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo coach cards rules",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"domains\":7,\"cards\":7}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"debriefs\":[{\"at\":\"2026-06-20T13:00:49.731Z\",\"build\":\"SC-1.29.0-F29-20260620-1815\",\"airport\":\"SBSP\",\"score\":20,\"level\":\"REMEDIAL\",\"missionId\":\"TWR_01\",\"missionTrack\":\"BASIC_TOWER\",\"signals\":{\"finalScore\":300,\"targetScore\":600,\"conflicts\":1,\"runwayIncursions\":1,\"denied\":1,\"landed\":0,\"departed\":0,\"fail\":false,\"slotCompliance\":0.6,\"economyProfit\":-1000,\"fatigue\":75,\"weatherRisk\":80,\"missionId\":\"TWR_01\",\"missionTrack\":\"BASIC_TOWER\"},\"studyPlan\":[\"HOLD_SHORT\",\"SEPARATION\",\"VECTORING\",\"DELAY_COST\",\"MISSED_APPROACH\"],\"text\":{\"summary\":\"Nível Remediação necessária: revisão obrigatória.\",\"strengths\":[\"turno concluído com dados suficientes para treino\"],\"focus\":\"Holding point antes da pista, Separação mínima, Vetoração final, Atraso e custo, Aproximação perdida\",\"nextAction\":\"Repita taxi + hold short antes de qualquer lineup.\"}},{\"at\":\"2026-06-20T13:00:49.730Z\",\"build\":\"SC-1.29.0-F29-20260620-1815\",\"airport\":\"SBSP\",\"score\":20,\"level\":\"REMEDIAL\",\"missionId\":\"TWR_01\",\"missionTrack\":\"BASIC_TOWER\",\"signals\":{\"finalScore\":300,\"targetScore\":600,\"conflicts\":1,\"runwayIncursions\":1,\"denied\":1,\"landed\":0,\"departed\":0,\"fail\":false,\"slotCompliance\":0.6,\"economyProfit\":-1000,\"fatigue\":75,\"weatherRisk\":80,\"missionId\":\"TWR_01\",\"missionTrack\":\"BASIC_TOWER\"},\"studyPlan\":[\"HOLD_SHORT\",\"SEPARATION\",\"VECTORING\",\"DELAY_COST\",\"MISSED_APPROACH\"],\"text\":{\"summary\":\"Nível Remediação necessária: revisão obrigatória.\",\"strengths\":[\"turno concluído com dados suficientes para treino\"],\"focus\":\"Holding point antes da pista, Separação mínima, Vetoração final, Atraso e custo, Aproximação perdida\",\"nextAction\":\"Repita taxi + hold short antes de qualquer lineup.\"}}],\"studyPlan\":[{\"id\":\"HOLD_SHORT\",\"domain\":\"RUNWAY\",\"title\":\"Holding point antes da pista\",\"minutes\":8,\"drill\":\"Repita taxi + hold short antes de qualquer lineup.\",\"reason\":\"RULE_INCursion\"},{\"id\":\"SEPARATION\",\"domain\":\"SAFETY\",\"title\":\"Separação mínima\",\"minutes\":10,\"drill\":\"Treine spacing antes de liberar pouso/decolagem.\",\"reason\":\"RULE_INCursion\"},{\"id\":\"VECTORING\",\"domain\":\"APPROACH\",\"title\":\"Vetoração final\",\"minutes\":12,\"drill\":\"Ajuste heading, altitude e speed até estabilizar final.\",\"reason\":\"RULE_CONFLICT\"},{\"id\":\"DELAY_COST\",\"domain\":\"ECONOMY\",\"title\":\"Atraso e custo\",\"minutes\":10,\"drill\":\"Compare negar comando vs sequenciar com atraso menor.\",\"reason\":\"RULE_LOW_SCORE\"},{\"id\":\"MISSED_APPROACH\",\"domain\":\"WEATHER\",\"title\":\"Aproximação perdida\",\"minutes\":12,\"drill\":\"Pratique ILS/RNAV com arremetida e holding.\",\"reason\":\"RULE_WEATHER\"}],\"badges\":[\"IFR_STUDENT\"],\"coachScore\":20,\"lastDebrief\":{\"at\":\"2026-06-20T13:00:49.731Z\",\"build\":\"SC-1.29.0-F29-20260620-1815\",\"airport\":\"SBSP\",\"score\":20,\"level\":\"REMEDIAL\",\"missionId\":\"TWR_01\",\"missionTrack\":\"BASIC_TOWER\",\"signals\":{\"finalScore\":300,\"targetScore\":600,\"conflicts\":1,\"runwayIncursions\":1,\"denied\":1,\"landed\":0,\"departed\":0,\"fail\":false,\"slotCompliance\":0.6,\"economyProfit\":-1000,\"fatigue\":75,\"weatherRisk\":80,\"missionId\":\"TWR_01\",\"missionTrack\":\"BASIC_TOWER\"},\"studyPlan\":[\"HOLD_SHORT\",\"SEPARATION\",\"VECTORING\",\"DELAY_COST\",\"MISSED_APPROACH\"],\"text\":{\"summary\":\"Nível Remediação necessária: revisão obrigatória.\",\"strengths\":[\"turno concluído com dados suficientes para treino\"],\"focus\":\"Holding point antes da pista, Separação mínima, Vetoração final, Atraso e custo, Aproximação perdida\",\"nextAction\":\"Repita taxi + hold short antes de qualquer lineup.\"}},\"status\":\"INSTRUTOR_ATIVO\"}"
+    },
+    {
+      "name": "debrief ruim gera remediação",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-20T13:00:49.731Z\",\"build\":\"SC-1.29.0-F29-20260620-1815\",\"airport\":\"SBSP\",\"score\":20,\"level\":\"REMEDIAL\",\"missionId\":\"TWR_01\",\"missionTrack\":\"BASIC_TOWER\",\"signals\":{\"finalScore\":300,\"targetScore\":600,\"conflicts\":1,\"runwayIncursions\":1,\"denied\":1,\"landed\":0,\"departed\":0,\"fail\":false,\"slotCompliance\":0.6,\"economyProfit\":-1000,\"fatigue\":75,\"weatherRisk\":80,\"missionId\":\"TWR_01\",\"missionTrack\":\"BASIC_TOWER\"},\"studyPlan\":[\"HOLD_SHORT\",\"SEPARATION\",\"VECTORING\",\"DELAY_COST\",\"MISSED_APPROACH\"],\"text\":{\"summary\":\"Nível Remediação necessária: revisão obrigatória.\",\"strengths\":[\"turno concluído com dados suficientes para treino\"],\"focus\":\"Holding point antes da pista, Separação mínima, Vetoração final, Atraso e custo, Aproximação perdida\",\"nextAction\":\"Repita taxi + hold short antes de qualquer lineup.\"}}"
+    },
+    {
+      "name": "debrief bom gera score",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-20T13:00:49.731Z\",\"build\":\"SC-1.29.0-F29-20260620-1815\",\"airport\":\"SBSP\",\"score\":81,\"level\":\"PROFICIENT\",\"missionId\":\"TWR_01\",\"missionTrack\":\"BASIC_TOWER\",\"signals\":{\"finalScore\":1800,\"targetScore\":600,\"conflicts\":0,\"runwayIncursions\":0,\"denied\":0,\"landed\":2,\"departed\":2,\"fail\":false,\"slotCompliance\":0.6,\"economyProfit\":-1000,\"fatigue\":75,\"weatherRisk\":80,\"missionId\":\"TWR_01\",\"missionTrack\":\"BASIC_TOWER\"},\"studyPlan\":[\"MISSED_APPROACH\",\"SLOT_FLOW\",\"DELAY_COST\",\"FATIGUE\"],\"text\":{\"summary\":\"Nível Proficiente: ajustes pontuais.\",\"strengths\":[\"segurança operacional preservada\",\"pontuação acima do objetivo da missão\"],\"focus\":\"Aproximação perdida, CTOT/EDCT e conexões, Atraso e custo, Fadiga operacional\",\"nextAction\":\"Pratique ILS/RNAV com arremetida e holding.\"}}"
+    },
+    {
+      "name": "progress contém coach score",
+      "ok": true,
+      "detail": "{\"coachScore\":35,\"status\":\"INSTRUTOR_ATIVO\",\"badges\":1,\"studyCards\":4,\"lastLevel\":\"PROFICIENT\",\"lastFocus\":\"Aproximação perdida, CTOT/EDCT e conexões, Atraso e custo, Fadiga operacional\"}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"SAFE_HANDS\",\"name\":\"Mãos seguras\",\"condition\":\"3 turnos sem conflito\"},{\"id\":\"RUNWAY_MASTER\",\"name\":\"Mestre de pista\",\"condition\":\"5 turnos sem incursão\"},{\"id\":\"IFR_STUDENT\",\"name\":\"Aluno IFR\",\"condition\":\"concluir treino meteorológico\"},{\"id\":\"FLOW_PLANNER\",\"name\":\"Planejador de fluxo\",\"condition\":\"3 turnos com slot compliance alto\"}]"
+    },
+    {
+      "name": "cards essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"HOLD_SHORT\",\"domain\":\"RUNWAY\",\"title\":\"Holding point antes da pista\",\"minutes\":8,\"drill\":\"Repita taxi + hold short antes de qualquer lineup.\"},{\"id\":\"SEPARATION\",\"domain\":\"SAFETY\",\"title\":\"Separação mínima\",\"minutes\":10,\"drill\":\"Treine spacing antes de liberar pouso/decolagem.\"},{\"id\":\"MISSED_APPROACH\",\"domain\":\"WEATHER\",\"title\":\"Aproximação perdida\",\"minutes\":12,\"drill\":\"Pratique ILS/RNAV com arremetida e holding.\"},{\"id\":\"VECTORING\",\"domain\":\"APPROACH\",\"title\":\"Vetoração final\",\"minutes\":12,\"drill\":\"Ajuste heading, altitude e speed até estabilizar final.\"},{\"id\":\"SLOT_FLOW\",\"domain\":\"NETWORK\",\"title\":\"CTOT/EDCT e conexões\",\"minutes\":15,\"drill\":\"Proteja banco de conexão sem estourar slot.\"},{\"id\":\"DELAY_COST\",\"domain\":\"ECONOMY\",\"title\":\"Atraso e custo\",\"minutes\":10,\"drill\":\"Compare negar comando vs sequenciar com atraso menor.\"},{\"id\":\"FATIGUE\",\"domain\":\"CAREER\",\"title\":\"Fadiga operacional\",\"minutes\":6,\"drill\":\"Revise quando aceitar turnos e quando descansar.\"}]"
+    },
+    {
+      "name": "badges essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"SAFE_HANDS\",\"name\":\"Mãos seguras\",\"condition\":\"3 turnos sem conflito\"},{\"id\":\"RUNWAY_MASTER\",\"name\":\"Mestre de pista\",\"condition\":\"5 turnos sem incursão\"},{\"id\":\"IFR_STUDENT\",\"name\":\"Aluno IFR\",\"condition\":\"concluir treino meteorológico\"},{\"id\":\"FLOW_PLANNER\",\"name\":\"Planejador de fluxo\",\"condition\":\"3 turnos com slot compliance alto\"}]"
+    }
+  ]
+}

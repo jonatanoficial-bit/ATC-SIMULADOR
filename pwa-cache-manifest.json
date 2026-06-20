@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.27.0-F27-20260619-1704",
-  "builtAt": "2026-06-19 17:04 BRT",
-  "cacheName": "skyward-control-1-sc-1.27.0-f27-20260619-1704",
+  "build": "SC-1.30.0-F30-20260620-1905",
+  "builtAt": "2026-06-20 19:05 BRT",
+  "cacheName": "skyward-control-1-sc-1.30.0-f30-20260620-1905",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,8 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 1137,
-      "sha256": "c79d0188ba5b041ecfaa91a47d00118f63e9d344e35b0c32b3c7b4579a1e53a6"
+      "bytes": 1239,
+      "sha256": "7972d3e19719837542fb688f07faa97cfb90d6ce0d0eafd788f71a2e728fd745"
     },
     {
       "url": "./data/aircraft-performance.json",
@@ -141,6 +141,12 @@
       "sha256": "10b6dccc7a4161531bd8fc9ed89fc1a22eaff709dd52dd517bc24f572fcf0c31"
     },
     {
+      "url": "./data/international-campaign.json",
+      "file": "data/international-campaign.json",
+      "bytes": 4172,
+      "sha256": "39dd704651a008325d0707087f5dc5fb1cc7335bdb107fc5073e2ab393f89499"
+    },
+    {
       "url": "./data/network-flow-slots.json",
       "file": "data/network-flow-slots.json",
       "bytes": 4630,
@@ -183,6 +189,18 @@
       "sha256": "48a9ef383cc6f31e038860da68c8ec9ccf8877532c0639ab9f2b9600df1de603"
     },
     {
+      "url": "./data/training-academy-scenarios.json",
+      "file": "data/training-academy-scenarios.json",
+      "bytes": 4626,
+      "sha256": "14b4e03f02155612c82d3986835c1d61e4c15999714909dce7599e119ad85f28"
+    },
+    {
+      "url": "./data/training-coach-debriefing.json",
+      "file": "data/training-coach-debriefing.json",
+      "bytes": 5016,
+      "sha256": "d4dd77a34f15a4c6758301bcbc2bef1ce920f44954490ef9e03adbf0d640afbe"
+    },
+    {
       "url": "./data/ux-polish-presets.json",
       "file": "data/ux-polish-presets.json",
       "bytes": 3816,
@@ -203,8 +221,8 @@
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 441818,
-      "sha256": "013b6c80e04c4df3dc3ffeefa6a0a7dd67e5670c34cc40ab7a93dbc1d78f3df8"
+      "bytes": 481861,
+      "sha256": "9f10370a3b638b2594d758b844f895ed0dd7171f5b64766d402cbca6767147ca"
     },
     {
       "url": "./manifest.webmanifest",
@@ -215,8 +233,8 @@
     {
       "url": "./style.css",
       "file": "style.css",
-      "bytes": 98237,
-      "sha256": "5578fdc10f5c9aba220e9b8b99b516ef586fb5bfdb571d4f5b83023f3483fac5"
+      "bytes": 100124,
+      "sha256": "3ff0705f546c2104913bed2edc037f3f5503e13dfa83c1e5e07ed551b731f9d9"
     }
   ]
 }

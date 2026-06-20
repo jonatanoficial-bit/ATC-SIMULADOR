@@ -1,18 +1,18 @@
-# Build Notes — SC-1.27.0-F27-20260619-1704
+# Build Notes — SC-1.30.0-F30-20260620-1905
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.27.0
-- Fase: F27 — Operação Pública Contínua, Feedback Local, Telemetria Offline, Bug Inbox e Hotfix Planner
-- Build: `SC-1.27.0-F27-20260619-1704`
-- Data/hora: 2026-06-19 17:04 BRT
-- Canal: public-ops
-- Public Ops schema: 1
+- Versão: 1.30.0
+- Fase: F30 — Campanha Internacional ATC, Temporadas, Contratos de Aeroportos e Calendário de Carreira
+- Build: `SC-1.30.0-F30-20260620-1905`
+- Data/hora: 2026-06-20 19:05 BRT
+- Canal: international-campaign
+- International Campaign schema: 1
 
 ## Entregas
 
-A Fase 27 adiciona operação pública contínua local, feedback, bug inbox, telemetria offline, hotfix planner e painel Public Ops.
+A Fase 30 adiciona campanha internacional, temporadas, contratos por aeroporto, reputação, orçamento, calendário operacional e milestones.
 
 ## Documento de upload
 

@@ -1,7 +1,7 @@
 /*
  * SKYWARD CONTROL — GENERATED RUNTIME BUNDLE
  * Do not edit main.js directly. Edit src/runtime modules and run npm run build:runtime.
- * Architecture generation: 27
+ * Architecture generation: 30
  */
 
 /* ===== MODULE 01: runtime-registry (00-runtime-registry.js) ===== */
@@ -4643,7 +4643,628 @@ window.SKYWARD_PUBLIC_OPS=Object.freeze({
   selfCheck:publicOpsSelfCheck
 });
 
-/* ===== MODULE 26: surface-safety-director (17-surface-safety-director.js) ===== */
+/* ===== MODULE 26: training-academy-certification (31-training-academy-certification.js) ===== */
+/* @skyward-module 31-training-academy-certification
+ * ATC training academy, guided missions, certification exams and structured scenario progression.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('31-training-academy-certification');
+const TRAINING_ACADEMY_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f28',
+  tracks:[
+    {id:'BASIC_TOWER',name:'Torre Básica',order:1,requiredRating:'STUDENT'},
+    {id:'GROUND_CONTROL',name:'Controle de Solo',order:2,requiredRating:'LOCAL_GROUND'},
+    {id:'APPROACH_RADAR',name:'Aproximação Radar',order:3,requiredRating:'APP_PROCEDURAL'},
+    {id:'IFR_PROCEDURES',name:'Procedimentos IFR',order:4,requiredRating:'APP_RADAR'},
+    {id:'EMERGENCY_OPS',name:'Emergências e Multiagência',order:5,requiredRating:'SUPERVISOR'},
+    {id:'NETWORK_FLOW',name:'Network Flow e Slots',order:6,requiredRating:'SUPERVISOR'}
+  ],
+  missions:[
+    {id:'TWR_01',track:'BASIC_TOWER',title:'Primeira decolagem segura',airport:'SBSP',durationMin:8,targetScore:600,objectives:['lineup','clearTakeoff','noIncursion']},
+    {id:'TWR_02',track:'BASIC_TOWER',title:'Sequência de pouso simples',airport:'SBSP',durationMin:10,targetScore:900,objectives:['clearLanding','spacing','runwayVacated']},
+    {id:'GND_01',track:'GROUND_CONTROL',title:'Taxi e holding point',airport:'SBGR',durationMin:12,targetScore:1100,objectives:['pushback','taxi','holdShort']},
+    {id:'APP_01',track:'APPROACH_RADAR',title:'Vetoração final',airport:'SBGR',durationMin:15,targetScore:1600,objectives:['vectorFinal','altitude','speed']},
+    {id:'IFR_01',track:'IFR_PROCEDURES',title:'ILS e aproximação perdida',airport:'SBGR',durationMin:18,targetScore:2200,objectives:['assignILS','missedApproach','hold']},
+    {id:'EMR_01',track:'EMERGENCY_OPS',title:'Bird strike com ARFF',airport:'SBGR',durationMin:20,targetScore:2600,objectives:['declareEmergency','ARFF','closeRunway']},
+    {id:'NET_01',track:'NETWORK_FLOW',title:'Slots e conexão protegida',airport:'KATL',durationMin:22,targetScore:3000,objectives:['slotCompliance','connectionBank','alternatePlan']}
+  ],
+  exams:[
+    {id:'EXAM_TOWER_LOCAL',name:'Certificação Torre Local',track:'BASIC_TOWER',minScore:1800,maxErrors:2,awards:'LOCAL_TOWER'},
+    {id:'EXAM_GROUND',name:'Certificação Solo',track:'GROUND_CONTROL',minScore:2200,maxErrors:2,awards:'GROUND_CERTIFIED'},
+    {id:'EXAM_APPROACH',name:'Certificação Aproximação',track:'APPROACH_RADAR',minScore:3200,maxErrors:3,awards:'APPROACH_RATED'},
+    {id:'EXAM_SUPERVISOR',name:'Certificação Supervisor',track:'EMERGENCY_OPS',minScore:4200,maxErrors:3,awards:'SENIOR_CONTROLLER'}
+  ],
+  rubric:[
+    {id:'SAFETY',name:'Segurança',weight:40},
+    {id:'PROCEDURE',name:'Procedimento correto',weight:25},
+    {id:'EFFICIENCY',name:'Eficiência',weight:20},
+    {id:'COMMUNICATION',name:'Comunicação/fluxo',weight:15}
+  ],
+  remediation:[
+    {id:'RUNWAY_INCURSION',message:'Revise holding point e autorização de pista.'},
+    {id:'LOW_SCORE',message:'Repita missão com foco em separação e economia de comandos.'},
+    {id:'WEATHER_RISK',message:'Revise RVR, teto, vento cruzado e aproximação perdida.'},
+    {id:'SLOT_MISS',message:'Revise CTOT/EDCT, bancos de conexão e alternados.'}
+  ]
+});
+const TRAINING_ACADEMY_KEY='skywardTrainingAcademy_v1';
+let trainingAcademyState={schema:1,activeMissionId:'TWR_01',activeExamId:null,completedMissions:[],passedExams:[],attempts:[],academyScore:0,status:'CADETE',lastEvaluation:null};
+function loadTrainingAcademy(){
+  try{ const raw=localStorage?.getItem?.(TRAINING_ACADEMY_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) trainingAcademyState={...trainingAcademyState,...parsed}; } }catch(e){ safeLogError?.(e,'training-academy-load'); }
+  return trainingAcademyState;
+}
+function saveTrainingAcademy(){
+  try{ localStorage?.setItem?.(TRAINING_ACADEMY_KEY,JSON.stringify(trainingAcademyState)); }catch(e){ safeLogError?.(e,'training-academy-save'); }
+  return trainingAcademyState;
+}
+function missionById(id){ return TRAINING_ACADEMY_CATALOG.missions.find(m=>m.id===id)||TRAINING_ACADEMY_CATALOG.missions[0]; }
+function examById(id){ return TRAINING_ACADEMY_CATALOG.exams.find(e=>e.id===id)||null; }
+function activeTrainingMission(){ loadTrainingAcademy(); return missionById(trainingAcademyState.activeMissionId); }
+function startTrainingMission(id='TWR_01'){
+  loadTrainingAcademy();
+  const mission=missionById(id);
+  trainingAcademyState.activeMissionId=mission.id;
+  trainingAcademyState.activeExamId=null;
+  saveTrainingAcademy();
+  renderTrainingAcademyBoard();
+  return mission;
+}
+function startCertificationExam(id='EXAM_TOWER_LOCAL'){
+  loadTrainingAcademy();
+  const exam=examById(id);
+  if(!exam) throw new Error('Exame inexistente');
+  trainingAcademyState.activeExamId=exam.id;
+  const first=TRAINING_ACADEMY_CATALOG.missions.find(m=>m.track===exam.track) || TRAINING_ACADEMY_CATALOG.missions[0];
+  trainingAcademyState.activeMissionId=first.id;
+  saveTrainingAcademy();
+  renderTrainingAcademyBoard();
+  return {exam,mission:first};
+}
+function objectiveScore(mission,statsObj={},finalScore=0){
+  const max=mission.objectives.length||1;
+  let hit=0;
+  for(const obj of mission.objectives){
+    if(obj==='noIncursion' && !(statsObj.runwayIncursions||0)) hit++;
+    else if(obj==='spacing' && !(statsObj.conflicts||0)) hit++;
+    else if(obj==='runwayVacated' && (statsObj.landed||0)>0) hit++;
+    else if(obj==='slotCompliance' && ((window.SKYWARD_NETWORK_FLOW?.status?.().slotCompliance||1)>=.75)) hit++;
+    else if(obj==='connectionBank' && ((window.SKYWARD_NETWORK_FLOW?.status?.().connectionsProtected||0)>=0)) hit++;
+    else if(obj==='ARFF' && ((window.SKYWARD_INCIDENTS?.state?.().agencies?.ARFF)||true)) hit++;
+    else if(finalScore>=mission.targetScore*.35) hit++;
+  }
+  return Math.round(hit/max*100);
+}
+function rubricScore(finalScore=0,statsObj={},fail=false){
+  const safety=Math.max(0,100-(statsObj.conflicts||0)*18-(statsObj.runwayIncursions||0)*25-(fail?30:0));
+  const procedure=Math.max(0,80+(statsObj.landed||0)*2+(statsObj.departed||0)*2-(statsObj.denied||0)*6);
+  const efficiency=Math.max(0,Math.min(100,50+Math.round(finalScore/80)-(statsObj.denied||0)*4));
+  const communication=Math.max(0,Math.min(100,70+(statsObj.commands||0>0?10:0)-(statsObj.denied||0)*3));
+  const weighted=Math.round((safety*.40)+(procedure*.25)+(efficiency*.20)+(communication*.15));
+  return {safety,procedure,efficiency,communication,weighted};
+}
+function remediationFor(statsObj={},finalScore=0,mission=null){
+  if(statsObj.runwayIncursions>0) return TRAINING_ACADEMY_CATALOG.remediation.find(r=>r.id==='RUNWAY_INCURSION');
+  if(mission?.track==='NETWORK_FLOW' && (window.SKYWARD_NETWORK_FLOW?.status?.().slotCompliance||1)<.75) return TRAINING_ACADEMY_CATALOG.remediation.find(r=>r.id==='SLOT_MISS');
+  if(finalScore<(mission?.targetScore||1000)) return TRAINING_ACADEMY_CATALOG.remediation.find(r=>r.id==='LOW_SCORE');
+  return null;
+}
+function evaluateTrainingShift(finalScore=0,statsObj={},fail=false,airportCode=''){
+  loadTrainingAcademy();
+  const mission=activeTrainingMission();
+  const rub=rubricScore(finalScore,statsObj,fail);
+  const obj=objectiveScore(mission,statsObj,finalScore);
+  const passed=finalScore>=mission.targetScore && rub.weighted>=70 && obj>=60 && !fail;
+  const remediation=passed?null:remediationFor(statsObj,finalScore,mission);
+  const attempt={at:new Date().toISOString(),build:BUILD,missionId:mission.id,track:mission.track,airport:airportCode||mission.airport,finalScore:Math.round(finalScore||0),rubric:rub,objectiveScore:obj,passed,remediation:remediation?.message||'',examId:trainingAcademyState.activeExamId||null};
+  trainingAcademyState.attempts.unshift(attempt);
+  trainingAcademyState.attempts=trainingAcademyState.attempts.slice(0,60);
+  if(passed && !trainingAcademyState.completedMissions.includes(mission.id)) trainingAcademyState.completedMissions.push(mission.id);
+  const exam=examById(trainingAcademyState.activeExamId);
+  if(exam){
+    const errors=(statsObj.conflicts||0)+(statsObj.runwayIncursions||0)+(statsObj.denied||0);
+    const examPassed=finalScore>=exam.minScore && errors<=exam.maxErrors && passed;
+    attempt.examPassed=examPassed;
+    if(examPassed && !trainingAcademyState.passedExams.includes(exam.id)) trainingAcademyState.passedExams.push(exam.id);
+  }
+  trainingAcademyState.academyScore=Math.round(trainingAcademyState.completedMissions.length*1000 + trainingAcademyState.passedExams.length*2500 + Math.max(0,rub.weighted*10));
+  trainingAcademyState.status=trainingAcademyState.passedExams.length>=3?'INSTRUTOR':trainingAcademyState.completedMissions.length>=5?'CONTROLADOR_ACADEMIA':trainingAcademyState.completedMissions.length>=2?'ALUNO_AVANCADO':'CADETE';
+  const next=TRAINING_ACADEMY_CATALOG.missions.find(m=>!trainingAcademyState.completedMissions.includes(m.id)) || mission;
+  trainingAcademyState.activeMissionId=next.id;
+  trainingAcademyState.lastEvaluation=attempt;
+  saveTrainingAcademy();
+  renderTrainingAcademyBoard();
+  return {state:trainingAcademyState,attempt,nextMission:next};
+}
+function trainingAcademyProgress(){
+  loadTrainingAcademy();
+  const total=TRAINING_ACADEMY_CATALOG.missions.length;
+  const completed=trainingAcademyState.completedMissions.length;
+  const exams=trainingAcademyState.passedExams.length;
+  return {completed,total,percent:Math.round(completed/total*100),exams,academyScore:trainingAcademyState.academyScore,status:trainingAcademyState.status,activeMission:activeTrainingMission()};
+}
+function renderTrainingAcademyBoard(){
+  try{
+    const anchor=document.querySelector('#publicOpsInline') || document.querySelector('#postPublishHealthInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#trainingAcademyInline'); if(old) old.remove();
+    const p=trainingAcademyProgress();
+    anchor.insertAdjacentHTML('afterend',`<div id="trainingAcademyInline" class="airport-ops-board training-academy-inline">
+      <div class="airport-ops-head"><b>ATC ACADEMY</b><span>${p.status}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>MISSÃO</small><b>${p.activeMission.id}</b></div>
+        <div><small>PROGRESSO</small><b>${p.completed}/${p.total}</b></div>
+        <div><small>ACADEMY</small><b>${p.academyScore}</b></div>
+        <div><small>EXAMES</small><b>${p.exams}</b></div>
+        <div><small>ÚLTIMA</small><b>${trainingAcademyState.lastEvaluation?.passed?'APROVADO':'TREINO'}</b></div>
+        <div><small>TRILHA</small><b>${p.activeMission.track}</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'training-academy-board'); }
+}
+function initializeTrainingAcademy(){
+  loadTrainingAcademy();
+  if(!trainingAcademyState.activeMissionId) trainingAcademyState.activeMissionId='TWR_01';
+  renderTrainingAcademyBoard();
+  return trainingAcademyState;
+}
+function trainingAcademyStatus(){ loadTrainingAcademy(); return {...trainingAcademyState,progress:trainingAcademyProgress(),catalog:TRAINING_ACADEMY_CATALOG}; }
+function trainingAcademySelfCheck(){
+  const issues=[];
+  if(TRAINING_ACADEMY_CATALOG.tracks.length<6) issues.push('trilhas insuficientes');
+  if(TRAINING_ACADEMY_CATALOG.missions.length<7) issues.push('missões insuficientes');
+  if(TRAINING_ACADEMY_CATALOG.exams.length<4) issues.push('exames insuficientes');
+  const mission=startTrainingMission('TWR_01');
+  const res=evaluateTrainingShift(1200,{landed:1,departed:1,conflicts:0,runwayIncursions:0,denied:0,commands:5},false,'SBSP');
+  if(!res.attempt.passed) issues.push('missão básica não aprova cenário saudável');
+  return {ok:issues.length===0,issues,tracks:TRAINING_ACADEMY_CATALOG.tracks.length,missions:TRAINING_ACADEMY_CATALOG.missions.length,exams:TRAINING_ACADEMY_CATALOG.exams.length};
+}
+window.SKYWARD_TRAINING_ACADEMY=Object.freeze({
+  schema:1,
+  catalog:TRAINING_ACADEMY_CATALOG,
+  load:loadTrainingAcademy,
+  save:saveTrainingAcademy,
+  init:initializeTrainingAcademy,
+  start:startTrainingMission,
+  exam:startCertificationExam,
+  evaluate:evaluateTrainingShift,
+  progress:trainingAcademyProgress,
+  status:trainingAcademyStatus,
+  board:renderTrainingAcademyBoard,
+  selfCheck:trainingAcademySelfCheck
+});
+
+/* ===== MODULE 27: training-coach-debriefing (32-training-coach-debriefing.js) ===== */
+/* @skyward-module 32-training-coach-debriefing
+ * ATC instructor coach, post-shift debriefing, adaptive study plan and personalized training recommendations.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('32-training-coach-debriefing');
+const TRAINING_COACH_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f29',
+  coachDomains:[
+    {id:'SAFETY',name:'Segurança operacional',priority:5,signals:['conflicts','runwayIncursions','fail']},
+    {id:'RUNWAY',name:'Pista e solo',priority:5,signals:['lineup','clearTakeoff','holdShort']},
+    {id:'APPROACH',name:'Aproximação e vetoração',priority:4,signals:['vectorFinal','spacing','altitude']},
+    {id:'WEATHER',name:'Meteorologia e mínimos',priority:4,signals:['rvr','crosswind','missedApproach']},
+    {id:'NETWORK',name:'Slots e fluxo de rede',priority:3,signals:['slotCompliance','connectionsProtected','alternatePlan']},
+    {id:'ECONOMY',name:'Eficiência e custo operacional',priority:3,signals:['delay','profit','denied']},
+    {id:'CAREER',name:'Carreira e fadiga',priority:2,signals:['fatigue','rating','license']}
+  ],
+  debriefLevels:[
+    {id:'EXCELLENT',name:'Excelente',minScore:90,tone:'reforço positivo'},
+    {id:'PROFICIENT',name:'Proficiente',minScore:75,tone:'ajustes pontuais'},
+    {id:'DEVELOPING',name:'Em desenvolvimento',minScore:55,tone:'treino guiado'},
+    {id:'REMEDIAL',name:'Remediação necessária',minScore:0,tone:'revisão obrigatória'}
+  ],
+  studyCards:[
+    {id:'HOLD_SHORT',domain:'RUNWAY',title:'Holding point antes da pista',minutes:8,drill:'Repita taxi + hold short antes de qualquer lineup.'},
+    {id:'SEPARATION',domain:'SAFETY',title:'Separação mínima',minutes:10,drill:'Treine spacing antes de liberar pouso/decolagem.'},
+    {id:'MISSED_APPROACH',domain:'WEATHER',title:'Aproximação perdida',minutes:12,drill:'Pratique ILS/RNAV com arremetida e holding.'},
+    {id:'VECTORING',domain:'APPROACH',title:'Vetoração final',minutes:12,drill:'Ajuste heading, altitude e speed até estabilizar final.'},
+    {id:'SLOT_FLOW',domain:'NETWORK',title:'CTOT/EDCT e conexões',minutes:15,drill:'Proteja banco de conexão sem estourar slot.'},
+    {id:'DELAY_COST',domain:'ECONOMY',title:'Atraso e custo',minutes:10,drill:'Compare negar comando vs sequenciar com atraso menor.'},
+    {id:'FATIGUE',domain:'CAREER',title:'Fadiga operacional',minutes:6,drill:'Revise quando aceitar turnos e quando descansar.'}
+  ],
+  adaptiveRules:[
+    {id:'RULE_INCursion',condition:'runwayIncursions>0',domain:'RUNWAY',cards:['HOLD_SHORT','SEPARATION']},
+    {id:'RULE_CONFLICT',condition:'conflicts>0',domain:'SAFETY',cards:['SEPARATION','VECTORING']},
+    {id:'RULE_LOW_SCORE',condition:'finalScore<targetScore',domain:'SAFETY',cards:['SEPARATION','DELAY_COST']},
+    {id:'RULE_WEATHER',condition:'weatherRisk>=70',domain:'WEATHER',cards:['MISSED_APPROACH']},
+    {id:'RULE_SLOT',condition:'slotCompliance<0.75',domain:'NETWORK',cards:['SLOT_FLOW']},
+    {id:'RULE_ECONOMY',condition:'economyProfit<0',domain:'ECONOMY',cards:['DELAY_COST']},
+    {id:'RULE_FATIGUE',condition:'fatigue>70',domain:'CAREER',cards:['FATIGUE']}
+  ],
+  coachBadges:[
+    {id:'SAFE_HANDS',name:'Mãos seguras',condition:'3 turnos sem conflito'},
+    {id:'RUNWAY_MASTER',name:'Mestre de pista',condition:'5 turnos sem incursão'},
+    {id:'IFR_STUDENT',name:'Aluno IFR',condition:'concluir treino meteorológico'},
+    {id:'FLOW_PLANNER',name:'Planejador de fluxo',condition:'3 turnos com slot compliance alto'}
+  ]
+});
+const TRAINING_COACH_KEY='skywardTrainingCoach_v1';
+let trainingCoachState={schema:1,debriefs:[],studyPlan:[],badges:[],coachScore:0,lastDebrief:null,status:'INSTRUTOR_ATIVO'};
+function loadTrainingCoach(){
+  try{ const raw=localStorage?.getItem?.(TRAINING_COACH_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) trainingCoachState={...trainingCoachState,...parsed}; } }catch(e){ safeLogError?.(e,'training-coach-load'); }
+  return trainingCoachState;
+}
+function saveTrainingCoach(){
+  try{ localStorage?.setItem?.(TRAINING_COACH_KEY,JSON.stringify(trainingCoachState)); }catch(e){ safeLogError?.(e,'training-coach-save'); }
+  return trainingCoachState;
+}
+function coachLevel(score){
+  return TRAINING_COACH_CATALOG.debriefLevels.slice().sort((a,b)=>b.minScore-a.minScore).find(l=>score>=l.minScore)||TRAINING_COACH_CATALOG.debriefLevels.at(-1);
+}
+function collectCoachSignals(finalScore=0,statsObj={},fail=false){
+  const academy=window.SKYWARD_TRAINING_ACADEMY?.status?.() || {};
+  const network=window.SKYWARD_NETWORK_FLOW?.status?.() || {};
+  const economy=window.SKYWARD_ECONOMY?.status?.() || {};
+  const career=window.SKYWARD_CAREER?.status?.() || {};
+  const weather=window.SKYWARD_WEATHER_OPS?.status?.() || {};
+  const mission=academy.progress?.activeMission || {};
+  return {
+    finalScore:Number(finalScore||0),
+    targetScore:Number(mission.targetScore||1000),
+    conflicts:Number(statsObj.conflicts||0),
+    runwayIncursions:Number(statsObj.runwayIncursions||0),
+    denied:Number(statsObj.denied||0),
+    landed:Number(statsObj.landed||0),
+    departed:Number(statsObj.departed||0),
+    fail:Boolean(fail),
+    slotCompliance:Number(network.slotCompliance ?? 1),
+    economyProfit:Number(economy.lastShift?.profit||0),
+    fatigue:Number(career.fatigue||0),
+    weatherRisk:Number(weather.risk||0),
+    missionId:mission.id||'FREE_SHIFT',
+    missionTrack:mission.track||'FREE'
+  };
+}
+function evaluateRule(rule,signals){
+  if(rule.id==='RULE_INCursion') return signals.runwayIncursions>0;
+  if(rule.id==='RULE_CONFLICT') return signals.conflicts>0;
+  if(rule.id==='RULE_LOW_SCORE') return signals.finalScore<signals.targetScore;
+  if(rule.id==='RULE_WEATHER') return signals.weatherRisk>=70;
+  if(rule.id==='RULE_SLOT') return signals.slotCompliance<.75;
+  if(rule.id==='RULE_ECONOMY') return signals.economyProfit<0;
+  if(rule.id==='RULE_FATIGUE') return signals.fatigue>70;
+  return false;
+}
+function cardById(id){ return TRAINING_COACH_CATALOG.studyCards.find(c=>c.id===id); }
+function buildStudyPlan(signals){
+  const cards=[];
+  for(const rule of TRAINING_COACH_CATALOG.adaptiveRules){
+    if(evaluateRule(rule,signals)){
+      for(const id of rule.cards){
+        const card=cardById(id);
+        if(card && !cards.some(c=>c.id===card.id)) cards.push({...card,reason:rule.id});
+      }
+    }
+  }
+  if(!cards.length) cards.push({...cardById('SEPARATION'),reason:'MAINTENANCE'});
+  return cards.slice(0,5);
+}
+function buildCoachText(level,signals,studyPlan){
+  const strengths=[];
+  if(!signals.conflicts && !signals.runwayIncursions) strengths.push('segurança operacional preservada');
+  if(signals.finalScore>=signals.targetScore) strengths.push('pontuação acima do objetivo da missão');
+  if(signals.slotCompliance>=.9) strengths.push('boa disciplina de slot');
+  const focus=studyPlan.map(c=>c.title).join(', ');
+  return {
+    summary:`Nível ${level.name}: ${level.tone}.`,
+    strengths:strengths.length?strengths:['turno concluído com dados suficientes para treino'],
+    focus:focus||'manutenção de separação e fraseologia operacional',
+    nextAction:studyPlan[0]?.drill||'Repita uma missão curta mantendo separação antes de aumentar a dificuldade.'
+  };
+}
+function evaluateTrainingCoach(finalScore=0,statsObj={},fail=false,airportCode=''){
+  loadTrainingCoach();
+  const signals=collectCoachSignals(finalScore,statsObj,fail);
+  let raw=100;
+  raw-=signals.conflicts*18;
+  raw-=signals.runwayIncursions*24;
+  raw-=signals.denied*4;
+  if(signals.fail) raw-=25;
+  if(signals.finalScore<signals.targetScore) raw-=15;
+  if(signals.slotCompliance<.75) raw-=8;
+  if(signals.economyProfit<0) raw-=5;
+  if(signals.fatigue>70) raw-=6;
+  const score=Math.max(0,Math.min(100,Math.round(raw)));
+  const level=coachLevel(score);
+  const studyPlan=buildStudyPlan(signals);
+  const text=buildCoachText(level,signals,studyPlan);
+  const debrief={at:new Date().toISOString(),build:BUILD,airport:airportCode||'---',score,level:level.id,missionId:signals.missionId,missionTrack:signals.missionTrack,signals,studyPlan:studyPlan.map(c=>c.id),text};
+  trainingCoachState.debriefs.unshift(debrief);
+  trainingCoachState.debriefs=trainingCoachState.debriefs.slice(0,60);
+  trainingCoachState.studyPlan=studyPlan;
+  trainingCoachState.lastDebrief=debrief;
+  trainingCoachState.coachScore=Math.round(trainingCoachState.debriefs.slice(0,5).reduce((a,b)=>a+b.score,0)/Math.max(1,Math.min(5,trainingCoachState.debriefs.length)));
+  awardCoachBadges();
+  saveTrainingCoach();
+  renderTrainingCoachBoard();
+  return {state:trainingCoachState,debrief,studyPlan};
+}
+function awardCoachBadges(){
+  const recent=trainingCoachState.debriefs;
+  if(recent.slice(0,3).length===3 && recent.slice(0,3).every(d=>!d.signals.conflicts) && !trainingCoachState.badges.includes('SAFE_HANDS')) trainingCoachState.badges.push('SAFE_HANDS');
+  if(recent.slice(0,5).length===5 && recent.slice(0,5).every(d=>!d.signals.runwayIncursions) && !trainingCoachState.badges.includes('RUNWAY_MASTER')) trainingCoachState.badges.push('RUNWAY_MASTER');
+  if(recent.some(d=>d.studyPlan.includes('MISSED_APPROACH')) && !trainingCoachState.badges.includes('IFR_STUDENT')) trainingCoachState.badges.push('IFR_STUDENT');
+  if(recent.filter(d=>d.signals.slotCompliance>=.9).length>=3 && !trainingCoachState.badges.includes('FLOW_PLANNER')) trainingCoachState.badges.push('FLOW_PLANNER');
+  return trainingCoachState.badges;
+}
+function trainingCoachProgress(){
+  loadTrainingCoach();
+  const last=trainingCoachState.lastDebrief;
+  return {coachScore:trainingCoachState.coachScore,status:trainingCoachState.status,badges:trainingCoachState.badges.length,studyCards:trainingCoachState.studyPlan.length,lastLevel:last?.level||'---',lastFocus:last?.text?.focus||'---'};
+}
+function renderTrainingCoachBoard(){
+  try{
+    const anchor=document.querySelector('#trainingAcademyInline') || document.querySelector('#publicOpsInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#trainingCoachInline'); if(old) old.remove();
+    const p=trainingCoachProgress();
+    anchor.insertAdjacentHTML('afterend',`<div id="trainingCoachInline" class="airport-ops-board training-coach-inline">
+      <div class="airport-ops-head"><b>ATC COACH</b><span>${p.lastLevel}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>COACH</small><b>${p.coachScore}</b></div>
+        <div><small>ESTUDO</small><b>${p.studyCards}</b></div>
+        <div><small>BADGES</small><b>${p.badges}</b></div>
+        <div><small>FOCO</small><b>${String(p.lastFocus).slice(0,16)}</b></div>
+        <div><small>DEBRIEFS</small><b>${trainingCoachState.debriefs.length}</b></div>
+        <div><small>STATUS</small><b>ATIVO</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'training-coach-board'); }
+}
+function initializeTrainingCoach(){
+  loadTrainingCoach();
+  renderTrainingCoachBoard();
+  return trainingCoachState;
+}
+function trainingCoachStatus(){ loadTrainingCoach(); return {...trainingCoachState,progress:trainingCoachProgress(),catalog:TRAINING_COACH_CATALOG}; }
+function trainingCoachSelfCheck(){
+  const issues=[];
+  if(TRAINING_COACH_CATALOG.coachDomains.length<7) issues.push('domínios insuficientes');
+  if(TRAINING_COACH_CATALOG.studyCards.length<7) issues.push('cards insuficientes');
+  if(TRAINING_COACH_CATALOG.adaptiveRules.length<7) issues.push('regras adaptativas insuficientes');
+  const res=evaluateTrainingCoach(300,{conflicts:1,runwayIncursions:1,denied:1},false,'SBSP');
+  if(!res.studyPlan.some(c=>c.id==='HOLD_SHORT')) issues.push('plano não recomendou pista');
+  if(res.debrief.score>=75) issues.push('score ruim ficou alto demais');
+  return {ok:issues.length===0,issues,domains:TRAINING_COACH_CATALOG.coachDomains.length,cards:TRAINING_COACH_CATALOG.studyCards.length};
+}
+window.SKYWARD_TRAINING_COACH=Object.freeze({
+  schema:1,
+  catalog:TRAINING_COACH_CATALOG,
+  load:loadTrainingCoach,
+  save:saveTrainingCoach,
+  init:initializeTrainingCoach,
+  evaluate:evaluateTrainingCoach,
+  progress:trainingCoachProgress,
+  status:trainingCoachStatus,
+  board:renderTrainingCoachBoard,
+  selfCheck:trainingCoachSelfCheck
+});
+
+/* ===== MODULE 28: international-campaign (33-international-campaign.js) ===== */
+/* @skyward-module 33-international-campaign
+ * International ATC campaign, seasons, airport contracts, career calendar and local global milestones.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('33-international-campaign');
+const INTERNATIONAL_CAMPAIGN_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f30',
+  regions:[
+    {id:'BR_SOUTHEAST',name:'Brasil Sudeste',airports:['SBSP','SBGR','SBKP'],difficulty:2},
+    {id:'BR_CAPITAL',name:'Brasil Capital',airports:['SBBR'],difficulty:3},
+    {id:'US_MAJOR_HUB',name:'EUA Mega Hub',airports:['KATL'],difficulty:5},
+    {id:'INTERNATIONAL_FLOW',name:'Fluxo Internacional',airports:['SBGR','KATL'],difficulty:4}
+  ],
+  seasons:[
+    {id:'SEASON_01',name:'Licença Operacional',weeks:4,targetReputation:120,targetSafety:78},
+    {id:'SEASON_02',name:'Controle Regional',weeks:6,targetReputation:280,targetSafety:82},
+    {id:'SEASON_03',name:'Operação Internacional',weeks:8,targetReputation:520,targetSafety:86},
+    {id:'SEASON_04',name:'Supervisor Global',weeks:10,targetReputation:900,targetSafety:90}
+  ],
+  contracts:[
+    {id:'CONTRACT_SBSP_STARTER',airport:'SBSP',name:'Congonhas Starter Tower',durationShifts:3,minSafety:70,rewardRep:45,rewardBudget:30000},
+    {id:'CONTRACT_SBGR_REGIONAL',airport:'SBGR',name:'Guarulhos Regional Flow',durationShifts:5,minSafety:78,rewardRep:90,rewardBudget:85000},
+    {id:'CONTRACT_SBKP_CARGO',airport:'SBKP',name:'Viracopos Cargo Reliability',durationShifts:4,minSafety:76,rewardRep:70,rewardBudget:65000},
+    {id:'CONTRACT_SBBR_GOV',airport:'SBBR',name:'Brasília Priority Ops',durationShifts:5,minSafety:82,rewardRep:110,rewardBudget:100000},
+    {id:'CONTRACT_KATL_GLOBAL',airport:'KATL',name:'Atlanta Global Hub',durationShifts:7,minSafety:88,rewardRep:180,rewardBudget:180000}
+  ],
+  calendarEvents:[
+    {id:'WX_FRONT',name:'Frente fria IFR',week:2,modifier:'weatherRisk+15'},
+    {id:'HOLIDAY_RUSH',name:'Pico de feriado',week:3,modifier:'traffic+20'},
+    {id:'CARGO_SURGE',name:'Surto cargueiro',week:5,modifier:'cargo+25'},
+    {id:'INTERNATIONAL_AUDIT',name:'Auditoria internacional',week:7,modifier:'safetyRequired+5'},
+    {id:'RUNWAY_WORKS',name:'Obras de pista',week:9,modifier:'runwayCapacity-20'}
+  ],
+  milestones:[
+    {id:'FIRST_CONTRACT',name:'Primeiro contrato concluído',requirement:'contractsCompleted>=1',rewardRep:30},
+    {id:'SAFE_SEASON',name:'Temporada segura',requirement:'seasonSafety>=85',rewardRep:80},
+    {id:'GLOBAL_CONTROLLER',name:'Controlador Global',requirement:'regionsUnlocked>=3',rewardRep:150},
+    {id:'HUB_SPECIALIST',name:'Especialista em Hub',requirement:'KATL shifts>=5',rewardRep:120}
+  ],
+  riskBands:[
+    {id:'LOW',name:'Baixo',min:0,max:29},
+    {id:'MODERATE',name:'Moderado',min:30,max:59},
+    {id:'HIGH',name:'Alto',min:60,max:84},
+    {id:'CRITICAL',name:'Crítico',min:85,max:100}
+  ]
+});
+const INTERNATIONAL_CAMPAIGN_KEY='skywardInternationalCampaign_v1';
+let internationalCampaignState={schema:1,seasonId:'SEASON_01',week:1,reputation:0,budget:0,activeContractId:'CONTRACT_SBSP_STARTER',contractProgress:{},completedContracts:[],unlockedRegions:['BR_SOUTHEAST'],milestones:[],history:[],campaignScore:0,status:'LOCAL_TRAINEE',lastEvaluation:null};
+function loadInternationalCampaign(){
+  try{ const raw=localStorage?.getItem?.(INTERNATIONAL_CAMPAIGN_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed?.schema===1) internationalCampaignState={...internationalCampaignState,...parsed}; } }catch(e){ safeLogError?.(e,'intl-campaign-load'); }
+  return internationalCampaignState;
+}
+function saveInternationalCampaign(){
+  try{ localStorage?.setItem?.(INTERNATIONAL_CAMPAIGN_KEY,JSON.stringify(internationalCampaignState)); }catch(e){ safeLogError?.(e,'intl-campaign-save'); }
+  return internationalCampaignState;
+}
+function currentSeason(){ return INTERNATIONAL_CAMPAIGN_CATALOG.seasons.find(s=>s.id===internationalCampaignState.seasonId)||INTERNATIONAL_CAMPAIGN_CATALOG.seasons[0]; }
+function currentContract(){ return INTERNATIONAL_CAMPAIGN_CATALOG.contracts.find(c=>c.id===internationalCampaignState.activeContractId)||INTERNATIONAL_CAMPAIGN_CATALOG.contracts[0]; }
+function contractForAirport(icao){
+  return INTERNATIONAL_CAMPAIGN_CATALOG.contracts.find(c=>c.airport===icao && !internationalCampaignState.completedContracts.includes(c.id)) || currentContract();
+}
+function campaignSafetyScore(finalScore=0,statsObj={},fail=false){
+  return Math.max(0,Math.min(100,Math.round(92-(statsObj.conflicts||0)*14-(statsObj.runwayIncursions||0)*22-(statsObj.denied||0)*2-(fail?24:0)+Math.min(8,finalScore/1000))));
+}
+function weekEvents(){
+  return INTERNATIONAL_CAMPAIGN_CATALOG.calendarEvents.filter(e=>e.week===internationalCampaignState.week);
+}
+function campaignRisk(){
+  const season=currentSeason();
+  const events=weekEvents();
+  let risk=season.targetSafety-65 + events.length*10 + currentRegionDifficulty()*5;
+  const contract=currentContract();
+  if(contract.minSafety>=85) risk+=10;
+  risk=Math.max(0,Math.min(100,Math.round(risk)));
+  const band=INTERNATIONAL_CAMPAIGN_CATALOG.riskBands.find(b=>risk>=b.min&&risk<=b.max)||INTERNATIONAL_CAMPAIGN_CATALOG.riskBands[0];
+  return {risk,band,events};
+}
+function currentRegionDifficulty(){
+  const contract=currentContract();
+  const region=INTERNATIONAL_CAMPAIGN_CATALOG.regions.find(r=>r.airports.includes(contract.airport));
+  return region?.difficulty||2;
+}
+function unlockRegions(){
+  if(internationalCampaignState.reputation>=160 && !internationalCampaignState.unlockedRegions.includes('BR_CAPITAL')) internationalCampaignState.unlockedRegions.push('BR_CAPITAL');
+  if(internationalCampaignState.reputation>=360 && !internationalCampaignState.unlockedRegions.includes('INTERNATIONAL_FLOW')) internationalCampaignState.unlockedRegions.push('INTERNATIONAL_FLOW');
+  if(internationalCampaignState.reputation>=620 && !internationalCampaignState.unlockedRegions.includes('US_MAJOR_HUB')) internationalCampaignState.unlockedRegions.push('US_MAJOR_HUB');
+}
+function evaluateMilestones(){
+  const completed=internationalCampaignState.completedContracts.length;
+  const regions=internationalCampaignState.unlockedRegions.length;
+  const katlShifts=internationalCampaignState.history.filter(h=>h.airport==='KATL').length;
+  const recent=internationalCampaignState.history.slice(0,5);
+  const seasonSafety=recent.length?Math.round(recent.reduce((a,b)=>a+b.safety,0)/recent.length):100;
+  const checks=[
+    ['FIRST_CONTRACT',completed>=1],
+    ['SAFE_SEASON',seasonSafety>=85 && recent.length>=3],
+    ['GLOBAL_CONTROLLER',regions>=3],
+    ['HUB_SPECIALIST',katlShifts>=5]
+  ];
+  for(const [id,ok] of checks){
+    const ms=INTERNATIONAL_CAMPAIGN_CATALOG.milestones.find(m=>m.id===id);
+    if(ok && ms && !internationalCampaignState.milestones.includes(id)){
+      internationalCampaignState.milestones.push(id);
+      internationalCampaignState.reputation+=ms.rewardRep;
+    }
+  }
+}
+function advanceSeasonIfNeeded(){
+  const season=currentSeason();
+  if(internationalCampaignState.week>season.weeks){
+    const idx=INTERNATIONAL_CAMPAIGN_CATALOG.seasons.findIndex(s=>s.id===season.id);
+    const next=INTERNATIONAL_CAMPAIGN_CATALOG.seasons[Math.min(idx+1,INTERNATIONAL_CAMPAIGN_CATALOG.seasons.length-1)];
+    internationalCampaignState.seasonId=next.id;
+    internationalCampaignState.week=1;
+  }
+}
+function selectNextContract(){
+  const available=INTERNATIONAL_CAMPAIGN_CATALOG.contracts.filter(c=>{
+    if(internationalCampaignState.completedContracts.includes(c.id)) return false;
+    return internationalCampaignState.unlockedRegions.some(rid=>{
+      const region=INTERNATIONAL_CAMPAIGN_CATALOG.regions.find(r=>r.id===rid);
+      return region?.airports.includes(c.airport);
+    });
+  });
+  internationalCampaignState.activeContractId=(available[0]||INTERNATIONAL_CAMPAIGN_CATALOG.contracts[0]).id;
+  return currentContract();
+}
+function evaluateInternationalCampaign(finalScore=0,statsObj={},fail=false,airportCode=''){
+  loadInternationalCampaign();
+  const icao=airportCode || (typeof airport==='function' ? airport()?.icao : '') || currentContract().airport;
+  const contract=contractForAirport(icao);
+  internationalCampaignState.activeContractId=contract.id;
+  const safety=campaignSafetyScore(finalScore,statsObj,fail);
+  const passed=safety>=contract.minSafety && !fail;
+  const progress=internationalCampaignState.contractProgress[contract.id]||{shifts:0,passed:0};
+  progress.shifts+=1;
+  if(passed) progress.passed+=1;
+  internationalCampaignState.contractProgress[contract.id]=progress;
+  let contractCompleted=false;
+  if(progress.passed>=contract.durationShifts && !internationalCampaignState.completedContracts.includes(contract.id)){
+    internationalCampaignState.completedContracts.push(contract.id);
+    internationalCampaignState.reputation+=contract.rewardRep;
+    internationalCampaignState.budget+=contract.rewardBudget;
+    contractCompleted=true;
+  }
+  const repDelta=Math.max(0,Math.round(finalScore/500)) + (passed?8:-6);
+  internationalCampaignState.reputation=Math.max(0,internationalCampaignState.reputation+repDelta);
+  internationalCampaignState.budget+=Math.round((finalScore||0)*7) - ((statsObj.denied||0)*1200) - ((statsObj.conflicts||0)*8000);
+  internationalCampaignState.week+=1;
+  unlockRegions();
+  evaluateMilestones();
+  advanceSeasonIfNeeded();
+  if(contractCompleted) selectNextContract();
+  internationalCampaignState.campaignScore=Math.max(0,Math.round(internationalCampaignState.reputation*10 + internationalCampaignState.budget/1000 + internationalCampaignState.completedContracts.length*500));
+  internationalCampaignState.status=internationalCampaignState.reputation>=900?'GLOBAL_SUPERVISOR':internationalCampaignState.reputation>=520?'INTERNATIONAL_CONTROLLER':internationalCampaignState.reputation>=280?'REGIONAL_CONTROLLER':internationalCampaignState.reputation>=120?'LICENSED_CONTROLLER':'LOCAL_TRAINEE';
+  const evaluation={at:new Date().toISOString(),build:BUILD,airport:icao,contractId:contract.id,seasonId:internationalCampaignState.seasonId,week:internationalCampaignState.week,finalScore:Math.round(finalScore||0),safety,passed,contractCompleted,reputation:internationalCampaignState.reputation,budget:internationalCampaignState.budget,status:internationalCampaignState.status,risk:campaignRisk()};
+  internationalCampaignState.history.unshift(evaluation);
+  internationalCampaignState.history=internationalCampaignState.history.slice(0,80);
+  internationalCampaignState.lastEvaluation=evaluation;
+  saveInternationalCampaign();
+  renderInternationalCampaignBoard();
+  return {state:internationalCampaignState,evaluation,nextContract:currentContract(),season:currentSeason()};
+}
+function internationalCampaignProgress(){
+  loadInternationalCampaign();
+  const contract=currentContract();
+  const progress=internationalCampaignState.contractProgress[contract.id]||{shifts:0,passed:0};
+  return {season:currentSeason(),week:internationalCampaignState.week,contract,progress,reputation:internationalCampaignState.reputation,budget:internationalCampaignState.budget,status:internationalCampaignState.status,regions:internationalCampaignState.unlockedRegions.length,milestones:internationalCampaignState.milestones.length,risk:campaignRisk()};
+}
+function renderInternationalCampaignBoard(){
+  try{
+    const anchor=document.querySelector('#trainingCoachInline') || document.querySelector('#trainingAcademyInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#internationalCampaignInline'); if(old) old.remove();
+    const p=internationalCampaignProgress();
+    anchor.insertAdjacentHTML('afterend',`<div id="internationalCampaignInline" class="airport-ops-board international-campaign-inline">
+      <div class="airport-ops-head"><b>INTL CAMPAIGN</b><span>${p.status}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>TEMPORADA</small><b>${p.season.id}</b></div>
+        <div><small>SEMANA</small><b>${p.week}</b></div>
+        <div><small>CONTRATO</small><b>${p.progress.passed}/${p.contract.durationShifts}</b></div>
+        <div><small>REP</small><b>${p.reputation}</b></div>
+        <div><small>REGIÕES</small><b>${p.regions}</b></div>
+        <div><small>RISCO</small><b>${p.risk.band.id}</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'intl-campaign-board'); }
+}
+function initializeInternationalCampaign(){
+  loadInternationalCampaign();
+  renderInternationalCampaignBoard();
+  return internationalCampaignState;
+}
+function internationalCampaignStatus(){ loadInternationalCampaign(); return {...internationalCampaignState,progress:internationalCampaignProgress(),catalog:INTERNATIONAL_CAMPAIGN_CATALOG}; }
+function internationalCampaignSelfCheck(){
+  const issues=[];
+  if(INTERNATIONAL_CAMPAIGN_CATALOG.regions.length<4) issues.push('regiões insuficientes');
+  if(INTERNATIONAL_CAMPAIGN_CATALOG.seasons.length<4) issues.push('temporadas insuficientes');
+  if(INTERNATIONAL_CAMPAIGN_CATALOG.contracts.length<5) issues.push('contratos insuficientes');
+  const res=evaluateInternationalCampaign(2200,{conflicts:0,runwayIncursions:0,denied:0},false,'SBSP');
+  if(!res.evaluation.passed) issues.push('contrato saudável não passou');
+  if(!internationalCampaignProgress().contract.id) issues.push('sem contrato ativo');
+  return {ok:issues.length===0,issues,regions:INTERNATIONAL_CAMPAIGN_CATALOG.regions.length,seasons:INTERNATIONAL_CAMPAIGN_CATALOG.seasons.length,contracts:INTERNATIONAL_CAMPAIGN_CATALOG.contracts.length};
+}
+window.SKYWARD_INTERNATIONAL_CAMPAIGN=Object.freeze({
+  schema:1,
+  catalog:INTERNATIONAL_CAMPAIGN_CATALOG,
+  load:loadInternationalCampaign,
+  save:saveInternationalCampaign,
+  init:initializeInternationalCampaign,
+  evaluate:evaluateInternationalCampaign,
+  progress:internationalCampaignProgress,
+  status:internationalCampaignStatus,
+  board:renderInternationalCampaignBoard,
+  selfCheck:internationalCampaignSelfCheck
+});
+
+/* ===== MODULE 29: surface-safety-director (17-surface-safety-director.js) ===== */
 /* @skyward-module 17-surface-safety-director
  * Surface Safety Director: taxi conflicts, runway incursions, hotspots and ground command risk.
  * Canonical source for the generated main.js bundle.
@@ -4762,7 +5383,7 @@ function surfaceSafetySelfCheck(){
 }
 window.SKYWARD_SURFACE_SAFETY=Object.freeze({ schema:1, hotspots:SURFACE_HOTSPOTS, hotspotsFor:surfaceHotspotsFor, update:updateSurfaceSafetyDirector, commandRisk:surfaceCommandRisk, taxiConflicts:detectTaxiConflicts, runwayIncursions:detectRunwayIncursions, render:renderSurfaceSafetyBoard, selfCheck:surfaceSafetySelfCheck });
 
-/* ===== MODULE 27: 06-traffic-requests (06-traffic-requests.js) ===== */
+/* ===== MODULE 30: 06-traffic-requests (06-traffic-requests.js) ===== */
 /* @skyward-module 06-traffic-requests
  * Aircraft creation, callsigns, requests and game start.
  * Canonical source for the generated main.js bundle.
@@ -4862,7 +5483,7 @@ function startGame(){
   stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, surfaceConflicts:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
   mission = buildMission(); missionHistory=[];
   aircraft = [];
-  const a = airport(); applyAirportSurfaceGraph?.(a.icao); applyAirportOpsProfile(); initializeAdvancedWeather?.(); initializeProceduresLayer?.(); initializeCareerProfile?.(); renderEconomyBoard?.(); renderIncidentBoard?.(); renderNetworkFlowBoard?.(); renderControlRoomBoard?.(); initializeCommercialPolish?.(); initializeReleaseCandidateQA?.(); initializeGoldMasterPackage?.(); initializePostGoldMasterPublishing?.(); initializePostPublishHealthcheck?.(); initializePublicOps?.(); window.SKYWARD_PUBLIC_OPS?.startTurn?.(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE'; if($('#sectorHelp')) $('#sectorHelp').textContent=(currentOpsProfile?.ops||'Torre ativa');
+  const a = airport(); applyAirportSurfaceGraph?.(a.icao); applyAirportOpsProfile(); initializeAdvancedWeather?.(); initializeProceduresLayer?.(); initializeCareerProfile?.(); renderEconomyBoard?.(); renderIncidentBoard?.(); renderNetworkFlowBoard?.(); renderControlRoomBoard?.(); initializeCommercialPolish?.(); initializeReleaseCandidateQA?.(); initializeGoldMasterPackage?.(); initializePostGoldMasterPublishing?.(); initializePostPublishHealthcheck?.(); initializePublicOps?.(); initializeTrainingAcademy?.(); initializeTrainingCoach?.(); initializeInternationalCampaign?.(); window.SKYWARD_PUBLIC_OPS?.startTurn?.(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE'; if($('#sectorHelp')) $('#sectorHelp').textContent=(currentOpsProfile?.ops||'Torre ativa');
   const initialTraffic=airportInitialTrafficCount();
   for(let i=0;i<initialTraffic;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure')); // v0.9.6: tráfego inicial por perfil do aeroporto
   emergencyDirector={active:false,target:null,message:'Sem emergência ativa.',lastTick:performance.now()};
@@ -4876,7 +5497,7 @@ function startGame(){
   requestAnimationFrame(loop);
 }
 
-/* ===== MODULE 28: 07-simulation-safety (07-simulation-safety.js) ===== */
+/* ===== MODULE 31: 07-simulation-safety (07-simulation-safety.js) ===== */
 /* @skyward-module 07-simulation-safety
  * Game loop, simulation, conflict prediction and safety.
  * Canonical source for the generated main.js bundle.
@@ -5121,7 +5742,7 @@ function checkConflicts(){
   if(finals.length>1){ for(const p of finals) p.risk += .01; if(finals.some(p=>p.risk>.9)) return endGame(true,'Duas aeronaves autorizadas para a mesma final sem separação suficiente.'); }
 }
 
-/* ===== MODULE 29: 08-radar-rendering (08-radar-rendering.js) ===== */
+/* ===== MODULE 32: 08-radar-rendering (08-radar-rendering.js) ===== */
 /* @skyward-module 08-radar-rendering
  * Radar, operational map, procedures, telemetry and aircraft drawing.
  * Canonical source for the generated main.js bundle.
@@ -5379,7 +6000,7 @@ function drawPlane(p,w,h){
   ctx.restore();
 }
 
-/* ===== MODULE 30: 09-ui-clearances (09-ui-clearances.js) ===== */
+/* ===== MODULE 33: 09-ui-clearances (09-ui-clearances.js) ===== */
 /* @skyward-module 09-ui-clearances
  * Traffic UI, requests, commands, clearances and action grids.
  * Canonical source for the generated main.js bundle.
@@ -5534,11 +6155,14 @@ function endGame(fail,reason){
   const postPublishHealthResult = window.SKYWARD_POST_PUBLISH_HEALTH?.evaluate?.();
   window.SKYWARD_PUBLIC_OPS?.completeTurn?.();
   const publicOpsResult = window.SKYWARD_PUBLIC_OPS?.evaluate?.();
+  const trainingAcademyResult = evaluateTrainingShift?.(final, stats, fail, airport().icao);
+  const trainingCoachResult = evaluateTrainingCoach?.(final, stats, fail, airport().icao);
+  const internationalCampaignResult = evaluateInternationalCampaign?.(final, stats, fail, airport().icao);
   persistProfile('end-game');
   $('#resultTitle').textContent = fail ? 'GAME OVER' : 'FIM DE TURNO';
   $('#resultReason').textContent = reason;
   $('#finalScore').textContent = final.toLocaleString('pt-BR');
-  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Conflitos de solo</span><b>${stats.surfaceConflicts||0}</b></div><div><span>Runway incursions</span><b>${stats.runwayIncursions||0}</b></div><div><span>Incidentes resolvidos</span><b>${stats.incidentsResolved||0}</b></div><div><span>Falhas em incidentes</span><b>${stats.incidentFailures||0}</b></div><div><span>Fechamentos de pista</span><b>${stats.runwayClosures||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>MAYDAY resolvidos</span><b>${stats.maydayResolved||0}</b></div><div><span>Combustível mínimo</span><b>${stats.lowFuel||0}</b></div><div><span>Danos/inspeções</span><b>${stats.damaged||0}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Public Ops</span><b>${publicOpsResult ? publicOpsResult.status : '---'}</b></div><div><span>Ops Score</span><b>${publicOpsResult ? publicOpsResult.score+'%' : '---'}</b></div><div><span>Publish Health</span><b>${postPublishHealthResult ? postPublishHealthResult.status : '---'}</b></div><div><span>Health Score</span><b>${postPublishHealthResult ? postPublishHealthResult.score+'%' : '---'}</b></div><div><span>Publicação PWA</span><b>${postGoldMasterResult ? postGoldMasterResult.status : '---'}</b></div><div><span>Post-GM Ready</span><b>${postGoldMasterResult ? postGoldMasterResult.score+'%' : '---'}</b></div><div><span>Gold Master</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.status : '---'}</b></div><div><span>GM Score</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.score+'%' : '---'}</b></div><div><span>Release Candidate</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.status : '---'}</b></div><div><span>QA Score</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.score+'%' : '---'}</b></div><div><span>Replay compartilhável</span><b>${controlRoomResult?.replay ? 'GERADO' : '---'}</b></div><div><span>Ranking local</span><b>${controlRoomResult?.replay ? controlRoomResult.replay.tier : '---'}</b></div><div><span>Network Flow</span><b>${networkResult?.shift ? (networkResult.shift.route+' / '+Math.round(networkResult.shift.slotCompliance*100)+'%') : '---'}</b></div><div><span>Conexões protegidas</span><b>${networkResult?.network ? networkResult.network.connectionsProtected : 0}</b></div><div><span>Economia</span><b>${economyResult?.shift ? ('$'+Math.round(economyResult.shift.profit).toLocaleString('pt-BR')) : '---'}</b></div><div><span>Eficiência econômica</span><b>${economyResult?.shift ? economyResult.shift.efficiency+'%' : '---'}</b></div><div><span>Carreira</span><b>${careerResult?.career ? (careerResult.career.licenseId+' / '+careerResult.career.ratingId) : '---'}</b></div><div><span>Fadiga</span><b>${careerResult?.career ? Math.round(careerResult.career.fatigue)+'%' : '---'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
+  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Conflitos de solo</span><b>${stats.surfaceConflicts||0}</b></div><div><span>Runway incursions</span><b>${stats.runwayIncursions||0}</b></div><div><span>Incidentes resolvidos</span><b>${stats.incidentsResolved||0}</b></div><div><span>Falhas em incidentes</span><b>${stats.incidentFailures||0}</b></div><div><span>Fechamentos de pista</span><b>${stats.runwayClosures||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>MAYDAY resolvidos</span><b>${stats.maydayResolved||0}</b></div><div><span>Combustível mínimo</span><b>${stats.lowFuel||0}</b></div><div><span>Danos/inspeções</span><b>${stats.damaged||0}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Campanha Intl</span><b>${internationalCampaignResult?.evaluation ? internationalCampaignResult.evaluation.status : '---'}</b></div><div><span>Contrato ativo</span><b>${internationalCampaignResult?.nextContract ? internationalCampaignResult.nextContract.airport : '---'}</b></div><div><span>Instrutor ATC</span><b>${trainingCoachResult?.debrief ? trainingCoachResult.debrief.level : '---'}</b></div><div><span>Plano de estudo</span><b>${trainingCoachResult?.studyPlan ? trainingCoachResult.studyPlan.length+' cards' : '---'}</b></div><div><span>Academia ATC</span><b>${trainingAcademyResult?.attempt ? (trainingAcademyResult.attempt.passed ? 'APROVADO' : 'TREINO') : '---'}</b></div><div><span>Próxima missão</span><b>${trainingAcademyResult?.nextMission ? trainingAcademyResult.nextMission.id : '---'}</b></div><div><span>Public Ops</span><b>${publicOpsResult ? publicOpsResult.status : '---'}</b></div><div><span>Ops Score</span><b>${publicOpsResult ? publicOpsResult.score+'%' : '---'}</b></div><div><span>Publish Health</span><b>${postPublishHealthResult ? postPublishHealthResult.status : '---'}</b></div><div><span>Health Score</span><b>${postPublishHealthResult ? postPublishHealthResult.score+'%' : '---'}</b></div><div><span>Publicação PWA</span><b>${postGoldMasterResult ? postGoldMasterResult.status : '---'}</b></div><div><span>Post-GM Ready</span><b>${postGoldMasterResult ? postGoldMasterResult.score+'%' : '---'}</b></div><div><span>Gold Master</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.status : '---'}</b></div><div><span>GM Score</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.score+'%' : '---'}</b></div><div><span>Release Candidate</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.status : '---'}</b></div><div><span>QA Score</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.score+'%' : '---'}</b></div><div><span>Replay compartilhável</span><b>${controlRoomResult?.replay ? 'GERADO' : '---'}</b></div><div><span>Ranking local</span><b>${controlRoomResult?.replay ? controlRoomResult.replay.tier : '---'}</b></div><div><span>Network Flow</span><b>${networkResult?.shift ? (networkResult.shift.route+' / '+Math.round(networkResult.shift.slotCompliance*100)+'%') : '---'}</b></div><div><span>Conexões protegidas</span><b>${networkResult?.network ? networkResult.network.connectionsProtected : 0}</b></div><div><span>Economia</span><b>${economyResult?.shift ? ('$'+Math.round(economyResult.shift.profit).toLocaleString('pt-BR')) : '---'}</b></div><div><span>Eficiência econômica</span><b>${economyResult?.shift ? economyResult.shift.efficiency+'%' : '---'}</b></div><div><span>Carreira</span><b>${careerResult?.career ? (careerResult.career.licenseId+' / '+careerResult.career.ratingId) : '---'}</b></div><div><span>Fadiga</span><b>${careerResult?.career ? Math.round(careerResult.career.fatigue)+'%' : '---'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
   go('result');
 }
 
@@ -5611,7 +6235,7 @@ function setDock(id){
   $$('.dock-body').forEach(b=>b.classList.toggle('active', b.id==='dock-'+id));
 }
 
-/* ===== MODULE 31: 10-events-selftest-bootstrap (10-events-selftest-bootstrap.js) ===== */
+/* ===== MODULE 34: 10-events-selftest-bootstrap (10-events-selftest-bootstrap.js) ===== */
 /* @skyward-module 10-events-selftest-bootstrap
  * Desktop events, filters, safe-mode controls and self-test bootstrap.
  * Canonical source for the generated main.js bundle.
@@ -5710,7 +6334,7 @@ applyBuildInfo();
 if(!BUILD_METADATA_VALID) setTimeout(()=>showSafeMode(new Error('Metadados de build ausentes ou inválidos. Execute o pipeline de release.')),0);
 loadProfile(); loadAirports(); resize();
 
-/* ===== MODULE 32: 11-mobile-runtime (11-mobile-runtime.js) ===== */
+/* ===== MODULE 35: 11-mobile-runtime (11-mobile-runtime.js) ===== */
 /* @skyward-module 11-mobile-runtime
  * Adaptive mobile UX, edge gestures, touch-safe dock, haptics and viewport modes.
  * Canonical source for the generated main.js bundle.
@@ -5959,7 +6583,7 @@ window.SKYWARD_MOBILE_UX=Object.freeze({
 });
 window.addEventListener('load',()=>setTimeout(initMobileDockV2,500));
 
-/* ===== MODULE 33: desktop-workspace (12-desktop-workspace.js) ===== */
+/* ===== MODULE 36: desktop-workspace (12-desktop-workspace.js) ===== */
 /* @skyward-module 12-desktop-workspace
  * Professional tablet/desktop workspace, panel density, persistence and keyboard shortcuts.
  * Canonical source for the generated main.js bundle.
@@ -6045,7 +6669,7 @@ function initDesktopWorkspace(){
 window.SKYWARD_DESKTOP_WORKSPACE=Object.freeze({schema:DESKTOP_WORKSPACE_SCHEMA,viewportMode:desktopViewportMode,shortcutAction:desktopShortcutAction,clamp:desktopClamp,getPreferences:()=>Object.freeze({...desktopWorkspacePrefs}),setMode:setDesktopWorkspaceMode,togglePanel:toggleDesktopPanel,adjustPanel:adjustDesktopPanel,execute:executeDesktopWorkspaceAction,render:applyDesktopWorkspace});
 window.addEventListener('load',()=>setTimeout(initDesktopWorkspace,540));
 
-/* ===== MODULE 34: accessibility-settings (13-accessibility-settings.js) ===== */
+/* ===== MODULE 37: accessibility-settings (13-accessibility-settings.js) ===== */
 /* @skyward-module 13-accessibility-settings
  * Professional accessibility, visual, audio, performance and control settings.
  * Canonical source for the generated main.js bundle.
@@ -6183,7 +6807,7 @@ document.addEventListener('keydown',e=>{if(e.altKey&&e.code==='KeyS'&&!desktopTy
 window.SKYWARD_ACCESSIBILITY=Object.freeze({schema:ACCESSIBILITY_SCHEMA,defaults:ACCESSIBILITY_DEFAULTS,sanitize:sanitizeAccessibilityPrefs,clamp:accessClamp,getPreferences:()=>Object.freeze({...accessibilityPrefs}),setPreference:setAccessibilityPreference,apply:applyAccessibilitySettings,reset:resetAccessibilitySettings,summary:accessibilitySummary,selfCheck:runAccessibilitySelfCheck,open:()=>setAccessibilityPanel(true),close:()=>setAccessibilityPanel(false)});
 window.addEventListener('load',()=>setTimeout(applyAccessibilitySettings,620));
 
-/* ===== MODULE 35: deterministic-replay (14-deterministic-replay.js) ===== */
+/* ===== MODULE 38: deterministic-replay (14-deterministic-replay.js) ===== */
 /* @skyward-module 14-deterministic-replay
  * Deterministic simulation clock, seeded replay recorder, state checksums and technical replay export.
  * Canonical source for the generated main.js bundle.
@@ -6360,7 +6984,7 @@ window.SKYWARD_REPLAY=Object.freeze({
 });
 setTimeout(()=>{ try{ renderReplayStatus(); }catch(_e){} },250);
 
-/* ===== MODULE 36: quality-test-bridge (12-quality-test-bridge.js) ===== */
+/* ===== MODULE 39: quality-test-bridge (12-quality-test-bridge.js) ===== */
 /* @skyward-module 12-quality-test-bridge
  * Controlled integration-test bridge. Mutation is disabled in normal gameplay.
  * Enable only with window.SKYWARD_QA_MODE=true before main.js or ?qa=1.

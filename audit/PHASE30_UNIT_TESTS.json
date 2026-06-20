@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase30-unit",
+  "build": "SC-1.30.0-F30-20260620-1905",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F30+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.30.0\",\"phase\":\"F30\",\"phaseName\":\"Campanha Internacional ATC, Temporadas, Contratos de Aeroportos e Calendário de Carreira\",\"channel\":\"international-campaign\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.30.0-F30-20260620-1905\",\"builtAt\":\"2026-06-20 19:05 BRT\",\"builtAtIso\":\"2026-06-20T19:05:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1}"
+    },
+    {
+      "name": "módulo F30 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo regiões temporadas contratos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"regions\":4,\"seasons\":4,\"contracts\":5}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"seasonId\":\"SEASON_01\",\"week\":3,\"reputation\":24,\"budget\":30800,\"activeContractId\":\"CONTRACT_SBSP_STARTER\",\"contractProgress\":{\"CONTRACT_SBSP_STARTER\":{\"shifts\":2,\"passed\":2}},\"completedContracts\":[],\"unlockedRegions\":[\"BR_SOUTHEAST\"],\"milestones\":[],\"history\":[{\"at\":\"2026-06-20T15:08:36.920Z\",\"build\":\"SC-1.30.0-F30-20260620-1905\",\"airport\":\"SBSP\",\"contractId\":\"CONTRACT_SBSP_STARTER\",\"seasonId\":\"SEASON_01\",\"week\":3,\"finalScore\":2200,\"safety\":94,\"passed\":true,\"contractCompleted\":false,\"reputation\":24,\"budget\":30800,\"status\":\"LOCAL_TRAINEE\",\"risk\":{\"risk\":33,\"band\":{\"id\":\"MODERATE\",\"name\":\"Moderado\",\"min\":30,\"max\":59},\"events\":[{\"id\":\"HOLIDAY_RUSH\",\"name\":\"Pico de feriado\",\"week\":3,\"modifier\":\"traffic+20\"}]}},{\"at\":\"2026-06-20T15:08:36.919Z\",\"build\":\"SC-1.30.0-F30-20260620-1905\",\"airport\":\"SBSP\",\"contractId\":\"CONTRACT_SBSP_STARTER\",\"seasonId\":\"SEASON_01\",\"week\":2,\"finalScore\":2200,\"safety\":94,\"passed\":true,\"contractCompleted\":false,\"reputation\":12,\"budget\":15400,\"status\":\"LOCAL_TRAINEE\",\"risk\":{\"risk\":33,\"band\":{\"id\":\"MODERATE\",\"name\":\"Moderado\",\"min\":30,\"max\":59},\"events\":[{\"id\":\"WX_FRONT\",\"name\":\"Frente fria IFR\",\"week\":2,\"modifier\":\"weatherRisk+15\"}]}}],\"campaignScore\":271,\"status\":\"LOCAL_TRAINEE\",\"lastEvaluation\":{\"at\":\"2026-06-20T15:08:36.920Z\",\"build\":\"SC-1.30.0-F30-20260620-1905\",\"airport\":\"SBSP\",\"contractId\":\"CONTRACT_SBSP_STARTER\",\"seasonId\":\"SEASON_01\",\"week\":3,\"finalScore\":2200,\"safety\":94,\"passed\":true,\"contractCompleted\":false,\"reputation\":24,\"budget\":30800,\"status\":\"LOCAL_TRAINEE\",\"risk\":{\"risk\":33,\"band\":{\"id\":\"MODERATE\",\"name\":\"Moderado\",\"min\":30,\"max\":59},\"events\":[{\"id\":\"HOLIDAY_RUSH\",\"name\":\"Pico de feriado\",\"week\":3,\"modifier\":\"traffic+20\"}]}}}"
+    },
+    {
+      "name": "turno saudável passa contrato",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-20T15:08:36.920Z\",\"build\":\"SC-1.30.0-F30-20260620-1905\",\"airport\":\"SBSP\",\"contractId\":\"CONTRACT_SBSP_STARTER\",\"seasonId\":\"SEASON_01\",\"week\":4,\"finalScore\":2600,\"safety\":95,\"passed\":true,\"contractCompleted\":true,\"reputation\":112,\"budget\":79000,\"status\":\"LOCAL_TRAINEE\",\"risk\":{\"risk\":23,\"band\":{\"id\":\"LOW\",\"name\":\"Baixo\",\"min\":0,\"max\":29},\"events\":[]}}"
+    },
+    {
+      "name": "turno ruim falha segurança",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-20T15:08:36.921Z\",\"build\":\"SC-1.30.0-F30-20260620-1905\",\"airport\":\"SBGR\",\"contractId\":\"CONTRACT_SBGR_REGIONAL\",\"seasonId\":\"SEASON_02\",\"week\":1,\"finalScore\":400,\"safety\":38,\"passed\":false,\"contractCompleted\":false,\"reputation\":187,\"budget\":63400,\"status\":\"LICENSED_CONTROLLER\",\"risk\":{\"risk\":27,\"band\":{\"id\":\"LOW\",\"name\":\"Baixo\",\"min\":0,\"max\":29},\"events\":[]}}"
+    },
+    {
+      "name": "progress contém contrato",
+      "ok": true,
+      "detail": "{\"season\":{\"id\":\"SEASON_02\",\"name\":\"Controle Regional\",\"weeks\":6,\"targetReputation\":280,\"targetSafety\":82},\"week\":1,\"contract\":{\"id\":\"CONTRACT_SBGR_REGIONAL\",\"airport\":\"SBGR\",\"name\":\"Guarulhos Regional Flow\",\"durationShifts\":5,\"minSafety\":78,\"rewardRep\":90,\"rewardBudget\":85000},\"progress\":{\"shifts\":1,\"passed\":0},\"reputation\":187,\"budget\":63400,\"status\":\"LICENSED_CONTROLLER\",\"regions\":1,\"milestones\":2,\"risk\":{\"risk\":27,\"band\":{\"id\":\"LOW\",\"name\":\"Baixo\",\"min\":0,\"max\":29},\"events\":[]}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"FIRST_CONTRACT\",\"name\":\"Primeiro contrato concluído\",\"requirement\":\"contractsCompleted>=1\",\"rewardRep\":30},{\"id\":\"SAFE_SEASON\",\"name\":\"Temporada segura\",\"requirement\":\"seasonSafety>=85\",\"rewardRep\":80},{\"id\":\"GLOBAL_CONTROLLER\",\"name\":\"Controlador Global\",\"requirement\":\"regionsUnlocked>=3\",\"rewardRep\":150},{\"id\":\"HUB_SPECIALIST\",\"name\":\"Especialista em Hub\",\"requirement\":\"KATL shifts>=5\",\"rewardRep\":120}]"
+    },
+    {
+      "name": "contrato KATL presente",
+      "ok": true,
+      "detail": "[{\"id\":\"CONTRACT_SBSP_STARTER\",\"airport\":\"SBSP\",\"name\":\"Congonhas Starter Tower\",\"durationShifts\":3,\"minSafety\":70,\"rewardRep\":45,\"rewardBudget\":30000},{\"id\":\"CONTRACT_SBGR_REGIONAL\",\"airport\":\"SBGR\",\"name\":\"Guarulhos Regional Flow\",\"durationShifts\":5,\"minSafety\":78,\"rewardRep\":90,\"rewardBudget\":85000},{\"id\":\"CONTRACT_SBKP_CARGO\",\"airport\":\"SBKP\",\"name\":\"Viracopos Cargo Reliability\",\"durationShifts\":4,\"minSafety\":76,\"rewardRep\":70,\"rewardBudget\":65000},{\"id\":\"CONTRACT_SBBR_GOV\",\"airport\":\"SBBR\",\"name\":\"Brasília Priority Ops\",\"durationShifts\":5,\"minSafety\":82,\"rewardRep\":110,\"rewardBudget\":100000},{\"id\":\"CONTRACT_KATL_GLOBAL\",\"airport\":\"KATL\",\"name\":\"Atlanta Global Hub\",\"durationShifts\":7,\"minSafety\":88,\"rewardRep\":180,\"rewardBudget\":180000}]"
+    },
+    {
+      "name": "temporadas avançadas presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"SEASON_01\",\"name\":\"Licença Operacional\",\"weeks\":4,\"targetReputation\":120,\"targetSafety\":78},{\"id\":\"SEASON_02\",\"name\":\"Controle Regional\",\"weeks\":6,\"targetReputation\":280,\"targetSafety\":82},{\"id\":\"SEASON_03\",\"name\":\"Operação Internacional\",\"weeks\":8,\"targetReputation\":520,\"targetSafety\":86},{\"id\":\"SEASON_04\",\"name\":\"Supervisor Global\",\"weeks\":10,\"targetReputation\":900,\"targetSafety\":90}]"
+    }
+  ]
+}

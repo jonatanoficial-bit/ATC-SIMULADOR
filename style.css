@@ -872,3 +872,27 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .public-ops-danger{color:#ff918c}
 .public-ops-watch{color:#ffd27a}
 .public-ops-stable{color:#91ffb7}
+
+/* F28 Training Academy */
+.training-academy-inline{border-color:rgba(255,155,118,.50);background:linear-gradient(180deg,rgba(86,38,18,.84),rgba(31,12,5,.92));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 26px rgba(255,155,118,.08)}
+.training-academy-inline .airport-ops-head span{color:#ffb595}
+.training-academy-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,155,118,.45);border-radius:999px;padding:4px 9px;background:rgba(255,155,118,.12);font-weight:900}
+.training-academy-pass{color:#91ffb7}
+.training-academy-remedial{color:#ffd27a}
+.training-academy-fail{color:#ff918c}
+
+/* F29 Training Coach */
+.training-coach-inline{border-color:rgba(118,210,255,.50);background:linear-gradient(180deg,rgba(18,55,86,.84),rgba(5,17,31,.92));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 26px rgba(118,210,255,.08)}
+.training-coach-inline .airport-ops-head span{color:#95ddff}
+.training-coach-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(118,210,255,.45);border-radius:999px;padding:4px 9px;background:rgba(118,210,255,.12);font-weight:900}
+.training-coach-excellent{color:#91ffb7}
+.training-coach-developing{color:#ffd27a}
+.training-coach-remedial{color:#ff918c}
+
+/* F30 International Campaign */
+.international-campaign-inline{border-color:rgba(121,255,221,.50);background:linear-gradient(180deg,rgba(16,74,67,.84),rgba(4,28,28,.92));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 26px rgba(121,255,221,.08)}
+.international-campaign-inline .airport-ops-head span{color:#92ffe5}
+.international-campaign-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(121,255,221,.45);border-radius:999px;padding:4px 9px;background:rgba(121,255,221,.12);font-weight:900}
+.international-campaign-safe{color:#91ffb7}
+.international-campaign-risk{color:#ffd27a}
+.international-campaign-critical{color:#ff918c}

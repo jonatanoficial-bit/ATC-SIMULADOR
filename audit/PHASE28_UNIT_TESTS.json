@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase28-unit",
+  "build": "SC-1.28.0-F28-20260620-1745",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F28+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.28.0\",\"phase\":\"F28\",\"phaseName\":\"Academia ATC, Missões de Treinamento, Provas de Certificação e Cenários Guiados\",\"channel\":\"training-academy\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.28.0-F28-20260620-1745\",\"builtAt\":\"2026-06-20 17:45 BRT\",\"builtAtIso\":\"2026-06-20T17:45:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1}"
+    },
+    {
+      "name": "módulo F28 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo tracks missions exams",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"tracks\":6,\"missions\":7,\"exams\":4}"
+    },
+    {
+      "name": "start missão básica",
+      "ok": true,
+      "detail": "{\"id\":\"TWR_01\",\"track\":\"BASIC_TOWER\",\"title\":\"Primeira decolagem segura\",\"airport\":\"SBSP\",\"durationMin\":8,\"targetScore\":600,\"objectives\":[\"lineup\",\"clearTakeoff\",\"noIncursion\"]}"
+    },
+    {
+      "name": "missão saudável aprova",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-20T12:40:55.883Z\",\"build\":\"SC-1.28.0-F28-20260620-1745\",\"missionId\":\"TWR_01\",\"track\":\"BASIC_TOWER\",\"airport\":\"SBSP\",\"finalScore\":1200,\"rubric\":{\"safety\":100,\"procedure\":84,\"efficiency\":65,\"communication\":80,\"weighted\":86},\"objectiveScore\":100,\"passed\":true,\"remediation\":\"\",\"examId\":null}"
+    },
+    {
+      "name": "exame iniciado",
+      "ok": true,
+      "detail": "{\"id\":\"EXAM_TOWER_LOCAL\",\"name\":\"Certificação Torre Local\",\"track\":\"BASIC_TOWER\",\"minScore\":1800,\"maxErrors\":2,\"awards\":\"LOCAL_TOWER\"}"
+    },
+    {
+      "name": "falha gera remediação",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-20T12:40:55.884Z\",\"build\":\"SC-1.28.0-F28-20260620-1745\",\"missionId\":\"TWR_01\",\"track\":\"BASIC_TOWER\",\"airport\":\"SBSP\",\"finalScore\":300,\"rubric\":{\"safety\":57,\"procedure\":68,\"efficiency\":46,\"communication\":74,\"weighted\":60},\"objectiveScore\":100,\"passed\":false,\"remediation\":\"Revise holding point e autorização de pista.\",\"examId\":\"EXAM_TOWER_LOCAL\",\"examPassed\":false}"
+    },
+    {
+      "name": "progresso calculado",
+      "ok": true,
+      "detail": "{\"completed\":1,\"total\":7,\"percent\":14,\"exams\":0,\"academyScore\":1600,\"status\":\"CADETE\",\"activeMission\":{\"id\":\"TWR_02\",\"track\":\"BASIC_TOWER\",\"title\":\"Sequência de pouso simples\",\"airport\":\"SBSP\",\"durationMin\":10,\"targetScore\":900,\"objectives\":[\"clearLanding\",\"spacing\",\"runwayVacated\"]}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"SAFETY\",\"name\":\"Segurança\",\"weight\":40},{\"id\":\"PROCEDURE\",\"name\":\"Procedimento correto\",\"weight\":25},{\"id\":\"EFFICIENCY\",\"name\":\"Eficiência\",\"weight\":20},{\"id\":\"COMMUNICATION\",\"name\":\"Comunicação/fluxo\",\"weight\":15}]"
+    },
+    {
+      "name": "trilhas avançadas presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"BASIC_TOWER\",\"name\":\"Torre Básica\",\"order\":1,\"requiredRating\":\"STUDENT\"},{\"id\":\"GROUND_CONTROL\",\"name\":\"Controle de Solo\",\"order\":2,\"requiredRating\":\"LOCAL_GROUND\"},{\"id\":\"APPROACH_RADAR\",\"name\":\"Aproximação Radar\",\"order\":3,\"requiredRating\":\"APP_PROCEDURAL\"},{\"id\":\"IFR_PROCEDURES\",\"name\":\"Procedimentos IFR\",\"order\":4,\"requiredRating\":\"APP_RADAR\"},{\"id\":\"EMERGENCY_OPS\",\"name\":\"Emergências e Multiagência\",\"order\":5,\"requiredRating\":\"SUPERVISOR\"},{\"id\":\"NETWORK_FLOW\",\"name\":\"Network Flow e Slots\",\"order\":6,\"requiredRating\":\"SUPERVISOR\"}]"
+    }
+  ]
+}

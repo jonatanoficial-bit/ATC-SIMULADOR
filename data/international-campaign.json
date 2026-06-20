@@ -1,0 +1,203 @@
+{
+  "schema": 1,
+  "version": "2026.06-f30",
+  "description": "International ATC campaign, seasons, airport contracts, career calendar and local global milestones.",
+  "regions": [
+    {
+      "id": "BR_SOUTHEAST",
+      "name": "Brasil Sudeste",
+      "airports": [
+        "SBSP",
+        "SBGR",
+        "SBKP"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "BR_CAPITAL",
+      "name": "Brasil Capital",
+      "airports": [
+        "SBBR"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "US_MAJOR_HUB",
+      "name": "EUA Mega Hub",
+      "airports": [
+        "KATL"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": "INTERNATIONAL_FLOW",
+      "name": "Fluxo Internacional",
+      "airports": [
+        "SBGR",
+        "KATL"
+      ],
+      "difficulty": 4
+    }
+  ],
+  "seasons": [
+    {
+      "id": "SEASON_01",
+      "name": "Licença Operacional",
+      "weeks": 4,
+      "targetReputation": 120,
+      "targetSafety": 78
+    },
+    {
+      "id": "SEASON_02",
+      "name": "Controle Regional",
+      "weeks": 6,
+      "targetReputation": 280,
+      "targetSafety": 82
+    },
+    {
+      "id": "SEASON_03",
+      "name": "Operação Internacional",
+      "weeks": 8,
+      "targetReputation": 520,
+      "targetSafety": 86
+    },
+    {
+      "id": "SEASON_04",
+      "name": "Supervisor Global",
+      "weeks": 10,
+      "targetReputation": 900,
+      "targetSafety": 90
+    }
+  ],
+  "contracts": [
+    {
+      "id": "CONTRACT_SBSP_STARTER",
+      "airport": "SBSP",
+      "name": "Congonhas Starter Tower",
+      "durationShifts": 3,
+      "minSafety": 70,
+      "rewardRep": 45,
+      "rewardBudget": 30000
+    },
+    {
+      "id": "CONTRACT_SBGR_REGIONAL",
+      "airport": "SBGR",
+      "name": "Guarulhos Regional Flow",
+      "durationShifts": 5,
+      "minSafety": 78,
+      "rewardRep": 90,
+      "rewardBudget": 85000
+    },
+    {
+      "id": "CONTRACT_SBKP_CARGO",
+      "airport": "SBKP",
+      "name": "Viracopos Cargo Reliability",
+      "durationShifts": 4,
+      "minSafety": 76,
+      "rewardRep": 70,
+      "rewardBudget": 65000
+    },
+    {
+      "id": "CONTRACT_SBBR_GOV",
+      "airport": "SBBR",
+      "name": "Brasília Priority Ops",
+      "durationShifts": 5,
+      "minSafety": 82,
+      "rewardRep": 110,
+      "rewardBudget": 100000
+    },
+    {
+      "id": "CONTRACT_KATL_GLOBAL",
+      "airport": "KATL",
+      "name": "Atlanta Global Hub",
+      "durationShifts": 7,
+      "minSafety": 88,
+      "rewardRep": 180,
+      "rewardBudget": 180000
+    }
+  ],
+  "calendarEvents": [
+    {
+      "id": "WX_FRONT",
+      "name": "Frente fria IFR",
+      "week": 2,
+      "modifier": "weatherRisk+15"
+    },
+    {
+      "id": "HOLIDAY_RUSH",
+      "name": "Pico de feriado",
+      "week": 3,
+      "modifier": "traffic+20"
+    },
+    {
+      "id": "CARGO_SURGE",
+      "name": "Surto cargueiro",
+      "week": 5,
+      "modifier": "cargo+25"
+    },
+    {
+      "id": "INTERNATIONAL_AUDIT",
+      "name": "Auditoria internacional",
+      "week": 7,
+      "modifier": "safetyRequired+5"
+    },
+    {
+      "id": "RUNWAY_WORKS",
+      "name": "Obras de pista",
+      "week": 9,
+      "modifier": "runwayCapacity-20"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "FIRST_CONTRACT",
+      "name": "Primeiro contrato concluído",
+      "requirement": "contractsCompleted>=1",
+      "rewardRep": 30
+    },
+    {
+      "id": "SAFE_SEASON",
+      "name": "Temporada segura",
+      "requirement": "seasonSafety>=85",
+      "rewardRep": 80
+    },
+    {
+      "id": "GLOBAL_CONTROLLER",
+      "name": "Controlador Global",
+      "requirement": "regionsUnlocked>=3",
+      "rewardRep": 150
+    },
+    {
+      "id": "HUB_SPECIALIST",
+      "name": "Especialista em Hub",
+      "requirement": "KATL shifts>=5",
+      "rewardRep": 120
+    }
+  ],
+  "riskBands": [
+    {
+      "id": "LOW",
+      "name": "Baixo",
+      "min": 0,
+      "max": 29
+    },
+    {
+      "id": "MODERATE",
+      "name": "Moderado",
+      "min": 30,
+      "max": 59
+    },
+    {
+      "id": "HIGH",
+      "name": "Alto",
+      "min": 60,
+      "max": 84
+    },
+    {
+      "id": "CRITICAL",
+      "name": "Crítico",
+      "min": 85,
+      "max": 100
+    }
+  ]
+}

@@ -128,6 +128,21 @@
       "description": "Public operations feedback, offline telemetry, bug inbox and hotfix planning"
     },
     {
+      "file": "31-training-academy-certification.js",
+      "name": "training-academy-certification",
+      "description": "ATC academy, guided missions, certification exams and structured training progression"
+    },
+    {
+      "file": "32-training-coach-debriefing.js",
+      "name": "training-coach-debriefing",
+      "description": "ATC instructor coach, post-shift debriefing, adaptive study plan and personalized training recommendations"
+    },
+    {
+      "file": "33-international-campaign.js",
+      "name": "international-campaign",
+      "description": "International ATC campaign, seasons, airport contracts and career calendar"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"
