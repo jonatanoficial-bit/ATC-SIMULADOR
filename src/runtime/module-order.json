@@ -168,6 +168,11 @@
       "description": "Infrastructure expansion, runway works, terminal CAPEX, maintenance and capacity planning"
     },
     {
+      "file": "39-environment-sustainability-center.js",
+      "name": "environment-sustainability-center",
+      "description": "Environment sustainability, noise, emissions, community, ESG and permits"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

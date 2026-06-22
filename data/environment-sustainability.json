@@ -1,0 +1,200 @@
+{
+  "schema": 1,
+  "version": "2026.06-f36",
+  "description": "Environmental and sustainability center with noise, emissions, fuel burn, community impact, green initiatives and environmental permits.",
+  "environmentMetrics": [
+    {
+      "id": "NOISE",
+      "name": "Ruído operacional",
+      "weight": 25,
+      "target": 78
+    },
+    {
+      "id": "CO2",
+      "name": "Emissões CO₂",
+      "weight": 25,
+      "target": 76
+    },
+    {
+      "id": "FUEL",
+      "name": "Eficiência de combustível",
+      "weight": 18,
+      "target": 74
+    },
+    {
+      "id": "COMMUNITY",
+      "name": "Comunidade",
+      "weight": 17,
+      "target": 72
+    },
+    {
+      "id": "WASTE",
+      "name": "Resíduos/solo",
+      "weight": 8,
+      "target": 70
+    },
+    {
+      "id": "PERMIT",
+      "name": "Licenças ambientais",
+      "weight": 7,
+      "target": 80
+    }
+  ],
+  "greenInitiatives": [
+    {
+      "id": "CDA_APPROACH",
+      "name": "Continuous Descent Approach",
+      "cost": 45000,
+      "benefit": {
+        "NOISE": 8,
+        "CO2": 6,
+        "FUEL": 7
+      }
+    },
+    {
+      "id": "GPU_PROGRAM",
+      "name": "Ground Power Units elétricos",
+      "cost": 90000,
+      "benefit": {
+        "CO2": 10,
+        "FUEL": 6,
+        "COMMUNITY": 4
+      }
+    },
+    {
+      "id": "NIGHT_CURFEW",
+      "name": "Janela noturna sensível",
+      "cost": 25000,
+      "benefit": {
+        "NOISE": 12,
+        "COMMUNITY": 9
+      }
+    },
+    {
+      "id": "TAXI_OPTIMIZATION",
+      "name": "Taxi otimizado",
+      "cost": 35000,
+      "benefit": {
+        "CO2": 7,
+        "FUEL": 9
+      }
+    },
+    {
+      "id": "WASTE_RECYCLING",
+      "name": "Reciclagem terminal/rampa",
+      "cost": 28000,
+      "benefit": {
+        "WASTE": 13,
+        "COMMUNITY": 3
+      }
+    },
+    {
+      "id": "GREEN_CONSTRUCTION",
+      "name": "Obra verde certificada",
+      "cost": 75000,
+      "benefit": {
+        "PERMIT": 8,
+        "COMMUNITY": 5,
+        "CO2": 4
+      }
+    }
+  ],
+  "noiseZones": [
+    {
+      "id": "URBAN_NORTH",
+      "name": "Zona urbana norte",
+      "sensitivity": 5
+    },
+    {
+      "id": "SCHOOL_AREA",
+      "name": "Área escolar",
+      "sensitivity": 4
+    },
+    {
+      "id": "HOSPITAL_CORRIDOR",
+      "name": "Corredor hospitalar",
+      "sensitivity": 5
+    },
+    {
+      "id": "INDUSTRIAL",
+      "name": "Zona industrial",
+      "sensitivity": 2
+    }
+  ],
+  "environmentEvents": [
+    {
+      "id": "COMMUNITY_COMPLAINT",
+      "name": "Reclamações da comunidade",
+      "impact": "community-12",
+      "risk": 18
+    },
+    {
+      "id": "AIR_QUALITY_ALERT",
+      "name": "Alerta de qualidade do ar",
+      "impact": "co2-10",
+      "risk": 16
+    },
+    {
+      "id": "NOISE_AUDIT",
+      "name": "Auditoria de ruído",
+      "impact": "permit-8",
+      "risk": 20
+    },
+    {
+      "id": "FUEL_SPIKE",
+      "name": "Pico de consumo combustível",
+      "impact": "fuel-14",
+      "risk": 14
+    },
+    {
+      "id": "CONSTRUCTION_DUST",
+      "name": "Poeira de obra",
+      "impact": "waste-10",
+      "risk": 12
+    }
+  ],
+  "permitLevels": [
+    {
+      "id": "FULL_COMPLIANCE",
+      "min": 90,
+      "name": "Licença plena"
+    },
+    {
+      "id": "COMPLIANT",
+      "min": 75,
+      "name": "Conforme"
+    },
+    {
+      "id": "WATCHLIST",
+      "min": 55,
+      "name": "Em observação"
+    },
+    {
+      "id": "AT_RISK",
+      "min": 0,
+      "name": "Risco de sanção"
+    }
+  ],
+  "esgBands": [
+    {
+      "id": "LEADER",
+      "min": 90,
+      "name": "ESG líder"
+    },
+    {
+      "id": "STRONG",
+      "min": 75,
+      "name": "ESG forte"
+    },
+    {
+      "id": "PRESSURED",
+      "min": 55,
+      "name": "ESG pressionado"
+    },
+    {
+      "id": "NON_COMPLIANT",
+      "min": 0,
+      "name": "Não conforme"
+    }
+  ]
+}

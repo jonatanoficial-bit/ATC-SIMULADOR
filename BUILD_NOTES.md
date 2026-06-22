@@ -1,18 +1,18 @@
-# Build Notes — SC-1.35.0-F35-20260620-2245
+# Build Notes — SC-1.36.0-F36-20260622-1045
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.35.0
-- Fase: F35 — Infrastructure & Expansion Program, Obras, CAPEX, Manutenção e Capacidade Aeroportuária
-- Build: `SC-1.35.0-F35-20260620-2245`
-- Data/hora: 2026-06-20 22:45 BRT
-- Canal: infrastructure-expansion
-- Infrastructure Expansion schema: 1
+- Versão: 1.36.0
+- Fase: F36 — Environmental & Sustainability Center, Ruído, Emissões, Comunidade e Licenças Ambientais
+- Build: `SC-1.36.0-F36-20260622-1045`
+- Data/hora: 2026-06-22 10:45 BRT
+- Canal: environment-sustainability
+- Environment Sustainability schema: 1
 
 ## Entregas
 
-A Fase 35 adiciona planejamento de infraestrutura, obras, CAPEX, manutenção preventiva, risco de obra, capacidade e confiabilidade.
+A Fase 36 adiciona gestão ambiental/ESG, ruído, emissões CO₂, combustível, comunidade, licenças ambientais e iniciativas verdes.
 
 ## Documento de upload
 

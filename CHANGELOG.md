@@ -1,3 +1,18 @@
+## SC-1.36.0-F36-20260622-1045 — Environmental & Sustainability Center
+
+- Adicionado módulo oficial `39-environment-sustainability-center.js`.
+- Criado catálogo `data/environment-sustainability.json`.
+- Adicionadas métricas ambientais.
+- Adicionadas iniciativas verdes.
+- Adicionadas zonas de ruído.
+- Adicionados eventos ambientais.
+- Adicionadas licenças ambientais.
+- Adicionado score ESG.
+- Adicionado painel `ENV ESG`.
+- Tela final mostra ENV ESG e Licença Amb.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F36.
+
 ## SC-1.35.0-F35-20260620-2245 — Infrastructure & Expansion Program
 
 - Adicionado módulo oficial `38-infrastructure-expansion-program.js`.

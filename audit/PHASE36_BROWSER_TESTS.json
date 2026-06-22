@@ -1,0 +1,193 @@
+{
+  "schema": 1,
+  "suite": "phase36-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para Environment Sustainability.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.36.0",
+    "phase": "F36",
+    "phaseName": "Environmental & Sustainability Center, Ruído, Emissões, Comunidade e Licenças Ambientais",
+    "channel": "environment-sustainability",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.36.0-F36-20260622-1045",
+    "builtAt": "2026-06-22 10:45 BRT",
+    "builtAtIso": "2026-06-22T10:45:00-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1,
+    "weatherOpsSchema": 1,
+    "procedureOpsSchema": 1,
+    "careerSchema": 1,
+    "economySchema": 1,
+    "incidentSchema": 1,
+    "networkFlowSchema": 1,
+    "controlRoomSchema": 1,
+    "commercialPolishSchema": 1,
+    "releaseCandidateSchema": 1,
+    "goldMasterSchema": 1,
+    "postGoldMasterSchema": 1,
+    "postPublishHealthSchema": 1,
+    "publicOpsSchema": 1,
+    "trainingAcademySchema": 1,
+    "trainingCoachSchema": 1,
+    "internationalCampaignSchema": 1,
+    "airlineOpsSchema": 1,
+    "airportAuthoritySchema": 1,
+    "crisisCommandSchema": 1,
+    "safetyComplianceSchema": 1,
+    "infrastructureExpansionSchema": 1,
+    "environmentSustainabilitySchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F36 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.36.0', 'phase': 'F36', 'phaseName': 'Environmental & Sustainability Center, Ruído, Emissões, Comunidade e Licenças Ambientais', 'channel': 'environment-sustainability', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.36.0-F36-20260622-1045', 'builtAt': '2026-06-22 10:45 BRT', 'builtAtIso': '2026-06-22T10:45:00-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1, 'weatherOpsSchema': 1, 'procedureOpsSchema': 1, 'careerSchema': 1, 'economySchema': 1, 'incidentSchema': 1, 'networkFlowSchema': 1, 'controlRoomSchema': 1, 'commercialPolishSchema': 1, 'releaseCandidateSchema': 1, 'goldMasterSchema': 1, 'postGoldMasterSchema': 1, 'postPublishHealthSchema': 1, 'publicOpsSchema': 1, 'trainingAcademySchema': 1, 'trainingCoachSchema': 1, 'internationalCampaignSchema': 1, 'airlineOpsSchema': 1, 'airportAuthoritySchema': 1, 'crisisCommandSchema': 1, 'safetyComplianceSchema': 1, 'infrastructureExpansionSchema': 1, 'environmentSustainabilitySchema': 1}"
+    },
+    {
+      "name": "main bundle inclui módulo 39",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_ENVIRONMENT_SUSTAINABILITY no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui métricas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui iniciativas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui eventos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui environment-sustainability.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "início de turno inicializa F36",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fim de turno mostra F36",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS possui painel environment",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F36 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema environmentSustainabilitySchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "channel environment-sustainability",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc environment existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc ruído existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado raiz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado docs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém caminho Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém repo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ruído presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CO2 presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CDA presente",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 22,
+  "failed": 0,
+  "total": 22
+}

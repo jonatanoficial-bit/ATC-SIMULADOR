@@ -936,3 +936,11 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .infrastructure-expansion-ok{color:#91ffb7}
 .infrastructure-expansion-limited{color:#ffd27a}
 .infrastructure-expansion-risk{color:#ff918c}
+
+/* F36 Environment Sustainability */
+.environment-sustainability-inline{border-color:rgba(101,255,166,.55);background:linear-gradient(180deg,rgba(14,72,42,.86),rgba(4,31,18,.94));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 28px rgba(101,255,166,.10)}
+.environment-sustainability-inline .airport-ops-head span{color:#8dffba}
+.environment-sustainability-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(101,255,166,.45);border-radius:999px;padding:4px 9px;background:rgba(101,255,166,.12);font-weight:900}
+.environment-sustainability-good{color:#91ffb7}
+.environment-sustainability-watch{color:#ffd27a}
+.environment-sustainability-risk{color:#ff918c}

@@ -1,10 +1,10 @@
 {
   "product": "Skyward Control",
   "prefix": "SC",
-  "version": "1.35.0",
-  "phase": "F35",
-  "phaseName": "Infrastructure & Expansion Program, Obras, CAPEX, Manutenção e Capacidade Aeroportuária",
-  "channel": "infrastructure-expansion",
+  "version": "1.36.0",
+  "phase": "F36",
+  "phaseName": "Environmental & Sustainability Center, Ruído, Emissões, Comunidade e Licenças Ambientais",
+  "channel": "environment-sustainability",
   "saveSchema": 3,
   "target": "Mobile-first / Tablet / Desktop",
   "timeZone": "America/Sao_Paulo",
@@ -17,9 +17,9 @@
   "desktopSchema": 1,
   "accessibilitySchema": 1,
   "replaySchema": 1,
-  "build": "SC-1.35.0-F35-20260620-2245",
-  "builtAt": "2026-06-20 22:45 BRT",
-  "builtAtIso": "2026-06-20T22:45:00-03:00",
+  "build": "SC-1.36.0-F36-20260622-1045",
+  "builtAt": "2026-06-22 10:45 BRT",
+  "builtAtIso": "2026-06-22T10:45:00-03:00",
   "aircraftPerformanceSchema": 1,
   "airportSurfaceSchema": 1,
   "surfaceSafetySchema": 1,
@@ -43,5 +43,6 @@
   "airportAuthoritySchema": 1,
   "crisisCommandSchema": 1,
   "safetyComplianceSchema": 1,
-  "infrastructureExpansionSchema": 1
+  "infrastructureExpansionSchema": 1,
+  "environmentSustainabilitySchema": 1
 }
