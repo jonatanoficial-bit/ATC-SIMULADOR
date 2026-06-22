@@ -158,6 +158,16 @@
       "description": "Crisis Command Center, irregular operations, ground stop, cyber incident and recovery plan"
     },
     {
+      "file": "37-safety-compliance-center.js",
+      "name": "safety-compliance-center",
+      "description": "Safety Management System, compliance, audit findings, investigation and corrective actions"
+    },
+    {
+      "file": "38-infrastructure-expansion-program.js",
+      "name": "infrastructure-expansion-program",
+      "description": "Infrastructure expansion, runway works, terminal CAPEX, maintenance and capacity planning"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

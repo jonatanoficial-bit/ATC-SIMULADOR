@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase34-unit",
+  "build": "SC-1.34.0-F34-20260620-2205",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F34+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.34.0\",\"phase\":\"F34\",\"phaseName\":\"Safety Management System, Compliance Center, Auditoria Operacional, Investigação e Plano Corretivo\",\"channel\":\"safety-compliance\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.34.0-F34-20260620-2205\",\"builtAt\":\"2026-06-20 22:05 BRT\",\"builtAtIso\":\"2026-06-20T22:05:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1}"
+    },
+    {
+      "name": "módulo F34 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo domains severity root cap",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"domains\":7,\"actions\":5}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"findings\":[{\"id\":\"FND-5962826\",\"at\":\"2026-06-22T13:46:02.649Z\",\"domainId\":\"TERMINAL_RISK\",\"severity\":\"MINOR\",\"risk\":55,\"rootCause\":\"WORKLOAD\",\"correctiveAction\":\"CAP_RATE_LIMIT\",\"status\":\"OPEN\",\"dueDays\":21,\"note\":\"terminal pressionado\"},{\"id\":\"FND-5962666\",\"at\":\"2026-06-22T13:46:02.649Z\",\"domainId\":\"CRISIS_RESPONSE\",\"severity\":\"MINOR\",\"risk\":60,\"rootCause\":\"WORKLOAD\",\"correctiveAction\":\"CAP_RATE_LIMIT\",\"status\":\"OPEN\",\"dueDays\":21,\"note\":\"resposta à crise abaixo do alvo\"},{\"id\":\"FND-5963232\",\"at\":\"2026-06-22T13:46:02.649Z\",\"domainId\":\"FATIGUE\",\"severity\":\"MAJOR\",\"risk\":70,\"rootCause\":\"WORKLOAD\",\"correctiveAction\":\"CAP_RATE_LIMIT\",\"status\":\"OPEN\",\"dueDays\":10,\"note\":\"fadiga operacional elevada\"},{\"id\":\"FND-5962767\",\"at\":\"2026-06-22T13:46:02.649Z\",\"domainId\":\"PROCEDURE\",\"severity\":\"MAJOR\",\"risk\":70,\"rootCause\":\"PROCEDURE_DRIFT\",\"correctiveAction\":\"CAP_CHECKLIST\",\"status\":\"OPEN\",\"dueDays\":10,\"note\":\"alto volume de comandos negados\"},{\"id\":\"FND-5962881\",\"at\":\"2026-06-22T13:46:02.649Z\",\"domainId\":\"SEPARATION\",\"severity\":\"MAJOR\",\"risk\":80,\"rootCause\":\"TRAINING_GAP\",\"correctiveAction\":\"CAP_TRAINING\",\"status\":\"OPEN\",\"dueDays\":10,\"note\":\"conflito/separação degradada\"},{\"id\":\"FND-5963024\",\"at\":\"2026-06-22T13:46:02.649Z\",\"domainId\":\"RUNWAY_SAFETY\",\"severity\":\"CRITICAL\",\"risk\":95,\"rootCause\":\"TRAINING_GAP\",\"correctiveAction\":\"CAP_TRAINING\",\"status\":\"OPEN\",\"dueDays\":3,\"note\":\"incursão de pista exige ação corretiva imediata\"},{\"id\":\"FND-5963472\",\"at\":\"2026-06-22T13:46:02.649Z\",\"domainId\":\"TERMINAL_RISK\",\"severity\":\"MINOR\",\"risk\":55,\"rootCause\":\"WORKLOAD\",\"correctiveAction\":\"CAP_RATE_LIMIT\",\"status\":\"OPEN\",\"dueDays\":21,\"note\":\"terminal pressionado\"},{\"id\":\"FND-5963592\",\"at\":\"2026-06-22T13:46:02.648Z\",\"domainId\":\"CRISIS_RESPONSE\",\"severity\":\"MINOR\",\"risk\":60,\"rootCause\":\"WORKLOAD\",\"correctiveAction\":\"CAP_RATE_LIMIT\",\"status\":\"OPEN\",\"dueDays\":21,\"note\":\"resposta à crise abaixo do alvo\"},{\"id\":\"FND-5963171\",\"at\":\"2026-06-22T13:46:02.648Z\",\"domainId\":\"FATIGUE\",\"severity\":\"MAJOR\",\"risk\":70,\"rootCause\":\"WORKLOAD\",\"correctiveAction\":\"CAP_RATE_LIMIT\",\"status\":\"OPEN\",\"dueDays\":10,\"note\":\"fadiga operacional elevada\"},{\"id\":\"FND-5962808\",\"at\":\"2026-06-22T13:46:02.648Z\",\"domainId\":\"PROCEDURE\",\"severity\":\"MAJOR\",\"risk\":70,\"rootCause\":\"PROCEDURE_DRIFT\",\"correctiveAction\":\"CAP_CHECKLIST\",\"status\":\"OPEN\",\"dueDays\":10,\"note\":\"alto volume de comandos negados\"},{\"id\":\"FND-5963227\",\"at\":\"2026-06-22T13:46:02.648Z\",\"domainId\":\"SEPARATION\",\"severity\":\"MAJOR\",\"risk\":80,\"rootCause\":\"TRAINING_GAP\",\"correctiveAction\":\"CAP_TRAINING\",\"status\":\"OPEN\",\"dueDays\":10,\"note\":\"conflito/separação degradada\"},{\"id\":\"FND-5963268\",\"at\":\"2026-06-22T13:46:02.648Z\",\"domainId\":\"RUNWAY_SAFETY\",\"severity\":\"CRITICAL\",\"risk\":95,\"rootCause\":\"TRAINING_GAP\",\"correctiveAction\":\"CAP_TRAINING\",\"status\":\"OPEN\",\"dueDays\":3,\"note\":\"incursão de pista exige ação corretiva imediata\"}],\"correctivePlan\":[{\"findingId\":\"FND-5962826\",\"actionId\":\"CAP_RATE_LIMIT\",\"name\":\"Limite temporário de taxa\",\"cost\":8000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.649Z\"},{\"findingId\":\"FND-5962666\",\"actionId\":\"CAP_RATE_LIMIT\",\"name\":\"Limite temporário de taxa\",\"cost\":8000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.649Z\"},{\"findingId\":\"FND-5963232\",\"actionId\":\"CAP_RATE_LIMIT\",\"name\":\"Limite temporário de taxa\",\"cost\":8000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.649Z\"},{\"findingId\":\"FND-5962767\",\"actionId\":\"CAP_CHECKLIST\",\"name\":\"Checklist obrigatório\",\"cost\":3000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.649Z\"},{\"findingId\":\"FND-5962881\",\"actionId\":\"CAP_TRAINING\",\"name\":\"Treinamento corretivo\",\"cost\":5000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.649Z\"},{\"findingId\":\"FND-5963024\",\"actionId\":\"CAP_TRAINING\",\"name\":\"Treinamento corretivo\",\"cost\":5000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.649Z\"},{\"findingId\":\"FND-5963472\",\"actionId\":\"CAP_RATE_LIMIT\",\"name\":\"Limite temporário de taxa\",\"cost\":8000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.649Z\"},{\"findingId\":\"FND-5963592\",\"actionId\":\"CAP_RATE_LIMIT\",\"name\":\"Limite temporário de taxa\",\"cost\":8000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.648Z\"},{\"findingId\":\"FND-5963171\",\"actionId\":\"CAP_RATE_LIMIT\",\"name\":\"Limite temporário de taxa\",\"cost\":8000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.648Z\"},{\"findingId\":\"FND-5962808\",\"actionId\":\"CAP_CHECKLIST\",\"name\":\"Checklist obrigatório\",\"cost\":3000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.648Z\"},{\"findingId\":\"FND-5963227\",\"actionId\":\"CAP_TRAINING\",\"name\":\"Treinamento corretivo\",\"cost\":5000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.648Z\"},{\"findingId\":\"FND-5963268\",\"actionId\":\"CAP_TRAINING\",\"name\":\"Treinamento corretivo\",\"cost\":5000,\"status\":\"PLANNED\",\"createdAt\":\"2026-06-22T13:46:02.648Z\"}],\"closedFindings\":[],\"safetyCultureScore\":0,\"complianceStatus\":\"VULNERABLE\",\"history\":[{\"at\":\"2026-06-22T13:46:02.649Z\",\"build\":\"SC-1.34.0-F34-20260620-2205\",\"airport\":\"SBGR\",\"finalScore\":300,\"signals\":{\"finalScore\":300,\"conflicts\":1,\"runwayIncursions\":1,\"denied\":3,\"fail\":false,\"crisisScore\":60,\"airportExperience\":62,\"airlineScore\":70,\"coachScore\":55,\"postPublishScore\":90,\"publicOpsScore\":88,\"fatigue\":78},\"newFindings\":6,\"openFindings\":12,\"critical\":2,\"major\":6,\"safetyCultureScore\":0,\"complianceStatus\":\"VULNERABLE\"},{\"at\":\"2026-06-22T13:46:02.649Z\",\"build\":\"SC-1.34.0-F34-20260620-2205\",\"airport\":\"SBGR\",\"finalScore\":300,\"signals\":{\"finalScore\":300,\"conflicts\":1,\"runwayIncursions\":1,\"denied\":3,\"fail\":false,\"crisisScore\":60,\"airportExperience\":62,\"airlineScore\":70,\"coachScore\":55,\"postPublishScore\":90,\"publicOpsScore\":88,\"fatigue\":78},\"newFindings\":6,\"openFindings\":6,\"critical\":1,\"major\":3,\"safetyCultureScore\":30,\"complianceStatus\":\"VULNERABLE\"}],\"lastEvaluation\":{\"at\":\"2026-06-22T13:46:02.649Z\",\"build\":\"SC-1.34.0-F34-20260620-2205\",\"airport\":\"SBGR\",\"finalScore\":300,\"signals\":{\"finalScore\":300,\"conflicts\":1,\"runwayIncursions\":1,\"denied\":3,\"fail\":false,\"crisisScore\":60,\"airportExperience\":62,\"airlineScore\":70,\"coachScore\":55,\"postPublishScore\":90,\"publicOpsScore\":88,\"fatigue\":78},\"newFindings\":6,\"openFindings\":12,\"critical\":2,\"major\":6,\"safetyCultureScore\":0,\"complianceStatus\":\"VULNERABLE\"}}"
+    },
+    {
+      "name": "auditoria gera achados",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-22T13:46:02.649Z\",\"build\":\"SC-1.34.0-F34-20260620-2205\",\"airport\":\"SBGR\",\"finalScore\":300,\"signals\":{\"finalScore\":300,\"conflicts\":1,\"runwayIncursions\":1,\"denied\":3,\"fail\":false,\"crisisScore\":60,\"airportExperience\":62,\"airlineScore\":70,\"coachScore\":55,\"postPublishScore\":90,\"publicOpsScore\":88,\"fatigue\":78},\"newFindings\":6,\"openFindings\":18,\"critical\":3,\"major\":9,\"safetyCultureScore\":0,\"complianceStatus\":\"VULNERABLE\"}"
+    },
+    {
+      "name": "achado tem causa e CAP",
+      "ok": true,
+      "detail": "{\"id\":\"FND-5963285\",\"at\":\"2026-06-22T13:46:02.649Z\",\"domainId\":\"TERMINAL_RISK\",\"severity\":\"MINOR\",\"risk\":55,\"rootCause\":\"WORKLOAD\",\"correctiveAction\":\"CAP_RATE_LIMIT\",\"status\":\"OPEN\",\"dueDays\":21,\"note\":\"terminal pressionado\"}"
+    },
+    {
+      "name": "fechamento de achado funciona",
+      "ok": true,
+      "detail": "{\"id\":\"FND-5963285\",\"at\":\"2026-06-22T13:46:02.649Z\",\"domainId\":\"TERMINAL_RISK\",\"severity\":\"MINOR\",\"risk\":55,\"rootCause\":\"WORKLOAD\",\"correctiveAction\":\"CAP_RATE_LIMIT\",\"status\":\"CLOSED\",\"dueDays\":21,\"note\":\"terminal pressionado\",\"closedAt\":\"2026-06-22T13:46:02.649Z\"}"
+    },
+    {
+      "name": "progress contém SMS",
+      "ok": true,
+      "detail": "{\"score\":4,\"status\":\"VULNERABLE\",\"openFindings\":17,\"critical\":3,\"major\":9,\"plans\":17,\"last\":{\"at\":\"2026-06-22T13:46:02.649Z\",\"build\":\"SC-1.34.0-F34-20260620-2205\",\"airport\":\"SBGR\",\"finalScore\":300,\"signals\":{\"finalScore\":300,\"conflicts\":1,\"runwayIncursions\":1,\"denied\":3,\"fail\":false,\"crisisScore\":60,\"airportExperience\":62,\"airlineScore\":70,\"coachScore\":55,\"postPublishScore\":90,\"publicOpsScore\":88,\"fatigue\":78},\"newFindings\":6,\"openFindings\":18,\"critical\":3,\"major\":9,\"safetyCultureScore\":0,\"complianceStatus\":\"VULNERABLE\"}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"GENERATIVE\",\"min\":90,\"name\":\"Cultura generativa\"},{\"id\":\"PROACTIVE\",\"min\":75,\"name\":\"Cultura proativa\"},{\"id\":\"REACTIVE\",\"min\":55,\"name\":\"Cultura reativa\"},{\"id\":\"VULNERABLE\",\"min\":0,\"name\":\"Cultura vulnerável\"}]"
+    },
+    {
+      "name": "domínios essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"RUNWAY_SAFETY\",\"name\":\"Segurança de pista\",\"criticality\":5,\"signals\":[\"runwayIncursions\",\"surfaceSafety\"]},{\"id\":\"SEPARATION\",\"name\":\"Separação e conflito\",\"criticality\":5,\"signals\":[\"conflicts\",\"lossOfSeparation\"]},{\"id\":\"PROCEDURE\",\"name\":\"Procedimentos ATC\",\"criticality\":4,\"signals\":[\"denied\",\"wrongClearance\"]},{\"id\":\"FATIGUE\",\"name\":\"Fadiga e prontidão\",\"criticality\":4,\"signals\":[\"fatigue\",\"career\"]},{\"id\":\"CRISIS_RESPONSE\",\"name\":\"Resposta à crise\",\"criticality\":5,\"signals\":[\"crisisScore\",\"recoveryStage\"]},{\"id\":\"TERMINAL_RISK\",\"name\":\"Risco de terminal\",\"criticality\":3,\"signals\":[\"airportAuthority\",\"passengerFlow\"]},{\"id\":\"PWA_RELEASE\",\"name\":\"Publicação PWA\",\"criticality\":3,\"signals\":[\"postPublishHealth\",\"publicOps\"]}]"
+    }
+  ]
+}

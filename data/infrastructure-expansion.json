@@ -1,0 +1,161 @@
+{
+  "schema": 1,
+  "version": "2026.06-f35",
+  "description": "Infrastructure and expansion program with runway works, terminal expansion, maintenance, CAPEX, capacity and construction risk.",
+  "projects": [
+    {
+      "id": "RWY_REHAB",
+      "name": "Recapeamento de pista",
+      "type": "RUNWAY",
+      "cost": 180000,
+      "durationShifts": 4,
+      "capacityGain": 8,
+      "risk": 26
+    },
+    {
+      "id": "TML_EXPANSION",
+      "name": "Expansão de terminal",
+      "type": "TERMINAL",
+      "cost": 260000,
+      "durationShifts": 6,
+      "capacityGain": 15,
+      "risk": 22
+    },
+    {
+      "id": "ILS_UPGRADE",
+      "name": "Upgrade ILS CAT II",
+      "type": "NAV_AID",
+      "cost": 210000,
+      "durationShifts": 5,
+      "capacityGain": 10,
+      "risk": 18
+    },
+    {
+      "id": "CARGO_APRON",
+      "name": "Novo pátio cargueiro",
+      "type": "CARGO",
+      "cost": 190000,
+      "durationShifts": 5,
+      "capacityGain": 12,
+      "risk": 20
+    },
+    {
+      "id": "TOWER_SYSTEMS",
+      "name": "Modernização de sistemas da torre",
+      "type": "SYSTEMS",
+      "cost": 150000,
+      "durationShifts": 3,
+      "capacityGain": 7,
+      "risk": 16
+    },
+    {
+      "id": "REMOTE_STANDS",
+      "name": "Posições remotas adicionais",
+      "type": "APRON",
+      "cost": 120000,
+      "durationShifts": 3,
+      "capacityGain": 9,
+      "risk": 14
+    }
+  ],
+  "maintenancePrograms": [
+    {
+      "id": "DAILY_INSPECTION",
+      "name": "Inspeção diária de pista",
+      "cost": 8000,
+      "reliabilityGain": 5
+    },
+    {
+      "id": "LIGHTING_CHECK",
+      "name": "Checagem balizamento",
+      "cost": 12000,
+      "reliabilityGain": 7
+    },
+    {
+      "id": "RADAR_CALIBRATION",
+      "name": "Calibração radar/navaids",
+      "cost": 18000,
+      "reliabilityGain": 9
+    },
+    {
+      "id": "BAGGAGE_PM",
+      "name": "Manutenção preventiva bagagem",
+      "cost": 10000,
+      "reliabilityGain": 6
+    }
+  ],
+  "fundingSources": [
+    {
+      "id": "AIRPORT_REVENUE",
+      "name": "Receita aeroportuária",
+      "limit": 300000,
+      "risk": 5
+    },
+    {
+      "id": "PUBLIC_GRANT",
+      "name": "Fomento público",
+      "limit": 500000,
+      "risk": 12
+    },
+    {
+      "id": "AIRLINE_CONSORTIUM",
+      "name": "Consórcio de companhias",
+      "limit": 450000,
+      "risk": 10
+    },
+    {
+      "id": "EMERGENCY_CAPEX",
+      "name": "CAPEX emergencial",
+      "limit": 250000,
+      "risk": 18
+    }
+  ],
+  "constructionRisks": [
+    {
+      "id": "RUNWAY_RESTRICTION",
+      "name": "Restrição de pista",
+      "impact": "capacity-12",
+      "risk": 28
+    },
+    {
+      "id": "NOISE_WINDOW",
+      "name": "Janela de ruído",
+      "impact": "schedule-8",
+      "risk": 12
+    },
+    {
+      "id": "SUPPLY_DELAY",
+      "name": "Atraso de fornecedor",
+      "impact": "duration+1",
+      "risk": 20
+    },
+    {
+      "id": "COST_OVERRUN",
+      "name": "Estouro de orçamento",
+      "impact": "cost+15",
+      "risk": 18
+    }
+  ],
+  "capacityBands": [
+    {
+      "id": "WORLD_CLASS",
+      "min": 90,
+      "name": "Infraestrutura world-class"
+    },
+    {
+      "id": "EXPANDING",
+      "min": 75,
+      "name": "Infraestrutura em expansão"
+    },
+    {
+      "id": "LIMITED",
+      "min": 55,
+      "name": "Capacidade limitada"
+    },
+    {
+      "id": "CONSTRAINED",
+      "min": 0,
+      "name": "Aeroporto estrangulado"
+    }
+  ]
+}

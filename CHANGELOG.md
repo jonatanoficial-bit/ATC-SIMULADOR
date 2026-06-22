@@ -1,3 +1,31 @@
+## SC-1.35.0-F35-20260620-2245 — Infrastructure & Expansion Program
+
+- Adicionado módulo oficial `38-infrastructure-expansion-program.js`.
+- Criado catálogo `data/infrastructure-expansion.json`.
+- Adicionados projetos de infraestrutura.
+- Adicionada manutenção preventiva.
+- Adicionado orçamento CAPEX.
+- Adicionado risco de obra.
+- Adicionadas capacidade e confiabilidade aeroportuária.
+- Adicionado painel `INFRA CAPEX`.
+- Tela final mostra Infra CAPEX e Capacidade.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F35.
+
+## SC-1.34.0-F34-20260620-2205 — Safety Management System & Compliance Center
+
+- Adicionado módulo oficial `37-safety-compliance-center.js`.
+- Criado catálogo `data/safety-compliance-center.json`.
+- Adicionados domínios de auditoria.
+- Adicionados achados de auditoria.
+- Adicionada causa raiz.
+- Adicionado plano de ação corretiva.
+- Adicionada cultura de segurança.
+- Adicionado painel `SAFETY SMS`.
+- Tela final mostra Safety SMS e Achados SMS.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F34.
+
 ## SC-1.33.0-F33-20260620-2115 — Crisis Command Center
 
 - Adicionado módulo oficial `36-crisis-command-center.js`.

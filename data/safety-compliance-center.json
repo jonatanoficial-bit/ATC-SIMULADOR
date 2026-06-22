@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "version": "2026.06-f34",
+  "description": "Safety Management System and Compliance Center with audit findings, investigation, root cause, corrective actions and safety culture.",
+  "auditDomains": [
+    {
+      "id": "RUNWAY_SAFETY",
+      "name": "Segurança de pista",
+      "criticality": 5,
+      "signals": [
+        "runwayIncursions",
+        "surfaceSafety"
+      ]
+    },
+    {
+      "id": "SEPARATION",
+      "name": "Separação e conflito",
+      "criticality": 5,
+      "signals": [
+        "conflicts",
+        "lossOfSeparation"
+      ]
+    },
+    {
+      "id": "PROCEDURE",
+      "name": "Procedimentos ATC",
+      "criticality": 4,
+      "signals": [
+        "denied",
+        "wrongClearance"
+      ]
+    },
+    {
+      "id": "FATIGUE",
+      "name": "Fadiga e prontidão",
+      "criticality": 4,
+      "signals": [
+        "fatigue",
+        "career"
+      ]
+    },
+    {
+      "id": "CRISIS_RESPONSE",
+      "name": "Resposta à crise",
+      "criticality": 5,
+      "signals": [
+        "crisisScore",
+        "recoveryStage"
+      ]
+    },
+    {
+      "id": "TERMINAL_RISK",
+      "name": "Risco de terminal",
+      "criticality": 3,
+      "signals": [
+        "airportAuthority",
+        "passengerFlow"
+      ]
+    },
+    {
+      "id": "PWA_RELEASE",
+      "name": "Publicação PWA",
+      "criticality": 3,
+      "signals": [
+        "postPublishHealth",
+        "publicOps"
+      ]
+    }
+  ],
+  "findingSeverity": [
+    {
+      "id": "OBSERVATION",
+      "name": "Observação",
+      "risk": 15,
+      "actionDays": 30
+    },
+    {
+      "id": "MINOR",
+      "name": "Não conformidade menor",
+      "risk": 35,
+      "actionDays": 21
+    },
+    {
+      "id": "MAJOR",
+      "name": "Não conformidade maior",
+      "risk": 65,
+      "actionDays": 10
+    },
+    {
+      "id": "CRITICAL",
+      "name": "Risco crítico",
+      "risk": 90,
+      "actionDays": 3
+    }
+  ],
+  "rootCauses": [
+    {
+      "id": "TRAINING_GAP",
+      "name": "Lacuna de treinamento",
+      "corrective": "Repetir missão guiada e cards do instrutor"
+    },
+    {
+      "id": "PROCEDURE_DRIFT",
+      "name": "Desvio de procedimento",
+      "corrective": "Auditar fraseologia e checklist de autorização"
+    },
+    {
+      "id": "WORKLOAD",
+      "name": "Carga de trabalho excessiva",
+      "corrective": "Reduzir taxa, usar hold/slots e redistribuir fluxo"
+    },
+    {
+      "id": "SYSTEM_FAILURE",
+      "name": "Falha de sistema",
+      "corrective": "Ativar fallback manual e revisar PWA/cache"
+    },
+    {
+      "id": "COMMUNICATION",
+      "name": "Comunicação deficiente",
+      "corrective": "Debrief e reclassificação de prioridades"
+    }
+  ],
+  "correctiveActions": [
+    {
+      "id": "CAP_TRAINING",
+      "name": "Treinamento corretivo",
+      "cost": 5000,
+      "effect": "risk-12"
+    },
+    {
+      "id": "CAP_CHECKLIST",
+      "name": "Checklist obrigatório",
+      "cost": 3000,
+      "effect": "procedure+10"
+    },
+    {
+      "id": "CAP_RATE_LIMIT",
+      "name": "Limite temporário de taxa",
+      "cost": 8000,
+      "effect": "workload-15"
+    },
+    {
+      "id": "CAP_SYSTEM_FALLBACK",
+      "name": "Plano fallback sistema",
+      "cost": 12000,
+      "effect": "systems+12"
+    },
+    {
+      "id": "CAP_DEBRIEF",
+      "name": "Debrief estruturado",
+      "cost": 2000,
+      "effect": "culture+8"
+    }
+  ],
+  "safetyCultureBands": [
+    {
+      "id": "GENERATIVE",
+      "min": 90,
+      "name": "Cultura generativa"
+    },
+    {
+      "id": "PROACTIVE",
+      "min": 75,
+      "name": "Cultura proativa"
+    },
+    {
+      "id": "REACTIVE",
+      "min": 55,
+      "name": "Cultura reativa"
+    },
+    {
+      "id": "VULNERABLE",
+      "min": 0,
+      "name": "Cultura vulnerável"
+    }
+  ]
+}
