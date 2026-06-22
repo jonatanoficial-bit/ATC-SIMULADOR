@@ -193,6 +193,11 @@
       "description": "Multi-airport network, hubs, routes, alternates, slots, connections and regional resilience"
     },
     {
+      "file": "44-emergency-response-disaster-center.js",
+      "name": "emergency-response-disaster-center",
+      "description": "Emergency response, ARFF, evacuation, medical triage, disaster preparedness and multi-agency coordination"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

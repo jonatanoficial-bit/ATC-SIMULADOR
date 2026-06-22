@@ -976,3 +976,11 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .multi-airport-network-world{color:#91ffb7}
 .multi-airport-network-fragile{color:#ffd27a}
 .multi-airport-network-risk{color:#ff918c}
+
+/* F41 Emergency Response */
+.emergency-response-inline{border-color:rgba(255,116,86,.58);background:linear-gradient(180deg,rgba(92,28,16,.88),rgba(39,7,4,.96));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 30px rgba(255,116,86,.12)}
+.emergency-response-inline .airport-ops-head span{color:#ff9b82}
+.emergency-response-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,116,86,.45);border-radius:999px;padding:4px 9px;background:rgba(255,116,86,.13);font-weight:900}
+.emergency-response-ready{color:#91ffb7}
+.emergency-response-gap{color:#ffd27a}
+.emergency-response-risk{color:#ff918c}

@@ -1,10 +1,10 @@
 {
   "product": "Skyward Control",
   "prefix": "SC",
-  "version": "1.40.0",
-  "phase": "F40",
-  "phaseName": "Multi-Airport Network & Regional Operations Center, Hubs, Rotas, Conexões e Slots Regionais",
-  "channel": "multi-airport-network",
+  "version": "1.41.0",
+  "phase": "F41",
+  "phaseName": "Emergency Response & Disaster Preparedness Center, ARFF, Evacuação, Médico e Coordenação Multiagência",
+  "channel": "emergency-response",
   "saveSchema": 3,
   "target": "Mobile-first / Tablet / Desktop",
   "timeZone": "America/Sao_Paulo",
@@ -17,9 +17,9 @@
   "desktopSchema": 1,
   "accessibilitySchema": 1,
   "replaySchema": 1,
-  "build": "SC-1.40.0-F40-20260622-1320",
-  "builtAt": "2026-06-22 13:20 BRT",
-  "builtAtIso": "2026-06-22T13:20:00-03:00",
+  "build": "SC-1.41.0-F41-20260622-1410",
+  "builtAt": "2026-06-22 14:10 BRT",
+  "builtAtIso": "2026-06-22T14:10:00-03:00",
   "aircraftPerformanceSchema": 1,
   "airportSurfaceSchema": 1,
   "surfaceSafetySchema": 1,
@@ -48,5 +48,6 @@
   "revenueManagementSchema": 1,
   "workforceStaffingSchema": 1,
   "passengerReputationSchema": 1,
-  "multiAirportNetworkSchema": 1
+  "multiAirportNetworkSchema": 1,
+  "emergencyResponseSchema": 1
 }

@@ -1,7 +1,7 @@
 SKYWARD CONTROL
-Multi-Airport Network Evolution — Phase 40
-Version: 1.40.0
-Build: SC-1.40.0-F40-20260622-1320
-Built: 2026-06-22 13:20 BRT
-Channel: MULTI-AIRPORT-NETWORK
-Status: F40 MULTI-AIRPORT NETWORK AUDITED
+Emergency Response Evolution — Phase 41
+Version: 1.41.0
+Build: SC-1.41.0-F41-20260622-1410
+Built: 2026-06-22 14:10 BRT
+Channel: EMERGENCY-RESPONSE
+Status: F41 EMERGENCY RESPONSE AUDITED

@@ -1,0 +1,249 @@
+{
+  "schema": 1,
+  "version": "2026.06-f41",
+  "description": "Emergency response and disaster preparedness center with ARFF, evacuation, medical triage, mutual aid, drills, response time and multi-agency coordination.",
+  "emergencyUnits": [
+    {
+      "id": "ARFF_1",
+      "name": "ARFF principal",
+      "type": "FIRE",
+      "coverage": 32,
+      "readiness": 82,
+      "responseMin": 3
+    },
+    {
+      "id": "ARFF_2",
+      "name": "ARFF reserva",
+      "type": "FIRE",
+      "coverage": 24,
+      "readiness": 76,
+      "responseMin": 4
+    },
+    {
+      "id": "MEDICAL_TEAM",
+      "name": "Equipe médica aeroportuária",
+      "type": "MEDICAL",
+      "coverage": 20,
+      "readiness": 78,
+      "responseMin": 5
+    },
+    {
+      "id": "SECURITY_EOC",
+      "name": "Segurança/EOC",
+      "type": "COMMAND",
+      "coverage": 18,
+      "readiness": 80,
+      "responseMin": 4
+    },
+    {
+      "id": "EVAC_TEAM",
+      "name": "Equipe de evacuação",
+      "type": "EVACUATION",
+      "coverage": 16,
+      "readiness": 74,
+      "responseMin": 6
+    },
+    {
+      "id": "MUTUAL_AID",
+      "name": "Apoio externo municipal",
+      "type": "MUTUAL_AID",
+      "coverage": 22,
+      "readiness": 70,
+      "responseMin": 9
+    }
+  ],
+  "emergencyScenarios": [
+    {
+      "id": "AIRCRAFT_FIRE",
+      "name": "Fogo em aeronave",
+      "severity": 92,
+      "unit": "ARFF_1",
+      "reputationRisk": 28
+    },
+    {
+      "id": "RUNWAY_EXCURSION",
+      "name": "Excursão de pista",
+      "severity": 84,
+      "unit": "ARFF_1",
+      "reputationRisk": 24
+    },
+    {
+      "id": "TERMINAL_EVAC",
+      "name": "Evacuação de terminal",
+      "severity": 78,
+      "unit": "EVAC_TEAM",
+      "reputationRisk": 22
+    },
+    {
+      "id": "MASS_CASUALTY",
+      "name": "Múltiplas vítimas",
+      "severity": 88,
+      "unit": "MEDICAL_TEAM",
+      "reputationRisk": 26
+    },
+    {
+      "id": "FUEL_SPILL",
+      "name": "Derramamento de combustível",
+      "severity": 72,
+      "unit": "ARFF_2",
+      "reputationRisk": 18
+    },
+    {
+      "id": "SECURITY_LOCKDOWN",
+      "name": "Lockdown de segurança",
+      "severity": 80,
+      "unit": "SECURITY_EOC",
+      "reputationRisk": 21
+    }
+  ],
+  "preparednessPrograms": [
+    {
+      "id": "FULL_SCALE_DRILL",
+      "name": "Simulado geral integrado",
+      "cost": 42000,
+      "benefit": {
+        "readiness": 12,
+        "coordination": 10,
+        "response": 2
+      }
+    },
+    {
+      "id": "ARFF_RECERT",
+      "name": "Recertificação ARFF",
+      "cost": 28000,
+      "benefit": {
+        "readiness": 9,
+        "arff": 12
+      }
+    },
+    {
+      "id": "MEDICAL_TRIAGE",
+      "name": "Treino de triagem médica",
+      "cost": 21000,
+      "benefit": {
+        "medical": 12,
+        "coordination": 4
+      }
+    },
+    {
+      "id": "EVAC_ROUTE_AUDIT",
+      "name": "Auditoria de rotas de evacuação",
+      "cost": 18000,
+      "benefit": {
+        "evacuation": 10,
+        "response": 1
+      }
+    },
+    {
+      "id": "MUTUAL_AID_MOU",
+      "name": "Acordo de apoio externo",
+      "cost": 26000,
+      "benefit": {
+        "mutualAid": 14,
+        "coordination": 5
+      }
+    },
+    {
+      "id": "EOC_UPGRADE",
+      "name": "Upgrade centro de emergência",
+      "cost": 36000,
+      "benefit": {
+        "coordination": 12,
+        "response": 2
+      }
+    }
+  ],
+  "agencyPartners": [
+    {
+      "id": "FIRE_DEPT",
+      "name": "Corpo de bombeiros",
+      "trust": 82
+    },
+    {
+      "id": "EMS",
+      "name": "SAMU/Resgate",
+      "trust": 78
+    },
+    {
+      "id": "POLICE",
+      "name": "Polícia/segurança",
+      "trust": 76
+    },
+    {
+      "id": "CIVIL_DEFENSE",
+      "name": "Defesa civil",
+      "trust": 74
+    },
+    {
+      "id": "AIRLINES_EOC",
+      "name": "EOC companhias",
+      "trust": 80
+    }
+  ],
+  "incidentLevels": [
+    {
+      "id": "ALERT",
+      "minSeverity": 35,
+      "name": "Alerta"
+    },
+    {
+      "id": "LOCAL_STANDBY",
+      "minSeverity": 55,
+      "name": "Prontidão local"
+    },
+    {
+      "id": "FULL_EMERGENCY",
+      "minSeverity": 75,
+      "name": "Emergência completa"
+    },
+    {
+      "id": "DISASTER",
+      "minSeverity": 90,
+      "name": "Desastre"
+    }
+  ],
+  "readinessBands": [
+    {
+      "id": "MISSION_READY",
+      "min": 90,
+      "name": "Pronto para missão"
+    },
+    {
+      "id": "READY",
+      "min": 75,
+      "name": "Pronto"
+    },
+    {
+      "id": "GAPS",
+      "min": 55,
+      "name": "Com lacunas"
+    },
+    {
+      "id": "UNPREPARED",
+      "min": 0,
+      "name": "Despreparado"
+    }
+  ],
+  "responseKPIs": [
+    {
+      "id": "RESPONSE_TIME",
+      "name": "Tempo de resposta"
+    },
+    {
+      "id": "ARFF_COVERAGE",
+      "name": "Cobertura ARFF"
+    },
+    {
+      "id": "EVACUATION_FLOW",
+      "name": "Fluxo de evacuação"
+    },
+    {
+      "id": "MEDICAL_TRIAGE",
+      "name": "Triagem médica"
+    },
+    {
+      "id": "AGENCY_COORDINATION",
+      "name": "Coordenação multiagência"
+    }
+  ]
+}

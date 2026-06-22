@@ -1,3 +1,17 @@
+## SC-1.41.0-F41-20260622-1410 — Emergency Response & Disaster Preparedness Center
+
+- Adicionado módulo oficial `44-emergency-response-disaster-center.js`.
+- Criado catálogo `data/emergency-response-disaster.json`.
+- Adicionadas unidades ARFF, médicas, evacuação e EOC.
+- Adicionados cenários de emergência e desastre.
+- Adicionados programas de preparo.
+- Adicionados parceiros multiagência.
+- Adicionados KPIs de resposta.
+- Adicionado painel `EMERGENCY OPS`.
+- Tela final mostra Emergency Ops e Resposta.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F41.
+
 ## SC-1.40.0-F40-20260622-1320 — Multi-Airport Network & Regional Operations Center
 
 - Adicionado módulo oficial `43-multi-airport-network-center.js`.

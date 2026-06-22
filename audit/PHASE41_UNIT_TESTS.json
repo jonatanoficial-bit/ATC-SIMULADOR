@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase41-unit",
+  "build": "SC-1.41.0-F41-20260622-1410",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F41+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.41.0\",\"phase\":\"F41\",\"phaseName\":\"Emergency Response & Disaster Preparedness Center, ARFF, Evacuação, Médico e Coordenação Multiagência\",\"channel\":\"emergency-response\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.41.0-F41-20260622-1410\",\"builtAt\":\"2026-06-22 14:10 BRT\",\"builtAtIso\":\"2026-06-22T14:10:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1}"
+    },
+    {
+      "name": "módulo F41 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo units scenarios programs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"units\":6,\"scenarios\":6}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"programs\":[{\"id\":\"ERP-496864\",\"programId\":\"FULL_SCALE_DRILL\",\"name\":\"Simulado geral integrado\",\"cost\":42000,\"status\":\"ACTIVE\",\"at\":\"2026-06-22T21:58:16.864Z\"}],\"incidents\":[{\"id\":\"EMG-496866\",\"scenarioId\":\"RUNWAY_EXCURSION\",\"name\":\"Excursão de pista\",\"severity\":84,\"unit\":\"ARFF_1\",\"level\":\"FULL_EMERGENCY\",\"reputationRisk\":24,\"status\":\"OPEN\",\"at\":\"2026-06-22T21:58:16.866Z\"},{\"id\":\"EMG-496865\",\"scenarioId\":\"RUNWAY_EXCURSION\",\"name\":\"Excursão de pista\",\"severity\":84,\"unit\":\"ARFF_1\",\"level\":\"FULL_EMERGENCY\",\"reputationRisk\":24,\"status\":\"OPEN\",\"at\":\"2026-06-22T21:58:16.865Z\"}],\"actions\":[],\"readinessScore\":78,\"responseTime\":5,\"arffCoverage\":81,\"evacuationFlow\":88,\"medicalTriage\":87,\"agencyCoordination\":89,\"status\":\"READY\",\"history\":[{\"at\":\"2026-06-22T21:58:16.866Z\",\"build\":\"SC-1.41.0-F41-20260622-1410\",\"airport\":\"SBGR\",\"finalScore\":2600,\"responseTime\":5,\"arffCoverage\":81,\"evacuationFlow\":88,\"medicalTriage\":87,\"agencyCoordination\":89,\"reputationLoad\":48,\"openIncidents\":2,\"drivers\":{\"conflicts\":0,\"incursions\":0,\"denied\":0,\"crisisScore\":92,\"safetyScore\":84,\"workforceScore\":82,\"passengerScore\":80,\"networkScore\":86,\"infraRisk\":10},\"readinessScore\":78,\"status\":\"READY\",\"programs\":1},{\"at\":\"2026-06-22T21:58:16.865Z\",\"build\":\"SC-1.41.0-F41-20260622-1410\",\"airport\":\"SBGR\",\"finalScore\":2600,\"responseTime\":4,\"arffCoverage\":81,\"evacuationFlow\":82,\"medicalTriage\":82,\"agencyCoordination\":89,\"reputationLoad\":24,\"openIncidents\":1,\"drivers\":{\"conflicts\":0,\"incursions\":0,\"denied\":0,\"crisisScore\":92,\"safetyScore\":84,\"workforceScore\":82,\"passengerScore\":80,\"networkScore\":86,\"infraRisk\":10},\"readinessScore\":79,\"status\":\"READY\",\"programs\":1}],\"lastEvaluation\":{\"at\":\"2026-06-22T21:58:16.866Z\",\"build\":\"SC-1.41.0-F41-20260622-1410\",\"airport\":\"SBGR\",\"finalScore\":2600,\"responseTime\":5,\"arffCoverage\":81,\"evacuationFlow\":88,\"medicalTriage\":87,\"agencyCoordination\":89,\"reputationLoad\":48,\"openIncidents\":2,\"drivers\":{\"conflicts\":0,\"incursions\":0,\"denied\":0,\"crisisScore\":92,\"safetyScore\":84,\"workforceScore\":82,\"passengerScore\":80,\"networkScore\":86,\"infraRisk\":10},\"readinessScore\":78,\"status\":\"READY\",\"programs\":1}}"
+    },
+    {
+      "name": "programa ARFF criado",
+      "ok": true,
+      "detail": "{\"id\":\"ERP-496866\",\"programId\":\"ARFF_RECERT\",\"name\":\"Recertificação ARFF\",\"cost\":28000,\"status\":\"ACTIVE\",\"at\":\"2026-06-22T21:58:16.866Z\"}"
+    },
+    {
+      "name": "incidente criado",
+      "ok": true,
+      "detail": "{\"id\":\"EMG-496866\",\"scenarioId\":\"MASS_CASUALTY\",\"name\":\"Múltiplas vítimas\",\"severity\":88,\"unit\":\"MEDICAL_TEAM\",\"level\":\"FULL_EMERGENCY\",\"reputationRisk\":26,\"status\":\"OPEN\",\"at\":\"2026-06-22T21:58:16.866Z\"}"
+    },
+    {
+      "name": "emergência avaliada",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-22T21:58:16.866Z\",\"build\":\"SC-1.41.0-F41-20260622-1410\",\"airport\":\"SBGR\",\"finalScore\":2700,\"responseTime\":7,\"arffCoverage\":89,\"evacuationFlow\":94,\"medicalTriage\":77,\"agencyCoordination\":85,\"reputationLoad\":74,\"openIncidents\":3,\"drivers\":{\"conflicts\":0,\"incursions\":0,\"denied\":0,\"crisisScore\":92,\"safetyScore\":84,\"workforceScore\":82,\"passengerScore\":80,\"networkScore\":86,\"infraRisk\":10},\"readinessScore\":74,\"status\":\"GAPS\",\"programs\":2}"
+    },
+    {
+      "name": "progress contém emergência",
+      "ok": true,
+      "detail": "{\"score\":74,\"status\":\"GAPS\",\"responseTime\":7,\"arffCoverage\":89,\"evacuationFlow\":94,\"medicalTriage\":77,\"agencyCoordination\":85,\"openIncidents\":3,\"programs\":2,\"last\":{\"at\":\"2026-06-22T21:58:16.866Z\",\"build\":\"SC-1.41.0-F41-20260622-1410\",\"airport\":\"SBGR\",\"finalScore\":2700,\"responseTime\":7,\"arffCoverage\":89,\"evacuationFlow\":94,\"medicalTriage\":77,\"agencyCoordination\":85,\"reputationLoad\":74,\"openIncidents\":3,\"drivers\":{\"conflicts\":0,\"incursions\":0,\"denied\":0,\"crisisScore\":92,\"safetyScore\":84,\"workforceScore\":82,\"passengerScore\":80,\"networkScore\":86,\"infraRisk\":10},\"readinessScore\":74,\"status\":\"GAPS\",\"programs\":2}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"MISSION_READY\",\"min\":90,\"name\":\"Pronto para missão\"},{\"id\":\"READY\",\"min\":75,\"name\":\"Pronto\"},{\"id\":\"GAPS\",\"min\":55,\"name\":\"Com lacunas\"},{\"id\":\"UNPREPARED\",\"min\":0,\"name\":\"Despreparado\"}]"
+    },
+    {
+      "name": "unidades essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"ARFF_1\",\"name\":\"ARFF principal\",\"type\":\"FIRE\",\"coverage\":32,\"readiness\":82,\"responseMin\":3},{\"id\":\"ARFF_2\",\"name\":\"ARFF reserva\",\"type\":\"FIRE\",\"coverage\":24,\"readiness\":76,\"responseMin\":4},{\"id\":\"MEDICAL_TEAM\",\"name\":\"Equipe médica aeroportuária\",\"type\":\"MEDICAL\",\"coverage\":20,\"readiness\":78,\"responseMin\":5},{\"id\":\"SECURITY_EOC\",\"name\":\"Segurança/EOC\",\"type\":\"COMMAND\",\"coverage\":18,\"readiness\":80,\"responseMin\":4},{\"id\":\"EVAC_TEAM\",\"name\":\"Equipe de evacuação\",\"type\":\"EVACUATION\",\"coverage\":16,\"readiness\":74,\"responseMin\":6},{\"id\":\"MUTUAL_AID\",\"name\":\"Apoio externo municipal\",\"type\":\"MUTUAL_AID\",\"coverage\":22,\"readiness\":70,\"responseMin\":9}]"
+    }
+  ]
+}

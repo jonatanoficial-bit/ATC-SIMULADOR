@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.40.0-F40-20260622-1320",
-  "builtAt": "2026-06-22 13:20 BRT",
-  "cacheName": "skyward-control-1-sc-1.40.0-f40-20260622-1320",
+  "build": "SC-1.41.0-F41-20260622-1410",
+  "builtAt": "2026-06-22 14:10 BRT",
+  "cacheName": "skyward-control-1-sc-1.41.0-f41-20260622-1410",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,8 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 1566,
-      "sha256": "f948d9f5deb620690af4b526c7b02162ce6b08cee943822398afc6e144a88048"
+      "bytes": 1610,
+      "sha256": "4301c185fe0e1961249eabaab640ebc34f9bddae4e0d415d26b15769dd70a32e"
     },
     {
       "url": "./data/aircraft-performance.json",
@@ -145,6 +145,12 @@
       "file": "data/economy-contracts.json",
       "bytes": 3199,
       "sha256": "dae133a6375f4c3ac9e4464317b589929984153526adb0db19203661a1aa382f"
+    },
+    {
+      "url": "./data/emergency-response-disaster.json",
+      "file": "data/emergency-response-disaster.json",
+      "bytes": 5031,
+      "sha256": "99625b0dcedae88f2ea144a61a5462a0403a15bbb2d0d87906af99d14995d7ca"
     },
     {
       "url": "./data/environment-sustainability.json",
@@ -281,8 +287,8 @@
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 614733,
-      "sha256": "0bb60b474c8981fd6d22f8fe2446f21c4cc6a9595e851ae893732578f6ed0c99"
+      "bytes": 630258,
+      "sha256": "5f2c8a9625a76c074e4b287e24d30800da965535f3d3b01b6d8d20d0ed221ddc"
     },
     {
       "url": "./manifest.webmanifest",
@@ -293,8 +299,8 @@
     {
       "url": "./style.css",
       "file": "style.css",
-      "bytes": 106477,
-      "sha256": "a019904fc553dfe9760299423e745d8b8e53258abdc7107e5fe79d3f7b269f99"
+      "bytes": 107098,
+      "sha256": "108764a80029f5f9c51945a3928d7b330b26cfed1fd26de6425b8b4caa404f6a"
     }
   ]
 }
