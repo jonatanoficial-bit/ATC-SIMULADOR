@@ -1,18 +1,18 @@
-# Build Notes — SC-1.30.0-F30-20260620-1905
+# Build Notes — SC-1.32.0-F32-20260620-2035
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.30.0
-- Fase: F30 — Campanha Internacional ATC, Temporadas, Contratos de Aeroportos e Calendário de Carreira
-- Build: `SC-1.30.0-F30-20260620-1905`
-- Data/hora: 2026-06-20 19:05 BRT
-- Canal: international-campaign
-- International Campaign schema: 1
+- Versão: 1.32.0
+- Fase: F32 — Airport Authority & Terminal Operations, Portões, Passageiros, Bagagem e Experiência do Aeroporto
+- Build: `SC-1.32.0-F32-20260620-2035`
+- Data/hora: 2026-06-20 20:35 BRT
+- Canal: airport-authority
+- Airport Authority schema: 1
 
 ## Entregas
 
-A Fase 30 adiciona campanha internacional, temporadas, contratos por aeroporto, reputação, orçamento, calendário operacional e milestones.
+A Fase 32 adiciona autoridade aeroportuária, terminais, portões, filas, bagagem, conexões, eventos de terminal e experiência do aeroporto.
 
 ## Documento de upload
 

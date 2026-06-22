@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-Version: 1.30.0
-Phase: F30 — Campanha Internacional ATC, Temporadas, Contratos de Aeroportos e Calendário de Carreira
-Build: SC-1.30.0-F30-20260620-1905
-Built at: 2026-06-20 19:05 BRT
-Channel: international-campaign
-International Campaign schema: 1
+Version: 1.32.0
+Phase: F32 — Airport Authority & Terminal Operations, Portões, Passageiros, Bagagem e Experiência do Aeroporto
+Build: SC-1.32.0-F32-20260620-2035
+Built at: 2026-06-20 20:35 BRT
+Channel: airport-authority
+Airport Authority schema: 1
 Target: Mobile-first / Tablet / Desktop

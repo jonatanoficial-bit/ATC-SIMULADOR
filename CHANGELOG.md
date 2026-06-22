@@ -1,3 +1,30 @@
+## SC-1.32.0-F32-20260620-2035 — Airport Authority & Terminal Operations
+
+- Adicionado módulo oficial `35-airport-authority-terminal-ops.js`.
+- Criado catálogo `data/airport-authority.json`.
+- Adicionados terminais e portões.
+- Adicionados fluxos de passageiros, bagagem e conexões.
+- Adicionados eventos de terminal.
+- Adicionada avaliação de experiência do aeroporto.
+- Adicionado painel `AIRPORT AUTH`.
+- Tela final mostra Airport Auth e Terminal EXP.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F32.
+
+## SC-1.31.0-F31-20260620-1950 — Airline Operations Center
+
+- Adicionado módulo oficial `34-airline-operations-center.js`.
+- Criado catálogo `data/airline-operations.json`.
+- Adicionadas companhias aéreas.
+- Adicionados bancos de rota e perfis de demanda.
+- Adicionadas métricas SLA.
+- Adicionados pedidos operacionais.
+- Adicionada satisfação por companhia.
+- Adicionado painel `AIRLINE OPS`.
+- Tela final mostra Airline Ops e SLA Cias.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F31.
+
 ## SC-1.30.0-F30-20260620-1905 — International ATC Campaign
 
 - Adicionado módulo oficial `33-international-campaign.js`.

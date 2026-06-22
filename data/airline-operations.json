@@ -1,0 +1,197 @@
+{
+  "schema": 1,
+  "version": "2026.06-f31",
+  "description": "Airline Operations Center with airline profiles, scheduled bank waves, passenger/cargo demand, SLA and carrier satisfaction.",
+  "airlines": [
+    {
+      "id": "AZU",
+      "name": "Azul Connect",
+      "baseAirports": [
+        "SBKP",
+        "SBGR"
+      ],
+      "priority": "CARGO_PASSENGER",
+      "slaTarget": 82
+    },
+    {
+      "id": "GLO",
+      "name": "Gol Shuttle",
+      "baseAirports": [
+        "SBSP",
+        "SBGR",
+        "SBBR"
+      ],
+      "priority": "PUNCTUALITY",
+      "slaTarget": 84
+    },
+    {
+      "id": "LAT",
+      "name": "LATAM Network",
+      "baseAirports": [
+        "SBGR",
+        "SBBR"
+      ],
+      "priority": "CONNECTIONS",
+      "slaTarget": 86
+    },
+    {
+      "id": "DAL",
+      "name": "Delta Global",
+      "baseAirports": [
+        "KATL"
+      ],
+      "priority": "HUB_FLOW",
+      "slaTarget": 88
+    },
+    {
+      "id": "BOX",
+      "name": "Box Cargo",
+      "baseAirports": [
+        "SBKP",
+        "KATL"
+      ],
+      "priority": "CARGO",
+      "slaTarget": 80
+    }
+  ],
+  "routeBanks": [
+    {
+      "id": "MORNING_SHUTTLE",
+      "name": "Ponte aérea manhã",
+      "airports": [
+        "SBSP",
+        "SBBR"
+      ],
+      "window": "06:00-10:00",
+      "demand": 78
+    },
+    {
+      "id": "GRU_INTL_BANK",
+      "name": "Banco internacional GRU",
+      "airports": [
+        "SBGR"
+      ],
+      "window": "18:00-23:00",
+      "demand": 92
+    },
+    {
+      "id": "VCP_CARGO_WAVE",
+      "name": "Onda cargueira VCP",
+      "airports": [
+        "SBKP"
+      ],
+      "window": "01:00-05:00",
+      "demand": 88
+    },
+    {
+      "id": "ATL_GLOBAL_PUSH",
+      "name": "Push global ATL",
+      "airports": [
+        "KATL"
+      ],
+      "window": "12:00-16:00",
+      "demand": 96
+    }
+  ],
+  "slaMetrics": [
+    {
+      "id": "PUNCTUALITY",
+      "name": "Pontualidade",
+      "weight": 30
+    },
+    {
+      "id": "SAFETY",
+      "name": "Segurança",
+      "weight": 30
+    },
+    {
+      "id": "CONNECTIONS",
+      "name": "Conexões protegidas",
+      "weight": 20
+    },
+    {
+      "id": "CARGO",
+      "name": "Carga dentro da janela",
+      "weight": 10
+    },
+    {
+      "id": "COMMUNICATION",
+      "name": "Comunicação operacional",
+      "weight": 10
+    }
+  ],
+  "serviceRequests": [
+    {
+      "id": "REQ_PRIORITY_TURN",
+      "name": "Turnaround prioritário",
+      "impact": "delay-8",
+      "risk": 10
+    },
+    {
+      "id": "REQ_CARGO_WINDOW",
+      "name": "Janela cargueira rígida",
+      "impact": "cargo+15",
+      "risk": 12
+    },
+    {
+      "id": "REQ_CONNECTION_HOLD",
+      "name": "Segurar conexão crítica",
+      "impact": "connections+20",
+      "risk": 18
+    },
+    {
+      "id": "REQ_HUB_PUSH",
+      "name": "Push de hub coordenado",
+      "impact": "flow+18",
+      "risk": 20
+    }
+  ],
+  "demandProfiles": [
+    {
+      "id": "NORMAL",
+      "passengers": 1.0,
+      "cargo": 1.0,
+      "delaySensitivity": 1.0
+    },
+    {
+      "id": "HOLIDAY",
+      "passengers": 1.35,
+      "cargo": 0.9,
+      "delaySensitivity": 1.2
+    },
+    {
+      "id": "CARGO_PEAK",
+      "passengers": 0.9,
+      "cargo": 1.55,
+      "delaySensitivity": 1.1
+    },
+    {
+      "id": "IRREGULAR_OPS",
+      "passengers": 1.1,
+      "cargo": 1.2,
+      "delaySensitivity": 1.45
+    }
+  ],
+  "satisfactionBands": [
+    {
+      "id": "EXCELLENT",
+      "min": 90,
+      "name": "Excelente"
+    },
+    {
+      "id": "GOOD",
+      "min": 75,
+      "name": "Boa"
+    },
+    {
+      "id": "WATCH",
+      "min": 55,
+      "name": "Atenção"
+    },
+    {
+      "id": "AT_RISK",
+      "min": 0,
+      "name": "Contrato em risco"
+    }
+  ]
+}

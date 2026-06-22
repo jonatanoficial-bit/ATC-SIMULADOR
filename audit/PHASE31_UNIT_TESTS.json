@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase31-unit",
+  "build": "SC-1.31.0-F31-20260620-1950",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F31+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.31.0\",\"phase\":\"F31\",\"phaseName\":\"Airline Operations Center, Companhias, Malha Aérea, Demanda Passageiro/Carga e SLA Comercial\",\"channel\":\"airline-operations\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.31.0-F31-20260620-1950\",\"builtAt\":\"2026-06-20 19:50 BRT\",\"builtAtIso\":\"2026-06-20T19:50:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1}"
+    },
+    {
+      "name": "módulo F31 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo airlines banks SLA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"airlines\":5,\"banks\":4,\"metrics\":5}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"activeDemandProfile\":\"NORMAL\",\"airlineScores\":{\"AZU\":{\"score\":86,\"band\":\"GOOD\",\"lastDelta\":2,\"lastAirport\":\"SBGR\"},\"GLO\":{\"score\":88,\"band\":\"GOOD\",\"lastDelta\":2,\"lastAirport\":\"SBGR\"},\"LAT\":{\"score\":88,\"band\":\"GOOD\",\"lastDelta\":1,\"lastAirport\":\"SBGR\"}},\"serviceQueue\":[{\"id\":\"SRQ-981337\",\"requestId\":\"REQ_PRIORITY_TURN\",\"airlineId\":\"GLO\",\"at\":\"2026-06-20T16:29:41.337Z\",\"status\":\"OPEN\",\"risk\":10}],\"history\":[{\"at\":\"2026-06-20T16:29:41.336Z\",\"build\":\"SC-1.31.0-F31-20260620-1950\",\"airport\":\"SBGR\",\"finalScore\":2500,\"sla\":{\"scores\":{\"PUNCTUALITY\":95,\"SAFETY\":100,\"CONNECTIONS\":86,\"CARGO\":75,\"COMMUNICATION\":87},\"weighted\":92,\"band\":{\"id\":\"EXCELLENT\",\"min\":90,\"name\":\"Excelente\"}},\"carriers\":[\"AZU\",\"GLO\",\"LAT\"],\"banks\":[\"GRU_INTL_BANK\"],\"averageCarrierScore\":87,\"opsScore\":87,\"status\":\"AIRLINE_STABLE\",\"openRequests\":0},{\"at\":\"2026-06-20T16:29:41.330Z\",\"build\":\"SC-1.31.0-F31-20260620-1950\",\"airport\":\"SBGR\",\"finalScore\":2500,\"sla\":{\"scores\":{\"PUNCTUALITY\":95,\"SAFETY\":100,\"CONNECTIONS\":86,\"CARGO\":75,\"COMMUNICATION\":87},\"weighted\":92,\"band\":{\"id\":\"EXCELLENT\",\"min\":90,\"name\":\"Excelente\"}},\"carriers\":[\"AZU\",\"GLO\",\"LAT\"],\"banks\":[\"GRU_INTL_BANK\"],\"averageCarrierScore\":86,\"opsScore\":87,\"status\":\"AIRLINE_STABLE\",\"openRequests\":0}],\"airlineOpsScore\":87,\"status\":\"AIRLINE_STABLE\",\"lastEvaluation\":{\"at\":\"2026-06-20T16:29:41.336Z\",\"build\":\"SC-1.31.0-F31-20260620-1950\",\"airport\":\"SBGR\",\"finalScore\":2500,\"sla\":{\"scores\":{\"PUNCTUALITY\":95,\"SAFETY\":100,\"CONNECTIONS\":86,\"CARGO\":75,\"COMMUNICATION\":87},\"weighted\":92,\"band\":{\"id\":\"EXCELLENT\",\"min\":90,\"name\":\"Excelente\"}},\"carriers\":[\"AZU\",\"GLO\",\"LAT\"],\"banks\":[\"GRU_INTL_BANK\"],\"averageCarrierScore\":87,\"opsScore\":87,\"status\":\"AIRLINE_STABLE\",\"openRequests\":0}}"
+    },
+    {
+      "name": "pedido operacional criado",
+      "ok": true,
+      "detail": "{\"id\":\"SRQ-981337\",\"requestId\":\"REQ_CONNECTION_HOLD\",\"airlineId\":\"LAT\",\"at\":\"2026-06-20T16:29:41.337Z\",\"status\":\"OPEN\",\"risk\":18}"
+    },
+    {
+      "name": "SLA saudável aprovado",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-20T16:29:41.337Z\",\"build\":\"SC-1.31.0-F31-20260620-1950\",\"airport\":\"SBGR\",\"finalScore\":2600,\"sla\":{\"scores\":{\"PUNCTUALITY\":95,\"SAFETY\":100,\"CONNECTIONS\":86,\"CARGO\":75,\"COMMUNICATION\":87},\"weighted\":92,\"band\":{\"id\":\"EXCELLENT\",\"min\":90,\"name\":\"Excelente\"}},\"carriers\":[\"AZU\",\"GLO\",\"LAT\"],\"banks\":[\"GRU_INTL_BANK\"],\"averageCarrierScore\":87,\"opsScore\":87,\"status\":\"AIRLINE_STABLE\",\"openRequests\":2}"
+    },
+    {
+      "name": "SLA ruim cai",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-20T16:29:41.337Z\",\"build\":\"SC-1.31.0-F31-20260620-1950\",\"airport\":\"SBGR\",\"finalScore\":300,\"sla\":{\"scores\":{\"PUNCTUALITY\":74,\"SAFETY\":45,\"CONNECTIONS\":77,\"CARGO\":69,\"COMMUNICATION\":78},\"weighted\":66,\"band\":{\"id\":\"WATCH\",\"min\":55,\"name\":\"Atenção\"}},\"carriers\":[\"AZU\",\"GLO\",\"LAT\"],\"banks\":[\"GRU_INTL_BANK\"],\"averageCarrierScore\":79,\"opsScore\":68,\"status\":\"AIRLINE_WATCH\",\"openRequests\":2}"
+    },
+    {
+      "name": "progress contém Airline Ops",
+      "ok": true,
+      "detail": "{\"score\":68,\"status\":\"AIRLINE_WATCH\",\"activeDemandProfile\":\"NORMAL\",\"openRequests\":2,\"lastAirport\":\"SBGR\",\"lastSla\":66,\"carriers\":3}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"EXCELLENT\",\"min\":90,\"name\":\"Excelente\"},{\"id\":\"GOOD\",\"min\":75,\"name\":\"Boa\"},{\"id\":\"WATCH\",\"min\":55,\"name\":\"Atenção\"},{\"id\":\"AT_RISK\",\"min\":0,\"name\":\"Contrato em risco\"}]"
+    },
+    {
+      "name": "companhias principais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"AZU\",\"name\":\"Azul Connect\",\"baseAirports\":[\"SBKP\",\"SBGR\"],\"priority\":\"CARGO_PASSENGER\",\"slaTarget\":82},{\"id\":\"GLO\",\"name\":\"Gol Shuttle\",\"baseAirports\":[\"SBSP\",\"SBGR\",\"SBBR\"],\"priority\":\"PUNCTUALITY\",\"slaTarget\":84},{\"id\":\"LAT\",\"name\":\"LATAM Network\",\"baseAirports\":[\"SBGR\",\"SBBR\"],\"priority\":\"CONNECTIONS\",\"slaTarget\":86},{\"id\":\"DAL\",\"name\":\"Delta Global\",\"baseAirports\":[\"KATL\"],\"priority\":\"HUB_FLOW\",\"slaTarget\":88},{\"id\":\"BOX\",\"name\":\"Box Cargo\",\"baseAirports\":[\"SBKP\",\"KATL\"],\"priority\":\"CARGO\",\"slaTarget\":80}]"
+    }
+  ]
+}

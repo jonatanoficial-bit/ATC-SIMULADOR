@@ -143,6 +143,16 @@
       "description": "International ATC campaign, seasons, airport contracts and career calendar"
     },
     {
+      "file": "34-airline-operations-center.js",
+      "name": "airline-operations-center",
+      "description": "Airline Operations Center, carriers, route banks, passenger/cargo demand and SLA"
+    },
+    {
+      "file": "35-airport-authority-terminal-ops.js",
+      "name": "airport-authority-terminal-ops",
+      "description": "Airport Authority, terminal operations, gates, passengers, baggage and airport experience"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

@@ -1,10 +1,10 @@
 {
   "product": "Skyward Control",
   "prefix": "SC",
-  "version": "1.30.0",
-  "phase": "F30",
-  "phaseName": "Campanha Internacional ATC, Temporadas, Contratos de Aeroportos e Calendário de Carreira",
-  "channel": "international-campaign",
+  "version": "1.32.0",
+  "phase": "F32",
+  "phaseName": "Airport Authority & Terminal Operations, Portões, Passageiros, Bagagem e Experiência do Aeroporto",
+  "channel": "airport-authority",
   "saveSchema": 3,
   "target": "Mobile-first / Tablet / Desktop",
   "timeZone": "America/Sao_Paulo",
@@ -17,9 +17,9 @@
   "desktopSchema": 1,
   "accessibilitySchema": 1,
   "replaySchema": 1,
-  "build": "SC-1.30.0-F30-20260620-1905",
-  "builtAt": "2026-06-20 19:05 BRT",
-  "builtAtIso": "2026-06-20T19:05:00-03:00",
+  "build": "SC-1.32.0-F32-20260620-2035",
+  "builtAt": "2026-06-20 20:35 BRT",
+  "builtAtIso": "2026-06-20T20:35:00-03:00",
   "aircraftPerformanceSchema": 1,
   "airportSurfaceSchema": 1,
   "surfaceSafetySchema": 1,
@@ -38,5 +38,7 @@
   "publicOpsSchema": 1,
   "trainingAcademySchema": 1,
   "trainingCoachSchema": 1,
-  "internationalCampaignSchema": 1
+  "internationalCampaignSchema": 1,
+  "airlineOpsSchema": 1,
+  "airportAuthoritySchema": 1
 }

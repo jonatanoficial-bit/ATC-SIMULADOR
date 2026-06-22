@@ -1,0 +1,189 @@
+{
+  "schema": 1,
+  "suite": "phase32-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para Airport Authority.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.32.0",
+    "phase": "F32",
+    "phaseName": "Airport Authority & Terminal Operations, Portões, Passageiros, Bagagem e Experiência do Aeroporto",
+    "channel": "airport-authority",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.32.0-F32-20260620-2035",
+    "builtAt": "2026-06-20 20:35 BRT",
+    "builtAtIso": "2026-06-20T20:35:00-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1,
+    "weatherOpsSchema": 1,
+    "procedureOpsSchema": 1,
+    "careerSchema": 1,
+    "economySchema": 1,
+    "incidentSchema": 1,
+    "networkFlowSchema": 1,
+    "controlRoomSchema": 1,
+    "commercialPolishSchema": 1,
+    "releaseCandidateSchema": 1,
+    "goldMasterSchema": 1,
+    "postGoldMasterSchema": 1,
+    "postPublishHealthSchema": 1,
+    "publicOpsSchema": 1,
+    "trainingAcademySchema": 1,
+    "trainingCoachSchema": 1,
+    "internationalCampaignSchema": 1,
+    "airlineOpsSchema": 1,
+    "airportAuthoritySchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F32 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.32.0', 'phase': 'F32', 'phaseName': 'Airport Authority & Terminal Operations, Portões, Passageiros, Bagagem e Experiência do Aeroporto', 'channel': 'airport-authority', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.32.0-F32-20260620-2035', 'builtAt': '2026-06-20 20:35 BRT', 'builtAtIso': '2026-06-20T20:35:00-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1, 'weatherOpsSchema': 1, 'procedureOpsSchema': 1, 'careerSchema': 1, 'economySchema': 1, 'incidentSchema': 1, 'networkFlowSchema': 1, 'controlRoomSchema': 1, 'commercialPolishSchema': 1, 'releaseCandidateSchema': 1, 'goldMasterSchema': 1, 'postGoldMasterSchema': 1, 'postPublishHealthSchema': 1, 'publicOpsSchema': 1, 'trainingAcademySchema': 1, 'trainingCoachSchema': 1, 'internationalCampaignSchema': 1, 'airlineOpsSchema': 1, 'airportAuthoritySchema': 1}"
+    },
+    {
+      "name": "main bundle inclui módulo 35",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_AIRPORT_AUTHORITY no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui terminais",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui portões",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui fluxos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui airport-authority.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "início de turno inicializa F32",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fim de turno mostra F32",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS possui painel airport authority",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F32 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema airportAuthoritySchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "channel airport-authority",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc airport authority existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc terminais existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado raiz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado docs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém caminho Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém repo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "terminal internacional presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bagagem presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "evento gate conflict presente",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 22,
+  "failed": 0,
+  "total": 22
+}

@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.30.0-F30-20260620-1905",
-  "builtAt": "2026-06-20 19:05 BRT",
-  "cacheName": "skyward-control-1-sc-1.30.0-f30-20260620-1905",
+  "build": "SC-1.32.0-F32-20260620-2035",
+  "builtAt": "2026-06-20 20:35 BRT",
+  "cacheName": "skyward-control-1-sc-1.32.0-f32-20260620-2035",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,8 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 1239,
-      "sha256": "7972d3e19719837542fb688f07faa97cfb90d6ce0d0eafd788f71a2e728fd745"
+      "bytes": 1300,
+      "sha256": "ca2a71fb90ef18622802dde7c1bcf40d9cb1c083a386ae271014ba3a574f5381"
     },
     {
       "url": "./data/aircraft-performance.json",
@@ -97,6 +97,18 @@
       "file": "data/aircraft.json",
       "bytes": 1147,
       "sha256": "5fbc7b7a833d995de19747e49768ad297d2b417e1c9e68ec3670d5d07332636d"
+    },
+    {
+      "url": "./data/airline-operations.json",
+      "file": "data/airline-operations.json",
+      "bytes": 3710,
+      "sha256": "57a08c496c36a25dbc19f1b0ce694657f2e89c6e491559b0f7ca7f2e79b0de31"
+    },
+    {
+      "url": "./data/airport-authority.json",
+      "file": "data/airport-authority.json",
+      "bytes": 3650,
+      "sha256": "e3e8c4959026a0a2131df56ef6849b830341644860d883a4f0f6b4a8fef1ed5e"
     },
     {
       "url": "./data/airport-graphs.json",
@@ -221,8 +233,8 @@
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 481861,
-      "sha256": "9f10370a3b638b2594d758b844f895ed0dd7171f5b64766d402cbca6767147ca"
+      "bytes": 503968,
+      "sha256": "42bd30d0ed4aeed70c4d534ce782d3bb69716b536b0ceedce27d61823c6f8a9a"
     },
     {
       "url": "./manifest.webmanifest",
@@ -233,8 +245,8 @@
     {
       "url": "./style.css",
       "file": "style.css",
-      "bytes": 100124,
-      "sha256": "3ff0705f546c2104913bed2edc037f3f5503e13dfa83c1e5e07ed551b731f9d9"
+      "bytes": 101334,
+      "sha256": "de9e61d7d79050f2943731ffa3aa2ee4c97f9b81fe6e8345545d7dcf7fdfb327"
     }
   ]
 }

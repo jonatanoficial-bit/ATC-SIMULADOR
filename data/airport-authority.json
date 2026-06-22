@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "version": "2026.06-f32",
+  "description": "Airport Authority and Terminal Operations: terminals, gates, passenger queues, baggage, connections and passenger experience.",
+  "terminals": [
+    {
+      "id": "T1_DOMESTIC",
+      "name": "Terminal Doméstico",
+      "capacity": 18000,
+      "gateCount": 16,
+      "focus": "ponte aérea"
+    },
+    {
+      "id": "T2_INTERNATIONAL",
+      "name": "Terminal Internacional",
+      "capacity": 26000,
+      "gateCount": 22,
+      "focus": "conexões internacionais"
+    },
+    {
+      "id": "T3_CARGO",
+      "name": "Terminal Cargueiro",
+      "capacity": 9000,
+      "gateCount": 10,
+      "focus": "carga expressa"
+    },
+    {
+      "id": "T4_REMOTE",
+      "name": "Pátio Remoto",
+      "capacity": 7000,
+      "gateCount": 12,
+      "focus": "operação irregular"
+    }
+  ],
+  "gatePools": [
+    {
+      "id": "NARROW_BODY",
+      "name": "Portões narrow-body",
+      "compatible": [
+        "A320",
+        "B737",
+        "E195"
+      ],
+      "turnaroundMin": 38
+    },
+    {
+      "id": "WIDE_BODY",
+      "name": "Portões wide-body",
+      "compatible": [
+        "B777",
+        "A350",
+        "B787"
+      ],
+      "turnaroundMin": 72
+    },
+    {
+      "id": "CARGO_STAND",
+      "name": "Posições cargueiras",
+      "compatible": [
+        "B767F",
+        "B777F",
+        "A330F"
+      ],
+      "turnaroundMin": 95
+    },
+    {
+      "id": "REMOTE_STAND",
+      "name": "Remotas",
+      "compatible": [
+        "A320",
+        "B737",
+        "E195",
+        "ATR"
+      ],
+      "turnaroundMin": 52
+    }
+  ],
+  "passengerFlows": [
+    {
+      "id": "CHECKIN",
+      "name": "Check-in",
+      "weight": 15
+    },
+    {
+      "id": "SECURITY",
+      "name": "Raio-X / Segurança",
+      "weight": 20
+    },
+    {
+      "id": "IMMIGRATION",
+      "name": "Imigração",
+      "weight": 15
+    },
+    {
+      "id": "BOARDING",
+      "name": "Embarque",
+      "weight": 20
+    },
+    {
+      "id": "BAGGAGE",
+      "name": "Bagagem",
+      "weight": 15
+    },
+    {
+      "id": "CONNECTIONS",
+      "name": "Conexões",
+      "weight": 15
+    }
+  ],
+  "terminalEvents": [
+    {
+      "id": "SECURITY_QUEUE",
+      "name": "Fila longa no raio-X",
+      "impact": "security-15",
+      "risk": 18
+    },
+    {
+      "id": "BAGGAGE_DELAY",
+      "name": "Atraso na esteira de bagagem",
+      "impact": "baggage-18",
+      "risk": 14
+    },
+    {
+      "id": "GATE_CONFLICT",
+      "name": "Conflito de portão",
+      "impact": "boarding-20",
+      "risk": 22
+    },
+    {
+      "id": "BUS_REMOTE_DELAY",
+      "name": "Ônibus remoto atrasado",
+      "impact": "boarding-12",
+      "risk": 12
+    },
+    {
+      "id": "IMMIGRATION_PEAK",
+      "name": "Pico de imigração",
+      "impact": "immigration-18",
+      "risk": 20
+    }
+  ],
+  "experienceBands": [
+    {
+      "id": "PREMIUM",
+      "min": 90,
+      "name": "Experiência premium"
+    },
+    {
+      "id": "GOOD",
+      "min": 75,
+      "name": "Boa experiência"
+    },
+    {
+      "id": "STRESSED",
+      "min": 55,
+      "name": "Terminal pressionado"
+    },
+    {
+      "id": "CHAOTIC",
+      "min": 0,
+      "name": "Operação caótica"
+    }
+  ],
+  "authorityObjectives": [
+    {
+      "id": "KEEP_QUEUES_LOW",
+      "name": "Manter filas controladas",
+      "target": 80
+    },
+    {
+      "id": "PROTECT_CONNECTIONS",
+      "name": "Proteger conexões",
+      "target": 82
+    },
+    {
+      "id": "GATE_DISCIPLINE",
+      "name": "Evitar conflitos de portão",
+      "target": 85
+    },
+    {
+      "id": "BAGGAGE_RELIABILITY",
+      "name": "Bagagem confiável",
+      "target": 78
+    }
+  ]
+}
