@@ -1,0 +1,251 @@
+{
+  "schema": 1,
+  "version": "2026.06-f42",
+  "description": "Security operations and cyber defense center with passenger screening, perimeter patrol, badge control, insider threat, SOC, cyber incidents and law enforcement response.",
+  "securityDomains": [
+    {
+      "id": "PASSENGER_SCREENING",
+      "name": "Triagem de passageiros",
+      "weight": 18,
+      "target": 82
+    },
+    {
+      "id": "PERIMETER",
+      "name": "Perímetro e pátio",
+      "weight": 18,
+      "target": 80
+    },
+    {
+      "id": "BADGE_ACCESS",
+      "name": "Credenciais e acesso",
+      "weight": 16,
+      "target": 84
+    },
+    {
+      "id": "CYBER_SOC",
+      "name": "SOC/cibersegurança",
+      "weight": 20,
+      "target": 82
+    },
+    {
+      "id": "INSIDER_THREAT",
+      "name": "Ameaça interna",
+      "weight": 14,
+      "target": 78
+    },
+    {
+      "id": "LAW_ENFORCEMENT",
+      "name": "Resposta policial",
+      "weight": 14,
+      "target": 80
+    }
+  ],
+  "securityAssets": [
+    {
+      "id": "CT_SCANNERS",
+      "name": "Scanners CT",
+      "domain": "PASSENGER_SCREENING",
+      "coverage": 24,
+      "readiness": 78
+    },
+    {
+      "id": "CCTV_ANALYTICS",
+      "name": "CCTV com analytics",
+      "domain": "PERIMETER",
+      "coverage": 22,
+      "readiness": 80
+    },
+    {
+      "id": "BADGE_GATEWAY",
+      "name": "Controle biométrico",
+      "domain": "BADGE_ACCESS",
+      "coverage": 20,
+      "readiness": 82
+    },
+    {
+      "id": "SOC_MONITORING",
+      "name": "SOC 24/7",
+      "domain": "CYBER_SOC",
+      "coverage": 26,
+      "readiness": 76
+    },
+    {
+      "id": "INSIDER_PROGRAM",
+      "name": "Programa insider threat",
+      "domain": "INSIDER_THREAT",
+      "coverage": 16,
+      "readiness": 74
+    },
+    {
+      "id": "POLICE_LIAISON",
+      "name": "Ligação policial",
+      "domain": "LAW_ENFORCEMENT",
+      "coverage": 18,
+      "readiness": 78
+    }
+  ],
+  "threatScenarios": [
+    {
+      "id": "SCREENING_BREACH",
+      "name": "Falha na triagem",
+      "severity": 76,
+      "domain": "PASSENGER_SCREENING",
+      "reputationRisk": 18
+    },
+    {
+      "id": "PERIMETER_INTRUSION",
+      "name": "Intrusão no perímetro",
+      "severity": 84,
+      "domain": "PERIMETER",
+      "reputationRisk": 24
+    },
+    {
+      "id": "BADGE_CLONE",
+      "name": "Credencial clonada",
+      "severity": 80,
+      "domain": "BADGE_ACCESS",
+      "reputationRisk": 20
+    },
+    {
+      "id": "RANSOMWARE_ALERT",
+      "name": "Alerta ransomware",
+      "severity": 88,
+      "domain": "CYBER_SOC",
+      "reputationRisk": 26
+    },
+    {
+      "id": "INSIDER_LEAK",
+      "name": "Vazamento interno",
+      "severity": 82,
+      "domain": "INSIDER_THREAT",
+      "reputationRisk": 22
+    },
+    {
+      "id": "UNRULY_PASSENGER",
+      "name": "Passageiro indisciplinado",
+      "severity": 64,
+      "domain": "LAW_ENFORCEMENT",
+      "reputationRisk": 14
+    }
+  ],
+  "defensePrograms": [
+    {
+      "id": "SCREENING_RECERT",
+      "name": "Recertificação triagem",
+      "cost": 18000,
+      "benefit": {
+        "PASSENGER_SCREENING": 10,
+        "LAW_ENFORCEMENT": 2
+      }
+    },
+    {
+      "id": "PERIMETER_SWEEP",
+      "name": "Varredura de perímetro",
+      "cost": 14000,
+      "benefit": {
+        "PERIMETER": 11
+      }
+    },
+    {
+      "id": "BADGE_AUDIT",
+      "name": "Auditoria de credenciais",
+      "cost": 16000,
+      "benefit": {
+        "BADGE_ACCESS": 12,
+        "INSIDER_THREAT": 3
+      }
+    },
+    {
+      "id": "SOC_HARDENING",
+      "name": "Hardening SOC/PWA",
+      "cost": 30000,
+      "benefit": {
+        "CYBER_SOC": 14
+      }
+    },
+    {
+      "id": "INSIDER_TRAINING",
+      "name": "Treino ameaça interna",
+      "cost": 19000,
+      "benefit": {
+        "INSIDER_THREAT": 12,
+        "BADGE_ACCESS": 3
+      }
+    },
+    {
+      "id": "POLICE_DRILL",
+      "name": "Exercício polícia/EOC",
+      "cost": 22000,
+      "benefit": {
+        "LAW_ENFORCEMENT": 12,
+        "PERIMETER": 3
+      }
+    }
+  ],
+  "responseLevels": [
+    {
+      "id": "NORMAL",
+      "min": 85,
+      "name": "Normal"
+    },
+    {
+      "id": "ELEVATED",
+      "min": 70,
+      "name": "Elevado"
+    },
+    {
+      "id": "HIGH",
+      "min": 50,
+      "name": "Alto"
+    },
+    {
+      "id": "LOCKDOWN",
+      "min": 0,
+      "name": "Lockdown"
+    }
+  ],
+  "securityBands": [
+    {
+      "id": "SECURE",
+      "min": 90,
+      "name": "Seguro"
+    },
+    {
+      "id": "CONTROLLED",
+      "min": 75,
+      "name": "Controlado"
+    },
+    {
+      "id": "EXPOSED",
+      "min": 55,
+      "name": "Exposto"
+    },
+    {
+      "id": "COMPROMISED",
+      "min": 0,
+      "name": "Comprometido"
+    }
+  ],
+  "securityKPIs": [
+    {
+      "id": "THREAT_CONTAINMENT",
+      "name": "Contenção de ameaça"
+    },
+    {
+      "id": "ACCESS_INTEGRITY",
+      "name": "Integridade de acesso"
+    },
+    {
+      "id": "CYBER_RESILIENCE",
+      "name": "Resiliência cibernética"
+    },
+    {
+      "id": "PERIMETER_COVERAGE",
+      "name": "Cobertura de perímetro"
+    },
+    {
+      "id": "SCREENING_FLOW",
+      "name": "Fluxo de triagem"
+    }
+  ]
+}

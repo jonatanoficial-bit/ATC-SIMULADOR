@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-Version: 1.41.0
-Phase: F41 — Emergency Response & Disaster Preparedness Center, ARFF, Evacuação, Médico e Coordenação Multiagência
-Build: SC-1.41.0-F41-20260622-1410
-Built at: 2026-06-22 14:10 BRT
-Channel: emergency-response
-Emergency Response schema: 1
+Version: 1.42.0
+Phase: F42 — Security Operations & Cyber Defense Center, Perímetro, Triagem, Credenciais e Cibersegurança
+Build: SC-1.42.0-F42-20260622-1500
+Built at: 2026-06-22 15:00 BRT
+Channel: security-cyber-defense
+Security Cyber Defense schema: 1
 Target: Mobile-first / Tablet / Desktop

@@ -198,6 +198,11 @@
       "description": "Emergency response, ARFF, evacuation, medical triage, disaster preparedness and multi-agency coordination"
     },
     {
+      "file": "45-security-cyber-defense-center.js",
+      "name": "security-cyber-defense-center",
+      "description": "Security operations, passenger screening, perimeter, access control, cyber defense and law enforcement"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

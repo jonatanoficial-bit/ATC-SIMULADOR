@@ -1,18 +1,18 @@
-# Build Notes — SC-1.41.0-F41-20260622-1410
+# Build Notes — SC-1.42.0-F42-20260622-1500
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.41.0
-- Fase: F41 — Emergency Response & Disaster Preparedness Center, ARFF, Evacuação, Médico e Coordenação Multiagência
-- Build: `SC-1.41.0-F41-20260622-1410`
-- Data/hora: 2026-06-22 14:10 BRT
-- Canal: emergency-response
-- Emergency Response schema: 1
+- Versão: 1.42.0
+- Fase: F42 — Security Operations & Cyber Defense Center, Perímetro, Triagem, Credenciais e Cibersegurança
+- Build: `SC-1.42.0-F42-20260622-1500`
+- Data/hora: 2026-06-22 15:00 BRT
+- Canal: security-cyber-defense
+- Security Cyber Defense schema: 1
 
 ## Entregas
 
-A Fase 41 adiciona resposta de emergência, ARFF, evacuação, triagem médica, preparo para desastre, apoio externo e coordenação multiagência.
+A Fase 42 adiciona segurança física, triagem de passageiros, perímetro, credenciais, SOC, cibersegurança, ameaça interna e resposta policial.
 
 ## Documento de upload
 

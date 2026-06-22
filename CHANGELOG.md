@@ -1,3 +1,18 @@
+## SC-1.42.0-F42-20260622-1500 — Security Operations & Cyber Defense Center
+
+- Adicionado módulo oficial `45-security-cyber-defense-center.js`.
+- Criado catálogo `data/security-cyber-defense.json`.
+- Adicionados domínios de segurança física e cibernética.
+- Adicionados ativos de segurança.
+- Adicionados cenários de ameaça.
+- Adicionados programas defensivos.
+- Adicionados níveis de resposta.
+- Adicionados KPIs de segurança.
+- Adicionado painel `SECURITY SOC`.
+- Tela final mostra Security SOC e Nível Seg.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F42.
+
 ## SC-1.41.0-F41-20260622-1410 — Emergency Response & Disaster Preparedness Center
 
 - Adicionado módulo oficial `44-emergency-response-disaster-center.js`.

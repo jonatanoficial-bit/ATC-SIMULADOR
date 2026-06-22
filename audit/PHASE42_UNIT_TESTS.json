@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase42-unit",
+  "build": "SC-1.42.0-F42-20260622-1500",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F42+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.42.0\",\"phase\":\"F42\",\"phaseName\":\"Security Operations & Cyber Defense Center, Perímetro, Triagem, Credenciais e Cibersegurança\",\"channel\":\"security-cyber-defense\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.42.0-F42-20260622-1500\",\"builtAt\":\"2026-06-22 15:00 BRT\",\"builtAtIso\":\"2026-06-22T15:00:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1}"
+    },
+    {
+      "name": "módulo F42 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo domains threats programs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"domains\":6,\"threats\":6}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"domainScores\":{\"PASSENGER_SCREENING\":82.91999999999999,\"PERIMETER\":86.72,\"BADGE_ACCESS\":88.4,\"CYBER_SOC\":64.19999999999999,\"INSIDER_THREAT\":79.03999999999999,\"LAW_ENFORCEMENT\":86.23999999999998},\"programs\":[{\"id\":\"SEC-311520\",\"programId\":\"SOC_HARDENING\",\"name\":\"Hardening SOC/PWA\",\"cost\":30000,\"status\":\"ACTIVE\",\"at\":\"2026-06-22T22:11:51.520Z\"}],\"threats\":[{\"id\":\"THR-311521\",\"threatId\":\"RANSOMWARE_ALERT\",\"name\":\"Alerta ransomware\",\"severity\":88,\"domain\":\"CYBER_SOC\",\"reputationRisk\":26,\"status\":\"OPEN\",\"at\":\"2026-06-22T22:11:51.521Z\"},{\"id\":\"THR-311520\",\"threatId\":\"RANSOMWARE_ALERT\",\"name\":\"Alerta ransomware\",\"severity\":88,\"domain\":\"CYBER_SOC\",\"reputationRisk\":26,\"status\":\"OPEN\",\"at\":\"2026-06-22T22:11:51.520Z\"}],\"securityScore\":74,\"responseLevel\":\"ELEVATED\",\"status\":\"EXPOSED\",\"history\":[{\"at\":\"2026-06-22T22:11:51.521Z\",\"build\":\"SC-1.42.0-F42-20260622-1500\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"PASSENGER_SCREENING\":82.91999999999999,\"PERIMETER\":86.72,\"BADGE_ACCESS\":88.4,\"CYBER_SOC\":64.19999999999999,\"INSIDER_THREAT\":79.03999999999999,\"LAW_ENFORCEMENT\":86.23999999999998},\"openThreats\":2,\"reputationRisk\":52,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"emergencyScore\":84,\"passengerScore\":82,\"workforceScore\":80,\"crisisScore\":90,\"safetyScore\":84},\"weighted\":81,\"securityScore\":74,\"status\":\"EXPOSED\",\"responseLevel\":\"ELEVATED\",\"programs\":1},{\"at\":\"2026-06-22T22:11:51.521Z\",\"build\":\"SC-1.42.0-F42-20260622-1500\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"PASSENGER_SCREENING\":80.46,\"PERIMETER\":83.36,\"BADGE_ACCESS\":85.2,\"CYBER_SOC\":82.6,\"INSIDER_THREAT\":76.52,\"LAW_ENFORCEMENT\":82.11999999999999},\"openThreats\":1,\"reputationRisk\":26,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"emergencyScore\":84,\"passengerScore\":82,\"workforceScore\":80,\"crisisScore\":90,\"safetyScore\":84},\"weighted\":82,\"securityScore\":79,\"status\":\"CONTROLLED\",\"responseLevel\":\"ELEVATED\",\"programs\":1}],\"lastEvaluation\":{\"at\":\"2026-06-22T22:11:51.521Z\",\"build\":\"SC-1.42.0-F42-20260622-1500\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"PASSENGER_SCREENING\":82.91999999999999,\"PERIMETER\":86.72,\"BADGE_ACCESS\":88.4,\"CYBER_SOC\":64.19999999999999,\"INSIDER_THREAT\":79.03999999999999,\"LAW_ENFORCEMENT\":86.23999999999998},\"openThreats\":2,\"reputationRisk\":52,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"emergencyScore\":84,\"passengerScore\":82,\"workforceScore\":80,\"crisisScore\":90,\"safetyScore\":84},\"weighted\":81,\"securityScore\":74,\"status\":\"EXPOSED\",\"responseLevel\":\"ELEVATED\",\"programs\":1}}"
+    },
+    {
+      "name": "programa SOC criado",
+      "ok": true,
+      "detail": "{\"id\":\"SEC-311520\",\"programId\":\"SOC_HARDENING\",\"name\":\"Hardening SOC/PWA\",\"cost\":30000,\"status\":\"ACTIVE\",\"at\":\"2026-06-22T22:11:51.520Z\"}"
+    },
+    {
+      "name": "ameaça criada",
+      "ok": true,
+      "detail": "{\"id\":\"THR-311521\",\"threatId\":\"RANSOMWARE_ALERT\",\"name\":\"Alerta ransomware\",\"severity\":88,\"domain\":\"CYBER_SOC\",\"reputationRisk\":26,\"status\":\"OPEN\",\"at\":\"2026-06-22T22:11:51.521Z\"}"
+    },
+    {
+      "name": "segurança avaliada",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-22T22:11:51.521Z\",\"build\":\"SC-1.42.0-F42-20260622-1500\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"PASSENGER_SCREENING\":85.37999999999998,\"PERIMETER\":90.08,\"BADGE_ACCESS\":91.60000000000001,\"CYBER_SOC\":34.79999999999998,\"INSIDER_THREAT\":81.55999999999999,\"LAW_ENFORCEMENT\":90.35999999999997},\"openThreats\":3,\"reputationRisk\":78,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"emergencyScore\":84,\"passengerScore\":82,\"workforceScore\":80,\"crisisScore\":90,\"safetyScore\":84},\"weighted\":77,\"securityScore\":65,\"status\":\"EXPOSED\",\"responseLevel\":\"HIGH\",\"programs\":1}"
+    },
+    {
+      "name": "progress contém segurança",
+      "ok": true,
+      "detail": "{\"score\":65,\"status\":\"EXPOSED\",\"responseLevel\":\"HIGH\",\"openThreats\":3,\"programs\":1,\"domainScores\":{\"PASSENGER_SCREENING\":85.37999999999998,\"PERIMETER\":90.08,\"BADGE_ACCESS\":91.60000000000001,\"CYBER_SOC\":34.79999999999998,\"INSIDER_THREAT\":81.55999999999999,\"LAW_ENFORCEMENT\":90.35999999999997},\"last\":{\"at\":\"2026-06-22T22:11:51.521Z\",\"build\":\"SC-1.42.0-F42-20260622-1500\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"PASSENGER_SCREENING\":85.37999999999998,\"PERIMETER\":90.08,\"BADGE_ACCESS\":91.60000000000001,\"CYBER_SOC\":34.79999999999998,\"INSIDER_THREAT\":81.55999999999999,\"LAW_ENFORCEMENT\":90.35999999999997},\"openThreats\":3,\"reputationRisk\":78,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"emergencyScore\":84,\"passengerScore\":82,\"workforceScore\":80,\"crisisScore\":90,\"safetyScore\":84},\"weighted\":77,\"securityScore\":65,\"status\":\"EXPOSED\",\"responseLevel\":\"HIGH\",\"programs\":1}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"SECURE\",\"min\":90,\"name\":\"Seguro\"},{\"id\":\"CONTROLLED\",\"min\":75,\"name\":\"Controlado\"},{\"id\":\"EXPOSED\",\"min\":55,\"name\":\"Exposto\"},{\"id\":\"COMPROMISED\",\"min\":0,\"name\":\"Comprometido\"}]"
+    },
+    {
+      "name": "domínios essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"PASSENGER_SCREENING\",\"name\":\"Triagem de passageiros\",\"weight\":18,\"target\":82},{\"id\":\"PERIMETER\",\"name\":\"Perímetro e pátio\",\"weight\":18,\"target\":80},{\"id\":\"BADGE_ACCESS\",\"name\":\"Credenciais e acesso\",\"weight\":16,\"target\":84},{\"id\":\"CYBER_SOC\",\"name\":\"SOC/cibersegurança\",\"weight\":20,\"target\":82},{\"id\":\"INSIDER_THREAT\",\"name\":\"Ameaça interna\",\"weight\":14,\"target\":78},{\"id\":\"LAW_ENFORCEMENT\",\"name\":\"Resposta policial\",\"weight\":14,\"target\":80}]"
+    }
+  ]
+}
