@@ -1,3 +1,16 @@
+## SC-1.33.0-F33-20260620-2115 — Crisis Command Center
+
+- Adicionado módulo oficial `36-crisis-command-center.js`.
+- Criado catálogo `data/crisis-command-center.json`.
+- Adicionados tipos de crise sistêmica.
+- Adicionadas ações de comando e recovery plan.
+- Adicionados stakeholders operacionais.
+- Adicionado score de resiliência.
+- Adicionado painel `CRISIS CMD`.
+- Tela final mostra Crisis Cmd e Recovery.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F33.
+
 ## SC-1.32.0-F32-20260620-2035 — Airport Authority & Terminal Operations
 
 - Adicionado módulo oficial `35-airport-authority-terminal-ops.js`.

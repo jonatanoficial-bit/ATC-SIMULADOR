@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "architectureGeneration": 32,
-  "strategy": "advanced-advanced-weather-ifr-vfr-surface-safety-director-airport-authority-terminal-ops-passenger-experience-airline-operations-center-sla-demand-international-campaign-contracts-seasons-training-coach-debriefing-adaptive-study-training-academy-certification-guided-missions-public-ops-feedback-telemetry-hotfix-post-publish-healthcheck-github-pages-pwa-hotfix-post-gold-master-real-device-qa-screenshots-github-pages-gold-master-packaging-final-store-pwa-player-manual-public-release-candidate-qa-final-balance-guided-tutorial-commercial-mobile-aaa-polish-responsive-hud-onboarding-local-async-control-room-ranking-shared-replay-international-network-flow-slots-connections-alternates-complex-operational-incidents-emergency-multiagency-airport-operational-economy-contracts-delay-costs-efficiency-deep-controller-career-licenses-ratings-fatigue-reputation-published-procedures-sid-star-ils-rnav-holdings-advanced-ifr-vfr-weather-realistic-airport-surface-graph-realistic-aircraft-performance-deterministic-replay-clock-professional-accessibility-settings-desktop-tablet-workspace-adaptive-mobile-ux-installable-offline-pwa-transactional-save-vault-quality-gated-typescript-modules",
+  "architectureGeneration": 33,
+  "strategy": "advanced-advanced-weather-ifr-vfr-surface-safety-director-crisis-command-center-irregular-ops-airport-authority-terminal-ops-passenger-experience-airline-operations-center-sla-demand-international-campaign-contracts-seasons-training-coach-debriefing-adaptive-study-training-academy-certification-guided-missions-public-ops-feedback-telemetry-hotfix-post-publish-healthcheck-github-pages-pwa-hotfix-post-gold-master-real-device-qa-screenshots-github-pages-gold-master-packaging-final-store-pwa-player-manual-public-release-candidate-qa-final-balance-guided-tutorial-commercial-mobile-aaa-polish-responsive-hud-onboarding-local-async-control-room-ranking-shared-replay-international-network-flow-slots-connections-alternates-complex-operational-incidents-emergency-multiagency-airport-operational-economy-contracts-delay-costs-efficiency-deep-controller-career-licenses-ratings-fatigue-reputation-published-procedures-sid-star-ils-rnav-holdings-advanced-ifr-vfr-weather-realistic-airport-surface-graph-realistic-aircraft-performance-deterministic-replay-clock-professional-accessibility-settings-desktop-tablet-workspace-adaptive-mobile-ux-installable-offline-pwa-transactional-save-vault-quality-gated-typescript-modules",
   "sourceRoot": "src/runtime",
   "entry": "main.js",
-  "moduleCount": 41,
+  "moduleCount": 42,
   "modules": [
     {
       "order": 1,
@@ -278,6 +278,15 @@
     },
     {
       "order": 31,
+      "file": "36-crisis-command-center.js",
+      "name": "crisis-command-center",
+      "description": "Crisis Command Center, irregular operations, ground stop, cyber incident and recovery plan",
+      "lines": 198,
+      "bytes": 11150,
+      "sha256": "ea4c72b92e6fa1d78d0a99d5dd3b51f1a287ce72ba42c8886967f23b4b1810a8"
+    },
+    {
+      "order": 32,
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk",
@@ -286,16 +295,16 @@
       "sha256": "65ea3273d6a272d0ee7f2756fbda0d6b371deac1ade21fb8b3c3c64ef9499c3e"
     },
     {
-      "order": 32,
+      "order": 33,
       "file": "06-traffic-requests.js",
       "name": "06-traffic-requests",
       "description": "Aircraft creation, callsigns, requests and game start",
       "lines": 112,
-      "bytes": 9264,
-      "sha256": "d63655fc5343844d14c18163174e71fa1952cc1579774e7356ed722bc716f596"
+      "bytes": 9293,
+      "sha256": "9323de827ef938201e1fa2acdb883dd31bb69f4ab0bd9d6923aa83d43e68a2e2"
     },
     {
-      "order": 33,
+      "order": 34,
       "file": "07-simulation-safety.js",
       "name": "07-simulation-safety",
       "description": "Game loop, simulation, conflict prediction and safety",
@@ -304,7 +313,7 @@
       "sha256": "5732f6c73266927cb654e7de23bf5e0b92eba9e489c2dc8e50d4fc30f01ab6ef"
     },
     {
-      "order": 34,
+      "order": 35,
       "file": "08-radar-rendering.js",
       "name": "08-radar-rendering",
       "description": "Radar, operational map, procedures, telemetry and aircraft drawing",
@@ -313,16 +322,16 @@
       "sha256": "d8f7d534d5b1c9c476ed906b9392539b8c397f3774451f2fcb52f41ccc5b2437"
     },
     {
-      "order": 35,
+      "order": 36,
       "file": "09-ui-clearances.js",
       "name": "09-ui-clearances",
       "description": "Traffic UI, requests, commands, clearances and action grids",
-      "lines": 235,
-      "bytes": 26043,
-      "sha256": "61d8b2b1e9cca7dbdd566382a14df2cbf360a524d23d3aa0d2103de8338434de"
+      "lines": 236,
+      "bytes": 26385,
+      "sha256": "140935f64f9a141fbc7b6609652972b400a40a70c6c1e6a39f00bd5eae769213"
     },
     {
-      "order": 36,
+      "order": 37,
       "file": "10-events-selftest-bootstrap.js",
       "name": "10-events-selftest-bootstrap",
       "description": "Desktop events, filters, safe-mode controls and self-test bootstrap",
@@ -331,7 +340,7 @@
       "sha256": "284b47ac5f0d1915b60a4c2e3ed2afd8471e11d394d9e18965ce77e3f7d38202"
     },
     {
-      "order": 37,
+      "order": 38,
       "file": "11-mobile-runtime.js",
       "name": "11-mobile-runtime",
       "description": "Adaptive mobile UX, edge gestures, touch-safe dock, haptics and responsive viewport modes",
@@ -340,7 +349,7 @@
       "sha256": "1325cef88e0fecb136ebb81a1e0af59b8c44555204cb03b8afed170b45a716b7"
     },
     {
-      "order": 38,
+      "order": 39,
       "file": "12-desktop-workspace.js",
       "name": "desktop-workspace",
       "description": "Professional tablet and desktop workspace, keyboard shortcuts, persistent density and resizable operational panels",
@@ -349,7 +358,7 @@
       "sha256": "fa48b51833cd06b55a1b0f6843bec3bfc4a5981c3344ac2c0417d4bc570cba98"
     },
     {
-      "order": 39,
+      "order": 40,
       "file": "13-accessibility-settings.js",
       "name": "accessibility-settings",
       "description": "Professional accessibility, visual, audio, performance and control settings layer",
@@ -358,7 +367,7 @@
       "sha256": "7ef356346e8d891b580286a18316cc6a507c2e20f21823ce73f669fffeee8e6c"
     },
     {
-      "order": 40,
+      "order": 41,
       "file": "14-deterministic-replay.js",
       "name": "deterministic-replay",
       "description": "Deterministic simulation clock, seeded replay recorder, state checksums and technical replay export",
@@ -367,7 +376,7 @@
       "sha256": "7a6a039013eade37ab95643b0f0b83f6c25b0604ea15e8e8e117e6b1d16c96c9"
     },
     {
-      "order": 41,
+      "order": 42,
       "file": "12-quality-test-bridge.js",
       "name": "quality-test-bridge",
       "description": "QA-gated integration bridge for deterministic browser scenarios",
@@ -377,8 +386,8 @@
     }
   ],
   "bundle": {
-    "bytes": 503968,
-    "lines": 7434,
-    "sha256": "42bd30d0ed4aeed70c4d534ce782d3bb69716b536b0ceedce27d61823c6f8a9a"
+    "bytes": 515571,
+    "lines": 7635,
+    "sha256": "ca41431fa795d56f546221940937979c7c54703466dc299a839400bf80160ec9"
   }
 }

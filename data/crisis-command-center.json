@@ -1,0 +1,207 @@
+{
+  "schema": 1,
+  "version": "2026.06-f33",
+  "description": "Crisis Command Center for irregular operations, ground stop, cyber incident, severe weather, labor disruption and recovery planning.",
+  "crisisTypes": [
+    {
+      "id": "GROUND_STOP",
+      "name": "Ground stop regional",
+      "severity": "CRITICAL",
+      "risk": 85,
+      "impact": [
+        "network",
+        "airline",
+        "terminal"
+      ]
+    },
+    {
+      "id": "POWER_OUTAGE",
+      "name": "Falha elétrica parcial",
+      "severity": "MAJOR",
+      "risk": 72,
+      "impact": [
+        "tower",
+        "terminal",
+        "baggage"
+      ]
+    },
+    {
+      "id": "CYBER_INCIDENT",
+      "name": "Incidente cyber operacional",
+      "severity": "CRITICAL",
+      "risk": 88,
+      "impact": [
+        "systems",
+        "pwa",
+        "dispatch"
+      ]
+    },
+    {
+      "id": "LABOR_DISRUPTION",
+      "name": "Greve/equipe reduzida",
+      "severity": "MAJOR",
+      "risk": 68,
+      "impact": [
+        "terminal",
+        "ground",
+        "airline"
+      ]
+    },
+    {
+      "id": "SEVERE_WEATHER_CELL",
+      "name": "Célula severa",
+      "severity": "CRITICAL",
+      "risk": 82,
+      "impact": [
+        "approach",
+        "runway",
+        "network"
+      ]
+    },
+    {
+      "id": "SECURITY_ALERT",
+      "name": "Alerta de segurança no terminal",
+      "severity": "MAJOR",
+      "risk": 74,
+      "impact": [
+        "terminal",
+        "boarding",
+        "authority"
+      ]
+    }
+  ],
+  "commandActions": [
+    {
+      "id": "ACTIVATE_EOC",
+      "name": "Ativar centro de emergência",
+      "reduces": [
+        "coordination"
+      ],
+      "cost": 12000
+    },
+    {
+      "id": "GROUND_DELAY_PROGRAM",
+      "name": "Programa de atraso no solo",
+      "reduces": [
+        "network"
+      ],
+      "cost": 9000
+    },
+    {
+      "id": "MANUAL_FALLBACK",
+      "name": "Fallback manual de sistemas",
+      "reduces": [
+        "systems"
+      ],
+      "cost": 15000
+    },
+    {
+      "id": "MUTUAL_AID",
+      "name": "Apoio multiagência",
+      "reduces": [
+        "terminal",
+        "safety"
+      ],
+      "cost": 18000
+    },
+    {
+      "id": "RUNWAY_RATE_REDUCTION",
+      "name": "Reduzir taxa de pista",
+      "reduces": [
+        "runway",
+        "approach"
+      ],
+      "cost": 7000
+    },
+    {
+      "id": "PASSENGER_CARE",
+      "name": "Cuidado ao passageiro",
+      "reduces": [
+        "passenger",
+        "airline"
+      ],
+      "cost": 11000
+    }
+  ],
+  "recoveryStages": [
+    {
+      "id": "ASSESS",
+      "name": "Avaliar impacto",
+      "target": 1
+    },
+    {
+      "id": "STABILIZE",
+      "name": "Estabilizar segurança",
+      "target": 2
+    },
+    {
+      "id": "RECOVER_FLOW",
+      "name": "Recuperar fluxo",
+      "target": 3
+    },
+    {
+      "id": "RESTORE_SERVICE",
+      "name": "Restaurar serviço",
+      "target": 4
+    },
+    {
+      "id": "DEBRIEF",
+      "name": "Debrief e prevenção",
+      "target": 5
+    }
+  ],
+  "stakeholders": [
+    {
+      "id": "ATC",
+      "name": "Controle de tráfego aéreo",
+      "priority": 5
+    },
+    {
+      "id": "AIRPORT_AUTH",
+      "name": "Autoridade aeroportuária",
+      "priority": 4
+    },
+    {
+      "id": "AIRLINES",
+      "name": "Companhias aéreas",
+      "priority": 4
+    },
+    {
+      "id": "GROUND_HANDLING",
+      "name": "Solo e rampa",
+      "priority": 3
+    },
+    {
+      "id": "SECURITY",
+      "name": "Segurança",
+      "priority": 5
+    },
+    {
+      "id": "PASSENGERS",
+      "name": "Passageiros",
+      "priority": 3
+    }
+  ],
+  "scoreBands": [
+    {
+      "id": "RESILIENT",
+      "min": 90,
+      "name": "Operação resiliente"
+    },
+    {
+      "id": "STABLE",
+      "min": 75,
+      "name": "Crise controlada"
+    },
+    {
+      "id": "STRAINED",
+      "min": 55,
+      "name": "Operação pressionada"
+    },
+    {
+      "id": "FAILED",
+      "min": 0,
+      "name": "Falha de comando"
+    }
+  ]
+}

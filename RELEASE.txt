@@ -1,7 +1,7 @@
 SKYWARD CONTROL
-Airport Authority Evolution — Phase 32
-Version: 1.32.0
-Build: SC-1.32.0-F32-20260620-2035
-Built: 2026-06-20 20:35 BRT
-Channel: AIRPORT-AUTHORITY
-Status: F32 AIRPORT AUTHORITY AUDITED
+Crisis Command Evolution — Phase 33
+Version: 1.33.0
+Build: SC-1.33.0-F33-20260620-2115
+Built: 2026-06-20 21:15 BRT
+Channel: CRISIS-COMMAND
+Status: F33 CRISIS COMMAND AUDITED

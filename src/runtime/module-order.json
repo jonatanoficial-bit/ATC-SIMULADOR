@@ -153,6 +153,11 @@
       "description": "Airport Authority, terminal operations, gates, passengers, baggage and airport experience"
     },
     {
+      "file": "36-crisis-command-center.js",
+      "name": "crisis-command-center",
+      "description": "Crisis Command Center, irregular operations, ground stop, cyber incident and recovery plan"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"
