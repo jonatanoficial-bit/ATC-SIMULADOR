@@ -1,3 +1,19 @@
+## SC-1.40.0-F40-20260622-1320 — Multi-Airport Network & Regional Operations Center
+
+- Adicionado módulo oficial `43-multi-airport-network-center.js`.
+- Criado catálogo `data/multi-airport-network.json`.
+- Adicionada rede regional de aeroportos.
+- Adicionados hubs e aeroportos alternativos.
+- Adicionados bancos de rota.
+- Adicionadas políticas de malha.
+- Adicionadas interrupções regionais.
+- Adicionadas ações de recuperação.
+- Adicionados KPIs de rede.
+- Adicionado painel `MULTI HUB`.
+- Tela final mostra Multi Hub e Rede.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F40.
+
 ## SC-1.39.0-F39-20260622-1240 — Passenger Experience & Reputation Center
 
 - Adicionado módulo oficial `42-passenger-reputation-center.js`.

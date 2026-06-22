@@ -188,6 +188,11 @@
       "description": "Passenger experience, NPS, complaints, accessibility, public reputation and social sentiment"
     },
     {
+      "file": "43-multi-airport-network-center.js",
+      "name": "multi-airport-network-center",
+      "description": "Multi-airport network, hubs, routes, alternates, slots, connections and regional resilience"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

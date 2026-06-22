@@ -1,18 +1,18 @@
-# Build Notes — SC-1.39.0-F39-20260622-1240
+# Build Notes — SC-1.40.0-F40-20260622-1320
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.39.0
-- Fase: F39 — Passenger Experience & Reputation Center, NPS, Reclamações, Acessibilidade e Imagem Pública
-- Build: `SC-1.39.0-F39-20260622-1240`
-- Data/hora: 2026-06-22 12:40 BRT
-- Canal: passenger-reputation
-- Passenger Reputation schema: 1
+- Versão: 1.40.0
+- Fase: F40 — Multi-Airport Network & Regional Operations Center, Hubs, Rotas, Conexões e Slots Regionais
+- Build: `SC-1.40.0-F40-20260622-1320`
+- Data/hora: 2026-06-22 13:20 BRT
+- Canal: multi-airport-network
+- Multi-Airport Network schema: 1
 
 ## Entregas
 
-A Fase 39 adiciona experiência do passageiro, NPS, reclamações, acessibilidade, atendimento, redes sociais e reputação pública.
+A Fase 40 adiciona operação multi-aeroporto, hubs regionais, rotas, slots, alternados, proteção de conexões e score de rede.
 
 ## Documento de upload
 

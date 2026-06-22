@@ -1,0 +1,271 @@
+{
+  "schema": 1,
+  "version": "2026.06-f40",
+  "description": "Multi-airport regional network center with hubs, routes, alternate airports, inter-airport slots, connection banks and network resilience.",
+  "airports": [
+    {
+      "icao": "SBGR",
+      "name": "São Paulo Guarulhos",
+      "role": "GLOBAL_HUB",
+      "capacity": 100,
+      "resilience": 82
+    },
+    {
+      "icao": "SBSP",
+      "name": "Congonhas",
+      "role": "DOMESTIC_CORE",
+      "capacity": 72,
+      "resilience": 74
+    },
+    {
+      "icao": "SBKP",
+      "name": "Viracopos",
+      "role": "CARGO_RELIEF",
+      "capacity": 86,
+      "resilience": 78
+    },
+    {
+      "icao": "SBRJ",
+      "name": "Santos Dumont",
+      "role": "SHUTTLE_NODE",
+      "capacity": 64,
+      "resilience": 70
+    },
+    {
+      "icao": "SBGL",
+      "name": "Galeão",
+      "role": "INTERNATIONAL_RELIEF",
+      "capacity": 82,
+      "resilience": 76
+    },
+    {
+      "icao": "SBCF",
+      "name": "Confins",
+      "role": "REGIONAL_HUB",
+      "capacity": 78,
+      "resilience": 80
+    }
+  ],
+  "routeBanks": [
+    {
+      "id": "PONTE_AEREA",
+      "name": "Ponte aérea SP-Rio",
+      "airports": [
+        "SBSP",
+        "SBRJ",
+        "SBGR"
+      ],
+      "value": 34,
+      "connectionPressure": 18
+    },
+    {
+      "id": "GRU_GLOBAL",
+      "name": "Banco global GRU",
+      "airports": [
+        "SBGR",
+        "SBGL",
+        "SBCF"
+      ],
+      "value": 48,
+      "connectionPressure": 26
+    },
+    {
+      "id": "VCP_CARGO",
+      "name": "Malha cargueira VCP",
+      "airports": [
+        "SBKP",
+        "SBGR",
+        "SBCF"
+      ],
+      "value": 38,
+      "connectionPressure": 14
+    },
+    {
+      "id": "REGIONAL_FEED",
+      "name": "Alimentação regional",
+      "airports": [
+        "SBCF",
+        "SBGR",
+        "SBSP"
+      ],
+      "value": 30,
+      "connectionPressure": 20
+    },
+    {
+      "id": "RIO_RELIEF",
+      "name": "Alívio Rio internacional",
+      "airports": [
+        "SBGL",
+        "SBRJ",
+        "SBGR"
+      ],
+      "value": 32,
+      "connectionPressure": 16
+    }
+  ],
+  "networkPolicies": [
+    {
+      "id": "BALANCED_FLOW",
+      "name": "Fluxo equilibrado",
+      "slotBoost": 0,
+      "reputationImpact": 0,
+      "costImpact": 0
+    },
+    {
+      "id": "HUB_PRIORITY",
+      "name": "Priorizar hub principal",
+      "slotBoost": 8,
+      "reputationImpact": -2,
+      "costImpact": 5
+    },
+    {
+      "id": "REGIONAL_RESILIENCE",
+      "name": "Resiliência regional",
+      "slotBoost": 4,
+      "reputationImpact": 4,
+      "costImpact": 8
+    },
+    {
+      "id": "CARGO_PROTECTION",
+      "name": "Proteção cargueira",
+      "slotBoost": 5,
+      "reputationImpact": 0,
+      "costImpact": 4
+    },
+    {
+      "id": "PASSENGER_PROTECTION",
+      "name": "Proteger conexões",
+      "slotBoost": 3,
+      "reputationImpact": 7,
+      "costImpact": 6
+    }
+  ],
+  "disruptionTypes": [
+    {
+      "id": "HUB_OVERLOAD",
+      "name": "Sobrecarga no hub",
+      "risk": 24,
+      "metric": "hub"
+    },
+    {
+      "id": "ALTERNATE_SATURATION",
+      "name": "Alternados saturados",
+      "risk": 20,
+      "metric": "resilience"
+    },
+    {
+      "id": "SLOT_MISALIGNMENT",
+      "name": "Desalinhamento de slots",
+      "risk": 18,
+      "metric": "slots"
+    },
+    {
+      "id": "CONNECTION_WAVE_LOST",
+      "name": "Onda de conexão perdida",
+      "risk": 28,
+      "metric": "connections"
+    },
+    {
+      "id": "CARGO_BANK_BREAK",
+      "name": "Banco cargueiro quebrado",
+      "risk": 16,
+      "metric": "cargo"
+    },
+    {
+      "id": "REGIONAL_WEATHER_RING",
+      "name": "Anel meteorológico regional",
+      "risk": 26,
+      "metric": "weather"
+    }
+  ],
+  "recoveryActions": [
+    {
+      "id": "REROUTE_TO_RELIEF",
+      "name": "Redirecionar para aeroporto alívio",
+      "cost": 18000,
+      "benefit": {
+        "resilience": 9,
+        "slots": 4
+      }
+    },
+    {
+      "id": "PROTECT_BANK",
+      "name": "Proteger banco de conexões",
+      "cost": 14000,
+      "benefit": {
+        "connections": 11,
+        "reputation": 3
+      }
+    },
+    {
+      "id": "CARGO_SWEEP",
+      "name": "Varredura cargueira",
+      "cost": 11000,
+      "benefit": {
+        "cargo": 10,
+        "revenue": 3
+      }
+    },
+    {
+      "id": "REGIONAL_GROUND_DELAY",
+      "name": "Ground delay regional",
+      "cost": 9000,
+      "benefit": {
+        "slots": 8,
+        "hub": 5
+      }
+    },
+    {
+      "id": "OPEN_ALTERNATE_WINDOW",
+      "name": "Abrir janela de alternados",
+      "cost": 16000,
+      "benefit": {
+        "resilience": 12
+      }
+    }
+  ],
+  "networkBands": [
+    {
+      "id": "WORLD_NETWORK",
+      "min": 90,
+      "name": "Rede world-class"
+    },
+    {
+      "id": "CONNECTED",
+      "min": 75,
+      "name": "Rede conectada"
+    },
+    {
+      "id": "FRAGILE",
+      "min": 55,
+      "name": "Rede frágil"
+    },
+    {
+      "id": "DISCONNECTED",
+      "min": 0,
+      "name": "Rede desconectada"
+    }
+  ],
+  "networkKPIs": [
+    {
+      "id": "HUB_SCORE",
+      "name": "Score de hub"
+    },
+    {
+      "id": "CONNECTION_PROTECTION",
+      "name": "Proteção de conexões"
+    },
+    {
+      "id": "ALTERNATE_CAPACITY",
+      "name": "Capacidade de alternados"
+    },
+    {
+      "id": "REGIONAL_REVENUE",
+      "name": "Receita regional"
+    },
+    {
+      "id": "NETWORK_RESILIENCE",
+      "name": "Resiliência de rede"
+    }
+  ]
+}
