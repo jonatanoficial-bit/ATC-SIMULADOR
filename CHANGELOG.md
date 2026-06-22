@@ -1,3 +1,17 @@
+## SC-1.37.0-F37-20260622-1125 — Revenue Management & Commercial Strategy Center
+
+- Adicionado módulo oficial `40-revenue-management-commercial-center.js`.
+- Criado catálogo `data/revenue-management.json`.
+- Adicionadas fontes de receita aeronáutica e não aeronáutica.
+- Adicionados centros de custo.
+- Adicionadas alavancas de preço.
+- Adicionados contratos comerciais.
+- Adicionados KPIs financeiros.
+- Adicionado painel `REV MGMT`.
+- Tela final mostra Rev Mgmt e Margem.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F37.
+
 ## SC-1.36.0-F36-20260622-1045 — Environmental & Sustainability Center
 
 - Adicionado módulo oficial `39-environment-sustainability-center.js`.

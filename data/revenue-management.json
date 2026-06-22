@@ -1,0 +1,212 @@
+{
+  "schema": 1,
+  "version": "2026.06-f37",
+  "description": "Revenue management and commercial strategy center with airport fees, non-aero revenue, airline incentives, retail, parking, operating costs and margin.",
+  "revenueStreams": [
+    {
+      "id": "LANDING_FEES",
+      "name": "Tarifas de pouso/decolagem",
+      "base": 42000,
+      "elasticity": 0.18,
+      "risk": 8
+    },
+    {
+      "id": "PASSENGER_FEES",
+      "name": "Tarifas de passageiros",
+      "base": 36000,
+      "elasticity": 0.22,
+      "risk": 10
+    },
+    {
+      "id": "RETAIL_DUTYFREE",
+      "name": "Varejo e duty free",
+      "base": 28000,
+      "elasticity": 0.35,
+      "risk": 12
+    },
+    {
+      "id": "PARKING_GROUND",
+      "name": "Estacionamento e solo",
+      "base": 18000,
+      "elasticity": 0.2,
+      "risk": 7
+    },
+    {
+      "id": "CARGO_HANDLING",
+      "name": "Carga e handling",
+      "base": 26000,
+      "elasticity": 0.25,
+      "risk": 9
+    },
+    {
+      "id": "PREMIUM_SERVICES",
+      "name": "Serviços premium",
+      "base": 12000,
+      "elasticity": 0.32,
+      "risk": 14
+    }
+  ],
+  "costCenters": [
+    {
+      "id": "STAFFING",
+      "name": "Equipes e turnos",
+      "base": 38000,
+      "driver": "traffic"
+    },
+    {
+      "id": "MAINTENANCE",
+      "name": "Manutenção operacional",
+      "base": 26000,
+      "driver": "infrastructure"
+    },
+    {
+      "id": "ENERGY",
+      "name": "Energia e sistemas",
+      "base": 18000,
+      "driver": "terminal"
+    },
+    {
+      "id": "CRISIS_COST",
+      "name": "Custos de crise",
+      "base": 9000,
+      "driver": "crisis"
+    },
+    {
+      "id": "ENVIRONMENT",
+      "name": "Ambiental/ESG",
+      "base": 7000,
+      "driver": "environment"
+    }
+  ],
+  "pricingLevers": [
+    {
+      "id": "BALANCED",
+      "name": "Preço equilibrado",
+      "revenueBoost": 1.0,
+      "satisfactionImpact": 0,
+      "regulatoryRisk": 0
+    },
+    {
+      "id": "GROWTH_INCENTIVE",
+      "name": "Incentivo de crescimento",
+      "revenueBoost": 0.92,
+      "satisfactionImpact": 8,
+      "regulatoryRisk": -2
+    },
+    {
+      "id": "PREMIUM_YIELD",
+      "name": "Yield premium",
+      "revenueBoost": 1.12,
+      "satisfactionImpact": -5,
+      "regulatoryRisk": 4
+    },
+    {
+      "id": "CARGO_PUSH",
+      "name": "Push cargueiro",
+      "revenueBoost": 1.08,
+      "satisfactionImpact": 2,
+      "regulatoryRisk": 2
+    },
+    {
+      "id": "ESG_DISCOUNT",
+      "name": "Desconto verde",
+      "revenueBoost": 0.96,
+      "satisfactionImpact": 4,
+      "regulatoryRisk": -4
+    }
+  ],
+  "commercialDeals": [
+    {
+      "id": "AIRLINE_REBATE",
+      "name": "Rebate por pontualidade",
+      "cost": 14000,
+      "benefit": {
+        "airline": 9,
+        "traffic": 4
+      }
+    },
+    {
+      "id": "RETAIL_CONTRACT",
+      "name": "Contrato varejo premium",
+      "cost": 25000,
+      "benefit": {
+        "retail": 14,
+        "passenger": 4
+      }
+    },
+    {
+      "id": "CARGO_INCENTIVE",
+      "name": "Incentivo cargueiro",
+      "cost": 20000,
+      "benefit": {
+        "cargo": 12,
+        "airline": 3
+      }
+    },
+    {
+      "id": "PARKING_DYNAMIC",
+      "name": "Estacionamento dinâmico",
+      "cost": 9000,
+      "benefit": {
+        "parking": 10
+      }
+    },
+    {
+      "id": "GREEN_AIRLINE_DEAL",
+      "name": "Acordo companhia verde",
+      "cost": 18000,
+      "benefit": {
+        "environment": 8,
+        "airline": 5
+      }
+    }
+  ],
+  "financialBands": [
+    {
+      "id": "PROFIT_LEADER",
+      "min": 90,
+      "name": "Alta rentabilidade"
+    },
+    {
+      "id": "HEALTHY",
+      "min": 75,
+      "name": "Saudável"
+    },
+    {
+      "id": "TIGHT",
+      "min": 55,
+      "name": "Margem apertada"
+    },
+    {
+      "id": "LOSS_RISK",
+      "min": 0,
+      "name": "Risco de prejuízo"
+    }
+  ],
+  "reportingKPIs": [
+    {
+      "id": "EBITDA_MARGIN",
+      "name": "Margem EBITDA"
+    },
+    {
+      "id": "AERO_REVENUE",
+      "name": "Receita aeronáutica"
+    },
+    {
+      "id": "NON_AERO_REVENUE",
+      "name": "Receita não aeronáutica"
+    },
+    {
+      "id": "COST_PER_TURN",
+      "name": "Custo por turno"
+    },
+    {
+      "id": "AIRLINE_YIELD",
+      "name": "Yield companhias"
+    },
+    {
+      "id": "PASSENGER_SPEND",
+      "name": "Gasto por passageiro"
+    }
+  ]
+}

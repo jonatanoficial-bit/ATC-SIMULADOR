@@ -1,18 +1,18 @@
-# Build Notes — SC-1.36.0-F36-20260622-1045
+# Build Notes — SC-1.37.0-F37-20260622-1125
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.36.0
-- Fase: F36 — Environmental & Sustainability Center, Ruído, Emissões, Comunidade e Licenças Ambientais
-- Build: `SC-1.36.0-F36-20260622-1045`
-- Data/hora: 2026-06-22 10:45 BRT
-- Canal: environment-sustainability
-- Environment Sustainability schema: 1
+- Versão: 1.37.0
+- Fase: F37 — Revenue Management & Commercial Strategy Center, Tarifas, Receitas, Custos e Estratégia Comercial
+- Build: `SC-1.37.0-F37-20260622-1125`
+- Data/hora: 2026-06-22 11:25 BRT
+- Canal: revenue-management
+- Revenue Management schema: 1
 
 ## Entregas
 
-A Fase 36 adiciona gestão ambiental/ESG, ruído, emissões CO₂, combustível, comunidade, licenças ambientais e iniciativas verdes.
+A Fase 37 adiciona gestão de receita, tarifas, centros de custo, contratos comerciais, KPIs financeiros, EBITDA, margem e caixa.
 
 ## Documento de upload
 

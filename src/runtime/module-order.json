@@ -173,6 +173,11 @@
       "description": "Environment sustainability, noise, emissions, community, ESG and permits"
     },
     {
+      "file": "40-revenue-management-commercial-center.js",
+      "name": "revenue-management-commercial-center",
+      "description": "Revenue management, airport fees, non-aero revenue, airline incentives, costs and margin"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

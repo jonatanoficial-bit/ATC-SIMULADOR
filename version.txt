@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-Version: 1.36.0
-Phase: F36 — Environmental & Sustainability Center, Ruído, Emissões, Comunidade e Licenças Ambientais
-Build: SC-1.36.0-F36-20260622-1045
-Built at: 2026-06-22 10:45 BRT
-Channel: environment-sustainability
-Environment Sustainability schema: 1
+Version: 1.37.0
+Phase: F37 — Revenue Management & Commercial Strategy Center, Tarifas, Receitas, Custos e Estratégia Comercial
+Build: SC-1.37.0-F37-20260622-1125
+Built at: 2026-06-22 11:25 BRT
+Channel: revenue-management
+Revenue Management schema: 1
 Target: Mobile-first / Tablet / Desktop

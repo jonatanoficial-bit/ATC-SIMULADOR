@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase37-unit",
+  "build": "SC-1.37.0-F37-20260622-1125",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F37+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.37.0\",\"phase\":\"F37\",\"phaseName\":\"Revenue Management & Commercial Strategy Center, Tarifas, Receitas, Custos e Estratégia Comercial\",\"channel\":\"revenue-management\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.37.0-F37-20260622-1125\",\"builtAt\":\"2026-06-22 11:25 BRT\",\"builtAtIso\":\"2026-06-22T11:25:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1}"
+    },
+    {
+      "name": "módulo F37 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo revenue costs deals",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"streams\":6,\"costs\":5}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"pricingLever\":\"PREMIUM_YIELD\",\"cash\":646556,\"activeDeals\":[{\"id\":\"DEA-998673\",\"dealId\":\"RETAIL_CONTRACT\",\"name\":\"Contrato varejo premium\",\"cost\":25000,\"status\":\"ACTIVE\",\"signedAt\":\"2026-06-22T18:46:38.673Z\"}],\"history\":[{\"at\":\"2026-06-22T18:46:38.674Z\",\"build\":\"SC-1.37.0-F37-20260622-1125\",\"airport\":\"SBGR\",\"finalScore\":2600,\"drivers\":{\"finalScore\":2600,\"landed\":2,\"departed\":2,\"denied\":0,\"conflicts\":0,\"runwayIncursions\":0,\"fail\":false,\"airlineScore\":86,\"terminalScore\":82,\"infraScore\":80,\"infraRisk\":10,\"crisisScore\":95,\"esgScore\":88,\"campaignReputation\":320},\"lever\":\"PREMIUM_YIELD\",\"revenueByStream\":{\"LANDING_FEES\":71215,\"PASSENGER_FEES\":61041,\"RETAIL_DUTYFREE\":62476,\"PARKING_GROUND\":30521,\"CARGO_HANDLING\":44085,\"PREMIUM_SERVICES\":20347},\"costs\":{\"STAFFING\":47918,\"MAINTENANCE\":28364,\"ENERGY\":18000,\"CRISIS_COST\":9500,\"ENVIRONMENT\":7000},\"aeroRevenue\":176341,\"nonAeroRevenue\":113344,\"totalRevenue\":289685,\"totalCosts\":113907,\"ebitda\":175778,\"margin\":61,\"cash\":646556,\"revenueScore\":93,\"status\":\"PROFIT_LEADER\",\"activeDeals\":1},{\"at\":\"2026-06-22T18:46:38.674Z\",\"build\":\"SC-1.37.0-F37-20260622-1125\",\"airport\":\"SBGR\",\"finalScore\":2600,\"drivers\":{\"finalScore\":2600,\"landed\":2,\"departed\":2,\"denied\":0,\"conflicts\":0,\"runwayIncursions\":0,\"fail\":false,\"airlineScore\":86,\"terminalScore\":82,\"infraScore\":80,\"infraRisk\":10,\"crisisScore\":95,\"esgScore\":88,\"campaignReputation\":320},\"lever\":\"PREMIUM_YIELD\",\"revenueByStream\":{\"LANDING_FEES\":71215,\"PASSENGER_FEES\":61041,\"RETAIL_DUTYFREE\":62476,\"PARKING_GROUND\":30521,\"CARGO_HANDLING\":44085,\"PREMIUM_SERVICES\":20347},\"costs\":{\"STAFFING\":47918,\"MAINTENANCE\":28364,\"ENERGY\":18000,\"CRISIS_COST\":9500,\"ENVIRONMENT\":7000},\"aeroRevenue\":176341,\"nonAeroRevenue\":113344,\"totalRevenue\":289685,\"totalCosts\":113907,\"ebitda\":175778,\"margin\":61,\"cash\":470778,\"revenueScore\":93,\"status\":\"PROFIT_LEADER\",\"activeDeals\":1}],\"revenueScore\":93,\"margin\":61,\"status\":\"PROFIT_LEADER\",\"lastEvaluation\":{\"at\":\"2026-06-22T18:46:38.674Z\",\"build\":\"SC-1.37.0-F37-20260622-1125\",\"airport\":\"SBGR\",\"finalScore\":2600,\"drivers\":{\"finalScore\":2600,\"landed\":2,\"departed\":2,\"denied\":0,\"conflicts\":0,\"runwayIncursions\":0,\"fail\":false,\"airlineScore\":86,\"terminalScore\":82,\"infraScore\":80,\"infraRisk\":10,\"crisisScore\":95,\"esgScore\":88,\"campaignReputation\":320},\"lever\":\"PREMIUM_YIELD\",\"revenueByStream\":{\"LANDING_FEES\":71215,\"PASSENGER_FEES\":61041,\"RETAIL_DUTYFREE\":62476,\"PARKING_GROUND\":30521,\"CARGO_HANDLING\":44085,\"PREMIUM_SERVICES\":20347},\"costs\":{\"STAFFING\":47918,\"MAINTENANCE\":28364,\"ENERGY\":18000,\"CRISIS_COST\":9500,\"ENVIRONMENT\":7000},\"aeroRevenue\":176341,\"nonAeroRevenue\":113344,\"totalRevenue\":289685,\"totalCosts\":113907,\"ebitda\":175778,\"margin\":61,\"cash\":646556,\"revenueScore\":93,\"status\":\"PROFIT_LEADER\",\"activeDeals\":1}}"
+    },
+    {
+      "name": "alavanca preço aplicada",
+      "ok": true,
+      "detail": "{\"id\":\"PREMIUM_YIELD\",\"name\":\"Yield premium\",\"revenueBoost\":1.12,\"satisfactionImpact\":-5,\"regulatoryRisk\":4}"
+    },
+    {
+      "name": "contrato comercial criado",
+      "ok": true,
+      "detail": "{\"id\":\"DEA-998673\",\"dealId\":\"RETAIL_CONTRACT\",\"name\":\"Contrato varejo premium\",\"cost\":25000,\"status\":\"ACTIVE\",\"signedAt\":\"2026-06-22T18:46:38.673Z\"}"
+    },
+    {
+      "name": "relatório financeiro calculado",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-22T18:46:38.674Z\",\"build\":\"SC-1.37.0-F37-20260622-1125\",\"airport\":\"SBGR\",\"finalScore\":2800,\"drivers\":{\"finalScore\":2800,\"landed\":2,\"departed\":2,\"denied\":0,\"conflicts\":0,\"runwayIncursions\":0,\"fail\":false,\"airlineScore\":86,\"terminalScore\":82,\"infraScore\":80,\"infraRisk\":10,\"crisisScore\":95,\"esgScore\":88,\"campaignReputation\":320},\"lever\":\"PREMIUM_YIELD\",\"revenueByStream\":{\"LANDING_FEES\":71215,\"PASSENGER_FEES\":61041,\"RETAIL_DUTYFREE\":62476,\"PARKING_GROUND\":30521,\"CARGO_HANDLING\":44085,\"PREMIUM_SERVICES\":20347},\"costs\":{\"STAFFING\":47918,\"MAINTENANCE\":28364,\"ENERGY\":18000,\"CRISIS_COST\":9500,\"ENVIRONMENT\":7000},\"aeroRevenue\":176341,\"nonAeroRevenue\":113344,\"totalRevenue\":289685,\"totalCosts\":113907,\"ebitda\":175778,\"margin\":61,\"cash\":822334,\"revenueScore\":93,\"status\":\"PROFIT_LEADER\",\"activeDeals\":1}"
+    },
+    {
+      "name": "progress contém finanças",
+      "ok": true,
+      "detail": "{\"score\":93,\"status\":\"PROFIT_LEADER\",\"cash\":822334,\"margin\":61,\"pricingLever\":\"PREMIUM_YIELD\",\"activeDeals\":1,\"last\":{\"at\":\"2026-06-22T18:46:38.674Z\",\"build\":\"SC-1.37.0-F37-20260622-1125\",\"airport\":\"SBGR\",\"finalScore\":2800,\"drivers\":{\"finalScore\":2800,\"landed\":2,\"departed\":2,\"denied\":0,\"conflicts\":0,\"runwayIncursions\":0,\"fail\":false,\"airlineScore\":86,\"terminalScore\":82,\"infraScore\":80,\"infraRisk\":10,\"crisisScore\":95,\"esgScore\":88,\"campaignReputation\":320},\"lever\":\"PREMIUM_YIELD\",\"revenueByStream\":{\"LANDING_FEES\":71215,\"PASSENGER_FEES\":61041,\"RETAIL_DUTYFREE\":62476,\"PARKING_GROUND\":30521,\"CARGO_HANDLING\":44085,\"PREMIUM_SERVICES\":20347},\"costs\":{\"STAFFING\":47918,\"MAINTENANCE\":28364,\"ENERGY\":18000,\"CRISIS_COST\":9500,\"ENVIRONMENT\":7000},\"aeroRevenue\":176341,\"nonAeroRevenue\":113344,\"totalRevenue\":289685,\"totalCosts\":113907,\"ebitda\":175778,\"margin\":61,\"cash\":822334,\"revenueScore\":93,\"status\":\"PROFIT_LEADER\",\"activeDeals\":1}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"PROFIT_LEADER\",\"min\":90,\"name\":\"Alta rentabilidade\"},{\"id\":\"HEALTHY\",\"min\":75,\"name\":\"Saudável\"},{\"id\":\"TIGHT\",\"min\":55,\"name\":\"Margem apertada\"},{\"id\":\"LOSS_RISK\",\"min\":0,\"name\":\"Risco de prejuízo\"}]"
+    },
+    {
+      "name": "fontes essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"LANDING_FEES\",\"name\":\"Tarifas de pouso/decolagem\",\"base\":42000,\"elasticity\":0.18,\"risk\":8},{\"id\":\"PASSENGER_FEES\",\"name\":\"Tarifas de passageiros\",\"base\":36000,\"elasticity\":0.22,\"risk\":10},{\"id\":\"RETAIL_DUTYFREE\",\"name\":\"Varejo e duty free\",\"base\":28000,\"elasticity\":0.35,\"risk\":12},{\"id\":\"PARKING_GROUND\",\"name\":\"Estacionamento e solo\",\"base\":18000,\"elasticity\":0.2,\"risk\":7},{\"id\":\"CARGO_HANDLING\",\"name\":\"Carga e handling\",\"base\":26000,\"elasticity\":0.25,\"risk\":9},{\"id\":\"PREMIUM_SERVICES\",\"name\":\"Serviços premium\",\"base\":12000,\"elasticity\":0.32,\"risk\":14}]"
+    }
+  ]
+}
