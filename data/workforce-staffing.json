@@ -1,0 +1,190 @@
+{
+  "schema": 1,
+  "version": "2026.06-f38",
+  "description": "Workforce and staffing center with ATC teams, roster coverage, fatigue, training, hiring, absence, labor risk and readiness.",
+  "roles": [
+    {
+      "id": "TOWER_CONTROLLER",
+      "name": "Controlador de Torre",
+      "minCoverage": 2,
+      "skill": "TWR"
+    },
+    {
+      "id": "GROUND_CONTROLLER",
+      "name": "Controlador de Solo",
+      "minCoverage": 1,
+      "skill": "GND"
+    },
+    {
+      "id": "APPROACH_CONTROLLER",
+      "name": "Controle de Aproximação",
+      "minCoverage": 2,
+      "skill": "APP"
+    },
+    {
+      "id": "SUPERVISOR",
+      "name": "Supervisor Operacional",
+      "minCoverage": 1,
+      "skill": "SUP"
+    },
+    {
+      "id": "FLOW_MANAGER",
+      "name": "Gestor de Fluxo",
+      "minCoverage": 1,
+      "skill": "FLOW"
+    },
+    {
+      "id": "TECH_SUPPORT",
+      "name": "Suporte Técnico",
+      "minCoverage": 1,
+      "skill": "TECH"
+    }
+  ],
+  "trainingPrograms": [
+    {
+      "id": "SIM_REFRESHER",
+      "name": "Reciclagem em simulador",
+      "cost": 9000,
+      "skillGain": 6,
+      "fatigueRelief": 2
+    },
+    {
+      "id": "CRM_ATC",
+      "name": "Comunicação e CRM ATC",
+      "cost": 6500,
+      "skillGain": 5,
+      "fatigueRelief": 1
+    },
+    {
+      "id": "EMERGENCY_DRILL",
+      "name": "Treino de emergência",
+      "cost": 11000,
+      "skillGain": 8,
+      "fatigueRelief": 0
+    },
+    {
+      "id": "SURFACE_SAFETY",
+      "name": "Segurança de solo/pista",
+      "cost": 8000,
+      "skillGain": 7,
+      "fatigueRelief": 1
+    },
+    {
+      "id": "FLOW_SLOT_TRAINING",
+      "name": "Slots e fluxo",
+      "cost": 7200,
+      "skillGain": 6,
+      "fatigueRelief": 1
+    }
+  ],
+  "hiringPools": [
+    {
+      "id": "TRAINEE",
+      "name": "Trainee ATC",
+      "cost": 18000,
+      "skill": 55,
+      "readyIn": 4
+    },
+    {
+      "id": "LICENSED",
+      "name": "Controlador licenciado",
+      "cost": 42000,
+      "skill": 72,
+      "readyIn": 2
+    },
+    {
+      "id": "SENIOR",
+      "name": "Sênior internacional",
+      "cost": 76000,
+      "skill": 86,
+      "readyIn": 1
+    },
+    {
+      "id": "CONTRACTOR",
+      "name": "Contrato temporário",
+      "cost": 30000,
+      "skill": 68,
+      "readyIn": 0
+    }
+  ],
+  "laborEvents": [
+    {
+      "id": "SICK_LEAVE",
+      "name": "Baixa médica",
+      "risk": 16,
+      "impact": "coverage-1"
+    },
+    {
+      "id": "OVERTIME_DISPUTE",
+      "name": "Disputa de hora extra",
+      "risk": 22,
+      "impact": "morale-12"
+    },
+    {
+      "id": "UNION_WARNING",
+      "name": "Alerta sindical",
+      "risk": 28,
+      "impact": "laborRisk+15"
+    },
+    {
+      "id": "TRAINING_BACKLOG",
+      "name": "Fila de treinamento",
+      "risk": 14,
+      "impact": "skill-8"
+    },
+    {
+      "id": "BURNOUT_ALERT",
+      "name": "Alerta de burnout",
+      "risk": 26,
+      "impact": "fatigue+18"
+    }
+  ],
+  "readinessBands": [
+    {
+      "id": "ELITE_CREW",
+      "min": 90,
+      "name": "Equipe elite"
+    },
+    {
+      "id": "READY",
+      "min": 75,
+      "name": "Pronta"
+    },
+    {
+      "id": "STRETCHED",
+      "min": 55,
+      "name": "Sobrecarregada"
+    },
+    {
+      "id": "UNDERSTAFFED",
+      "min": 0,
+      "name": "Subdimensionada"
+    }
+  ],
+  "shiftPatterns": [
+    {
+      "id": "NORMAL_DAY",
+      "name": "Turno diurno normal",
+      "fatigue": 8,
+      "coverageBoost": 0
+    },
+    {
+      "id": "PEAK_OPS",
+      "name": "Pico operacional",
+      "fatigue": 14,
+      "coverageBoost": 1
+    },
+    {
+      "id": "NIGHT_OPS",
+      "name": "Turno noturno",
+      "fatigue": 18,
+      "coverageBoost": -1
+    },
+    {
+      "id": "RECOVERY_DAY",
+      "name": "Dia de recuperação",
+      "fatigue": -12,
+      "coverageBoost": -1
+    }
+  ]
+}

@@ -1,3 +1,31 @@
+## SC-1.39.0-F39-20260622-1240 — Passenger Experience & Reputation Center
+
+- Adicionado módulo oficial `42-passenger-reputation-center.js`.
+- Criado catálogo `data/passenger-reputation.json`.
+- Adicionadas métricas de experiência do passageiro.
+- Adicionados programas de serviço.
+- Adicionadas reclamações e atenção pública.
+- Adicionados canais de comunicação.
+- Adicionado score de reputação.
+- Adicionado painel `PASSENGER XP`.
+- Tela final mostra Passenger XP e NPS.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F39.
+
+## SC-1.38.0-F38-20260622-1205 — Workforce & Staffing Center
+
+- Adicionado módulo oficial `41-workforce-staffing-center.js`.
+- Criado catálogo `data/workforce-staffing.json`.
+- Adicionadas funções e cobertura mínima.
+- Adicionadas escalas de turno.
+- Adicionadas fadiga, moral e risco trabalhista.
+- Adicionados treinamentos e contratações.
+- Adicionados eventos trabalhistas.
+- Adicionado painel `WORKFORCE`.
+- Tela final mostra Workforce e Fadiga Média.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F38.
+
 ## SC-1.37.0-F37-20260622-1125 — Revenue Management & Commercial Strategy Center
 
 - Adicionado módulo oficial `40-revenue-management-commercial-center.js`.

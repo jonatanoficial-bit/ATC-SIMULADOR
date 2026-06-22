@@ -1,18 +1,18 @@
-# Build Notes — SC-1.37.0-F37-20260622-1125
+# Build Notes — SC-1.39.0-F39-20260622-1240
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.37.0
-- Fase: F37 — Revenue Management & Commercial Strategy Center, Tarifas, Receitas, Custos e Estratégia Comercial
-- Build: `SC-1.37.0-F37-20260622-1125`
-- Data/hora: 2026-06-22 11:25 BRT
-- Canal: revenue-management
-- Revenue Management schema: 1
+- Versão: 1.39.0
+- Fase: F39 — Passenger Experience & Reputation Center, NPS, Reclamações, Acessibilidade e Imagem Pública
+- Build: `SC-1.39.0-F39-20260622-1240`
+- Data/hora: 2026-06-22 12:40 BRT
+- Canal: passenger-reputation
+- Passenger Reputation schema: 1
 
 ## Entregas
 
-A Fase 37 adiciona gestão de receita, tarifas, centros de custo, contratos comerciais, KPIs financeiros, EBITDA, margem e caixa.
+A Fase 39 adiciona experiência do passageiro, NPS, reclamações, acessibilidade, atendimento, redes sociais e reputação pública.
 
 ## Documento de upload
 

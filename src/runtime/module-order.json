@@ -178,6 +178,16 @@
       "description": "Revenue management, airport fees, non-aero revenue, airline incentives, costs and margin"
     },
     {
+      "file": "41-workforce-staffing-center.js",
+      "name": "workforce-staffing-center",
+      "description": "Workforce staffing, ATC teams, roster coverage, fatigue, training, hiring and labor risk"
+    },
+    {
+      "file": "42-passenger-reputation-center.js",
+      "name": "passenger-reputation-center",
+      "description": "Passenger experience, NPS, complaints, accessibility, public reputation and social sentiment"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

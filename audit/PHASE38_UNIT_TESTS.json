@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "suite": "phase38-unit",
+  "build": "SC-1.38.0-F38-20260622-1205",
+  "passed": 16,
+  "total": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F38+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.38.0\",\"phase\":\"F38\",\"phaseName\":\"Workforce & Staffing Center, Escalas, Fadiga, Treinamento, Contratação e Risco Trabalhista\",\"channel\":\"workforce-staffing\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.38.0-F38-20260622-1205\",\"builtAt\":\"2026-06-22 12:05 BRT\",\"builtAtIso\":\"2026-06-22T12:05:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1}"
+    },
+    {
+      "name": "módulo F38 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo roles training hiring",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"roles\":6,\"training\":5}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"staff\":[{\"id\":\"ATC-001\",\"role\":\"TOWER_CONTROLLER\",\"skill\":90,\"fatigue\":39.333333333333336,\"status\":\"ACTIVE\"},{\"id\":\"ATC-002\",\"role\":\"TOWER_CONTROLLER\",\"skill\":86,\"fatigue\":45.33333333333333,\"status\":\"ACTIVE\"},{\"id\":\"ATC-003\",\"role\":\"GROUND_CONTROLLER\",\"skill\":72,\"fatigue\":45.33333333333333,\"status\":\"ACTIVE\"},{\"id\":\"ATC-004\",\"role\":\"APPROACH_CONTROLLER\",\"skill\":80,\"fatigue\":47.33333333333333,\"status\":\"ACTIVE\"},{\"id\":\"ATC-005\",\"role\":\"APPROACH_CONTROLLER\",\"skill\":76,\"fatigue\":51.33333333333333,\"status\":\"ACTIVE\"},{\"id\":\"ATC-006\",\"role\":\"SUPERVISOR\",\"skill\":85,\"fatigue\":43.333333333333336,\"status\":\"ACTIVE\"},{\"id\":\"ATC-007\",\"role\":\"FLOW_MANAGER\",\"skill\":77,\"fatigue\":46.33333333333333,\"status\":\"ACTIVE\"},{\"id\":\"ATC-008\",\"role\":\"TECH_SUPPORT\",\"skill\":73,\"fatigue\":42.333333333333336,\"status\":\"ACTIVE\"},{\"id\":\"ATC-81661\",\"role\":\"GROUND_CONTROLLER\",\"skill\":68,\"fatigue\":35.333333333333336,\"status\":\"ACTIVE\",\"readyIn\":0,\"source\":\"CONTRACTOR\",\"cost\":30000},{\"id\":\"ATC-81662\",\"role\":\"GROUND_CONTROLLER\",\"skill\":68,\"fatigue\":22.666666666666668,\"status\":\"ACTIVE\",\"readyIn\":0,\"source\":\"CONTRACTOR\",\"cost\":30000}],\"trainees\":[],\"events\":[],\"readinessScore\":74,\"morale\":80,\"laborRisk\":12,\"status\":\"STRETCHED\",\"shiftPattern\":\"PEAK_OPS\",\"history\":[{\"at\":\"2026-06-22T20:21:21.662Z\",\"build\":\"SC-1.38.0-F38-20260622-1205\",\"airport\":\"SBGR\",\"finalScore\":2400,\"coverage\":{\"roles\":{\"TOWER_CONTROLLER\":{\"count\":2,\"required\":2,\"missing\":0},\"GROUND_CONTROLLER\":{\"count\":3,\"required\":1,\"missing\":0},\"APPROACH_CONTROLLER\":{\"count\":2,\"required\":2,\"missing\":0},\"SUPERVISOR\":{\"count\":1,\"required\":1,\"missing\":0},\"FLOW_MANAGER\":{\"count\":1,\"required\":1,\"missing\":0},\"TECH_SUPPORT\":{\"count\":1,\"required\":1,\"missing\":0}},\"active\":10,\"shortage\":0,\"avgSkill\":78,\"avgFatigue\":42},\"readinessScore\":74,\"status\":\"STRETCHED\",\"morale\":80,\"laborRisk\":12,\"shiftPattern\":\"PEAK_OPS\",\"openEvents\":0,\"trainees\":0},{\"type\":\"HIRE\",\"id\":\"ATC-81662\",\"role\":\"GROUND_CONTROLLER\",\"skill\":68,\"fatigue\":10,\"status\":\"ACTIVE\",\"readyIn\":0,\"source\":\"CONTRACTOR\",\"cost\":30000,\"at\":\"2026-06-22T20:21:21.662Z\"},{\"type\":\"TRAINING\",\"id\":\"TRN-681662\",\"programId\":\"SIM_REFRESHER\",\"roleId\":\"TOWER_CONTROLLER\",\"cost\":9000,\"trained\":2,\"at\":\"2026-06-22T20:21:21.662Z\"},{\"at\":\"2026-06-22T20:21:21.662Z\",\"build\":\"SC-1.38.0-F38-20260622-1205\",\"airport\":\"SBGR\",\"finalScore\":2400,\"coverage\":{\"roles\":{\"TOWER_CONTROLLER\":{\"count\":2,\"required\":2,\"missing\":0},\"GROUND_CONTROLLER\":{\"count\":2,\"required\":1,\"missing\":0},\"APPROACH_CONTROLLER\":{\"count\":2,\"required\":2,\"missing\":0},\"SUPERVISOR\":{\"count\":1,\"required\":1,\"missing\":0},\"FLOW_MANAGER\":{\"count\":1,\"required\":1,\"missing\":0},\"TECH_SUPPORT\":{\"count\":1,\"required\":1,\"missing\":0}},\"active\":9,\"shortage\":0,\"avgSkill\":77,\"avgFatigue\":32},\"readinessScore\":76,\"status\":\"READY\",\"morale\":78,\"laborRisk\":12,\"shiftPattern\":\"PEAK_OPS\",\"openEvents\":0,\"trainees\":0},{\"type\":\"HIRE\",\"id\":\"ATC-81661\",\"role\":\"GROUND_CONTROLLER\",\"skill\":68,\"fatigue\":10,\"status\":\"ACTIVE\",\"readyIn\":0,\"source\":\"CONTRACTOR\",\"cost\":30000,\"at\":\"2026-06-22T20:21:21.661Z\"},{\"type\":\"TRAINING\",\"id\":\"TRN-681656\",\"programId\":\"SIM_REFRESHER\",\"roleId\":\"TOWER_CONTROLLER\",\"cost\":9000,\"trained\":2,\"at\":\"2026-06-22T20:21:21.656Z\"}],\"lastEvaluation\":{\"at\":\"2026-06-22T20:21:21.662Z\",\"build\":\"SC-1.38.0-F38-20260622-1205\",\"airport\":\"SBGR\",\"finalScore\":2400,\"coverage\":{\"roles\":{\"TOWER_CONTROLLER\":{\"count\":2,\"required\":2,\"missing\":0},\"GROUND_CONTROLLER\":{\"count\":3,\"required\":1,\"missing\":0},\"APPROACH_CONTROLLER\":{\"count\":2,\"required\":2,\"missing\":0},\"SUPERVISOR\":{\"count\":1,\"required\":1,\"missing\":0},\"FLOW_MANAGER\":{\"count\":1,\"required\":1,\"missing\":0},\"TECH_SUPPORT\":{\"count\":1,\"required\":1,\"missing\":0}},\"active\":10,\"shortage\":0,\"avgSkill\":78,\"avgFatigue\":42},\"readinessScore\":74,\"status\":\"STRETCHED\",\"morale\":80,\"laborRisk\":12,\"shiftPattern\":\"PEAK_OPS\",\"openEvents\":0,\"trainees\":0}}"
+    },
+    {
+      "name": "escala aplicada",
+      "ok": true,
+      "detail": "{\"id\":\"PEAK_OPS\",\"name\":\"Pico operacional\",\"fatigue\":14,\"coverageBoost\":1}"
+    },
+    {
+      "name": "treinamento registrado",
+      "ok": true,
+      "detail": "{\"id\":\"TRN-681663\",\"programId\":\"SIM_REFRESHER\",\"roleId\":\"TOWER_CONTROLLER\",\"cost\":9000,\"trained\":2,\"at\":\"2026-06-22T20:21:21.663Z\"}"
+    },
+    {
+      "name": "contratação registrada",
+      "ok": true,
+      "detail": "{\"id\":\"ATC-81663\",\"role\":\"GROUND_CONTROLLER\",\"skill\":68,\"fatigue\":10,\"status\":\"ACTIVE\",\"readyIn\":0,\"source\":\"CONTRACTOR\",\"cost\":30000}"
+    },
+    {
+      "name": "workforce avaliado",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-22T20:21:21.663Z\",\"build\":\"SC-1.38.0-F38-20260622-1205\",\"airport\":\"SBGR\",\"finalScore\":2600,\"coverage\":{\"roles\":{\"TOWER_CONTROLLER\":{\"count\":2,\"required\":2,\"missing\":0},\"GROUND_CONTROLLER\":{\"count\":4,\"required\":1,\"missing\":0},\"APPROACH_CONTROLLER\":{\"count\":2,\"required\":2,\"missing\":0},\"SUPERVISOR\":{\"count\":1,\"required\":1,\"missing\":0},\"FLOW_MANAGER\":{\"count\":1,\"required\":1,\"missing\":0},\"TECH_SUPPORT\":{\"count\":1,\"required\":1,\"missing\":0}},\"active\":11,\"shortage\":0,\"avgSkill\":78,\"avgFatigue\":51},\"readinessScore\":72,\"status\":\"STRETCHED\",\"morale\":82,\"laborRisk\":12,\"shiftPattern\":\"PEAK_OPS\",\"openEvents\":0,\"trainees\":0}"
+    },
+    {
+      "name": "progress contém workforce",
+      "ok": true,
+      "detail": "{\"score\":72,\"status\":\"STRETCHED\",\"morale\":82,\"laborRisk\":12,\"activeStaff\":11,\"shortage\":0,\"avgFatigue\":51,\"trainees\":0,\"openEvents\":0,\"last\":{\"at\":\"2026-06-22T20:21:21.663Z\",\"build\":\"SC-1.38.0-F38-20260622-1205\",\"airport\":\"SBGR\",\"finalScore\":2600,\"coverage\":{\"roles\":{\"TOWER_CONTROLLER\":{\"count\":2,\"required\":2,\"missing\":0},\"GROUND_CONTROLLER\":{\"count\":4,\"required\":1,\"missing\":0},\"APPROACH_CONTROLLER\":{\"count\":2,\"required\":2,\"missing\":0},\"SUPERVISOR\":{\"count\":1,\"required\":1,\"missing\":0},\"FLOW_MANAGER\":{\"count\":1,\"required\":1,\"missing\":0},\"TECH_SUPPORT\":{\"count\":1,\"required\":1,\"missing\":0}},\"active\":11,\"shortage\":0,\"avgSkill\":78,\"avgFatigue\":51},\"readinessScore\":72,\"status\":\"STRETCHED\",\"morale\":82,\"laborRisk\":12,\"shiftPattern\":\"PEAK_OPS\",\"openEvents\":0,\"trainees\":0}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"ELITE_CREW\",\"min\":90,\"name\":\"Equipe elite\"},{\"id\":\"READY\",\"min\":75,\"name\":\"Pronta\"},{\"id\":\"STRETCHED\",\"min\":55,\"name\":\"Sobrecarregada\"},{\"id\":\"UNDERSTAFFED\",\"min\":0,\"name\":\"Subdimensionada\"}]"
+    },
+    {
+      "name": "funções essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"TOWER_CONTROLLER\",\"name\":\"Controlador de Torre\",\"minCoverage\":2,\"skill\":\"TWR\"},{\"id\":\"GROUND_CONTROLLER\",\"name\":\"Controlador de Solo\",\"minCoverage\":1,\"skill\":\"GND\"},{\"id\":\"APPROACH_CONTROLLER\",\"name\":\"Controle de Aproximação\",\"minCoverage\":2,\"skill\":\"APP\"},{\"id\":\"SUPERVISOR\",\"name\":\"Supervisor Operacional\",\"minCoverage\":1,\"skill\":\"SUP\"},{\"id\":\"FLOW_MANAGER\",\"name\":\"Gestor de Fluxo\",\"minCoverage\":1,\"skill\":\"FLOW\"},{\"id\":\"TECH_SUPPORT\",\"name\":\"Suporte Técnico\",\"minCoverage\":1,\"skill\":\"TECH\"}]"
+    }
+  ]
+}

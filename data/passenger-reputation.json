@@ -1,0 +1,203 @@
+{
+  "schema": 1,
+  "version": "2026.06-f39",
+  "description": "Passenger experience and public reputation center with NPS, complaints, accessibility, customer care, information quality and social media sentiment.",
+  "experienceMetrics": [
+    {
+      "id": "NPS",
+      "name": "NPS passageiro",
+      "weight": 24,
+      "target": 78
+    },
+    {
+      "id": "WAIT_TIME",
+      "name": "Tempo de espera",
+      "weight": 18,
+      "target": 76
+    },
+    {
+      "id": "INFORMATION",
+      "name": "Informação ao passageiro",
+      "weight": 16,
+      "target": 80
+    },
+    {
+      "id": "ACCESSIBILITY",
+      "name": "Acessibilidade",
+      "weight": 12,
+      "target": 82
+    },
+    {
+      "id": "CARE",
+      "name": "Atendimento e acolhimento",
+      "weight": 14,
+      "target": 78
+    },
+    {
+      "id": "SOCIAL_SENTIMENT",
+      "name": "Sentimento em redes",
+      "weight": 16,
+      "target": 76
+    }
+  ],
+  "servicePrograms": [
+    {
+      "id": "LIVE_INFO_BOARDS",
+      "name": "Painéis vivos de informação",
+      "cost": 32000,
+      "benefit": {
+        "INFORMATION": 10,
+        "NPS": 4
+      }
+    },
+    {
+      "id": "ACCESSIBILITY_CREW",
+      "name": "Equipe acessibilidade",
+      "cost": 24000,
+      "benefit": {
+        "ACCESSIBILITY": 12,
+        "CARE": 4
+      }
+    },
+    {
+      "id": "QUEUE_AMBASSADORS",
+      "name": "Anfitriões de fila",
+      "cost": 18000,
+      "benefit": {
+        "WAIT_TIME": 8,
+        "CARE": 6
+      }
+    },
+    {
+      "id": "CARE_DESK",
+      "name": "Balcão cuidado ao passageiro",
+      "cost": 26000,
+      "benefit": {
+        "CARE": 12,
+        "SOCIAL_SENTIMENT": 4
+      }
+    },
+    {
+      "id": "SOCIAL_RESPONSE",
+      "name": "Resposta social media",
+      "cost": 15000,
+      "benefit": {
+        "SOCIAL_SENTIMENT": 10,
+        "INFORMATION": 3
+      }
+    },
+    {
+      "id": "FAMILY_ASSIST",
+      "name": "Assistência famílias/conexões",
+      "cost": 21000,
+      "benefit": {
+        "NPS": 7,
+        "CARE": 6
+      }
+    }
+  ],
+  "complaintTypes": [
+    {
+      "id": "DELAY_INFO",
+      "name": "Falta de informação sobre atraso",
+      "risk": 18,
+      "metric": "INFORMATION"
+    },
+    {
+      "id": "LONG_QUEUE",
+      "name": "Fila longa",
+      "risk": 15,
+      "metric": "WAIT_TIME"
+    },
+    {
+      "id": "ACCESSIBILITY_FAIL",
+      "name": "Falha de acessibilidade",
+      "risk": 24,
+      "metric": "ACCESSIBILITY"
+    },
+    {
+      "id": "BAGGAGE_CLAIM",
+      "name": "Problema de bagagem",
+      "risk": 17,
+      "metric": "CARE"
+    },
+    {
+      "id": "SOCIAL_VIRAL",
+      "name": "Post viral negativo",
+      "risk": 28,
+      "metric": "SOCIAL_SENTIMENT"
+    },
+    {
+      "id": "CONNECTION_MISSED",
+      "name": "Conexão perdida",
+      "risk": 22,
+      "metric": "NPS"
+    }
+  ],
+  "reputationBands": [
+    {
+      "id": "LOVED_AIRPORT",
+      "min": 90,
+      "name": "Aeroporto querido"
+    },
+    {
+      "id": "TRUSTED",
+      "min": 75,
+      "name": "Imagem confiável"
+    },
+    {
+      "id": "UNDER_PRESSURE",
+      "min": 55,
+      "name": "Imagem pressionada"
+    },
+    {
+      "id": "REPUTATION_CRISIS",
+      "min": 0,
+      "name": "Crise reputacional"
+    }
+  ],
+  "communicationChannels": [
+    {
+      "id": "APP_PUSH",
+      "name": "Notificação app/PWA"
+    },
+    {
+      "id": "PA_SYSTEM",
+      "name": "Sistema de som"
+    },
+    {
+      "id": "SOCIAL_MEDIA",
+      "name": "Redes sociais"
+    },
+    {
+      "id": "AIRLINE_DESKS",
+      "name": "Balcões das companhias"
+    },
+    {
+      "id": "ACCESSIBILITY_TEAM",
+      "name": "Equipe acessibilidade"
+    }
+  ],
+  "publicMoments": [
+    {
+      "id": "HOLIDAY_PEAK",
+      "name": "Pico de feriado",
+      "attention": 18
+    },
+    {
+      "id": "MAJOR_DELAY",
+      "name": "Grande atraso",
+      "attention": 24
+    },
+    {
+      "id": "VIP_VISIT",
+      "name": "Visita institucional",
+      "attention": 10
+    },
+    {
+      "id": "VIRAL_INCIDENT",
+      "name": "Incidente viral",
+      "attention": 30
+    }
+  ]
+}

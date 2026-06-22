@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase39-unit",
+  "build": "SC-1.39.0-F39-20260622-1240",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F39+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.39.0\",\"phase\":\"F39\",\"phaseName\":\"Passenger Experience & Reputation Center, NPS, Reclamações, Acessibilidade e Imagem Pública\",\"channel\":\"passenger-reputation\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.39.0-F39-20260622-1240\",\"builtAt\":\"2026-06-22 12:40 BRT\",\"builtAtIso\":\"2026-06-22T12:40:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1}"
+    },
+    {
+      "name": "módulo F39 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo metrics programs complaints",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"metrics\":6,\"programs\":6}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"metrics\":{\"NPS\":86.54857142857144,\"WAIT_TIME\":80,\"INFORMATION\":74.71428571428571,\"ACCESSIBILITY\":86,\"CARE\":72.60000000000001,\"SOCIAL_SENTIMENT\":72.3},\"programs\":[{\"id\":\"PXP-288361\",\"programId\":\"LIVE_INFO_BOARDS\",\"name\":\"Painéis vivos de informação\",\"cost\":32000,\"status\":\"ACTIVE\",\"startedAt\":\"2026-06-22T21:21:28.361Z\"}],\"complaints\":[{\"id\":\"CMP-288362\",\"complaintId\":\"DELAY_INFO\",\"name\":\"Falta de informação sobre atraso\",\"risk\":18,\"metric\":\"INFORMATION\",\"status\":\"OPEN\",\"at\":\"2026-06-22T21:21:28.362Z\"},{\"id\":\"CMP-288362\",\"complaintId\":\"DELAY_INFO\",\"name\":\"Falta de informação sobre atraso\",\"risk\":18,\"metric\":\"INFORMATION\",\"status\":\"OPEN\",\"at\":\"2026-06-22T21:21:28.362Z\"}],\"reputationScore\":77,\"status\":\"TRUSTED\",\"publicAttention\":24,\"history\":[{\"at\":\"2026-06-22T21:21:28.362Z\",\"build\":\"SC-1.39.0-F39-20260622-1240\",\"airport\":\"SBGR\",\"finalScore\":2400,\"metrics\":{\"NPS\":86.54857142857144,\"WAIT_TIME\":80,\"INFORMATION\":74.71428571428571,\"ACCESSIBILITY\":86,\"CARE\":72.60000000000001,\"SOCIAL_SENTIMENT\":72.3},\"weighted\":79,\"reputationScore\":77,\"status\":\"TRUSTED\",\"openComplaints\":2,\"programs\":1,\"publicAttention\":24},{\"at\":\"2026-06-22T21:21:28.362Z\",\"build\":\"SC-1.39.0-F39-20260622-1240\",\"airport\":\"SBGR\",\"finalScore\":2400,\"metrics\":{\"NPS\":84.99714285714286,\"WAIT_TIME\":78,\"INFORMATION\":85.57142857142857,\"ACCESSIBILITY\":84,\"CARE\":76.2,\"SOCIAL_SENTIMENT\":74.6},\"weighted\":81,\"reputationScore\":81,\"status\":\"TRUSTED\",\"openComplaints\":1,\"programs\":1,\"publicAttention\":18}],\"lastEvaluation\":{\"at\":\"2026-06-22T21:21:28.362Z\",\"build\":\"SC-1.39.0-F39-20260622-1240\",\"airport\":\"SBGR\",\"finalScore\":2400,\"metrics\":{\"NPS\":86.54857142857144,\"WAIT_TIME\":80,\"INFORMATION\":74.71428571428571,\"ACCESSIBILITY\":86,\"CARE\":72.60000000000001,\"SOCIAL_SENTIMENT\":72.3},\"weighted\":79,\"reputationScore\":77,\"status\":\"TRUSTED\",\"openComplaints\":2,\"programs\":1,\"publicAttention\":24}}"
+    },
+    {
+      "name": "programa XP criado",
+      "ok": true,
+      "detail": "{\"id\":\"PXP-288362\",\"programId\":\"ACCESSIBILITY_CREW\",\"name\":\"Equipe acessibilidade\",\"cost\":24000,\"status\":\"ACTIVE\",\"startedAt\":\"2026-06-22T21:21:28.362Z\"}"
+    },
+    {
+      "name": "reclamação criada",
+      "ok": true,
+      "detail": "{\"id\":\"CMP-288362\",\"complaintId\":\"LONG_QUEUE\",\"name\":\"Fila longa\",\"risk\":15,\"metric\":\"WAIT_TIME\",\"status\":\"OPEN\",\"at\":\"2026-06-22T21:21:28.362Z\"}"
+    },
+    {
+      "name": "reputação avaliada",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-22T21:21:28.362Z\",\"build\":\"SC-1.39.0-F39-20260622-1240\",\"airport\":\"SBGR\",\"finalScore\":2600,\"metrics\":{\"NPS\":86.87428571428572,\"WAIT_TIME\":76.64285714285714,\"INFORMATION\":63.85714285714285,\"ACCESSIBILITY\":100,\"CARE\":71.2,\"SOCIAL_SENTIMENT\":69.25},\"weighted\":78,\"reputationScore\":76,\"status\":\"TRUSTED\",\"openComplaints\":3,\"programs\":2,\"publicAttention\":30}"
+    },
+    {
+      "name": "progress contém reputação",
+      "ok": true,
+      "detail": "{\"score\":76,\"status\":\"TRUSTED\",\"nps\":87,\"sentiment\":69,\"complaints\":3,\"programs\":2,\"publicAttention\":30,\"last\":{\"at\":\"2026-06-22T21:21:28.362Z\",\"build\":\"SC-1.39.0-F39-20260622-1240\",\"airport\":\"SBGR\",\"finalScore\":2600,\"metrics\":{\"NPS\":86.87428571428572,\"WAIT_TIME\":76.64285714285714,\"INFORMATION\":63.85714285714285,\"ACCESSIBILITY\":100,\"CARE\":71.2,\"SOCIAL_SENTIMENT\":69.25},\"weighted\":78,\"reputationScore\":76,\"status\":\"TRUSTED\",\"openComplaints\":3,\"programs\":2,\"publicAttention\":30}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"LOVED_AIRPORT\",\"min\":90,\"name\":\"Aeroporto querido\"},{\"id\":\"TRUSTED\",\"min\":75,\"name\":\"Imagem confiável\"},{\"id\":\"UNDER_PRESSURE\",\"min\":55,\"name\":\"Imagem pressionada\"},{\"id\":\"REPUTATION_CRISIS\",\"min\":0,\"name\":\"Crise reputacional\"}]"
+    },
+    {
+      "name": "métricas essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"NPS\",\"name\":\"NPS passageiro\",\"weight\":24,\"target\":78},{\"id\":\"WAIT_TIME\",\"name\":\"Tempo de espera\",\"weight\":18,\"target\":76},{\"id\":\"INFORMATION\",\"name\":\"Informação ao passageiro\",\"weight\":16,\"target\":80},{\"id\":\"ACCESSIBILITY\",\"name\":\"Acessibilidade\",\"weight\":12,\"target\":82},{\"id\":\"CARE\",\"name\":\"Atendimento e acolhimento\",\"weight\":14,\"target\":78},{\"id\":\"SOCIAL_SENTIMENT\",\"name\":\"Sentimento em redes\",\"weight\":16,\"target\":76}]"
+    }
+  ]
+}
