@@ -1,3 +1,14 @@
+## SC-1.46.0-F46-20260623-1030 — Radio Communications & Phraseology Center
+
+- Adicionado módulo oficial `49-radio-communications-phraseology-center.js`.
+- Criado catálogo `data/radio-phraseology.json`.
+- Adicionados VHF load, readback/hearback, CPDLC, fraseologia e clareza de idioma.
+- Adicionados falhas e programas de melhoria de comunicação.
+- Adicionado painel `RADIO OPS`.
+- Tela final mostra Radio Ops e Readback.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F46.
+
 ## SC-1.45.0-F45-20260623-0945 — AI Copilot & Decision Support Center
 
 - Adicionado módulo oficial `48-ai-copilot-decision-support-center.js`.

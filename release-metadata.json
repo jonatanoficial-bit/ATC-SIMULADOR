@@ -1,10 +1,10 @@
 {
   "product": "Skyward Control",
   "prefix": "SC",
-  "version": "1.45.0",
-  "phase": "F45",
-  "phaseName": "AI Copilot & Decision Support Center, Recomendações, Alertas, Justificativas e Plano de Ação",
-  "channel": "ai-copilot-decision-support",
+  "version": "1.46.0",
+  "phase": "F46",
+  "phaseName": "Radio Communications & Phraseology Center, VHF, Readback, CPDLC, Fraseologia e Qualidade de Comunicação",
+  "channel": "radio-phraseology",
   "saveSchema": 3,
   "target": "Mobile-first / Tablet / Desktop",
   "timeZone": "America/Sao_Paulo",
@@ -17,9 +17,9 @@
   "desktopSchema": 1,
   "accessibilitySchema": 1,
   "replaySchema": 1,
-  "build": "SC-1.45.0-F45-20260623-0945",
-  "builtAt": "2026-06-23 09:45 BRT",
-  "builtAtIso": "2026-06-23T09:45:00-03:00",
+  "build": "SC-1.46.0-F46-20260623-1030",
+  "builtAt": "2026-06-23 10:30 BRT",
+  "builtAtIso": "2026-06-23T10:30:00-03:00",
   "aircraftPerformanceSchema": 1,
   "airportSurfaceSchema": 1,
   "surfaceSafetySchema": 1,
@@ -53,5 +53,6 @@
   "securityCyberDefenseSchema": 1,
   "assetMaintenanceSchema": 1,
   "digitalTwinPredictiveSchema": 1,
-  "aiCopilotSchema": 1
+  "aiCopilotSchema": 1,
+  "radioPhraseologySchema": 1
 }

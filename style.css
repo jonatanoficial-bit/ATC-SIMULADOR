@@ -1014,3 +1014,9 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .ai-copilot-inline .airport-ops-head span{color:#c9ff9b}
 .ai-copilot-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(190,255,150,.45);border-radius:999px;padding:4px 9px;background:rgba(190,255,150,.13);font-weight:900}
 .ai-copilot-ready{color:#91ffb7}.ai-copilot-limited{color:#ffd27a}.ai-copilot-review{color:#ff918c}
+
+/* F46 Radio Communications Phraseology */
+.radio-phraseology-inline{border-color:rgba(120,245,255,.62);background:linear-gradient(180deg,rgba(15,68,86,.90),rgba(5,25,42,.96));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 32px rgba(120,245,255,.15)}
+.radio-phraseology-inline .airport-ops-head span{color:#98f8ff}
+.radio-phraseology-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(120,245,255,.45);border-radius:999px;padding:4px 9px;background:rgba(120,245,255,.13);font-weight:900}
+.radio-phraseology-clear{color:#91ffb7}.radio-phraseology-congested{color:#ffd27a}.radio-phraseology-unsafe{color:#ff918c}

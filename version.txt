@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-Version: 1.45.0
-Phase: F45 — AI Copilot & Decision Support Center, Recomendações, Alertas, Justificativas e Plano de Ação
-Build: SC-1.45.0-F45-20260623-0945
-Built at: 2026-06-23 09:45 BRT
-Channel: ai-copilot-decision-support
-AI Copilot schema: 1
+Version: 1.46.0
+Phase: F46 — Radio Communications & Phraseology Center, VHF, Readback, CPDLC, Fraseologia e Qualidade de Comunicação
+Build: SC-1.46.0-F46-20260623-1030
+Built at: 2026-06-23 10:30 BRT
+Channel: radio-phraseology
+Radio Phraseology schema: 1
 Target: Mobile-first / Tablet / Desktop

@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "suite": "phase46-unit",
+  "build": "SC-1.46.0-F46-20260623-1030",
+  "passed": 11,
+  "total": 11,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F46",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "módulo F46 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo completo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"domains\":7,\"issuesCount\":7}"
+    },
+    {
+      "name": "programa criado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "issue criado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "avaliação válida",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-23T15:15:36.065Z\",\"build\":\"SC-1.46.0-F46-20260623-1030\",\"airport\":\"SBGR\",\"finalScore\":2800,\"scores\":{\"VHF_LOAD\":78.5,\"READBACK_ACCURACY\":100,\"HEARBACK_MONITOR\":54.10947368421051,\"PHRASEOLOGY\":93.11111111111111,\"CPDLC_TEXT\":90.60000000000001,\"EMERGENCY_COMMS\":92.60000000000001,\"LANGUAGE_CLARITY\":89.37999999999998},\"load\":30,\"openIssues\":3,\"readbackRate\":77,\"blockedRate\":0,\"vhfUtilization\":30,\"drivers\":{\"denied\":0,\"commands\":8,\"blocked\":0,\"conflicts\":0,\"emergencies\":0},\"weighted\":85,\"radioScore\":78,\"status\":\"CLEAR\",\"programs\":3}"
+    },
+    {
+      "name": "progress válido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "domínios essenciais",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

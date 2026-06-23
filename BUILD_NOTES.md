@@ -1,14 +1,19 @@
-# Build Notes — SC-1.45.0-F45-20260623-0945
+# Build Notes — SC-1.46.0-F46-20260623-1030
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.45.0
-- Fase: F45 — AI Copilot & Decision Support Center, Recomendações, Alertas, Justificativas e Plano de Ação
-- Build: `SC-1.45.0-F45-20260623-0945`
-- Canal: ai-copilot-decision-support
-- AI Copilot schema: 1
+- Versão: 1.46.0
+- Fase: F46 — Radio Communications & Phraseology Center
+- Build: `SC-1.46.0-F46-20260623-1030`
+- Data/hora: 2026-06-23 10:30 BRT
+- Canal: radio-phraseology
+- Radio Phraseology schema: 1
 
 ## Entregas
 
-A Fase 45 adiciona copiloto operacional, recomendações priorizadas, alertas inteligentes, plano de ação, justificativas e score de confiança.
+A Fase 46 adiciona comunicação ATC realista: VHF, readback, hearback, CPDLC, fraseologia, clareza de idioma e falhas de comunicação.
+
+## Documento de upload
+
+A build preserva `UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md`.

@@ -1,0 +1,229 @@
+{
+  "schema": 1,
+  "version": "2026.06-f46",
+  "description": "Radio communications and phraseology center with VHF load, readback/hearback, CPDLC, emergency radio, language quality, noise and blocked transmissions.",
+  "communicationDomains": [
+    {
+      "id": "VHF_LOAD",
+      "name": "Carga VHF",
+      "weight": 16,
+      "target": 78
+    },
+    {
+      "id": "READBACK_ACCURACY",
+      "name": "Readback correto",
+      "weight": 18,
+      "target": 86
+    },
+    {
+      "id": "HEARBACK_MONITOR",
+      "name": "Hearback/escuta ativa",
+      "weight": 16,
+      "target": 84
+    },
+    {
+      "id": "PHRASEOLOGY",
+      "name": "Fraseologia ICAO/ANAC",
+      "weight": 18,
+      "target": 86
+    },
+    {
+      "id": "CPDLC_TEXT",
+      "name": "CPDLC/texto operacional",
+      "weight": 10,
+      "target": 80
+    },
+    {
+      "id": "EMERGENCY_COMMS",
+      "name": "Comunicação de emergência",
+      "weight": 12,
+      "target": 84
+    },
+    {
+      "id": "LANGUAGE_CLARITY",
+      "name": "Clareza/idioma operacional",
+      "weight": 10,
+      "target": 82
+    }
+  ],
+  "phraseologySets": [
+    {
+      "id": "CLEARANCE_READBACK",
+      "name": "Autorização e readback",
+      "risk": 18
+    },
+    {
+      "id": "TAXI_HOLD_SHORT",
+      "name": "Taxi e hold short",
+      "risk": 20
+    },
+    {
+      "id": "LINEUP_TAKEOFF",
+      "name": "Alinhamento/decolagem",
+      "risk": 24
+    },
+    {
+      "id": "APPROACH_LANDING",
+      "name": "Aproximação/pouso",
+      "risk": 22
+    },
+    {
+      "id": "MISSED_APPROACH",
+      "name": "Arremetida",
+      "risk": 28
+    },
+    {
+      "id": "MAYDAY_PANPAN",
+      "name": "Mayday/Pan-pan",
+      "risk": 30
+    },
+    {
+      "id": "CPDLC_ROUTE_CLEARANCE",
+      "name": "CPDLC rota/nível",
+      "risk": 16
+    }
+  ],
+  "communicationIssues": [
+    {
+      "id": "CALLSIGN_CONFUSION",
+      "name": "Confusão de callsign",
+      "domain": "READBACK_ACCURACY",
+      "severity": 24
+    },
+    {
+      "id": "BLOCKED_TRANSMISSION",
+      "name": "Transmissão bloqueada",
+      "domain": "VHF_LOAD",
+      "severity": 22
+    },
+    {
+      "id": "WRONG_READBACK",
+      "name": "Readback incorreto",
+      "domain": "HEARBACK_MONITOR",
+      "severity": 28
+    },
+    {
+      "id": "NON_STANDARD_PHRASEOLOGY",
+      "name": "Fraseologia não padrão",
+      "domain": "PHRASEOLOGY",
+      "severity": 18
+    },
+    {
+      "id": "LANGUAGE_AMBIGUITY",
+      "name": "Ambiguidade de idioma",
+      "domain": "LANGUAGE_CLARITY",
+      "severity": 20
+    },
+    {
+      "id": "CPDLC_MISMATCH",
+      "name": "Divergência CPDLC/voz",
+      "domain": "CPDLC_TEXT",
+      "severity": 23
+    },
+    {
+      "id": "EMERGENCY_RADIO_OVERLOAD",
+      "name": "Sobrecarga rádio emergência",
+      "domain": "EMERGENCY_COMMS",
+      "severity": 30
+    }
+  ],
+  "improvementPrograms": [
+    {
+      "id": "READBACK_DRILL",
+      "name": "Treino readback/hearback",
+      "cost": 12000,
+      "benefit": {
+        "READBACK_ACCURACY": 10,
+        "HEARBACK_MONITOR": 9
+      }
+    },
+    {
+      "id": "PHRASEOLOGY_REFRESHER",
+      "name": "Reciclagem fraseologia",
+      "cost": 10000,
+      "benefit": {
+        "PHRASEOLOGY": 12,
+        "LANGUAGE_CLARITY": 4
+      }
+    },
+    {
+      "id": "VHF_SECTOR_SPLIT",
+      "name": "Divisão de frequência/setor",
+      "cost": 16000,
+      "benefit": {
+        "VHF_LOAD": 12
+      }
+    },
+    {
+      "id": "CPDLC_TEMPLATES",
+      "name": "Templates CPDLC",
+      "cost": 9000,
+      "benefit": {
+        "CPDLC_TEXT": 11,
+        "PHRASEOLOGY": 3
+      }
+    },
+    {
+      "id": "EMERGENCY_COMMS_DRILL",
+      "name": "Drill rádio emergência",
+      "cost": 14000,
+      "benefit": {
+        "EMERGENCY_COMMS": 13,
+        "HEARBACK_MONITOR": 4
+      }
+    },
+    {
+      "id": "LANGUAGE_CLEARANCE",
+      "name": "Clareza bilíngue operacional",
+      "cost": 11000,
+      "benefit": {
+        "LANGUAGE_CLARITY": 12,
+        "READBACK_ACCURACY": 3
+      }
+    }
+  ],
+  "radioBands": [
+    {
+      "id": "EXCELLENT",
+      "min": 90,
+      "name": "Comunicação excelente"
+    },
+    {
+      "id": "CLEAR",
+      "min": 75,
+      "name": "Comunicação clara"
+    },
+    {
+      "id": "CONGESTED",
+      "min": 55,
+      "name": "Congestionada"
+    },
+    {
+      "id": "UNSAFE_COMMS",
+      "min": 0,
+      "name": "Comunicação insegura"
+    }
+  ],
+  "radioKPIs": [
+    {
+      "id": "READBACK_RATE",
+      "name": "Taxa readback correto"
+    },
+    {
+      "id": "BLOCKED_RATE",
+      "name": "Taxa transmissão bloqueada"
+    },
+    {
+      "id": "VHF_UTILIZATION",
+      "name": "Utilização VHF"
+    },
+    {
+      "id": "PHRASEOLOGY_SCORE",
+      "name": "Score fraseologia"
+    },
+    {
+      "id": "COMMS_RISK",
+      "name": "Risco comunicação"
+    }
+  ]
+}

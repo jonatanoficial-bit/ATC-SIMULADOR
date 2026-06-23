@@ -218,6 +218,11 @@
       "description": "AI Copilot, decision support, prioritized recommendations, alerts, explanations and action plans"
     },
     {
+      "file": "49-radio-communications-phraseology-center.js",
+      "name": "radio-communications-phraseology-center",
+      "description": "Radio communications, VHF load, readback, hearback, CPDLC, phraseology and language clarity"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"
