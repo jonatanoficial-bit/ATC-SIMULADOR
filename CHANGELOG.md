@@ -1,3 +1,17 @@
+## SC-1.47.0-F47-20260623-1115 — Ground Handling & Turnaround Control Center
+
+- Adicionado módulo oficial `50-ground-handling-turnaround-center.js`.
+- Criado catálogo `data/ground-turnaround.json`.
+- Adicionados processos de gate, embarque, bagagem, combustível, catering, limpeza, pushback, rampa e deicing.
+- Adicionados perfis SLA de turnaround.
+- Adicionadas causas de atraso de solo.
+- Adicionados programas de melhoria de solo.
+- Adicionados KPIs de turnaround.
+- Adicionado painel `GROUND OPS`.
+- Tela final mostra Ground Ops e TAT Médio.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F47.
+
 ## SC-1.46.0-F46-20260623-1030 — Radio Communications & Phraseology Center
 
 - Adicionado módulo oficial `49-radio-communications-phraseology-center.js`.

@@ -1,7 +1,7 @@
 SKYWARD CONTROL
-Radio Phraseology Evolution — Phase 46
-Version: 1.46.0
-Build: SC-1.46.0-F46-20260623-1030
-Built: 2026-06-23 10:30 BRT
-Channel: RADIO-PHRASEOLOGY
-Status: F46 RADIO PHRASEOLOGY AUDITED
+Ground Turnaround Evolution — Phase 47
+Version: 1.47.0
+Build: SC-1.47.0-F47-20260623-1115
+Built: 2026-06-23 11:15 BRT
+Channel: GROUND-TURNAROUND
+Status: F47 GROUND TURNAROUND AUDITED

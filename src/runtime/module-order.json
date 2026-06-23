@@ -223,6 +223,11 @@
       "description": "Radio communications, VHF load, readback, hearback, CPDLC, phraseology and language clarity"
     },
     {
+      "file": "50-ground-handling-turnaround-center.js",
+      "name": "ground-handling-turnaround-center",
+      "description": "Ground handling, turnaround, gate, pushback, baggage, fueling, catering, cleaning, ramp safety and SLA"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

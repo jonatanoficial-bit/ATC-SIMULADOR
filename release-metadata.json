@@ -1,10 +1,10 @@
 {
   "product": "Skyward Control",
   "prefix": "SC",
-  "version": "1.46.0",
-  "phase": "F46",
-  "phaseName": "Radio Communications & Phraseology Center, VHF, Readback, CPDLC, Fraseologia e Qualidade de Comunicação",
-  "channel": "radio-phraseology",
+  "version": "1.47.0",
+  "phase": "F47",
+  "phaseName": "Ground Handling & Turnaround Control Center, Gate, Pushback, Bagagem, Combustível e SLA de Solo",
+  "channel": "ground-turnaround",
   "saveSchema": 3,
   "target": "Mobile-first / Tablet / Desktop",
   "timeZone": "America/Sao_Paulo",
@@ -17,9 +17,9 @@
   "desktopSchema": 1,
   "accessibilitySchema": 1,
   "replaySchema": 1,
-  "build": "SC-1.46.0-F46-20260623-1030",
-  "builtAt": "2026-06-23 10:30 BRT",
-  "builtAtIso": "2026-06-23T10:30:00-03:00",
+  "build": "SC-1.47.0-F47-20260623-1115",
+  "builtAt": "2026-06-23 11:15 BRT",
+  "builtAtIso": "2026-06-23T11:15:00-03:00",
   "aircraftPerformanceSchema": 1,
   "airportSurfaceSchema": 1,
   "surfaceSafetySchema": 1,
@@ -54,5 +54,6 @@
   "assetMaintenanceSchema": 1,
   "digitalTwinPredictiveSchema": 1,
   "aiCopilotSchema": 1,
-  "radioPhraseologySchema": 1
+  "radioPhraseologySchema": 1,
+  "groundTurnaroundSchema": 1
 }

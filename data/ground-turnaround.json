@@ -1,0 +1,297 @@
+{
+  "schema": 1,
+  "version": "2026.06-f47",
+  "description": "Ground handling and turnaround control center with gates, pushback, baggage, fueling, catering, cleaning, boarding, deicing, SLA and ground delay.",
+  "turnaroundProcesses": [
+    {
+      "id": "GATE_ASSIGNMENT",
+      "name": "Gate/stand assignment",
+      "weight": 12,
+      "target": 82
+    },
+    {
+      "id": "BOARDING",
+      "name": "Embarque/desembarque",
+      "weight": 13,
+      "target": 80
+    },
+    {
+      "id": "BAGGAGE",
+      "name": "Bagagem e sorter",
+      "weight": 13,
+      "target": 78
+    },
+    {
+      "id": "FUELING",
+      "name": "Abastecimento",
+      "weight": 14,
+      "target": 82
+    },
+    {
+      "id": "CATERING_CLEANING",
+      "name": "Catering/limpeza",
+      "weight": 10,
+      "target": 78
+    },
+    {
+      "id": "PUSHBACK",
+      "name": "Pushback e trator",
+      "weight": 14,
+      "target": 82
+    },
+    {
+      "id": "RAMP_SAFETY",
+      "name": "Segurança de rampa",
+      "weight": 14,
+      "target": 84
+    },
+    {
+      "id": "DEICING_WEATHER",
+      "name": "Clima/deicing",
+      "weight": 10,
+      "target": 76
+    }
+  ],
+  "groundAssets": [
+    {
+      "id": "GATE_CREWS",
+      "name": "Equipes de gate",
+      "process": "GATE_ASSIGNMENT",
+      "capacity": 24,
+      "readiness": 78
+    },
+    {
+      "id": "BOARDING_AGENTS",
+      "name": "Agentes de embarque",
+      "process": "BOARDING",
+      "capacity": 26,
+      "readiness": 80
+    },
+    {
+      "id": "BAGGAGE_TUGS",
+      "name": "Tratores bagagem",
+      "process": "BAGGAGE",
+      "capacity": 20,
+      "readiness": 76
+    },
+    {
+      "id": "FUEL_TRUCKS",
+      "name": "Caminhões combustível",
+      "process": "FUELING",
+      "capacity": 18,
+      "readiness": 82
+    },
+    {
+      "id": "CATERING_TRUCKS",
+      "name": "Catering/limpeza",
+      "process": "CATERING_CLEANING",
+      "capacity": 18,
+      "readiness": 76
+    },
+    {
+      "id": "PUSHBACK_TUGS",
+      "name": "Tratores pushback",
+      "process": "PUSHBACK",
+      "capacity": 16,
+      "readiness": 78
+    },
+    {
+      "id": "RAMP_MARSHALS",
+      "name": "Sinaleiros/rampa",
+      "process": "RAMP_SAFETY",
+      "capacity": 22,
+      "readiness": 80
+    },
+    {
+      "id": "DEICING_RIGS",
+      "name": "Equipamentos deicing",
+      "process": "DEICING_WEATHER",
+      "capacity": 10,
+      "readiness": 70
+    }
+  ],
+  "slaProfiles": [
+    {
+      "id": "NARROWBODY_FAST",
+      "name": "Narrowbody rápido",
+      "targetMin": 35,
+      "penaltyMin": 8
+    },
+    {
+      "id": "NARROWBODY_STANDARD",
+      "name": "Narrowbody padrão",
+      "targetMin": 45,
+      "penaltyMin": 12
+    },
+    {
+      "id": "WIDEBODY_LONGHAUL",
+      "name": "Widebody longo curso",
+      "targetMin": 80,
+      "penaltyMin": 18
+    },
+    {
+      "id": "REGIONAL_QUICK",
+      "name": "Regional quick turn",
+      "targetMin": 28,
+      "penaltyMin": 6
+    },
+    {
+      "id": "CARGO_TURN",
+      "name": "Turnaround cargueiro",
+      "targetMin": 65,
+      "penaltyMin": 15
+    }
+  ],
+  "delayCauses": [
+    {
+      "id": "GATE_CONFLICT",
+      "name": "Conflito de gate",
+      "process": "GATE_ASSIGNMENT",
+      "severity": 22
+    },
+    {
+      "id": "BAGGAGE_BACKLOG",
+      "name": "Backlog bagagem",
+      "process": "BAGGAGE",
+      "severity": 20
+    },
+    {
+      "id": "FUEL_QUEUE",
+      "name": "Fila de abastecimento",
+      "process": "FUELING",
+      "severity": 24
+    },
+    {
+      "id": "CLEANING_LATE",
+      "name": "Limpeza atrasada",
+      "process": "CATERING_CLEANING",
+      "severity": 14
+    },
+    {
+      "id": "PUSHBACK_SHORTAGE",
+      "name": "Falta de pushback",
+      "process": "PUSHBACK",
+      "severity": 26
+    },
+    {
+      "id": "RAMP_INCIDENT",
+      "name": "Incidente de rampa",
+      "process": "RAMP_SAFETY",
+      "severity": 30
+    },
+    {
+      "id": "DEICING_HOLD",
+      "name": "Espera deicing/clima",
+      "process": "DEICING_WEATHER",
+      "severity": 18
+    }
+  ],
+  "improvementPrograms": [
+    {
+      "id": "GATE_OPTIMIZER",
+      "name": "Otimizador de gates",
+      "cost": 18000,
+      "benefit": {
+        "GATE_ASSIGNMENT": 11,
+        "BOARDING": 3
+      }
+    },
+    {
+      "id": "BAGGAGE_EXPEDITE",
+      "name": "Expedição bagagem",
+      "cost": 14000,
+      "benefit": {
+        "BAGGAGE": 12
+      }
+    },
+    {
+      "id": "FUEL_SLOT_SYNC",
+      "name": "Sincronização combustível",
+      "cost": 15000,
+      "benefit": {
+        "FUELING": 11,
+        "PUSHBACK": 2
+      }
+    },
+    {
+      "id": "CLEANING_SWARM",
+      "name": "Equipe limpeza rápida",
+      "cost": 9000,
+      "benefit": {
+        "CATERING_CLEANING": 10
+      }
+    },
+    {
+      "id": "PUSHBACK_POOL",
+      "name": "Pool pushback",
+      "cost": 16000,
+      "benefit": {
+        "PUSHBACK": 12
+      }
+    },
+    {
+      "id": "RAMP_SAFETY_BRIEF",
+      "name": "Briefing rampa segura",
+      "cost": 7000,
+      "benefit": {
+        "RAMP_SAFETY": 10
+      }
+    },
+    {
+      "id": "DEICING_READY",
+      "name": "Prontidão deicing",
+      "cost": 12000,
+      "benefit": {
+        "DEICING_WEATHER": 10
+      }
+    }
+  ],
+  "turnaroundBands": [
+    {
+      "id": "ELITE_TURN",
+      "min": 90,
+      "name": "Turnaround elite"
+    },
+    {
+      "id": "ON_TIME",
+      "min": 75,
+      "name": "Dentro do SLA"
+    },
+    {
+      "id": "DELAYED",
+      "min": 55,
+      "name": "Solo atrasado"
+    },
+    {
+      "id": "GRIDLOCK",
+      "min": 0,
+      "name": "Rampa travada"
+    }
+  ],
+  "groundKPIs": [
+    {
+      "id": "AVG_TURNAROUND",
+      "name": "Turnaround médio"
+    },
+    {
+      "id": "GATE_READY",
+      "name": "Gate ready"
+    },
+    {
+      "id": "PUSHBACK_ON_TIME",
+      "name": "Pushback no horário"
+    },
+    {
+      "id": "BAGGAGE_SLA",
+      "name": "SLA bagagem"
+    },
+    {
+      "id": "FUEL_READY",
+      "name": "Combustível pronto"
+    },
+    {
+      "id": "RAMP_SAFETY",
+      "name": "Segurança de rampa"
+    }
+  ]
+}

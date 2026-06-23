@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase47-unit",
+  "build": "SC-1.47.0-F47-20260623-1115",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F47+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.47.0\",\"phase\":\"F47\",\"phaseName\":\"Ground Handling & Turnaround Control Center, Gate, Pushback, Bagagem, Combustível e SLA de Solo\",\"channel\":\"ground-turnaround\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.47.0-F47-20260623-1115\",\"builtAt\":\"2026-06-23 11:15 BRT\",\"builtAtIso\":\"2026-06-23T11:15:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1}"
+    },
+    {
+      "name": "módulo F47 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo processes delays programs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"processes\":8,\"delays\":7}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"processScores\":{\"GATE_ASSIGNMENT\":95.72,\"BOARDING\":89.56,\"BAGGAGE\":80.97999999999999,\"FUELING\":48,\"CATERING_CLEANING\":80.80000000000001,\"PUSHBACK\":83.16,\"RAMP_SAFETY\":86.72,\"DEICING_WEATHER\":76.24000000000001},\"programs\":[{\"id\":\"GPR-414243\",\"programId\":\"GATE_OPTIMIZER\",\"name\":\"Otimizador de gates\",\"cost\":18000,\"status\":\"ACTIVE\",\"at\":\"2026-06-23T16:00:14.244Z\"}],\"delays\":[{\"id\":\"GDL-414246\",\"delayId\":\"FUEL_QUEUE\",\"name\":\"Fila de abastecimento\",\"process\":\"FUELING\",\"severity\":24,\"status\":\"OPEN\",\"at\":\"2026-06-23T16:00:14.246Z\"},{\"id\":\"GDL-414245\",\"delayId\":\"FUEL_QUEUE\",\"name\":\"Fila de abastecimento\",\"process\":\"FUELING\",\"severity\":24,\"status\":\"OPEN\",\"at\":\"2026-06-23T16:00:14.245Z\"}],\"turnaroundScore\":80,\"avgTurnaroundMin\":50,\"groundDelayMin\":10,\"slaRate\":79,\"status\":\"ON_TIME\",\"history\":[{\"at\":\"2026-06-23T16:00:14.246Z\",\"build\":\"SC-1.47.0-F47-20260623-1115\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"GATE_ASSIGNMENT\":95.72,\"BOARDING\":89.56,\"BAGGAGE\":80.97999999999999,\"FUELING\":48,\"CATERING_CLEANING\":80.80000000000001,\"PUSHBACK\":83.16,\"RAMP_SAFETY\":86.72,\"DEICING_WEATHER\":76.24000000000001},\"weighted\":80,\"avgTurnaroundMin\":50,\"groundDelayMin\":10,\"slaRate\":79,\"openDelays\":2,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"incursions\":0,\"airlineScore\":84,\"passengerScore\":82,\"workforceScore\":80,\"assetScore\":83,\"weatherScore\":78,\"surfaceScore\":84,\"radioScore\":86},\"turnaroundScore\":80,\"status\":\"ON_TIME\",\"programs\":1},{\"at\":\"2026-06-23T16:00:14.246Z\",\"build\":\"SC-1.47.0-F47-20260623-1115\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"GATE_ASSIGNMENT\":92.36,\"BOARDING\":86.28,\"BAGGAGE\":78.49,\"FUELING\":69,\"CATERING_CLEANING\":78.4,\"PUSHBACK\":80.58,\"RAMP_SAFETY\":83.36,\"DEICING_WEATHER\":73.12},\"weighted\":80,\"avgTurnaroundMin\":47,\"groundDelayMin\":5,\"slaRate\":82,\"openDelays\":1,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"incursions\":0,\"airlineScore\":84,\"passengerScore\":82,\"workforceScore\":80,\"assetScore\":83,\"weatherScore\":78,\"surfaceScore\":84,\"radioScore\":86},\"turnaroundScore\":83,\"status\":\"ON_TIME\",\"programs\":1}],\"lastEvaluation\":{\"at\":\"2026-06-23T16:00:14.246Z\",\"build\":\"SC-1.47.0-F47-20260623-1115\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"GATE_ASSIGNMENT\":95.72,\"BOARDING\":89.56,\"BAGGAGE\":80.97999999999999,\"FUELING\":48,\"CATERING_CLEANING\":80.80000000000001,\"PUSHBACK\":83.16,\"RAMP_SAFETY\":86.72,\"DEICING_WEATHER\":76.24000000000001},\"weighted\":80,\"avgTurnaroundMin\":50,\"groundDelayMin\":10,\"slaRate\":79,\"openDelays\":2,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"incursions\":0,\"airlineScore\":84,\"passengerScore\":82,\"workforceScore\":80,\"assetScore\":83,\"weatherScore\":78,\"surfaceScore\":84,\"radioScore\":86},\"turnaroundScore\":80,\"status\":\"ON_TIME\",\"programs\":1}}"
+    },
+    {
+      "name": "programa de solo criado",
+      "ok": true,
+      "detail": "{\"id\":\"GPR-414243\",\"programId\":\"GATE_OPTIMIZER\",\"name\":\"Otimizador de gates\",\"cost\":18000,\"status\":\"ACTIVE\",\"at\":\"2026-06-23T16:00:14.244Z\"}"
+    },
+    {
+      "name": "atraso de solo criado",
+      "ok": true,
+      "detail": "{\"id\":\"GDL-414247\",\"delayId\":\"FUEL_QUEUE\",\"name\":\"Fila de abastecimento\",\"process\":\"FUELING\",\"severity\":24,\"status\":\"OPEN\",\"at\":\"2026-06-23T16:00:14.247Z\"}"
+    },
+    {
+      "name": "turnaround avaliado",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-23T16:00:14.247Z\",\"build\":\"SC-1.47.0-F47-20260623-1115\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"GATE_ASSIGNMENT\":99.08,\"BOARDING\":92.84,\"BAGGAGE\":83.46999999999998,\"FUELING\":19,\"CATERING_CLEANING\":83.20000000000002,\"PUSHBACK\":85.74,\"RAMP_SAFETY\":90.08,\"DEICING_WEATHER\":79.36000000000001},\"weighted\":78,\"avgTurnaroundMin\":53,\"groundDelayMin\":14,\"slaRate\":75,\"openDelays\":3,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"incursions\":0,\"airlineScore\":84,\"passengerScore\":82,\"workforceScore\":80,\"assetScore\":83,\"weatherScore\":78,\"surfaceScore\":84,\"radioScore\":86},\"turnaroundScore\":76,\"status\":\"ON_TIME\",\"programs\":1}"
+    },
+    {
+      "name": "progress contém solo",
+      "ok": true,
+      "detail": "{\"score\":76,\"status\":\"ON_TIME\",\"avgTurnaroundMin\":53,\"groundDelayMin\":14,\"slaRate\":75,\"openDelays\":3,\"programs\":1,\"last\":{\"at\":\"2026-06-23T16:00:14.247Z\",\"build\":\"SC-1.47.0-F47-20260623-1115\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"GATE_ASSIGNMENT\":99.08,\"BOARDING\":92.84,\"BAGGAGE\":83.46999999999998,\"FUELING\":19,\"CATERING_CLEANING\":83.20000000000002,\"PUSHBACK\":85.74,\"RAMP_SAFETY\":90.08,\"DEICING_WEATHER\":79.36000000000001},\"weighted\":78,\"avgTurnaroundMin\":53,\"groundDelayMin\":14,\"slaRate\":75,\"openDelays\":3,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"incursions\":0,\"airlineScore\":84,\"passengerScore\":82,\"workforceScore\":80,\"assetScore\":83,\"weatherScore\":78,\"surfaceScore\":84,\"radioScore\":86},\"turnaroundScore\":76,\"status\":\"ON_TIME\",\"programs\":1}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"ELITE_TURN\",\"min\":90,\"name\":\"Turnaround elite\"},{\"id\":\"ON_TIME\",\"min\":75,\"name\":\"Dentro do SLA\"},{\"id\":\"DELAYED\",\"min\":55,\"name\":\"Solo atrasado\"},{\"id\":\"GRIDLOCK\",\"min\":0,\"name\":\"Rampa travada\"}]"
+    },
+    {
+      "name": "processos essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"GATE_ASSIGNMENT\",\"name\":\"Gate/stand assignment\",\"weight\":12,\"target\":82},{\"id\":\"BOARDING\",\"name\":\"Embarque/desembarque\",\"weight\":13,\"target\":80},{\"id\":\"BAGGAGE\",\"name\":\"Bagagem e sorter\",\"weight\":13,\"target\":78},{\"id\":\"FUELING\",\"name\":\"Abastecimento\",\"weight\":14,\"target\":82},{\"id\":\"CATERING_CLEANING\",\"name\":\"Catering/limpeza\",\"weight\":10,\"target\":78},{\"id\":\"PUSHBACK\",\"name\":\"Pushback e trator\",\"weight\":14,\"target\":82},{\"id\":\"RAMP_SAFETY\",\"name\":\"Segurança de rampa\",\"weight\":14,\"target\":84},{\"id\":\"DEICING_WEATHER\",\"name\":\"Clima/deicing\",\"weight\":10,\"target\":76}]"
+    }
+  ]
+}

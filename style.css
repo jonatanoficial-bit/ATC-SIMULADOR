@@ -1020,3 +1020,11 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .radio-phraseology-inline .airport-ops-head span{color:#98f8ff}
 .radio-phraseology-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(120,245,255,.45);border-radius:999px;padding:4px 9px;background:rgba(120,245,255,.13);font-weight:900}
 .radio-phraseology-clear{color:#91ffb7}.radio-phraseology-congested{color:#ffd27a}.radio-phraseology-unsafe{color:#ff918c}
+
+/* F47 Ground Handling Turnaround */
+.ground-turnaround-inline{border-color:rgba(255,188,120,.62);background:linear-gradient(180deg,rgba(90,54,20,.90),rgba(39,20,5,.96));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 32px rgba(255,188,120,.15)}
+.ground-turnaround-inline .airport-ops-head span{color:#ffc98c}
+.ground-turnaround-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,188,120,.45);border-radius:999px;padding:4px 9px;background:rgba(255,188,120,.13);font-weight:900}
+.ground-turnaround-elite{color:#91ffb7}
+.ground-turnaround-delayed{color:#ffd27a}
+.ground-turnaround-gridlock{color:#ff918c}

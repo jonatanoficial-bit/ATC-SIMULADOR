@@ -1,19 +1,19 @@
-# Build Notes — SC-1.46.0-F46-20260623-1030
+# Build Notes — SC-1.47.0-F47-20260623-1115
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.46.0
-- Fase: F46 — Radio Communications & Phraseology Center
-- Build: `SC-1.46.0-F46-20260623-1030`
-- Data/hora: 2026-06-23 10:30 BRT
-- Canal: radio-phraseology
-- Radio Phraseology schema: 1
+- Versão: 1.47.0
+- Fase: F47 — Ground Handling & Turnaround Control Center, Gate, Pushback, Bagagem, Combustível e SLA de Solo
+- Build: `SC-1.47.0-F47-20260623-1115`
+- Data/hora: 2026-06-23 11:15 BRT
+- Canal: ground-turnaround
+- Ground Turnaround schema: 1
 
 ## Entregas
 
-A Fase 46 adiciona comunicação ATC realista: VHF, readback, hearback, CPDLC, fraseologia, clareza de idioma e falhas de comunicação.
+A Fase 47 adiciona gestão de solo, gate, pushback, bagagem, combustível, catering, limpeza, deicing, SLA, atrasos e TAT médio.
 
 ## Documento de upload
 
-A build preserva `UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md`.
+A build preserva `UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md`, contendo o caminho local, o caminho Git Bash e o repositório GitHub para upload.
