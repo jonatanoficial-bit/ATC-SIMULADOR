@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase45-unit",
+  "build": "SC-1.45.0-F45-20260623-0945",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F45+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.45.0\",\"phase\":\"F45\",\"phaseName\":\"AI Copilot & Decision Support Center, Recomendações, Alertas, Justificativas e Plano de Ação\",\"channel\":\"ai-copilot-decision-support\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.45.0-F45-20260623-0945\",\"builtAt\":\"2026-06-23 09:45 BRT\",\"builtAtIso\":\"2026-06-23T09:45:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1}"
+    },
+    {
+      "name": "módulo F45 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo domains rules modes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"domains\":10,\"rules\":10}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"mode\":\"SAFETY_FIRST\",\"recommendations\":[],\"alerts\":[{\"id\":\"ALT-442240\",\"alertId\":\"TEST_ALERT\",\"domain\":\"TRAFFIC\",\"risk\":40,\"level\":\"WARNING\",\"message\":\"Teste alerta\",\"status\":\"OPEN\",\"at\":\"2026-06-23T14:20:42.240Z\"},{\"id\":\"ALT-442239\",\"alertId\":\"TEST_ALERT\",\"domain\":\"TRAFFIC\",\"risk\":40,\"level\":\"WARNING\",\"message\":\"Teste alerta\",\"status\":\"OPEN\",\"at\":\"2026-06-23T14:20:42.239Z\"}],\"decisionScore\":82,\"confidence\":81,\"priority\":\"ADVISORY\",\"status\":\"RELIABLE_ADVISOR\",\"history\":[{\"at\":\"2026-06-23T14:20:42.240Z\",\"build\":\"SC-1.45.0-F45-20260623-0945\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"TRAFFIC\":100,\"SURFACE\":80,\"WEATHER\":79,\"ASSETS\":82,\"WORKFORCE\":80,\"SECURITY\":84,\"EMERGENCY\":83,\"NETWORK\":82,\"PASSENGER\":81,\"FINANCE\":85},\"weighted\":84,\"twin\":86,\"twinConfidence\":80,\"riskLoad\":80,\"decisionScore\":82,\"confidence\":81,\"priority\":\"ADVISORY\",\"status\":\"RELIABLE_ADVISOR\",\"recommendations\":[],\"actionPlan\":[],\"openAlerts\":2,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"finalScore\":2700}},{\"at\":\"2026-06-23T14:20:42.240Z\",\"build\":\"SC-1.45.0-F45-20260623-0945\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"TRAFFIC\":100,\"SURFACE\":80,\"WEATHER\":79,\"ASSETS\":82,\"WORKFORCE\":80,\"SECURITY\":84,\"EMERGENCY\":83,\"NETWORK\":82,\"PASSENGER\":81,\"FINANCE\":85},\"weighted\":84,\"twin\":86,\"twinConfidence\":80,\"riskLoad\":40,\"decisionScore\":85,\"confidence\":83,\"priority\":\"INFO\",\"status\":\"RELIABLE_ADVISOR\",\"recommendations\":[],\"actionPlan\":[],\"openAlerts\":1,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"finalScore\":2700}}],\"lastEvaluation\":{\"at\":\"2026-06-23T14:20:42.240Z\",\"build\":\"SC-1.45.0-F45-20260623-0945\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"TRAFFIC\":100,\"SURFACE\":80,\"WEATHER\":79,\"ASSETS\":82,\"WORKFORCE\":80,\"SECURITY\":84,\"EMERGENCY\":83,\"NETWORK\":82,\"PASSENGER\":81,\"FINANCE\":85},\"weighted\":84,\"twin\":86,\"twinConfidence\":80,\"riskLoad\":80,\"decisionScore\":82,\"confidence\":81,\"priority\":\"ADVISORY\",\"status\":\"RELIABLE_ADVISOR\",\"recommendations\":[],\"actionPlan\":[],\"openAlerts\":2,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"finalScore\":2700}}}"
+    },
+    {
+      "name": "modo aplicado",
+      "ok": true,
+      "detail": "{\"id\":\"SAFETY_FIRST\",\"name\":\"Segurança primeiro\",\"riskTolerance\":30,\"costSensitivity\":35}"
+    },
+    {
+      "name": "alerta criado",
+      "ok": true,
+      "detail": "{\"id\":\"ALT-442240\",\"alertId\":\"TEST\",\"domain\":\"TRAFFIC\",\"risk\":42,\"level\":\"WARNING\",\"message\":\"Teste\",\"status\":\"OPEN\",\"at\":\"2026-06-23T14:20:42.240Z\"}"
+    },
+    {
+      "name": "copiloto avaliado",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-23T14:20:42.240Z\",\"build\":\"SC-1.45.0-F45-20260623-0945\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"TRAFFIC\":100,\"SURFACE\":80,\"WEATHER\":79,\"ASSETS\":82,\"WORKFORCE\":80,\"SECURITY\":84,\"EMERGENCY\":83,\"NETWORK\":82,\"PASSENGER\":81,\"FINANCE\":85},\"weighted\":84,\"twin\":86,\"twinConfidence\":80,\"riskLoad\":122,\"decisionScore\":80,\"confidence\":79,\"priority\":\"WARNING\",\"status\":\"RELIABLE_ADVISOR\",\"recommendations\":[],\"actionPlan\":[],\"openAlerts\":3,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"finalScore\":2700}}"
+    },
+    {
+      "name": "progress contém copiloto",
+      "ok": true,
+      "detail": "{\"score\":80,\"status\":\"RELIABLE_ADVISOR\",\"confidence\":79,\"priority\":\"WARNING\",\"mode\":\"SAFETY_FIRST\",\"recommendations\":0,\"openAlerts\":3,\"last\":{\"at\":\"2026-06-23T14:20:42.240Z\",\"build\":\"SC-1.45.0-F45-20260623-0945\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"TRAFFIC\":100,\"SURFACE\":80,\"WEATHER\":79,\"ASSETS\":82,\"WORKFORCE\":80,\"SECURITY\":84,\"EMERGENCY\":83,\"NETWORK\":82,\"PASSENGER\":81,\"FINANCE\":85},\"weighted\":84,\"twin\":86,\"twinConfidence\":80,\"riskLoad\":122,\"decisionScore\":80,\"confidence\":79,\"priority\":\"WARNING\",\"status\":\"RELIABLE_ADVISOR\",\"recommendations\":[],\"actionPlan\":[],\"openAlerts\":3,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"finalScore\":2700}}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"COMMAND_READY\",\"min\":90,\"name\":\"Comando assistido\"},{\"id\":\"RELIABLE_ADVISOR\",\"min\":75,\"name\":\"Conselheiro confiável\"},{\"id\":\"LIMITED_CONTEXT\",\"min\":55,\"name\":\"Contexto limitado\"},{\"id\":\"UNRELIABLE\",\"min\":0,\"name\":\"Revisar manualmente\"}]"
+    },
+    {
+      "name": "domínios essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"TRAFFIC\",\"name\":\"Tráfego e separação\",\"weight\":14,\"criticalBelow\":65},{\"id\":\"SURFACE\",\"name\":\"Solo/pista\",\"weight\":12,\"criticalBelow\":65},{\"id\":\"WEATHER\",\"name\":\"Clima e procedimentos\",\"weight\":10,\"criticalBelow\":60},{\"id\":\"ASSETS\",\"name\":\"Ativos críticos\",\"weight\":12,\"criticalBelow\":70},{\"id\":\"WORKFORCE\",\"name\":\"Equipe/fadiga\",\"weight\":10,\"criticalBelow\":65},{\"id\":\"SECURITY\",\"name\":\"Segurança/SOC\",\"weight\":10,\"criticalBelow\":65},{\"id\":\"EMERGENCY\",\"name\":\"Emergência/ARFF\",\"weight\":10,\"criticalBelow\":70},{\"id\":\"NETWORK\",\"name\":\"Rede/hubs\",\"weight\":8,\"criticalBelow\":65},{\"id\":\"PASSENGER\",\"name\":\"Passageiro/reputação\",\"weight\":7,\"criticalBelow\":65},{\"id\":\"FINANCE\",\"name\":\"Receita/custo\",\"weight\":7,\"criticalBelow\":60}]"
+    }
+  ]
+}

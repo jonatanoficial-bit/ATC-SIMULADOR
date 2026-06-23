@@ -1,0 +1,272 @@
+{
+  "schema": 1,
+  "version": "2026.06-f43",
+  "description": "Asset maintenance and reliability center with radar, ILS, runway lighting, tower systems, ARFF vehicles, baggage systems, spare parts, failures, MTBF and MTTR.",
+  "assetClasses": [
+    {
+      "id": "PRIMARY_RADAR",
+      "name": "Radar primário",
+      "criticality": 95,
+      "mtbfHours": 620,
+      "mttrMin": 45
+    },
+    {
+      "id": "SECONDARY_RADAR",
+      "name": "Radar secundário/SSR",
+      "criticality": 90,
+      "mtbfHours": 700,
+      "mttrMin": 40
+    },
+    {
+      "id": "ILS_CAT",
+      "name": "ILS e auxílios à navegação",
+      "criticality": 94,
+      "mtbfHours": 540,
+      "mttrMin": 55
+    },
+    {
+      "id": "RUNWAY_LIGHTING",
+      "name": "Balizamento de pista",
+      "criticality": 88,
+      "mtbfHours": 480,
+      "mttrMin": 35
+    },
+    {
+      "id": "TOWER_SYSTEMS",
+      "name": "Sistemas da torre",
+      "criticality": 92,
+      "mtbfHours": 610,
+      "mttrMin": 50
+    },
+    {
+      "id": "ARFF_VEHICLES",
+      "name": "Viaturas ARFF",
+      "criticality": 86,
+      "mtbfHours": 420,
+      "mttrMin": 60
+    },
+    {
+      "id": "BAGGAGE_SORTER",
+      "name": "Esteiras e sorter bagagem",
+      "criticality": 68,
+      "mtbfHours": 360,
+      "mttrMin": 45
+    },
+    {
+      "id": "PWA_RUNTIME",
+      "name": "Runtime PWA/offline",
+      "criticality": 76,
+      "mtbfHours": 800,
+      "mttrMin": 20
+    }
+  ],
+  "maintenancePrograms": [
+    {
+      "id": "RADAR_CALIBRATION",
+      "name": "Calibração radar",
+      "cost": 24000,
+      "benefit": {
+        "PRIMARY_RADAR": 10,
+        "SECONDARY_RADAR": 9
+      }
+    },
+    {
+      "id": "NAVAID_FLIGHT_CHECK",
+      "name": "Flight check ILS/NAVAID",
+      "cost": 32000,
+      "benefit": {
+        "ILS_CAT": 13
+      }
+    },
+    {
+      "id": "LIGHTING_INSPECTION",
+      "name": "Inspeção balizamento",
+      "cost": 12000,
+      "benefit": {
+        "RUNWAY_LIGHTING": 12
+      }
+    },
+    {
+      "id": "TOWER_IT_PM",
+      "name": "Preventiva torre/IT",
+      "cost": 18000,
+      "benefit": {
+        "TOWER_SYSTEMS": 10,
+        "PWA_RUNTIME": 5
+      }
+    },
+    {
+      "id": "ARFF_FLEET_PM",
+      "name": "Preventiva frota ARFF",
+      "cost": 16000,
+      "benefit": {
+        "ARFF_VEHICLES": 12
+      }
+    },
+    {
+      "id": "BAGGAGE_PM",
+      "name": "Preventiva bagagem",
+      "cost": 10000,
+      "benefit": {
+        "BAGGAGE_SORTER": 11
+      }
+    },
+    {
+      "id": "SPARE_PARTS_AUDIT",
+      "name": "Auditoria estoque crítico",
+      "cost": 9000,
+      "benefit": {
+        "PRIMARY_RADAR": 4,
+        "ILS_CAT": 4,
+        "RUNWAY_LIGHTING": 4,
+        "TOWER_SYSTEMS": 4
+      }
+    }
+  ],
+  "failureModes": [
+    {
+      "id": "RADAR_DROP",
+      "name": "Queda radar",
+      "asset": "PRIMARY_RADAR",
+      "severity": 92,
+      "opsPenalty": 28
+    },
+    {
+      "id": "SSR_DEGRADED",
+      "name": "SSR degradado",
+      "asset": "SECONDARY_RADAR",
+      "severity": 82,
+      "opsPenalty": 20
+    },
+    {
+      "id": "ILS_OUTAGE",
+      "name": "ILS indisponível",
+      "asset": "ILS_CAT",
+      "severity": 88,
+      "opsPenalty": 24
+    },
+    {
+      "id": "LIGHTING_FAULT",
+      "name": "Falha balizamento",
+      "asset": "RUNWAY_LIGHTING",
+      "severity": 78,
+      "opsPenalty": 18
+    },
+    {
+      "id": "TOWER_COMMS",
+      "name": "Falha comunicação torre",
+      "asset": "TOWER_SYSTEMS",
+      "severity": 90,
+      "opsPenalty": 26
+    },
+    {
+      "id": "ARFF_DOWN",
+      "name": "Viatura ARFF fora",
+      "asset": "ARFF_VEHICLES",
+      "severity": 76,
+      "opsPenalty": 18
+    },
+    {
+      "id": "BAGGAGE_STOP",
+      "name": "Parada bagagem",
+      "asset": "BAGGAGE_SORTER",
+      "severity": 60,
+      "opsPenalty": 10
+    },
+    {
+      "id": "PWA_CACHE_FAIL",
+      "name": "Falha cache/offline",
+      "asset": "PWA_RUNTIME",
+      "severity": 64,
+      "opsPenalty": 12
+    }
+  ],
+  "spareParts": [
+    {
+      "id": "RADAR_MODULE",
+      "name": "Módulo radar",
+      "asset": "PRIMARY_RADAR",
+      "stock": 2,
+      "leadTime": 3
+    },
+    {
+      "id": "ILS_TRANSMITTER",
+      "name": "Transmissor ILS",
+      "asset": "ILS_CAT",
+      "stock": 1,
+      "leadTime": 5
+    },
+    {
+      "id": "LIGHTING_KIT",
+      "name": "Kit balizamento",
+      "asset": "RUNWAY_LIGHTING",
+      "stock": 6,
+      "leadTime": 2
+    },
+    {
+      "id": "RADIO_STACK",
+      "name": "Stack rádio torre",
+      "asset": "TOWER_SYSTEMS",
+      "stock": 2,
+      "leadTime": 4
+    },
+    {
+      "id": "ARFF_PUMP",
+      "name": "Bomba ARFF",
+      "asset": "ARFF_VEHICLES",
+      "stock": 1,
+      "leadTime": 4
+    },
+    {
+      "id": "SORTER_MOTOR",
+      "name": "Motor sorter",
+      "asset": "BAGGAGE_SORTER",
+      "stock": 3,
+      "leadTime": 2
+    }
+  ],
+  "reliabilityBands": [
+    {
+      "id": "WORLD_CLASS",
+      "min": 90,
+      "name": "Confiabilidade world-class"
+    },
+    {
+      "id": "STABLE",
+      "min": 75,
+      "name": "Estável"
+    },
+    {
+      "id": "DEGRADED",
+      "min": 55,
+      "name": "Degradada"
+    },
+    {
+      "id": "CRITICAL",
+      "min": 0,
+      "name": "Crítica"
+    }
+  ],
+  "assetKPIs": [
+    {
+      "id": "MTBF",
+      "name": "Mean Time Between Failures"
+    },
+    {
+      "id": "MTTR",
+      "name": "Mean Time To Repair"
+    },
+    {
+      "id": "PM_COMPLIANCE",
+      "name": "Cumprimento preventiva"
+    },
+    {
+      "id": "SPARE_COVERAGE",
+      "name": "Cobertura de peças"
+    },
+    {
+      "id": "OPS_AVAILABILITY",
+      "name": "Disponibilidade operacional"
+    }
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "schema": 1,
+  "version": "2026.06-f44",
+  "description": "Digital twin and predictive analytics center with scenario forecasting, bottleneck prediction, risk heatmap, decision recommendations, what-if simulations and confidence scoring.",
+  "twinSignals": [
+    {
+      "id": "TRAFFIC_LOAD",
+      "name": "Carga de tráfego",
+      "weight": 16,
+      "target": 82
+    },
+    {
+      "id": "SURFACE_PRESSURE",
+      "name": "Pressão de solo/pista",
+      "weight": 14,
+      "target": 80
+    },
+    {
+      "id": "WEATHER_RISK",
+      "name": "Risco meteorológico",
+      "weight": 13,
+      "target": 78
+    },
+    {
+      "id": "ASSET_RELIABILITY",
+      "name": "Confiabilidade de ativos",
+      "weight": 15,
+      "target": 84
+    },
+    {
+      "id": "WORKFORCE_READY",
+      "name": "Prontidão de equipe",
+      "weight": 13,
+      "target": 80
+    },
+    {
+      "id": "NETWORK_RESILIENCE",
+      "name": "Resiliência de rede",
+      "weight": 12,
+      "target": 78
+    },
+    {
+      "id": "PASSENGER_IMPACT",
+      "name": "Impacto passageiro",
+      "weight": 9,
+      "target": 76
+    },
+    {
+      "id": "SECURITY_POSTURE",
+      "name": "Postura segurança",
+      "weight": 8,
+      "target": 80
+    }
+  ],
+  "forecastModels": [
+    {
+      "id": "BOTTLENECK_15",
+      "name": "Gargalo 15 minutos",
+      "horizonMin": 15,
+      "confidence": 78
+    },
+    {
+      "id": "RUNWAY_CAPACITY_30",
+      "name": "Capacidade pista 30 minutos",
+      "horizonMin": 30,
+      "confidence": 76
+    },
+    {
+      "id": "CONNECTION_WAVE_45",
+      "name": "Onda conexões 45 minutos",
+      "horizonMin": 45,
+      "confidence": 74
+    },
+    {
+      "id": "CRISIS_ESCALATION_60",
+      "name": "Escalada crise 60 minutos",
+      "horizonMin": 60,
+      "confidence": 72
+    },
+    {
+      "id": "ASSET_FAILURE_90",
+      "name": "Risco falha ativo 90 minutos",
+      "horizonMin": 90,
+      "confidence": 70
+    },
+    {
+      "id": "PASSENGER_SENTIMENT_120",
+      "name": "Sentimento passageiro 120 minutos",
+      "horizonMin": 120,
+      "confidence": 68
+    }
+  ],
+  "recommendationPlays": [
+    {
+      "id": "OPEN_BUFFER_SLOTS",
+      "name": "Abrir slots de buffer",
+      "cost": 9000,
+      "benefit": {
+        "TRAFFIC_LOAD": 8,
+        "NETWORK_RESILIENCE": 4
+      }
+    },
+    {
+      "id": "PROTECT_RUNWAY_FLOW",
+      "name": "Proteger fluxo de pista",
+      "cost": 12000,
+      "benefit": {
+        "SURFACE_PRESSURE": 9,
+        "TRAFFIC_LOAD": 4
+      }
+    },
+    {
+      "id": "PREPOSITION_ARFF",
+      "name": "Pré-posicionar ARFF",
+      "cost": 7000,
+      "benefit": {
+        "SECURITY_POSTURE": 4,
+        "ASSET_RELIABILITY": 3,
+        "WORKFORCE_READY": 4
+      }
+    },
+    {
+      "id": "CALL_EXTRA_STAFF",
+      "name": "Acionar reforço de equipe",
+      "cost": 15000,
+      "benefit": {
+        "WORKFORCE_READY": 10,
+        "PASSENGER_IMPACT": 3
+      }
+    },
+    {
+      "id": "TRIGGER_MAINTENANCE_CHECK",
+      "name": "Checagem técnica imediata",
+      "cost": 13000,
+      "benefit": {
+        "ASSET_RELIABILITY": 11
+      }
+    },
+    {
+      "id": "PASSENGER_COMMS_PUSH",
+      "name": "Comunicado preditivo ao passageiro",
+      "cost": 5000,
+      "benefit": {
+        "PASSENGER_IMPACT": 10
+      }
+    },
+    {
+      "id": "CYBER_WATCH_MODE",
+      "name": "Modo observação SOC",
+      "cost": 8000,
+      "benefit": {
+        "SECURITY_POSTURE": 9
+      }
+    }
+  ],
+  "riskScenarios": [
+    {
+      "id": "CAPACITY_CRUNCH",
+      "name": "Efeito funil de capacidade",
+      "risk": 24,
+      "signal": "TRAFFIC_LOAD"
+    },
+    {
+      "id": "SURFACE_GRIDLOCK",
+      "name": "Travamento solo/pista",
+      "risk": 28,
+      "signal": "SURFACE_PRESSURE"
+    },
+    {
+      "id": "WEATHER_COMPRESSION",
+      "name": "Compressão por clima",
+      "risk": 22,
+      "signal": "WEATHER_RISK"
+    },
+    {
+      "id": "ASSET_DEGRADATION",
+      "name": "Degradação de ativo crítico",
+      "risk": 26,
+      "signal": "ASSET_RELIABILITY"
+    },
+    {
+      "id": "STAFF_FATIGUE_SPIKE",
+      "name": "Pico de fadiga de equipe",
+      "risk": 20,
+      "signal": "WORKFORCE_READY"
+    },
+    {
+      "id": "NETWORK_CASCADE",
+      "name": "Cascata na malha regional",
+      "risk": 30,
+      "signal": "NETWORK_RESILIENCE"
+    },
+    {
+      "id": "REPUTATION_DROP",
+      "name": "Queda reputacional",
+      "risk": 18,
+      "signal": "PASSENGER_IMPACT"
+    },
+    {
+      "id": "SECURITY_ESCALATION",
+      "name": "Escalada de segurança",
+      "risk": 24,
+      "signal": "SECURITY_POSTURE"
+    }
+  ],
+  "confidenceBands": [
+    {
+      "id": "HIGH_CONFIDENCE",
+      "min": 85,
+      "name": "Alta confiança"
+    },
+    {
+      "id": "SOLID",
+      "min": 72,
+      "name": "Sólida"
+    },
+    {
+      "id": "UNCERTAIN",
+      "min": 55,
+      "name": "Incerta"
+    },
+    {
+      "id": "LOW_SIGNAL",
+      "min": 0,
+      "name": "Sinal fraco"
+    }
+  ],
+  "twinBands": [
+    {
+      "id": "PREDICTIVE_CONTROL",
+      "min": 90,
+      "name": "Controle preditivo"
+    },
+    {
+      "id": "FORECAST_READY",
+      "min": 75,
+      "name": "Previsão confiável"
+    },
+    {
+      "id": "REACTIVE",
+      "min": 55,
+      "name": "Reativo"
+    },
+    {
+      "id": "BLIND_SPOT",
+      "min": 0,
+      "name": "Ponto cego"
+    }
+  ],
+  "analyticsKPIs": [
+    {
+      "id": "FORECAST_ACCURACY",
+      "name": "Acurácia forecast"
+    },
+    {
+      "id": "RISK_LEAD_TIME",
+      "name": "Antecedência de risco"
+    },
+    {
+      "id": "BOTTLENECK_SCORE",
+      "name": "Score de gargalo"
+    },
+    {
+      "id": "WHAT_IF_GAIN",
+      "name": "Ganho what-if"
+    },
+    {
+      "id": "DECISION_CONFIDENCE",
+      "name": "Confiança decisão"
+    }
+  ]
+}

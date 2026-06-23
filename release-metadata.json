@@ -1,10 +1,10 @@
 {
   "product": "Skyward Control",
   "prefix": "SC",
-  "version": "1.42.0",
-  "phase": "F42",
-  "phaseName": "Security Operations & Cyber Defense Center, Perímetro, Triagem, Credenciais e Cibersegurança",
-  "channel": "security-cyber-defense",
+  "version": "1.45.0",
+  "phase": "F45",
+  "phaseName": "AI Copilot & Decision Support Center, Recomendações, Alertas, Justificativas e Plano de Ação",
+  "channel": "ai-copilot-decision-support",
   "saveSchema": 3,
   "target": "Mobile-first / Tablet / Desktop",
   "timeZone": "America/Sao_Paulo",
@@ -17,9 +17,9 @@
   "desktopSchema": 1,
   "accessibilitySchema": 1,
   "replaySchema": 1,
-  "build": "SC-1.42.0-F42-20260622-1500",
-  "builtAt": "2026-06-22 15:00 BRT",
-  "builtAtIso": "2026-06-22T15:00:00-03:00",
+  "build": "SC-1.45.0-F45-20260623-0945",
+  "builtAt": "2026-06-23 09:45 BRT",
+  "builtAtIso": "2026-06-23T09:45:00-03:00",
   "aircraftPerformanceSchema": 1,
   "airportSurfaceSchema": 1,
   "surfaceSafetySchema": 1,
@@ -50,5 +50,8 @@
   "passengerReputationSchema": 1,
   "multiAirportNetworkSchema": 1,
   "emergencyResponseSchema": 1,
-  "securityCyberDefenseSchema": 1
+  "securityCyberDefenseSchema": 1,
+  "assetMaintenanceSchema": 1,
+  "digitalTwinPredictiveSchema": 1,
+  "aiCopilotSchema": 1
 }

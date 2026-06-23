@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-Version: 1.42.0
-Phase: F42 — Security Operations & Cyber Defense Center, Perímetro, Triagem, Credenciais e Cibersegurança
-Build: SC-1.42.0-F42-20260622-1500
-Built at: 2026-06-22 15:00 BRT
-Channel: security-cyber-defense
-Security Cyber Defense schema: 1
+Version: 1.45.0
+Phase: F45 — AI Copilot & Decision Support Center, Recomendações, Alertas, Justificativas e Plano de Ação
+Build: SC-1.45.0-F45-20260623-0945
+Built at: 2026-06-23 09:45 BRT
+Channel: ai-copilot-decision-support
+AI Copilot schema: 1
 Target: Mobile-first / Tablet / Desktop

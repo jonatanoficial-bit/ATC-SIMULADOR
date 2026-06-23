@@ -1,0 +1,231 @@
+{
+  "schema": 1,
+  "version": "2026.06-f45",
+  "description": "AI Copilot and decision support center with prioritized recommendations, alerts, explanations, action plans and confidence scoring.",
+  "copilotDomains": [
+    {
+      "id": "TRAFFIC",
+      "name": "Tráfego e separação",
+      "weight": 14,
+      "criticalBelow": 65
+    },
+    {
+      "id": "SURFACE",
+      "name": "Solo/pista",
+      "weight": 12,
+      "criticalBelow": 65
+    },
+    {
+      "id": "WEATHER",
+      "name": "Clima e procedimentos",
+      "weight": 10,
+      "criticalBelow": 60
+    },
+    {
+      "id": "ASSETS",
+      "name": "Ativos críticos",
+      "weight": 12,
+      "criticalBelow": 70
+    },
+    {
+      "id": "WORKFORCE",
+      "name": "Equipe/fadiga",
+      "weight": 10,
+      "criticalBelow": 65
+    },
+    {
+      "id": "SECURITY",
+      "name": "Segurança/SOC",
+      "weight": 10,
+      "criticalBelow": 65
+    },
+    {
+      "id": "EMERGENCY",
+      "name": "Emergência/ARFF",
+      "weight": 10,
+      "criticalBelow": 70
+    },
+    {
+      "id": "NETWORK",
+      "name": "Rede/hubs",
+      "weight": 8,
+      "criticalBelow": 65
+    },
+    {
+      "id": "PASSENGER",
+      "name": "Passageiro/reputação",
+      "weight": 7,
+      "criticalBelow": 65
+    },
+    {
+      "id": "FINANCE",
+      "name": "Receita/custo",
+      "weight": 7,
+      "criticalBelow": 60
+    }
+  ],
+  "recommendationRules": [
+    {
+      "id": "REDUCE_ACCEPTANCE",
+      "domain": "TRAFFIC",
+      "threshold": 65,
+      "title": "Reduzir aceitação de tráfego",
+      "action": "Aplicar espaçamento maior e segurar partidas."
+    },
+    {
+      "id": "GROUND_FLOW_RESET",
+      "domain": "SURFACE",
+      "threshold": 65,
+      "title": "Resetar fluxo de solo",
+      "action": "Criar janela de taxi e proteger pista."
+    },
+    {
+      "id": "WEATHER_PROCEDURE_MODE",
+      "domain": "WEATHER",
+      "threshold": 60,
+      "title": "Ativar modo meteorológico",
+      "action": "Revisar ILS/NAVAID e mínimos."
+    },
+    {
+      "id": "MAINTENANCE_CHECK",
+      "domain": "ASSETS",
+      "threshold": 70,
+      "title": "Checagem técnica crítica",
+      "action": "Rodar preventiva de radar/ILS/balizamento."
+    },
+    {
+      "id": "CALL_SUPERVISOR",
+      "domain": "WORKFORCE",
+      "threshold": 65,
+      "title": "Acionar supervisor",
+      "action": "Dividir setor e reduzir fadiga."
+    },
+    {
+      "id": "SOC_WATCH",
+      "domain": "SECURITY",
+      "threshold": 65,
+      "title": "Elevar SOC",
+      "action": "Ativar vigilância e revisar credenciais."
+    },
+    {
+      "id": "PREPOSITION_ARFF",
+      "domain": "EMERGENCY",
+      "threshold": 70,
+      "title": "Pré-posicionar ARFF",
+      "action": "Deixar ARFF em prontidão."
+    },
+    {
+      "id": "PROTECT_CONNECTIONS",
+      "domain": "NETWORK",
+      "threshold": 65,
+      "title": "Proteger conexões",
+      "action": "Abrir alternados e preservar bancos."
+    },
+    {
+      "id": "PASSENGER_PUSH",
+      "domain": "PASSENGER",
+      "threshold": 65,
+      "title": "Comunicar passageiro",
+      "action": "Emitir push/PA preditivo."
+    },
+    {
+      "id": "BUDGET_GUARD",
+      "domain": "FINANCE",
+      "threshold": 60,
+      "title": "Proteger margem",
+      "action": "Priorizar ações de maior ROI."
+    }
+  ],
+  "alertLevels": [
+    {
+      "id": "INFO",
+      "minRisk": 0,
+      "name": "Informativo"
+    },
+    {
+      "id": "ADVISORY",
+      "minRisk": 20,
+      "name": "Atenção"
+    },
+    {
+      "id": "WARNING",
+      "minRisk": 40,
+      "name": "Alerta"
+    },
+    {
+      "id": "CRITICAL",
+      "minRisk": 65,
+      "name": "Crítico"
+    }
+  ],
+  "copilotModes": [
+    {
+      "id": "BALANCED",
+      "name": "Equilibrado",
+      "riskTolerance": 50,
+      "costSensitivity": 50
+    },
+    {
+      "id": "SAFETY_FIRST",
+      "name": "Segurança primeiro",
+      "riskTolerance": 30,
+      "costSensitivity": 35
+    },
+    {
+      "id": "RECOVERY",
+      "name": "Recuperação operacional",
+      "riskTolerance": 45,
+      "costSensitivity": 45
+    },
+    {
+      "id": "COMMERCIAL",
+      "name": "Comercial",
+      "riskTolerance": 55,
+      "costSensitivity": 70
+    }
+  ],
+  "decisionKPIs": [
+    {
+      "id": "RECOMMENDATION_QUALITY",
+      "name": "Qualidade recomendação"
+    },
+    {
+      "id": "ACTION_PRIORITY",
+      "name": "Prioridade de ação"
+    },
+    {
+      "id": "CONFIDENCE",
+      "name": "Confiança"
+    },
+    {
+      "id": "RISK_REDUCTION",
+      "name": "Redução de risco"
+    },
+    {
+      "id": "OPERATIONAL_ROI",
+      "name": "ROI operacional"
+    }
+  ],
+  "copilotBands": [
+    {
+      "id": "COMMAND_READY",
+      "min": 90,
+      "name": "Comando assistido"
+    },
+    {
+      "id": "RELIABLE_ADVISOR",
+      "min": 75,
+      "name": "Conselheiro confiável"
+    },
+    {
+      "id": "LIMITED_CONTEXT",
+      "min": 55,
+      "name": "Contexto limitado"
+    },
+    {
+      "id": "UNRELIABLE",
+      "min": 0,
+      "name": "Revisar manualmente"
+    }
+  ]
+}

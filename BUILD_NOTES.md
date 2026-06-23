@@ -1,19 +1,14 @@
-# Build Notes — SC-1.42.0-F42-20260622-1500
+# Build Notes — SC-1.45.0-F45-20260623-0945
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.42.0
-- Fase: F42 — Security Operations & Cyber Defense Center, Perímetro, Triagem, Credenciais e Cibersegurança
-- Build: `SC-1.42.0-F42-20260622-1500`
-- Data/hora: 2026-06-22 15:00 BRT
-- Canal: security-cyber-defense
-- Security Cyber Defense schema: 1
+- Versão: 1.45.0
+- Fase: F45 — AI Copilot & Decision Support Center, Recomendações, Alertas, Justificativas e Plano de Ação
+- Build: `SC-1.45.0-F45-20260623-0945`
+- Canal: ai-copilot-decision-support
+- AI Copilot schema: 1
 
 ## Entregas
 
-A Fase 42 adiciona segurança física, triagem de passageiros, perímetro, credenciais, SOC, cibersegurança, ameaça interna e resposta policial.
-
-## Documento de upload
-
-A build preserva `UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md`, contendo o caminho local, o caminho Git Bash e o repositório GitHub para upload.
+A Fase 45 adiciona copiloto operacional, recomendações priorizadas, alertas inteligentes, plano de ação, justificativas e score de confiança.

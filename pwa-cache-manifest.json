@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.42.0-F42-20260622-1500",
-  "builtAt": "2026-06-22 15:00 BRT",
-  "cacheName": "skyward-control-1-sc-1.42.0-f42-20260622-1500",
+  "build": "SC-1.45.0-F45-20260623-0945",
+  "builtAt": "2026-06-23 09:45 BRT",
+  "cacheName": "skyward-control-1-sc-1.45.0-f45-20260623-0945",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,14 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 1636,
-      "sha256": "4407a9c5d6550854a47e9292ecaa545cdea48dfd316c0e0bc4b9f82cc26d6271"
+      "bytes": 1734,
+      "sha256": "474c69fdd3f91e56fd53ed9f105288fe88e4cd36b47a0afbd060430cd1367d39"
+    },
+    {
+      "url": "./data/ai-copilot-decision-support.json",
+      "file": "data/ai-copilot-decision-support.json",
+      "bytes": 5005,
+      "sha256": "f47cfbbc048cb9fc40d20a961a9b6926d816218befbc945f06648138df4e6fac"
     },
     {
       "url": "./data/aircraft-performance.json",
@@ -123,6 +129,12 @@
       "sha256": "2908723bc368e9c28e3ca927ba0511613b43ec215263124a65c93316fa70e74e"
     },
     {
+      "url": "./data/asset-maintenance-reliability.json",
+      "file": "data/asset-maintenance-reliability.json",
+      "bytes": 5606,
+      "sha256": "b7966cbb994bd191aa48edb9125810b9a8d9664a5d2c7e63d130a76d1db7450e"
+    },
+    {
       "url": "./data/career-ratings.json",
       "file": "data/career-ratings.json",
       "bytes": 3664,
@@ -139,6 +151,12 @@
       "file": "data/crisis-command-center.json",
       "bytes": 3952,
       "sha256": "c646a595316de0b6179452ec50d305866ef0ea7db281da6b55f4cb4f3a04762e"
+    },
+    {
+      "url": "./data/digital-twin-predictive.json",
+      "file": "data/digital-twin-predictive.json",
+      "bytes": 5740,
+      "sha256": "201d06f854d144d25b5a510b86373dd21acd930f79c09efa7c273a9cd9b4e652"
     },
     {
       "url": "./data/economy-contracts.json",
@@ -293,8 +311,8 @@
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 644162,
-      "sha256": "b4d89aed6eb7039332a2e6c92192cc480b6d6e77de17e31080e82d3b115513cb"
+      "bytes": 686778,
+      "sha256": "38dc561bac8d80d9533dc1ac3f5f3e2af5ee7ba968f165c3c8cea4ce82157a4f"
     },
     {
       "url": "./manifest.webmanifest",
@@ -305,8 +323,8 @@
     {
       "url": "./style.css",
       "file": "style.css",
-      "bytes": 107716,
-      "sha256": "f4a3e2ed2fee6d4dfcd8d137506a653f6fb0791bc229180c978d0a708df04cd4"
+      "bytes": 109555,
+      "sha256": "eb19acefac27a41b7a5c6bc0eef68e6d5a097aa7f7f79bbe7bd093534d93cbdc"
     }
   ]
 }

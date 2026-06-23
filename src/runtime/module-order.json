@@ -203,6 +203,21 @@
       "description": "Security operations, passenger screening, perimeter, access control, cyber defense and law enforcement"
     },
     {
+      "file": "46-asset-maintenance-reliability-center.js",
+      "name": "asset-maintenance-reliability-center",
+      "description": "Asset maintenance, radar, ILS, runway lighting, tower systems, ARFF vehicles, spare parts, MTBF and MTTR"
+    },
+    {
+      "file": "47-digital-twin-predictive-center.js",
+      "name": "digital-twin-predictive-center",
+      "description": "Digital twin, predictive analytics, forecasting, bottlenecks, what-if scenarios and decision recommendations"
+    },
+    {
+      "file": "48-ai-copilot-decision-support-center.js",
+      "name": "ai-copilot-decision-support-center",
+      "description": "AI Copilot, decision support, prioritized recommendations, alerts, explanations and action plans"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

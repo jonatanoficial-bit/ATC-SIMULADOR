@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "suite": "phase44-unit",
+  "build": "SC-1.44.0-F44-20260623-0900",
+  "passed": 16,
+  "total": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F44+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.44.0\",\"phase\":\"F44\",\"phaseName\":\"Digital Twin & Predictive Analytics Center, Gêmeo Digital, Forecast, Gargalos e Recomendações Inteligentes\",\"channel\":\"digital-twin-predictive\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.44.0-F44-20260623-0900\",\"builtAt\":\"2026-06-23 09:00 BRT\",\"builtAtIso\":\"2026-06-23T09:00:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1}"
+    },
+    {
+      "name": "módulo F44 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo signals models plays risks",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"signals\":8,\"models\":6}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"signalScores\":{\"TRAFFIC_LOAD\":94,\"SURFACE_PRESSURE\":77,\"WEATHER_RISK\":80,\"ASSET_RELIABILITY\":82,\"WORKFORCE_READY\":78,\"NETWORK_RESILIENCE\":84,\"PASSENGER_IMPACT\":78,\"SECURITY_POSTURE\":80},\"forecasts\":[{\"id\":\"FRC-014526\",\"modelId\":\"BOTTLENECK_15\",\"name\":\"Gargalo 15 minutos\",\"horizonMin\":15,\"confidence\":84,\"bottleneckScore\":21,\"at\":\"2026-06-23T13:23:34.526Z\",\"metrics\":{\"weighted\":85,\"watchRisk\":48,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}}},{\"id\":\"FRC-014526\",\"modelId\":\"BOTTLENECK_15\",\"name\":\"Gargalo 15 minutos\",\"horizonMin\":15,\"confidence\":84,\"bottleneckScore\":21,\"at\":\"2026-06-23T13:23:34.526Z\",\"metrics\":{}},{\"id\":\"FRC-014525\",\"modelId\":\"BOTTLENECK_15\",\"name\":\"Gargalo 15 minutos\",\"horizonMin\":15,\"confidence\":85,\"bottleneckScore\":20,\"at\":\"2026-06-23T13:23:34.525Z\",\"metrics\":{\"weighted\":85,\"watchRisk\":24,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}}},{\"id\":\"FRC-014524\",\"modelId\":\"BOTTLENECK_15\",\"name\":\"Gargalo 15 minutos\",\"horizonMin\":15,\"confidence\":85,\"bottleneckScore\":20,\"at\":\"2026-06-23T13:23:34.524Z\",\"metrics\":{}}],\"plays\":[{\"id\":\"DTP-014526\",\"playId\":\"OPEN_BUFFER_SLOTS\",\"name\":\"Abrir slots de buffer\",\"cost\":9000,\"status\":\"APPLIED\",\"at\":\"2026-06-23T13:23:34.526Z\"},{\"id\":\"DTP-014515\",\"playId\":\"OPEN_BUFFER_SLOTS\",\"name\":\"Abrir slots de buffer\",\"cost\":9000,\"status\":\"APPLIED\",\"at\":\"2026-06-23T13:23:34.515Z\"}],\"risks\":[{\"id\":\"RSK-014526\",\"riskId\":\"CAPACITY_CRUNCH\",\"name\":\"Efeito funil de capacidade\",\"risk\":24,\"signal\":\"TRAFFIC_LOAD\",\"status\":\"WATCH\",\"at\":\"2026-06-23T13:23:34.526Z\"},{\"id\":\"RSK-014524\",\"riskId\":\"CAPACITY_CRUNCH\",\"name\":\"Efeito funil de capacidade\",\"risk\":24,\"signal\":\"TRAFFIC_LOAD\",\"status\":\"WATCH\",\"at\":\"2026-06-23T13:23:34.524Z\"}],\"twinScore\":87,\"confidence\":80,\"bottleneckScore\":21,\"leadTimeMin\":13,\"status\":\"FORECAST_READY\",\"confidenceBand\":\"SOLID\",\"history\":[{\"at\":\"2026-06-23T13:23:34.526Z\",\"build\":\"SC-1.44.0-F44-20260623-0900\",\"airport\":\"SBGR\",\"finalScore\":2700,\"signals\":{\"TRAFFIC_LOAD\":100,\"SURFACE_PRESSURE\":82,\"WEATHER_RISK\":81,\"ASSET_RELIABILITY\":86,\"WORKFORCE_READY\":83,\"NETWORK_RESILIENCE\":82,\"PASSENGER_IMPACT\":80,\"SECURITY_POSTURE\":84},\"weighted\":85,\"watchRisk\":48,\"forecast\":{\"id\":\"FRC-014526\",\"modelId\":\"BOTTLENECK_15\",\"name\":\"Gargalo 15 minutos\",\"horizonMin\":15,\"confidence\":84,\"bottleneckScore\":21,\"at\":\"2026-06-23T13:23:34.526Z\",\"metrics\":{\"weighted\":85,\"watchRisk\":48,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}}},\"twinScore\":87,\"confidence\":80,\"confidenceBand\":\"SOLID\",\"bottleneckScore\":21,\"leadTimeMin\":13,\"status\":\"FORECAST_READY\",\"plays\":2,\"risks\":2,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}},{\"at\":\"2026-06-23T13:23:34.525Z\",\"build\":\"SC-1.44.0-F44-20260623-0900\",\"airport\":\"SBGR\",\"finalScore\":2700,\"signals\":{\"TRAFFIC_LOAD\":100,\"SURFACE_PRESSURE\":82,\"WEATHER_RISK\":81,\"ASSET_RELIABILITY\":86,\"WORKFORCE_READY\":83,\"NETWORK_RESILIENCE\":82,\"PASSENGER_IMPACT\":80,\"SECURITY_POSTURE\":84},\"weighted\":85,\"watchRisk\":24,\"forecast\":{\"id\":\"FRC-014525\",\"modelId\":\"BOTTLENECK_15\",\"name\":\"Gargalo 15 minutos\",\"horizonMin\":15,\"confidence\":85,\"bottleneckScore\":20,\"at\":\"2026-06-23T13:23:34.525Z\",\"metrics\":{\"weighted\":85,\"watchRisk\":24,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}}},\"twinScore\":85,\"confidence\":79,\"confidenceBand\":\"SOLID\",\"bottleneckScore\":20,\"leadTimeMin\":13,\"status\":\"FORECAST_READY\",\"plays\":1,\"risks\":1,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}}],\"lastEvaluation\":{\"at\":\"2026-06-23T13:23:34.526Z\",\"build\":\"SC-1.44.0-F44-20260623-0900\",\"airport\":\"SBGR\",\"finalScore\":2700,\"signals\":{\"TRAFFIC_LOAD\":100,\"SURFACE_PRESSURE\":82,\"WEATHER_RISK\":81,\"ASSET_RELIABILITY\":86,\"WORKFORCE_READY\":83,\"NETWORK_RESILIENCE\":82,\"PASSENGER_IMPACT\":80,\"SECURITY_POSTURE\":84},\"weighted\":85,\"watchRisk\":48,\"forecast\":{\"id\":\"FRC-014526\",\"modelId\":\"BOTTLENECK_15\",\"name\":\"Gargalo 15 minutos\",\"horizonMin\":15,\"confidence\":84,\"bottleneckScore\":21,\"at\":\"2026-06-23T13:23:34.526Z\",\"metrics\":{\"weighted\":85,\"watchRisk\":48,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}}},\"twinScore\":87,\"confidence\":80,\"confidenceBand\":\"SOLID\",\"bottleneckScore\":21,\"leadTimeMin\":13,\"status\":\"FORECAST_READY\",\"plays\":2,\"risks\":2,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}}}"
+    },
+    {
+      "name": "play what-if criado",
+      "ok": true,
+      "detail": "{\"id\":\"DTP-014526\",\"playId\":\"OPEN_BUFFER_SLOTS\",\"name\":\"Abrir slots de buffer\",\"cost\":9000,\"status\":\"APPLIED\",\"at\":\"2026-06-23T13:23:34.526Z\"}"
+    },
+    {
+      "name": "risco preditivo criado",
+      "ok": true,
+      "detail": "{\"id\":\"RSK-014527\",\"riskId\":\"CAPACITY_CRUNCH\",\"name\":\"Efeito funil de capacidade\",\"risk\":24,\"signal\":\"TRAFFIC_LOAD\",\"status\":\"WATCH\",\"at\":\"2026-06-23T13:23:34.527Z\"}"
+    },
+    {
+      "name": "forecast criado",
+      "ok": true,
+      "detail": "{\"id\":\"FRC-014527\",\"modelId\":\"BOTTLENECK_15\",\"name\":\"Gargalo 15 minutos\",\"horizonMin\":15,\"confidence\":84,\"bottleneckScore\":23,\"at\":\"2026-06-23T13:23:34.527Z\",\"metrics\":{}}"
+    },
+    {
+      "name": "digital twin avaliado",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-23T13:23:34.527Z\",\"build\":\"SC-1.44.0-F44-20260623-0900\",\"airport\":\"SBGR\",\"finalScore\":2800,\"signals\":{\"TRAFFIC_LOAD\":100,\"SURFACE_PRESSURE\":82,\"WEATHER_RISK\":81,\"ASSET_RELIABILITY\":86,\"WORKFORCE_READY\":83,\"NETWORK_RESILIENCE\":82,\"PASSENGER_IMPACT\":80,\"SECURITY_POSTURE\":84},\"weighted\":85,\"watchRisk\":72,\"forecast\":{\"id\":\"FRC-014527\",\"modelId\":\"BOTTLENECK_15\",\"name\":\"Gargalo 15 minutos\",\"horizonMin\":15,\"confidence\":84,\"bottleneckScore\":23,\"at\":\"2026-06-23T13:23:34.527Z\",\"metrics\":{\"weighted\":85,\"watchRisk\":72,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}}},\"twinScore\":89,\"confidence\":80,\"confidenceBand\":\"SOLID\",\"bottleneckScore\":23,\"leadTimeMin\":13,\"status\":\"FORECAST_READY\",\"plays\":3,\"risks\":3,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}}"
+    },
+    {
+      "name": "progress contém digital twin",
+      "ok": true,
+      "detail": "{\"score\":89,\"status\":\"FORECAST_READY\",\"confidence\":80,\"confidenceBand\":\"SOLID\",\"bottleneckScore\":23,\"leadTimeMin\":13,\"risks\":3,\"forecasts\":6,\"plays\":3,\"last\":{\"at\":\"2026-06-23T13:23:34.527Z\",\"build\":\"SC-1.44.0-F44-20260623-0900\",\"airport\":\"SBGR\",\"finalScore\":2800,\"signals\":{\"TRAFFIC_LOAD\":100,\"SURFACE_PRESSURE\":82,\"WEATHER_RISK\":81,\"ASSET_RELIABILITY\":86,\"WORKFORCE_READY\":83,\"NETWORK_RESILIENCE\":82,\"PASSENGER_IMPACT\":80,\"SECURITY_POSTURE\":84},\"weighted\":85,\"watchRisk\":72,\"forecast\":{\"id\":\"FRC-014527\",\"modelId\":\"BOTTLENECK_15\",\"name\":\"Gargalo 15 minutos\",\"horizonMin\":15,\"confidence\":84,\"bottleneckScore\":23,\"at\":\"2026-06-23T13:23:34.527Z\",\"metrics\":{\"weighted\":85,\"watchRisk\":72,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}}},\"twinScore\":89,\"confidence\":80,\"confidenceBand\":\"SOLID\",\"bottleneckScore\":23,\"leadTimeMin\":13,\"status\":\"FORECAST_READY\",\"plays\":3,\"risks\":3,\"drivers\":{\"denied\":0,\"conflicts\":0,\"incursions\":0,\"asset\":86,\"security\":84,\"network\":82,\"passenger\":80,\"workforce\":83}}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"PREDICTIVE_CONTROL\",\"min\":90,\"name\":\"Controle preditivo\"},{\"id\":\"FORECAST_READY\",\"min\":75,\"name\":\"Previsão confiável\"},{\"id\":\"REACTIVE\",\"min\":55,\"name\":\"Reativo\"},{\"id\":\"BLIND_SPOT\",\"min\":0,\"name\":\"Ponto cego\"}]"
+    },
+    {
+      "name": "sinais essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"TRAFFIC_LOAD\",\"name\":\"Carga de tráfego\",\"weight\":16,\"target\":82},{\"id\":\"SURFACE_PRESSURE\",\"name\":\"Pressão de solo/pista\",\"weight\":14,\"target\":80},{\"id\":\"WEATHER_RISK\",\"name\":\"Risco meteorológico\",\"weight\":13,\"target\":78},{\"id\":\"ASSET_RELIABILITY\",\"name\":\"Confiabilidade de ativos\",\"weight\":15,\"target\":84},{\"id\":\"WORKFORCE_READY\",\"name\":\"Prontidão de equipe\",\"weight\":13,\"target\":80},{\"id\":\"NETWORK_RESILIENCE\",\"name\":\"Resiliência de rede\",\"weight\":12,\"target\":78},{\"id\":\"PASSENGER_IMPACT\",\"name\":\"Impacto passageiro\",\"weight\":9,\"target\":76},{\"id\":\"SECURITY_POSTURE\",\"name\":\"Postura segurança\",\"weight\":8,\"target\":80}]"
+    }
+  ]
+}

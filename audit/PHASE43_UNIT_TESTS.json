@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase43-unit",
+  "build": "SC-1.43.0-F43-20260622-1545",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F43+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.43.0\",\"phase\":\"F43\",\"phaseName\":\"Asset Maintenance & Reliability Center, Radares, ILS, Balizamento, Peças e Falhas Operacionais\",\"channel\":\"asset-maintenance\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.43.0-F43-20260622-1545\",\"builtAt\":\"2026-06-22 15:45 BRT\",\"builtAtIso\":\"2026-06-22T15:45:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1}"
+    },
+    {
+      "name": "módulo F43 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo assets failures programs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"assets\":8,\"failures\":8}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"assetHealth\":{\"PRIMARY_RADAR\":100,\"SECONDARY_RADAR\":100,\"ILS_CAT\":27.000000000000004,\"RUNWAY_LIGHTING\":79.4,\"TOWER_SYSTEMS\":85.4,\"ARFF_VEHICLES\":78.12,\"BAGGAGE_SORTER\":75.4,\"PWA_RUNTIME\":87.4},\"programs\":[{\"id\":\"PM-388252\",\"programId\":\"RADAR_CALIBRATION\",\"name\":\"Calibração radar\",\"cost\":24000,\"status\":\"DONE\",\"at\":\"2026-06-22T22:29:48.252Z\"},{\"id\":\"PM-388251\",\"programId\":\"RADAR_CALIBRATION\",\"name\":\"Calibração radar\",\"cost\":24000,\"status\":\"DONE\",\"at\":\"2026-06-22T22:29:48.251Z\"}],\"failures\":[{\"id\":\"FAIL-388252\",\"failureId\":\"ILS_OUTAGE\",\"name\":\"ILS indisponível\",\"asset\":\"ILS_CAT\",\"severity\":88,\"opsPenalty\":24,\"status\":\"OPEN\",\"at\":\"2026-06-22T22:29:48.252Z\"},{\"id\":\"FAIL-388252\",\"failureId\":\"ILS_OUTAGE\",\"name\":\"ILS indisponível\",\"asset\":\"ILS_CAT\",\"severity\":88,\"opsPenalty\":24,\"status\":\"OPEN\",\"at\":\"2026-06-22T22:29:48.252Z\"}],\"parts\":{\"RADAR_MODULE\":2,\"ILS_TRANSMITTER\":1,\"LIGHTING_KIT\":6,\"RADIO_STACK\":2,\"ARFF_PUMP\":1,\"SORTER_MOTOR\":3},\"reliabilityScore\":67,\"availability\":66,\"mttrMin\":58,\"pmCompliance\":80,\"status\":\"DEGRADED\",\"history\":[{\"at\":\"2026-06-22T22:29:48.252Z\",\"build\":\"SC-1.43.0-F43-20260622-1545\",\"airport\":\"SBGR\",\"finalScore\":2700,\"health\":{\"PRIMARY_RADAR\":100,\"SECONDARY_RADAR\":100,\"ILS_CAT\":27.000000000000004,\"RUNWAY_LIGHTING\":79.4,\"TOWER_SYSTEMS\":85.4,\"ARFF_VEHICLES\":78.12,\"BAGGAGE_SORTER\":75.4,\"PWA_RUNTIME\":87.4},\"avgCritical\":78,\"spareCoverage\":62,\"availability\":66,\"mttr\":58,\"openFailures\":2,\"drivers\":{\"incursions\":0,\"conflicts\":0,\"denied\":0,\"infraRisk\":10,\"emergencyScore\":84,\"securityScore\":86,\"safetyScore\":82,\"cash\":360000},\"reliabilityScore\":67,\"status\":\"DEGRADED\",\"programs\":2},{\"at\":\"2026-06-22T22:29:48.252Z\",\"build\":\"SC-1.43.0-F43-20260622-1545\",\"airport\":\"SBGR\",\"finalScore\":2700,\"health\":{\"PRIMARY_RADAR\":92.7,\"SECONDARY_RADAR\":93.7,\"ILS_CAT\":58.900000000000006,\"RUNWAY_LIGHTING\":78.7,\"TOWER_SYSTEMS\":83.7,\"ARFF_VEHICLES\":77.06,\"BAGGAGE_SORTER\":74.7,\"PWA_RUNTIME\":86.7},\"avgCritical\":81,\"spareCoverage\":62,\"availability\":72,\"mttr\":48,\"openFailures\":1,\"drivers\":{\"incursions\":0,\"conflicts\":0,\"denied\":0,\"infraRisk\":10,\"emergencyScore\":84,\"securityScore\":86,\"safetyScore\":82,\"cash\":360000},\"reliabilityScore\":72,\"status\":\"DEGRADED\",\"programs\":1}],\"lastEvaluation\":{\"at\":\"2026-06-22T22:29:48.252Z\",\"build\":\"SC-1.43.0-F43-20260622-1545\",\"airport\":\"SBGR\",\"finalScore\":2700,\"health\":{\"PRIMARY_RADAR\":100,\"SECONDARY_RADAR\":100,\"ILS_CAT\":27.000000000000004,\"RUNWAY_LIGHTING\":79.4,\"TOWER_SYSTEMS\":85.4,\"ARFF_VEHICLES\":78.12,\"BAGGAGE_SORTER\":75.4,\"PWA_RUNTIME\":87.4},\"avgCritical\":78,\"spareCoverage\":62,\"availability\":66,\"mttr\":58,\"openFailures\":2,\"drivers\":{\"incursions\":0,\"conflicts\":0,\"denied\":0,\"infraRisk\":10,\"emergencyScore\":84,\"securityScore\":86,\"safetyScore\":82,\"cash\":360000},\"reliabilityScore\":67,\"status\":\"DEGRADED\",\"programs\":2}}"
+    },
+    {
+      "name": "programa manutenção criado",
+      "ok": true,
+      "detail": "{\"id\":\"PM-388253\",\"programId\":\"RADAR_CALIBRATION\",\"name\":\"Calibração radar\",\"cost\":24000,\"status\":\"DONE\",\"at\":\"2026-06-22T22:29:48.253Z\"}"
+    },
+    {
+      "name": "falha criada",
+      "ok": true,
+      "detail": "{\"id\":\"FAIL-388253\",\"failureId\":\"ILS_OUTAGE\",\"name\":\"ILS indisponível\",\"asset\":\"ILS_CAT\",\"severity\":88,\"opsPenalty\":24,\"status\":\"OPEN\",\"at\":\"2026-06-22T22:29:48.253Z\"}"
+    },
+    {
+      "name": "manutenção avaliada",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-22T22:29:48.253Z\",\"build\":\"SC-1.43.0-F43-20260622-1545\",\"airport\":\"SBGR\",\"finalScore\":2700,\"health\":{\"PRIMARY_RADAR\":100,\"SECONDARY_RADAR\":100,\"ILS_CAT\":0,\"RUNWAY_LIGHTING\":80.10000000000001,\"TOWER_SYSTEMS\":87.10000000000001,\"ARFF_VEHICLES\":79.18,\"BAGGAGE_SORTER\":76.10000000000001,\"PWA_RUNTIME\":88.10000000000001},\"avgCritical\":74,\"spareCoverage\":62,\"availability\":59,\"mttr\":72,\"openFailures\":3,\"drivers\":{\"incursions\":0,\"conflicts\":0,\"denied\":0,\"infraRisk\":10,\"emergencyScore\":84,\"securityScore\":86,\"safetyScore\":82,\"cash\":360000},\"reliabilityScore\":60,\"status\":\"DEGRADED\",\"programs\":3}"
+    },
+    {
+      "name": "progress contém manutenção",
+      "ok": true,
+      "detail": "{\"score\":60,\"status\":\"DEGRADED\",\"availability\":59,\"mttrMin\":72,\"pmCompliance\":84,\"spareCoverage\":62,\"openFailures\":3,\"programs\":3,\"last\":{\"at\":\"2026-06-22T22:29:48.253Z\",\"build\":\"SC-1.43.0-F43-20260622-1545\",\"airport\":\"SBGR\",\"finalScore\":2700,\"health\":{\"PRIMARY_RADAR\":100,\"SECONDARY_RADAR\":100,\"ILS_CAT\":0,\"RUNWAY_LIGHTING\":80.10000000000001,\"TOWER_SYSTEMS\":87.10000000000001,\"ARFF_VEHICLES\":79.18,\"BAGGAGE_SORTER\":76.10000000000001,\"PWA_RUNTIME\":88.10000000000001},\"avgCritical\":74,\"spareCoverage\":62,\"availability\":59,\"mttr\":72,\"openFailures\":3,\"drivers\":{\"incursions\":0,\"conflicts\":0,\"denied\":0,\"infraRisk\":10,\"emergencyScore\":84,\"securityScore\":86,\"safetyScore\":82,\"cash\":360000},\"reliabilityScore\":60,\"status\":\"DEGRADED\",\"programs\":3}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"WORLD_CLASS\",\"min\":90,\"name\":\"Confiabilidade world-class\"},{\"id\":\"STABLE\",\"min\":75,\"name\":\"Estável\"},{\"id\":\"DEGRADED\",\"min\":55,\"name\":\"Degradada\"},{\"id\":\"CRITICAL\",\"min\":0,\"name\":\"Crítica\"}]"
+    },
+    {
+      "name": "ativos essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"PRIMARY_RADAR\",\"name\":\"Radar primário\",\"criticality\":95,\"mtbfHours\":620,\"mttrMin\":45},{\"id\":\"SECONDARY_RADAR\",\"name\":\"Radar secundário/SSR\",\"criticality\":90,\"mtbfHours\":700,\"mttrMin\":40},{\"id\":\"ILS_CAT\",\"name\":\"ILS e auxílios à navegação\",\"criticality\":94,\"mtbfHours\":540,\"mttrMin\":55},{\"id\":\"RUNWAY_LIGHTING\",\"name\":\"Balizamento de pista\",\"criticality\":88,\"mtbfHours\":480,\"mttrMin\":35},{\"id\":\"TOWER_SYSTEMS\",\"name\":\"Sistemas da torre\",\"criticality\":92,\"mtbfHours\":610,\"mttrMin\":50},{\"id\":\"ARFF_VEHICLES\",\"name\":\"Viaturas ARFF\",\"criticality\":86,\"mtbfHours\":420,\"mttrMin\":60},{\"id\":\"BAGGAGE_SORTER\",\"name\":\"Esteiras e sorter bagagem\",\"criticality\":68,\"mtbfHours\":360,\"mttrMin\":45},{\"id\":\"PWA_RUNTIME\",\"name\":\"Runtime PWA/offline\",\"criticality\":76,\"mtbfHours\":800,\"mttrMin\":20}]"
+    }
+  ]
+}

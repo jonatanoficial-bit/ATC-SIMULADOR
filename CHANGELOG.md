@@ -1,3 +1,44 @@
+## SC-1.45.0-F45-20260623-0945 — AI Copilot & Decision Support Center
+
+- Adicionado módulo oficial `48-ai-copilot-decision-support-center.js`.
+- Criado catálogo `data/ai-copilot-decision-support.json`.
+- Adicionados domínios de decisão e regras de recomendação.
+- Adicionados alertas inteligentes, justificativas e plano de ação.
+- Adicionados modos de copiloto e score de confiança.
+- Adicionado painel `AI COPILOT`.
+- Tela final mostra AI Copilot e Conf. IA.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F45.
+
+## SC-1.44.0-F44-20260623-0900 — Digital Twin & Predictive Analytics Center
+
+- Adicionado módulo oficial `47-digital-twin-predictive-center.js`.
+- Criado catálogo `data/digital-twin-predictive.json`.
+- Adicionados sinais do gêmeo digital.
+- Adicionados modelos de forecast.
+- Adicionados riscos preditivos e gargalos.
+- Adicionadas recomendações inteligentes.
+- Adicionado sistema de what-if.
+- Adicionada confiança de decisão.
+- Adicionado painel `DIGITAL TWIN`.
+- Tela final mostra Digital Twin e Forecast.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F44.
+
+## SC-1.43.0-F43-20260622-1545 — Asset Maintenance & Reliability Center
+
+- Adicionado módulo oficial `46-asset-maintenance-reliability-center.js`.
+- Criado catálogo `data/asset-maintenance-reliability.json`.
+- Adicionados ativos críticos de radar, ILS, balizamento, torre, ARFF, bagagem e PWA.
+- Adicionados programas de manutenção preventiva.
+- Adicionados modos de falha operacional.
+- Adicionadas peças sobressalentes.
+- Adicionados indicadores MTBF/MTTR, disponibilidade e confiabilidade.
+- Adicionado painel `ASSET REL`.
+- Tela final mostra Asset Rel e Disponib.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F43.
+
 ## SC-1.42.0-F42-20260622-1500 — Security Operations & Cyber Defense Center
 
 - Adicionado módulo oficial `45-security-cyber-defense-center.js`.
