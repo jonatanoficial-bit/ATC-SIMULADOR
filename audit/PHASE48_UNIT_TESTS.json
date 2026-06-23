@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "suite": "phase48-unit",
+  "build": "SC-1.48.0-F48-20260623-1200",
+  "passed": 16,
+  "total": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F48+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.48.0\",\"phase\":\"F48\",\"phaseName\":\"Cargo & Logistics Operations Center, ULD, Perecíveis, Cargas Perigosas, Alfândega e Receita Freight\",\"channel\":\"cargo-logistics\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.48.0-F48-20260623-1200\",\"builtAt\":\"2026-06-23 12:00 BRT\",\"builtAtIso\":\"2026-06-23T12:00:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1}"
+    },
+    {
+      "name": "módulo F48 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo processes disruptions programs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"processes\":8,\"disruptions\":7}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"processScores\":{\"ULD_BUILDUP\":96.56,\"CARGO_ACCEPTANCE\":86.47999999999999,\"CUSTOMS_CLEARANCE\":80.80000000000001,\"DANGEROUS_GOODS\":88.88,\"PERISHABLE_COLD\":36.64000000000001,\"CARGO_SECURITY\":88.6,\"RAMP_TRANSFER\":88.56,\"FREIGHT_YIELD\":85.4},\"programs\":[{\"id\":\"CGP-790670\",\"programId\":\"ULD_POOL\",\"name\":\"Pool ULD inteligente\",\"cost\":16000,\"status\":\"ACTIVE\",\"at\":\"2026-06-23T17:29:50.670Z\"}],\"disruptions\":[{\"id\":\"CGD-790674\",\"disruptionId\":\"COLD_CHAIN_BREAK\",\"name\":\"Quebra cadeia fria\",\"process\":\"PERISHABLE_COLD\",\"severity\":32,\"status\":\"OPEN\",\"at\":\"2026-06-23T17:29:50.674Z\"},{\"id\":\"CGD-790674\",\"disruptionId\":\"COLD_CHAIN_BREAK\",\"name\":\"Quebra cadeia fria\",\"process\":\"PERISHABLE_COLD\",\"severity\":32,\"status\":\"OPEN\",\"at\":\"2026-06-23T17:29:50.674Z\"}],\"shipments\":[{\"id\":\"SHP-790674\",\"shipmentId\":\"PHARMA_COLD\",\"name\":\"Farmacêutica fria\",\"value\":44,\"risk\":24,\"status\":\"ACCEPTED\",\"at\":\"2026-06-23T17:29:50.674Z\"},{\"id\":\"SHP-790673\",\"shipmentId\":\"PHARMA_COLD\",\"name\":\"Farmacêutica fria\",\"value\":44,\"risk\":24,\"status\":\"ACCEPTED\",\"at\":\"2026-06-23T17:29:50.673Z\"}],\"cargoScore\":77,\"cargoSla\":73,\"freightRevenue\":218360,\"customsDelayMin\":0,\"coldChainIntegrity\":21,\"dgCompliance\":89,\"status\":\"FREIGHT_READY\",\"history\":[{\"at\":\"2026-06-23T17:29:50.674Z\",\"build\":\"SC-1.48.0-F48-20260623-1200\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"ULD_BUILDUP\":96.56,\"CARGO_ACCEPTANCE\":86.47999999999999,\"CUSTOMS_CLEARANCE\":80.80000000000001,\"DANGEROUS_GOODS\":88.88,\"PERISHABLE_COLD\":36.64000000000001,\"CARGO_SECURITY\":88.6,\"RAMP_TRANSFER\":88.56,\"FREIGHT_YIELD\":85.4},\"weighted\":82,\"cargoSla\":73,\"customsDelayMin\":0,\"coldChainIntegrity\":21,\"dgCompliance\":89,\"freightRevenue\":218360,\"openDisruptions\":2,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"conflicts\":0,\"revenueScore\":84,\"groundScore\":82,\"assetScore\":83,\"securityScore\":86,\"networkScore\":80,\"workforceScore\":81},\"cargoScore\":77,\"status\":\"FREIGHT_READY\",\"programs\":1,\"shipments\":2},{\"at\":\"2026-06-23T17:29:50.674Z\",\"build\":\"SC-1.48.0-F48-20260623-1200\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"ULD_BUILDUP\":93.28,\"CARGO_ACCEPTANCE\":83.24,\"CUSTOMS_CLEARANCE\":78.4,\"DANGEROUS_GOODS\":85.44,\"PERISHABLE_COLD\":62.653333333333336,\"CARGO_SECURITY\":84.3,\"RAMP_TRANSFER\":85.28,\"FREIGHT_YIELD\":81.2},\"weighted\":82,\"cargoSla\":79,\"customsDelayMin\":0,\"coldChainIntegrity\":55,\"dgCompliance\":85,\"freightRevenue\":112720,\"openDisruptions\":1,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"conflicts\":0,\"revenueScore\":84,\"groundScore\":82,\"assetScore\":83,\"securityScore\":86,\"networkScore\":80,\"workforceScore\":81},\"cargoScore\":81,\"status\":\"FREIGHT_READY\",\"programs\":1,\"shipments\":1}],\"lastEvaluation\":{\"at\":\"2026-06-23T17:29:50.674Z\",\"build\":\"SC-1.48.0-F48-20260623-1200\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"ULD_BUILDUP\":96.56,\"CARGO_ACCEPTANCE\":86.47999999999999,\"CUSTOMS_CLEARANCE\":80.80000000000001,\"DANGEROUS_GOODS\":88.88,\"PERISHABLE_COLD\":36.64000000000001,\"CARGO_SECURITY\":88.6,\"RAMP_TRANSFER\":88.56,\"FREIGHT_YIELD\":85.4},\"weighted\":82,\"cargoSla\":73,\"customsDelayMin\":0,\"coldChainIntegrity\":21,\"dgCompliance\":89,\"freightRevenue\":218360,\"openDisruptions\":2,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"conflicts\":0,\"revenueScore\":84,\"groundScore\":82,\"assetScore\":83,\"securityScore\":86,\"networkScore\":80,\"workforceScore\":81},\"cargoScore\":77,\"status\":\"FREIGHT_READY\",\"programs\":1,\"shipments\":2}}"
+    },
+    {
+      "name": "programa cargo criado",
+      "ok": true,
+      "detail": "{\"id\":\"CGP-790670\",\"programId\":\"ULD_POOL\",\"name\":\"Pool ULD inteligente\",\"cost\":16000,\"status\":\"ACTIVE\",\"at\":\"2026-06-23T17:29:50.670Z\"}"
+    },
+    {
+      "name": "shipment criado",
+      "ok": true,
+      "detail": "{\"id\":\"SHP-790674\",\"shipmentId\":\"PHARMA_COLD\",\"name\":\"Farmacêutica fria\",\"value\":44,\"risk\":24,\"status\":\"ACCEPTED\",\"at\":\"2026-06-23T17:29:50.674Z\"}"
+    },
+    {
+      "name": "disrupção cargo criada",
+      "ok": true,
+      "detail": "{\"id\":\"CGD-790674\",\"disruptionId\":\"COLD_CHAIN_BREAK\",\"name\":\"Quebra cadeia fria\",\"process\":\"PERISHABLE_COLD\",\"severity\":32,\"status\":\"OPEN\",\"at\":\"2026-06-23T17:29:50.674Z\"}"
+    },
+    {
+      "name": "cargo avaliado",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-23T17:29:50.674Z\",\"build\":\"SC-1.48.0-F48-20260623-1200\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"ULD_BUILDUP\":99.84,\"CARGO_ACCEPTANCE\":89.71999999999998,\"CUSTOMS_CLEARANCE\":83.20000000000002,\"DANGEROUS_GOODS\":92.32,\"PERISHABLE_COLD\":0,\"CARGO_SECURITY\":92.89999999999999,\"RAMP_TRANSFER\":91.84,\"FREIGHT_YIELD\":89.60000000000001},\"weighted\":80,\"cargoSla\":66,\"customsDelayMin\":0,\"coldChainIntegrity\":0,\"dgCompliance\":92,\"freightRevenue\":316920,\"openDisruptions\":3,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"conflicts\":0,\"revenueScore\":84,\"groundScore\":82,\"assetScore\":83,\"securityScore\":86,\"networkScore\":80,\"workforceScore\":81},\"cargoScore\":73,\"status\":\"LOGISTICS_DELAY\",\"programs\":1,\"shipments\":3}"
+    },
+    {
+      "name": "progress contém cargo",
+      "ok": true,
+      "detail": "{\"score\":73,\"status\":\"LOGISTICS_DELAY\",\"cargoSla\":66,\"freightRevenue\":316920,\"customsDelayMin\":0,\"coldChainIntegrity\":0,\"dgCompliance\":92,\"openDisruptions\":3,\"shipments\":3,\"last\":{\"at\":\"2026-06-23T17:29:50.674Z\",\"build\":\"SC-1.48.0-F48-20260623-1200\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"ULD_BUILDUP\":99.84,\"CARGO_ACCEPTANCE\":89.71999999999998,\"CUSTOMS_CLEARANCE\":83.20000000000002,\"DANGEROUS_GOODS\":92.32,\"PERISHABLE_COLD\":0,\"CARGO_SECURITY\":92.89999999999999,\"RAMP_TRANSFER\":91.84,\"FREIGHT_YIELD\":89.60000000000001},\"weighted\":80,\"cargoSla\":66,\"customsDelayMin\":0,\"coldChainIntegrity\":0,\"dgCompliance\":92,\"freightRevenue\":316920,\"openDisruptions\":3,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"conflicts\":0,\"revenueScore\":84,\"groundScore\":82,\"assetScore\":83,\"securityScore\":86,\"networkScore\":80,\"workforceScore\":81},\"cargoScore\":73,\"status\":\"LOGISTICS_DELAY\",\"programs\":1,\"shipments\":3}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"CARGO_EXCELLENCE\",\"min\":90,\"name\":\"Excelência cargueira\"},{\"id\":\"FREIGHT_READY\",\"min\":75,\"name\":\"Freight pronto\"},{\"id\":\"LOGISTICS_DELAY\",\"min\":55,\"name\":\"Logística atrasada\"},{\"id\":\"CARGO_CRISIS\",\"min\":0,\"name\":\"Crise cargueira\"}]"
+    },
+    {
+      "name": "processos essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"ULD_BUILDUP\",\"name\":\"Montagem ULD\",\"weight\":13,\"target\":82},{\"id\":\"CARGO_ACCEPTANCE\",\"name\":\"Aceitação de carga\",\"weight\":12,\"target\":80},{\"id\":\"CUSTOMS_CLEARANCE\",\"name\":\"Alfândega/despacho\",\"weight\":14,\"target\":78},{\"id\":\"DANGEROUS_GOODS\",\"name\":\"Cargas perigosas/DG\",\"weight\":13,\"target\":84},{\"id\":\"PERISHABLE_COLD\",\"name\":\"Perecíveis/cadeia fria\",\"weight\":12,\"target\":80},{\"id\":\"CARGO_SECURITY\",\"name\":\"Segurança carga\",\"weight\":12,\"target\":84},{\"id\":\"RAMP_TRANSFER\",\"name\":\"Transferência rampa\",\"weight\":12,\"target\":82},{\"id\":\"FREIGHT_YIELD\",\"name\":\"Yield freight\",\"weight\":12,\"target\":78}]"
+    }
+  ]
+}

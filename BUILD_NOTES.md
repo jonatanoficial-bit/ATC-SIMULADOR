@@ -1,18 +1,18 @@
-# Build Notes — SC-1.47.0-F47-20260623-1115
+# Build Notes — SC-1.48.0-F48-20260623-1200
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.47.0
-- Fase: F47 — Ground Handling & Turnaround Control Center, Gate, Pushback, Bagagem, Combustível e SLA de Solo
-- Build: `SC-1.47.0-F47-20260623-1115`
-- Data/hora: 2026-06-23 11:15 BRT
-- Canal: ground-turnaround
-- Ground Turnaround schema: 1
+- Versão: 1.48.0
+- Fase: F48 — Cargo & Logistics Operations Center, ULD, Perecíveis, Cargas Perigosas, Alfândega e Receita Freight
+- Build: `SC-1.48.0-F48-20260623-1200`
+- Data/hora: 2026-06-23 12:00 BRT
+- Canal: cargo-logistics
+- Cargo Logistics schema: 1
 
 ## Entregas
 
-A Fase 47 adiciona gestão de solo, gate, pushback, bagagem, combustível, catering, limpeza, deicing, SLA, atrasos e TAT médio.
+A Fase 48 adiciona operação cargueira, ULD, DG, perecíveis, cadeia fria, alfândega, segurança de carga, SLA e receita freight.
 
 ## Documento de upload
 

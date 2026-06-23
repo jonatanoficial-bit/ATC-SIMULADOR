@@ -1,3 +1,17 @@
+## SC-1.48.0-F48-20260623-1200 — Cargo & Logistics Operations Center
+
+- Adicionado módulo oficial `51-cargo-logistics-operations-center.js`.
+- Criado catálogo `data/cargo-logistics.json`.
+- Adicionados processos de ULD, aceitação de carga, alfândega, DG, cadeia fria, segurança, rampa e yield freight.
+- Adicionados tipos de shipment.
+- Adicionadas disrupções logísticas.
+- Adicionados programas cargueiros.
+- Adicionados KPIs cargo/freight.
+- Adicionado painel `CARGO OPS`.
+- Tela final mostra Cargo Ops e Freight.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F48.
+
 ## SC-1.47.0-F47-20260623-1115 — Ground Handling & Turnaround Control Center
 
 - Adicionado módulo oficial `50-ground-handling-turnaround-center.js`.

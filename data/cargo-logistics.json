@@ -1,0 +1,309 @@
+{
+  "schema": 1,
+  "version": "2026.06-f48",
+  "description": "Cargo and logistics operations center with ULD, dangerous goods, perishables, customs, cold chain, cargo SLA, freight revenue and logistics risk.",
+  "cargoProcesses": [
+    {
+      "id": "ULD_BUILDUP",
+      "name": "Montagem ULD",
+      "weight": 13,
+      "target": 82
+    },
+    {
+      "id": "CARGO_ACCEPTANCE",
+      "name": "Aceitação de carga",
+      "weight": 12,
+      "target": 80
+    },
+    {
+      "id": "CUSTOMS_CLEARANCE",
+      "name": "Alfândega/despacho",
+      "weight": 14,
+      "target": 78
+    },
+    {
+      "id": "DANGEROUS_GOODS",
+      "name": "Cargas perigosas/DG",
+      "weight": 13,
+      "target": 84
+    },
+    {
+      "id": "PERISHABLE_COLD",
+      "name": "Perecíveis/cadeia fria",
+      "weight": 12,
+      "target": 80
+    },
+    {
+      "id": "CARGO_SECURITY",
+      "name": "Segurança carga",
+      "weight": 12,
+      "target": 84
+    },
+    {
+      "id": "RAMP_TRANSFER",
+      "name": "Transferência rampa",
+      "weight": 12,
+      "target": 82
+    },
+    {
+      "id": "FREIGHT_YIELD",
+      "name": "Yield freight",
+      "weight": 12,
+      "target": 78
+    }
+  ],
+  "cargoAssets": [
+    {
+      "id": "ULD_DOLLIES",
+      "name": "Dollies ULD",
+      "process": "ULD_BUILDUP",
+      "capacity": 28,
+      "readiness": 78
+    },
+    {
+      "id": "CARGO_TERMINAL",
+      "name": "Terminal cargueiro",
+      "process": "CARGO_ACCEPTANCE",
+      "capacity": 34,
+      "readiness": 80
+    },
+    {
+      "id": "CUSTOMS_DESK",
+      "name": "Mesa alfandegária",
+      "process": "CUSTOMS_CLEARANCE",
+      "capacity": 20,
+      "readiness": 76
+    },
+    {
+      "id": "DG_INSPECTION",
+      "name": "Inspeção DG",
+      "process": "DANGEROUS_GOODS",
+      "capacity": 16,
+      "readiness": 82
+    },
+    {
+      "id": "COLD_STORAGE",
+      "name": "Câmara fria",
+      "process": "PERISHABLE_COLD",
+      "capacity": 18,
+      "readiness": 78
+    },
+    {
+      "id": "CARGO_XRAY",
+      "name": "Raio-X carga",
+      "process": "CARGO_SECURITY",
+      "capacity": 22,
+      "readiness": 80
+    },
+    {
+      "id": "RAMP_LOADERS",
+      "name": "Loaders de rampa",
+      "process": "RAMP_TRANSFER",
+      "capacity": 24,
+      "readiness": 79
+    },
+    {
+      "id": "FREIGHT_DESK",
+      "name": "Mesa comercial freight",
+      "process": "FREIGHT_YIELD",
+      "capacity": 14,
+      "readiness": 77
+    }
+  ],
+  "shipmentTypes": [
+    {
+      "id": "GENERAL_CARGO",
+      "name": "Carga geral",
+      "value": 18,
+      "risk": 8
+    },
+    {
+      "id": "EXPRESS",
+      "name": "Express/e-commerce",
+      "value": 28,
+      "risk": 14
+    },
+    {
+      "id": "PHARMA_COLD",
+      "name": "Farmacêutica fria",
+      "value": 44,
+      "risk": 24
+    },
+    {
+      "id": "PERISHABLES",
+      "name": "Perecíveis",
+      "value": 32,
+      "risk": 20
+    },
+    {
+      "id": "DANGEROUS_GOODS",
+      "name": "Cargas perigosas",
+      "value": 38,
+      "risk": 30
+    },
+    {
+      "id": "LIVE_ANIMALS",
+      "name": "Animais vivos",
+      "value": 30,
+      "risk": 26
+    },
+    {
+      "id": "HIGH_VALUE",
+      "name": "Alto valor",
+      "value": 52,
+      "risk": 28
+    }
+  ],
+  "logisticsDisruptions": [
+    {
+      "id": "ULD_SHORTAGE",
+      "name": "Falta de ULD",
+      "process": "ULD_BUILDUP",
+      "severity": 22
+    },
+    {
+      "id": "CUSTOMS_HOLD",
+      "name": "Retenção alfandegária",
+      "process": "CUSTOMS_CLEARANCE",
+      "severity": 26
+    },
+    {
+      "id": "DG_DOC_ERROR",
+      "name": "Erro documentação DG",
+      "process": "DANGEROUS_GOODS",
+      "severity": 30
+    },
+    {
+      "id": "COLD_CHAIN_BREAK",
+      "name": "Quebra cadeia fria",
+      "process": "PERISHABLE_COLD",
+      "severity": 32
+    },
+    {
+      "id": "XRAY_BACKLOG",
+      "name": "Fila raio-X carga",
+      "process": "CARGO_SECURITY",
+      "severity": 20
+    },
+    {
+      "id": "LOADER_DOWN",
+      "name": "Loader indisponível",
+      "process": "RAMP_TRANSFER",
+      "severity": 24
+    },
+    {
+      "id": "FREIGHT_MISROUTE",
+      "name": "Carga roteada errado",
+      "process": "FREIGHT_YIELD",
+      "severity": 18
+    }
+  ],
+  "cargoPrograms": [
+    {
+      "id": "ULD_POOL",
+      "name": "Pool ULD inteligente",
+      "cost": 16000,
+      "benefit": {
+        "ULD_BUILDUP": 12,
+        "RAMP_TRANSFER": 3
+      }
+    },
+    {
+      "id": "CUSTOMS_FASTLANE",
+      "name": "Fast lane alfândega",
+      "cost": 22000,
+      "benefit": {
+        "CUSTOMS_CLEARANCE": 13
+      }
+    },
+    {
+      "id": "DG_RECERT",
+      "name": "Recertificação DG",
+      "cost": 14000,
+      "benefit": {
+        "DANGEROUS_GOODS": 12,
+        "CARGO_SECURITY": 2
+      }
+    },
+    {
+      "id": "COLD_CHAIN_AUDIT",
+      "name": "Auditoria cadeia fria",
+      "cost": 18000,
+      "benefit": {
+        "PERISHABLE_COLD": 13
+      }
+    },
+    {
+      "id": "CARGO_SECURITY_SWEEP",
+      "name": "Varredura segurança carga",
+      "cost": 12000,
+      "benefit": {
+        "CARGO_SECURITY": 11
+      }
+    },
+    {
+      "id": "RAMP_LOADER_PM",
+      "name": "Preventiva loaders",
+      "cost": 15000,
+      "benefit": {
+        "RAMP_TRANSFER": 12
+      }
+    },
+    {
+      "id": "FREIGHT_YIELD_ENGINE",
+      "name": "Motor yield freight",
+      "cost": 20000,
+      "benefit": {
+        "FREIGHT_YIELD": 13
+      }
+    }
+  ],
+  "cargoBands": [
+    {
+      "id": "CARGO_EXCELLENCE",
+      "min": 90,
+      "name": "Excelência cargueira"
+    },
+    {
+      "id": "FREIGHT_READY",
+      "min": 75,
+      "name": "Freight pronto"
+    },
+    {
+      "id": "LOGISTICS_DELAY",
+      "min": 55,
+      "name": "Logística atrasada"
+    },
+    {
+      "id": "CARGO_CRISIS",
+      "min": 0,
+      "name": "Crise cargueira"
+    }
+  ],
+  "cargoKPIs": [
+    {
+      "id": "CARGO_SLA",
+      "name": "SLA carga"
+    },
+    {
+      "id": "ULD_AVAILABILITY",
+      "name": "Disponibilidade ULD"
+    },
+    {
+      "id": "CUSTOMS_TIME",
+      "name": "Tempo alfândega"
+    },
+    {
+      "id": "COLD_CHAIN_INTEGRITY",
+      "name": "Integridade cadeia fria"
+    },
+    {
+      "id": "DG_COMPLIANCE",
+      "name": "Compliance DG"
+    },
+    {
+      "id": "FREIGHT_REVENUE",
+      "name": "Receita freight"
+    }
+  ]
+}

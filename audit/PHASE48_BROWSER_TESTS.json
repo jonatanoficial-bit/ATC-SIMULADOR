@@ -1,0 +1,205 @@
+{
+  "schema": 1,
+  "suite": "phase48-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para Cargo Logistics.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.48.0",
+    "phase": "F48",
+    "phaseName": "Cargo & Logistics Operations Center, ULD, Perecíveis, Cargas Perigosas, Alfândega e Receita Freight",
+    "channel": "cargo-logistics",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.48.0-F48-20260623-1200",
+    "builtAt": "2026-06-23 12:00 BRT",
+    "builtAtIso": "2026-06-23T12:00:00-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1,
+    "weatherOpsSchema": 1,
+    "procedureOpsSchema": 1,
+    "careerSchema": 1,
+    "economySchema": 1,
+    "incidentSchema": 1,
+    "networkFlowSchema": 1,
+    "controlRoomSchema": 1,
+    "commercialPolishSchema": 1,
+    "releaseCandidateSchema": 1,
+    "goldMasterSchema": 1,
+    "postGoldMasterSchema": 1,
+    "postPublishHealthSchema": 1,
+    "publicOpsSchema": 1,
+    "trainingAcademySchema": 1,
+    "trainingCoachSchema": 1,
+    "internationalCampaignSchema": 1,
+    "airlineOpsSchema": 1,
+    "airportAuthoritySchema": 1,
+    "crisisCommandSchema": 1,
+    "safetyComplianceSchema": 1,
+    "infrastructureExpansionSchema": 1,
+    "environmentSustainabilitySchema": 1,
+    "revenueManagementSchema": 1,
+    "workforceStaffingSchema": 1,
+    "passengerReputationSchema": 1,
+    "multiAirportNetworkSchema": 1,
+    "emergencyResponseSchema": 1,
+    "securityCyberDefenseSchema": 1,
+    "assetMaintenanceSchema": 1,
+    "digitalTwinPredictiveSchema": 1,
+    "aiCopilotSchema": 1,
+    "radioPhraseologySchema": 1,
+    "groundTurnaroundSchema": 1,
+    "cargoLogisticsSchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F48 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.48.0', 'phase': 'F48', 'phaseName': 'Cargo & Logistics Operations Center, ULD, Perecíveis, Cargas Perigosas, Alfândega e Receita Freight', 'channel': 'cargo-logistics', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.48.0-F48-20260623-1200', 'builtAt': '2026-06-23 12:00 BRT', 'builtAtIso': '2026-06-23T12:00:00-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1, 'weatherOpsSchema': 1, 'procedureOpsSchema': 1, 'careerSchema': 1, 'economySchema': 1, 'incidentSchema': 1, 'networkFlowSchema': 1, 'controlRoomSchema': 1, 'commercialPolishSchema': 1, 'releaseCandidateSchema': 1, 'goldMasterSchema': 1, 'postGoldMasterSchema': 1, 'postPublishHealthSchema': 1, 'publicOpsSchema': 1, 'trainingAcademySchema': 1, 'trainingCoachSchema': 1, 'internationalCampaignSchema': 1, 'airlineOpsSchema': 1, 'airportAuthoritySchema': 1, 'crisisCommandSchema': 1, 'safetyComplianceSchema': 1, 'infrastructureExpansionSchema': 1, 'environmentSustainabilitySchema': 1, 'revenueManagementSchema': 1, 'workforceStaffingSchema': 1, 'passengerReputationSchema': 1, 'multiAirportNetworkSchema': 1, 'emergencyResponseSchema': 1, 'securityCyberDefenseSchema': 1, 'assetMaintenanceSchema': 1, 'digitalTwinPredictiveSchema': 1, 'aiCopilotSchema': 1, 'radioPhraseologySchema': 1, 'groundTurnaroundSchema': 1, 'cargoLogisticsSchema': 1}"
+    },
+    {
+      "name": "main bundle inclui módulo 51",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_CARGO_LOGISTICS no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui processos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui disrupções",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui programas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui cargo-logistics.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "início de turno inicializa F48",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fim de turno mostra F48",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS possui painel cargo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F48 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema cargoLogisticsSchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "channel cargo-logistics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc cargo existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc ULD existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado raiz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado docs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém caminho Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém repo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "DG presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cadeia fria presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "freight revenue KPI presente",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 22,
+  "failed": 0,
+  "total": 22
+}

@@ -1,10 +1,10 @@
 {
   "product": "Skyward Control",
   "prefix": "SC",
-  "version": "1.47.0",
-  "phase": "F47",
-  "phaseName": "Ground Handling & Turnaround Control Center, Gate, Pushback, Bagagem, Combustível e SLA de Solo",
-  "channel": "ground-turnaround",
+  "version": "1.48.0",
+  "phase": "F48",
+  "phaseName": "Cargo & Logistics Operations Center, ULD, Perecíveis, Cargas Perigosas, Alfândega e Receita Freight",
+  "channel": "cargo-logistics",
   "saveSchema": 3,
   "target": "Mobile-first / Tablet / Desktop",
   "timeZone": "America/Sao_Paulo",
@@ -17,9 +17,9 @@
   "desktopSchema": 1,
   "accessibilitySchema": 1,
   "replaySchema": 1,
-  "build": "SC-1.47.0-F47-20260623-1115",
-  "builtAt": "2026-06-23 11:15 BRT",
-  "builtAtIso": "2026-06-23T11:15:00-03:00",
+  "build": "SC-1.48.0-F48-20260623-1200",
+  "builtAt": "2026-06-23 12:00 BRT",
+  "builtAtIso": "2026-06-23T12:00:00-03:00",
   "aircraftPerformanceSchema": 1,
   "airportSurfaceSchema": 1,
   "surfaceSafetySchema": 1,
@@ -55,5 +55,6 @@
   "digitalTwinPredictiveSchema": 1,
   "aiCopilotSchema": 1,
   "radioPhraseologySchema": 1,
-  "groundTurnaroundSchema": 1
+  "groundTurnaroundSchema": 1,
+  "cargoLogisticsSchema": 1
 }

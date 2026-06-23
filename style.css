@@ -1028,3 +1028,11 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .ground-turnaround-elite{color:#91ffb7}
 .ground-turnaround-delayed{color:#ffd27a}
 .ground-turnaround-gridlock{color:#ff918c}
+
+/* F48 Cargo Logistics Operations */
+.cargo-logistics-inline{border-color:rgba(123,224,255,.62);background:linear-gradient(180deg,rgba(23,77,94,.90),rgba(4,35,45,.96));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 32px rgba(123,224,255,.15)}
+.cargo-logistics-inline .airport-ops-head span{color:#9deaff}
+.cargo-logistics-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(123,224,255,.45);border-radius:999px;padding:4px 9px;background:rgba(123,224,255,.13);font-weight:900}
+.cargo-logistics-ready{color:#91ffb7}
+.cargo-logistics-delay{color:#ffd27a}
+.cargo-logistics-crisis{color:#ff918c}

@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.47.0-F47-20260623-1115",
-  "builtAt": "2026-06-23 11:15 BRT",
-  "cacheName": "skyward-control-1-sc-1.47.0-f47-20260623-1115",
+  "build": "SC-1.48.0-F48-20260623-1200",
+  "builtAt": "2026-06-23 12:00 BRT",
+  "cacheName": "skyward-control-1-sc-1.48.0-f48-20260623-1200",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,8 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 1786,
-      "sha256": "80bfd03a8e7d8ca8966f1902ed6adf8c73aa923edcf2d519f8eddbbbe02e5096"
+      "bytes": 1818,
+      "sha256": "b813b1bb3cc56c2cf46762ca0979af8946e21d91684e8380461c196eaa1551cd"
     },
     {
       "url": "./data/ai-copilot-decision-support.json",
@@ -139,6 +139,12 @@
       "file": "data/career-ratings.json",
       "bytes": 3664,
       "sha256": "e91893153a3339988742034a8889bc5c3f1e1fe68369644308fb9f740b6c3466"
+    },
+    {
+      "url": "./data/cargo-logistics.json",
+      "file": "data/cargo-logistics.json",
+      "bytes": 6262,
+      "sha256": "9bb98e0e764d4d2aa4f00e2aa97ad69dd0ad0bb1a2b725380776f1d7c4fd03ae"
     },
     {
       "url": "./data/control-room-ranking.json",
@@ -323,8 +329,8 @@
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 715448,
-      "sha256": "c6d009bbf7e4f0f560c922f90b87cd351da16184dc7832f9f727e0155cc4b40b"
+      "bytes": 731755,
+      "sha256": "152081a8c687f9d326b513783f0760ddf12e1ae7c5c02a66ca8021143c3a18a3"
     },
     {
       "url": "./manifest.webmanifest",
@@ -335,8 +341,8 @@
     {
       "url": "./style.css",
       "file": "style.css",
-      "bytes": 110831,
-      "sha256": "5fba03c9ee16315ba19a366dceb03f6d2e4bbf685e929b39d14446085db75a5b"
+      "bytes": 111451,
+      "sha256": "9e1798659dae9f15da8439118deec95cf387603e83ab70dcb4cd184d4147bb82"
     }
   ]
 }
