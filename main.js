@@ -9348,7 +9348,215 @@ window.SKYWARD_STABILITY_DIAGNOSTICS=Object.freeze({
   selfCheck:stabilityDiagnosticsSelfCheck
 });
 
-/* ===== MODULE 51: surface-safety-director (17-surface-safety-director.js) ===== */
+/* ===== MODULE 51: pwa-update-cache-migration-center (56-pwa-update-cache-migration-center.js) ===== */
+/* @skyward-module 56-pwa-update-cache-migration-center
+ * PWA update manager with cache migration, stale bundle guard, service worker health, safe cleanup and mobile reload guidance.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('56-pwa-update-cache-migration-center');
+const PWA_UPDATE_MANAGER_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f53',
+  updateSignals:[
+    {id:'BUILD_MATCH',name:'Build atual carregado',weight:18,target:100},
+    {id:'CACHE_MATCH',name:'Cache corresponde ao build',weight:16,target:100},
+    {id:'SERVICE_WORKER_HEALTH',name:'Saúde service worker',weight:14,target:90},
+    {id:'OLD_BUNDLE_RISK',name:'Risco bundle antigo',weight:16,target:0},
+    {id:'PWA_INSTALL_STATE',name:'Estado instalação PWA',weight:10,target:85},
+    {id:'OFFLINE_READY',name:'Pronto offline',weight:10,target:90},
+    {id:'CACHE_CLEANUP_READY',name:'Limpeza segura pronta',weight:8,target:90},
+    {id:'MIGRATION_STATUS',name:'Migração de cache',weight:8,target:100}
+  ],
+  cacheRisks:[
+    {id:'OLD_MAIN_JS',name:'main.js antigo',severity:34,action:'CLEAR_AND_RELOAD'},
+    {id:'OLD_SERVICE_WORKER',name:'service worker antigo',severity:30,action:'UPDATE_SW'},
+    {id:'MIXED_CACHE',name:'cache misto de builds',severity:28,action:'MIGRATE_CACHE'},
+    {id:'PWA_INSTALLED_OLD',name:'PWA instalado antigo',severity:26,action:'REINSTALL_PWA'},
+    {id:'OFFLINE_STALE',name:'offline obsoleto',severity:22,action:'REFRESH_OFFLINE_CACHE'},
+    {id:'NO_CACHE_API',name:'Cache API indisponível',severity:14,action:'ONLINE_ONLY'}
+  ],
+  updateActions:[
+    {id:'CHECK_UPDATE',name:'Verificar atualização',impact:8},
+    {id:'CLEAR_AND_RELOAD',name:'Limpar cache e recarregar',impact:18},
+    {id:'UPDATE_SW',name:'Atualizar service worker',impact:16},
+    {id:'MIGRATE_CACHE',name:'Migrar cache para build atual',impact:14},
+    {id:'REINSTALL_PWA',name:'Reinstalar PWA/atalho',impact:12},
+    {id:'REFRESH_OFFLINE_CACHE',name:'Recriar cache offline',impact:10},
+    {id:'EXPORT_UPDATE_REPORT',name:'Exportar relatório update',impact:6}
+  ],
+  updateBands:[
+    {id:'CURRENT',min:90,name:'Atualizado'},
+    {id:'SYNCING',min:75,name:'Sincronizando'},
+    {id:'STALE_RISK',min:55,name:'Risco cache antigo'},
+    {id:'OUTDATED',min:0,name:'Desatualizado'}
+  ]
+});
+const PWA_UPDATE_KEY='skywardPwaUpdateManager_v1';
+let pwaUpdateState={schema:1,updateScore:84,status:'SYNCING',loadedBuild:'',expectedBuild:'',cacheName:'',serviceWorkerState:'unknown',cacheVersionMatch:false,oldBundleRisk:0,pwaInstalled:false,offlineReady:false,migrationReady:true,safeReloadReady:true,actions:[],risks:[],history:[],lastCheck:null};
+function loadPwaUpdateManager(){try{const raw=localStorage?.getItem?.(PWA_UPDATE_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)pwaUpdateState={...pwaUpdateState,...parsed};}}catch(e){safeLogError?.(e,'pwa-update-load');}return pwaUpdateState;}
+function savePwaUpdateManager(){try{localStorage?.setItem?.(PWA_UPDATE_KEY,JSON.stringify(pwaUpdateState));}catch(e){safeLogError?.(e,'pwa-update-save');}return pwaUpdateState;}
+function updateBand(score){return PWA_UPDATE_MANAGER_CATALOG.updateBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||PWA_UPDATE_MANAGER_CATALOG.updateBands.at(-1);}
+function normalizeBuild(v=''){return String(v||'').toLowerCase().replace(/[^a-z0-9]+/g,'-');}
+function detectPwaInstalled(){try{return Boolean(window.matchMedia?.('(display-mode: standalone)')?.matches||navigator?.standalone);}catch(e){return false;}}
+async function listCacheNamesSafe(){try{if(!('caches' in window)) return []; return await caches.keys();}catch(e){return [];}}
+function inferCurrentCacheName(){try{return window.SKYWARD_CACHE_NAME||window.SKYWARD_BUILD_INFO?.cacheName||`skyward-control-1-${normalizeBuild(BUILD)}`;}catch(e){return `skyward-control-1-${normalizeBuild(BUILD)}`;}}
+async function checkPwaUpdateState(reason='manual'){
+  loadPwaUpdateManager();
+  const expected=String(window.SKYWARD_BUILD_INFO?.build||BUILD||'');
+  const loaded=String(window.SKYWARD_BUILD_INFO?.build||BUILD||'');
+  const cacheName=inferCurrentCacheName();
+  const cacheNames=await listCacheNamesSafe();
+  const normalizedExpected=normalizeBuild(expected);
+  const matchingCache=cacheNames.some(n=>normalizeBuild(n).includes(normalizedExpected.slice(0,22))||String(n)===cacheName);
+  const oldSkywardCaches=cacheNames.filter(n=>String(n).toLowerCase().includes('skyward')&&!normalizeBuild(n).includes(normalizedExpected.slice(0,12)));
+  const swReady=Boolean('serviceWorker' in navigator);
+  let swState='none';
+  try{swState=navigator.serviceWorker?.controller?'controlled':(swReady?'available':'none');}catch(e){swState='unknown';}
+  const pwaInstalled=detectPwaInstalled();
+  const offlineReady=Boolean(matchingCache && cacheNames.length);
+  const oldBundleRisk=Math.max(0,Math.min(100,oldSkywardCaches.length*18 + (!matchingCache?28:0) + (!swReady?10:0)));
+  const risks=[];
+  if(!matchingCache) risks.push({id:'OLD_MAIN_JS',name:'main.js/cache não confirmado',severity:34,action:'CLEAR_AND_RELOAD'});
+  if(oldSkywardCaches.length) risks.push({id:'MIXED_CACHE',name:'Caches antigos detectados',severity:28,action:'MIGRATE_CACHE',caches:oldSkywardCaches.slice(0,6)});
+  if(swReady && swState!=='controlled') risks.push({id:'OLD_SERVICE_WORKER',name:'Service worker não controla a sessão',severity:18,action:'UPDATE_SW'});
+  if(!('caches' in window)) risks.push({id:'NO_CACHE_API',name:'Cache API indisponível',severity:14,action:'ONLINE_ONLY'});
+  if(pwaInstalled && oldBundleRisk>=35) risks.push({id:'PWA_INSTALLED_OLD',name:'PWA instalado pode estar obsoleto',severity:26,action:'REINSTALL_PWA'});
+  const riskPenalty=risks.reduce((a,r)=>a+Number(r.severity||0),0);
+  const updateScore=Math.max(0,Math.min(100,Math.round(
+    (loaded===expected?24:10)+
+    (matchingCache?22:6)+
+    (swReady?14:5)+
+    (offlineReady?12:4)+
+    (pwaInstalled?8:7)+
+    Math.max(0,20-riskPenalty*.18)
+  )));
+  const suggested=[];
+  if(risks.some(r=>r.action==='CLEAR_AND_RELOAD')) suggested.push({id:`UPD-${String(Date.now()).slice(-6)}`,actionId:'CLEAR_AND_RELOAD',name:'Limpar cache e recarregar',status:'SUGGESTED',at:new Date().toISOString()});
+  if(risks.some(r=>r.action==='MIGRATE_CACHE')) suggested.push({id:`UPD-${String(Date.now()+1).slice(-6)}`,actionId:'MIGRATE_CACHE',name:'Migrar cache para build atual',status:'SUGGESTED',at:new Date().toISOString()});
+  if(risks.some(r=>r.action==='REINSTALL_PWA')) suggested.push({id:`UPD-${String(Date.now()+2).slice(-6)}`,actionId:'REINSTALL_PWA',name:'Reinstalar PWA/atalho',status:'SUGGESTED',at:new Date().toISOString()});
+  pwaUpdateState.expectedBuild=expected;
+  pwaUpdateState.loadedBuild=loaded;
+  pwaUpdateState.cacheName=cacheName;
+  pwaUpdateState.serviceWorkerState=swState;
+  pwaUpdateState.cacheVersionMatch=matchingCache;
+  pwaUpdateState.oldBundleRisk=oldBundleRisk;
+  pwaUpdateState.pwaInstalled=pwaInstalled;
+  pwaUpdateState.offlineReady=offlineReady;
+  pwaUpdateState.migrationReady=Boolean('caches' in window);
+  pwaUpdateState.safeReloadReady=true;
+  pwaUpdateState.risks=risks.slice(0,20);
+  pwaUpdateState.actions=[...suggested,...pwaUpdateState.actions].slice(0,50);
+  pwaUpdateState.updateScore=updateScore;
+  pwaUpdateState.status=updateBand(updateScore).id;
+  const item={at:new Date().toISOString(),build:BUILD,reason,updateScore,status:pwaUpdateState.status,loadedBuild:loaded,expectedBuild:expected,cacheName,cacheNames:cacheNames.slice(0,20),cacheVersionMatch:matchingCache,oldSkywardCaches:oldSkywardCaches.slice(0,20),oldBundleRisk,pwaInstalled,offlineReady,serviceWorkerState:swState,risks:risks.length};
+  pwaUpdateState.lastCheck=item;
+  pwaUpdateState.history.unshift(item);
+  pwaUpdateState.history=pwaUpdateState.history.slice(0,80);
+  savePwaUpdateManager();
+  renderPwaUpdateBoard();
+  try{window.SKYWARD_STABILITY_DIAGNOSTICS?.diagnose?.('pwa-update-check');}catch(e){}
+  return item;
+}
+async function migratePwaCache(){
+  loadPwaUpdateManager();
+  const cacheNames=await listCacheNamesSafe();
+  const expected=normalizeBuild(window.SKYWARD_BUILD_INFO?.build||BUILD||'');
+  const old=cacheNames.filter(n=>String(n).toLowerCase().includes('skyward')&&!normalizeBuild(n).includes(expected.slice(0,12)));
+  let deleted=0;
+  try{
+    for(const name of old){ if(await caches.delete(name)) deleted++; }
+  }catch(e){ try{window.SKYWARD_STABILITY_DIAGNOSTICS?.error?.(e,'pwa-cache-migration');}catch(_){} }
+  pwaUpdateState.actions.unshift({id:`UPD-${String(Date.now()).slice(-6)}`,actionId:'MIGRATE_CACHE',name:`Caches antigos removidos: ${deleted}`,status:'DONE',at:new Date().toISOString()});
+  savePwaUpdateManager();
+  return await checkPwaUpdateState('migrate-cache');
+}
+async function clearPwaCacheAndReload(reload=false){
+  loadPwaUpdateManager();
+  let deleted=0;
+  try{
+    const names=await listCacheNamesSafe();
+    for(const name of names){ if(String(name).toLowerCase().includes('skyward') && await caches.delete(name)) deleted++; }
+    const regs=await navigator.serviceWorker?.getRegistrations?.();
+    if(Array.isArray(regs)){for(const reg of regs){try{await reg.update?.();}catch(e){}}}
+  }catch(e){ try{window.SKYWARD_STABILITY_DIAGNOSTICS?.error?.(e,'pwa-clear-cache');}catch(_){} }
+  pwaUpdateState.actions.unshift({id:`UPD-${String(Date.now()).slice(-6)}`,actionId:'CLEAR_AND_RELOAD',name:`Cache limpo: ${deleted}`,status:'DONE',at:new Date().toISOString()});
+  savePwaUpdateManager();
+  if(reload){try{location.reload();}catch(e){}}
+  return await checkPwaUpdateState('clear-cache');
+}
+function exportPwaUpdateReport(){
+  loadPwaUpdateManager();
+  return {schema:1,build:BUILD,at:new Date().toISOString(),state:pwaUpdateState,userAgent:String(navigator?.userAgent||''),viewport:{w:Number(innerWidth||0),h:Number(innerHeight||0)},buildInfo:window.SKYWARD_BUILD_INFO||null};
+}
+function evaluatePwaUpdateManager(finalScore=0,statsObj={},fail=false,airportCode=''){
+  const sync={...pwaUpdateState,lastCheck:pwaUpdateState.lastCheck||null};
+  // keep evaluation synchronous for end-screen; async checker updates board separately.
+  const evalObj={at:new Date().toISOString(),build:BUILD,airport:airportCode||'SBSP',finalScore:Math.round(finalScore||0),updateScore:sync.updateScore,status:sync.status,oldBundleRisk:sync.oldBundleRisk,cacheVersionMatch:sync.cacheVersionMatch,pwaInstalled:sync.pwaInstalled,offlineReady:sync.offlineReady,risks:sync.risks?.length||0};
+  pwaUpdateState.lastCheck=evalObj;
+  savePwaUpdateManager();
+  renderPwaUpdateBoard();
+  return {state:pwaUpdateState,evaluation:evalObj};
+}
+function pwaUpdateProgress(){
+  loadPwaUpdateManager();
+  return {score:pwaUpdateState.updateScore,status:pwaUpdateState.status,oldBundleRisk:pwaUpdateState.oldBundleRisk,cacheVersionMatch:pwaUpdateState.cacheVersionMatch,serviceWorkerState:pwaUpdateState.serviceWorkerState,pwaInstalled:pwaUpdateState.pwaInstalled,offlineReady:pwaUpdateState.offlineReady,risks:pwaUpdateState.risks.length,actions:pwaUpdateState.actions.length,last:pwaUpdateState.lastCheck||null};
+}
+function renderPwaUpdateBoard(){
+  try{
+    const anchor=document.querySelector('#stabilityDiagnosticsInline') || document.querySelector('#adaptivePaceInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#pwaUpdateInline'); if(old) old.remove();
+    const p=pwaUpdateProgress();
+    anchor.insertAdjacentHTML('afterend',`<div id="pwaUpdateInline" class="airport-ops-board pwa-update-inline">
+      <div class="airport-ops-head"><b>PWA UPDATE</b><span>${p.status}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>UPDATE</small><b>${p.score}%</b></div>
+        <div><small>CACHE</small><b>${p.cacheVersionMatch?'OK':'OLD'}</b></div>
+        <div><small>SW</small><b>${p.serviceWorkerState}</b></div>
+        <div><small>RISCO</small><b>${p.oldBundleRisk}</b></div>
+        <div><small>PWA</small><b>${p.pwaInstalled?'SIM':'WEB'}</b></div>
+        <div><small>AÇÕES</small><b>${p.actions}</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'pwa-update-board'); }
+}
+function initializePwaUpdateManager(){
+  loadPwaUpdateManager();
+  pwaUpdateState.expectedBuild=String(window.SKYWARD_BUILD_INFO?.build||BUILD||'');
+  pwaUpdateState.loadedBuild=String(window.SKYWARD_BUILD_INFO?.build||BUILD||'');
+  pwaUpdateState.cacheName=inferCurrentCacheName();
+  savePwaUpdateManager();
+  renderPwaUpdateBoard();
+  checkPwaUpdateState('init');
+  return pwaUpdateState;
+}
+function pwaUpdateStatus(){loadPwaUpdateManager();return {...pwaUpdateState,progress:pwaUpdateProgress(),catalog:PWA_UPDATE_MANAGER_CATALOG};}
+function pwaUpdateSelfCheck(){
+  const issues=[];
+  if(PWA_UPDATE_MANAGER_CATALOG.updateSignals.length<8) issues.push('sinais insuficientes');
+  if(PWA_UPDATE_MANAGER_CATALOG.cacheRisks.length<6) issues.push('riscos insuficientes');
+  const progress=pwaUpdateProgress();
+  if(!Number.isFinite(progress.score)) issues.push('score inválido');
+  return {ok:issues.length===0,issues,signals:PWA_UPDATE_MANAGER_CATALOG.updateSignals.length,risks:PWA_UPDATE_MANAGER_CATALOG.cacheRisks.length};
+}
+window.SKYWARD_PWA_UPDATE_MANAGER=Object.freeze({
+  schema:1,
+  catalog:PWA_UPDATE_MANAGER_CATALOG,
+  load:loadPwaUpdateManager,
+  save:savePwaUpdateManager,
+  init:initializePwaUpdateManager,
+  check:checkPwaUpdateState,
+  migrate:migratePwaCache,
+  clear:clearPwaCacheAndReload,
+  export:exportPwaUpdateReport,
+  evaluate:evaluatePwaUpdateManager,
+  progress:pwaUpdateProgress,
+  status:pwaUpdateStatus,
+  board:renderPwaUpdateBoard,
+  selfCheck:pwaUpdateSelfCheck
+});
+
+/* ===== MODULE 52: surface-safety-director (17-surface-safety-director.js) ===== */
 /* @skyward-module 17-surface-safety-director
  * Surface Safety Director: taxi conflicts, runway incursions, hotspots and ground command risk.
  * Canonical source for the generated main.js bundle.
@@ -9467,7 +9675,7 @@ function surfaceSafetySelfCheck(){
 }
 window.SKYWARD_SURFACE_SAFETY=Object.freeze({ schema:1, hotspots:SURFACE_HOTSPOTS, hotspotsFor:surfaceHotspotsFor, update:updateSurfaceSafetyDirector, commandRisk:surfaceCommandRisk, taxiConflicts:detectTaxiConflicts, runwayIncursions:detectRunwayIncursions, render:renderSurfaceSafetyBoard, selfCheck:surfaceSafetySelfCheck });
 
-/* ===== MODULE 52: 06-traffic-requests (06-traffic-requests.js) ===== */
+/* ===== MODULE 53: 06-traffic-requests (06-traffic-requests.js) ===== */
 /* @skyward-module 06-traffic-requests
  * Aircraft creation, callsigns, requests and game start.
  * Canonical source for the generated main.js bundle.
@@ -9567,7 +9775,7 @@ function startGame(){
   stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, surfaceConflicts:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
   mission = buildMission(); missionHistory=[];
   aircraft = [];
-  const a = airport(); applyAirportSurfaceGraph?.(a.icao); applyAirportOpsProfile(); initializeAdvancedWeather?.(); initializeProceduresLayer?.(); initializeCareerProfile?.(); renderEconomyBoard?.(); renderIncidentBoard?.(); renderNetworkFlowBoard?.(); renderControlRoomBoard?.(); initializeCommercialPolish?.(); initializeReleaseCandidateQA?.(); initializeGoldMasterPackage?.(); initializePostGoldMasterPublishing?.(); initializePostPublishHealthcheck?.(); initializePublicOps?.(); initializeTrainingAcademy?.(); initializeTrainingCoach?.(); initializeInternationalCampaign?.(); initializeAirlineOps?.(); initializeAirportAuthority?.(); initializeCrisisCommand?.(); initializeSafetyCompliance?.(); initializeInfrastructureExpansion?.(); initializeEnvironmentSustainability?.(); initializeRevenueManagement?.(); initializeWorkforceStaffing?.(); initializePassengerReputation?.(); initializeMultiAirportNetwork?.(); initializeEmergencyResponse?.(); initializeSecurityCyber?.(); initializeAssetMaintenance?.(); initializeDigitalTwin?.(); initializeAiCopilot?.(); initializeRadioPhraseology?.(); initializeGroundTurnaround?.(); initializeCargoLogistics?.(); initializeTerminalFlow?.(); initializeNonAeroRevenue?.(); initializeAdaptivePace?.(); initializeStabilityDiagnostics?.(); window.SKYWARD_PUBLIC_OPS?.startTurn?.(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE'; if($('#sectorHelp')) $('#sectorHelp').textContent=(currentOpsProfile?.ops||'Torre ativa');
+  const a = airport(); applyAirportSurfaceGraph?.(a.icao); applyAirportOpsProfile(); initializeAdvancedWeather?.(); initializeProceduresLayer?.(); initializeCareerProfile?.(); renderEconomyBoard?.(); renderIncidentBoard?.(); renderNetworkFlowBoard?.(); renderControlRoomBoard?.(); initializeCommercialPolish?.(); initializeReleaseCandidateQA?.(); initializeGoldMasterPackage?.(); initializePostGoldMasterPublishing?.(); initializePostPublishHealthcheck?.(); initializePublicOps?.(); initializeTrainingAcademy?.(); initializeTrainingCoach?.(); initializeInternationalCampaign?.(); initializeAirlineOps?.(); initializeAirportAuthority?.(); initializeCrisisCommand?.(); initializeSafetyCompliance?.(); initializeInfrastructureExpansion?.(); initializeEnvironmentSustainability?.(); initializeRevenueManagement?.(); initializeWorkforceStaffing?.(); initializePassengerReputation?.(); initializeMultiAirportNetwork?.(); initializeEmergencyResponse?.(); initializeSecurityCyber?.(); initializeAssetMaintenance?.(); initializeDigitalTwin?.(); initializeAiCopilot?.(); initializeRadioPhraseology?.(); initializeGroundTurnaround?.(); initializeCargoLogistics?.(); initializeTerminalFlow?.(); initializeNonAeroRevenue?.(); initializeAdaptivePace?.(); initializeStabilityDiagnostics?.(); initializePwaUpdateManager?.(); window.SKYWARD_PUBLIC_OPS?.startTurn?.(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE'; if($('#sectorHelp')) $('#sectorHelp').textContent=(currentOpsProfile?.ops||'Torre ativa');
   const initialTraffic=airportInitialTrafficCount();
   for(let i=0;i<initialTraffic;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure')); // v0.9.6: tráfego inicial por perfil do aeroporto
   emergencyDirector={active:false,target:null,message:'Sem emergência ativa.',lastTick:performance.now()};
@@ -9581,7 +9789,7 @@ function startGame(){
   requestAnimationFrame(loop);
 }
 
-/* ===== MODULE 53: 07-simulation-safety (07-simulation-safety.js) ===== */
+/* ===== MODULE 54: 07-simulation-safety (07-simulation-safety.js) ===== */
 /* @skyward-module 07-simulation-safety
  * Game loop, simulation, conflict prediction and safety.
  * Canonical source for the generated main.js bundle.
@@ -9827,7 +10035,7 @@ function checkConflicts(){
   if(finals.length>1){ for(const p of finals) p.risk += .01; if(finals.some(p=>p.risk>.9)) return endGame(true,'Duas aeronaves autorizadas para a mesma final sem separação suficiente.'); }
 }
 
-/* ===== MODULE 54: 08-radar-rendering (08-radar-rendering.js) ===== */
+/* ===== MODULE 55: 08-radar-rendering (08-radar-rendering.js) ===== */
 /* @skyward-module 08-radar-rendering
  * Radar, operational map, procedures, telemetry and aircraft drawing.
  * Canonical source for the generated main.js bundle.
@@ -10085,7 +10293,7 @@ function drawPlane(p,w,h){
   ctx.restore();
 }
 
-/* ===== MODULE 55: 09-ui-clearances (09-ui-clearances.js) ===== */
+/* ===== MODULE 56: 09-ui-clearances (09-ui-clearances.js) ===== */
 /* @skyward-module 09-ui-clearances
  * Traffic UI, requests, commands, clearances and action grids.
  * Canonical source for the generated main.js bundle.
@@ -10265,11 +10473,12 @@ function endGame(fail,reason){
   const nonAeroRevenueResult = evaluateNonAeroRevenue?.(final, stats, fail, airport().icao);
   const adaptivePaceResult = evaluateAdaptivePace?.(final, stats, fail, airport().icao);
   const stabilityDiagnosticsResult = evaluateStabilityDiagnostics?.(final, stats, fail, airport().icao);
+  const pwaUpdateResult = evaluatePwaUpdateManager?.(final, stats, fail, airport().icao);
   persistProfile('end-game');
   $('#resultTitle').textContent = fail ? 'GAME OVER' : 'FIM DE TURNO';
   $('#resultReason').textContent = reason;
   $('#finalScore').textContent = final.toLocaleString('pt-BR');
-  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Conflitos de solo</span><b>${stats.surfaceConflicts||0}</b></div><div><span>Runway incursions</span><b>${stats.runwayIncursions||0}</b></div><div><span>Incidentes resolvidos</span><b>${stats.incidentsResolved||0}</b></div><div><span>Falhas em incidentes</span><b>${stats.incidentFailures||0}</b></div><div><span>Fechamentos de pista</span><b>${stats.runwayClosures||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>MAYDAY resolvidos</span><b>${stats.maydayResolved||0}</b></div><div><span>Combustível mínimo</span><b>${stats.lowFuel||0}</b></div><div><span>Danos/inspeções</span><b>${stats.damaged||0}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Stability</span><b>${stabilityDiagnosticsResult?.evaluation ? stabilityDiagnosticsResult.evaluation.status : '---'}</b></div><div><span>SafeMode</span><b>${stabilityDiagnosticsResult?.evaluation ? stabilityDiagnosticsResult.evaluation.safeModeCount : '---'}</b></div><div><span>Pace Director</span><b>${adaptivePaceResult?.evaluation ? adaptivePaceResult.evaluation.band : '---'}</b></div><div><span>Ritmo</span><b>${adaptivePaceResult?.evaluation ? adaptivePaceResult.evaluation.pace+'x' : '---'}</b></div><div><span>Non-Aero Rev</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.status : '---'}</b></div><div><span>Spend/Pax</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.spendPerPax : '---'}</b></div><div><span>Terminal Flow</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.status : '---'}</b></div><div><span>Fila Média</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.avgQueueMin+'m' : '---'}</b></div><div><span>Cargo Ops</span><b>${cargoLogisticsResult?.evaluation ? cargoLogisticsResult.evaluation.status : '---'}</b></div><div><span>Freight</span><b>${cargoLogisticsResult?.evaluation ? Math.round(cargoLogisticsResult.evaluation.freightRevenue/1000)+'k' : '---'}</b></div><div><span>Ground Ops</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.status : '---'}</b></div><div><span>TAT Médio</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.avgTurnaroundMin+'m' : '---'}</b></div><div><span>Radio Ops</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.status : '---'}</b></div><div><span>Readback</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.readbackRate+'%' : '---'}</b></div><div><span>AI Copilot</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.status : '---'}</b></div><div><span>Conf. IA</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Digital Twin</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.status : '---'}</b></div><div><span>Forecast</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Asset Rel</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.status : '---'}</b></div><div><span>Disponib.</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.availability+'%' : '---'}</b></div><div><span>Security SOC</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.status : '---'}</b></div><div><span>Nível Seg.</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.responseLevel : '---'}</b></div><div><span>Emergency Ops</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.status : '---'}</b></div><div><span>Resposta</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.responseTime+'m' : '---'}</b></div><div><span>Multi Hub</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.status : '---'}</b></div><div><span>Rede</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.networkScore+'%' : '---'}</b></div><div><span>Passenger XP</span><b>${passengerReputationResult?.evaluation ? passengerReputationResult.evaluation.status : '---'}</b></div><div><span>NPS</span><b>${passengerReputationResult?.evaluation ? Math.round(passengerReputationResult.evaluation.metrics.NPS) : '---'}</b></div><div><span>Workforce</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.status : '---'}</b></div><div><span>Fadiga Média</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.coverage.avgFatigue : '---'}</b></div><div><span>Rev Mgmt</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.status : '---'}</b></div><div><span>Margem</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.margin+'%' : '---'}</b></div><div><span>ENV ESG</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.status : '---'}</b></div><div><span>Licença Amb.</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.permitStatus : '---'}</b></div><div><span>Infra CAPEX</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.status : '---'}</b></div><div><span>Capacidade</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.capacityScore+'%' : '---'}</b></div><div><span>Safety SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.complianceStatus : '---'}</b></div><div><span>Achados SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.openFindings : '---'}</b></div><div><span>Crisis Cmd</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.status : '---'}</b></div><div><span>Recovery</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.recoveryStage : '---'}</b></div><div><span>Airport Auth</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.experience : '---'}</b></div><div><span>Terminal EXP</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.authorityScore+'%' : '---'}</b></div><div><span>Airline Ops</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.status : '---'}</b></div><div><span>SLA Cias</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.sla.weighted+'%' : '---'}</b></div><div><span>Campanha Intl</span><b>${internationalCampaignResult?.evaluation ? internationalCampaignResult.evaluation.status : '---'}</b></div><div><span>Contrato ativo</span><b>${internationalCampaignResult?.nextContract ? internationalCampaignResult.nextContract.airport : '---'}</b></div><div><span>Instrutor ATC</span><b>${trainingCoachResult?.debrief ? trainingCoachResult.debrief.level : '---'}</b></div><div><span>Plano de estudo</span><b>${trainingCoachResult?.studyPlan ? trainingCoachResult.studyPlan.length+' cards' : '---'}</b></div><div><span>Academia ATC</span><b>${trainingAcademyResult?.attempt ? (trainingAcademyResult.attempt.passed ? 'APROVADO' : 'TREINO') : '---'}</b></div><div><span>Próxima missão</span><b>${trainingAcademyResult?.nextMission ? trainingAcademyResult.nextMission.id : '---'}</b></div><div><span>Public Ops</span><b>${publicOpsResult ? publicOpsResult.status : '---'}</b></div><div><span>Ops Score</span><b>${publicOpsResult ? publicOpsResult.score+'%' : '---'}</b></div><div><span>Publish Health</span><b>${postPublishHealthResult ? postPublishHealthResult.status : '---'}</b></div><div><span>Health Score</span><b>${postPublishHealthResult ? postPublishHealthResult.score+'%' : '---'}</b></div><div><span>Publicação PWA</span><b>${postGoldMasterResult ? postGoldMasterResult.status : '---'}</b></div><div><span>Post-GM Ready</span><b>${postGoldMasterResult ? postGoldMasterResult.score+'%' : '---'}</b></div><div><span>Gold Master</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.status : '---'}</b></div><div><span>GM Score</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.score+'%' : '---'}</b></div><div><span>Release Candidate</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.status : '---'}</b></div><div><span>QA Score</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.score+'%' : '---'}</b></div><div><span>Replay compartilhável</span><b>${controlRoomResult?.replay ? 'GERADO' : '---'}</b></div><div><span>Ranking local</span><b>${controlRoomResult?.replay ? controlRoomResult.replay.tier : '---'}</b></div><div><span>Network Flow</span><b>${networkResult?.shift ? (networkResult.shift.route+' / '+Math.round(networkResult.shift.slotCompliance*100)+'%') : '---'}</b></div><div><span>Conexões protegidas</span><b>${networkResult?.network ? networkResult.network.connectionsProtected : 0}</b></div><div><span>Economia</span><b>${economyResult?.shift ? ('$'+Math.round(economyResult.shift.profit).toLocaleString('pt-BR')) : '---'}</b></div><div><span>Eficiência econômica</span><b>${economyResult?.shift ? economyResult.shift.efficiency+'%' : '---'}</b></div><div><span>Carreira</span><b>${careerResult?.career ? (careerResult.career.licenseId+' / '+careerResult.career.ratingId) : '---'}</b></div><div><span>Fadiga</span><b>${careerResult?.career ? Math.round(careerResult.career.fatigue)+'%' : '---'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
+  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Conflitos de solo</span><b>${stats.surfaceConflicts||0}</b></div><div><span>Runway incursions</span><b>${stats.runwayIncursions||0}</b></div><div><span>Incidentes resolvidos</span><b>${stats.incidentsResolved||0}</b></div><div><span>Falhas em incidentes</span><b>${stats.incidentFailures||0}</b></div><div><span>Fechamentos de pista</span><b>${stats.runwayClosures||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>MAYDAY resolvidos</span><b>${stats.maydayResolved||0}</b></div><div><span>Combustível mínimo</span><b>${stats.lowFuel||0}</b></div><div><span>Danos/inspeções</span><b>${stats.damaged||0}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>PWA Update</span><b>${pwaUpdateResult?.evaluation ? pwaUpdateResult.evaluation.status : '---'}</b></div><div><span>Cache Risk</span><b>${pwaUpdateResult?.evaluation ? pwaUpdateResult.evaluation.oldBundleRisk : '---'}</b></div><div><span>Stability</span><b>${stabilityDiagnosticsResult?.evaluation ? stabilityDiagnosticsResult.evaluation.status : '---'}</b></div><div><span>SafeMode</span><b>${stabilityDiagnosticsResult?.evaluation ? stabilityDiagnosticsResult.evaluation.safeModeCount : '---'}</b></div><div><span>Pace Director</span><b>${adaptivePaceResult?.evaluation ? adaptivePaceResult.evaluation.band : '---'}</b></div><div><span>Ritmo</span><b>${adaptivePaceResult?.evaluation ? adaptivePaceResult.evaluation.pace+'x' : '---'}</b></div><div><span>Non-Aero Rev</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.status : '---'}</b></div><div><span>Spend/Pax</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.spendPerPax : '---'}</b></div><div><span>Terminal Flow</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.status : '---'}</b></div><div><span>Fila Média</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.avgQueueMin+'m' : '---'}</b></div><div><span>Cargo Ops</span><b>${cargoLogisticsResult?.evaluation ? cargoLogisticsResult.evaluation.status : '---'}</b></div><div><span>Freight</span><b>${cargoLogisticsResult?.evaluation ? Math.round(cargoLogisticsResult.evaluation.freightRevenue/1000)+'k' : '---'}</b></div><div><span>Ground Ops</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.status : '---'}</b></div><div><span>TAT Médio</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.avgTurnaroundMin+'m' : '---'}</b></div><div><span>Radio Ops</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.status : '---'}</b></div><div><span>Readback</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.readbackRate+'%' : '---'}</b></div><div><span>AI Copilot</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.status : '---'}</b></div><div><span>Conf. IA</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Digital Twin</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.status : '---'}</b></div><div><span>Forecast</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Asset Rel</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.status : '---'}</b></div><div><span>Disponib.</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.availability+'%' : '---'}</b></div><div><span>Security SOC</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.status : '---'}</b></div><div><span>Nível Seg.</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.responseLevel : '---'}</b></div><div><span>Emergency Ops</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.status : '---'}</b></div><div><span>Resposta</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.responseTime+'m' : '---'}</b></div><div><span>Multi Hub</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.status : '---'}</b></div><div><span>Rede</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.networkScore+'%' : '---'}</b></div><div><span>Passenger XP</span><b>${passengerReputationResult?.evaluation ? passengerReputationResult.evaluation.status : '---'}</b></div><div><span>NPS</span><b>${passengerReputationResult?.evaluation ? Math.round(passengerReputationResult.evaluation.metrics.NPS) : '---'}</b></div><div><span>Workforce</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.status : '---'}</b></div><div><span>Fadiga Média</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.coverage.avgFatigue : '---'}</b></div><div><span>Rev Mgmt</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.status : '---'}</b></div><div><span>Margem</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.margin+'%' : '---'}</b></div><div><span>ENV ESG</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.status : '---'}</b></div><div><span>Licença Amb.</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.permitStatus : '---'}</b></div><div><span>Infra CAPEX</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.status : '---'}</b></div><div><span>Capacidade</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.capacityScore+'%' : '---'}</b></div><div><span>Safety SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.complianceStatus : '---'}</b></div><div><span>Achados SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.openFindings : '---'}</b></div><div><span>Crisis Cmd</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.status : '---'}</b></div><div><span>Recovery</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.recoveryStage : '---'}</b></div><div><span>Airport Auth</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.experience : '---'}</b></div><div><span>Terminal EXP</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.authorityScore+'%' : '---'}</b></div><div><span>Airline Ops</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.status : '---'}</b></div><div><span>SLA Cias</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.sla.weighted+'%' : '---'}</b></div><div><span>Campanha Intl</span><b>${internationalCampaignResult?.evaluation ? internationalCampaignResult.evaluation.status : '---'}</b></div><div><span>Contrato ativo</span><b>${internationalCampaignResult?.nextContract ? internationalCampaignResult.nextContract.airport : '---'}</b></div><div><span>Instrutor ATC</span><b>${trainingCoachResult?.debrief ? trainingCoachResult.debrief.level : '---'}</b></div><div><span>Plano de estudo</span><b>${trainingCoachResult?.studyPlan ? trainingCoachResult.studyPlan.length+' cards' : '---'}</b></div><div><span>Academia ATC</span><b>${trainingAcademyResult?.attempt ? (trainingAcademyResult.attempt.passed ? 'APROVADO' : 'TREINO') : '---'}</b></div><div><span>Próxima missão</span><b>${trainingAcademyResult?.nextMission ? trainingAcademyResult.nextMission.id : '---'}</b></div><div><span>Public Ops</span><b>${publicOpsResult ? publicOpsResult.status : '---'}</b></div><div><span>Ops Score</span><b>${publicOpsResult ? publicOpsResult.score+'%' : '---'}</b></div><div><span>Publish Health</span><b>${postPublishHealthResult ? postPublishHealthResult.status : '---'}</b></div><div><span>Health Score</span><b>${postPublishHealthResult ? postPublishHealthResult.score+'%' : '---'}</b></div><div><span>Publicação PWA</span><b>${postGoldMasterResult ? postGoldMasterResult.status : '---'}</b></div><div><span>Post-GM Ready</span><b>${postGoldMasterResult ? postGoldMasterResult.score+'%' : '---'}</b></div><div><span>Gold Master</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.status : '---'}</b></div><div><span>GM Score</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.score+'%' : '---'}</b></div><div><span>Release Candidate</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.status : '---'}</b></div><div><span>QA Score</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.score+'%' : '---'}</b></div><div><span>Replay compartilhável</span><b>${controlRoomResult?.replay ? 'GERADO' : '---'}</b></div><div><span>Ranking local</span><b>${controlRoomResult?.replay ? controlRoomResult.replay.tier : '---'}</b></div><div><span>Network Flow</span><b>${networkResult?.shift ? (networkResult.shift.route+' / '+Math.round(networkResult.shift.slotCompliance*100)+'%') : '---'}</b></div><div><span>Conexões protegidas</span><b>${networkResult?.network ? networkResult.network.connectionsProtected : 0}</b></div><div><span>Economia</span><b>${economyResult?.shift ? ('$'+Math.round(economyResult.shift.profit).toLocaleString('pt-BR')) : '---'}</b></div><div><span>Eficiência econômica</span><b>${economyResult?.shift ? economyResult.shift.efficiency+'%' : '---'}</b></div><div><span>Carreira</span><b>${careerResult?.career ? (careerResult.career.licenseId+' / '+careerResult.career.ratingId) : '---'}</b></div><div><span>Fadiga</span><b>${careerResult?.career ? Math.round(careerResult.career.fatigue)+'%' : '---'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
   go('result');
 }
 
@@ -10342,7 +10551,7 @@ function setDock(id){
   $$('.dock-body').forEach(b=>b.classList.toggle('active', b.id==='dock-'+id));
 }
 
-/* ===== MODULE 56: 10-events-selftest-bootstrap (10-events-selftest-bootstrap.js) ===== */
+/* ===== MODULE 57: 10-events-selftest-bootstrap (10-events-selftest-bootstrap.js) ===== */
 /* @skyward-module 10-events-selftest-bootstrap
  * Desktop events, filters, safe-mode controls and self-test bootstrap.
  * Canonical source for the generated main.js bundle.
@@ -10441,7 +10650,7 @@ applyBuildInfo();
 if(!BUILD_METADATA_VALID) setTimeout(()=>showSafeMode(new Error('Metadados de build ausentes ou inválidos. Execute o pipeline de release.')),0);
 loadProfile(); loadAirports(); resize();
 
-/* ===== MODULE 57: 11-mobile-runtime (11-mobile-runtime.js) ===== */
+/* ===== MODULE 58: 11-mobile-runtime (11-mobile-runtime.js) ===== */
 /* @skyward-module 11-mobile-runtime
  * Adaptive mobile UX, edge gestures, touch-safe dock, haptics and viewport modes.
  * Canonical source for the generated main.js bundle.
@@ -10690,7 +10899,7 @@ window.SKYWARD_MOBILE_UX=Object.freeze({
 });
 window.addEventListener('load',()=>setTimeout(initMobileDockV2,500));
 
-/* ===== MODULE 58: desktop-workspace (12-desktop-workspace.js) ===== */
+/* ===== MODULE 59: desktop-workspace (12-desktop-workspace.js) ===== */
 /* @skyward-module 12-desktop-workspace
  * Professional tablet/desktop workspace, panel density, persistence and keyboard shortcuts.
  * Canonical source for the generated main.js bundle.
@@ -10776,7 +10985,7 @@ function initDesktopWorkspace(){
 window.SKYWARD_DESKTOP_WORKSPACE=Object.freeze({schema:DESKTOP_WORKSPACE_SCHEMA,viewportMode:desktopViewportMode,shortcutAction:desktopShortcutAction,clamp:desktopClamp,getPreferences:()=>Object.freeze({...desktopWorkspacePrefs}),setMode:setDesktopWorkspaceMode,togglePanel:toggleDesktopPanel,adjustPanel:adjustDesktopPanel,execute:executeDesktopWorkspaceAction,render:applyDesktopWorkspace});
 window.addEventListener('load',()=>setTimeout(initDesktopWorkspace,540));
 
-/* ===== MODULE 59: accessibility-settings (13-accessibility-settings.js) ===== */
+/* ===== MODULE 60: accessibility-settings (13-accessibility-settings.js) ===== */
 /* @skyward-module 13-accessibility-settings
  * Professional accessibility, visual, audio, performance and control settings.
  * Canonical source for the generated main.js bundle.
@@ -10914,7 +11123,7 @@ document.addEventListener('keydown',e=>{if(e.altKey&&e.code==='KeyS'&&!desktopTy
 window.SKYWARD_ACCESSIBILITY=Object.freeze({schema:ACCESSIBILITY_SCHEMA,defaults:ACCESSIBILITY_DEFAULTS,sanitize:sanitizeAccessibilityPrefs,clamp:accessClamp,getPreferences:()=>Object.freeze({...accessibilityPrefs}),setPreference:setAccessibilityPreference,apply:applyAccessibilitySettings,reset:resetAccessibilitySettings,summary:accessibilitySummary,selfCheck:runAccessibilitySelfCheck,open:()=>setAccessibilityPanel(true),close:()=>setAccessibilityPanel(false)});
 window.addEventListener('load',()=>setTimeout(applyAccessibilitySettings,620));
 
-/* ===== MODULE 60: deterministic-replay (14-deterministic-replay.js) ===== */
+/* ===== MODULE 61: deterministic-replay (14-deterministic-replay.js) ===== */
 /* @skyward-module 14-deterministic-replay
  * Deterministic simulation clock, seeded replay recorder, state checksums and technical replay export.
  * Canonical source for the generated main.js bundle.
@@ -11091,7 +11300,7 @@ window.SKYWARD_REPLAY=Object.freeze({
 });
 setTimeout(()=>{ try{ renderReplayStatus(); }catch(_e){} },250);
 
-/* ===== MODULE 61: quality-test-bridge (12-quality-test-bridge.js) ===== */
+/* ===== MODULE 62: quality-test-bridge (12-quality-test-bridge.js) ===== */
 /* @skyward-module 12-quality-test-bridge
  * Controlled integration-test bridge. Mutation is disabled in normal gameplay.
  * Enable only with window.SKYWARD_QA_MODE=true before main.js or ?qa=1.

@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-Stability Observatory Evolution — Phase 52
-Version: 1.52.0
-Build: SC-1.52.0-F52-20260624-1600
-Built: 2026-06-24 16:00 BRT
-Channel: STABILITY-DIAGNOSTICS
-Status: F52 STABILITY DIAGNOSTICS AUDITED
-F50.1 and F51 mobile safeguards preserved.
+PWA Update Manager Evolution — Phase 53
+Version: 1.53.0
+Build: SC-1.53.0-F53-20260624-1645
+Built: 2026-06-24 16:45 BRT
+Channel: PWA-UPDATE-MANAGER
+Status: F53 PWA UPDATE MANAGER AUDITED
+F50.1, F51 and F52 mobile safeguards preserved.

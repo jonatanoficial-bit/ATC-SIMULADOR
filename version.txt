@@ -1,10 +1,11 @@
 SKYWARD CONTROL
-Version: 1.52.0
-Phase: F52 — Stability Observatory & Diagnostics Center, Telemetria Local, Safe Mode, PWA Cache e Recuperação
-Build: SC-1.52.0-F52-20260624-1600
-Built at: 2026-06-24 16:00 BRT
-Channel: stability-diagnostics
-Stability Diagnostics schema: 1
+Version: 1.53.0
+Phase: F53 — PWA Update Manager & Cache Migration Center, Version Guard, Service Worker Health e Limpeza Segura
+Build: SC-1.53.0-F53-20260624-1645
+Built at: 2026-06-24 16:45 BRT
+Channel: pwa-update-manager
+PWA Update Manager schema: 1
 F50.1 mobile hotfix preserved: true
 F51 adaptive pace preserved: true
+F52 stability diagnostics preserved: true
 Target: Mobile-first / Tablet / Desktop

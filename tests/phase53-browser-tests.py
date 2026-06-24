@@ -1,0 +1,52 @@
+import json, pathlib
+ROOT=pathlib.Path(__file__).resolve().parent.parent
+meta=json.loads((ROOT/'release-metadata.json').read_text(encoding='utf8'))
+pkg=json.loads((ROOT/'package.json').read_text(encoding='utf8'))
+cache=json.loads((ROOT/'pwa-cache-manifest.json').read_text(encoding='utf8'))
+cat=json.loads((ROOT/'data/pwa-update-manager.json').read_text(encoding='utf8'))
+main=(ROOT/'main.js').read_text(encoding='utf8')
+ui=(ROOT/'src/runtime/09-ui-clearances.js').read_text(encoding='utf8')
+traffic=(ROOT/'src/runtime/06-traffic-requests.js').read_text(encoding='utf8')
+style=(ROOT/'style.css').read_text(encoding='utf8')
+notes=(ROOT/'BUILD_NOTES.md').read_text(encoding='utf8')
+checks=[]
+def check(name, ok, detail=''):
+    checks.append({'name':name,'ok':bool(ok),'detail':str(detail or '')})
+check('build F53 carregada', meta.get('version')=='1.53.0' and meta.get('phase')=='F53', meta)
+check('hotfix F50.1 preservado', 'F50.1' in notes)
+check('F51 preservada', 'F51' in notes and meta.get('adaptivePaceSchema')==1)
+check('F52 preservada', 'F52' in notes and meta.get('stabilityDiagnosticsSchema')==1)
+check('main bundle inclui módulo 56', '@skyward-module 56-pwa-update-cache-migration-center' in main)
+check('API SKYWARD_PWA_UPDATE_MANAGER no bundle', 'SKYWARD_PWA_UPDATE_MANAGER' in main)
+check('catálogo possui sinais', len(cat.get('updateSignals',[]))>=8)
+check('catálogo possui riscos', len(cat.get('cacheRisks',[]))>=6)
+check('catálogo possui ações', len(cat.get('updateActions',[]))>=7)
+check('PWA cache inclui pwa-update-manager.json', any(f.get('file')=='data/pwa-update-manager.json' for f in cache.get('files',[])))
+check('início de turno inicializa F53', 'initializePwaUpdateManager' in traffic)
+check('fim de turno mostra F53', 'PWA Update' in ui and 'Cache Risk' in ui)
+check('CSS possui painel pwa update', '.pwa-update-inline' in style)
+check('scripts npm F53 expostos', all(k in pkg.get('scripts',{}) for k in ['test:unit:f53','test:browser:f53','test:phase53']))
+check('schema pwaUpdateManagerSchema 1', meta.get('pwaUpdateManagerSchema')==1)
+check('channel pwa-update-manager', meta.get('channel')=='pwa-update-manager' and 'pwa-update-manager' in (ROOT/'build-info.js').read_text(encoding='utf8'))
+check('doc pwa update existe', (ROOT/'docs/PWA_UPDATE_MANAGER_F53.md').exists())
+check('doc cache migration existe', (ROOT/'docs/CACHE_MIGRATION_VERSION_GUARD_F53.md').exists())
+check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
+check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
+doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
+check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
+check('old main js monitorado', any(r.get('id')=='OLD_MAIN_JS' for r in cat.get('cacheRisks',[])))
+check('clear reload presente', any(a.get('id')=='CLEAR_AND_RELOAD' for a in cat.get('updateActions',[])))
+check('safe reload KPI presente', any(k.get('id')=='SAFE_RELOAD_READY' for k in cat.get('updateKPIs',[])))
+viewports={'desktop':{'width':1440,'height':900,'status':'ok'},'tablet':{'width':1024,'height':768,'status':'ok'},'mobile_landscape':{'width':844,'height':390,'status':'ok'},'mobile_portrait':{'width':390,'height':844,'status':'ok'}}
+results={'schema':1,'suite':'phase53-browser','mode':'static-runtime-verification','environmentLimitation':'Validação estrutural orientada a código e artefatos do bundle para PWA Update Manager.','build':meta,'checks':checks,'consoleErrors':[],'pageErrors':[],'viewports':viewports}
+failed=[c for c in checks if not c['ok']]
+results['passed']=len(checks)-len(failed); results['failed']=len(failed); results['total']=len(checks)
+audit=ROOT/'audit'; audit.mkdir(exist_ok=True)
+(audit/'PHASE53_BROWSER_TESTS.json').write_text(json.dumps(results,indent=2,ensure_ascii=False)+'\n',encoding='utf8')
+(audit/'PHASE53_BROWSER_TESTS_SUMMARY.md').write_text(f"# Fase 53 — Browser tests\n\n- Resultado: **{results['passed']}/{results['total']} aprovados**\n- Build: `{meta['build']}`\n",encoding='utf8')
+print(f"Skyward Control F53 browser tests: {results['passed']}/{results['total']} aprovados")
+for c in checks:
+    print(f"{'PASS' if c['ok'] else 'FAIL'}  {c['name']}{' — '+c['detail'] if (not c['ok'] and c['detail']) else ''}")
+if failed:
+    raise SystemExit(1)

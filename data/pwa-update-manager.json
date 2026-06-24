@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "version": "2026.06-f53",
+  "description": "PWA update manager and cache migration center with version guard, service worker health, cache cleanup, stale bundle detection and safe reload guidance.",
+  "updateSignals": [
+    {
+      "id": "BUILD_MATCH",
+      "name": "Build atual carregado",
+      "weight": 18,
+      "target": 100
+    },
+    {
+      "id": "CACHE_MATCH",
+      "name": "Cache corresponde ao build",
+      "weight": 16,
+      "target": 100
+    },
+    {
+      "id": "SERVICE_WORKER_HEALTH",
+      "name": "Saúde service worker",
+      "weight": 14,
+      "target": 90
+    },
+    {
+      "id": "OLD_BUNDLE_RISK",
+      "name": "Risco bundle antigo",
+      "weight": 16,
+      "target": 0
+    },
+    {
+      "id": "PWA_INSTALL_STATE",
+      "name": "Estado instalação PWA",
+      "weight": 10,
+      "target": 85
+    },
+    {
+      "id": "OFFLINE_READY",
+      "name": "Pronto offline",
+      "weight": 10,
+      "target": 90
+    },
+    {
+      "id": "CACHE_CLEANUP_READY",
+      "name": "Limpeza segura pronta",
+      "weight": 8,
+      "target": 90
+    },
+    {
+      "id": "MIGRATION_STATUS",
+      "name": "Migração de cache",
+      "weight": 8,
+      "target": 100
+    }
+  ],
+  "cacheRisks": [
+    {
+      "id": "OLD_MAIN_JS",
+      "name": "main.js antigo",
+      "severity": 34,
+      "action": "CLEAR_AND_RELOAD"
+    },
+    {
+      "id": "OLD_SERVICE_WORKER",
+      "name": "service worker antigo",
+      "severity": 30,
+      "action": "UPDATE_SW"
+    },
+    {
+      "id": "MIXED_CACHE",
+      "name": "cache misto de builds",
+      "severity": 28,
+      "action": "MIGRATE_CACHE"
+    },
+    {
+      "id": "PWA_INSTALLED_OLD",
+      "name": "PWA instalado antigo",
+      "severity": 26,
+      "action": "REINSTALL_PWA"
+    },
+    {
+      "id": "OFFLINE_STALE",
+      "name": "offline obsoleto",
+      "severity": 22,
+      "action": "REFRESH_OFFLINE_CACHE"
+    },
+    {
+      "id": "NO_CACHE_API",
+      "name": "Cache API indisponível",
+      "severity": 14,
+      "action": "ONLINE_ONLY"
+    }
+  ],
+  "updateActions": [
+    {
+      "id": "CHECK_UPDATE",
+      "name": "Verificar atualização",
+      "impact": 8
+    },
+    {
+      "id": "CLEAR_AND_RELOAD",
+      "name": "Limpar cache e recarregar",
+      "impact": 18
+    },
+    {
+      "id": "UPDATE_SW",
+      "name": "Atualizar service worker",
+      "impact": 16
+    },
+    {
+      "id": "MIGRATE_CACHE",
+      "name": "Migrar cache para build atual",
+      "impact": 14
+    },
+    {
+      "id": "REINSTALL_PWA",
+      "name": "Reinstalar PWA/atalho",
+      "impact": 12
+    },
+    {
+      "id": "REFRESH_OFFLINE_CACHE",
+      "name": "Recriar cache offline",
+      "impact": 10
+    },
+    {
+      "id": "EXPORT_UPDATE_REPORT",
+      "name": "Exportar relatório update",
+      "impact": 6
+    }
+  ],
+  "updateBands": [
+    {
+      "id": "CURRENT",
+      "min": 90,
+      "name": "Atualizado"
+    },
+    {
+      "id": "SYNCING",
+      "min": 75,
+      "name": "Sincronizando"
+    },
+    {
+      "id": "STALE_RISK",
+      "min": 55,
+      "name": "Risco cache antigo"
+    },
+    {
+      "id": "OUTDATED",
+      "min": 0,
+      "name": "Desatualizado"
+    }
+  ],
+  "updateKPIs": [
+    {
+      "id": "UPDATE_SCORE",
+      "name": "Score atualização"
+    },
+    {
+      "id": "CACHE_VERSION",
+      "name": "Versão cache"
+    },
+    {
+      "id": "SW_STATE",
+      "name": "Estado service worker"
+    },
+    {
+      "id": "STALE_BUNDLE_RISK",
+      "name": "Risco bundle antigo"
+    },
+    {
+      "id": "MIGRATION_READY",
+      "name": "Migração pronta"
+    },
+    {
+      "id": "SAFE_RELOAD_READY",
+      "name": "Reload seguro"
+    }
+  ]
+}

@@ -1068,3 +1068,11 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .stability-stable{color:#91ffb7}
 .stability-watch{color:#ffd27a}
 .stability-unstable{color:#ff918c}
+
+/* F53 PWA Update Manager */
+.pwa-update-inline{border-color:rgba(125,245,255,.64);background:linear-gradient(180deg,rgba(17,70,83,.92),rgba(3,29,39,.98));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 32px rgba(125,245,255,.16)}
+.pwa-update-inline .airport-ops-head span{color:#a6f8ff}
+.pwa-update-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(125,245,255,.45);border-radius:999px;padding:4px 9px;background:rgba(125,245,255,.13);font-weight:900}
+.pwa-update-current{color:#91ffb7}
+.pwa-update-stale{color:#ffd27a}
+.pwa-update-outdated{color:#ff918c}

@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "suite": "phase53-unit",
+  "build": "SC-1.53.0-F53-20260624-1645",
+  "passed": 14,
+  "total": 14,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F53+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.53.0\",\"phase\":\"F53\",\"phaseName\":\"PWA Update Manager & Cache Migration Center, Version Guard, Service Worker Health e Limpeza Segura\",\"channel\":\"pwa-update-manager\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.53.0-F53-20260624-1645\",\"builtAt\":\"2026-06-24 16:45 BRT\",\"builtAtIso\":\"2026-06-24T16:45:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1,\"terminalFlowSchema\":1,\"nonAeroRevenueSchema\":1,\"mobileStabilityHotfixSchema\":1,\"safeModeIncidentFixSchema\":1,\"paceTuningSchema\":1,\"adaptivePaceSchema\":1,\"stabilityDiagnosticsSchema\":1,\"pwaUpdateManagerSchema\":1}"
+    },
+    {
+      "name": "módulo F53 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo signals risks actions",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"signals\":8,\"risks\":6}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"updateScore\":84,\"status\":\"SYNCING\",\"loadedBuild\":\"SC-1.53.0-F53-20260624-1645\",\"expectedBuild\":\"SC-1.53.0-F53-20260624-1645\",\"cacheName\":\"skyward-control-1-sc-1-53-0-f53-20260624-1645\",\"serviceWorkerState\":\"unknown\",\"cacheVersionMatch\":false,\"oldBundleRisk\":0,\"pwaInstalled\":false,\"offlineReady\":false,\"migrationReady\":true,\"safeReloadReady\":true,\"actions\":[],\"risks\":[],\"history\":[],\"lastCheck\":null}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"CURRENT\",\"min\":90,\"name\":\"Atualizado\"},{\"id\":\"SYNCING\",\"min\":75,\"name\":\"Sincronizando\"},{\"id\":\"STALE_RISK\",\"min\":55,\"name\":\"Risco cache antigo\"},{\"id\":\"OUTDATED\",\"min\":0,\"name\":\"Desatualizado\"}]"
+    },
+    {
+      "name": "progress contém update",
+      "ok": true,
+      "detail": "{\"score\":84,\"status\":\"SYNCING\",\"oldBundleRisk\":0,\"cacheVersionMatch\":false,\"serviceWorkerState\":\"unknown\",\"pwaInstalled\":false,\"offlineReady\":false,\"risks\":0,\"actions\":0,\"last\":null}"
+    },
+    {
+      "name": "avaliação válida",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T15:15:35.524Z\",\"build\":\"SC-1.53.0-F53-20260624-1645\",\"airport\":\"SBGR\",\"finalScore\":2700,\"updateScore\":84,\"status\":\"SYNCING\",\"oldBundleRisk\":0,\"cacheVersionMatch\":false,\"pwaInstalled\":false,\"offlineReady\":false,\"risks\":0}"
+    },
+    {
+      "name": "export relatório válido",
+      "ok": true,
+      "detail": "{\"schema\":1,\"build\":\"SC-1.53.0-F53-20260624-1645\",\"at\":\"2026-06-24T15:15:35.525Z\",\"state\":{\"schema\":1,\"updateScore\":84,\"status\":\"SYNCING\",\"loadedBuild\":\"SC-1.53.0-F53-20260624-1645\",\"expectedBuild\":\"SC-1.53.0-F53-20260624-1645\",\"cacheName\":\"skyward-control-1-sc-1-53-0-f53-20260624-1645\",\"serviceWork"
+    },
+    {
+      "name": "ações essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"CHECK_UPDATE\",\"name\":\"Verificar atualização\",\"impact\":8},{\"id\":\"CLEAR_AND_RELOAD\",\"name\":\"Limpar cache e recarregar\",\"impact\":18},{\"id\":\"UPDATE_SW\",\"name\":\"Atualizar service worker\",\"impact\":16},{\"id\":\"MIGRATE_CACHE\",\"name\":\"Migrar cache para build atual\",\"impact\":14},{\"id\":\"REINSTALL_PWA\",\"name\":\"Reinstalar PWA/atalho\",\"impact\":12},{\"id\":\"REFRESH_OFFLINE_CACHE\",\"name\":\"Recriar cache offline\",\"impact\":10},{\"id\":\"EXPORT_UPDATE_REPORT\",\"name\":\"Exportar relatório update\",\"impact\":6}]"
+    }
+  ]
+}

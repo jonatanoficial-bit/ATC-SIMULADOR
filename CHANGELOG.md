@@ -1,3 +1,22 @@
+## SC-1.53.0-F53-20260624-1645 — PWA Update Manager & Cache Migration Center
+
+- Adicionado módulo oficial `56-pwa-update-cache-migration-center.js`.
+- Criado catálogo `data/pwa-update-manager.json`.
+- Adicionado version guard.
+- Adicionada detecção de cache antigo.
+- Adicionada detecção de cache misto.
+- Adicionada saúde de service worker.
+- Adicionada migração de cache.
+- Adicionada limpeza segura de cache.
+- Adicionado relatório de atualização.
+- Adicionado painel `PWA UPDATE`.
+- Tela final mostra PWA Update e Cache Risk.
+- Hotfix mobile F50.1 preservado.
+- Adaptive Pace F51 preservado.
+- Stability Diagnostics F52 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F53.
+
 ## SC-1.52.0-F52-20260624-1600 — Stability Observatory & Diagnostics Center
 
 - Adicionado módulo oficial `55-stability-observatory-diagnostics-center.js`.
