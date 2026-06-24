@@ -1,0 +1,345 @@
+{
+  "schema": 1,
+  "version": "2026.06-f50",
+  "description": "Non-aeronautical revenue and commercial experience center with retail, duty free, food & beverage, parking, lounges, advertising, hotel, concessions and passenger spend.",
+  "commercialChannels": [
+    {
+      "id": "DUTY_FREE",
+      "name": "Duty free",
+      "weight": 14,
+      "target": 82
+    },
+    {
+      "id": "FOOD_BEVERAGE",
+      "name": "Alimentação/F&B",
+      "weight": 14,
+      "target": 80
+    },
+    {
+      "id": "RETAIL",
+      "name": "Varejo terminal",
+      "weight": 12,
+      "target": 78
+    },
+    {
+      "id": "PARKING",
+      "name": "Estacionamento",
+      "weight": 12,
+      "target": 80
+    },
+    {
+      "id": "LOUNGES",
+      "name": "Lounges premium",
+      "weight": 11,
+      "target": 78
+    },
+    {
+      "id": "ADVERTISING",
+      "name": "Publicidade/mídia",
+      "weight": 10,
+      "target": 76
+    },
+    {
+      "id": "HOTEL_LANDSIDE",
+      "name": "Hotel/landside",
+      "weight": 9,
+      "target": 76
+    },
+    {
+      "id": "CONCESSIONS",
+      "name": "Concessões",
+      "weight": 10,
+      "target": 80
+    },
+    {
+      "id": "DIGITAL_COMMERCE",
+      "name": "Comércio digital/app",
+      "weight": 8,
+      "target": 76
+    }
+  ],
+  "commercialAssets": [
+    {
+      "id": "DUTY_FREE_STORES",
+      "name": "Lojas duty free",
+      "channel": "DUTY_FREE",
+      "capacity": 24,
+      "readiness": 80
+    },
+    {
+      "id": "FOOD_COURT",
+      "name": "Praça alimentação",
+      "channel": "FOOD_BEVERAGE",
+      "capacity": 30,
+      "readiness": 78
+    },
+    {
+      "id": "RETAIL_UNITS",
+      "name": "Unidades varejo",
+      "channel": "RETAIL",
+      "capacity": 26,
+      "readiness": 76
+    },
+    {
+      "id": "PARKING_SPACES",
+      "name": "Vagas estacionamento",
+      "channel": "PARKING",
+      "capacity": 32,
+      "readiness": 80
+    },
+    {
+      "id": "LOUNGE_SEATS",
+      "name": "Assentos lounges",
+      "channel": "LOUNGES",
+      "capacity": 20,
+      "readiness": 76
+    },
+    {
+      "id": "MEDIA_SCREENS",
+      "name": "Telas publicidade",
+      "channel": "ADVERTISING",
+      "capacity": 18,
+      "readiness": 75
+    },
+    {
+      "id": "AIRPORT_HOTEL",
+      "name": "Hotel aeroporto",
+      "channel": "HOTEL_LANDSIDE",
+      "capacity": 16,
+      "readiness": 74
+    },
+    {
+      "id": "CONCESSION_PORTFOLIO",
+      "name": "Portfólio concessões",
+      "channel": "CONCESSIONS",
+      "capacity": 22,
+      "readiness": 78
+    },
+    {
+      "id": "MOBILE_MARKETPLACE",
+      "name": "Marketplace app/PWA",
+      "channel": "DIGITAL_COMMERCE",
+      "capacity": 18,
+      "readiness": 76
+    }
+  ],
+  "commercialIncidents": [
+    {
+      "id": "DUTY_FREE_STOCKOUT",
+      "name": "Ruptura duty free",
+      "channel": "DUTY_FREE",
+      "severity": 22
+    },
+    {
+      "id": "FOOD_QUEUE_SPIKE",
+      "name": "Fila alimentação",
+      "channel": "FOOD_BEVERAGE",
+      "severity": 20
+    },
+    {
+      "id": "RETAIL_CLOSURE",
+      "name": "Loja fechada",
+      "channel": "RETAIL",
+      "severity": 18
+    },
+    {
+      "id": "PARKING_FULL",
+      "name": "Estacionamento lotado",
+      "channel": "PARKING",
+      "severity": 24
+    },
+    {
+      "id": "LOUNGE_OVERBOOKED",
+      "name": "Lounge superlotado",
+      "channel": "LOUNGES",
+      "severity": 20
+    },
+    {
+      "id": "AD_SCREEN_DOWN",
+      "name": "Tela publicidade fora",
+      "channel": "ADVERTISING",
+      "severity": 14
+    },
+    {
+      "id": "HOTEL_OCCUPANCY_DROP",
+      "name": "Queda hotel landside",
+      "channel": "HOTEL_LANDSIDE",
+      "severity": 16
+    },
+    {
+      "id": "CONCESSION_DISPUTE",
+      "name": "Conflito concessionária",
+      "channel": "CONCESSIONS",
+      "severity": 26
+    },
+    {
+      "id": "APP_CHECKOUT_FAIL",
+      "name": "Falha checkout digital",
+      "channel": "DIGITAL_COMMERCE",
+      "severity": 18
+    }
+  ],
+  "revenuePrograms": [
+    {
+      "id": "DUTY_FREE_BUNDLE",
+      "name": "Bundles duty free",
+      "cost": 14000,
+      "benefit": {
+        "DUTY_FREE": 12,
+        "DIGITAL_COMMERCE": 2
+      }
+    },
+    {
+      "id": "FNB_QUEUE_OPTIMIZER",
+      "name": "Otimização fila F&B",
+      "cost": 10000,
+      "benefit": {
+        "FOOD_BEVERAGE": 12
+      }
+    },
+    {
+      "id": "RETAIL_MIX_REFRESH",
+      "name": "Refresh mix varejo",
+      "cost": 16000,
+      "benefit": {
+        "RETAIL": 12
+      }
+    },
+    {
+      "id": "PARKING_DYNAMIC_PRICING",
+      "name": "Preço dinâmico parking",
+      "cost": 12000,
+      "benefit": {
+        "PARKING": 12
+      }
+    },
+    {
+      "id": "LOUNGE_UPSELL",
+      "name": "Upsell lounges",
+      "cost": 11000,
+      "benefit": {
+        "LOUNGES": 11,
+        "DIGITAL_COMMERCE": 2
+      }
+    },
+    {
+      "id": "MEDIA_PACKAGES",
+      "name": "Pacotes mídia premium",
+      "cost": 13000,
+      "benefit": {
+        "ADVERTISING": 13
+      }
+    },
+    {
+      "id": "HOTEL_STOP_OVER",
+      "name": "Stop-over hotel",
+      "cost": 15000,
+      "benefit": {
+        "HOTEL_LANDSIDE": 12
+      }
+    },
+    {
+      "id": "CONCESSION_REBALANCE",
+      "name": "Rebalancear concessões",
+      "cost": 17000,
+      "benefit": {
+        "CONCESSIONS": 12
+      }
+    },
+    {
+      "id": "PWA_PREORDER",
+      "name": "Pré-compra via PWA",
+      "cost": 9000,
+      "benefit": {
+        "DIGITAL_COMMERCE": 13,
+        "DUTY_FREE": 2
+      }
+    }
+  ],
+  "spendSegments": [
+    {
+      "id": "BUSINESS",
+      "name": "Executivo",
+      "spend": 48,
+      "sensitivity": 14
+    },
+    {
+      "id": "LEISURE",
+      "name": "Lazer",
+      "spend": 32,
+      "sensitivity": 18
+    },
+    {
+      "id": "CONNECTING",
+      "name": "Conexão",
+      "spend": 26,
+      "sensitivity": 20
+    },
+    {
+      "id": "INTERNATIONAL",
+      "name": "Internacional",
+      "spend": 54,
+      "sensitivity": 16
+    },
+    {
+      "id": "FAMILY",
+      "name": "Família",
+      "spend": 36,
+      "sensitivity": 22
+    },
+    {
+      "id": "PREMIUM",
+      "name": "Premium",
+      "spend": 70,
+      "sensitivity": 12
+    }
+  ],
+  "commercialBands": [
+    {
+      "id": "COMMERCIAL_EXCELLENCE",
+      "min": 90,
+      "name": "Excelência comercial"
+    },
+    {
+      "id": "STRONG_YIELD",
+      "min": 75,
+      "name": "Yield forte"
+    },
+    {
+      "id": "MISSED_SPEND",
+      "min": 55,
+      "name": "Gasto perdido"
+    },
+    {
+      "id": "COMMERCIAL_CRISIS",
+      "min": 0,
+      "name": "Crise comercial"
+    }
+  ],
+  "commercialKPIs": [
+    {
+      "id": "NON_AERO_REVENUE",
+      "name": "Receita não aeronáutica"
+    },
+    {
+      "id": "SPEND_PER_PAX",
+      "name": "Gasto por passageiro"
+    },
+    {
+      "id": "CONVERSION_RATE",
+      "name": "Conversão comercial"
+    },
+    {
+      "id": "PARKING_YIELD",
+      "name": "Yield estacionamento"
+    },
+    {
+      "id": "LOUNGE_UPSELL",
+      "name": "Upsell lounge"
+    },
+    {
+      "id": "CONCESSION_HEALTH",
+      "name": "Saúde das concessões"
+    }
+  ]
+}

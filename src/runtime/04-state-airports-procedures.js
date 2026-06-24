@@ -30,6 +30,10 @@ const FUEL_RULES = { arrivalBurn:0.010, departureBurn:0.006, emergencyThreshold:
 let emergencyDirector = { active:false, target:null, message:'Sem emergência ativa.', lastTick:0 };
 
 const SIM_SPEED = 0.092;
+function atcIsMobileRuntime(){ try{ return !!(window.matchMedia?.('(pointer: coarse)').matches || innerWidth<900 || screen?.width<900); }catch(_e){ return false; } }
+function atcPaceFactor(){ return atcIsMobileRuntime() ? 1.75 : 1; }
+function atcDtScale(){ return atcIsMobileRuntime() ? 0.62 : 1; }
+window.SKYWARD_MOBILE_PACE = Object.freeze({ schema:1, isMobile:atcIsMobileRuntime, factor:atcPaceFactor, dtScale:atcDtScale });
 let runway = { name:'09/27', x1:18, y1:50, x2:82, y2:50, width:6.2, exits:[32,45,56,68] };
 let gates = [
   {x:55,y:70, label:'A'}, {x:61,y:70, label:'A'}, {x:67,y:70, label:'B'}, {x:73,y:70, label:'B'},
@@ -93,11 +97,12 @@ function renderAirportOpsBoard(){
 function airportSpawnInterval(){
   const p=currentOpsProfile||airportOpsProfile();
   const wx=WX_STATE?.severity>.75 ? 1.28 : WX_STATE?.severity>.55 ? 1.12 : 1;
-  return Math.max(24, 45 / Math.max(.45, p.spawn||.58) * wx);
+  return Math.max(24, 45 / Math.max(.45, p.spawn||.58) * wx * atcPaceFactor());
 }
 function airportInitialTrafficCount(){
   const p=currentOpsProfile||airportOpsProfile();
-  return Math.max(4, Math.min(8, Math.round(4 + (p.spawn||.58)*3)));
+  const base=Math.max(4, Math.min(8, Math.round(4 + (p.spawn||.58)*3)));
+  return atcIsMobileRuntime() ? Math.max(2, Math.min(4, base-2)) : base;
 }
 
 const PROCEDURE_LAYER = {

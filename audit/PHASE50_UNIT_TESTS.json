@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase50-unit",
+  "build": "SC-1.50.0-F50-20260623-1330",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F50+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.50.0\",\"phase\":\"F50\",\"phaseName\":\"Non-Aeronautical Revenue & Commercial Experience Center, Varejo, Duty Free, Lounges, Parking e Concessões\",\"channel\":\"non-aero-revenue\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.50.0-F50-20260623-1330\",\"builtAt\":\"2026-06-23 13:30 BRT\",\"builtAtIso\":\"2026-06-23T13:30:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1,\"terminalFlowSchema\":1,\"nonAeroRevenueSchema\":1}"
+    },
+    {
+      "name": "módulo F50 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo channels incidents programs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"channels\":9,\"programs\":9}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"channelScores\":{\"DUTY_FREE\":100,\"FOOD_BEVERAGE\":53.039999999999985,\"RETAIL\":78.88,\"PARKING\":83.36000000000001,\"LOUNGES\":79.63999999999999,\"ADVERTISING\":83.16,\"HOTEL_LANDSIDE\":80.80000000000001,\"CONCESSIONS\":86.34,\"DIGITAL_COMMERCE\":88},\"programs\":[{\"id\":\"NAR-682989\",\"programId\":\"DUTY_FREE_BUNDLE\",\"name\":\"Bundles duty free\",\"cost\":14000,\"status\":\"ACTIVE\",\"at\":\"2026-06-23T21:54:42.989Z\"}],\"incidents\":[{\"id\":\"NAC-682993\",\"incidentId\":\"FOOD_QUEUE_SPIKE\",\"name\":\"Fila alimentação\",\"channel\":\"FOOD_BEVERAGE\",\"severity\":20,\"status\":\"OPEN\",\"at\":\"2026-06-23T21:54:42.993Z\"},{\"id\":\"NAC-682992\",\"incidentId\":\"FOOD_QUEUE_SPIKE\",\"name\":\"Fila alimentação\",\"channel\":\"FOOD_BEVERAGE\",\"severity\":20,\"status\":\"OPEN\",\"at\":\"2026-06-23T21:54:42.992Z\"}],\"commercialScore\":72,\"nonAeroRevenue\":44525,\"spendPerPax\":53,\"conversionRate\":28,\"parkingYield\":83,\"loungeUpsell\":46,\"concessionHealth\":80,\"status\":\"MISSED_SPEND\",\"history\":[{\"at\":\"2026-06-23T21:54:42.993Z\",\"build\":\"SC-1.50.0-F50-20260623-1330\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"DUTY_FREE\":100,\"FOOD_BEVERAGE\":53.039999999999985,\"RETAIL\":78.88,\"PARKING\":83.36000000000001,\"LOUNGES\":79.63999999999999,\"ADVERTISING\":83.16,\"HOTEL_LANDSIDE\":80.80000000000001,\"CONCESSIONS\":86.34,\"DIGITAL_COMMERCE\":88},\"weighted\":81,\"conversionRate\":28,\"spendPerPax\":53,\"nonAeroRevenue\":44525,\"parkingYield\":83,\"loungeUpsell\":46,\"concessionHealth\":80,\"openIncidents\":2,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"paxLoad\":352,\"terminalScore\":84,\"queueMin\":12,\"density\":38,\"passengerScore\":86,\"revenueScore\":83,\"twinScore\":82,\"assetScore\":81,\"securityScore\":84},\"commercialScore\":72,\"status\":\"MISSED_SPEND\",\"programs\":1},{\"at\":\"2026-06-23T21:54:42.993Z\",\"build\":\"SC-1.50.0-F50-20260623-1330\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"DUTY_FREE\":96.22,\"FOOD_BEVERAGE\":68.85333333333332,\"RETAIL\":77.44,\"PARKING\":81.68,\"LOUNGES\":77.82,\"ADVERTISING\":79.08,\"HOTEL_LANDSIDE\":77.4,\"CONCESSIONS\":82.17,\"DIGITAL_COMMERCE\":83},\"weighted\":80,\"conversionRate\":28,\"spendPerPax\":52,\"nonAeroRevenue\":24317,\"parkingYield\":82,\"loungeUpsell\":45,\"concessionHealth\":80,\"openIncidents\":1,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"paxLoad\":352,\"terminalScore\":84,\"queueMin\":12,\"density\":38,\"passengerScore\":86,\"revenueScore\":83,\"twinScore\":82,\"assetScore\":81,\"securityScore\":84},\"commercialScore\":71,\"status\":\"MISSED_SPEND\",\"programs\":1}],\"lastEvaluation\":{\"at\":\"2026-06-23T21:54:42.993Z\",\"build\":\"SC-1.50.0-F50-20260623-1330\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"DUTY_FREE\":100,\"FOOD_BEVERAGE\":53.039999999999985,\"RETAIL\":78.88,\"PARKING\":83.36000000000001,\"LOUNGES\":79.63999999999999,\"ADVERTISING\":83.16,\"HOTEL_LANDSIDE\":80.80000000000001,\"CONCESSIONS\":86.34,\"DIGITAL_COMMERCE\":88},\"weighted\":81,\"conversionRate\":28,\"spendPerPax\":53,\"nonAeroRevenue\":44525,\"parkingYield\":83,\"loungeUpsell\":46,\"concessionHealth\":80,\"openIncidents\":2,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"paxLoad\":352,\"terminalScore\":84,\"queueMin\":12,\"density\":38,\"passengerScore\":86,\"revenueScore\":83,\"twinScore\":82,\"assetScore\":81,\"securityScore\":84},\"commercialScore\":72,\"status\":\"MISSED_SPEND\",\"programs\":1}}"
+    },
+    {
+      "name": "programa comercial criado",
+      "ok": true,
+      "detail": "{\"id\":\"NAR-682989\",\"programId\":\"DUTY_FREE_BUNDLE\",\"name\":\"Bundles duty free\",\"cost\":14000,\"status\":\"ACTIVE\",\"at\":\"2026-06-23T21:54:42.989Z\"}"
+    },
+    {
+      "name": "incidente comercial criado",
+      "ok": true,
+      "detail": "{\"id\":\"NAC-682993\",\"incidentId\":\"FOOD_QUEUE_SPIKE\",\"name\":\"Fila alimentação\",\"channel\":\"FOOD_BEVERAGE\",\"severity\":20,\"status\":\"OPEN\",\"at\":\"2026-06-23T21:54:42.993Z\"}"
+    },
+    {
+      "name": "non-aero avaliado",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-23T21:54:42.993Z\",\"build\":\"SC-1.50.0-F50-20260623-1330\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"DUTY_FREE\":100,\"FOOD_BEVERAGE\":30.559999999999988,\"RETAIL\":80.32,\"PARKING\":85.04000000000002,\"LOUNGES\":81.45999999999998,\"ADVERTISING\":87.24,\"HOTEL_LANDSIDE\":84.20000000000002,\"CONCESSIONS\":90.51,\"DIGITAL_COMMERCE\":93},\"weighted\":80,\"conversionRate\":26,\"spendPerPax\":53,\"nonAeroRevenue\":60152,\"parkingYield\":85,\"loungeUpsell\":48,\"concessionHealth\":80,\"openIncidents\":3,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"paxLoad\":352,\"terminalScore\":84,\"queueMin\":12,\"density\":38,\"passengerScore\":86,\"revenueScore\":83,\"twinScore\":82,\"assetScore\":81,\"securityScore\":84},\"commercialScore\":71,\"status\":\"MISSED_SPEND\",\"programs\":1}"
+    },
+    {
+      "name": "progress contém non-aero",
+      "ok": true,
+      "detail": "{\"score\":71,\"status\":\"MISSED_SPEND\",\"nonAeroRevenue\":60152,\"spendPerPax\":53,\"conversionRate\":26,\"parkingYield\":85,\"loungeUpsell\":48,\"concessionHealth\":80,\"openIncidents\":3,\"last\":{\"at\":\"2026-06-23T21:54:42.993Z\",\"build\":\"SC-1.50.0-F50-20260623-1330\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"DUTY_FREE\":100,\"FOOD_BEVERAGE\":30.559999999999988,\"RETAIL\":80.32,\"PARKING\":85.04000000000002,\"LOUNGES\":81.45999999999998,\"ADVERTISING\":87.24,\"HOTEL_LANDSIDE\":84.20000000000002,\"CONCESSIONS\":90.51,\"DIGITAL_COMMERCE\":93},\"weighted\":80,\"conversionRate\":26,\"spendPerPax\":53,\"nonAeroRevenue\":60152,\"parkingYield\":85,\"loungeUpsell\":48,\"concessionHealth\":80,\"openIncidents\":3,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"paxLoad\":352,\"terminalScore\":84,\"queueMin\":12,\"density\":38,\"passengerScore\":86,\"revenueScore\":83,\"twinScore\":82,\"assetScore\":81,\"securityScore\":84},\"commercialScore\":71,\"status\":\"MISSED_SPEND\",\"programs\":1}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"COMMERCIAL_EXCELLENCE\",\"min\":90,\"name\":\"Excelência comercial\"},{\"id\":\"STRONG_YIELD\",\"min\":75,\"name\":\"Yield forte\"},{\"id\":\"MISSED_SPEND\",\"min\":55,\"name\":\"Gasto perdido\"},{\"id\":\"COMMERCIAL_CRISIS\",\"min\":0,\"name\":\"Crise comercial\"}]"
+    },
+    {
+      "name": "canais essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"DUTY_FREE\",\"name\":\"Duty free\",\"weight\":14,\"target\":82},{\"id\":\"FOOD_BEVERAGE\",\"name\":\"Alimentação/F&B\",\"weight\":14,\"target\":80},{\"id\":\"RETAIL\",\"name\":\"Varejo terminal\",\"weight\":12,\"target\":78},{\"id\":\"PARKING\",\"name\":\"Estacionamento\",\"weight\":12,\"target\":80},{\"id\":\"LOUNGES\",\"name\":\"Lounges premium\",\"weight\":11,\"target\":78},{\"id\":\"ADVERTISING\",\"name\":\"Publicidade/mídia\",\"weight\":10,\"target\":76},{\"id\":\"HOTEL_LANDSIDE\",\"name\":\"Hotel/landside\",\"weight\":9,\"target\":76},{\"id\":\"CONCESSIONS\",\"name\":\"Concessões\",\"weight\":10,\"target\":80},{\"id\":\"DIGITAL_COMMERCE\",\"name\":\"Comércio digital/app\",\"weight\":8,\"target\":76}]"
+    }
+  ]
+}

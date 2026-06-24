@@ -3,7 +3,7 @@
  * Canonical source for the generated main.js bundle.
  */
 window.SKYWARD_MODULES?.push('07-simulation-safety');
-function loop(t){ try{ if(!running || !$('#game')?.classList.contains('active')) return; SAFE_MODE.lastFrame=t; const dt=Math.min(.08,Math.max(0,(t-last)/1000)); last=t; adaptivePerformanceGuard(dt); if(!paused) update(dt); draw(); requestAnimationFrame(loop); }catch(e){ showSafeMode(e); } }
+function loop(t){ try{ if(!running || !$('#game')?.classList.contains('active')) return; SAFE_MODE.lastFrame=t; const rawDt=Math.min(.08,Math.max(0,(t-last)/1000)); const dt=rawDt*(typeof atcDtScale==='function'?atcDtScale():1); last=t; adaptivePerformanceGuard(rawDt); if(!paused) update(dt); draw(); requestAnimationFrame(loop); }catch(e){ showSafeMode(e); } }
 function update(dt){
   try{ window.SKYWARD_REPLAY?.step?.(dt); }catch(e){ safeLogError(e,'replay-step'); }
   try{ updateRunwayOps(); updateFuelAndEmergency(dt); maybeGenerateOperationalEmergency(dt); }catch(e){ safeLogError(e,'runway-ops-update'); }
@@ -227,8 +227,9 @@ function checkMissedRequests(){
   for(const r of requests){
     const age = (now-r.time)/1000;
     const p = aircraft.find(x=>x.id===r.id); if(!p) continue;
-    if(age>52 && r.priority==='urgent') return endGame(true,`${r.id} em emergência ficou sem resposta.`);
-    if(age>72 && r.priority!=='urgent'){ r.priority='warn'; score-=30; }
+    const requestPace=typeof atcPaceFactor==='function'?atcPaceFactor():1;
+    if(age>52*requestPace && r.priority==='urgent') return endGame(true,`${r.id} em emergência ficou sem resposta.`);
+    if(age>72*requestPace && r.priority!=='urgent'){ r.priority='warn'; score-=30; }
   }
 }
 function checkConflicts(){

@@ -20,8 +20,9 @@ const INCIDENT_PLAYBOOK_CATALOG = Object.freeze({
   },
   resolutionGrades:[{id:'EXCELLENT',name:'Resposta excelente',minScore:88},{id:'CONTROLLED',name:'Controlado',minScore:70},{id:'DELAYED',name:'Resposta atrasada',minScore:48},{id:'FAILED',name:'Falha crítica',minScore:0}]
 });
-let incidentDirector = {schema:1,active:null,history:[],runwayClosed:false,runwayClosedUntil:0,agenciesDispatched:[],actions:[],lastTick:0,summary:{total:0,resolved:0,failed:0,closures:0,cost:0}};
+let incidentDirector = {schema:1,active:null,history:[],runwayClosed:false,runwayClosedUntil:0,agenciesDispatched:[],actions:[],lastTick:0,summary:{total:0,resolved:0,failed:0,closures:0,cost:0},lastGeneratedAt:0,lastAutoResolveAt:0};
 function incidentNow(){ return performance?.now?.() || Date.now(); }
+function incidentMobilePace(){ try{ return typeof atcPaceFactor==='function' ? atcPaceFactor() : ((window.matchMedia?.('(pointer: coarse)').matches || innerWidth<900) ? 1.8 : 1); }catch(_e){ return 1; } }
 function pickIncidentType(seed=0){
   const list=INCIDENT_PLAYBOOK_CATALOG.incidentTypes;
   const total=list.reduce((a,i)=>a+(i.probabilityWeight||0),0);
@@ -103,19 +104,19 @@ function incidentCompletionScore(inc=incidentDirector.active){
 }
 function resolveOperationalIncident(success=null){
   const inc=incidentDirector.active; if(!inc) return null;
-  const score=incidentCompletionScore(inc);
-  const grade=incidentGrade(score);
-  const ok=success===null ? score>=48 : Boolean(success);
-  inc.status=ok?'RESOLVED':'FAILED'; inc.resolvedAt=incidentNow(); inc.resolutionScore=score; inc.grade=grade.id;
+  const resolutionScore=incidentCompletionScore(inc);
+  const grade=incidentGrade(resolutionScore);
+  const ok=success===null ? resolutionScore>=48 : Boolean(success);
+  inc.status=ok?'RESOLVED':'FAILED'; inc.resolvedAt=incidentNow(); inc.resolutionScore=resolutionScore; inc.grade=grade.id;
   incidentDirector.history.unshift({...inc});
   incidentDirector.history=incidentDirector.history.slice(0,30);
   incidentDirector.summary.resolved+=ok?1:0;
   incidentDirector.summary.failed+=ok?0:1;
   incidentDirector.summary.cost+=inc.economyPenalty||0;
-  if(!ok){ stats.incidentFailures=(stats.incidentFailures||0)+1; score-=inc.scorePenalty||0; }
+  if(!ok){ stats.incidentFailures=(stats.incidentFailures||0)+1; if(typeof score==='number') score-=inc.scorePenalty||0; }
   else { stats.incidentsResolved=(stats.incidentsResolved||0)+1; }
-  if(incidentDirector.runwayClosed && score>=70) reopenRunwayIfReady(true);
-  addLog?.(`INCIDENTE ${inc.id}: ${grade.name} (${score}%).`, ok?'ok':'danger');
+  if(incidentDirector.runwayClosed && resolutionScore>=70) reopenRunwayIfReady(true);
+  addLog?.(`INCIDENTE ${inc.id}: ${grade.name} (${resolutionScore}%).`, ok?'ok':'danger');
   incidentDirector.active=null;
   renderIncidentBoard();
   return inc;
@@ -134,17 +135,22 @@ function incidentTick(dt=0){
   const inc=incidentDirector.active;
   if(inc){
     const elapsed=(incidentNow()-inc.startedAt)/1000;
-    if(elapsed>130 && inc.status==='ACTIVE') resolveOperationalIncident(false);
+    if(elapsed>130*incidentMobilePace() && inc.status==='ACTIVE') resolveOperationalIncident(false);
   }
   renderIncidentBoard();
 }
 function maybeTriggerIncident(){
   if(incidentDirector.active) return null;
+  const now=incidentNow();
+  const pace=incidentMobilePace();
+  if(incidentDirector.lastGeneratedAt && now-incidentDirector.lastGeneratedAt < 90000*pace) return null;
   const wx=window.SKYWARD_WEATHER_OPS?.state?.();
   const base=(stats?.landed||0)+(stats?.departed||0)+(stats?.requests||0);
-  const risk=(wx?.flightRules==='LIFR'?0.06:wx?.flightRules==='IFR'?0.035:0.018)+Math.min(.055,(stats?.conflicts||0)*.012+(stats?.runwayIncursions||0)*.02);
-  if(base>3 && Math.random()<risk){
+  const rawRisk=(wx?.flightRules==='LIFR'?0.06:wx?.flightRules==='IFR'?0.035:0.018)+Math.min(.055,(stats?.conflicts||0)*.012+(stats?.runwayIncursions||0)*.02);
+  const risk=rawRisk*(pace>1?.42:.72);
+  if(base>4 && Math.random()<risk){
     const candidates=aircraft?.filter?.(p=>p.status!=='PARKED')||[];
+    incidentDirector.lastGeneratedAt=now;
     return startOperationalIncident('',candidates[0]||null,'runtime-risk');
   }
   return null;

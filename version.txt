@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-Version: 1.48.0
-Phase: F48 — Cargo & Logistics Operations Center, ULD, Perecíveis, Cargas Perigosas, Alfândega e Receita Freight
-Build: SC-1.48.0-F48-20260623-1200
-Built at: 2026-06-23 12:00 BRT
-Channel: cargo-logistics
-Cargo Logistics schema: 1
+Version: 1.50.1
+Phase: F50 — F50.1 Hotfix Mobile Stability & Pace Tuning — Safe Mode Incident Fix
+Build: SC-1.50.1-F50-20260624-1430
+Built at: 2026-06-24 14:30 BRT
+Channel: mobile-stability-hotfix
+Mobile Stability Hotfix schema: 1
 Target: Mobile-first / Tablet / Desktop

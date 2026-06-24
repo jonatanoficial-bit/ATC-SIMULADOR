@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "suite": "hotfix-hf01-mobile-stability",
+  "build": "SC-1.50.1-F50-20260624-1430",
+  "total": 10,
+  "passed": 10,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "build hotfix F50.1",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.50.1\",\"phase\":\"F50\",\"phaseName\":\"F50.1 Hotfix Mobile Stability & Pace Tuning — Safe Mode Incident Fix\",\"channel\":\"mobile-stability-hotfix\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.50.1-F50-20260624-1430\",\"builtAt\":\"2026-06-24 14:30 BRT\",\"builtAtIso\":\"2026-06-24T14:30:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1,\"terminalFlowSchema\":1,\"nonAeroRevenueSchema\":1,\"mobileStabilityHotfixSchema\":1,\"safeModeIncidentFixSchema\":1,\"paceTuningSchema\":1}"
+    },
+    {
+      "name": "resolve usa resolutionScore",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "penalidade global segura",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "incidente com pace/cooldown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "helpers mobile pace existem",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "spawn mobile ajustado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loop usa rawDt e dt escalado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "timeout solicitações respeita pace",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bundle atualizado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "resolveOperationalIncident executa sem TypeError",
+      "ok": true,
+      "detail": "{\"result\":{\"id\":\"INC-00000\",\"typeId\":\"RUNWAY_FOD\",\"name\":\"FOD na pista\",\"severity\":\"high\",\"phase\":\"surface\",\"startedAt\":100000,\"targetId\":null,\"requiredAgencies\":[\"OPS\",\"GROUND\",\"INSPECTION\"],\"requiredActions\":[\"close_runway\",\"reroute_taxi\",\"inspect_runway\",\"reopen_runway\"],\"completedActions\":[],\"dispatchedAgencies\":[],\"runwayClosureMin\":14,\"scorePenalty\":180,\"economyPenalty\":26000,\"careerStress\":6,\"status\":\"FAILED\",\"reason\":\"test\",\"resolvedAt\":100000,\"resolutionScore\":14,\"grade\":\"FAILED\"},\"score\":820}"
+    }
+  ]
+}

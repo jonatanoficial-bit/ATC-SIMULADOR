@@ -1,0 +1,34 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
+import { fileURLToPath } from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const checks=[]; const check=(name,ok,detail='')=>checks.push({name,ok:Boolean(ok),detail:String(detail||'')});
+const meta=JSON.parse(fs.readFileSync(path.join(root,'release-metadata.json'),'utf8'));
+const state=fs.readFileSync(path.join(root,'src/runtime/04-state-airports-procedures.js'),'utf8');
+const sim=fs.readFileSync(path.join(root,'src/runtime/07-simulation-safety.js'),'utf8');
+const inc=fs.readFileSync(path.join(root,'src/runtime/22-incident-emergency-director.js'),'utf8');
+const main=fs.readFileSync(path.join(root,'main.js'),'utf8');
+const runtime=fs.readFileSync(path.join(root,'runtime-manifest.json'),'utf8');
+check('build hotfix F50.1', meta.version==='1.50.1' && meta.phase==='F50' && meta.mobileStabilityHotfixSchema===1, JSON.stringify(meta));
+check('resolve usa resolutionScore', inc.includes('const resolutionScore=incidentCompletionScore(inc)') && !inc.includes('const score=incidentCompletionScore(inc)'));
+check('penalidade global segura', inc.includes("if(typeof score==='number') score-=inc.scorePenalty||0"));
+check('incidente com pace/cooldown', inc.includes('incidentMobilePace') && inc.includes('90000*pace') && inc.includes('130*incidentMobilePace()'));
+check('helpers mobile pace existem', state.includes('function atcIsMobileRuntime') && state.includes('function atcPaceFactor') && state.includes('function atcDtScale'));
+check('spawn mobile ajustado', state.includes('* wx * atcPaceFactor()') && state.includes('Math.max(2, Math.min(4, base-2))'));
+check('loop usa rawDt e dt escalado', sim.includes('const rawDt=') && sim.includes('const dt=rawDt*(typeof atcDtScale'));
+check('timeout solicitações respeita pace', sim.includes('52*requestPace') && sim.includes('72*requestPace'));
+check('bundle atualizado', main.includes('resolutionScore=incidentCompletionScore') && main.includes('atcDtScale') && runtime.includes('mobile-stability-hotfix-safe-mode-pace'));
+// VM minimal do módulo de incidente para garantir que o bug não volta
+const storage=new Map();
+const context={ console, Math, Number, String, Array, Object, JSON, Date, performance:{now:()=>100000}, window:{SKYWARD_MODULES:[]}, localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)}, stats:{}, score:1000, profile:{turns:0}, selected:null, aircraft:[], runway:{name:'09/27'}, runwayOccupiedBy:null, addLog:()=>{}, setDiagnostic:()=>{}, renderIncidentBoard:()=>{}, safeLogError:()=>{}, atcPaceFactor:()=>1 };
+context.window.window=context.window; vm.createContext(context);
+try{ vm.runInContext(inc,context); const api=context.window.SKYWARD_INCIDENTS; api.start('RUNWAY_FOD',null,'test'); const result=api.resolve(false); check('resolveOperationalIncident executa sem TypeError', !!result && context.score<1000, JSON.stringify({result,score:context.score})); }catch(e){ check('resolveOperationalIncident executa sem TypeError', false, e.stack||e.message); }
+const failed=checks.filter(c=>!c.ok);
+const report={schema:1,suite:'hotfix-hf01-mobile-stability',build:meta.build,total:checks.length,passed:checks.length-failed.length,failed:failed.length,checks};
+fs.mkdirSync(path.join(root,'audit'),{recursive:true});
+fs.writeFileSync(path.join(root,'audit/HOTFIX_F50.1_MOBILE_STABILITY.json'),JSON.stringify(report,null,2)+'\n');
+fs.writeFileSync(path.join(root,'audit/HOTFIX_F50.1_MOBILE_STABILITY_SUMMARY.md'),`# F50.1 Mobile Stability\n\n- Resultado: **${report.passed}/${report.total} aprovados**\n- Build: \`${report.build}\`\n`);
+console.log(`F50.1 mobile stability tests: ${report.passed}/${report.total} aprovados`);
+for(const c of checks) console.log(`${c.ok?'PASS':'FAIL'}  ${c.name}${!c.ok&&c.detail?' — '+c.detail:''}`);
+if(failed.length) process.exit(1);

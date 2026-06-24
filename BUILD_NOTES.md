@@ -1,19 +1,18 @@
-# Build Notes — SC-1.48.0-F48-20260623-1200
+# Build Notes — SC-1.50.1-F50-20260624-1430
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.48.0
-- Fase: F48 — Cargo & Logistics Operations Center, ULD, Perecíveis, Cargas Perigosas, Alfândega e Receita Freight
-- Build: `SC-1.48.0-F48-20260623-1200`
-- Data/hora: 2026-06-23 12:00 BRT
-- Canal: cargo-logistics
-- Cargo Logistics schema: 1
+- Versão: 1.50.1
+- Fase: F50.1 — Mobile Stability & Pace Tuning
+- Build: `SC-1.50.1-F50-20260624-1430`
+- Data/hora: 2026-06-24 14:30 BRT
+- Canal: mobile-stability-hotfix
 
 ## Entregas
 
-A Fase 48 adiciona operação cargueira, ULD, DG, perecíveis, cadeia fria, alfândega, segurança de carga, SLA e receita freight.
+Hotfix completo para corrigir Modo Seguro no celular causado por `Assignment to constant variable` ao resolver incidente operacional, além de reduzir aceleração de acontecimentos em mobile.
 
-## Documento de upload
+## Upload
 
-A build preserva `UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md`, contendo o caminho local, o caminho Git Bash e o repositório GitHub para upload.
+Mantém `UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md` na raiz e em `docs/`.

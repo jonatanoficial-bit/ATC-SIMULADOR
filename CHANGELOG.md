@@ -1,3 +1,43 @@
+## SC-1.50.1-F50-20260624-1430 — Mobile Safe Mode & Pace Tuning Hotfix
+
+- Corrigido erro crítico `Assignment to constant variable` em `resolveOperationalIncident`.
+- Ajustado score de resolução de incidente para `resolutionScore`, sem conflito com o placar global.
+- Penalidade de incidente agora aplica no `score` global com segurança.
+- Incidentes automáticos ganharam cooldown e menor chance em mobile.
+- Ritmo mobile reduzido com `atcDtScale()` e `atcPaceFactor()`.
+- Tráfego inicial e spawn ajustados para celular.
+- Timeout de solicitações ajustado para mobile.
+- Adicionado teste dedicado F50.1.
+
+## SC-1.50.0-F50-20260623-1330 — Non-Aeronautical Revenue & Commercial Experience Center
+
+- Adicionado módulo oficial `53-non-aeronautical-revenue-center.js`.
+- Criado catálogo `data/non-aero-revenue.json`.
+- Adicionados canais de duty free, F&B, varejo, estacionamento, lounges, mídia, hotel, concessões e comércio digital.
+- Adicionados ativos comerciais.
+- Adicionados incidentes comerciais.
+- Adicionados programas de receita não aeronáutica.
+- Adicionados segmentos de gasto.
+- Adicionados KPIs non-aero.
+- Adicionado painel `NON-AERO REV`.
+- Tela final mostra Non-Aero Rev e Spend/Pax.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F50.
+
+## SC-1.49.0-F49-20260623-1245 — Terminal Flow & Landside Operations Center
+
+- Adicionado módulo oficial `52-terminal-flow-landside-center.js`.
+- Criado catálogo `data/terminal-flow.json`.
+- Adicionadas zonas do terminal e landside.
+- Adicionados ativos de capacidade do terminal.
+- Adicionados incidentes de fila.
+- Adicionados programas de fluxo.
+- Adicionados KPIs do terminal.
+- Adicionado painel `TERMINAL FLOW`.
+- Tela final mostra Terminal Flow e Fila Média.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F49.
+
 ## SC-1.48.0-F48-20260623-1200 — Cargo & Logistics Operations Center
 
 - Adicionado módulo oficial `51-cargo-logistics-operations-center.js`.

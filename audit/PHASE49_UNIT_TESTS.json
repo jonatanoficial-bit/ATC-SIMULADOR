@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase49-unit",
+  "build": "SC-1.49.0-F49-20260623-1245",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F49+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.49.0\",\"phase\":\"F49\",\"phaseName\":\"Terminal Flow & Landside Operations Center, Filas, Check-in, Segurança, Imigração, Bagagem e Curbside\",\"channel\":\"terminal-flow\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.49.0-F49-20260623-1245\",\"builtAt\":\"2026-06-23 12:45 BRT\",\"builtAtIso\":\"2026-06-23T12:45:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1,\"terminalFlowSchema\":1}"
+    },
+    {
+      "name": "módulo F49 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo zones incidents programs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"zones\":9,\"incidents\":8}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"zoneScores\":{\"CURBSIDE\":81.91999999999999,\"CHECKIN\":93.42000000000002,\"SECURITY_QUEUE\":56.84,\"IMMIGRATION\":86.01999999999998,\"WAYFINDING\":84.72,\"GATE_HOLDROOM\":86.56,\"BAGGAGE_CLAIM\":88.72,\"PARKING_LANDSIDE\":79.97999999999999,\"LOUNGES_RETAIL\":87.67999999999999},\"programs\":[{\"id\":\"TFP-382238\",\"programId\":\"OPEN_SECURITY_LANES\",\"name\":\"Abrir canais segurança\",\"cost\":12000,\"status\":\"ACTIVE\",\"at\":\"2026-06-23T17:56:22.238Z\"}],\"incidents\":[{\"id\":\"TFI-382239\",\"incidentId\":\"SECURITY_BACKLOG\",\"name\":\"Backlog segurança\",\"zone\":\"SECURITY_QUEUE\",\"severity\":30,\"status\":\"OPEN\",\"at\":\"2026-06-23T17:56:22.239Z\"},{\"id\":\"TFI-382239\",\"incidentId\":\"SECURITY_BACKLOG\",\"name\":\"Backlog segurança\",\"zone\":\"SECURITY_QUEUE\",\"severity\":30,\"status\":\"OPEN\",\"at\":\"2026-06-23T17:56:22.239Z\"}],\"terminalScore\":75,\"avgQueueMin\":24,\"securityWaitMin\":29,\"checkinWaitMin\":5,\"densityIndex\":42,\"baggageClaimMin\":14,\"landsideDelayMin\":0,\"status\":\"CONTROLLED_FLOW\",\"history\":[{\"at\":\"2026-06-23T17:56:22.239Z\",\"build\":\"SC-1.49.0-F49-20260623-1245\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"CURBSIDE\":81.91999999999999,\"CHECKIN\":93.42000000000002,\"SECURITY_QUEUE\":56.84,\"IMMIGRATION\":86.01999999999998,\"WAYFINDING\":84.72,\"GATE_HOLDROOM\":86.56,\"BAGGAGE_CLAIM\":88.72,\"PARKING_LANDSIDE\":79.97999999999999,\"LOUNGES_RETAIL\":87.67999999999999},\"weighted\":82,\"avgQueueMin\":24,\"securityWaitMin\":29,\"checkinWaitMin\":5,\"baggageClaimMin\":14,\"densityIndex\":42,\"landsideDelayMin\":0,\"openIncidents\":2,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"passengerScore\":84,\"securityScore\":86,\"groundScore\":82,\"workforceScore\":81,\"cargoScore\":80,\"revenueScore\":83,\"airlineScore\":82},\"terminalScore\":75,\"status\":\"CONTROLLED_FLOW\",\"programs\":1},{\"at\":\"2026-06-23T17:56:22.239Z\",\"build\":\"SC-1.49.0-F49-20260623-1245\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"CURBSIDE\":79.46,\"CHECKIN\":87.71000000000001,\"SECURITY_QUEUE\":78.92,\"IMMIGRATION\":81.00999999999999,\"WAYFINDING\":81.36,\"GATE_HOLDROOM\":83.28,\"BAGGAGE_CLAIM\":83.86,\"PARKING_LANDSIDE\":77.49,\"LOUNGES_RETAIL\":81.83999999999999},\"weighted\":82,\"avgQueueMin\":22,\"securityWaitMin\":18,\"checkinWaitMin\":6,\"baggageClaimMin\":15,\"densityIndex\":36,\"landsideDelayMin\":0,\"openIncidents\":1,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"passengerScore\":84,\"securityScore\":86,\"groundScore\":82,\"workforceScore\":81,\"cargoScore\":80,\"revenueScore\":83,\"airlineScore\":82},\"terminalScore\":77,\"status\":\"CONTROLLED_FLOW\",\"programs\":1}],\"lastEvaluation\":{\"at\":\"2026-06-23T17:56:22.239Z\",\"build\":\"SC-1.49.0-F49-20260623-1245\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"CURBSIDE\":81.91999999999999,\"CHECKIN\":93.42000000000002,\"SECURITY_QUEUE\":56.84,\"IMMIGRATION\":86.01999999999998,\"WAYFINDING\":84.72,\"GATE_HOLDROOM\":86.56,\"BAGGAGE_CLAIM\":88.72,\"PARKING_LANDSIDE\":79.97999999999999,\"LOUNGES_RETAIL\":87.67999999999999},\"weighted\":82,\"avgQueueMin\":24,\"securityWaitMin\":29,\"checkinWaitMin\":5,\"baggageClaimMin\":14,\"densityIndex\":42,\"landsideDelayMin\":0,\"openIncidents\":2,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"passengerScore\":84,\"securityScore\":86,\"groundScore\":82,\"workforceScore\":81,\"cargoScore\":80,\"revenueScore\":83,\"airlineScore\":82},\"terminalScore\":75,\"status\":\"CONTROLLED_FLOW\",\"programs\":1}}"
+    },
+    {
+      "name": "programa terminal criado",
+      "ok": true,
+      "detail": "{\"id\":\"TFP-382238\",\"programId\":\"OPEN_SECURITY_LANES\",\"name\":\"Abrir canais segurança\",\"cost\":12000,\"status\":\"ACTIVE\",\"at\":\"2026-06-23T17:56:22.238Z\"}"
+    },
+    {
+      "name": "incidente terminal criado",
+      "ok": true,
+      "detail": "{\"id\":\"TFI-382240\",\"incidentId\":\"SECURITY_BACKLOG\",\"name\":\"Backlog segurança\",\"zone\":\"SECURITY_QUEUE\",\"severity\":30,\"status\":\"OPEN\",\"at\":\"2026-06-23T17:56:22.240Z\"}"
+    },
+    {
+      "name": "terminal avaliado",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-23T17:56:22.240Z\",\"build\":\"SC-1.49.0-F49-20260623-1245\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"CURBSIDE\":84.37999999999998,\"CHECKIN\":99.13000000000002,\"SECURITY_QUEUE\":24.759999999999998,\"IMMIGRATION\":91.02999999999997,\"WAYFINDING\":88.08,\"GATE_HOLDROOM\":89.84,\"BAGGAGE_CLAIM\":93.58,\"PARKING_LANDSIDE\":82.46999999999998,\"LOUNGES_RETAIL\":93.52},\"weighted\":80,\"avgQueueMin\":26,\"securityWaitMin\":44,\"checkinWaitMin\":4,\"baggageClaimMin\":13,\"densityIndex\":50,\"landsideDelayMin\":0,\"openIncidents\":3,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"passengerScore\":84,\"securityScore\":86,\"groundScore\":82,\"workforceScore\":81,\"cargoScore\":80,\"revenueScore\":83,\"airlineScore\":82},\"terminalScore\":72,\"status\":\"QUEUE_PRESSURE\",\"programs\":1}"
+    },
+    {
+      "name": "progress contém terminal",
+      "ok": true,
+      "detail": "{\"score\":72,\"status\":\"QUEUE_PRESSURE\",\"avgQueueMin\":26,\"securityWaitMin\":44,\"checkinWaitMin\":4,\"densityIndex\":50,\"baggageClaimMin\":13,\"landsideDelayMin\":0,\"openIncidents\":3,\"last\":{\"at\":\"2026-06-23T17:56:22.240Z\",\"build\":\"SC-1.49.0-F49-20260623-1245\",\"airport\":\"SBGR\",\"finalScore\":2700,\"scores\":{\"CURBSIDE\":84.37999999999998,\"CHECKIN\":99.13000000000002,\"SECURITY_QUEUE\":24.759999999999998,\"IMMIGRATION\":91.02999999999997,\"WAYFINDING\":88.08,\"GATE_HOLDROOM\":89.84,\"BAGGAGE_CLAIM\":93.58,\"PARKING_LANDSIDE\":82.46999999999998,\"LOUNGES_RETAIL\":93.52},\"weighted\":80,\"avgQueueMin\":26,\"securityWaitMin\":44,\"checkinWaitMin\":4,\"baggageClaimMin\":13,\"densityIndex\":50,\"landsideDelayMin\":0,\"openIncidents\":3,\"drivers\":{\"landed\":2,\"departed\":2,\"denied\":0,\"passengerScore\":84,\"securityScore\":86,\"groundScore\":82,\"workforceScore\":81,\"cargoScore\":80,\"revenueScore\":83,\"airlineScore\":82},\"terminalScore\":72,\"status\":\"QUEUE_PRESSURE\",\"programs\":1}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"SEAMLESS_TERMINAL\",\"min\":90,\"name\":\"Terminal fluido\"},{\"id\":\"CONTROLLED_FLOW\",\"min\":75,\"name\":\"Fluxo controlado\"},{\"id\":\"QUEUE_PRESSURE\",\"min\":55,\"name\":\"Pressão de filas\"},{\"id\":\"TERMINAL_GRIDLOCK\",\"min\":0,\"name\":\"Terminal travado\"}]"
+    },
+    {
+      "name": "zonas essenciais presentes",
+      "ok": true,
+      "detail": "[{\"id\":\"CURBSIDE\",\"name\":\"Curbside/drop-off\",\"weight\":10,\"target\":78},{\"id\":\"CHECKIN\",\"name\":\"Check-in e despacho\",\"weight\":14,\"target\":82},{\"id\":\"SECURITY_QUEUE\",\"name\":\"Fila segurança\",\"weight\":16,\"target\":84},{\"id\":\"IMMIGRATION\",\"name\":\"Imigração/passaporte\",\"weight\":12,\"target\":80},{\"id\":\"WAYFINDING\",\"name\":\"Sinalização/wayfinding\",\"weight\":10,\"target\":78},{\"id\":\"GATE_HOLDROOM\",\"name\":\"Sala de embarque\",\"weight\":12,\"target\":80},{\"id\":\"BAGGAGE_CLAIM\",\"name\":\"Restituição bagagem\",\"weight\":12,\"target\":80},{\"id\":\"PARKING_LANDSIDE\",\"name\":\"Estacionamento/landside\",\"weight\":8,\"target\":76},{\"id\":\"LOUNGES_RETAIL\",\"name\":\"Lounges/varejo\",\"weight\":6,\"target\":76}]"
+    }
+  ]
+}

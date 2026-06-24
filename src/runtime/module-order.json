@@ -233,6 +233,16 @@
       "description": "Cargo logistics, ULD, dangerous goods, perishables, customs, cold chain, freight revenue and cargo SLA"
     },
     {
+      "file": "52-terminal-flow-landside-center.js",
+      "name": "terminal-flow-landside-center",
+      "description": "Terminal flow, queues, check-in, security, immigration, baggage claim, curbside, parking and wayfinding"
+    },
+    {
+      "file": "53-non-aeronautical-revenue-center.js",
+      "name": "non-aeronautical-revenue-center",
+      "description": "Non-aeronautical revenue, retail, duty free, F&B, parking, lounges, advertising, hotel, concessions and digital commerce"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"
