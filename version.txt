@@ -1,10 +1,10 @@
 SKYWARD CONTROL
-Version: 1.57.0
-Phase: F57 — Instructor Debrief, Replay Analytics & Training Feedback Center, Relatório Pós-Missão e Plano de Treino
-Build: SC-1.57.0-F57-20260624-1945
-Built at: 2026-06-24 19:45 BRT
-Channel: instructor-debrief
-Instructor Debrief schema: 1
+Version: 1.58.0
+Phase: F58 — Replay Timeline, Heatmap & Session Export Center, Linha do Tempo, Marcadores e Exportação de Sessão
+Build: SC-1.58.0-F58-20260624-2030
+Built at: 2026-06-24 20:30 BRT
+Channel: replay-timeline-heatmap
+Replay Timeline schema: 1
 F50.1 mobile hotfix preserved: true
 F51 adaptive pace preserved: true
 F52 stability diagnostics preserved: true
@@ -12,4 +12,5 @@ F53 PWA update manager preserved: true
 F54 live ops config preserved: true
 F55 scenario mission preserved: true
 F56 campaign progression preserved: true
+F57 instructor debrief preserved: true
 Target: Mobile-first / Tablet / Desktop

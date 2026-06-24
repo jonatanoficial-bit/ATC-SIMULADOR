@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase58-unit",
+  "build": "SC-1.58.0-F58-20260624-2030",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F58+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.58.0\",\"phase\":\"F58\",\"phaseName\":\"Replay Timeline, Heatmap & Session Export Center, Linha do Tempo, Marcadores e Exportação de Sessão\",\"channel\":\"replay-timeline-heatmap\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.58.0-F58-20260624-2030\",\"builtAt\":\"2026-06-24 20:30 BRT\",\"builtAtIso\":\"2026-06-24T20:30:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1,\"terminalFlowSchema\":1,\"nonAeroRevenueSchema\":1,\"mobileStabilityHotfixSchema\":1,\"safeModeIncidentFixSchema\":1,\"paceTuningSchema\":1,\"adaptivePaceSchema\":1,\"stabilityDiagnosticsSchema\":1,\"pwaUpdateManagerSchema\":1,\"liveOpsRemoteConfigSchema\":1,\"scenarioMissionSchema\":1,\"campaignProgressionSchema\":1,\"instructorDebriefSchema\":1,\"replayTimelineSchema\":1}"
+    },
+    {
+      "name": "módulo F58 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo tracks bookmarks heatmap",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"tracks\":8,\"bookmarks\":10}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"replayScore\":86,\"status\":\"REVIEWABLE\",\"bookmarks\":[{\"id\":\"RBK-371433-1\",\"type\":\"CONFLICT_AVOIDED\",\"name\":\"Conflito evitado\",\"track\":\"SAFETY\",\"importance\":18,\"minute\":2,\"detail\":\"self-check\",\"at\":\"2026-06-24T19:29:31.433Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\"},{\"id\":\"RBK-371435-2\",\"type\":\"FIRST_CLEARANCE\",\"name\":\"Primeira autorização\",\"track\":\"CLEARANCE\",\"importance\":8,\"minute\":1,\"detail\":\"Sessão iniciada e primeira autorização registrada.\",\"at\":\"2026-06-24T19:29:31.435Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\"},{\"id\":\"RBK-371435-3\",\"type\":\"CONFLICT_AVOIDED\",\"name\":\"Conflito evitado\",\"track\":\"SAFETY\",\"importance\":18,\"minute\":4,\"detail\":\"Separação mantida sem conflitos.\",\"at\":\"2026-06-24T19:29:31.435Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\"},{\"id\":\"RBK-371435-4\",\"type\":\"MISSION_OBJECTIVE\",\"name\":\"Objetivo de missão\",\"track\":\"MISSION\",\"importance\":16,\"minute\":9,\"detail\":\"Missão avaliada com nota A.\",\"at\":\"2026-06-24T19:29:31.435Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\"},{\"id\":\"RBK-371435-5\",\"type\":\"RANK_UP\",\"name\":\"Promoção de carreira\",\"track\":\"MISSION\",\"importance\":14,\"minute\":10,\"detail\":\"XP ganho: 260.\",\"at\":\"2026-06-24T19:29:31.435Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\"},{\"id\":\"RBK-371437-6\",\"type\":\"CONFLICT_AVOIDED\",\"name\":\"Conflito evitado\",\"track\":\"SAFETY\",\"importance\":18,\"minute\":2,\"detail\":\"self-check\",\"at\":\"2026-06-24T19:29:31.437Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\"},{\"id\":\"RBK-371438-7\",\"type\":\"FIRST_CLEARANCE\",\"name\":\"Primeira autorização\",\"track\":\"CLEARANCE\",\"importance\":8,\"minute\":1,\"detail\":\"Sessão iniciada e primeira autorização registrada.\",\"at\":\"2026-06-24T19:29:31.438Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\"},{\"id\":\"RBK-371438-8\",\"type\":\"CONFLICT_AVOIDED\",\"name\":\"Conflito evitado\",\"track\":\"SAFETY\",\"importance\":18,\"minute\":4,\"detail\":\"Separação mantida sem conflitos.\",\"at\":\"2026-06-24T19:29:31.438Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\"},{\"id\":\"RBK-371438-9\",\"type\":\"MISSION_OBJECTIVE\",\"name\":\"Objetivo de missão\",\"track\":\"MISSION\",\"importance\":16,\"minute\":9,\"detail\":\"Missão avaliada com nota A.\",\"at\":\"2026-06-24T19:29:31.438Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\"},{\"id\":\"RBK-371438-10\",\"type\":\"RANK_UP\",\"name\":\"Promoção de carreira\",\"track\":\"MISSION\",\"importance\":14,\"minute\":10,\"detail\":\"XP ganho: 260.\",\"at\":\"2026-06-24T19:29:31.438Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\"}],\"timeline\":[{\"id\":\"RBK-371433-1\",\"type\":\"CONFLICT_AVOIDED\",\"name\":\"Conflito evitado\",\"track\":\"SAFETY\",\"importance\":18,\"minute\":2,\"detail\":\"self-check\",\"at\":\"2026-06-24T19:29:31.433Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"kind\":\"BOOKMARK\"},{\"id\":\"RBK-371435-2\",\"type\":\"FIRST_CLEARANCE\",\"name\":\"Primeira autorização\",\"track\":\"CLEARANCE\",\"importance\":8,\"minute\":1,\"detail\":\"Sessão iniciada e primeira autorização registrada.\",\"at\":\"2026-06-24T19:29:31.435Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"kind\":\"BOOKMARK\"},{\"id\":\"RBK-371435-3\",\"type\":\"CONFLICT_AVOIDED\",\"name\":\"Conflito evitado\",\"track\":\"SAFETY\",\"importance\":18,\"minute\":4,\"detail\":\"Separação mantida sem conflitos.\",\"at\":\"2026-06-24T19:29:31.435Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"kind\":\"BOOKMARK\"},{\"id\":\"RBK-371435-4\",\"type\":\"MISSION_OBJECTIVE\",\"name\":\"Objetivo de missão\",\"track\":\"MISSION\",\"importance\":16,\"minute\":9,\"detail\":\"Missão avaliada com nota A.\",\"at\":\"2026-06-24T19:29:31.435Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"kind\":\"BOOKMARK\"},{\"id\":\"RBK-371435-5\",\"type\":\"RANK_UP\",\"name\":\"Promoção de carreira\",\"track\":\"MISSION\",\"importance\":14,\"minute\":10,\"detail\":\"XP ganho: 260.\",\"at\":\"2026-06-24T19:29:31.435Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"kind\":\"BOOKMARK\"},{\"id\":\"RBK-371437-6\",\"type\":\"CONFLICT_AVOIDED\",\"name\":\"Conflito evitado\",\"track\":\"SAFETY\",\"importance\":18,\"minute\":2,\"detail\":\"self-check\",\"at\":\"2026-06-24T19:29:31.437Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"kind\":\"BOOKMARK\"},{\"id\":\"RBK-371438-7\",\"type\":\"FIRST_CLEARANCE\",\"name\":\"Primeira autorização\",\"track\":\"CLEARANCE\",\"importance\":8,\"minute\":1,\"detail\":\"Sessão iniciada e primeira autorização registrada.\",\"at\":\"2026-06-24T19:29:31.438Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"kind\":\"BOOKMARK\"},{\"id\":\"RBK-371438-8\",\"type\":\"CONFLICT_AVOIDED\",\"name\":\"Conflito evitado\",\"track\":\"SAFETY\",\"importance\":18,\"minute\":4,\"detail\":\"Separação mantida sem conflitos.\",\"at\":\"2026-06-24T19:29:31.438Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"kind\":\"BOOKMARK\"},{\"id\":\"RBK-371438-9\",\"type\":\"MISSION_OBJECTIVE\",\"name\":\"Objetivo de missão\",\"track\":\"MISSION\",\"importance\":16,\"minute\":9,\"detail\":\"Missão avaliada com nota A.\",\"at\":\"2026-06-24T19:29:31.438Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"kind\":\"BOOKMARK\"},{\"id\":\"RBK-371438-10\",\"type\":\"RANK_UP\",\"name\":\"Promoção de carreira\",\"track\":\"MISSION\",\"importance\":14,\"minute\":10,\"detail\":\"XP ganho: 260.\",\"at\":\"2026-06-24T19:29:31.438Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"kind\":\"BOOKMARK\"}],\"heatmap\":{\"RUNWAY\":0,\"APPROACH\":0,\"GROUND\":0,\"RADIO\":0,\"WEATHER\":26,\"WORKLOAD\":19,\"MISSION\":0,\"STABILITY\":0},\"exports\":[{\"id\":\"EXP-371439\",\"profile\":\"INSTRUCTOR_FULL\",\"at\":\"2026-06-24T19:29:31.439Z\",\"score\":86,\"status\":\"REVIEWABLE\",\"events\":10},{\"id\":\"EXP-371437\",\"profile\":\"INSTRUCTOR_FULL\",\"at\":\"2026-06-24T19:29:31.437Z\",\"score\":86,\"status\":\"REVIEWABLE\",\"events\":5}],\"criticalMoments\":0,\"topZone\":\"WEATHER\",\"lastEvaluation\":{\"at\":\"2026-06-24T19:29:31.438Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"airport\":\"SBGR\",\"replayScore\":86,\"status\":\"REVIEWABLE\",\"statusName\":\"Bom para revisão\",\"criticalMoments\":0,\"heatmapRisk\":6,\"topZone\":\"WEATHER\",\"timelineEvents\":10,\"bookmarks\":10,\"exportProfile\":\"QUICK_REVIEW\",\"finalScore\":2800},\"history\":[{\"at\":\"2026-06-24T19:29:31.438Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"airport\":\"SBGR\",\"replayScore\":86,\"status\":\"REVIEWABLE\",\"statusName\":\"Bom para revisão\",\"criticalMoments\":0,\"heatmapRisk\":6,\"topZone\":\"WEATHER\",\"timelineEvents\":10,\"bookmarks\":10,\"exportProfile\":\"QUICK_REVIEW\",\"finalScore\":2800},{\"at\":\"2026-06-24T19:29:31.437Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"airport\":\"SBGR\",\"replayScore\":86,\"status\":\"REVIEWABLE\",\"statusName\":\"Bom para revisão\",\"criticalMoments\":0,\"heatmapRisk\":6,\"topZone\":\"WEATHER\",\"timelineEvents\":5,\"bookmarks\":5,\"exportProfile\":\"QUICK_REVIEW\",\"finalScore\":2800}]}"
+    },
+    {
+      "name": "bookmark cria evento",
+      "ok": true,
+      "detail": "{\"id\":\"RBK-371439-11\",\"type\":\"LOSS_SEPARATION\",\"name\":\"Perda de separação\",\"track\":\"SAFETY\",\"importance\":34,\"minute\":3,\"detail\":\"teste\",\"at\":\"2026-06-24T19:29:31.439Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\"}"
+    },
+    {
+      "name": "avaliação gera replay",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T19:29:31.440Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"airport\":\"SBGR\",\"replayScore\":84.8,\"status\":\"REVIEWABLE\",\"statusName\":\"Bom para revisão\",\"criticalMoments\":1,\"heatmapRisk\":6,\"topZone\":\"WEATHER\",\"timelineEvents\":15,\"bookmarks\":15,\"exportProfile\":\"QUICK_REVIEW\",\"finalScore\":3000}"
+    },
+    {
+      "name": "heatmap detecta risco",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T19:29:31.446Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"airport\":\"SBGR\",\"replayScore\":62.2,\"status\":\"LESSON\",\"statusName\":\"Replay de aprendizado\",\"criticalMoments\":4,\"heatmapRisk\":23,\"topZone\":\"APPROACH\",\"timelineEvents\":22,\"bookmarks\":22,\"exportProfile\":\"QUICK_REVIEW\",\"finalScore\":1800}"
+    },
+    {
+      "name": "export completo válido",
+      "ok": true,
+      "detail": "{\"schema\":1,\"profile\":\"INSTRUCTOR_FULL\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"at\":\"2026-06-24T19:29:31.446Z\",\"replayScore\":62.2,\"status\":\"LESSON\",\"criticalMoments\":4,\"topZone\":\"APPROACH\",\"timeline\":[{\"id\":\"RBK-371433-1\",\"type\":\"CONFLICT_AVOIDED\",\"name\":\"Conflito evitado\",\"track\":\"SAFETY\",\"importanc"
+    },
+    {
+      "name": "progress contém replay",
+      "ok": true,
+      "detail": "{\"score\":62.2,\"status\":\"LESSON\",\"bookmarks\":22,\"timelineEvents\":22,\"criticalMoments\":4,\"topZone\":\"APPROACH\",\"exports\":3,\"last\":{\"at\":\"2026-06-24T19:29:31.446Z\",\"build\":\"SC-1.58.0-F58-20260624-2030\",\"airport\":\"SBGR\",\"replayScore\":62.2,\"status\":\"LESSON\",\"statusName\":\"Replay de aprendizado\",\"criticalMoments\":4,\"heatmapRisk\":23,\"topZone\":\"APPROACH\",\"timelineEvents\":22,\"bookmarks\":22,\"exportProfile\":\"QUICK_REVIEW\",\"finalScore\":1800}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"CLEAN\",\"min\":92,\"name\":\"Replay limpo\"},{\"id\":\"REVIEWABLE\",\"min\":78,\"name\":\"Bom para revisão\"},{\"id\":\"LESSON\",\"min\":58,\"name\":\"Replay de aprendizado\"},{\"id\":\"CRITICAL\",\"min\":0,\"name\":\"Replay crítico\"}]"
+    }
+  ]
+}

@@ -278,6 +278,11 @@
       "description": "Instructor debrief, replay analytics, error review, strengths, feedback and training drills"
     },
     {
+      "file": "61-replay-timeline-heatmap-center.js",
+      "name": "replay-timeline-heatmap-center",
+      "description": "Replay timeline, bookmarks, performance heatmap, critical moments and session export"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

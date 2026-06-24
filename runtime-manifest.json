@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "architectureGeneration": 57,
-  "strategy": "mobile-stability-hotfix-safe-mode-pace-instructor-debrief-replay-analytics-center-feedback-training-campaign-progression-licenses-achievements-center-xp-ranks-scenario-mission-generator-center-missions-objectives-events-live-ops-remote-config-center-feature-flags-killswitch-pwa-update-cache-migration-center-version-guard-service-worker-stability-observatory-diagnostics-center-safe-mode-pwa-cache-adaptive-pace-workload-director-mobile-balance-cooldown-non-aeronautical-revenue-center-retail-dutyfree-parking-terminal-flow-landside-center-queues-security-checkin-cargo-logistics-operations-center-uld-dg-coldchain-freight-ground-handling-turnaround-center-gate-pushback-sla-radio-phraseology-vhf-readback-hearback-cpdlc-advanced-advanced-weather-ifr-vfr-surface-safety-director-ai-copilot-decision-support-center-recommendations-alerts-digital-twin-predictive-center-forecast-whatif-bottleneck-asset-maintenance-reliability-center-radar-ils-mtbf-mttr-security-cyber-defense-center-screening-perimeter-soc-emergency-response-disaster-center-arff-evacuation-medical-multi-airport-network-center-hubs-routes-slots-passenger-reputation-center-nps-complaints-public-image-workforce-staffing-center-roster-fatigue-training-revenue-management-commercial-center-financial-strategy-environment-sustainability-center-esg-noise-emissions-infrastructure-expansion-program-capex-maintenance-capacity-safety-compliance-center-sms-audit-corrective-actions-crisis-command-center-irregular-ops-airport-authority-terminal-ops-passenger-experience-airline-operations-center-sla-demand-international-campaign-contracts-seasons-training-coach-debriefing-adaptive-study-training-academy-certification-guided-missions-public-ops-feedback-telemetry-hotfix-post-publish-healthcheck-github-pages-pwa-hotfix-post-gold-master-real-device-qa-screenshots-github-pages-gold-master-packaging-final-store-pwa-player-manual-public-release-candidate-qa-final-balance-guided-tutorial-commercial-mobile-aaa-polish-responsive-hud-onboarding-local-async-control-room-ranking-shared-replay-international-network-flow-slots-connections-alternates-complex-operational-incidents-emergency-multiagency-airport-operational-economy-contracts-delay-costs-efficiency-deep-controller-career-licenses-ratings-fatigue-reputation-published-procedures-sid-star-ils-rnav-holdings-advanced-ifr-vfr-weather-realistic-airport-surface-graph-realistic-aircraft-performance-deterministic-replay-clock-professional-accessibility-settings-desktop-tablet-workspace-adaptive-mobile-ux-installable-offline-pwa-transactional-save-vault-quality-gated-typescript-modules",
+  "architectureGeneration": 58,
+  "strategy": "mobile-stability-hotfix-safe-mode-pace-replay-timeline-heatmap-center-bookmarks-session-export-instructor-debrief-replay-analytics-center-feedback-training-campaign-progression-licenses-achievements-center-xp-ranks-scenario-mission-generator-center-missions-objectives-events-live-ops-remote-config-center-feature-flags-killswitch-pwa-update-cache-migration-center-version-guard-service-worker-stability-observatory-diagnostics-center-safe-mode-pwa-cache-adaptive-pace-workload-director-mobile-balance-cooldown-non-aeronautical-revenue-center-retail-dutyfree-parking-terminal-flow-landside-center-queues-security-checkin-cargo-logistics-operations-center-uld-dg-coldchain-freight-ground-handling-turnaround-center-gate-pushback-sla-radio-phraseology-vhf-readback-hearback-cpdlc-advanced-advanced-weather-ifr-vfr-surface-safety-director-ai-copilot-decision-support-center-recommendations-alerts-digital-twin-predictive-center-forecast-whatif-bottleneck-asset-maintenance-reliability-center-radar-ils-mtbf-mttr-security-cyber-defense-center-screening-perimeter-soc-emergency-response-disaster-center-arff-evacuation-medical-multi-airport-network-center-hubs-routes-slots-passenger-reputation-center-nps-complaints-public-image-workforce-staffing-center-roster-fatigue-training-revenue-management-commercial-center-financial-strategy-environment-sustainability-center-esg-noise-emissions-infrastructure-expansion-program-capex-maintenance-capacity-safety-compliance-center-sms-audit-corrective-actions-crisis-command-center-irregular-ops-airport-authority-terminal-ops-passenger-experience-airline-operations-center-sla-demand-international-campaign-contracts-seasons-training-coach-debriefing-adaptive-study-training-academy-certification-guided-missions-public-ops-feedback-telemetry-hotfix-post-publish-healthcheck-github-pages-pwa-hotfix-post-gold-master-real-device-qa-screenshots-github-pages-gold-master-packaging-final-store-pwa-player-manual-public-release-candidate-qa-final-balance-guided-tutorial-commercial-mobile-aaa-polish-responsive-hud-onboarding-local-async-control-room-ranking-shared-replay-international-network-flow-slots-connections-alternates-complex-operational-incidents-emergency-multiagency-airport-operational-economy-contracts-delay-costs-efficiency-deep-controller-career-licenses-ratings-fatigue-reputation-published-procedures-sid-star-ils-rnav-holdings-advanced-ifr-vfr-weather-realistic-airport-surface-graph-realistic-aircraft-performance-deterministic-replay-clock-professional-accessibility-settings-desktop-tablet-workspace-adaptive-mobile-ux-installable-offline-pwa-transactional-save-vault-quality-gated-typescript-modules",
   "sourceRoot": "src/runtime",
   "entry": "main.js",
-  "moduleCount": 66,
+  "moduleCount": 67,
   "modules": [
     {
       "order": 1,
@@ -503,6 +503,15 @@
     },
     {
       "order": 56,
+      "file": "61-replay-timeline-heatmap-center.js",
+      "name": "replay-timeline-heatmap-center",
+      "description": "Replay timeline, bookmarks, performance heatmap, critical moments and session export",
+      "lines": 221,
+      "bytes": 13961,
+      "sha256": "0db7233851a54ea28e53742dcd16bf2b2313578b6fead69f577da7cdcddcb42c"
+    },
+    {
+      "order": 57,
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk",
@@ -511,16 +520,16 @@
       "sha256": "65ea3273d6a272d0ee7f2756fbda0d6b371deac1ade21fb8b3c3c64ef9499c3e"
     },
     {
-      "order": 57,
+      "order": 58,
       "file": "06-traffic-requests.js",
       "name": "06-traffic-requests",
       "description": "Aircraft creation, callsigns, requests and game start",
       "lines": 112,
-      "bytes": 10063,
-      "sha256": "17379d6dd5e1c8dda1033ff8e393c2430d87745f163b21c8dba6f7d1941f9d93"
+      "bytes": 10093,
+      "sha256": "97161047524d504424497c399740080784c20e64d36e98e7732fe34f318a57b5"
     },
     {
-      "order": 58,
+      "order": 59,
       "file": "07-simulation-safety.js",
       "name": "07-simulation-safety",
       "description": "Game loop, simulation, conflict prediction and safety",
@@ -529,7 +538,7 @@
       "sha256": "ad6c41aafe4110848b040c3ce38dc2ed4b5a150bbf410592d8233793c0a3e668"
     },
     {
-      "order": 59,
+      "order": 60,
       "file": "08-radar-rendering.js",
       "name": "08-radar-rendering",
       "description": "Radar, operational map, procedures, telemetry and aircraft drawing",
@@ -538,16 +547,16 @@
       "sha256": "d8f7d534d5b1c9c476ed906b9392539b8c397f3774451f2fcb52f41ccc5b2437"
     },
     {
-      "order": 60,
+      "order": 61,
       "file": "09-ui-clearances.js",
       "name": "09-ui-clearances",
       "description": "Traffic UI, requests, commands, clearances and action grids",
-      "lines": 260,
-      "bytes": 35063,
-      "sha256": "377ddb6edac76383231b0e7ef18117c074e25a634afdb0ffd4587e8b8a282785"
+      "lines": 261,
+      "bytes": 35400,
+      "sha256": "149c0a684b56d36ca95fc483d121b2d80791077dcf2fa54443c30cd82a678ffe"
     },
     {
-      "order": 61,
+      "order": 62,
       "file": "10-events-selftest-bootstrap.js",
       "name": "10-events-selftest-bootstrap",
       "description": "Desktop events, filters, safe-mode controls and self-test bootstrap",
@@ -556,7 +565,7 @@
       "sha256": "284b47ac5f0d1915b60a4c2e3ed2afd8471e11d394d9e18965ce77e3f7d38202"
     },
     {
-      "order": 62,
+      "order": 63,
       "file": "11-mobile-runtime.js",
       "name": "11-mobile-runtime",
       "description": "Adaptive mobile UX, edge gestures, touch-safe dock, haptics and responsive viewport modes",
@@ -565,7 +574,7 @@
       "sha256": "1325cef88e0fecb136ebb81a1e0af59b8c44555204cb03b8afed170b45a716b7"
     },
     {
-      "order": 63,
+      "order": 64,
       "file": "12-desktop-workspace.js",
       "name": "desktop-workspace",
       "description": "Professional tablet and desktop workspace, keyboard shortcuts, persistent density and resizable operational panels",
@@ -574,7 +583,7 @@
       "sha256": "fa48b51833cd06b55a1b0f6843bec3bfc4a5981c3344ac2c0417d4bc570cba98"
     },
     {
-      "order": 64,
+      "order": 65,
       "file": "13-accessibility-settings.js",
       "name": "accessibility-settings",
       "description": "Professional accessibility, visual, audio, performance and control settings layer",
@@ -583,7 +592,7 @@
       "sha256": "7ef356346e8d891b580286a18316cc6a507c2e20f21823ce73f669fffeee8e6c"
     },
     {
-      "order": 65,
+      "order": 66,
       "file": "14-deterministic-replay.js",
       "name": "deterministic-replay",
       "description": "Deterministic simulation clock, seeded replay recorder, state checksums and technical replay export",
@@ -592,7 +601,7 @@
       "sha256": "7a6a039013eade37ab95643b0f0b83f6c25b0604ea15e8e8e117e6b1d16c96c9"
     },
     {
-      "order": 66,
+      "order": 67,
       "file": "12-quality-test-bridge.js",
       "name": "quality-test-bridge",
       "description": "QA-gated integration bridge for deterministic browser scenarios",
@@ -602,8 +611,8 @@
     }
   ],
   "bundle": {
-    "bytes": 861829,
-    "lines": 12240,
-    "sha256": "295d7d54ce9441ac33858e7ec77f7c25ea1ed5f6fb1ea7851df9846c90adaaf7"
+    "bytes": 876257,
+    "lines": 12464,
+    "sha256": "ebaa19cfa77a65244398d9b08c80fc17b549ddc3168543516d01fa4de0b0b951"
   }
 }

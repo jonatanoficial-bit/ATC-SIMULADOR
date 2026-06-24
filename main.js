@@ -10402,7 +10402,230 @@ window.SKYWARD_INSTRUCTOR_DEBRIEF=Object.freeze({
   selfCheck:instructorDebriefSelfCheck
 });
 
-/* ===== MODULE 56: surface-safety-director (17-surface-safety-director.js) ===== */
+/* ===== MODULE 56: replay-timeline-heatmap-center (61-replay-timeline-heatmap-center.js) ===== */
+/* @skyward-module 61-replay-timeline-heatmap-center
+ * Replay timeline, performance heatmap and session export center for mission review, bookmarks, critical moments and training reports.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('61-replay-timeline-heatmap-center');
+const REPLAY_TIMELINE_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f58',
+  timelineTracks:[
+    {id:'TRAFFIC',name:'Tráfego',weight:14,colorHint:'blue'},
+    {id:'CLEARANCE',name:'Autorizações',weight:14,colorHint:'green'},
+    {id:'SAFETY',name:'Segurança',weight:20,colorHint:'red'},
+    {id:'RADIO',name:'Rádio',weight:12,colorHint:'purple'},
+    {id:'WEATHER',name:'Clima',weight:10,colorHint:'cyan'},
+    {id:'MISSION',name:'Missão',weight:12,colorHint:'gold'},
+    {id:'PACE',name:'Ritmo',weight:10,colorHint:'teal'},
+    {id:'SYSTEM',name:'Sistema',weight:8,colorHint:'gray'}
+  ],
+  bookmarkTypes:[
+    {id:'FIRST_CLEARANCE',name:'Primeira autorização',importance:8,track:'CLEARANCE'},
+    {id:'CONFLICT_AVOIDED',name:'Conflito evitado',importance:18,track:'SAFETY'},
+    {id:'LOSS_SEPARATION',name:'Perda de separação',importance:34,track:'SAFETY'},
+    {id:'RUNWAY_EVENT',name:'Evento de pista',importance:30,track:'SAFETY'},
+    {id:'RADIO_ERROR',name:'Erro de rádio',importance:18,track:'RADIO'},
+    {id:'WEATHER_SHIFT',name:'Mudança climática',importance:20,track:'WEATHER'},
+    {id:'WORKLOAD_SPIKE',name:'Pico de workload',importance:22,track:'PACE'},
+    {id:'MISSION_OBJECTIVE',name:'Objetivo de missão',importance:16,track:'MISSION'},
+    {id:'SAFE_MODE',name:'Modo seguro',importance:32,track:'SYSTEM'},
+    {id:'RANK_UP',name:'Promoção de carreira',importance:14,track:'MISSION'}
+  ],
+  heatmapZones:[
+    {id:'RUNWAY',name:'Pista',riskWeight:24},
+    {id:'APPROACH',name:'Aproximação',riskWeight:20},
+    {id:'GROUND',name:'Solo',riskWeight:14},
+    {id:'RADIO',name:'Rádio',riskWeight:12},
+    {id:'WEATHER',name:'Clima',riskWeight:16},
+    {id:'WORKLOAD',name:'Workload',riskWeight:18},
+    {id:'MISSION',name:'Objetivos',riskWeight:10},
+    {id:'STABILITY',name:'Estabilidade',riskWeight:15}
+  ],
+  exportProfiles:[
+    {id:'QUICK_REVIEW',name:'Revisão rápida',includeTimeline:true,includeHeatmap:true,includeRaw:false},
+    {id:'INSTRUCTOR_FULL',name:'Instrutor completo',includeTimeline:true,includeHeatmap:true,includeRaw:true},
+    {id:'MOBILE_SUMMARY',name:'Resumo mobile',includeTimeline:true,includeHeatmap:false,includeRaw:false},
+    {id:'DEBUG_SESSION',name:'Debug sessão',includeTimeline:true,includeHeatmap:true,includeRaw:true}
+  ],
+  replayBands:[
+    {id:'CLEAN',min:92,name:'Replay limpo'},
+    {id:'REVIEWABLE',min:78,name:'Bom para revisão'},
+    {id:'LESSON',min:58,name:'Replay de aprendizado'},
+    {id:'CRITICAL',min:0,name:'Replay crítico'}
+  ]
+});
+const REPLAY_TIMELINE_KEY='skywardReplayTimeline_v1';
+let replayTimelineState={schema:1,replayScore:0,status:'LESSON',bookmarks:[],timeline:[],heatmap:{},exports:[],criticalMoments:0,topZone:'MISSION',lastEvaluation:null,history:[]};
+function loadReplayTimeline(){try{const raw=localStorage?.getItem?.(REPLAY_TIMELINE_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)replayTimelineState={...replayTimelineState,...parsed};}}catch(e){safeLogError?.(e,'replay-timeline-load');}return replayTimelineState;}
+function saveReplayTimeline(){try{localStorage?.setItem?.(REPLAY_TIMELINE_KEY,JSON.stringify(replayTimelineState));}catch(e){safeLogError?.(e,'replay-timeline-save');}return replayTimelineState;}
+function replayBand(score){return REPLAY_TIMELINE_CATALOG.replayBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||REPLAY_TIMELINE_CATALOG.replayBands.at(-1);}
+function bookmarkType(id){return REPLAY_TIMELINE_CATALOG.bookmarkTypes.find(b=>b.id===id)||REPLAY_TIMELINE_CATALOG.bookmarkTypes[0];}
+function addReplayBookmark(typeId,minute=0,detail=''){
+  loadReplayTimeline();
+  const type=bookmarkType(typeId);
+  const item={id:`RBK-${String(Date.now()).slice(-6)}-${replayTimelineState.bookmarks.length+1}`,type:type.id,name:type.name,track:type.track,importance:type.importance,minute:Number(minute||0),detail:String(detail||type.name),at:new Date().toISOString(),build:BUILD};
+  replayTimelineState.bookmarks.push(item);
+  replayTimelineState.timeline.push({...item,kind:'BOOKMARK'});
+  replayTimelineState.bookmarks=replayTimelineState.bookmarks.slice(-120);
+  replayTimelineState.timeline=replayTimelineState.timeline.slice(-180);
+  saveReplayTimeline();
+  return item;
+}
+function buildSessionBookmarks(statsObj={},fail=false){
+  const marks=[];
+  const conflicts=Number(statsObj.conflicts||0);
+  const incursions=Number(statsObj.runwayIncursions||0);
+  const denied=Number(statsObj.denied||0);
+  const scenario=window.SKYWARD_SCENARIO_MISSION?.progress?.()||{};
+  const campaign=window.SKYWARD_CAMPAIGN_PROGRESSION?.progress?.()||{};
+  const stability=window.SKYWARD_STABILITY_DIAGNOSTICS?.progress?.()||{};
+  const debrief=window.SKYWARD_INSTRUCTOR_DEBRIEF?.progress?.()||{};
+  const pace=window.SKYWARD_ADAPTIVE_PACE?.progress?.()||{};
+  marks.push({type:'FIRST_CLEARANCE',minute:1,detail:'Sessão iniciada e primeira autorização registrada.'});
+  if(conflicts>0) marks.push({type:'LOSS_SEPARATION',minute:3,detail:`${conflicts} conflito(s) detectado(s).`});
+  else marks.push({type:'CONFLICT_AVOIDED',minute:4,detail:'Separação mantida sem conflitos.'});
+  if(incursions>0) marks.push({type:'RUNWAY_EVENT',minute:5,detail:`${incursions} evento(s) de pista.`});
+  if(denied>1) marks.push({type:'WORKLOAD_SPIKE',minute:6,detail:`${denied} negativas indicam pressão operacional.`});
+  if(Number(pace.workload||0)>=75) marks.push({type:'WORKLOAD_SPIKE',minute:7,detail:`Workload alto: ${pace.workload}.`});
+  if(Number(stability.safeModeCount||0)>0||fail) marks.push({type:'SAFE_MODE',minute:8,detail:'Modo seguro ou falha de sessão observado.'});
+  if(scenario.last?.grade||scenario.grade) marks.push({type:'MISSION_OBJECTIVE',minute:9,detail:`Missão avaliada com nota ${scenario.last?.grade||scenario.grade}.`});
+  if(Number(campaign.last?.xpGained||0)>0) marks.push({type:'RANK_UP',minute:10,detail:`XP ganho: ${campaign.last.xpGained}.`});
+  if(String(debrief.status||'').includes('TRAINING')||String(debrief.status||'').includes('REMEDIAL')) marks.push({type:'RADIO_ERROR',minute:11,detail:`Treino recomendado: ${debrief.recommendedDrill||'revisão'}.`});
+  return marks;
+}
+function buildReplayHeatmap(statsObj={},fail=false){
+  const conflicts=Number(statsObj.conflicts||0);
+  const incursions=Number(statsObj.runwayIncursions||0);
+  const denied=Number(statsObj.denied||0);
+  const debrief=window.SKYWARD_INSTRUCTOR_DEBRIEF?.status?.()||{};
+  const stability=window.SKYWARD_STABILITY_DIAGNOSTICS?.progress?.()||{};
+  const pace=window.SKYWARD_ADAPTIVE_PACE?.progress?.()||{};
+  const radio=window.SKYWARD_RADIO_PHRASEOLOGY?.status?.()?.progress||{};
+  const heat={};
+  for(const z of REPLAY_TIMELINE_CATALOG.heatmapZones) heat[z.id]=0;
+  heat.RUNWAY+=incursions*34;
+  heat.APPROACH+=conflicts*26;
+  heat.GROUND+=denied*7;
+  heat.RADIO+=Math.max(0,84-Number(radio.score||84))*.8;
+  heat.WORKLOAD+=Number(pace.workload||0)*.45+denied*5;
+  heat.STABILITY+=Number(stability.safeModeCount||0)*32+(fail?20:0);
+  heat.MISSION+=Math.max(0,80-Number((debrief.lastDebrief||debrief.last||{}).missionScore||80))*.55;
+  heat.WEATHER+=String((window.SKYWARD_SCENARIO_MISSION?.progress?.().activeMission?.weather?.id)||'').includes('STORM')?26:8;
+  for(const key of Object.keys(heat)) heat[key]=Math.max(0,Math.min(100,Math.round(heat[key])));
+  return heat;
+}
+function topHeatZone(heatmap){
+  return Object.entries(heatmap||{}).sort((a,b)=>b[1]-a[1])[0]?.[0]||'MISSION';
+}
+function exportReplaySession(profileId='QUICK_REVIEW'){
+  loadReplayTimeline();
+  const profile=REPLAY_TIMELINE_CATALOG.exportProfiles.find(p=>p.id===profileId)||REPLAY_TIMELINE_CATALOG.exportProfiles[0];
+  const report={
+    schema:1,
+    profile:profile.id,
+    build:BUILD,
+    at:new Date().toISOString(),
+    replayScore:replayTimelineState.replayScore,
+    status:replayTimelineState.status,
+    criticalMoments:replayTimelineState.criticalMoments,
+    topZone:replayTimelineState.topZone,
+    timeline:profile.includeTimeline?replayTimelineState.timeline.slice(-60):[],
+    heatmap:profile.includeHeatmap?replayTimelineState.heatmap:{},
+    debrief:window.SKYWARD_INSTRUCTOR_DEBRIEF?.progress?.()||null,
+    campaign:window.SKYWARD_CAMPAIGN_PROGRESSION?.progress?.()||null,
+    mission:window.SKYWARD_SCENARIO_MISSION?.progress?.()||null,
+    raw:profile.includeRaw?{bookmarks:replayTimelineState.bookmarks,history:replayTimelineState.history}:undefined
+  };
+  replayTimelineState.exports.unshift({id:`EXP-${String(Date.now()).slice(-6)}`,profile:profile.id,at:report.at,score:report.replayScore,status:report.status,events:report.timeline.length});
+  replayTimelineState.exports=replayTimelineState.exports.slice(0,40);
+  saveReplayTimeline();
+  return report;
+}
+function evaluateReplayTimeline(finalScore=0,statsObj={},fail=false,airportCode=''){
+  loadReplayTimeline();
+  const sessionMarks=buildSessionBookmarks(statsObj,fail);
+  for(const m of sessionMarks) addReplayBookmark(m.type,m.minute,m.detail);
+  const heat=buildReplayHeatmap(statsObj,fail);
+  const risk=Object.values(heat).reduce((a,b)=>a+Number(b||0),0)/Math.max(1,Object.values(heat).length);
+  const critical=replayTimelineState.bookmarks.filter(b=>Number(b.importance||0)>=24).length;
+  const debrief=window.SKYWARD_INSTRUCTOR_DEBRIEF?.progress?.()||{};
+  const mission=window.SKYWARD_SCENARIO_MISSION?.progress?.()||{};
+  const base=Math.round((Number(debrief.score||76)*.35)+(Number(mission.score||76)*.28)+(Math.max(0,100-risk)*.27)+Math.min(10,Number(finalScore||0)/500));
+  const replayScore=Math.max(0,Math.min(100,base-(fail?12:0)-Math.min(14,critical*1.2)));
+  const band=replayBand(replayScore);
+  replayTimelineState.heatmap=heat;
+  replayTimelineState.replayScore=replayScore;
+  replayTimelineState.status=band.id;
+  replayTimelineState.criticalMoments=critical;
+  replayTimelineState.topZone=topHeatZone(heat);
+  const evaluation={at:new Date().toISOString(),build:BUILD,airport:airportCode||'SBSP',replayScore,status:band.id,statusName:band.name,criticalMoments:critical,heatmapRisk:Math.round(risk),topZone:replayTimelineState.topZone,timelineEvents:replayTimelineState.timeline.length,bookmarks:replayTimelineState.bookmarks.length,exportProfile:'QUICK_REVIEW',finalScore:Math.round(finalScore||0)};
+  replayTimelineState.lastEvaluation=evaluation;
+  replayTimelineState.history.unshift(evaluation);
+  replayTimelineState.history=replayTimelineState.history.slice(0,100);
+  saveReplayTimeline();
+  renderReplayTimelineBoard();
+  return {state:replayTimelineState,evaluation};
+}
+function replayTimelineProgress(){
+  loadReplayTimeline();
+  return {score:replayTimelineState.replayScore,status:replayTimelineState.status,bookmarks:replayTimelineState.bookmarks.length,timelineEvents:replayTimelineState.timeline.length,criticalMoments:replayTimelineState.criticalMoments,topZone:replayTimelineState.topZone,exports:replayTimelineState.exports.length,last:replayTimelineState.lastEvaluation||null};
+}
+function renderReplayTimelineBoard(){
+  try{
+    const anchor=document.querySelector('#instructorDebriefInline') || document.querySelector('#campaignProgressionInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#replayTimelineInline'); if(old) old.remove();
+    const p=replayTimelineProgress();
+    anchor.insertAdjacentHTML('afterend',`<div id="replayTimelineInline" class="airport-ops-board replay-timeline-inline">
+      <div class="airport-ops-head"><b>REPLAY OPS</b><span>${p.status}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>SCORE</small><b>${p.score}</b></div>
+        <div><small>BOOK</small><b>${p.bookmarks}</b></div>
+        <div><small>CRIT.</small><b>${p.criticalMoments}</b></div>
+        <div><small>ZONE</small><b>${p.topZone}</b></div>
+        <div><small>EVENT.</small><b>${p.timelineEvents}</b></div>
+        <div><small>EXP.</small><b>${p.exports}</b></div>
+      </div>
+    </div>`);
+  }catch(e){safeLogError?.(e,'replay-timeline-board');}
+}
+function initializeReplayTimeline(){
+  loadReplayTimeline();
+  if(!replayTimelineState.timeline.length) addReplayBookmark('FIRST_CLEARANCE',0,'Replay iniciado.');
+  renderReplayTimelineBoard();
+  return replayTimelineState;
+}
+function replayTimelineStatus(){loadReplayTimeline();return {...replayTimelineState,progress:replayTimelineProgress(),catalog:REPLAY_TIMELINE_CATALOG};}
+function replayTimelineSelfCheck(){
+  const issues=[];
+  if(REPLAY_TIMELINE_CATALOG.timelineTracks.length<8) issues.push('tracks insuficientes');
+  if(REPLAY_TIMELINE_CATALOG.bookmarkTypes.length<10) issues.push('bookmarks insuficientes');
+  const mark=addReplayBookmark('CONFLICT_AVOIDED',2,'self-check');
+  const evalResult=evaluateReplayTimeline(2800,{conflicts:0,denied:0,runwayIncursions:0},false,'SBGR');
+  const exported=exportReplaySession('INSTRUCTOR_FULL');
+  if(!mark.id) issues.push('bookmark inválido');
+  if(!Number.isFinite(evalResult.evaluation.replayScore)) issues.push('score inválido');
+  if(!exported.schema||!Array.isArray(exported.timeline)) issues.push('export inválido');
+  return {ok:issues.length===0,issues,tracks:REPLAY_TIMELINE_CATALOG.timelineTracks.length,bookmarks:REPLAY_TIMELINE_CATALOG.bookmarkTypes.length};
+}
+window.SKYWARD_REPLAY_TIMELINE=Object.freeze({
+  schema:1,
+  catalog:REPLAY_TIMELINE_CATALOG,
+  load:loadReplayTimeline,
+  save:saveReplayTimeline,
+  init:initializeReplayTimeline,
+  bookmark:addReplayBookmark,
+  export:exportReplaySession,
+  evaluate:evaluateReplayTimeline,
+  progress:replayTimelineProgress,
+  status:replayTimelineStatus,
+  board:renderReplayTimelineBoard,
+  selfCheck:replayTimelineSelfCheck
+});
+
+/* ===== MODULE 57: surface-safety-director (17-surface-safety-director.js) ===== */
 /* @skyward-module 17-surface-safety-director
  * Surface Safety Director: taxi conflicts, runway incursions, hotspots and ground command risk.
  * Canonical source for the generated main.js bundle.
@@ -10521,7 +10744,7 @@ function surfaceSafetySelfCheck(){
 }
 window.SKYWARD_SURFACE_SAFETY=Object.freeze({ schema:1, hotspots:SURFACE_HOTSPOTS, hotspotsFor:surfaceHotspotsFor, update:updateSurfaceSafetyDirector, commandRisk:surfaceCommandRisk, taxiConflicts:detectTaxiConflicts, runwayIncursions:detectRunwayIncursions, render:renderSurfaceSafetyBoard, selfCheck:surfaceSafetySelfCheck });
 
-/* ===== MODULE 57: 06-traffic-requests (06-traffic-requests.js) ===== */
+/* ===== MODULE 58: 06-traffic-requests (06-traffic-requests.js) ===== */
 /* @skyward-module 06-traffic-requests
  * Aircraft creation, callsigns, requests and game start.
  * Canonical source for the generated main.js bundle.
@@ -10621,7 +10844,7 @@ function startGame(){
   stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, surfaceConflicts:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
   mission = buildMission(); missionHistory=[];
   aircraft = [];
-  const a = airport(); applyAirportSurfaceGraph?.(a.icao); applyAirportOpsProfile(); initializeAdvancedWeather?.(); initializeProceduresLayer?.(); initializeCareerProfile?.(); renderEconomyBoard?.(); renderIncidentBoard?.(); renderNetworkFlowBoard?.(); renderControlRoomBoard?.(); initializeCommercialPolish?.(); initializeReleaseCandidateQA?.(); initializeGoldMasterPackage?.(); initializePostGoldMasterPublishing?.(); initializePostPublishHealthcheck?.(); initializePublicOps?.(); initializeTrainingAcademy?.(); initializeTrainingCoach?.(); initializeInternationalCampaign?.(); initializeAirlineOps?.(); initializeAirportAuthority?.(); initializeCrisisCommand?.(); initializeSafetyCompliance?.(); initializeInfrastructureExpansion?.(); initializeEnvironmentSustainability?.(); initializeRevenueManagement?.(); initializeWorkforceStaffing?.(); initializePassengerReputation?.(); initializeMultiAirportNetwork?.(); initializeEmergencyResponse?.(); initializeSecurityCyber?.(); initializeAssetMaintenance?.(); initializeDigitalTwin?.(); initializeAiCopilot?.(); initializeRadioPhraseology?.(); initializeGroundTurnaround?.(); initializeCargoLogistics?.(); initializeTerminalFlow?.(); initializeNonAeroRevenue?.(); initializeAdaptivePace?.(); initializeStabilityDiagnostics?.(); initializePwaUpdateManager?.(); initializeLiveOpsConfig?.(); initializeScenarioMission?.(); initializeCampaignProgression?.(); initializeInstructorDebrief?.(); window.SKYWARD_PUBLIC_OPS?.startTurn?.(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE'; if($('#sectorHelp')) $('#sectorHelp').textContent=(currentOpsProfile?.ops||'Torre ativa');
+  const a = airport(); applyAirportSurfaceGraph?.(a.icao); applyAirportOpsProfile(); initializeAdvancedWeather?.(); initializeProceduresLayer?.(); initializeCareerProfile?.(); renderEconomyBoard?.(); renderIncidentBoard?.(); renderNetworkFlowBoard?.(); renderControlRoomBoard?.(); initializeCommercialPolish?.(); initializeReleaseCandidateQA?.(); initializeGoldMasterPackage?.(); initializePostGoldMasterPublishing?.(); initializePostPublishHealthcheck?.(); initializePublicOps?.(); initializeTrainingAcademy?.(); initializeTrainingCoach?.(); initializeInternationalCampaign?.(); initializeAirlineOps?.(); initializeAirportAuthority?.(); initializeCrisisCommand?.(); initializeSafetyCompliance?.(); initializeInfrastructureExpansion?.(); initializeEnvironmentSustainability?.(); initializeRevenueManagement?.(); initializeWorkforceStaffing?.(); initializePassengerReputation?.(); initializeMultiAirportNetwork?.(); initializeEmergencyResponse?.(); initializeSecurityCyber?.(); initializeAssetMaintenance?.(); initializeDigitalTwin?.(); initializeAiCopilot?.(); initializeRadioPhraseology?.(); initializeGroundTurnaround?.(); initializeCargoLogistics?.(); initializeTerminalFlow?.(); initializeNonAeroRevenue?.(); initializeAdaptivePace?.(); initializeStabilityDiagnostics?.(); initializePwaUpdateManager?.(); initializeLiveOpsConfig?.(); initializeScenarioMission?.(); initializeCampaignProgression?.(); initializeInstructorDebrief?.(); initializeReplayTimeline?.(); window.SKYWARD_PUBLIC_OPS?.startTurn?.(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE'; if($('#sectorHelp')) $('#sectorHelp').textContent=(currentOpsProfile?.ops||'Torre ativa');
   const initialTraffic=airportInitialTrafficCount();
   for(let i=0;i<initialTraffic;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure')); // v0.9.6: tráfego inicial por perfil do aeroporto
   emergencyDirector={active:false,target:null,message:'Sem emergência ativa.',lastTick:performance.now()};
@@ -10635,7 +10858,7 @@ function startGame(){
   requestAnimationFrame(loop);
 }
 
-/* ===== MODULE 58: 07-simulation-safety (07-simulation-safety.js) ===== */
+/* ===== MODULE 59: 07-simulation-safety (07-simulation-safety.js) ===== */
 /* @skyward-module 07-simulation-safety
  * Game loop, simulation, conflict prediction and safety.
  * Canonical source for the generated main.js bundle.
@@ -10881,7 +11104,7 @@ function checkConflicts(){
   if(finals.length>1){ for(const p of finals) p.risk += .01; if(finals.some(p=>p.risk>.9)) return endGame(true,'Duas aeronaves autorizadas para a mesma final sem separação suficiente.'); }
 }
 
-/* ===== MODULE 59: 08-radar-rendering (08-radar-rendering.js) ===== */
+/* ===== MODULE 60: 08-radar-rendering (08-radar-rendering.js) ===== */
 /* @skyward-module 08-radar-rendering
  * Radar, operational map, procedures, telemetry and aircraft drawing.
  * Canonical source for the generated main.js bundle.
@@ -11139,7 +11362,7 @@ function drawPlane(p,w,h){
   ctx.restore();
 }
 
-/* ===== MODULE 60: 09-ui-clearances (09-ui-clearances.js) ===== */
+/* ===== MODULE 61: 09-ui-clearances (09-ui-clearances.js) ===== */
 /* @skyward-module 09-ui-clearances
  * Traffic UI, requests, commands, clearances and action grids.
  * Canonical source for the generated main.js bundle.
@@ -11324,11 +11547,12 @@ function endGame(fail,reason){
   const scenarioMissionResult = evaluateScenarioMission?.(final, stats, fail, airport().icao);
   const campaignProgressionResult = evaluateCampaignProgression?.(final, stats, fail, airport().icao);
   const instructorDebriefResult = evaluateInstructorDebrief?.(final, stats, fail, airport().icao);
+  const replayTimelineResult = evaluateReplayTimeline?.(final, stats, fail, airport().icao);
   persistProfile('end-game');
   $('#resultTitle').textContent = fail ? 'GAME OVER' : 'FIM DE TURNO';
   $('#resultReason').textContent = reason;
   $('#finalScore').textContent = final.toLocaleString('pt-BR');
-  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Conflitos de solo</span><b>${stats.surfaceConflicts||0}</b></div><div><span>Runway incursions</span><b>${stats.runwayIncursions||0}</b></div><div><span>Incidentes resolvidos</span><b>${stats.incidentsResolved||0}</b></div><div><span>Falhas em incidentes</span><b>${stats.incidentFailures||0}</b></div><div><span>Fechamentos de pista</span><b>${stats.runwayClosures||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>MAYDAY resolvidos</span><b>${stats.maydayResolved||0}</b></div><div><span>Combustível mínimo</span><b>${stats.lowFuel||0}</b></div><div><span>Danos/inspeções</span><b>${stats.damaged||0}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Debrief</span><b>${instructorDebriefResult?.evaluation ? instructorDebriefResult.evaluation.status : '---'}</b></div><div><span>Treino</span><b>${instructorDebriefResult?.evaluation ? instructorDebriefResult.evaluation.recommendedDrill : '---'}</b></div><div><span>Career</span><b>${campaignProgressionResult?.evaluation ? campaignProgressionResult.evaluation.rank : '---'}</b></div><div><span>XP Gain</span><b>${campaignProgressionResult?.evaluation ? campaignProgressionResult.evaluation.xpGained : '---'}</b></div><div><span>Mission</span><b>${scenarioMissionResult?.evaluation ? scenarioMissionResult.evaluation.grade : '---'}</b></div><div><span>Mission Score</span><b>${scenarioMissionResult?.evaluation ? scenarioMissionResult.evaluation.missionScore : '---'}</b></div><div><span>Live Ops</span><b>${liveOpsConfigResult?.evaluation ? liveOpsConfigResult.evaluation.profile : '---'}</b></div><div><span>Cfg Score</span><b>${liveOpsConfigResult?.evaluation ? liveOpsConfigResult.evaluation.configScore : '---'}</b></div><div><span>PWA Update</span><b>${pwaUpdateResult?.evaluation ? pwaUpdateResult.evaluation.status : '---'}</b></div><div><span>Cache Risk</span><b>${pwaUpdateResult?.evaluation ? pwaUpdateResult.evaluation.oldBundleRisk : '---'}</b></div><div><span>Stability</span><b>${stabilityDiagnosticsResult?.evaluation ? stabilityDiagnosticsResult.evaluation.status : '---'}</b></div><div><span>SafeMode</span><b>${stabilityDiagnosticsResult?.evaluation ? stabilityDiagnosticsResult.evaluation.safeModeCount : '---'}</b></div><div><span>Pace Director</span><b>${adaptivePaceResult?.evaluation ? adaptivePaceResult.evaluation.band : '---'}</b></div><div><span>Ritmo</span><b>${adaptivePaceResult?.evaluation ? adaptivePaceResult.evaluation.pace+'x' : '---'}</b></div><div><span>Non-Aero Rev</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.status : '---'}</b></div><div><span>Spend/Pax</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.spendPerPax : '---'}</b></div><div><span>Terminal Flow</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.status : '---'}</b></div><div><span>Fila Média</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.avgQueueMin+'m' : '---'}</b></div><div><span>Cargo Ops</span><b>${cargoLogisticsResult?.evaluation ? cargoLogisticsResult.evaluation.status : '---'}</b></div><div><span>Freight</span><b>${cargoLogisticsResult?.evaluation ? Math.round(cargoLogisticsResult.evaluation.freightRevenue/1000)+'k' : '---'}</b></div><div><span>Ground Ops</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.status : '---'}</b></div><div><span>TAT Médio</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.avgTurnaroundMin+'m' : '---'}</b></div><div><span>Radio Ops</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.status : '---'}</b></div><div><span>Readback</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.readbackRate+'%' : '---'}</b></div><div><span>AI Copilot</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.status : '---'}</b></div><div><span>Conf. IA</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Digital Twin</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.status : '---'}</b></div><div><span>Forecast</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Asset Rel</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.status : '---'}</b></div><div><span>Disponib.</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.availability+'%' : '---'}</b></div><div><span>Security SOC</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.status : '---'}</b></div><div><span>Nível Seg.</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.responseLevel : '---'}</b></div><div><span>Emergency Ops</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.status : '---'}</b></div><div><span>Resposta</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.responseTime+'m' : '---'}</b></div><div><span>Multi Hub</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.status : '---'}</b></div><div><span>Rede</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.networkScore+'%' : '---'}</b></div><div><span>Passenger XP</span><b>${passengerReputationResult?.evaluation ? passengerReputationResult.evaluation.status : '---'}</b></div><div><span>NPS</span><b>${passengerReputationResult?.evaluation ? Math.round(passengerReputationResult.evaluation.metrics.NPS) : '---'}</b></div><div><span>Workforce</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.status : '---'}</b></div><div><span>Fadiga Média</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.coverage.avgFatigue : '---'}</b></div><div><span>Rev Mgmt</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.status : '---'}</b></div><div><span>Margem</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.margin+'%' : '---'}</b></div><div><span>ENV ESG</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.status : '---'}</b></div><div><span>Licença Amb.</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.permitStatus : '---'}</b></div><div><span>Infra CAPEX</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.status : '---'}</b></div><div><span>Capacidade</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.capacityScore+'%' : '---'}</b></div><div><span>Safety SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.complianceStatus : '---'}</b></div><div><span>Achados SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.openFindings : '---'}</b></div><div><span>Crisis Cmd</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.status : '---'}</b></div><div><span>Recovery</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.recoveryStage : '---'}</b></div><div><span>Airport Auth</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.experience : '---'}</b></div><div><span>Terminal EXP</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.authorityScore+'%' : '---'}</b></div><div><span>Airline Ops</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.status : '---'}</b></div><div><span>SLA Cias</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.sla.weighted+'%' : '---'}</b></div><div><span>Campanha Intl</span><b>${internationalCampaignResult?.evaluation ? internationalCampaignResult.evaluation.status : '---'}</b></div><div><span>Contrato ativo</span><b>${internationalCampaignResult?.nextContract ? internationalCampaignResult.nextContract.airport : '---'}</b></div><div><span>Instrutor ATC</span><b>${trainingCoachResult?.debrief ? trainingCoachResult.debrief.level : '---'}</b></div><div><span>Plano de estudo</span><b>${trainingCoachResult?.studyPlan ? trainingCoachResult.studyPlan.length+' cards' : '---'}</b></div><div><span>Academia ATC</span><b>${trainingAcademyResult?.attempt ? (trainingAcademyResult.attempt.passed ? 'APROVADO' : 'TREINO') : '---'}</b></div><div><span>Próxima missão</span><b>${trainingAcademyResult?.nextMission ? trainingAcademyResult.nextMission.id : '---'}</b></div><div><span>Public Ops</span><b>${publicOpsResult ? publicOpsResult.status : '---'}</b></div><div><span>Ops Score</span><b>${publicOpsResult ? publicOpsResult.score+'%' : '---'}</b></div><div><span>Publish Health</span><b>${postPublishHealthResult ? postPublishHealthResult.status : '---'}</b></div><div><span>Health Score</span><b>${postPublishHealthResult ? postPublishHealthResult.score+'%' : '---'}</b></div><div><span>Publicação PWA</span><b>${postGoldMasterResult ? postGoldMasterResult.status : '---'}</b></div><div><span>Post-GM Ready</span><b>${postGoldMasterResult ? postGoldMasterResult.score+'%' : '---'}</b></div><div><span>Gold Master</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.status : '---'}</b></div><div><span>GM Score</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.score+'%' : '---'}</b></div><div><span>Release Candidate</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.status : '---'}</b></div><div><span>QA Score</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.score+'%' : '---'}</b></div><div><span>Replay compartilhável</span><b>${controlRoomResult?.replay ? 'GERADO' : '---'}</b></div><div><span>Ranking local</span><b>${controlRoomResult?.replay ? controlRoomResult.replay.tier : '---'}</b></div><div><span>Network Flow</span><b>${networkResult?.shift ? (networkResult.shift.route+' / '+Math.round(networkResult.shift.slotCompliance*100)+'%') : '---'}</b></div><div><span>Conexões protegidas</span><b>${networkResult?.network ? networkResult.network.connectionsProtected : 0}</b></div><div><span>Economia</span><b>${economyResult?.shift ? ('$'+Math.round(economyResult.shift.profit).toLocaleString('pt-BR')) : '---'}</b></div><div><span>Eficiência econômica</span><b>${economyResult?.shift ? economyResult.shift.efficiency+'%' : '---'}</b></div><div><span>Carreira</span><b>${careerResult?.career ? (careerResult.career.licenseId+' / '+careerResult.career.ratingId) : '---'}</b></div><div><span>Fadiga</span><b>${careerResult?.career ? Math.round(careerResult.career.fatigue)+'%' : '---'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
+  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Conflitos de solo</span><b>${stats.surfaceConflicts||0}</b></div><div><span>Runway incursions</span><b>${stats.runwayIncursions||0}</b></div><div><span>Incidentes resolvidos</span><b>${stats.incidentsResolved||0}</b></div><div><span>Falhas em incidentes</span><b>${stats.incidentFailures||0}</b></div><div><span>Fechamentos de pista</span><b>${stats.runwayClosures||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>MAYDAY resolvidos</span><b>${stats.maydayResolved||0}</b></div><div><span>Combustível mínimo</span><b>${stats.lowFuel||0}</b></div><div><span>Danos/inspeções</span><b>${stats.damaged||0}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Replay</span><b>${replayTimelineResult?.evaluation ? replayTimelineResult.evaluation.status : '---'}</b></div><div><span>Heatmap</span><b>${replayTimelineResult?.evaluation ? replayTimelineResult.evaluation.topZone : '---'}</b></div><div><span>Debrief</span><b>${instructorDebriefResult?.evaluation ? instructorDebriefResult.evaluation.status : '---'}</b></div><div><span>Treino</span><b>${instructorDebriefResult?.evaluation ? instructorDebriefResult.evaluation.recommendedDrill : '---'}</b></div><div><span>Career</span><b>${campaignProgressionResult?.evaluation ? campaignProgressionResult.evaluation.rank : '---'}</b></div><div><span>XP Gain</span><b>${campaignProgressionResult?.evaluation ? campaignProgressionResult.evaluation.xpGained : '---'}</b></div><div><span>Mission</span><b>${scenarioMissionResult?.evaluation ? scenarioMissionResult.evaluation.grade : '---'}</b></div><div><span>Mission Score</span><b>${scenarioMissionResult?.evaluation ? scenarioMissionResult.evaluation.missionScore : '---'}</b></div><div><span>Live Ops</span><b>${liveOpsConfigResult?.evaluation ? liveOpsConfigResult.evaluation.profile : '---'}</b></div><div><span>Cfg Score</span><b>${liveOpsConfigResult?.evaluation ? liveOpsConfigResult.evaluation.configScore : '---'}</b></div><div><span>PWA Update</span><b>${pwaUpdateResult?.evaluation ? pwaUpdateResult.evaluation.status : '---'}</b></div><div><span>Cache Risk</span><b>${pwaUpdateResult?.evaluation ? pwaUpdateResult.evaluation.oldBundleRisk : '---'}</b></div><div><span>Stability</span><b>${stabilityDiagnosticsResult?.evaluation ? stabilityDiagnosticsResult.evaluation.status : '---'}</b></div><div><span>SafeMode</span><b>${stabilityDiagnosticsResult?.evaluation ? stabilityDiagnosticsResult.evaluation.safeModeCount : '---'}</b></div><div><span>Pace Director</span><b>${adaptivePaceResult?.evaluation ? adaptivePaceResult.evaluation.band : '---'}</b></div><div><span>Ritmo</span><b>${adaptivePaceResult?.evaluation ? adaptivePaceResult.evaluation.pace+'x' : '---'}</b></div><div><span>Non-Aero Rev</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.status : '---'}</b></div><div><span>Spend/Pax</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.spendPerPax : '---'}</b></div><div><span>Terminal Flow</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.status : '---'}</b></div><div><span>Fila Média</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.avgQueueMin+'m' : '---'}</b></div><div><span>Cargo Ops</span><b>${cargoLogisticsResult?.evaluation ? cargoLogisticsResult.evaluation.status : '---'}</b></div><div><span>Freight</span><b>${cargoLogisticsResult?.evaluation ? Math.round(cargoLogisticsResult.evaluation.freightRevenue/1000)+'k' : '---'}</b></div><div><span>Ground Ops</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.status : '---'}</b></div><div><span>TAT Médio</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.avgTurnaroundMin+'m' : '---'}</b></div><div><span>Radio Ops</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.status : '---'}</b></div><div><span>Readback</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.readbackRate+'%' : '---'}</b></div><div><span>AI Copilot</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.status : '---'}</b></div><div><span>Conf. IA</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Digital Twin</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.status : '---'}</b></div><div><span>Forecast</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Asset Rel</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.status : '---'}</b></div><div><span>Disponib.</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.availability+'%' : '---'}</b></div><div><span>Security SOC</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.status : '---'}</b></div><div><span>Nível Seg.</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.responseLevel : '---'}</b></div><div><span>Emergency Ops</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.status : '---'}</b></div><div><span>Resposta</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.responseTime+'m' : '---'}</b></div><div><span>Multi Hub</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.status : '---'}</b></div><div><span>Rede</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.networkScore+'%' : '---'}</b></div><div><span>Passenger XP</span><b>${passengerReputationResult?.evaluation ? passengerReputationResult.evaluation.status : '---'}</b></div><div><span>NPS</span><b>${passengerReputationResult?.evaluation ? Math.round(passengerReputationResult.evaluation.metrics.NPS) : '---'}</b></div><div><span>Workforce</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.status : '---'}</b></div><div><span>Fadiga Média</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.coverage.avgFatigue : '---'}</b></div><div><span>Rev Mgmt</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.status : '---'}</b></div><div><span>Margem</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.margin+'%' : '---'}</b></div><div><span>ENV ESG</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.status : '---'}</b></div><div><span>Licença Amb.</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.permitStatus : '---'}</b></div><div><span>Infra CAPEX</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.status : '---'}</b></div><div><span>Capacidade</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.capacityScore+'%' : '---'}</b></div><div><span>Safety SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.complianceStatus : '---'}</b></div><div><span>Achados SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.openFindings : '---'}</b></div><div><span>Crisis Cmd</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.status : '---'}</b></div><div><span>Recovery</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.recoveryStage : '---'}</b></div><div><span>Airport Auth</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.experience : '---'}</b></div><div><span>Terminal EXP</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.authorityScore+'%' : '---'}</b></div><div><span>Airline Ops</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.status : '---'}</b></div><div><span>SLA Cias</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.sla.weighted+'%' : '---'}</b></div><div><span>Campanha Intl</span><b>${internationalCampaignResult?.evaluation ? internationalCampaignResult.evaluation.status : '---'}</b></div><div><span>Contrato ativo</span><b>${internationalCampaignResult?.nextContract ? internationalCampaignResult.nextContract.airport : '---'}</b></div><div><span>Instrutor ATC</span><b>${trainingCoachResult?.debrief ? trainingCoachResult.debrief.level : '---'}</b></div><div><span>Plano de estudo</span><b>${trainingCoachResult?.studyPlan ? trainingCoachResult.studyPlan.length+' cards' : '---'}</b></div><div><span>Academia ATC</span><b>${trainingAcademyResult?.attempt ? (trainingAcademyResult.attempt.passed ? 'APROVADO' : 'TREINO') : '---'}</b></div><div><span>Próxima missão</span><b>${trainingAcademyResult?.nextMission ? trainingAcademyResult.nextMission.id : '---'}</b></div><div><span>Public Ops</span><b>${publicOpsResult ? publicOpsResult.status : '---'}</b></div><div><span>Ops Score</span><b>${publicOpsResult ? publicOpsResult.score+'%' : '---'}</b></div><div><span>Publish Health</span><b>${postPublishHealthResult ? postPublishHealthResult.status : '---'}</b></div><div><span>Health Score</span><b>${postPublishHealthResult ? postPublishHealthResult.score+'%' : '---'}</b></div><div><span>Publicação PWA</span><b>${postGoldMasterResult ? postGoldMasterResult.status : '---'}</b></div><div><span>Post-GM Ready</span><b>${postGoldMasterResult ? postGoldMasterResult.score+'%' : '---'}</b></div><div><span>Gold Master</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.status : '---'}</b></div><div><span>GM Score</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.score+'%' : '---'}</b></div><div><span>Release Candidate</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.status : '---'}</b></div><div><span>QA Score</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.score+'%' : '---'}</b></div><div><span>Replay compartilhável</span><b>${controlRoomResult?.replay ? 'GERADO' : '---'}</b></div><div><span>Ranking local</span><b>${controlRoomResult?.replay ? controlRoomResult.replay.tier : '---'}</b></div><div><span>Network Flow</span><b>${networkResult?.shift ? (networkResult.shift.route+' / '+Math.round(networkResult.shift.slotCompliance*100)+'%') : '---'}</b></div><div><span>Conexões protegidas</span><b>${networkResult?.network ? networkResult.network.connectionsProtected : 0}</b></div><div><span>Economia</span><b>${economyResult?.shift ? ('$'+Math.round(economyResult.shift.profit).toLocaleString('pt-BR')) : '---'}</b></div><div><span>Eficiência econômica</span><b>${economyResult?.shift ? economyResult.shift.efficiency+'%' : '---'}</b></div><div><span>Carreira</span><b>${careerResult?.career ? (careerResult.career.licenseId+' / '+careerResult.career.ratingId) : '---'}</b></div><div><span>Fadiga</span><b>${careerResult?.career ? Math.round(careerResult.career.fatigue)+'%' : '---'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
   go('result');
 }
 
@@ -11401,7 +11625,7 @@ function setDock(id){
   $$('.dock-body').forEach(b=>b.classList.toggle('active', b.id==='dock-'+id));
 }
 
-/* ===== MODULE 61: 10-events-selftest-bootstrap (10-events-selftest-bootstrap.js) ===== */
+/* ===== MODULE 62: 10-events-selftest-bootstrap (10-events-selftest-bootstrap.js) ===== */
 /* @skyward-module 10-events-selftest-bootstrap
  * Desktop events, filters, safe-mode controls and self-test bootstrap.
  * Canonical source for the generated main.js bundle.
@@ -11500,7 +11724,7 @@ applyBuildInfo();
 if(!BUILD_METADATA_VALID) setTimeout(()=>showSafeMode(new Error('Metadados de build ausentes ou inválidos. Execute o pipeline de release.')),0);
 loadProfile(); loadAirports(); resize();
 
-/* ===== MODULE 62: 11-mobile-runtime (11-mobile-runtime.js) ===== */
+/* ===== MODULE 63: 11-mobile-runtime (11-mobile-runtime.js) ===== */
 /* @skyward-module 11-mobile-runtime
  * Adaptive mobile UX, edge gestures, touch-safe dock, haptics and viewport modes.
  * Canonical source for the generated main.js bundle.
@@ -11749,7 +11973,7 @@ window.SKYWARD_MOBILE_UX=Object.freeze({
 });
 window.addEventListener('load',()=>setTimeout(initMobileDockV2,500));
 
-/* ===== MODULE 63: desktop-workspace (12-desktop-workspace.js) ===== */
+/* ===== MODULE 64: desktop-workspace (12-desktop-workspace.js) ===== */
 /* @skyward-module 12-desktop-workspace
  * Professional tablet/desktop workspace, panel density, persistence and keyboard shortcuts.
  * Canonical source for the generated main.js bundle.
@@ -11835,7 +12059,7 @@ function initDesktopWorkspace(){
 window.SKYWARD_DESKTOP_WORKSPACE=Object.freeze({schema:DESKTOP_WORKSPACE_SCHEMA,viewportMode:desktopViewportMode,shortcutAction:desktopShortcutAction,clamp:desktopClamp,getPreferences:()=>Object.freeze({...desktopWorkspacePrefs}),setMode:setDesktopWorkspaceMode,togglePanel:toggleDesktopPanel,adjustPanel:adjustDesktopPanel,execute:executeDesktopWorkspaceAction,render:applyDesktopWorkspace});
 window.addEventListener('load',()=>setTimeout(initDesktopWorkspace,540));
 
-/* ===== MODULE 64: accessibility-settings (13-accessibility-settings.js) ===== */
+/* ===== MODULE 65: accessibility-settings (13-accessibility-settings.js) ===== */
 /* @skyward-module 13-accessibility-settings
  * Professional accessibility, visual, audio, performance and control settings.
  * Canonical source for the generated main.js bundle.
@@ -11973,7 +12197,7 @@ document.addEventListener('keydown',e=>{if(e.altKey&&e.code==='KeyS'&&!desktopTy
 window.SKYWARD_ACCESSIBILITY=Object.freeze({schema:ACCESSIBILITY_SCHEMA,defaults:ACCESSIBILITY_DEFAULTS,sanitize:sanitizeAccessibilityPrefs,clamp:accessClamp,getPreferences:()=>Object.freeze({...accessibilityPrefs}),setPreference:setAccessibilityPreference,apply:applyAccessibilitySettings,reset:resetAccessibilitySettings,summary:accessibilitySummary,selfCheck:runAccessibilitySelfCheck,open:()=>setAccessibilityPanel(true),close:()=>setAccessibilityPanel(false)});
 window.addEventListener('load',()=>setTimeout(applyAccessibilitySettings,620));
 
-/* ===== MODULE 65: deterministic-replay (14-deterministic-replay.js) ===== */
+/* ===== MODULE 66: deterministic-replay (14-deterministic-replay.js) ===== */
 /* @skyward-module 14-deterministic-replay
  * Deterministic simulation clock, seeded replay recorder, state checksums and technical replay export.
  * Canonical source for the generated main.js bundle.
@@ -12150,7 +12374,7 @@ window.SKYWARD_REPLAY=Object.freeze({
 });
 setTimeout(()=>{ try{ renderReplayStatus(); }catch(_e){} },250);
 
-/* ===== MODULE 66: quality-test-bridge (12-quality-test-bridge.js) ===== */
+/* ===== MODULE 67: quality-test-bridge (12-quality-test-bridge.js) ===== */
 /* @skyward-module 12-quality-test-bridge
  * Controlled integration-test bridge. Mutation is disabled in normal gameplay.
  * Enable only with window.SKYWARD_QA_MODE=true before main.js or ?qa=1.

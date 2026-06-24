@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.57.0-F57-20260624-1945",
-  "builtAt": "2026-06-24 19:45 BRT",
-  "cacheName": "skyward-control-1-sc-1.57.0-f57-20260624-1945",
+  "build": "SC-1.58.0-F58-20260624-2030",
+  "builtAt": "2026-06-24 20:30 BRT",
+  "cacheName": "skyward-control-1-sc-1.58.0-f58-20260624-2030",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,8 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 2105,
-      "sha256": "8c95b6dbd3445422496fa90559322ae4cb2b65500366d02e8f7ce7770d7dcdc6"
+      "bytes": 2135,
+      "sha256": "8eac0b5620177ebf07ec03d464774d5c827c4fb4871d498dc98ea9859a1fad2d"
     },
     {
       "url": "./data/adaptive-pace-workload.json",
@@ -303,6 +303,12 @@
       "sha256": "46db73e45e5182293923bdd33055168af1b0dbfb88ea884f71fc5675e61fe7bb"
     },
     {
+      "url": "./data/replay-timeline-heatmap.json",
+      "file": "data/replay-timeline-heatmap.json",
+      "bytes": 4602,
+      "sha256": "7c1d47639d24bb9610b5f68e10bcde2df084fab33f27b3abedb18a7931354a67"
+    },
+    {
       "url": "./data/revenue-management.json",
       "file": "data/revenue-management.json",
       "bytes": 4326,
@@ -383,8 +389,8 @@
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 861829,
-      "sha256": "295d7d54ce9441ac33858e7ec77f7c25ea1ed5f6fb1ea7851df9846c90adaaf7"
+      "bytes": 876257,
+      "sha256": "ebaa19cfa77a65244398d9b08c80fc17b549ddc3168543516d01fa4de0b0b951"
     },
     {
       "url": "./manifest.webmanifest",
@@ -395,8 +401,8 @@
     {
       "url": "./style.css",
       "file": "style.css",
-      "bytes": 117028,
-      "sha256": "f0f37c67b6509e0abe8ef4f36752445edfaf05916edf0c7d2fb4e49d25677e70"
+      "bytes": 117622,
+      "sha256": "c6df38757c13df00a68ebf3c049294b8fb9a2182f27936fa2f21584eb6d25c1d"
     }
   ]
 }

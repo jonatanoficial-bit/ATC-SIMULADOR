@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-Instructor Debrief Evolution — Phase 57
-Version: 1.57.0
-Build: SC-1.57.0-F57-20260624-1945
-Built: 2026-06-24 19:45 BRT
-Channel: INSTRUCTOR-DEBRIEF
-Status: F57 INSTRUCTOR DEBRIEF AUDITED
-F50.1 through F56 safeguards, missions and campaign preserved.
+Replay Timeline Evolution — Phase 58
+Version: 1.58.0
+Build: SC-1.58.0-F58-20260624-2030
+Built: 2026-06-24 20:30 BRT
+Channel: REPLAY-TIMELINE-HEATMAP
+Status: F58 REPLAY TIMELINE AUDITED
+F50.1 through F57 safeguards, missions, campaign and debrief preserved.

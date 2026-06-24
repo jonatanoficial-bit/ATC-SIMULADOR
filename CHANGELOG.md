@@ -1,3 +1,26 @@
+## SC-1.58.0-F58-20260624-2030 — Replay Timeline, Heatmap & Session Export Center
+
+- Adicionado módulo oficial `61-replay-timeline-heatmap-center.js`.
+- Criado catálogo `data/replay-timeline-heatmap.json`.
+- Adicionadas trilhas de timeline.
+- Adicionados bookmarks de replay.
+- Adicionado heatmap de risco por zona operacional.
+- Adicionados perfis de exportação de sessão.
+- Adicionado score de replay.
+- Adicionados momentos críticos.
+- Adicionado painel `REPLAY OPS`.
+- Tela final mostra Replay e Heatmap.
+- Hotfix mobile F50.1 preservado.
+- Adaptive Pace F51 preservado.
+- Stability Diagnostics F52 preservado.
+- PWA Update Manager F53 preservado.
+- Live Ops Remote Config F54 preservado.
+- Scenario Mission Generator F55 preservado.
+- Campaign Progression F56 preservado.
+- Instructor Debrief F57 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F58.
+
 ## SC-1.57.0-F57-20260624-1945 — Instructor Debrief, Replay Analytics & Training Feedback Center
 
 - Adicionado módulo oficial `60-instructor-debrief-replay-analytics-center.js`.

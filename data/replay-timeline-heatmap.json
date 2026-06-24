@@ -1,0 +1,237 @@
+{
+  "schema": 1,
+  "version": "2026.06-f58",
+  "description": "Replay timeline, heatmap and session export center for ATC mission review, event bookmarks, critical moments, performance zones and shareable training reports.",
+  "timelineTracks": [
+    {
+      "id": "TRAFFIC",
+      "name": "Tráfego",
+      "weight": 14,
+      "colorHint": "blue"
+    },
+    {
+      "id": "CLEARANCE",
+      "name": "Autorizações",
+      "weight": 14,
+      "colorHint": "green"
+    },
+    {
+      "id": "SAFETY",
+      "name": "Segurança",
+      "weight": 20,
+      "colorHint": "red"
+    },
+    {
+      "id": "RADIO",
+      "name": "Rádio",
+      "weight": 12,
+      "colorHint": "purple"
+    },
+    {
+      "id": "WEATHER",
+      "name": "Clima",
+      "weight": 10,
+      "colorHint": "cyan"
+    },
+    {
+      "id": "MISSION",
+      "name": "Missão",
+      "weight": 12,
+      "colorHint": "gold"
+    },
+    {
+      "id": "PACE",
+      "name": "Ritmo",
+      "weight": 10,
+      "colorHint": "teal"
+    },
+    {
+      "id": "SYSTEM",
+      "name": "Sistema",
+      "weight": 8,
+      "colorHint": "gray"
+    }
+  ],
+  "bookmarkTypes": [
+    {
+      "id": "FIRST_CLEARANCE",
+      "name": "Primeira autorização",
+      "importance": 8,
+      "track": "CLEARANCE"
+    },
+    {
+      "id": "CONFLICT_AVOIDED",
+      "name": "Conflito evitado",
+      "importance": 18,
+      "track": "SAFETY"
+    },
+    {
+      "id": "LOSS_SEPARATION",
+      "name": "Perda de separação",
+      "importance": 34,
+      "track": "SAFETY"
+    },
+    {
+      "id": "RUNWAY_EVENT",
+      "name": "Evento de pista",
+      "importance": 30,
+      "track": "SAFETY"
+    },
+    {
+      "id": "RADIO_ERROR",
+      "name": "Erro de rádio",
+      "importance": 18,
+      "track": "RADIO"
+    },
+    {
+      "id": "WEATHER_SHIFT",
+      "name": "Mudança climática",
+      "importance": 20,
+      "track": "WEATHER"
+    },
+    {
+      "id": "WORKLOAD_SPIKE",
+      "name": "Pico de workload",
+      "importance": 22,
+      "track": "PACE"
+    },
+    {
+      "id": "MISSION_OBJECTIVE",
+      "name": "Objetivo de missão",
+      "importance": 16,
+      "track": "MISSION"
+    },
+    {
+      "id": "SAFE_MODE",
+      "name": "Modo seguro",
+      "importance": 32,
+      "track": "SYSTEM"
+    },
+    {
+      "id": "RANK_UP",
+      "name": "Promoção de carreira",
+      "importance": 14,
+      "track": "MISSION"
+    }
+  ],
+  "heatmapZones": [
+    {
+      "id": "RUNWAY",
+      "name": "Pista",
+      "riskWeight": 24
+    },
+    {
+      "id": "APPROACH",
+      "name": "Aproximação",
+      "riskWeight": 20
+    },
+    {
+      "id": "GROUND",
+      "name": "Solo",
+      "riskWeight": 14
+    },
+    {
+      "id": "RADIO",
+      "name": "Rádio",
+      "riskWeight": 12
+    },
+    {
+      "id": "WEATHER",
+      "name": "Clima",
+      "riskWeight": 16
+    },
+    {
+      "id": "WORKLOAD",
+      "name": "Workload",
+      "riskWeight": 18
+    },
+    {
+      "id": "MISSION",
+      "name": "Objetivos",
+      "riskWeight": 10
+    },
+    {
+      "id": "STABILITY",
+      "name": "Estabilidade",
+      "riskWeight": 15
+    }
+  ],
+  "exportProfiles": [
+    {
+      "id": "QUICK_REVIEW",
+      "name": "Revisão rápida",
+      "includeTimeline": true,
+      "includeHeatmap": true,
+      "includeRaw": false
+    },
+    {
+      "id": "INSTRUCTOR_FULL",
+      "name": "Instrutor completo",
+      "includeTimeline": true,
+      "includeHeatmap": true,
+      "includeRaw": true
+    },
+    {
+      "id": "MOBILE_SUMMARY",
+      "name": "Resumo mobile",
+      "includeTimeline": true,
+      "includeHeatmap": false,
+      "includeRaw": false
+    },
+    {
+      "id": "DEBUG_SESSION",
+      "name": "Debug sessão",
+      "includeTimeline": true,
+      "includeHeatmap": true,
+      "includeRaw": true
+    }
+  ],
+  "replayBands": [
+    {
+      "id": "CLEAN",
+      "min": 92,
+      "name": "Replay limpo"
+    },
+    {
+      "id": "REVIEWABLE",
+      "min": 78,
+      "name": "Bom para revisão"
+    },
+    {
+      "id": "LESSON",
+      "min": 58,
+      "name": "Replay de aprendizado"
+    },
+    {
+      "id": "CRITICAL",
+      "min": 0,
+      "name": "Replay crítico"
+    }
+  ],
+  "replayKPIs": [
+    {
+      "id": "REPLAY_SCORE",
+      "name": "Score replay"
+    },
+    {
+      "id": "CRITICAL_MOMENTS",
+      "name": "Momentos críticos"
+    },
+    {
+      "id": "HEATMAP_RISK",
+      "name": "Risco heatmap"
+    },
+    {
+      "id": "TOP_ZONE",
+      "name": "Zona principal"
+    },
+    {
+      "id": "EXPORT_PROFILE",
+      "name": "Perfil exportação"
+    },
+    {
+      "id": "TIMELINE_EVENTS",
+      "name": "Eventos timeline"
+    }
+  ]
+}

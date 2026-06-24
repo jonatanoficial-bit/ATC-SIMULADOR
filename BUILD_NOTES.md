@@ -1,18 +1,18 @@
-# Build Notes — SC-1.57.0-F57-20260624-1945
+# Build Notes — SC-1.58.0-F58-20260624-2030
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.57.0
-- Fase: F57 — Instructor Debrief, Replay Analytics & Training Feedback Center, Relatório Pós-Missão e Plano de Treino
-- Build: `SC-1.57.0-F57-20260624-1945`
-- Data/hora: 2026-06-24 19:45 BRT
-- Canal: instructor-debrief
-- Instructor Debrief schema: 1
+- Versão: 1.58.0
+- Fase: F58 — Replay Timeline, Heatmap & Session Export Center, Linha do Tempo, Marcadores e Exportação de Sessão
+- Build: `SC-1.58.0-F58-20260624-2030`
+- Data/hora: 2026-06-24 20:30 BRT
+- Canal: replay-timeline-heatmap
+- Replay Timeline schema: 1
 
 ## Entregas
 
-A Fase 57 adiciona relatório pós-missão, análise de replay, taxonomia de erros, pontos fortes e plano de treino recomendado.
+A Fase 58 adiciona linha do tempo de replay, bookmarks, heatmap de risco, momentos críticos e exportação de sessão.
 
 ## Base preservada
 
@@ -25,6 +25,7 @@ A build preserva:
 - F54: Live Ops Remote Config & Feature Flags Center.
 - F55: Scenario Designer & Mission Generator Center.
 - F56: Campaign Progression, Licenses & Achievements Center.
+- F57: Instructor Debrief, Replay Analytics & Training Feedback Center.
 
 ## Documento de upload
 
