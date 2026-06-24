@@ -1,14 +1,15 @@
 SKYWARD CONTROL
-Version: 1.56.0
-Phase: F56 — Campaign Progression, Licenses & Achievements Center, XP, Patentes, Licenças e Desbloqueios
-Build: SC-1.56.0-F56-20260624-1900
-Built at: 2026-06-24 19:00 BRT
-Channel: campaign-progression
-Campaign Progression schema: 1
+Version: 1.57.0
+Phase: F57 — Instructor Debrief, Replay Analytics & Training Feedback Center, Relatório Pós-Missão e Plano de Treino
+Build: SC-1.57.0-F57-20260624-1945
+Built at: 2026-06-24 19:45 BRT
+Channel: instructor-debrief
+Instructor Debrief schema: 1
 F50.1 mobile hotfix preserved: true
 F51 adaptive pace preserved: true
 F52 stability diagnostics preserved: true
 F53 PWA update manager preserved: true
 F54 live ops config preserved: true
 F55 scenario mission preserved: true
+F56 campaign progression preserved: true
 Target: Mobile-first / Tablet / Desktop

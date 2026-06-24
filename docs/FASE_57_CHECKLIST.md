@@ -1,0 +1,21 @@
+# Checklist — Fase 57
+
+- [x] Novo módulo `60-instructor-debrief-replay-analytics-center.js`
+- [x] Novo catálogo `data/instructor-debrief.json`
+- [x] Áreas de avaliação
+- [x] Taxonomia de erros
+- [x] Pontos fortes
+- [x] Treinos recomendados
+- [x] Notas de replay
+- [x] Próxima meta
+- [x] Painel DEBRIEF OPS
+- [x] Integração com início/fim de turno
+- [x] F50.1 preservado
+- [x] F51 preservada
+- [x] F52 preservada
+- [x] F53 preservada
+- [x] F54 preservada
+- [x] F55 preservada
+- [x] F56 preservada
+- [x] Documento de upload Git Bash preservado
+- [x] Testes F57

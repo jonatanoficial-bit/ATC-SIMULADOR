@@ -1,3 +1,25 @@
+## SC-1.57.0-F57-20260624-1945 — Instructor Debrief, Replay Analytics & Training Feedback Center
+
+- Adicionado módulo oficial `60-instructor-debrief-replay-analytics-center.js`.
+- Criado catálogo `data/instructor-debrief.json`.
+- Adicionadas áreas de avaliação do instrutor.
+- Adicionada taxonomia de erros.
+- Adicionados pontos fortes.
+- Adicionados treinos recomendados.
+- Adicionadas notas de replay.
+- Adicionada próxima meta do jogador.
+- Adicionado painel `DEBRIEF OPS`.
+- Tela final mostra Debrief e Treino.
+- Hotfix mobile F50.1 preservado.
+- Adaptive Pace F51 preservado.
+- Stability Diagnostics F52 preservado.
+- PWA Update Manager F53 preservado.
+- Live Ops Remote Config F54 preservado.
+- Scenario Mission Generator F55 preservado.
+- Campaign Progression F56 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F57.
+
 ## SC-1.56.0-F56-20260624-1900 — Campaign Progression, Licenses & Achievements Center
 
 - Adicionado módulo oficial `59-campaign-progression-licenses-achievements-center.js`.

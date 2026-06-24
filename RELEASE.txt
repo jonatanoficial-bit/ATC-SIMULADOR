@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-Campaign Progression Evolution — Phase 56
-Version: 1.56.0
-Build: SC-1.56.0-F56-20260624-1900
-Built: 2026-06-24 19:00 BRT
-Channel: CAMPAIGN-PROGRESSION
-Status: F56 CAMPAIGN PROGRESSION AUDITED
-F50.1 through F55 safeguards and missions preserved.
+Instructor Debrief Evolution — Phase 57
+Version: 1.57.0
+Build: SC-1.57.0-F57-20260624-1945
+Built: 2026-06-24 19:45 BRT
+Channel: INSTRUCTOR-DEBRIEF
+Status: F57 INSTRUCTOR DEBRIEF AUDITED
+F50.1 through F56 safeguards, missions and campaign preserved.

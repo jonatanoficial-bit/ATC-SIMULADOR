@@ -1100,3 +1100,11 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .campaign-rank-chief{color:#91ffb7}
 .campaign-rank-trainee{color:#ffd27a}
 .campaign-license-locked{color:#ff918c}
+
+/* F57 Instructor Debrief Replay Analytics */
+.instructor-debrief-inline{border-color:rgba(190,180,255,.66);background:linear-gradient(180deg,rgba(48,40,101,.92),rgba(19,14,52,.98));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 32px rgba(190,180,255,.16)}
+.instructor-debrief-inline .airport-ops-head span{color:#d6cdff}
+.instructor-debrief-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(190,180,255,.45);border-radius:999px;padding:4px 9px;background:rgba(190,180,255,.13);font-weight:900}
+.debrief-elite{color:#91ffb7}
+.debrief-training-needed{color:#ffd27a}
+.debrief-remedial{color:#ff918c}

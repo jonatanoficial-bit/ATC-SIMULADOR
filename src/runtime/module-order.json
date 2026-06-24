@@ -273,6 +273,11 @@
       "description": "Campaign progression, XP, controller ranks, licenses, achievements, skill tree and unlocks"
     },
     {
+      "file": "60-instructor-debrief-replay-analytics-center.js",
+      "name": "instructor-debrief-replay-analytics-center",
+      "description": "Instructor debrief, replay analytics, error review, strengths, feedback and training drills"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

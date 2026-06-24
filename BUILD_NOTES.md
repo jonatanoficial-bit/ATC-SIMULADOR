@@ -1,18 +1,18 @@
-# Build Notes — SC-1.56.0-F56-20260624-1900
+# Build Notes — SC-1.57.0-F57-20260624-1945
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.56.0
-- Fase: F56 — Campaign Progression, Licenses & Achievements Center, XP, Patentes, Licenças e Desbloqueios
-- Build: `SC-1.56.0-F56-20260624-1900`
-- Data/hora: 2026-06-24 19:00 BRT
-- Canal: campaign-progression
-- Campaign Progression schema: 1
+- Versão: 1.57.0
+- Fase: F57 — Instructor Debrief, Replay Analytics & Training Feedback Center, Relatório Pós-Missão e Plano de Treino
+- Build: `SC-1.57.0-F57-20260624-1945`
+- Data/hora: 2026-06-24 19:45 BRT
+- Canal: instructor-debrief
+- Instructor Debrief schema: 1
 
 ## Entregas
 
-A Fase 56 adiciona progressão de campanha, XP, patentes, licenças, conquistas, árvore de habilidades e desbloqueios.
+A Fase 57 adiciona relatório pós-missão, análise de replay, taxonomia de erros, pontos fortes e plano de treino recomendado.
 
 ## Base preservada
 
@@ -24,6 +24,7 @@ A build preserva:
 - F53: PWA Update Manager & Cache Migration Center.
 - F54: Live Ops Remote Config & Feature Flags Center.
 - F55: Scenario Designer & Mission Generator Center.
+- F56: Campaign Progression, Licenses & Achievements Center.
 
 ## Documento de upload
 

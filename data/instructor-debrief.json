@@ -1,0 +1,223 @@
+{
+  "schema": 1,
+  "version": "2026.06-f57",
+  "description": "Instructor debrief, replay analytics and training feedback center for post-mission review, error taxonomy, strengths, improvement plan and next recommended drills.",
+  "reviewAreas": [
+    {
+      "id": "SEPARATION",
+      "name": "Separação",
+      "weight": 18,
+      "target": 90
+    },
+    {
+      "id": "RUNWAY_SAFETY",
+      "name": "Segurança de pista",
+      "weight": 18,
+      "target": 94
+    },
+    {
+      "id": "RADIO",
+      "name": "Fraseologia rádio",
+      "weight": 14,
+      "target": 88
+    },
+    {
+      "id": "PACE",
+      "name": "Ritmo e workload",
+      "weight": 13,
+      "target": 84
+    },
+    {
+      "id": "WEATHER",
+      "name": "Leitura meteorológica",
+      "weight": 10,
+      "target": 82
+    },
+    {
+      "id": "EMERGENCY",
+      "name": "Resposta emergencial",
+      "weight": 10,
+      "target": 84
+    },
+    {
+      "id": "MISSION_OBJECTIVES",
+      "name": "Objetivos de missão",
+      "weight": 10,
+      "target": 86
+    },
+    {
+      "id": "STABILITY",
+      "name": "Estabilidade da sessão",
+      "weight": 7,
+      "target": 90
+    }
+  ],
+  "errorTaxonomy": [
+    {
+      "id": "LOSS_SEPARATION",
+      "name": "Perda de separação",
+      "severity": 34,
+      "area": "SEPARATION"
+    },
+    {
+      "id": "RUNWAY_INCURSION",
+      "name": "Incursão de pista",
+      "severity": 38,
+      "area": "RUNWAY_SAFETY"
+    },
+    {
+      "id": "DENIED_TOO_MANY",
+      "name": "Negativas em excesso",
+      "severity": 16,
+      "area": "PACE"
+    },
+    {
+      "id": "RADIO_READBACK",
+      "name": "Readback/colação incompleta",
+      "severity": 18,
+      "area": "RADIO"
+    },
+    {
+      "id": "WORKLOAD_SATURATION",
+      "name": "Workload saturado",
+      "severity": 22,
+      "area": "PACE"
+    },
+    {
+      "id": "WEATHER_MISREAD",
+      "name": "Risco meteorológico mal antecipado",
+      "severity": 20,
+      "area": "WEATHER"
+    },
+    {
+      "id": "EMERGENCY_DELAY",
+      "name": "Demora na resposta emergencial",
+      "severity": 24,
+      "area": "EMERGENCY"
+    },
+    {
+      "id": "SAFE_MODE_TRIGGER",
+      "name": "Modo seguro acionado",
+      "severity": 30,
+      "area": "STABILITY"
+    }
+  ],
+  "strengthTemplates": [
+    {
+      "id": "CALM_FLOW",
+      "name": "Fluxo calmo e organizado"
+    },
+    {
+      "id": "GOOD_SPACING",
+      "name": "Boa separação entre aeronaves"
+    },
+    {
+      "id": "RADIO_CLEAR",
+      "name": "Comunicação clara"
+    },
+    {
+      "id": "MISSION_DISCIPLINE",
+      "name": "Disciplina nos objetivos"
+    },
+    {
+      "id": "MOBILE_CONTROL",
+      "name": "Boa condução no mobile"
+    },
+    {
+      "id": "SAFE_RECOVERY",
+      "name": "Recuperação segura de cenário"
+    }
+  ],
+  "trainingDrills": [
+    {
+      "id": "DRILL_SEPARATION_BASIC",
+      "name": "Separação básica",
+      "area": "SEPARATION",
+      "minutes": 8
+    },
+    {
+      "id": "DRILL_RUNWAY_SCAN",
+      "name": "Varredura de pista",
+      "area": "RUNWAY_SAFETY",
+      "minutes": 8
+    },
+    {
+      "id": "DRILL_RADIO_READBACK",
+      "name": "Readback e fraseologia",
+      "area": "RADIO",
+      "minutes": 10
+    },
+    {
+      "id": "DRILL_WORKLOAD_PACE",
+      "name": "Ritmo e prioridade",
+      "area": "PACE",
+      "minutes": 8
+    },
+    {
+      "id": "DRILL_WEATHER_DIVERSION",
+      "name": "Desvio meteorológico",
+      "area": "WEATHER",
+      "minutes": 12
+    },
+    {
+      "id": "DRILL_EMERGENCY_FIRST90",
+      "name": "Primeiros 90s da emergência",
+      "area": "EMERGENCY",
+      "minutes": 12
+    },
+    {
+      "id": "DRILL_MOBILE_SAFE",
+      "name": "Mobile seguro",
+      "area": "STABILITY",
+      "minutes": 6
+    }
+  ],
+  "feedbackBands": [
+    {
+      "id": "ELITE",
+      "min": 92,
+      "name": "Debrief de elite"
+    },
+    {
+      "id": "APPROVED",
+      "min": 80,
+      "name": "Aprovado com bom controle"
+    },
+    {
+      "id": "TRAINING_NEEDED",
+      "min": 62,
+      "name": "Treino recomendado"
+    },
+    {
+      "id": "REMEDIAL",
+      "min": 0,
+      "name": "Revisão obrigatória"
+    }
+  ],
+  "debriefKPIs": [
+    {
+      "id": "DEBRIEF_SCORE",
+      "name": "Score de debrief"
+    },
+    {
+      "id": "MAIN_WEAKNESS",
+      "name": "Principal ponto fraco"
+    },
+    {
+      "id": "TOP_STRENGTH",
+      "name": "Principal ponto forte"
+    },
+    {
+      "id": "RECOMMENDED_DRILL",
+      "name": "Treino recomendado"
+    },
+    {
+      "id": "REPLAY_NOTES",
+      "name": "Notas de replay"
+    },
+    {
+      "id": "NEXT_GOAL",
+      "name": "Próxima meta"
+    }
+  ]
+}
