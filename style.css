@@ -1092,3 +1092,11 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .scenario-grade-s{color:#91ffb7}
 .scenario-grade-c{color:#ffd27a}
 .scenario-grade-d{color:#ff918c}
+
+/* F56 Campaign Progression Licenses Achievements */
+.campaign-progression-inline{border-color:rgba(255,214,118,.66);background:linear-gradient(180deg,rgba(92,68,18,.92),rgba(43,27,4,.98));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 32px rgba(255,214,118,.16)}
+.campaign-progression-inline .airport-ops-head span{color:#ffe08a}
+.campaign-progression-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,214,118,.45);border-radius:999px;padding:4px 9px;background:rgba(255,214,118,.13);font-weight:900}
+.campaign-rank-chief{color:#91ffb7}
+.campaign-rank-trainee{color:#ffd27a}
+.campaign-license-locked{color:#ff918c}

@@ -1,13 +1,14 @@
 SKYWARD CONTROL
-Version: 1.55.0
-Phase: F55 — Scenario Designer & Mission Generator Center, Missões, Eventos, Objetivos, Clima, Tráfego e Avaliação
-Build: SC-1.55.0-F55-20260624-1815
-Built at: 2026-06-24 18:15 BRT
-Channel: scenario-mission-generator
-Scenario Mission schema: 1
+Version: 1.56.0
+Phase: F56 — Campaign Progression, Licenses & Achievements Center, XP, Patentes, Licenças e Desbloqueios
+Build: SC-1.56.0-F56-20260624-1900
+Built at: 2026-06-24 19:00 BRT
+Channel: campaign-progression
+Campaign Progression schema: 1
 F50.1 mobile hotfix preserved: true
 F51 adaptive pace preserved: true
 F52 stability diagnostics preserved: true
 F53 PWA update manager preserved: true
 F54 live ops config preserved: true
+F55 scenario mission preserved: true
 Target: Mobile-first / Tablet / Desktop

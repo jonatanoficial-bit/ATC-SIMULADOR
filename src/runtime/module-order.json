@@ -268,6 +268,11 @@
       "description": "Scenario designer, mission generator, templates, events, objectives, weather, traffic and grading"
     },
     {
+      "file": "59-campaign-progression-licenses-achievements-center.js",
+      "name": "campaign-progression-licenses-achievements-center",
+      "description": "Campaign progression, XP, controller ranks, licenses, achievements, skill tree and unlocks"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

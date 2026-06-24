@@ -1,0 +1,261 @@
+{
+  "schema": 1,
+  "version": "2026.06-f56",
+  "description": "Campaign progression, licenses, controller ranks, achievements, skill tree, unlocks and mission history for long-term ATC career gameplay.",
+  "campaignChapters": [
+    {
+      "id": "BASIC_TOWER",
+      "name": "Torre Básica",
+      "missionsRequired": 2,
+      "xpReward": 350,
+      "unlock": "LICENSE_TWR_1"
+    },
+    {
+      "id": "GROUND_RUNWAY",
+      "name": "Solo e Pista",
+      "missionsRequired": 3,
+      "xpReward": 520,
+      "unlock": "LICENSE_GND_1"
+    },
+    {
+      "id": "WEATHER_OPS",
+      "name": "Operação em Clima",
+      "missionsRequired": 3,
+      "xpReward": 680,
+      "unlock": "LICENSE_IFR_1"
+    },
+    {
+      "id": "EMERGENCY_DESK",
+      "name": "Mesa de Emergência",
+      "missionsRequired": 4,
+      "xpReward": 850,
+      "unlock": "LICENSE_EMG_1"
+    },
+    {
+      "id": "REGIONAL_NETWORK",
+      "name": "Rede Regional",
+      "missionsRequired": 4,
+      "xpReward": 980,
+      "unlock": "LICENSE_APP_1"
+    },
+    {
+      "id": "INTERNATIONAL_HUB",
+      "name": "Hub Internacional",
+      "missionsRequired": 5,
+      "xpReward": 1300,
+      "unlock": "LICENSE_SUP_1"
+    }
+  ],
+  "controllerRanks": [
+    {
+      "id": "TRAINEE",
+      "name": "Controlador Trainee",
+      "minXp": 0
+    },
+    {
+      "id": "JUNIOR",
+      "name": "Controlador Júnior",
+      "minXp": 500
+    },
+    {
+      "id": "TOWER",
+      "name": "Controlador de Torre",
+      "minXp": 1200
+    },
+    {
+      "id": "SENIOR",
+      "name": "Controlador Sênior",
+      "minXp": 2400
+    },
+    {
+      "id": "SUPERVISOR",
+      "name": "Supervisor Operacional",
+      "minXp": 4200
+    },
+    {
+      "id": "CHIEF",
+      "name": "Chefe de Controle",
+      "minXp": 7000
+    }
+  ],
+  "licenses": [
+    {
+      "id": "LICENSE_TWR_1",
+      "name": "Licença Torre I",
+      "area": "Tower",
+      "requiredXp": 300
+    },
+    {
+      "id": "LICENSE_GND_1",
+      "name": "Licença Solo I",
+      "area": "Ground",
+      "requiredXp": 750
+    },
+    {
+      "id": "LICENSE_IFR_1",
+      "name": "Licença IFR I",
+      "area": "Weather",
+      "requiredXp": 1400
+    },
+    {
+      "id": "LICENSE_EMG_1",
+      "name": "Licença Emergência I",
+      "area": "Emergency",
+      "requiredXp": 2200
+    },
+    {
+      "id": "LICENSE_APP_1",
+      "name": "Licença Aproximação I",
+      "area": "Approach",
+      "requiredXp": 3400
+    },
+    {
+      "id": "LICENSE_SUP_1",
+      "name": "Licença Supervisão",
+      "area": "Supervisor",
+      "requiredXp": 5200
+    }
+  ],
+  "achievements": [
+    {
+      "id": "FIRST_MISSION",
+      "name": "Primeira Missão",
+      "condition": "missions>=1",
+      "xp": 80
+    },
+    {
+      "id": "NO_CONFLICT_RUN",
+      "name": "Turno Sem Conflitos",
+      "condition": "conflicts=0",
+      "xp": 120
+    },
+    {
+      "id": "SAFE_MOBILE_PRO",
+      "name": "Mobile Seguro",
+      "condition": "safeMode=0;mobile=true",
+      "xp": 120
+    },
+    {
+      "id": "GRADE_A",
+      "name": "Nota A",
+      "condition": "grade>=A",
+      "xp": 160
+    },
+    {
+      "id": "GRADE_S",
+      "name": "Nota S",
+      "condition": "grade=S",
+      "xp": 260
+    },
+    {
+      "id": "STORM_HANDLER",
+      "name": "Mestre da Tempestade",
+      "condition": "template=STORM_DIVERSION;grade>=B",
+      "xp": 240
+    },
+    {
+      "id": "EMERGENCY_CALM",
+      "name": "Calma na Emergência",
+      "condition": "template=EMERGENCY_RUNWAY;conflicts=0",
+      "xp": 280
+    },
+    {
+      "id": "NETWORK_CONTROLLER",
+      "name": "Controlador de Rede",
+      "condition": "template=REGIONAL_NETWORK;grade>=B",
+      "xp": 260
+    }
+  ],
+  "skillTree": [
+    {
+      "id": "RADIO_CLARITY",
+      "name": "Clareza de Rádio",
+      "cost": 1,
+      "benefit": "radioAccuracy+4"
+    },
+    {
+      "id": "PACE_DISCIPLINE",
+      "name": "Disciplina de Ritmo",
+      "cost": 1,
+      "benefit": "workload-4"
+    },
+    {
+      "id": "RUNWAY_AWARENESS",
+      "name": "Consciência de Pista",
+      "cost": 2,
+      "benefit": "incursionRisk-6"
+    },
+    {
+      "id": "WEATHER_READING",
+      "name": "Leitura Meteorológica",
+      "cost": 2,
+      "benefit": "weatherRisk-5"
+    },
+    {
+      "id": "EMERGENCY_RESPONSE",
+      "name": "Resposta Emergencial",
+      "cost": 3,
+      "benefit": "emergencyScore+6"
+    },
+    {
+      "id": "NETWORK_FLOW",
+      "name": "Fluxo de Rede",
+      "cost": 3,
+      "benefit": "networkScore+5"
+    },
+    {
+      "id": "SUPERVISOR_DECISION",
+      "name": "Decisão de Supervisor",
+      "cost": 4,
+      "benefit": "finalScore+5"
+    }
+  ],
+  "unlockables": [
+    {
+      "id": "MISSION_STORM_DIVERSION",
+      "name": "Missão Desvio por Tempestade",
+      "requires": "LICENSE_IFR_1"
+    },
+    {
+      "id": "MISSION_EMERGENCY_RUNWAY",
+      "name": "Missão Emergência em Pista",
+      "requires": "LICENSE_EMG_1"
+    },
+    {
+      "id": "MISSION_REGIONAL_NETWORK",
+      "name": "Missão Rede Regional",
+      "requires": "LICENSE_APP_1"
+    },
+    {
+      "id": "PROFILE_REALISTIC_DESKTOP",
+      "name": "Perfil Desktop Realista",
+      "requires": "LICENSE_SUP_1"
+    }
+  ],
+  "progressionKPIs": [
+    {
+      "id": "XP_TOTAL",
+      "name": "XP total"
+    },
+    {
+      "id": "RANK",
+      "name": "Patente"
+    },
+    {
+      "id": "LICENSES",
+      "name": "Licenças"
+    },
+    {
+      "id": "ACHIEVEMENTS",
+      "name": "Conquistas"
+    },
+    {
+      "id": "SKILL_POINTS",
+      "name": "Pontos habilidade"
+    },
+    {
+      "id": "CAMPAIGN_PROGRESS",
+      "name": "Progresso campanha"
+    }
+  ]
+}

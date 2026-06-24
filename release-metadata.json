@@ -1,10 +1,10 @@
 {
   "product": "Skyward Control",
   "prefix": "SC",
-  "version": "1.55.0",
-  "phase": "F55",
-  "phaseName": "Scenario Designer & Mission Generator Center, Missões, Eventos, Objetivos, Clima, Tráfego e Avaliação",
-  "channel": "scenario-mission-generator",
+  "version": "1.56.0",
+  "phase": "F56",
+  "phaseName": "Campaign Progression, Licenses & Achievements Center, XP, Patentes, Licenças e Desbloqueios",
+  "channel": "campaign-progression",
   "saveSchema": 3,
   "target": "Mobile-first / Tablet / Desktop",
   "timeZone": "America/Sao_Paulo",
@@ -17,9 +17,9 @@
   "desktopSchema": 1,
   "accessibilitySchema": 1,
   "replaySchema": 1,
-  "build": "SC-1.55.0-F55-20260624-1815",
-  "builtAt": "2026-06-24 18:15 BRT",
-  "builtAtIso": "2026-06-24T18:15:00-03:00",
+  "build": "SC-1.56.0-F56-20260624-1900",
+  "builtAt": "2026-06-24 19:00 BRT",
+  "builtAtIso": "2026-06-24T19:00:00-03:00",
   "aircraftPerformanceSchema": 1,
   "airportSurfaceSchema": 1,
   "surfaceSafetySchema": 1,
@@ -66,5 +66,6 @@
   "stabilityDiagnosticsSchema": 1,
   "pwaUpdateManagerSchema": 1,
   "liveOpsRemoteConfigSchema": 1,
-  "scenarioMissionSchema": 1
+  "scenarioMissionSchema": 1,
+  "campaignProgressionSchema": 1
 }

@@ -1,3 +1,24 @@
+## SC-1.56.0-F56-20260624-1900 — Campaign Progression, Licenses & Achievements Center
+
+- Adicionado módulo oficial `59-campaign-progression-licenses-achievements-center.js`.
+- Criado catálogo `data/campaign-progression.json`.
+- Adicionados capítulos de campanha.
+- Adicionadas patentes de controlador.
+- Adicionadas licenças ATC.
+- Adicionadas conquistas.
+- Adicionada árvore de habilidades.
+- Adicionados desbloqueios de missões/perfis.
+- Adicionado painel `CAREER OPS`.
+- Tela final mostra Career e XP Gain.
+- Hotfix mobile F50.1 preservado.
+- Adaptive Pace F51 preservado.
+- Stability Diagnostics F52 preservado.
+- PWA Update Manager F53 preservado.
+- Live Ops Remote Config F54 preservado.
+- Scenario Mission Generator F55 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F56.
+
 ## SC-1.55.0-F55-20260624-1815 — Scenario Designer & Mission Generator Center
 
 - Adicionado módulo oficial `58-scenario-mission-generator-center.js`.
