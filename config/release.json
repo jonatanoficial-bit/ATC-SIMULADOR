@@ -1,10 +1,10 @@
 {
   "product": "Skyward Control",
   "prefix": "SC",
-  "version": "1.59.0",
-  "phase": "F59",
-  "phaseName": "World Airports, Procedure Packs & Route Challenge Center, Aeroportos, Procedimentos, Rotas e Desafios",
-  "channel": "world-airports-procedures",
+  "version": "1.60.0",
+  "phase": "F60",
+  "phaseName": "Dynamic Weather Radar, ATIS & NOTAM Center, Clima Vivo, Vento Cruzado, Visibilidade e Alertas Operacionais",
+  "channel": "dynamic-weather-atis-notam",
   "saveSchema": 3,
   "target": "Mobile-first / Tablet / Desktop",
   "timeZone": "America/Sao_Paulo",
@@ -17,9 +17,9 @@
   "desktopSchema": 1,
   "accessibilitySchema": 1,
   "replaySchema": 1,
-  "build": "SC-1.59.0-F59-20260624-2115",
-  "builtAt": "2026-06-24 21:15 BRT",
-  "builtAtIso": "2026-06-24T21:15:00-03:00",
+  "build": "SC-1.60.0-F60-20260624-2200",
+  "builtAt": "2026-06-24 22:00 BRT",
+  "builtAtIso": "2026-06-24T22:00:00-03:00",
   "aircraftPerformanceSchema": 1,
   "airportSurfaceSchema": 1,
   "surfaceSafetySchema": 1,
@@ -70,5 +70,6 @@
   "campaignProgressionSchema": 1,
   "instructorDebriefSchema": 1,
   "replayTimelineSchema": 1,
-  "worldAirportProcedureSchema": 1
+  "worldAirportProcedureSchema": 1,
+  "dynamicWeatherAtisNotamSchema": 1
 }

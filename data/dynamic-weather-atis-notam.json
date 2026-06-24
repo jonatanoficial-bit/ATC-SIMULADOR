@@ -1,0 +1,259 @@
+{
+  "schema": 1,
+  "version": "2026.06-f60",
+  "description": "Dynamic weather radar, ATIS and NOTAM center for operational ATC gameplay with crosswind, visibility, ceiling, runway contamination, storm cells and procedural impact.",
+  "weatherPhenomena": [
+    {
+      "id": "VFR_CLEAR",
+      "name": "Céu aberto VFR",
+      "severity": 4,
+      "visibilityKm": 10,
+      "ceilingFt": 8000,
+      "windKt": 8
+    },
+    {
+      "id": "MVFR_HAZE",
+      "name": "Névoa MVFR",
+      "severity": 14,
+      "visibilityKm": 6,
+      "ceilingFt": 2500,
+      "windKt": 12
+    },
+    {
+      "id": "IFR_LOW_CEILING",
+      "name": "Teto baixo IFR",
+      "severity": 24,
+      "visibilityKm": 4,
+      "ceilingFt": 900,
+      "windKt": 15
+    },
+    {
+      "id": "STORM_CELL",
+      "name": "Célula de tempestade",
+      "severity": 36,
+      "visibilityKm": 2,
+      "ceilingFt": 700,
+      "windKt": 28
+    },
+    {
+      "id": "CROSSWIND_ALERT",
+      "name": "Alerta vento cruzado",
+      "severity": 30,
+      "visibilityKm": 8,
+      "ceilingFt": 3500,
+      "windKt": 26
+    },
+    {
+      "id": "LOW_VIS_FOG",
+      "name": "Nevoeiro baixa visibilidade",
+      "severity": 34,
+      "visibilityKm": 1.5,
+      "ceilingFt": 400,
+      "windKt": 6
+    },
+    {
+      "id": "WET_RUNWAY",
+      "name": "Pista molhada",
+      "severity": 22,
+      "visibilityKm": 7,
+      "ceilingFt": 1800,
+      "windKt": 14
+    },
+    {
+      "id": "GUST_FRONT",
+      "name": "Rajada/gust front",
+      "severity": 32,
+      "visibilityKm": 5,
+      "ceilingFt": 1600,
+      "windKt": 32
+    }
+  ],
+  "atisTemplates": [
+    {
+      "id": "INFO_ALPHA",
+      "name": "Informação Alpha",
+      "runwayMode": "SINGLE_ACTIVE",
+      "procedure": "VISUAL_URBAN"
+    },
+    {
+      "id": "INFO_BRAVO",
+      "name": "Informação Bravo",
+      "runwayMode": "PARALLEL_SEGREGATED",
+      "procedure": "INSTRUMENT_IFR"
+    },
+    {
+      "id": "INFO_CHARLIE",
+      "name": "Informação Charlie",
+      "runwayMode": "PARALLEL_MIXED",
+      "procedure": "PARALLEL_RUNWAY"
+    },
+    {
+      "id": "INFO_DELTA",
+      "name": "Informação Delta",
+      "runwayMode": "LOW_VIS_PROCEDURAL",
+      "procedure": "LOW_VIS_IFR"
+    },
+    {
+      "id": "INFO_ECHO",
+      "name": "Informação Echo",
+      "runwayMode": "CROSSWIND_RESTRICTED",
+      "procedure": "INSTRUMENT_IFR"
+    }
+  ],
+  "notamTypes": [
+    {
+      "id": "RUNWAY_PARTIAL_CLOSURE",
+      "name": "Fechamento parcial de pista",
+      "severity": 28,
+      "impact": "capacity-1"
+    },
+    {
+      "id": "ILS_MAINTENANCE",
+      "name": "ILS em manutenção",
+      "severity": 24,
+      "impact": "ifr-risk+8"
+    },
+    {
+      "id": "TAXIWAY_WORK",
+      "name": "Obra em taxiway",
+      "severity": 18,
+      "impact": "ground-delay+12"
+    },
+    {
+      "id": "BIRD_ACTIVITY",
+      "name": "Atividade de aves",
+      "severity": 16,
+      "impact": "departure-risk+6"
+    },
+    {
+      "id": "LIGHTING_RESTRICTION",
+      "name": "Restrição de balizamento",
+      "severity": 20,
+      "impact": "night-risk+8"
+    },
+    {
+      "id": "VIP_MOVEMENT",
+      "name": "Movimento VIP",
+      "severity": 14,
+      "impact": "flow-hold+6"
+    },
+    {
+      "id": "FUEL_TRUCK_DELAY",
+      "name": "Atraso abastecimento",
+      "severity": 12,
+      "impact": "turnaround-delay+8"
+    }
+  ],
+  "radarCells": [
+    {
+      "id": "CELL_LIGHT",
+      "name": "Eco leve",
+      "risk": 8,
+      "movementKt": 12
+    },
+    {
+      "id": "CELL_MODERATE",
+      "name": "Eco moderado",
+      "risk": 18,
+      "movementKt": 18
+    },
+    {
+      "id": "CELL_HEAVY",
+      "name": "Eco forte",
+      "risk": 30,
+      "movementKt": 24
+    },
+    {
+      "id": "CELL_SEVERE",
+      "name": "Eco severo",
+      "risk": 42,
+      "movementKt": 32
+    },
+    {
+      "id": "CELL_STATIONARY",
+      "name": "Célula quase estacionária",
+      "risk": 26,
+      "movementKt": 5
+    }
+  ],
+  "operationalImpacts": [
+    {
+      "id": "RUNWAY_SWITCH",
+      "name": "Troca de pista",
+      "penalty": 16
+    },
+    {
+      "id": "ARRIVAL_SPACING",
+      "name": "Aumentar separação de chegada",
+      "penalty": 12
+    },
+    {
+      "id": "GROUND_DELAY",
+      "name": "Atraso em solo",
+      "penalty": 10
+    },
+    {
+      "id": "DEPARTURE_HOLD",
+      "name": "Segurar decolagens",
+      "penalty": 14
+    },
+    {
+      "id": "LOW_VIS_PROCEDURE",
+      "name": "Procedimento baixa visibilidade",
+      "penalty": 18
+    },
+    {
+      "id": "CROSSWIND_LIMIT",
+      "name": "Limite vento cruzado",
+      "penalty": 16
+    }
+  ],
+  "weatherBands": [
+    {
+      "id": "NORMAL",
+      "min": 88,
+      "name": "Normal"
+    },
+    {
+      "id": "WATCH",
+      "min": 72,
+      "name": "Atenção"
+    },
+    {
+      "id": "ADVERSE",
+      "min": 52,
+      "name": "Adverso"
+    },
+    {
+      "id": "SEVERE",
+      "min": 0,
+      "name": "Severo"
+    }
+  ],
+  "weatherKPIs": [
+    {
+      "id": "WEATHER_SCORE",
+      "name": "Score meteorológico"
+    },
+    {
+      "id": "ACTIVE_ATIS",
+      "name": "ATIS ativo"
+    },
+    {
+      "id": "NOTAM_COUNT",
+      "name": "NOTAMs"
+    },
+    {
+      "id": "CROSSWIND",
+      "name": "Vento cruzado"
+    },
+    {
+      "id": "VISIBILITY",
+      "name": "Visibilidade"
+    },
+    {
+      "id": "RADAR_RISK",
+      "name": "Risco radar"
+    }
+  ]
+}

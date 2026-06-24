@@ -1,0 +1,25 @@
+# Checklist — Fase 60
+
+- [x] Novo módulo `63-dynamic-weather-atis-notam-center.js`
+- [x] Novo catálogo `data/dynamic-weather-atis-notam.json`
+- [x] Radar meteorológico simplificado
+- [x] ATIS ativo
+- [x] NOTAMs ativos
+- [x] Vento cruzado
+- [x] Visibilidade e teto
+- [x] Impactos operacionais
+- [x] Integração com Airport Pack
+- [x] Painel WEATHER OPS
+- [x] Integração com início/fim de turno
+- [x] F50.1 preservado
+- [x] F51 preservada
+- [x] F52 preservada
+- [x] F53 preservada
+- [x] F54 preservada
+- [x] F55 preservada
+- [x] F56 preservada
+- [x] F57 preservada
+- [x] F58 preservada
+- [x] F59 preservada
+- [x] Documento de upload Git Bash preservado
+- [x] Testes F60

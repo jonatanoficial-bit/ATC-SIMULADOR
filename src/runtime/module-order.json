@@ -288,6 +288,11 @@
       "description": "World airport packs, procedure packs, runway modes, route challenges and airport mastery"
     },
     {
+      "file": "63-dynamic-weather-atis-notam-center.js",
+      "name": "dynamic-weather-atis-notam-center",
+      "description": "Dynamic weather radar, ATIS, NOTAM, crosswind, visibility, ceiling and operational impacts"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

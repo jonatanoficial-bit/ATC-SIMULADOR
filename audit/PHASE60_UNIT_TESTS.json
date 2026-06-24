@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "suite": "phase60-unit",
+  "build": "SC-1.60.0-F60-20260624-2200",
+  "passed": 14,
+  "total": 14,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F60+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.60.0\",\"phase\":\"F60\",\"phaseName\":\"Dynamic Weather Radar, ATIS & NOTAM Center, Clima Vivo, Vento Cruzado, Visibilidade e Alertas Operacionais\",\"channel\":\"dynamic-weather-atis-notam\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.60.0-F60-20260624-2200\",\"builtAt\":\"2026-06-24 22:00 BRT\",\"builtAtIso\":\"2026-06-24T22:00:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1,\"terminalFlowSchema\":1,\"nonAeroRevenueSchema\":1,\"mobileStabilityHotfixSchema\":1,\"safeModeIncidentFixSchema\":1,\"paceTuningSchema\":1,\"adaptivePaceSchema\":1,\"stabilityDiagnosticsSchema\":1,\"pwaUpdateManagerSchema\":1,\"liveOpsRemoteConfigSchema\":1,\"scenarioMissionSchema\":1,\"campaignProgressionSchema\":1,\"instructorDebriefSchema\":1,\"replayTimelineSchema\":1,\"worldAirportProcedureSchema\":1,\"dynamicWeatherAtisNotamSchema\":1}"
+    },
+    {
+      "name": "módulo F60 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo weather atis notams",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"phenomena\":8,\"notams\":7}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"activePhenomenon\":\"CROSSWIND_ALERT\",\"activeAtis\":\"INFO_ECHO\",\"activeNotams\":[{\"id\":\"NOTAM-RUNWAY_PARTIAL_CLOSURE-00505\",\"type\":\"RUNWAY_PARTIAL_CLOSURE\",\"name\":\"Fechamento parcial de pista\",\"severity\":28,\"impact\":\"capacity-1\",\"active\":true,\"at\":\"2026-06-24T20:06:40.505Z\"}],\"radarCells\":[{\"id\":\"CELL_MODERATE\",\"name\":\"Eco moderado\",\"risk\":18,\"movementKt\":18}],\"weatherScore\":76,\"status\":\"WATCH\",\"crosswindKt\":21,\"visibilityKm\":8,\"ceilingFt\":3500,\"operationalImpacts\":[{\"id\":\"CROSSWIND_LIMIT\",\"name\":\"Limite vento cruzado\",\"penalty\":16},{\"id\":\"RUNWAY_SWITCH\",\"name\":\"Troca de pista\",\"penalty\":16},{\"id\":\"DEPARTURE_HOLD\",\"name\":\"Segurar decolagens\",\"penalty\":14}],\"history\":[{\"at\":\"2026-06-24T20:06:40.505Z\",\"build\":\"SC-1.60.0-F60-20260624-2200\",\"airport\":\"SBSP\",\"weatherScore\":76,\"status\":\"WATCH\",\"statusName\":\"Atenção\",\"phenomenon\":\"CROSSWIND_ALERT\",\"atis\":\"INFO_ECHO\",\"notams\":1,\"crosswindKt\":21,\"visibilityKm\":8,\"ceilingFt\":3500,\"radarRisk\":18,\"impactCount\":3,\"procedure\":\"INSTRUMENT_IFR\",\"finalScore\":2800},{\"at\":\"2026-06-24T20:06:40.505Z\",\"build\":\"SC-1.60.0-F60-20260624-2200\",\"airport\":\"SBSP\",\"weatherScore\":76,\"status\":\"WATCH\",\"statusName\":\"Atenção\",\"phenomenon\":\"CROSSWIND_ALERT\",\"atis\":\"INFO_ECHO\",\"notams\":1,\"crosswindKt\":21,\"visibilityKm\":8,\"ceilingFt\":3500,\"radarRisk\":18,\"impactCount\":3,\"procedure\":\"INSTRUMENT_IFR\",\"finalScore\":2800}],\"lastEvaluation\":{\"at\":\"2026-06-24T20:06:40.505Z\",\"build\":\"SC-1.60.0-F60-20260624-2200\",\"airport\":\"SBSP\",\"weatherScore\":76,\"status\":\"WATCH\",\"statusName\":\"Atenção\",\"phenomenon\":\"CROSSWIND_ALERT\",\"atis\":\"INFO_ECHO\",\"notams\":1,\"crosswindKt\":21,\"visibilityKm\":8,\"ceilingFt\":3500,\"radarRisk\":18,\"impactCount\":3,\"procedure\":\"INSTRUMENT_IFR\",\"finalScore\":2800}}"
+    },
+    {
+      "name": "tempestade gera radar/notam",
+      "ok": true,
+      "detail": "{\"schema\":1,\"activePhenomenon\":\"STORM_CELL\",\"activeAtis\":\"INFO_BRAVO\",\"activeNotams\":[{\"id\":\"NOTAM-RUNWAY_PARTIAL_CLOSURE-00505\",\"type\":\"RUNWAY_PARTIAL_CLOSURE\",\"name\":\"Fechamento parcial de pista\",\"severity\":28,\"impact\":\"capacity-1\",\"active\":true,\"at\":\"2026-06-24T20:06:40.505Z\"},{\"id\":\"NOTAM-BIRD_ACTIVITY-00506\",\"type\":\"BIRD_ACTIVITY\",\"name\":\"Atividade de aves\",\"severity\":16,\"impact\":\"departure-risk+6\",\"active\":true,\"at\":\"2026-06-24T20:06:40.505Z\"}],\"radarCells\":[{\"id\":\"CELL_HEAVY\",\"name\":\"Eco forte\",\"risk\":30,\"movementKt\":24},{\"id\":\"CELL_SEVERE\",\"name\":\"Eco severo\",\"risk\":42,\"movementKt\":32}],\"weatherScore\":76,\"status\":\"WATCH\",\"crosswindKt\":11,\"visibilityKm\":2,\"ceilingFt\":700,\"operationalImpacts\":[{\"id\":\"CROSSWIND_LIMIT\",\"name\":\"Limite vento cruzado\",\"penalty\":16},{\"id\":\"RUNWAY_SWITCH\",\"name\":\"Troca de pista\",\"penalty\":16},{\"id\":\"DEPARTURE_HOLD\",\"name\":\"Segurar decolagens\",\"penalty\":14}],\"history\":[{\"at\":\"2026-06-24T20:06:40.505Z\",\"build\":\"SC-1.60.0-F60-20260624-2200\",\"airport\":\"SBSP\",\"weatherScore\":76,\"status\":\"WATCH\",\"statusName\":\"Atenção\",\"phenomenon\":\"CROSSWIND_ALERT\",\"atis\":\"INFO_ECHO\",\"notams\":1,\"crosswindKt\":21,\"visibilityKm\":8,\"ceilingFt\":3500,\"radarRisk\":18,\"impactCount\":3,\"procedure\":\"INSTRUMENT_IFR\",\"finalScore\":2800},{\"at\":\"2026-06-24T20:06:40.505Z\",\"build\":\"SC-1.60.0-F60-20260624-2200\",\"airport\":\"SBSP\",\"weatherScore\":76,\"status\":\"WATCH\",\"statusName\":\"Atenção\",\"phenomenon\":\"CROSSWIND_ALERT\",\"atis\":\"INFO_ECHO\",\"notams\":1,\"crosswindKt\":21,\"visibilityKm\":8,\"ceilingFt\":3500,\"radarRisk\":18,\"impactCount\":3,\"procedure\":\"INSTRUMENT_IFR\",\"finalScore\":2800}],\"lastEvaluation\":{\"at\":\"2026-06-24T20:06:40.505Z\",\"build\":\"SC-1.60.0-F60-20260624-2200\",\"airport\":\"SBSP\",\"weatherScore\":76,\"status\":\"WATCH\",\"statusName\":\"Atenção\",\"phenomenon\":\"CROSSWIND_ALERT\",\"atis\":\"INFO_ECHO\",\"notams\":1,\"crosswindKt\":21,\"visibilityKm\":8,\"ceilingFt\":3500,\"radarRisk\":18,\"impactCount\":3,\"procedure\":\"INSTRUMENT_IFR\",\"finalScore\":2800}}"
+    },
+    {
+      "name": "avaliação gera weather score",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T20:06:40.505Z\",\"build\":\"SC-1.60.0-F60-20260624-2200\",\"airport\":\"KJFK\",\"weatherScore\":54,\"status\":\"ADVERSE\",\"statusName\":\"Adverso\",\"phenomenon\":\"STORM_CELL\",\"atis\":\"INFO_BRAVO\",\"notams\":2,\"crosswindKt\":11,\"visibilityKm\":2,\"ceilingFt\":700,\"radarRisk\":72,\"impactCount\":3,\"procedure\":\"INSTRUMENT_IFR\",\"finalScore\":3000}"
+    },
+    {
+      "name": "vento cruzado detectado",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T20:06:40.506Z\",\"build\":\"SC-1.60.0-F60-20260624-2200\",\"airport\":\"KJFK\",\"weatherScore\":67,\"status\":\"ADVERSE\",\"statusName\":\"Adverso\",\"phenomenon\":\"CROSSWIND_ALERT\",\"atis\":\"INFO_ECHO\",\"notams\":1,\"crosswindKt\":21,\"visibilityKm\":8,\"ceilingFt\":3500,\"radarRisk\":18,\"impactCount\":3,\"procedure\":\"INSTRUMENT_IFR\",\"finalScore\":2200}"
+    },
+    {
+      "name": "progress contém weather",
+      "ok": true,
+      "detail": "{\"score\":67,\"status\":\"ADVERSE\",\"phenomenon\":\"CROSSWIND_ALERT\",\"atis\":\"INFO_ECHO\",\"notams\":1,\"crosswindKt\":21,\"visibilityKm\":8,\"ceilingFt\":3500,\"radarRisk\":18,\"impacts\":3,\"last\":{\"at\":\"2026-06-24T20:06:40.506Z\",\"build\":\"SC-1.60.0-F60-20260624-2200\",\"airport\":\"KJFK\",\"weatherScore\":67,\"status\":\"ADVERSE\",\"statusName\":\"Adverso\",\"phenomenon\":\"CROSSWIND_ALERT\",\"atis\":\"INFO_ECHO\",\"notams\":1,\"crosswindKt\":21,\"visibilityKm\":8,\"ceilingFt\":3500,\"radarRisk\":18,\"impactCount\":3,\"procedure\":\"INSTRUMENT_IFR\",\"finalScore\":2200}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"NORMAL\",\"min\":88,\"name\":\"Normal\"},{\"id\":\"WATCH\",\"min\":72,\"name\":\"Atenção\"},{\"id\":\"ADVERSE\",\"min\":52,\"name\":\"Adverso\"},{\"id\":\"SEVERE\",\"min\":0,\"name\":\"Severo\"}]"
+    }
+  ]
+}

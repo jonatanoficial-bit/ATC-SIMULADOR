@@ -1,3 +1,30 @@
+## SC-1.60.0-F60-20260624-2200 — Dynamic Weather Radar, ATIS & NOTAM Center
+
+- Adicionado módulo oficial `63-dynamic-weather-atis-notam-center.js`.
+- Criado catálogo `data/dynamic-weather-atis-notam.json`.
+- Adicionado radar meteorológico simplificado.
+- Adicionados fenômenos meteorológicos vivos.
+- Adicionado ATIS ativo.
+- Adicionados NOTAMs ativos.
+- Adicionado cálculo de vento cruzado.
+- Adicionados teto e visibilidade.
+- Adicionados impactos operacionais.
+- Adicionada integração com Airport Pack.
+- Adicionado painel `WEATHER OPS`.
+- Tela final mostra Weather e ATIS.
+- Hotfix mobile F50.1 preservado.
+- Adaptive Pace F51 preservado.
+- Stability Diagnostics F52 preservado.
+- PWA Update Manager F53 preservado.
+- Live Ops Remote Config F54 preservado.
+- Scenario Mission Generator F55 preservado.
+- Campaign Progression F56 preservado.
+- Instructor Debrief F57 preservado.
+- Replay Timeline F58 preservado.
+- World Airports F59 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F60.
+
 ## SC-1.59.0-F59-20260624-2115 — World Airports, Procedure Packs & Route Challenge Center
 
 - Adicionado módulo oficial `62-world-airports-procedure-pack-center.js`.

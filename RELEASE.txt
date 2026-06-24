@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-World Airports Procedure Pack Evolution — Phase 59
-Version: 1.59.0
-Build: SC-1.59.0-F59-20260624-2115
-Built: 2026-06-24 21:15 BRT
-Channel: WORLD-AIRPORTS-PROCEDURES
-Status: F59 WORLD AIRPORT PROCEDURE PACK AUDITED
-F50.1 through F58 safeguards, missions, career, debrief and replay preserved.
+Dynamic Weather ATIS NOTAM Evolution — Phase 60
+Version: 1.60.0
+Build: SC-1.60.0-F60-20260624-2200
+Built: 2026-06-24 22:00 BRT
+Channel: DYNAMIC-WEATHER-ATIS-NOTAM
+Status: F60 WEATHER ATIS NOTAM AUDITED
+F50.1 through F59 safeguards, airports, missions, campaign, debrief and replay preserved.

@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.59.0-F59-20260624-2115",
-  "builtAt": "2026-06-24 21:15 BRT",
-  "cacheName": "skyward-control-1-sc-1.59.0-f59-20260624-2115",
+  "build": "SC-1.60.0-F60-20260624-2200",
+  "builtAt": "2026-06-24 22:00 BRT",
+  "cacheName": "skyward-control-1-sc-1.60.0-f60-20260624-2200",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,8 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 2172,
-      "sha256": "e7c2055e1a46c83e12d17af1d901af190ca40409d823295fd5c62c5a9b75cb40"
+      "bytes": 2216,
+      "sha256": "809aace20ddfc78903cd7100ccf60c404dc01a4c091a48aacfa550cd2f0ef2a6"
     },
     {
       "url": "./data/adaptive-pace-workload.json",
@@ -175,6 +175,12 @@
       "file": "data/digital-twin-predictive.json",
       "bytes": 5740,
       "sha256": "201d06f854d144d25b5a510b86373dd21acd930f79c09efa7c273a9cd9b4e652"
+    },
+    {
+      "url": "./data/dynamic-weather-atis-notam.json",
+      "file": "data/dynamic-weather-atis-notam.json",
+      "bytes": 5342,
+      "sha256": "5856518b69150a81bf5d0c400a016baa7733743681eca85067152efd1c28fb65"
     },
     {
       "url": "./data/economy-contracts.json",
@@ -395,8 +401,8 @@
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 890326,
-      "sha256": "f38497d15df5bdc77d4884877be179c939aafba6c92ac54a79029a5cd36a41ad"
+      "bytes": 904843,
+      "sha256": "fe51840debeebb66c13ad0c8d97097d9df6c588541242c8db25fecbae2fe7391"
     },
     {
       "url": "./manifest.webmanifest",
@@ -407,8 +413,8 @@
     {
       "url": "./style.css",
       "file": "style.css",
-      "bytes": 118226,
-      "sha256": "d964fc5da6409e872af2075b632456005a272b657b739780ab57312df0174c8a"
+      "bytes": 118824,
+      "sha256": "f89c02dea4f6244fa8702c402c4d71e5e6345051466b27f0d2748260a2fef79d"
     }
   ]
 }
