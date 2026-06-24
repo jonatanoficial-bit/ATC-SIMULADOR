@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "version": "2026.06-f52",
+  "description": "Stability observatory and diagnostics center with local telemetry, safe-mode reports, PWA cache checks, runtime health, session watchdog and recovery recommendations.",
+  "diagnosticSignals": [
+    {
+      "id": "SAFE_MODE_COUNT",
+      "name": "Contador modo seguro",
+      "weight": 18,
+      "target": 0
+    },
+    {
+      "id": "RUNTIME_ERRORS",
+      "name": "Erros runtime",
+      "weight": 18,
+      "target": 0
+    },
+    {
+      "id": "SESSION_HEALTH",
+      "name": "Saúde sessão",
+      "weight": 14,
+      "target": 92
+    },
+    {
+      "id": "PWA_CACHE_HEALTH",
+      "name": "Saúde cache PWA",
+      "weight": 12,
+      "target": 90
+    },
+    {
+      "id": "FRAME_STABILITY",
+      "name": "Estabilidade visual",
+      "weight": 12,
+      "target": 85
+    },
+    {
+      "id": "RECOVERY_READINESS",
+      "name": "Prontidão recuperação",
+      "weight": 10,
+      "target": 90
+    },
+    {
+      "id": "MOBILE_MEMORY_GUARD",
+      "name": "Guarda memória mobile",
+      "weight": 8,
+      "target": 82
+    },
+    {
+      "id": "EVENT_QUEUE_HEALTH",
+      "name": "Fila eventos",
+      "weight": 8,
+      "target": 85
+    }
+  ],
+  "failureTypes": [
+    {
+      "id": "CONST_ASSIGNMENT",
+      "name": "Assignment to constant variable",
+      "severity": 34,
+      "hint": "Variável constante recebendo nova atribuição."
+    },
+    {
+      "id": "NULL_DOM",
+      "name": "Elemento visual ausente",
+      "severity": 20,
+      "hint": "Elemento DOM não encontrado em atualização."
+    },
+    {
+      "id": "PWA_OLD_CACHE",
+      "name": "Cache antigo PWA",
+      "severity": 24,
+      "hint": "Service worker ou cache antigo pode servir bundle obsoleto."
+    },
+    {
+      "id": "EVENT_BURST",
+      "name": "Explosão de eventos",
+      "severity": 26,
+      "hint": "Eventos excessivos em curto intervalo."
+    },
+    {
+      "id": "MOBILE_OVERLOAD",
+      "name": "Sobrecarga mobile",
+      "severity": 28,
+      "hint": "Dispositivo móvel saturado."
+    },
+    {
+      "id": "SAVE_CORRUPTION",
+      "name": "Save inconsistente",
+      "severity": 32,
+      "hint": "Estado persistido inválido."
+    },
+    {
+      "id": "RENDER_LOOP_DROP",
+      "name": "Queda loop render",
+      "severity": 22,
+      "hint": "Loop visual com FPS irregular."
+    }
+  ],
+  "recoveryActions": [
+    {
+      "id": "CLEAR_OLD_CACHE",
+      "name": "Limpar cache antigo",
+      "impact": 12
+    },
+    {
+      "id": "RESTORE_SAFE_STATE",
+      "name": "Restaurar estado seguro",
+      "impact": 16
+    },
+    {
+      "id": "REDUCE_PACE",
+      "name": "Reduzir ritmo",
+      "impact": 14
+    },
+    {
+      "id": "LIMIT_EVENTS",
+      "name": "Limitar eventos",
+      "impact": 12
+    },
+    {
+      "id": "REBUILD_SESSION",
+      "name": "Reconstruir sessão",
+      "impact": 18
+    },
+    {
+      "id": "EXPORT_DIAGNOSTIC",
+      "name": "Exportar diagnóstico",
+      "impact": 8
+    }
+  ],
+  "healthBands": [
+    {
+      "id": "STABLE",
+      "min": 90,
+      "name": "Estável"
+    },
+    {
+      "id": "WATCH",
+      "min": 75,
+      "name": "Em observação"
+    },
+    {
+      "id": "DEGRADED",
+      "min": 55,
+      "name": "Degradado"
+    },
+    {
+      "id": "UNSTABLE",
+      "min": 0,
+      "name": "Instável"
+    }
+  ],
+  "diagnosticKPIs": [
+    {
+      "id": "STABILITY_SCORE",
+      "name": "Score estabilidade"
+    },
+    {
+      "id": "SAFE_MODE_RATE",
+      "name": "Taxa modo seguro"
+    },
+    {
+      "id": "ERROR_BURST",
+      "name": "Rajada de erros"
+    },
+    {
+      "id": "CACHE_AGE",
+      "name": "Idade cache"
+    },
+    {
+      "id": "RECOVERY_SCORE",
+      "name": "Score recuperação"
+    },
+    {
+      "id": "MOBILE_STABILITY",
+      "name": "Estabilidade mobile"
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "suite": "phase52-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para Stability Diagnostics.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.52.0",
+    "phase": "F52",
+    "phaseName": "Stability Observatory & Diagnostics Center, Telemetria Local, Safe Mode, PWA Cache e Recuperação",
+    "channel": "stability-diagnostics",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.52.0-F52-20260624-1600",
+    "builtAt": "2026-06-24 16:00 BRT",
+    "builtAtIso": "2026-06-24T16:00:00-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1,
+    "weatherOpsSchema": 1,
+    "procedureOpsSchema": 1,
+    "careerSchema": 1,
+    "economySchema": 1,
+    "incidentSchema": 1,
+    "networkFlowSchema": 1,
+    "controlRoomSchema": 1,
+    "commercialPolishSchema": 1,
+    "releaseCandidateSchema": 1,
+    "goldMasterSchema": 1,
+    "postGoldMasterSchema": 1,
+    "postPublishHealthSchema": 1,
+    "publicOpsSchema": 1,
+    "trainingAcademySchema": 1,
+    "trainingCoachSchema": 1,
+    "internationalCampaignSchema": 1,
+    "airlineOpsSchema": 1,
+    "airportAuthoritySchema": 1,
+    "crisisCommandSchema": 1,
+    "safetyComplianceSchema": 1,
+    "infrastructureExpansionSchema": 1,
+    "environmentSustainabilitySchema": 1,
+    "revenueManagementSchema": 1,
+    "workforceStaffingSchema": 1,
+    "passengerReputationSchema": 1,
+    "multiAirportNetworkSchema": 1,
+    "emergencyResponseSchema": 1,
+    "securityCyberDefenseSchema": 1,
+    "assetMaintenanceSchema": 1,
+    "digitalTwinPredictiveSchema": 1,
+    "aiCopilotSchema": 1,
+    "radioPhraseologySchema": 1,
+    "groundTurnaroundSchema": 1,
+    "cargoLogisticsSchema": 1,
+    "terminalFlowSchema": 1,
+    "nonAeroRevenueSchema": 1,
+    "mobileStabilityHotfixSchema": 1,
+    "safeModeIncidentFixSchema": 1,
+    "paceTuningSchema": 1,
+    "adaptivePaceSchema": 1,
+    "stabilityDiagnosticsSchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F52 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.52.0', 'phase': 'F52', 'phaseName': 'Stability Observatory & Diagnostics Center, Telemetria Local, Safe Mode, PWA Cache e Recuperação', 'channel': 'stability-diagnostics', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.52.0-F52-20260624-1600', 'builtAt': '2026-06-24 16:00 BRT', 'builtAtIso': '2026-06-24T16:00:00-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1, 'weatherOpsSchema': 1, 'procedureOpsSchema': 1, 'careerSchema': 1, 'economySchema': 1, 'incidentSchema': 1, 'networkFlowSchema': 1, 'controlRoomSchema': 1, 'commercialPolishSchema': 1, 'releaseCandidateSchema': 1, 'goldMasterSchema': 1, 'postGoldMasterSchema': 1, 'postPublishHealthSchema': 1, 'publicOpsSchema': 1, 'trainingAcademySchema': 1, 'trainingCoachSchema': 1, 'internationalCampaignSchema': 1, 'airlineOpsSchema': 1, 'airportAuthoritySchema': 1, 'crisisCommandSchema': 1, 'safetyComplianceSchema': 1, 'infrastructureExpansionSchema': 1, 'environmentSustainabilitySchema': 1, 'revenueManagementSchema': 1, 'workforceStaffingSchema': 1, 'passengerReputationSchema': 1, 'multiAirportNetworkSchema': 1, 'emergencyResponseSchema': 1, 'securityCyberDefenseSchema': 1, 'assetMaintenanceSchema': 1, 'digitalTwinPredictiveSchema': 1, 'aiCopilotSchema': 1, 'radioPhraseologySchema': 1, 'groundTurnaroundSchema': 1, 'cargoLogisticsSchema': 1, 'terminalFlowSchema': 1, 'nonAeroRevenueSchema': 1, 'mobileStabilityHotfixSchema': 1, 'safeModeIncidentFixSchema': 1, 'paceTuningSchema': 1, 'adaptivePaceSchema': 1, 'stabilityDiagnosticsSchema': 1}"
+    },
+    {
+      "name": "hotfix F50.1 preservado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "F51 preservada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "main bundle inclui módulo 55",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_STABILITY_DIAGNOSTICS no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui sinais",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui falhas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui ações",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui stability-diagnostics.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "início de turno inicializa F52",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fim de turno mostra F52",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS possui painel stability",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F52 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema stabilityDiagnosticsSchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "channel stability-diagnostics",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc stability existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc safemode existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado raiz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado docs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém caminho Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém repo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "const assignment monitorado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache antigo monitorado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "safe mode KPI presente",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 24,
+  "failed": 0,
+  "total": 24
+}

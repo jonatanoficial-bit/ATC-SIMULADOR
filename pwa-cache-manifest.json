@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.50.1-F50-20260624-1430",
-  "builtAt": "2026-06-24 14:30 BRT",
-  "cacheName": "skyward-control-1-sc-1.50.1-f50-20260624-1430",
+  "build": "SC-1.52.0-F52-20260624-1600",
+  "builtAt": "2026-06-24 16:00 BRT",
+  "cacheName": "skyward-control-1-sc-1.52.0-f52-20260624-1600",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,14 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 1966,
-      "sha256": "c600c8b8ea1cf53f7bb4a1a8c11e4e197cd54e1575df6333d5dddfc4ac2a3558"
+      "bytes": 1939,
+      "sha256": "4c835dcb784fa0122e693afc1e644330bd0b672e445e1ab5c8ee964d4c3f57fa"
+    },
+    {
+      "url": "./data/adaptive-pace-workload.json",
+      "file": "data/adaptive-pace-workload.json",
+      "bytes": 3104,
+      "sha256": "d863d6149078dfe91314be8f7aa4ce2deba2037c3aedc9ec78361f28051c286a"
     },
     {
       "url": "./data/ai-copilot-decision-support.json",
@@ -291,6 +297,12 @@
       "sha256": "68a00637e236b88eafe99fb714af3e2baf6efee75f66fc8a29e7802eca1fb7de"
     },
     {
+      "url": "./data/stability-diagnostics.json",
+      "file": "data/stability-diagnostics.json",
+      "bytes": 3795,
+      "sha256": "d12f8f107183b66bd681ca9e49b0a3a574471b72cece26b93186857491ca3926"
+    },
+    {
       "url": "./data/surface-hotspots.json",
       "file": "data/surface-hotspots.json",
       "bytes": 1841,
@@ -341,8 +353,8 @@
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 764631,
-      "sha256": "d165843a38965ce7c140945c826d052e73bae8625407979cf7c4c027e5fef31a"
+      "bytes": 791019,
+      "sha256": "fc6897a2b369cbec6f532fc5a01bcfa8e6b8ec42584995eaea7e126080918cb2"
     },
     {
       "url": "./manifest.webmanifest",
@@ -353,8 +365,8 @@
     {
       "url": "./style.css",
       "file": "style.css",
-      "bytes": 112695,
-      "sha256": "a6ab3e3bc2f12bc67e6125850be971518c90bc29d02cb791d2b1a0b4f03055a4"
+      "bytes": 113945,
+      "sha256": "60bb2449e0bc27d112176a1ee3bf74d951e281410abb26d6c55309d9c95ca302"
     }
   ]
 }

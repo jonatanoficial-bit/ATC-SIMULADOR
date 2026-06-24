@@ -1,10 +1,10 @@
 {
   "product": "Skyward Control",
   "prefix": "SC",
-  "version": "1.50.1",
-  "phase": "F50",
-  "phaseName": "F50.1 Hotfix Mobile Stability & Pace Tuning — Safe Mode Incident Fix",
-  "channel": "mobile-stability-hotfix",
+  "version": "1.52.0",
+  "phase": "F52",
+  "phaseName": "Stability Observatory & Diagnostics Center, Telemetria Local, Safe Mode, PWA Cache e Recuperação",
+  "channel": "stability-diagnostics",
   "saveSchema": 3,
   "target": "Mobile-first / Tablet / Desktop",
   "timeZone": "America/Sao_Paulo",
@@ -17,9 +17,9 @@
   "desktopSchema": 1,
   "accessibilitySchema": 1,
   "replaySchema": 1,
-  "build": "SC-1.50.1-F50-20260624-1430",
-  "builtAt": "2026-06-24 14:30 BRT",
-  "builtAtIso": "2026-06-24T14:30:00-03:00",
+  "build": "SC-1.52.0-F52-20260624-1600",
+  "builtAt": "2026-06-24 16:00 BRT",
+  "builtAtIso": "2026-06-24T16:00:00-03:00",
   "aircraftPerformanceSchema": 1,
   "airportSurfaceSchema": 1,
   "surfaceSafetySchema": 1,
@@ -61,5 +61,7 @@
   "nonAeroRevenueSchema": 1,
   "mobileStabilityHotfixSchema": 1,
   "safeModeIncidentFixSchema": 1,
-  "paceTuningSchema": 1
+  "paceTuningSchema": 1,
+  "adaptivePaceSchema": 1,
+  "stabilityDiagnosticsSchema": 1
 }

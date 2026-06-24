@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase52-unit",
+  "build": "SC-1.52.0-F52-20260624-1600",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F52+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.52.0\",\"phase\":\"F52\",\"phaseName\":\"Stability Observatory & Diagnostics Center, Telemetria Local, Safe Mode, PWA Cache e Recuperação\",\"channel\":\"stability-diagnostics\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.52.0-F52-20260624-1600\",\"builtAt\":\"2026-06-24 16:00 BRT\",\"builtAtIso\":\"2026-06-24T16:00:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1,\"terminalFlowSchema\":1,\"nonAeroRevenueSchema\":1,\"mobileStabilityHotfixSchema\":1,\"safeModeIncidentFixSchema\":1,\"paceTuningSchema\":1,\"adaptivePaceSchema\":1,\"stabilityDiagnosticsSchema\":1}"
+    },
+    {
+      "name": "módulo F52 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo signals failures actions",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"signals\":8,\"failures\":7}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"stabilityScore\":87,\"status\":\"WATCH\",\"safeModeCount\":0,\"runtimeErrors\":[{\"id\":\"ERR-574045\",\"type\":\"CONST_ASSIGNMENT\",\"name\":\"Assignment to constant variable\",\"severity\":34,\"message\":\"Assignment to constant variable\",\"context\":\"self-check\",\"at\":\"2026-06-24T14:49:34.045Z\",\"build\":\"SC-1.52.0-F52-20260624-1600\"},{\"id\":\"ERR-574038\",\"type\":\"CONST_ASSIGNMENT\",\"name\":\"Assignment to constant variable\",\"severity\":34,\"message\":\"Assignment to constant variable\",\"context\":\"self-check\",\"at\":\"2026-06-24T14:49:34.038Z\",\"build\":\"SC-1.52.0-F52-20260624-1600\"}],\"recoveryActions\":[{\"id\":\"REC-574045\",\"actionId\":\"REBUILD_SESSION\",\"reason\":\"Assignment to constant variable\",\"status\":\"SUGGESTED\",\"at\":\"2026-06-24T14:49:34.045Z\"},{\"id\":\"REC-574044\",\"actionId\":\"REBUILD_SESSION\",\"reason\":\"Assignment to constant variable\",\"status\":\"SUGGESTED\",\"at\":\"2026-06-24T14:49:34.038Z\"}],\"sessionHealth\":88,\"pwaCacheHealth\":88,\"frameStability\":78,\"mobileMemoryGuard\":79,\"eventQueueHealth\":86,\"recoveryReadiness\":92,\"lastDiagnostic\":{\"at\":\"2026-06-24T14:49:34.045Z\",\"build\":\"SC-1.52.0-F52-20260624-1600\",\"reason\":\"init\",\"stabilityScore\":87,\"status\":\"WATCH\",\"safeModeCount\":0,\"runtimeErrors\":2,\"sessionHealth\":88,\"pwaCacheHealth\":88,\"frameStability\":78,\"mobileMemoryGuard\":79,\"eventQueueHealth\":86,\"recoveryReadiness\":92},\"history\":[{\"at\":\"2026-06-24T14:49:34.045Z\",\"build\":\"SC-1.52.0-F52-20260624-1600\",\"reason\":\"init\",\"stabilityScore\":87,\"status\":\"WATCH\",\"safeModeCount\":0,\"runtimeErrors\":2,\"sessionHealth\":88,\"pwaCacheHealth\":88,\"frameStability\":78,\"mobileMemoryGuard\":79,\"eventQueueHealth\":86,\"recoveryReadiness\":92},{\"at\":\"2026-06-24T14:49:34.045Z\",\"build\":\"SC-1.52.0-F52-20260624-1600\",\"reason\":\"self-check\",\"stabilityScore\":87,\"status\":\"WATCH\",\"safeModeCount\":0,\"runtimeErrors\":2,\"sessionHealth\":88,\"pwaCacheHealth\":88,\"frameStability\":78,\"mobileMemoryGuard\":79,\"eventQueueHealth\":86,\"recoveryReadiness\":92},{\"at\":\"2026-06-24T14:49:34.044Z\",\"build\":\"SC-1.52.0-F52-20260624-1600\",\"reason\":\"self-check\",\"stabilityScore\":89,\"status\":\"WATCH\",\"safeModeCount\":0,\"runtimeErrors\":1,\"sessionHealth\":90,\"pwaCacheHealth\":88,\"frameStability\":79,\"mobileMemoryGuard\":81,\"eventQueueHealth\":86,\"recoveryReadiness\":91}]}"
+    },
+    {
+      "name": "erro classificado",
+      "ok": true,
+      "detail": "{\"id\":\"ERR-574045\",\"type\":\"CONST_ASSIGNMENT\",\"name\":\"Assignment to constant variable\",\"severity\":34,\"message\":\"Assignment to constant variable\",\"context\":\"unit\",\"at\":\"2026-06-24T14:49:34.045Z\",\"build\":\"SC-1.52.0-F52-20260624-1600\"}"
+    },
+    {
+      "name": "safe mode registrado",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "diagnóstico válido",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T14:49:34.045Z\",\"build\":\"SC-1.52.0-F52-20260624-1600\",\"reason\":\"unit\",\"stabilityScore\":78,\"status\":\"WATCH\",\"safeModeCount\":1,\"runtimeErrors\":3,\"sessionHealth\":74,\"pwaCacheHealth\":88,\"frameStability\":76,\"mobileMemoryGuard\":78,\"eventQueueHealth\":86,\"recoveryReadiness\":87}"
+    },
+    {
+      "name": "progress contém estabilidade",
+      "ok": true,
+      "detail": "{\"score\":78,\"status\":\"WATCH\",\"safeModeCount\":1,\"runtimeErrors\":3,\"sessionHealth\":74,\"pwaCacheHealth\":88,\"frameStability\":76,\"mobileMemoryGuard\":78,\"recoveryActions\":4,\"last\":{\"at\":\"2026-06-24T14:49:34.045Z\",\"build\":\"SC-1.52.0-F52-20260624-1600\",\"reason\":\"unit\",\"stabilityScore\":78,\"status\":\"WATCH\",\"safeModeCount\":1,\"runtimeErrors\":3,\"sessionHealth\":74,\"pwaCacheHealth\":88,\"frameStability\":76,\"mobileMemoryGuard\":78,\"eventQueueHealth\":86,\"recoveryReadiness\":87}}"
+    },
+    {
+      "name": "export diagnóstico válido",
+      "ok": true,
+      "detail": "{\"schema\":1,\"build\":\"SC-1.52.0-F52-20260624-1600\",\"at\":\"2026-06-24T14:49:34.046Z\",\"state\":{\"schema\":1,\"stabilityScore\":78,\"status\":\"WATCH\",\"safeModeCount\":1,\"runtimeErrors\":[{\"id\":\"ERR-574045\",\"type\":\"CONST_ASSIGNMENT\",\"name\":\"Assignment to constant variable\",\"severity\":34,\"message\":\"Assignment to c"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"STABLE\",\"min\":90,\"name\":\"Estável\"},{\"id\":\"WATCH\",\"min\":75,\"name\":\"Em observação\"},{\"id\":\"DEGRADED\",\"min\":55,\"name\":\"Degradado\"},{\"id\":\"UNSTABLE\",\"min\":0,\"name\":\"Instável\"}]"
+    }
+  ]
+}

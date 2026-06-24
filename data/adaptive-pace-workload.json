@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "version": "2026.06-f51",
+  "description": "Adaptive pace and workload director that balances simulation speed, aircraft density, incident cooldowns, mobile workload and event spacing.",
+  "deviceProfiles": [
+    {
+      "id": "MOBILE_LOW",
+      "name": "Mobile baixo desempenho",
+      "paceMultiplier": 0.52,
+      "maxAircraft": 3,
+      "spawnSpacingSec": 42,
+      "incidentCooldownSec": 95
+    },
+    {
+      "id": "MOBILE_STANDARD",
+      "name": "Mobile padrão",
+      "paceMultiplier": 0.62,
+      "maxAircraft": 4,
+      "spawnSpacingSec": 36,
+      "incidentCooldownSec": 85
+    },
+    {
+      "id": "TABLET",
+      "name": "Tablet",
+      "paceMultiplier": 0.74,
+      "maxAircraft": 5,
+      "spawnSpacingSec": 30,
+      "incidentCooldownSec": 74
+    },
+    {
+      "id": "DESKTOP_STANDARD",
+      "name": "Desktop padrão",
+      "paceMultiplier": 0.88,
+      "maxAircraft": 6,
+      "spawnSpacingSec": 24,
+      "incidentCooldownSec": 62
+    },
+    {
+      "id": "DESKTOP_PRO",
+      "name": "Desktop avançado",
+      "paceMultiplier": 1.0,
+      "maxAircraft": 8,
+      "spawnSpacingSec": 20,
+      "incidentCooldownSec": 55
+    }
+  ],
+  "workloadBands": [
+    {
+      "id": "CALM",
+      "min": 0,
+      "max": 34,
+      "name": "Calmo"
+    },
+    {
+      "id": "CONTROLLED",
+      "min": 35,
+      "max": 59,
+      "name": "Controlado"
+    },
+    {
+      "id": "BUSY",
+      "min": 60,
+      "max": 79,
+      "name": "Ocupado"
+    },
+    {
+      "id": "SATURATED",
+      "min": 80,
+      "max": 100,
+      "name": "Saturado"
+    }
+  ],
+  "pacePolicies": [
+    {
+      "id": "REALISTIC",
+      "name": "Realista",
+      "paceBias": 0.9,
+      "spawnBias": 1.15,
+      "incidentBias": 1.25
+    },
+    {
+      "id": "TRAINING",
+      "name": "Treino",
+      "paceBias": 0.78,
+      "spawnBias": 1.35,
+      "incidentBias": 1.45
+    },
+    {
+      "id": "CAREER",
+      "name": "Carreira",
+      "paceBias": 0.84,
+      "spawnBias": 1.2,
+      "incidentBias": 1.3
+    },
+    {
+      "id": "INTENSE",
+      "name": "Intenso controlado",
+      "paceBias": 1.0,
+      "spawnBias": 0.95,
+      "incidentBias": 1.05
+    }
+  ],
+  "balanceRules": [
+    {
+      "id": "MOBILE_CAP",
+      "name": "Limite de aeronaves mobile"
+    },
+    {
+      "id": "INCIDENT_COOLDOWN",
+      "name": "Cooldown de incidente"
+    },
+    {
+      "id": "SPAWN_SPACING",
+      "name": "Espaçamento de tráfego"
+    },
+    {
+      "id": "QUEUE_PROTECTION",
+      "name": "Proteção contra fila de eventos"
+    },
+    {
+      "id": "SAFE_MODE_GUARD",
+      "name": "Guarda anti-modo seguro"
+    }
+  ],
+  "paceKPIs": [
+    {
+      "id": "WORKLOAD_SCORE",
+      "name": "Carga operacional"
+    },
+    {
+      "id": "PACE_MULTIPLIER",
+      "name": "Multiplicador de ritmo"
+    },
+    {
+      "id": "MAX_AIRCRAFT",
+      "name": "Limite aeronaves"
+    },
+    {
+      "id": "SPAWN_INTERVAL",
+      "name": "Intervalo spawn"
+    },
+    {
+      "id": "INCIDENT_COOLDOWN",
+      "name": "Cooldown incidente"
+    },
+    {
+      "id": "MOBILE_PLAYABILITY",
+      "name": "Jogabilidade mobile"
+    }
+  ]
+}

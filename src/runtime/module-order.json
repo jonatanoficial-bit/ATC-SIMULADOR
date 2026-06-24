@@ -243,6 +243,16 @@
       "description": "Non-aeronautical revenue, retail, duty free, F&B, parking, lounges, advertising, hotel, concessions and digital commerce"
     },
     {
+      "file": "54-adaptive-pace-workload-director.js",
+      "name": "adaptive-pace-workload-director",
+      "description": "Adaptive simulation pace, mobile workload cap, aircraft density, incident cooldown and event spacing"
+    },
+    {
+      "file": "55-stability-observatory-diagnostics-center.js",
+      "name": "stability-observatory-diagnostics-center",
+      "description": "Local telemetry, safe mode reports, runtime diagnostics, PWA cache health and recovery recommendations"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

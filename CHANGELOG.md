@@ -1,3 +1,36 @@
+## SC-1.52.0-F52-20260624-1600 — Stability Observatory & Diagnostics Center
+
+- Adicionado módulo oficial `55-stability-observatory-diagnostics-center.js`.
+- Criado catálogo `data/stability-diagnostics.json`.
+- Adicionada telemetria local de estabilidade.
+- Adicionado contador de modo seguro.
+- Adicionado diagnóstico PWA/cache.
+- Adicionada classificação de falhas runtime.
+- Adicionadas ações de recuperação sugeridas.
+- Adicionada exportação de diagnóstico local.
+- Adicionado painel `STABILITY OPS`.
+- Tela final mostra Stability e SafeMode.
+- Hotfix mobile F50.1 preservado.
+- Adaptive Pace F51 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F52.
+
+## SC-1.51.0-F51-20260624-1515 — Adaptive Pace & Workload Director
+
+- Adicionado módulo oficial `54-adaptive-pace-workload-director.js`.
+- Criado catálogo `data/adaptive-pace-workload.json`.
+- Adicionados perfis de dispositivo.
+- Adicionado ritmo adaptativo.
+- Adicionado limite inteligente de aeronaves.
+- Adicionado espaçamento de spawn.
+- Adicionado cooldown de incidentes.
+- Adicionada proteção contra fila de eventos.
+- Adicionado painel `PACE DIRECTOR`.
+- Tela final mostra Pace Director e Ritmo.
+- Hotfix mobile F50.1 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F51.
+
 ## SC-1.50.1-F50-20260624-1430 — Mobile Safe Mode & Pace Tuning Hotfix
 
 - Corrigido erro crítico `Assignment to constant variable` em `resolveOperationalIncident`.

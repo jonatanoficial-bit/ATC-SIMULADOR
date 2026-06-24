@@ -1,8 +1,10 @@
 SKYWARD CONTROL
-Version: 1.50.1
-Phase: F50 — F50.1 Hotfix Mobile Stability & Pace Tuning — Safe Mode Incident Fix
-Build: SC-1.50.1-F50-20260624-1430
-Built at: 2026-06-24 14:30 BRT
-Channel: mobile-stability-hotfix
-Mobile Stability Hotfix schema: 1
+Version: 1.52.0
+Phase: F52 — Stability Observatory & Diagnostics Center, Telemetria Local, Safe Mode, PWA Cache e Recuperação
+Build: SC-1.52.0-F52-20260624-1600
+Built at: 2026-06-24 16:00 BRT
+Channel: stability-diagnostics
+Stability Diagnostics schema: 1
+F50.1 mobile hotfix preserved: true
+F51 adaptive pace preserved: true
 Target: Mobile-first / Tablet / Desktop

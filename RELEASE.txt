@@ -1,7 +1,8 @@
 SKYWARD CONTROL
-Mobile Stability Hotfix — F50.1
-Version: 1.50.1
-Build: SC-1.50.1-F50-20260624-1430
-Built: 2026-06-24 14:30 BRT
-Channel: MOBILE-STABILITY-HOTFIX
-Status: SAFE MODE INCIDENT FIX + MOBILE PACE TUNING AUDITED
+Stability Observatory Evolution — Phase 52
+Version: 1.52.0
+Build: SC-1.52.0-F52-20260624-1600
+Built: 2026-06-24 16:00 BRT
+Channel: STABILITY-DIAGNOSTICS
+Status: F52 STABILITY DIAGNOSTICS AUDITED
+F50.1 and F51 mobile safeguards preserved.

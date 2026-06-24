@@ -8930,7 +8930,425 @@ window.SKYWARD_NON_AERO_REVENUE=Object.freeze({
   selfCheck:nonAeroRevenueSelfCheck
 });
 
-/* ===== MODULE 49: surface-safety-director (17-surface-safety-director.js) ===== */
+/* ===== MODULE 49: adaptive-pace-workload-director (54-adaptive-pace-workload-director.js) ===== */
+/* @skyward-module 54-adaptive-pace-workload-director
+ * Adaptive pace and workload director for mobile balance, event spacing, aircraft caps, incident cooldowns and safe-mode guard.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('54-adaptive-pace-workload-director');
+const ADAPTIVE_PACE_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f51',
+  deviceProfiles:[
+    {id:'MOBILE_LOW',name:'Mobile baixo desempenho',paceMultiplier:.52,maxAircraft:3,spawnSpacingSec:42,incidentCooldownSec:95},
+    {id:'MOBILE_STANDARD',name:'Mobile padrão',paceMultiplier:.62,maxAircraft:4,spawnSpacingSec:36,incidentCooldownSec:85},
+    {id:'TABLET',name:'Tablet',paceMultiplier:.74,maxAircraft:5,spawnSpacingSec:30,incidentCooldownSec:74},
+    {id:'DESKTOP_STANDARD',name:'Desktop padrão',paceMultiplier:.88,maxAircraft:6,spawnSpacingSec:24,incidentCooldownSec:62},
+    {id:'DESKTOP_PRO',name:'Desktop avançado',paceMultiplier:1,maxAircraft:8,spawnSpacingSec:20,incidentCooldownSec:55}
+  ],
+  workloadBands:[
+    {id:'CALM',min:0,max:34,name:'Calmo'},
+    {id:'CONTROLLED',min:35,max:59,name:'Controlado'},
+    {id:'BUSY',min:60,max:79,name:'Ocupado'},
+    {id:'SATURATED',min:80,max:100,name:'Saturado'}
+  ],
+  pacePolicies:[
+    {id:'REALISTIC',name:'Realista',paceBias:.90,spawnBias:1.15,incidentBias:1.25},
+    {id:'TRAINING',name:'Treino',paceBias:.78,spawnBias:1.35,incidentBias:1.45},
+    {id:'CAREER',name:'Carreira',paceBias:.84,spawnBias:1.20,incidentBias:1.30},
+    {id:'INTENSE',name:'Intenso controlado',paceBias:1,spawnBias:.95,incidentBias:1.05}
+  ],
+  balanceRules:[
+    {id:'MOBILE_CAP',name:'Limite de aeronaves mobile'},
+    {id:'INCIDENT_COOLDOWN',name:'Cooldown de incidente'},
+    {id:'SPAWN_SPACING',name:'Espaçamento de tráfego'},
+    {id:'QUEUE_PROTECTION',name:'Proteção contra fila de eventos'},
+    {id:'SAFE_MODE_GUARD',name:'Guarda anti-modo seguro'}
+  ]
+});
+const ADAPTIVE_PACE_KEY='skywardAdaptivePace_v1';
+let adaptivePaceState={schema:1,policy:'CAREER',deviceProfile:'MOBILE_STANDARD',workloadScore:42,workloadBand:'CONTROLLED',paceMultiplier:.62,maxAircraft:4,spawnSpacingSec:36,incidentCooldownSec:85,mobilePlayability:82,queuePressure:0,lastIncidentAt:0,lastSpawnAt:0,tuningHistory:[],lastEvaluation:null};
+function loadAdaptivePace(){try{const raw=localStorage?.getItem?.(ADAPTIVE_PACE_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)adaptivePaceState={...adaptivePaceState,...parsed};}}catch(e){safeLogError?.(e,'adaptive-pace-load');}return adaptivePaceState;}
+function saveAdaptivePace(){try{localStorage?.setItem?.(ADAPTIVE_PACE_KEY,JSON.stringify(adaptivePaceState));}catch(e){safeLogError?.(e,'adaptive-pace-save');}return adaptivePaceState;}
+function getViewportClass(){
+  try{
+    const w=Math.max(Number(innerWidth||0),Number(screen?.width||0));
+    const h=Math.max(Number(innerHeight||0),Number(screen?.height||0));
+    const min=Math.min(w,h), max=Math.max(w,h);
+    const touch=('ontouchstart' in window)||Number(navigator?.maxTouchPoints||0)>0;
+    if(touch && min<430) return 'MOBILE_LOW';
+    if(touch && max<950) return 'MOBILE_STANDARD';
+    if(touch && max<1200) return 'TABLET';
+    if(max>=1600) return 'DESKTOP_PRO';
+    return 'DESKTOP_STANDARD';
+  }catch(e){return 'MOBILE_STANDARD';}
+}
+function profileById(id){return ADAPTIVE_PACE_CATALOG.deviceProfiles.find(p=>p.id===id)||ADAPTIVE_PACE_CATALOG.deviceProfiles[1];}
+function policyById(id){return ADAPTIVE_PACE_CATALOG.pacePolicies.find(p=>p.id===id)||ADAPTIVE_PACE_CATALOG.pacePolicies[2];}
+function bandForWorkload(score){return ADAPTIVE_PACE_CATALOG.workloadBands.find(b=>score>=b.min&&score<=b.max)||ADAPTIVE_PACE_CATALOG.workloadBands.at(-1);}
+function setAdaptivePacePolicy(id='CAREER'){loadAdaptivePace();adaptivePaceState.policy=policyById(id).id;saveAdaptivePace();return adaptivePaceState;}
+function estimateWorkload(statsObj={}){
+  const planesCount=Array.isArray(window.planes)?window.planes.length:Number(statsObj.activePlanes||0);
+  const requestCount=Array.isArray(window.pendingRequests)?window.pendingRequests.length:Number(statsObj.pendingRequests||0);
+  const denied=Number(statsObj.denied||0), conflicts=Number(statsObj.conflicts||0), incursions=Number(statsObj.runwayIncursions||0);
+  const terminal=window.SKYWARD_TERMINAL_FLOW?.status?.()||{};
+  const radio=window.SKYWARD_RADIO_PHRASEOLOGY?.status?.()||{};
+  const ai=window.SKYWARD_AI_COPILOT?.status?.()||{};
+  const queue=Number(terminal.progress?.avgQueueMin||0);
+  const radioLoad=100-Number(radio.progress?.score||84);
+  const aiRisk=100-Number(ai.progress?.score||80);
+  return Math.max(0,Math.min(100,Math.round(planesCount*11+requestCount*6+denied*5+conflicts*12+incursions*18+queue*.5+radioLoad*.16+aiRisk*.12)));
+}
+function tuneAdaptivePace(statsObj={},reason='runtime'){
+  loadAdaptivePace();
+  const profile=profileById(getViewportClass());
+  const policy=policyById(adaptivePaceState.policy);
+  const workload=estimateWorkload(statsObj);
+  const band=bandForWorkload(workload);
+  let pace=profile.paceMultiplier*policy.paceBias;
+  let spawn=profile.spawnSpacingSec*policy.spawnBias;
+  let cooldown=profile.incidentCooldownSec*policy.incidentBias;
+  let maxAircraft=profile.maxAircraft;
+  if(workload>=80){pace*=.78;spawn*=1.45;cooldown*=1.55;maxAircraft=Math.max(2,maxAircraft-1);}
+  else if(workload>=60){pace*=.88;spawn*=1.25;cooldown*=1.25;}
+  else if(workload<30){pace*=1.04;spawn*=.92;cooldown*=.95;}
+  const safeModeMemory=Number(localStorage?.getItem?.('skywardSafeModeCount')||0);
+  if(safeModeMemory>0){pace*=.72;spawn*=1.4;cooldown*=1.5;maxAircraft=Math.max(2,maxAircraft-1);}
+  adaptivePaceState.deviceProfile=profile.id;
+  adaptivePaceState.workloadScore=workload;
+  adaptivePaceState.workloadBand=band.id;
+  adaptivePaceState.paceMultiplier=Math.max(.42,Math.min(1.05,Number(pace.toFixed(2))));
+  adaptivePaceState.maxAircraft=Math.max(2,Math.min(8,Math.round(maxAircraft)));
+  adaptivePaceState.spawnSpacingSec=Math.max(18,Math.round(spawn));
+  adaptivePaceState.incidentCooldownSec=Math.max(40,Math.round(cooldown));
+  adaptivePaceState.queuePressure=Math.max(0,Math.min(100,Math.round(workload*.72+safeModeMemory*10)));
+  adaptivePaceState.mobilePlayability=Math.max(0,Math.min(100,Math.round(100-workload*.55-(profile.id.includes('MOBILE')?0:4)-safeModeMemory*12)));
+  const item={at:new Date().toISOString(),build:BUILD,reason,profile:profile.id,policy:policy.id,workload,band:band.id,pace:adaptivePaceState.paceMultiplier,maxAircraft:adaptivePaceState.maxAircraft,spawnSpacingSec:adaptivePaceState.spawnSpacingSec,incidentCooldownSec:adaptivePaceState.incidentCooldownSec,mobilePlayability:adaptivePaceState.mobilePlayability};
+  adaptivePaceState.tuningHistory.unshift(item);
+  adaptivePaceState.tuningHistory=adaptivePaceState.tuningHistory.slice(0,80);
+  adaptivePaceState.lastEvaluation=item;
+  window.SKYWARD_PACE_MULTIPLIER=adaptivePaceState.paceMultiplier;
+  window.SKYWARD_MAX_AIRCRAFT=adaptivePaceState.maxAircraft;
+  window.SKYWARD_SPAWN_SPACING_MS=adaptivePaceState.spawnSpacingSec*1000;
+  window.SKYWARD_INCIDENT_COOLDOWN_MS=adaptivePaceState.incidentCooldownSec*1000;
+  saveAdaptivePace();
+  renderAdaptivePaceBoard();
+  return item;
+}
+function canSpawnAircraft(){
+  loadAdaptivePace();
+  const now=Date.now();
+  const count=Array.isArray(window.planes)?window.planes.length:0;
+  if(count>=adaptivePaceState.maxAircraft) return false;
+  return now-Number(adaptivePaceState.lastSpawnAt||0)>=adaptivePaceState.spawnSpacingSec*1000;
+}
+function markAircraftSpawn(){
+  loadAdaptivePace();
+  adaptivePaceState.lastSpawnAt=Date.now();
+  saveAdaptivePace();
+  return adaptivePaceState.lastSpawnAt;
+}
+function canTriggerIncident(){
+  loadAdaptivePace();
+  const now=Date.now();
+  return now-Number(adaptivePaceState.lastIncidentAt||0)>=adaptivePaceState.incidentCooldownSec*1000;
+}
+function markIncidentTrigger(){
+  loadAdaptivePace();
+  adaptivePaceState.lastIncidentAt=Date.now();
+  saveAdaptivePace();
+  return adaptivePaceState.lastIncidentAt;
+}
+function scaleTimeout(ms){
+  loadAdaptivePace();
+  return Math.max(1000,Math.round(Number(ms||1000)/Math.max(.42,adaptivePaceState.paceMultiplier)));
+}
+function evaluateAdaptivePace(finalScore=0,statsObj={},fail=false,airportCode=''){
+  const tuned=tuneAdaptivePace(statsObj,'end-shift');
+  if(fail){adaptivePaceState.paceMultiplier=Math.max(.42,adaptivePaceState.paceMultiplier*.82);adaptivePaceState.spawnSpacingSec=Math.round(adaptivePaceState.spawnSpacingSec*1.25);adaptivePaceState.incidentCooldownSec=Math.round(adaptivePaceState.incidentCooldownSec*1.25);}
+  saveAdaptivePace();
+  return {state:adaptivePaceState,evaluation:{...tuned,airport:airportCode||'SBSP',finalScore:Math.round(finalScore||0),fail:Boolean(fail)}};
+}
+function adaptivePaceProgress(){
+  loadAdaptivePace();
+  return {score:adaptivePaceState.mobilePlayability,status:adaptivePaceState.workloadBand,profile:adaptivePaceState.deviceProfile,policy:adaptivePaceState.policy,workload:adaptivePaceState.workloadScore,paceMultiplier:adaptivePaceState.paceMultiplier,maxAircraft:adaptivePaceState.maxAircraft,spawnSpacingSec:adaptivePaceState.spawnSpacingSec,incidentCooldownSec:adaptivePaceState.incidentCooldownSec,last:adaptivePaceState.lastEvaluation||null};
+}
+function renderAdaptivePaceBoard(){
+  try{
+    const anchor=document.querySelector('#nonAeroRevenueInline') || document.querySelector('#terminalFlowInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#adaptivePaceInline'); if(old) old.remove();
+    const p=adaptivePaceProgress();
+    anchor.insertAdjacentHTML('afterend',`<div id="adaptivePaceInline" class="airport-ops-board adaptive-pace-inline">
+      <div class="airport-ops-head"><b>PACE DIRECTOR</b><span>${p.status}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>CARGA</small><b>${p.workload}</b></div>
+        <div><small>RITMO</small><b>${p.paceMultiplier}x</b></div>
+        <div><small>MAX AC</small><b>${p.maxAircraft}</b></div>
+        <div><small>SPAWN</small><b>${p.spawnSpacingSec}s</b></div>
+        <div><small>INCID.</small><b>${p.incidentCooldownSec}s</b></div>
+        <div><small>MOBILE</small><b>${p.score}%</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'adaptive-pace-board'); }
+}
+function initializeAdaptivePace(){
+  loadAdaptivePace();
+  tuneAdaptivePace({},'init');
+  return adaptivePaceState;
+}
+function adaptivePaceStatus(){loadAdaptivePace();return {...adaptivePaceState,progress:adaptivePaceProgress(),catalog:ADAPTIVE_PACE_CATALOG};}
+function adaptivePaceSelfCheck(){
+  const issues=[];
+  if(ADAPTIVE_PACE_CATALOG.deviceProfiles.length<5) issues.push('perfis insuficientes');
+  if(ADAPTIVE_PACE_CATALOG.pacePolicies.length<4) issues.push('políticas insuficientes');
+  const tuned=tuneAdaptivePace({activePlanes:4,pendingRequests:2,denied:1,conflicts:0,runwayIncursions:0},'self-check');
+  if(!Number.isFinite(tuned.pace)||!Number.isFinite(tuned.maxAircraft)) issues.push('tuning inválido');
+  if(adaptivePaceState.paceMultiplier<=0||adaptivePaceState.spawnSpacingSec<18) issues.push('limites inválidos');
+  return {ok:issues.length===0,issues,profiles:ADAPTIVE_PACE_CATALOG.deviceProfiles.length,policies:ADAPTIVE_PACE_CATALOG.pacePolicies.length};
+}
+window.SKYWARD_ADAPTIVE_PACE=Object.freeze({
+  schema:1,
+  catalog:ADAPTIVE_PACE_CATALOG,
+  load:loadAdaptivePace,
+  save:saveAdaptivePace,
+  init:initializeAdaptivePace,
+  tune:tuneAdaptivePace,
+  policy:setAdaptivePacePolicy,
+  canSpawn:canSpawnAircraft,
+  markSpawn:markAircraftSpawn,
+  canIncident:canTriggerIncident,
+  markIncident:markIncidentTrigger,
+  scaleTimeout,
+  evaluate:evaluateAdaptivePace,
+  progress:adaptivePaceProgress,
+  status:adaptivePaceStatus,
+  board:renderAdaptivePaceBoard,
+  selfCheck:adaptivePaceSelfCheck
+});
+
+/* ===== MODULE 50: stability-observatory-diagnostics-center (55-stability-observatory-diagnostics-center.js) ===== */
+/* @skyward-module 55-stability-observatory-diagnostics-center
+ * Stability observatory and diagnostics center with local telemetry, safe-mode reports, PWA cache checks, runtime health and recovery recommendations.
+ * Canonical source for the generated main.js bundle.
+ */
+window.SKYWARD_MODULES?.push('55-stability-observatory-diagnostics-center');
+const STABILITY_DIAGNOSTICS_CATALOG = Object.freeze({
+  schema:1,
+  version:'2026.06-f52',
+  diagnosticSignals:[
+    {id:'SAFE_MODE_COUNT',name:'Contador modo seguro',weight:18,target:0},
+    {id:'RUNTIME_ERRORS',name:'Erros runtime',weight:18,target:0},
+    {id:'SESSION_HEALTH',name:'Saúde sessão',weight:14,target:92},
+    {id:'PWA_CACHE_HEALTH',name:'Saúde cache PWA',weight:12,target:90},
+    {id:'FRAME_STABILITY',name:'Estabilidade visual',weight:12,target:85},
+    {id:'RECOVERY_READINESS',name:'Prontidão recuperação',weight:10,target:90},
+    {id:'MOBILE_MEMORY_GUARD',name:'Guarda memória mobile',weight:8,target:82},
+    {id:'EVENT_QUEUE_HEALTH',name:'Fila eventos',weight:8,target:85}
+  ],
+  failureTypes:[
+    {id:'CONST_ASSIGNMENT',name:'Assignment to constant variable',severity:34,hint:'Variável constante recebendo nova atribuição.'},
+    {id:'NULL_DOM',name:'Elemento visual ausente',severity:20,hint:'Elemento DOM não encontrado em atualização.'},
+    {id:'PWA_OLD_CACHE',name:'Cache antigo PWA',severity:24,hint:'Service worker ou cache antigo pode servir bundle obsoleto.'},
+    {id:'EVENT_BURST',name:'Explosão de eventos',severity:26,hint:'Eventos excessivos em curto intervalo.'},
+    {id:'MOBILE_OVERLOAD',name:'Sobrecarga mobile',severity:28,hint:'Dispositivo móvel saturado.'},
+    {id:'SAVE_CORRUPTION',name:'Save inconsistente',severity:32,hint:'Estado persistido inválido.'},
+    {id:'RENDER_LOOP_DROP',name:'Queda loop render',severity:22,hint:'Loop visual com FPS irregular.'}
+  ],
+  recoveryActions:[
+    {id:'CLEAR_OLD_CACHE',name:'Limpar cache antigo',impact:12},
+    {id:'RESTORE_SAFE_STATE',name:'Restaurar estado seguro',impact:16},
+    {id:'REDUCE_PACE',name:'Reduzir ritmo',impact:14},
+    {id:'LIMIT_EVENTS',name:'Limitar eventos',impact:12},
+    {id:'REBUILD_SESSION',name:'Reconstruir sessão',impact:18},
+    {id:'EXPORT_DIAGNOSTIC',name:'Exportar diagnóstico',impact:8}
+  ],
+  healthBands:[
+    {id:'STABLE',min:90,name:'Estável'},
+    {id:'WATCH',min:75,name:'Em observação'},
+    {id:'DEGRADED',min:55,name:'Degradado'},
+    {id:'UNSTABLE',min:0,name:'Instável'}
+  ]
+});
+const STABILITY_DIAGNOSTICS_KEY='skywardStabilityDiagnostics_v1';
+let stabilityState={schema:1,stabilityScore:88,status:'WATCH',safeModeCount:0,runtimeErrors:[],recoveryActions:[],sessionHealth:90,pwaCacheHealth:88,frameStability:84,mobileMemoryGuard:82,eventQueueHealth:84,recoveryReadiness:88,lastDiagnostic:null,history:[]};
+function loadStabilityDiagnostics(){try{const raw=localStorage?.getItem?.(STABILITY_DIAGNOSTICS_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)stabilityState={...stabilityState,...parsed};}}catch(e){safeLogError?.(e,'stability-load');}return stabilityState;}
+function saveStabilityDiagnostics(){try{localStorage?.setItem?.(STABILITY_DIAGNOSTICS_KEY,JSON.stringify(stabilityState));}catch(e){safeLogError?.(e,'stability-save');}return stabilityState;}
+function stabilityBand(score){return STABILITY_DIAGNOSTICS_CATALOG.healthBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||STABILITY_DIAGNOSTICS_CATALOG.healthBands.at(-1);}
+function classifyError(message=''){
+  const txt=String(message||'').toLowerCase();
+  if(txt.includes('assignment to constant')) return 'CONST_ASSIGNMENT';
+  if(txt.includes('null')||txt.includes('undefined')||txt.includes('queryselector')) return 'NULL_DOM';
+  if(txt.includes('cache')||txt.includes('service worker')) return 'PWA_OLD_CACHE';
+  if(txt.includes('quota')||txt.includes('storage')||txt.includes('save')) return 'SAVE_CORRUPTION';
+  return 'RENDER_LOOP_DROP';
+}
+function failureById(id){return STABILITY_DIAGNOSTICS_CATALOG.failureTypes.find(f=>f.id===id)||STABILITY_DIAGNOSTICS_CATALOG.failureTypes.at(-1);}
+function recordRuntimeError(error,context='runtime'){
+  loadStabilityDiagnostics();
+  const message=String(error?.message||error||'erro desconhecido').slice(0,220);
+  const failure=failureById(classifyError(message));
+  const item={id:`ERR-${String(Date.now()).slice(-6)}`,type:failure.id,name:failure.name,severity:failure.severity,message,context,at:new Date().toISOString(),build:BUILD};
+  stabilityState.runtimeErrors.unshift(item);
+  stabilityState.runtimeErrors=stabilityState.runtimeErrors.slice(0,60);
+  if(failure.id==='CONST_ASSIGNMENT'||failure.id==='PWA_OLD_CACHE'){
+    stabilityState.recoveryActions.unshift({id:`REC-${String(Date.now()).slice(-6)}`,actionId:failure.id==='PWA_OLD_CACHE'?'CLEAR_OLD_CACHE':'REBUILD_SESSION',reason:failure.name,status:'SUGGESTED',at:item.at});
+  }
+  stabilityState.recoveryActions=stabilityState.recoveryActions.slice(0,60);
+  saveStabilityDiagnostics();
+  return item;
+}
+function recordSafeMode(reason='unknown'){
+  loadStabilityDiagnostics();
+  stabilityState.safeModeCount=Number(stabilityState.safeModeCount||0)+1;
+  try{localStorage?.setItem?.('skywardSafeModeCount',String(stabilityState.safeModeCount));}catch(e){}
+  stabilityState.recoveryActions.unshift({id:`REC-${String(Date.now()).slice(-6)}`,actionId:'RESTORE_SAFE_STATE',reason,status:'SUGGESTED',at:new Date().toISOString()});
+  saveStabilityDiagnostics();
+  return stabilityState.safeModeCount;
+}
+function clearDiagnostics(){
+  loadStabilityDiagnostics();
+  stabilityState.runtimeErrors=[];
+  stabilityState.recoveryActions=[];
+  stabilityState.safeModeCount=0;
+  try{localStorage?.setItem?.('skywardSafeModeCount','0');}catch(e){}
+  return saveStabilityDiagnostics();
+}
+function checkPwaCacheHealth(){
+  let health=88;
+  try{
+    const cacheName=window.SKYWARD_CACHE_NAME||window.SKYWARD_BUILD_INFO?.cacheName||'';
+    const buildInfo=window.SKYWARD_BUILD_INFO?.build||BUILD;
+    if(cacheName && !String(cacheName).includes(String(buildInfo).toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,18))) health-=6;
+    if(!('serviceWorker' in navigator)) health-=8;
+    if(!('caches' in window)) health-=8;
+  }catch(e){health-=10;}
+  return Math.max(0,Math.min(100,Math.round(health)));
+}
+function estimateFrameStability(){
+  const pace=window.SKYWARD_ADAPTIVE_PACE?.progress?.()||{};
+  const workload=Number(pace.workload||0);
+  const score=90-workload*.22-Number(stabilityState.runtimeErrors.length||0)*1.6;
+  return Math.max(0,Math.min(100,Math.round(score)));
+}
+function estimateEventQueueHealth(){
+  const pending=Array.isArray(window.pendingRequests)?window.pendingRequests.length:0;
+  const planes=Array.isArray(window.planes)?window.planes.length:0;
+  const max=Number(window.SKYWARD_MAX_AIRCRAFT||6);
+  const pressure=Math.max(0,planes-max)*12+pending*6;
+  return Math.max(0,Math.min(100,Math.round(92-pressure)));
+}
+function runStabilityDiagnostic(reason='manual'){
+  loadStabilityDiagnostics();
+  const safeMode=Number(localStorage?.getItem?.('skywardSafeModeCount')||stabilityState.safeModeCount||0);
+  const runtimeSeverity=stabilityState.runtimeErrors.slice(0,12).reduce((a,e)=>a+Number(e.severity||0),0);
+  const pace=window.SKYWARD_ADAPTIVE_PACE?.progress?.()||{};
+  const mobileScore=Number(pace.score||82);
+  stabilityState.safeModeCount=safeMode;
+  stabilityState.pwaCacheHealth=checkPwaCacheHealth();
+  stabilityState.frameStability=estimateFrameStability();
+  stabilityState.eventQueueHealth=estimateEventQueueHealth();
+  stabilityState.mobileMemoryGuard=Math.max(0,Math.min(100,Math.round(mobileScore-Number(stabilityState.runtimeErrors.length||0)*1.5)));
+  stabilityState.recoveryReadiness=Math.max(0,Math.min(100,Math.round(90+stabilityState.recoveryActions.length*1.2-safeMode*8)));
+  stabilityState.sessionHealth=Math.max(0,Math.min(100,Math.round(92-safeMode*12-runtimeSeverity/18)));
+  const weighted=Math.round(
+    Math.max(0,100-safeMode*18)*.18+
+    Math.max(0,100-runtimeSeverity/3)*.18+
+    stabilityState.sessionHealth*.14+
+    stabilityState.pwaCacheHealth*.12+
+    stabilityState.frameStability*.12+
+    stabilityState.recoveryReadiness*.10+
+    stabilityState.mobileMemoryGuard*.08+
+    stabilityState.eventQueueHealth*.08
+  );
+  stabilityState.stabilityScore=Math.max(0,Math.min(100,weighted));
+  stabilityState.status=stabilityBand(stabilityState.stabilityScore).id;
+  const diagnostic={at:new Date().toISOString(),build:BUILD,reason,stabilityScore:stabilityState.stabilityScore,status:stabilityState.status,safeModeCount:safeMode,runtimeErrors:stabilityState.runtimeErrors.length,sessionHealth:stabilityState.sessionHealth,pwaCacheHealth:stabilityState.pwaCacheHealth,frameStability:stabilityState.frameStability,mobileMemoryGuard:stabilityState.mobileMemoryGuard,eventQueueHealth:stabilityState.eventQueueHealth,recoveryReadiness:stabilityState.recoveryReadiness};
+  stabilityState.lastDiagnostic=diagnostic;
+  stabilityState.history.unshift(diagnostic);
+  stabilityState.history=stabilityState.history.slice(0,80);
+  saveStabilityDiagnostics();
+  renderStabilityDiagnosticsBoard();
+  return diagnostic;
+}
+function exportStabilityDiagnostic(){
+  loadStabilityDiagnostics();
+  return {schema:1,build:BUILD,at:new Date().toISOString(),state:stabilityState,catalogVersion:STABILITY_DIAGNOSTICS_CATALOG.version,userAgent:String(navigator?.userAgent||''),viewport:{w:Number(innerWidth||0),h:Number(innerHeight||0)},pace:window.SKYWARD_ADAPTIVE_PACE?.progress?.()||null};
+}
+function evaluateStabilityDiagnostics(finalScore=0,statsObj={},fail=false,airportCode=''){
+  if(fail) recordSafeMode('end-shift-fail');
+  const diagnostic=runStabilityDiagnostic('end-shift');
+  return {state:stabilityState,evaluation:{...diagnostic,airport:airportCode||'SBSP',finalScore:Math.round(finalScore||0)}};
+}
+function stabilityDiagnosticsProgress(){
+  loadStabilityDiagnostics();
+  return {score:stabilityState.stabilityScore,status:stabilityState.status,safeModeCount:stabilityState.safeModeCount,runtimeErrors:stabilityState.runtimeErrors.length,sessionHealth:stabilityState.sessionHealth,pwaCacheHealth:stabilityState.pwaCacheHealth,frameStability:stabilityState.frameStability,mobileMemoryGuard:stabilityState.mobileMemoryGuard,recoveryActions:stabilityState.recoveryActions.length,last:stabilityState.lastDiagnostic||null};
+}
+function renderStabilityDiagnosticsBoard(){
+  try{
+    const anchor=document.querySelector('#adaptivePaceInline') || document.querySelector('#nonAeroRevenueInline') || document.querySelector('#airportOpsBoard');
+    if(!anchor?.insertAdjacentHTML) return;
+    const old=document.querySelector('#stabilityDiagnosticsInline'); if(old) old.remove();
+    const p=stabilityDiagnosticsProgress();
+    anchor.insertAdjacentHTML('afterend',`<div id="stabilityDiagnosticsInline" class="airport-ops-board stability-diagnostics-inline">
+      <div class="airport-ops-head"><b>STABILITY OPS</b><span>${p.status}</span></div>
+      <div class="airport-ops-grid">
+        <div><small>SAÚDE</small><b>${p.score}%</b></div>
+        <div><small>SAFE</small><b>${p.safeModeCount}</b></div>
+        <div><small>ERROS</small><b>${p.runtimeErrors}</b></div>
+        <div><small>PWA</small><b>${p.pwaCacheHealth}%</b></div>
+        <div><small>FRAME</small><b>${p.frameStability}%</b></div>
+        <div><small>REC.</small><b>${p.recoveryActions}</b></div>
+      </div>
+    </div>`);
+  }catch(e){ safeLogError?.(e,'stability-board'); }
+}
+function installStabilityHooks(){
+  if(window.__skywardStabilityHooksInstalled) return true;
+  window.__skywardStabilityHooksInstalled=true;
+  try{
+    window.addEventListener?.('error',event=>recordRuntimeError(event?.error||event?.message,'window-error'));
+    window.addEventListener?.('unhandledrejection',event=>recordRuntimeError(event?.reason||'unhandled rejection','promise'));
+  }catch(e){}
+  return true;
+}
+function initializeStabilityDiagnostics(){
+  loadStabilityDiagnostics();
+  installStabilityHooks();
+  runStabilityDiagnostic('init');
+  return stabilityState;
+}
+function stabilityDiagnosticsStatus(){loadStabilityDiagnostics();return {...stabilityState,progress:stabilityDiagnosticsProgress(),catalog:STABILITY_DIAGNOSTICS_CATALOG};}
+function stabilityDiagnosticsSelfCheck(){
+  const issues=[];
+  if(STABILITY_DIAGNOSTICS_CATALOG.diagnosticSignals.length<8) issues.push('sinais insuficientes');
+  if(STABILITY_DIAGNOSTICS_CATALOG.failureTypes.length<7) issues.push('falhas insuficientes');
+  const err=recordRuntimeError(new Error('Assignment to constant variable'),'self-check');
+  const diagnostic=runStabilityDiagnostic('self-check');
+  if(!err.id) issues.push('erro não registrado');
+  if(!Number.isFinite(diagnostic.stabilityScore)) issues.push('score inválido');
+  return {ok:issues.length===0,issues,signals:STABILITY_DIAGNOSTICS_CATALOG.diagnosticSignals.length,failures:STABILITY_DIAGNOSTICS_CATALOG.failureTypes.length};
+}
+window.SKYWARD_STABILITY_DIAGNOSTICS=Object.freeze({
+  schema:1,
+  catalog:STABILITY_DIAGNOSTICS_CATALOG,
+  load:loadStabilityDiagnostics,
+  save:saveStabilityDiagnostics,
+  init:initializeStabilityDiagnostics,
+  hook:installStabilityHooks,
+  error:recordRuntimeError,
+  safeMode:recordSafeMode,
+  clear:clearDiagnostics,
+  diagnose:runStabilityDiagnostic,
+  export:exportStabilityDiagnostic,
+  evaluate:evaluateStabilityDiagnostics,
+  progress:stabilityDiagnosticsProgress,
+  status:stabilityDiagnosticsStatus,
+  board:renderStabilityDiagnosticsBoard,
+  selfCheck:stabilityDiagnosticsSelfCheck
+});
+
+/* ===== MODULE 51: surface-safety-director (17-surface-safety-director.js) ===== */
 /* @skyward-module 17-surface-safety-director
  * Surface Safety Director: taxi conflicts, runway incursions, hotspots and ground command risk.
  * Canonical source for the generated main.js bundle.
@@ -9049,7 +9467,7 @@ function surfaceSafetySelfCheck(){
 }
 window.SKYWARD_SURFACE_SAFETY=Object.freeze({ schema:1, hotspots:SURFACE_HOTSPOTS, hotspotsFor:surfaceHotspotsFor, update:updateSurfaceSafetyDirector, commandRisk:surfaceCommandRisk, taxiConflicts:detectTaxiConflicts, runwayIncursions:detectRunwayIncursions, render:renderSurfaceSafetyBoard, selfCheck:surfaceSafetySelfCheck });
 
-/* ===== MODULE 50: 06-traffic-requests (06-traffic-requests.js) ===== */
+/* ===== MODULE 52: 06-traffic-requests (06-traffic-requests.js) ===== */
 /* @skyward-module 06-traffic-requests
  * Aircraft creation, callsigns, requests and game start.
  * Canonical source for the generated main.js bundle.
@@ -9149,7 +9567,7 @@ function startGame(){
   stats = { landed:0, departed:0, conflicts:0, commands:0, emergencies:0, requests:0, denied:0, runwayIncursions:0, surfaceConflicts:0, blocked:0, safetyWarnings:0, lowFuel:0, damaged:0, maydayResolved:0 };
   mission = buildMission(); missionHistory=[];
   aircraft = [];
-  const a = airport(); applyAirportSurfaceGraph?.(a.icao); applyAirportOpsProfile(); initializeAdvancedWeather?.(); initializeProceduresLayer?.(); initializeCareerProfile?.(); renderEconomyBoard?.(); renderIncidentBoard?.(); renderNetworkFlowBoard?.(); renderControlRoomBoard?.(); initializeCommercialPolish?.(); initializeReleaseCandidateQA?.(); initializeGoldMasterPackage?.(); initializePostGoldMasterPublishing?.(); initializePostPublishHealthcheck?.(); initializePublicOps?.(); initializeTrainingAcademy?.(); initializeTrainingCoach?.(); initializeInternationalCampaign?.(); initializeAirlineOps?.(); initializeAirportAuthority?.(); initializeCrisisCommand?.(); initializeSafetyCompliance?.(); initializeInfrastructureExpansion?.(); initializeEnvironmentSustainability?.(); initializeRevenueManagement?.(); initializeWorkforceStaffing?.(); initializePassengerReputation?.(); initializeMultiAirportNetwork?.(); initializeEmergencyResponse?.(); initializeSecurityCyber?.(); initializeAssetMaintenance?.(); initializeDigitalTwin?.(); initializeAiCopilot?.(); initializeRadioPhraseology?.(); initializeGroundTurnaround?.(); initializeCargoLogistics?.(); initializeTerminalFlow?.(); initializeNonAeroRevenue?.(); window.SKYWARD_PUBLIC_OPS?.startTurn?.(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE'; if($('#sectorHelp')) $('#sectorHelp').textContent=(currentOpsProfile?.ops||'Torre ativa');
+  const a = airport(); applyAirportSurfaceGraph?.(a.icao); applyAirportOpsProfile(); initializeAdvancedWeather?.(); initializeProceduresLayer?.(); initializeCareerProfile?.(); renderEconomyBoard?.(); renderIncidentBoard?.(); renderNetworkFlowBoard?.(); renderControlRoomBoard?.(); initializeCommercialPolish?.(); initializeReleaseCandidateQA?.(); initializeGoldMasterPackage?.(); initializePostGoldMasterPublishing?.(); initializePostPublishHealthcheck?.(); initializePublicOps?.(); initializeTrainingAcademy?.(); initializeTrainingCoach?.(); initializeInternationalCampaign?.(); initializeAirlineOps?.(); initializeAirportAuthority?.(); initializeCrisisCommand?.(); initializeSafetyCompliance?.(); initializeInfrastructureExpansion?.(); initializeEnvironmentSustainability?.(); initializeRevenueManagement?.(); initializeWorkforceStaffing?.(); initializePassengerReputation?.(); initializeMultiAirportNetwork?.(); initializeEmergencyResponse?.(); initializeSecurityCyber?.(); initializeAssetMaintenance?.(); initializeDigitalTwin?.(); initializeAiCopilot?.(); initializeRadioPhraseology?.(); initializeGroundTurnaround?.(); initializeCargoLogistics?.(); initializeTerminalFlow?.(); initializeNonAeroRevenue?.(); initializeAdaptivePace?.(); initializeStabilityDiagnostics?.(); window.SKYWARD_PUBLIC_OPS?.startTurn?.(); $('#weather').textContent = (a.weather || 'VARIÁVEL').toUpperCase().slice(0,18); if($('#gameAirport')) $('#gameAirport').textContent = a.icao; if($('#gameAirportFull')) $('#gameAirportFull').textContent = a.name || a.city || a.icao; if($('#gameAirportMode')) $('#gameAirportMode').textContent='TORRE'; if($('#sectorHelp')) $('#sectorHelp').textContent=(currentOpsProfile?.ops||'Torre ativa');
   const initialTraffic=airportInitialTrafficCount();
   for(let i=0;i<initialTraffic;i++) aircraft.push(makePlane(i, i%2===0?'arrival':'departure')); // v0.9.6: tráfego inicial por perfil do aeroporto
   emergencyDirector={active:false,target:null,message:'Sem emergência ativa.',lastTick:performance.now()};
@@ -9163,7 +9581,7 @@ function startGame(){
   requestAnimationFrame(loop);
 }
 
-/* ===== MODULE 51: 07-simulation-safety (07-simulation-safety.js) ===== */
+/* ===== MODULE 53: 07-simulation-safety (07-simulation-safety.js) ===== */
 /* @skyward-module 07-simulation-safety
  * Game loop, simulation, conflict prediction and safety.
  * Canonical source for the generated main.js bundle.
@@ -9409,7 +9827,7 @@ function checkConflicts(){
   if(finals.length>1){ for(const p of finals) p.risk += .01; if(finals.some(p=>p.risk>.9)) return endGame(true,'Duas aeronaves autorizadas para a mesma final sem separação suficiente.'); }
 }
 
-/* ===== MODULE 52: 08-radar-rendering (08-radar-rendering.js) ===== */
+/* ===== MODULE 54: 08-radar-rendering (08-radar-rendering.js) ===== */
 /* @skyward-module 08-radar-rendering
  * Radar, operational map, procedures, telemetry and aircraft drawing.
  * Canonical source for the generated main.js bundle.
@@ -9667,7 +10085,7 @@ function drawPlane(p,w,h){
   ctx.restore();
 }
 
-/* ===== MODULE 53: 09-ui-clearances (09-ui-clearances.js) ===== */
+/* ===== MODULE 55: 09-ui-clearances (09-ui-clearances.js) ===== */
 /* @skyward-module 09-ui-clearances
  * Traffic UI, requests, commands, clearances and action grids.
  * Canonical source for the generated main.js bundle.
@@ -9845,11 +10263,13 @@ function endGame(fail,reason){
   const cargoLogisticsResult = evaluateCargoLogistics?.(final, stats, fail, airport().icao);
   const terminalFlowResult = evaluateTerminalFlow?.(final, stats, fail, airport().icao);
   const nonAeroRevenueResult = evaluateNonAeroRevenue?.(final, stats, fail, airport().icao);
+  const adaptivePaceResult = evaluateAdaptivePace?.(final, stats, fail, airport().icao);
+  const stabilityDiagnosticsResult = evaluateStabilityDiagnostics?.(final, stats, fail, airport().icao);
   persistProfile('end-game');
   $('#resultTitle').textContent = fail ? 'GAME OVER' : 'FIM DE TURNO';
   $('#resultReason').textContent = reason;
   $('#finalScore').textContent = final.toLocaleString('pt-BR');
-  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Conflitos de solo</span><b>${stats.surfaceConflicts||0}</b></div><div><span>Runway incursions</span><b>${stats.runwayIncursions||0}</b></div><div><span>Incidentes resolvidos</span><b>${stats.incidentsResolved||0}</b></div><div><span>Falhas em incidentes</span><b>${stats.incidentFailures||0}</b></div><div><span>Fechamentos de pista</span><b>${stats.runwayClosures||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>MAYDAY resolvidos</span><b>${stats.maydayResolved||0}</b></div><div><span>Combustível mínimo</span><b>${stats.lowFuel||0}</b></div><div><span>Danos/inspeções</span><b>${stats.damaged||0}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Non-Aero Rev</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.status : '---'}</b></div><div><span>Spend/Pax</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.spendPerPax : '---'}</b></div><div><span>Terminal Flow</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.status : '---'}</b></div><div><span>Fila Média</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.avgQueueMin+'m' : '---'}</b></div><div><span>Cargo Ops</span><b>${cargoLogisticsResult?.evaluation ? cargoLogisticsResult.evaluation.status : '---'}</b></div><div><span>Freight</span><b>${cargoLogisticsResult?.evaluation ? Math.round(cargoLogisticsResult.evaluation.freightRevenue/1000)+'k' : '---'}</b></div><div><span>Ground Ops</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.status : '---'}</b></div><div><span>TAT Médio</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.avgTurnaroundMin+'m' : '---'}</b></div><div><span>Radio Ops</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.status : '---'}</b></div><div><span>Readback</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.readbackRate+'%' : '---'}</b></div><div><span>AI Copilot</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.status : '---'}</b></div><div><span>Conf. IA</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Digital Twin</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.status : '---'}</b></div><div><span>Forecast</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Asset Rel</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.status : '---'}</b></div><div><span>Disponib.</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.availability+'%' : '---'}</b></div><div><span>Security SOC</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.status : '---'}</b></div><div><span>Nível Seg.</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.responseLevel : '---'}</b></div><div><span>Emergency Ops</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.status : '---'}</b></div><div><span>Resposta</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.responseTime+'m' : '---'}</b></div><div><span>Multi Hub</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.status : '---'}</b></div><div><span>Rede</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.networkScore+'%' : '---'}</b></div><div><span>Passenger XP</span><b>${passengerReputationResult?.evaluation ? passengerReputationResult.evaluation.status : '---'}</b></div><div><span>NPS</span><b>${passengerReputationResult?.evaluation ? Math.round(passengerReputationResult.evaluation.metrics.NPS) : '---'}</b></div><div><span>Workforce</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.status : '---'}</b></div><div><span>Fadiga Média</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.coverage.avgFatigue : '---'}</b></div><div><span>Rev Mgmt</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.status : '---'}</b></div><div><span>Margem</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.margin+'%' : '---'}</b></div><div><span>ENV ESG</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.status : '---'}</b></div><div><span>Licença Amb.</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.permitStatus : '---'}</b></div><div><span>Infra CAPEX</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.status : '---'}</b></div><div><span>Capacidade</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.capacityScore+'%' : '---'}</b></div><div><span>Safety SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.complianceStatus : '---'}</b></div><div><span>Achados SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.openFindings : '---'}</b></div><div><span>Crisis Cmd</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.status : '---'}</b></div><div><span>Recovery</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.recoveryStage : '---'}</b></div><div><span>Airport Auth</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.experience : '---'}</b></div><div><span>Terminal EXP</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.authorityScore+'%' : '---'}</b></div><div><span>Airline Ops</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.status : '---'}</b></div><div><span>SLA Cias</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.sla.weighted+'%' : '---'}</b></div><div><span>Campanha Intl</span><b>${internationalCampaignResult?.evaluation ? internationalCampaignResult.evaluation.status : '---'}</b></div><div><span>Contrato ativo</span><b>${internationalCampaignResult?.nextContract ? internationalCampaignResult.nextContract.airport : '---'}</b></div><div><span>Instrutor ATC</span><b>${trainingCoachResult?.debrief ? trainingCoachResult.debrief.level : '---'}</b></div><div><span>Plano de estudo</span><b>${trainingCoachResult?.studyPlan ? trainingCoachResult.studyPlan.length+' cards' : '---'}</b></div><div><span>Academia ATC</span><b>${trainingAcademyResult?.attempt ? (trainingAcademyResult.attempt.passed ? 'APROVADO' : 'TREINO') : '---'}</b></div><div><span>Próxima missão</span><b>${trainingAcademyResult?.nextMission ? trainingAcademyResult.nextMission.id : '---'}</b></div><div><span>Public Ops</span><b>${publicOpsResult ? publicOpsResult.status : '---'}</b></div><div><span>Ops Score</span><b>${publicOpsResult ? publicOpsResult.score+'%' : '---'}</b></div><div><span>Publish Health</span><b>${postPublishHealthResult ? postPublishHealthResult.status : '---'}</b></div><div><span>Health Score</span><b>${postPublishHealthResult ? postPublishHealthResult.score+'%' : '---'}</b></div><div><span>Publicação PWA</span><b>${postGoldMasterResult ? postGoldMasterResult.status : '---'}</b></div><div><span>Post-GM Ready</span><b>${postGoldMasterResult ? postGoldMasterResult.score+'%' : '---'}</b></div><div><span>Gold Master</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.status : '---'}</b></div><div><span>GM Score</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.score+'%' : '---'}</b></div><div><span>Release Candidate</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.status : '---'}</b></div><div><span>QA Score</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.score+'%' : '---'}</b></div><div><span>Replay compartilhável</span><b>${controlRoomResult?.replay ? 'GERADO' : '---'}</b></div><div><span>Ranking local</span><b>${controlRoomResult?.replay ? controlRoomResult.replay.tier : '---'}</b></div><div><span>Network Flow</span><b>${networkResult?.shift ? (networkResult.shift.route+' / '+Math.round(networkResult.shift.slotCompliance*100)+'%') : '---'}</b></div><div><span>Conexões protegidas</span><b>${networkResult?.network ? networkResult.network.connectionsProtected : 0}</b></div><div><span>Economia</span><b>${economyResult?.shift ? ('$'+Math.round(economyResult.shift.profit).toLocaleString('pt-BR')) : '---'}</b></div><div><span>Eficiência econômica</span><b>${economyResult?.shift ? economyResult.shift.efficiency+'%' : '---'}</b></div><div><span>Carreira</span><b>${careerResult?.career ? (careerResult.career.licenseId+' / '+careerResult.career.ratingId) : '---'}</b></div><div><span>Fadiga</span><b>${careerResult?.career ? Math.round(careerResult.career.fatigue)+'%' : '---'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
+  $('#finalStats').innerHTML = `<div><span>Pousos concluídos</span><b>${stats.landed}</b></div><div><span>Decolagens concluídas</span><b>${stats.departed}</b></div><div><span>Solicitações recebidas</span><b>${stats.requests}</b></div><div><span>Clearances negados/incorretos</span><b>${stats.denied}</b></div><div><span>Conflitos detectados</span><b>${stats.conflicts}</b></div><div><span>Comandos emitidos</span><b>${stats.commands}</b></div><div><span>Comandos bloqueados</span><b>${stats.blocked||0}</b></div><div><span>Avisos Safety</span><b>${stats.safetyWarnings||0}</b></div><div><span>Conflitos de solo</span><b>${stats.surfaceConflicts||0}</b></div><div><span>Runway incursions</span><b>${stats.runwayIncursions||0}</b></div><div><span>Incidentes resolvidos</span><b>${stats.incidentsResolved||0}</b></div><div><span>Falhas em incidentes</span><b>${stats.incidentFailures||0}</b></div><div><span>Fechamentos de pista</span><b>${stats.runwayClosures||0}</b></div><div><span>Emergências</span><b>${stats.emergencies}</b></div><div><span>MAYDAY resolvidos</span><b>${stats.maydayResolved||0}</b></div><div><span>Combustível mínimo</span><b>${stats.lowFuel||0}</b></div><div><span>Danos/inspeções</span><b>${stats.damaged||0}</b></div><div><span>Aeroporto</span><b>${airport().icao}</b></div><div><span>Objetivos de missão</span><b>${mission?.completed?'concluídos':'parciais'}</b></div><div><span>Stability</span><b>${stabilityDiagnosticsResult?.evaluation ? stabilityDiagnosticsResult.evaluation.status : '---'}</b></div><div><span>SafeMode</span><b>${stabilityDiagnosticsResult?.evaluation ? stabilityDiagnosticsResult.evaluation.safeModeCount : '---'}</b></div><div><span>Pace Director</span><b>${adaptivePaceResult?.evaluation ? adaptivePaceResult.evaluation.band : '---'}</b></div><div><span>Ritmo</span><b>${adaptivePaceResult?.evaluation ? adaptivePaceResult.evaluation.pace+'x' : '---'}</b></div><div><span>Non-Aero Rev</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.status : '---'}</b></div><div><span>Spend/Pax</span><b>${nonAeroRevenueResult?.evaluation ? nonAeroRevenueResult.evaluation.spendPerPax : '---'}</b></div><div><span>Terminal Flow</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.status : '---'}</b></div><div><span>Fila Média</span><b>${terminalFlowResult?.evaluation ? terminalFlowResult.evaluation.avgQueueMin+'m' : '---'}</b></div><div><span>Cargo Ops</span><b>${cargoLogisticsResult?.evaluation ? cargoLogisticsResult.evaluation.status : '---'}</b></div><div><span>Freight</span><b>${cargoLogisticsResult?.evaluation ? Math.round(cargoLogisticsResult.evaluation.freightRevenue/1000)+'k' : '---'}</b></div><div><span>Ground Ops</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.status : '---'}</b></div><div><span>TAT Médio</span><b>${groundTurnaroundResult?.evaluation ? groundTurnaroundResult.evaluation.avgTurnaroundMin+'m' : '---'}</b></div><div><span>Radio Ops</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.status : '---'}</b></div><div><span>Readback</span><b>${radioPhraseologyResult?.evaluation ? radioPhraseologyResult.evaluation.readbackRate+'%' : '---'}</b></div><div><span>AI Copilot</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.status : '---'}</b></div><div><span>Conf. IA</span><b>${aiCopilotResult?.evaluation ? aiCopilotResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Digital Twin</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.status : '---'}</b></div><div><span>Forecast</span><b>${digitalTwinResult?.evaluation ? digitalTwinResult.evaluation.confidence+'%' : '---'}</b></div><div><span>Asset Rel</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.status : '---'}</b></div><div><span>Disponib.</span><b>${assetMaintenanceResult?.evaluation ? assetMaintenanceResult.evaluation.availability+'%' : '---'}</b></div><div><span>Security SOC</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.status : '---'}</b></div><div><span>Nível Seg.</span><b>${securityCyberResult?.evaluation ? securityCyberResult.evaluation.responseLevel : '---'}</b></div><div><span>Emergency Ops</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.status : '---'}</b></div><div><span>Resposta</span><b>${emergencyResponseResult?.evaluation ? emergencyResponseResult.evaluation.responseTime+'m' : '---'}</b></div><div><span>Multi Hub</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.status : '---'}</b></div><div><span>Rede</span><b>${multiAirportNetworkResult?.evaluation ? multiAirportNetworkResult.evaluation.networkScore+'%' : '---'}</b></div><div><span>Passenger XP</span><b>${passengerReputationResult?.evaluation ? passengerReputationResult.evaluation.status : '---'}</b></div><div><span>NPS</span><b>${passengerReputationResult?.evaluation ? Math.round(passengerReputationResult.evaluation.metrics.NPS) : '---'}</b></div><div><span>Workforce</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.status : '---'}</b></div><div><span>Fadiga Média</span><b>${workforceStaffingResult?.evaluation ? workforceStaffingResult.evaluation.coverage.avgFatigue : '---'}</b></div><div><span>Rev Mgmt</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.status : '---'}</b></div><div><span>Margem</span><b>${revenueManagementResult?.evaluation ? revenueManagementResult.evaluation.margin+'%' : '---'}</b></div><div><span>ENV ESG</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.status : '---'}</b></div><div><span>Licença Amb.</span><b>${environmentSustainabilityResult?.evaluation ? environmentSustainabilityResult.evaluation.permitStatus : '---'}</b></div><div><span>Infra CAPEX</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.status : '---'}</b></div><div><span>Capacidade</span><b>${infrastructureExpansionResult?.evaluation ? infrastructureExpansionResult.evaluation.capacityScore+'%' : '---'}</b></div><div><span>Safety SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.complianceStatus : '---'}</b></div><div><span>Achados SMS</span><b>${safetyComplianceResult?.evaluation ? safetyComplianceResult.evaluation.openFindings : '---'}</b></div><div><span>Crisis Cmd</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.status : '---'}</b></div><div><span>Recovery</span><b>${crisisCommandResult?.evaluation ? crisisCommandResult.evaluation.recoveryStage : '---'}</b></div><div><span>Airport Auth</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.experience : '---'}</b></div><div><span>Terminal EXP</span><b>${airportAuthorityResult?.evaluation ? airportAuthorityResult.evaluation.authorityScore+'%' : '---'}</b></div><div><span>Airline Ops</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.status : '---'}</b></div><div><span>SLA Cias</span><b>${airlineOpsResult?.evaluation ? airlineOpsResult.evaluation.sla.weighted+'%' : '---'}</b></div><div><span>Campanha Intl</span><b>${internationalCampaignResult?.evaluation ? internationalCampaignResult.evaluation.status : '---'}</b></div><div><span>Contrato ativo</span><b>${internationalCampaignResult?.nextContract ? internationalCampaignResult.nextContract.airport : '---'}</b></div><div><span>Instrutor ATC</span><b>${trainingCoachResult?.debrief ? trainingCoachResult.debrief.level : '---'}</b></div><div><span>Plano de estudo</span><b>${trainingCoachResult?.studyPlan ? trainingCoachResult.studyPlan.length+' cards' : '---'}</b></div><div><span>Academia ATC</span><b>${trainingAcademyResult?.attempt ? (trainingAcademyResult.attempt.passed ? 'APROVADO' : 'TREINO') : '---'}</b></div><div><span>Próxima missão</span><b>${trainingAcademyResult?.nextMission ? trainingAcademyResult.nextMission.id : '---'}</b></div><div><span>Public Ops</span><b>${publicOpsResult ? publicOpsResult.status : '---'}</b></div><div><span>Ops Score</span><b>${publicOpsResult ? publicOpsResult.score+'%' : '---'}</b></div><div><span>Publish Health</span><b>${postPublishHealthResult ? postPublishHealthResult.status : '---'}</b></div><div><span>Health Score</span><b>${postPublishHealthResult ? postPublishHealthResult.score+'%' : '---'}</b></div><div><span>Publicação PWA</span><b>${postGoldMasterResult ? postGoldMasterResult.status : '---'}</b></div><div><span>Post-GM Ready</span><b>${postGoldMasterResult ? postGoldMasterResult.score+'%' : '---'}</b></div><div><span>Gold Master</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.status : '---'}</b></div><div><span>GM Score</span><b>${goldMasterResult?.gates ? goldMasterResult.gates.score+'%' : '---'}</b></div><div><span>Release Candidate</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.status : '---'}</b></div><div><span>QA Score</span><b>${releaseCandidateResult?.gates ? releaseCandidateResult.gates.score+'%' : '---'}</b></div><div><span>Replay compartilhável</span><b>${controlRoomResult?.replay ? 'GERADO' : '---'}</b></div><div><span>Ranking local</span><b>${controlRoomResult?.replay ? controlRoomResult.replay.tier : '---'}</b></div><div><span>Network Flow</span><b>${networkResult?.shift ? (networkResult.shift.route+' / '+Math.round(networkResult.shift.slotCompliance*100)+'%') : '---'}</b></div><div><span>Conexões protegidas</span><b>${networkResult?.network ? networkResult.network.connectionsProtected : 0}</b></div><div><span>Economia</span><b>${economyResult?.shift ? ('$'+Math.round(economyResult.shift.profit).toLocaleString('pt-BR')) : '---'}</b></div><div><span>Eficiência econômica</span><b>${economyResult?.shift ? economyResult.shift.efficiency+'%' : '---'}</b></div><div><span>Carreira</span><b>${careerResult?.career ? (careerResult.career.licenseId+' / '+careerResult.career.ratingId) : '---'}</b></div><div><span>Fadiga</span><b>${careerResult?.career ? Math.round(careerResult.career.fatigue)+'%' : '---'}</b></div><div><span>Build</span><b>${BUILD}</b></div>`;
   go('result');
 }
 
@@ -9922,7 +10342,7 @@ function setDock(id){
   $$('.dock-body').forEach(b=>b.classList.toggle('active', b.id==='dock-'+id));
 }
 
-/* ===== MODULE 54: 10-events-selftest-bootstrap (10-events-selftest-bootstrap.js) ===== */
+/* ===== MODULE 56: 10-events-selftest-bootstrap (10-events-selftest-bootstrap.js) ===== */
 /* @skyward-module 10-events-selftest-bootstrap
  * Desktop events, filters, safe-mode controls and self-test bootstrap.
  * Canonical source for the generated main.js bundle.
@@ -10021,7 +10441,7 @@ applyBuildInfo();
 if(!BUILD_METADATA_VALID) setTimeout(()=>showSafeMode(new Error('Metadados de build ausentes ou inválidos. Execute o pipeline de release.')),0);
 loadProfile(); loadAirports(); resize();
 
-/* ===== MODULE 55: 11-mobile-runtime (11-mobile-runtime.js) ===== */
+/* ===== MODULE 57: 11-mobile-runtime (11-mobile-runtime.js) ===== */
 /* @skyward-module 11-mobile-runtime
  * Adaptive mobile UX, edge gestures, touch-safe dock, haptics and viewport modes.
  * Canonical source for the generated main.js bundle.
@@ -10270,7 +10690,7 @@ window.SKYWARD_MOBILE_UX=Object.freeze({
 });
 window.addEventListener('load',()=>setTimeout(initMobileDockV2,500));
 
-/* ===== MODULE 56: desktop-workspace (12-desktop-workspace.js) ===== */
+/* ===== MODULE 58: desktop-workspace (12-desktop-workspace.js) ===== */
 /* @skyward-module 12-desktop-workspace
  * Professional tablet/desktop workspace, panel density, persistence and keyboard shortcuts.
  * Canonical source for the generated main.js bundle.
@@ -10356,7 +10776,7 @@ function initDesktopWorkspace(){
 window.SKYWARD_DESKTOP_WORKSPACE=Object.freeze({schema:DESKTOP_WORKSPACE_SCHEMA,viewportMode:desktopViewportMode,shortcutAction:desktopShortcutAction,clamp:desktopClamp,getPreferences:()=>Object.freeze({...desktopWorkspacePrefs}),setMode:setDesktopWorkspaceMode,togglePanel:toggleDesktopPanel,adjustPanel:adjustDesktopPanel,execute:executeDesktopWorkspaceAction,render:applyDesktopWorkspace});
 window.addEventListener('load',()=>setTimeout(initDesktopWorkspace,540));
 
-/* ===== MODULE 57: accessibility-settings (13-accessibility-settings.js) ===== */
+/* ===== MODULE 59: accessibility-settings (13-accessibility-settings.js) ===== */
 /* @skyward-module 13-accessibility-settings
  * Professional accessibility, visual, audio, performance and control settings.
  * Canonical source for the generated main.js bundle.
@@ -10494,7 +10914,7 @@ document.addEventListener('keydown',e=>{if(e.altKey&&e.code==='KeyS'&&!desktopTy
 window.SKYWARD_ACCESSIBILITY=Object.freeze({schema:ACCESSIBILITY_SCHEMA,defaults:ACCESSIBILITY_DEFAULTS,sanitize:sanitizeAccessibilityPrefs,clamp:accessClamp,getPreferences:()=>Object.freeze({...accessibilityPrefs}),setPreference:setAccessibilityPreference,apply:applyAccessibilitySettings,reset:resetAccessibilitySettings,summary:accessibilitySummary,selfCheck:runAccessibilitySelfCheck,open:()=>setAccessibilityPanel(true),close:()=>setAccessibilityPanel(false)});
 window.addEventListener('load',()=>setTimeout(applyAccessibilitySettings,620));
 
-/* ===== MODULE 58: deterministic-replay (14-deterministic-replay.js) ===== */
+/* ===== MODULE 60: deterministic-replay (14-deterministic-replay.js) ===== */
 /* @skyward-module 14-deterministic-replay
  * Deterministic simulation clock, seeded replay recorder, state checksums and technical replay export.
  * Canonical source for the generated main.js bundle.
@@ -10671,7 +11091,7 @@ window.SKYWARD_REPLAY=Object.freeze({
 });
 setTimeout(()=>{ try{ renderReplayStatus(); }catch(_e){} },250);
 
-/* ===== MODULE 59: quality-test-bridge (12-quality-test-bridge.js) ===== */
+/* ===== MODULE 61: quality-test-bridge (12-quality-test-bridge.js) ===== */
 /* @skyward-module 12-quality-test-bridge
  * Controlled integration-test bridge. Mutation is disabled in normal gameplay.
  * Enable only with window.SKYWARD_QA_MODE=true before main.js or ?qa=1.

@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "suite": "phase51-unit",
+  "build": "SC-1.51.0-F51-20260624-1515",
+  "passed": 14,
+  "total": 14,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F51+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.51.0\",\"phase\":\"F51\",\"phaseName\":\"Adaptive Pace & Workload Director, Ritmo Dinâmico, Mobile Balance, Cooldown e Carga Operacional\",\"channel\":\"adaptive-pace-workload\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.51.0-F51-20260624-1515\",\"builtAt\":\"2026-06-24 15:15 BRT\",\"builtAtIso\":\"2026-06-24T15:15:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1,\"terminalFlowSchema\":1,\"nonAeroRevenueSchema\":1,\"mobileStabilityHotfixSchema\":1,\"safeModeIncidentFixSchema\":1,\"paceTuningSchema\":1,\"adaptivePaceSchema\":1}"
+    },
+    {
+      "name": "módulo F51 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo profiles policies bands",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"profiles\":5,\"policies\":4}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"policy\":\"CAREER\",\"deviceProfile\":\"MOBILE_LOW\",\"workloadScore\":67,\"workloadBand\":\"BUSY\",\"paceMultiplier\":0.42,\"maxAircraft\":3,\"spawnSpacingSec\":63,\"incidentCooldownSec\":154,\"mobilePlayability\":63,\"queuePressure\":48,\"lastIncidentAt\":0,\"lastSpawnAt\":0,\"tuningHistory\":[{\"at\":\"2026-06-24T13:50:05.863Z\",\"build\":\"SC-1.51.0-F51-20260624-1515\",\"reason\":\"init\",\"profile\":\"MOBILE_LOW\",\"policy\":\"CAREER\",\"workload\":67,\"band\":\"BUSY\",\"pace\":0.42,\"maxAircraft\":3,\"spawnSpacingSec\":63,\"incidentCooldownSec\":154,\"mobilePlayability\":63},{\"at\":\"2026-06-24T13:50:05.863Z\",\"build\":\"SC-1.51.0-F51-20260624-1515\",\"reason\":\"self-check\",\"profile\":\"MOBILE_LOW\",\"policy\":\"CAREER\",\"workload\":72,\"band\":\"BUSY\",\"pace\":0.42,\"maxAircraft\":3,\"spawnSpacingSec\":63,\"incidentCooldownSec\":154,\"mobilePlayability\":60},{\"at\":\"2026-06-24T13:50:05.855Z\",\"build\":\"SC-1.51.0-F51-20260624-1515\",\"reason\":\"self-check\",\"profile\":\"MOBILE_LOW\",\"policy\":\"CAREER\",\"workload\":72,\"band\":\"BUSY\",\"pace\":0.42,\"maxAircraft\":3,\"spawnSpacingSec\":63,\"incidentCooldownSec\":154,\"mobilePlayability\":60}],\"lastEvaluation\":{\"at\":\"2026-06-24T13:50:05.863Z\",\"build\":\"SC-1.51.0-F51-20260624-1515\",\"reason\":\"init\",\"profile\":\"MOBILE_LOW\",\"policy\":\"CAREER\",\"workload\":67,\"band\":\"BUSY\",\"pace\":0.42,\"maxAircraft\":3,\"spawnSpacingSec\":63,\"incidentCooldownSec\":154,\"mobilePlayability\":63}}"
+    },
+    {
+      "name": "tuning gera ritmo",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T13:50:05.863Z\",\"build\":\"SC-1.51.0-F51-20260624-1515\",\"reason\":\"unit\",\"profile\":\"MOBILE_LOW\",\"policy\":\"CAREER\",\"workload\":72,\"band\":\"BUSY\",\"pace\":0.42,\"maxAircraft\":3,\"spawnSpacingSec\":63,\"incidentCooldownSec\":154,\"mobilePlayability\":60}"
+    },
+    {
+      "name": "progress contém workload",
+      "ok": true,
+      "detail": "{\"score\":60,\"status\":\"BUSY\",\"profile\":\"MOBILE_LOW\",\"policy\":\"CAREER\",\"workload\":72,\"paceMultiplier\":0.42,\"maxAircraft\":3,\"spawnSpacingSec\":63,\"incidentCooldownSec\":154,\"last\":{\"at\":\"2026-06-24T13:50:05.863Z\",\"build\":\"SC-1.51.0-F51-20260624-1515\",\"reason\":\"unit\",\"profile\":\"MOBILE_LOW\",\"policy\":\"CAREER\",\"workload\":72,\"band\":\"BUSY\",\"pace\":0.42,\"maxAircraft\":3,\"spawnSpacingSec\":63,\"incidentCooldownSec\":154,\"mobilePlayability\":60}}"
+    },
+    {
+      "name": "limite mobile conservador",
+      "ok": true,
+      "detail": "{\"score\":60,\"status\":\"BUSY\",\"profile\":\"MOBILE_LOW\",\"policy\":\"CAREER\",\"workload\":72,\"paceMultiplier\":0.42,\"maxAircraft\":3,\"spawnSpacingSec\":63,\"incidentCooldownSec\":154,\"last\":{\"at\":\"2026-06-24T13:50:05.863Z\",\"build\":\"SC-1.51.0-F51-20260624-1515\",\"reason\":\"unit\",\"profile\":\"MOBILE_LOW\",\"policy\":\"CAREER\",\"workload\":72,\"band\":\"BUSY\",\"pace\":0.42,\"maxAircraft\":3,\"spawnSpacingSec\":63,\"incidentCooldownSec\":154,\"mobilePlayability\":60}}"
+    },
+    {
+      "name": "avaliação final válida",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T13:50:05.863Z\",\"build\":\"SC-1.51.0-F51-20260624-1515\",\"reason\":\"end-shift\",\"profile\":\"MOBILE_LOW\",\"policy\":\"CAREER\",\"workload\":67,\"band\":\"BUSY\",\"pace\":0.42,\"maxAircraft\":3,\"spawnSpacingSec\":63,\"incidentCooldownSec\":154,\"mobilePlayability\":63,\"airport\":\"SBGR\",\"finalScore\":2700,\"fail\":false}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"MOBILE_LOW\",\"name\":\"Mobile baixo desempenho\",\"paceMultiplier\":0.52,\"maxAircraft\":3,\"spawnSpacingSec\":42,\"incidentCooldownSec\":95},{\"id\":\"MOBILE_STANDARD\",\"name\":\"Mobile padrão\",\"paceMultiplier\":0.62,\"maxAircraft\":4,\"spawnSpacingSec\":36,\"incidentCooldownSec\":85},{\"id\":\"TABLET\",\"name\":\"Tablet\",\"paceMultiplier\":0.74,\"maxAircraft\":5,\"spawnSpacingSec\":30,\"incidentCooldownSec\":74},{\"id\":\"DESKTOP_STANDARD\",\"name\":\"Desktop padrão\",\"paceMultiplier\":0.88,\"maxAircraft\":6,\"spawnSpacingSec\":24,\"incidentCooldownSec\":62},{\"id\":\"DESKTOP_PRO\",\"name\":\"Desktop avançado\",\"paceMultiplier\":1,\"maxAircraft\":8,\"spawnSpacingSec\":20,\"incidentCooldownSec\":55}]"
+    }
+  ]
+}
