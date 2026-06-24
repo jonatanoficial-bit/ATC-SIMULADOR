@@ -1,0 +1,319 @@
+{
+  "schema": 1,
+  "version": "2026.06-f59",
+  "description": "World airport packs and route challenge center with simplified procedures, runway configs, airport profiles, arrival/departure flows and content progression.",
+  "airportPacks": [
+    {
+      "icao": "SBSP",
+      "name": "São Paulo Congonhas",
+      "country": "Brasil",
+      "complexity": 4,
+      "runways": [
+        "17R/35L",
+        "17L/35R"
+      ],
+      "profile": "URBAN_SHORT_RUNWAY",
+      "unlockXp": 0
+    },
+    {
+      "icao": "SBGR",
+      "name": "São Paulo Guarulhos",
+      "country": "Brasil",
+      "complexity": 5,
+      "runways": [
+        "10L/28R",
+        "10R/28L"
+      ],
+      "profile": "INTERNATIONAL_HUB",
+      "unlockXp": 500
+    },
+    {
+      "icao": "SBRJ",
+      "name": "Rio Santos Dumont",
+      "country": "Brasil",
+      "complexity": 5,
+      "runways": [
+        "02R/20L",
+        "02L/20R"
+      ],
+      "profile": "COASTAL_VISUAL",
+      "unlockXp": 900
+    },
+    {
+      "icao": "SBGL",
+      "name": "Rio Galeão",
+      "country": "Brasil",
+      "complexity": 4,
+      "runways": [
+        "10/28",
+        "15/33"
+      ],
+      "profile": "HEAVY_MIXED",
+      "unlockXp": 1200
+    },
+    {
+      "icao": "KJFK",
+      "name": "New York JFK",
+      "country": "EUA",
+      "complexity": 7,
+      "runways": [
+        "04L/22R",
+        "04R/22L",
+        "13L/31R",
+        "13R/31L"
+      ],
+      "profile": "MEGA_HUB",
+      "unlockXp": 2400
+    },
+    {
+      "icao": "EGLL",
+      "name": "London Heathrow",
+      "country": "Reino Unido",
+      "complexity": 7,
+      "runways": [
+        "09L/27R",
+        "09R/27L"
+      ],
+      "profile": "SLOT_CONSTRAINED",
+      "unlockXp": 3000
+    },
+    {
+      "icao": "RJTT",
+      "name": "Tokyo Haneda",
+      "country": "Japão",
+      "complexity": 8,
+      "runways": [
+        "16L/34R",
+        "16R/34L",
+        "04/22",
+        "05/23"
+      ],
+      "profile": "BAY_COMPLEX",
+      "unlockXp": 3600
+    },
+    {
+      "icao": "OMDB",
+      "name": "Dubai International",
+      "country": "EAU",
+      "complexity": 8,
+      "runways": [
+        "12L/30R",
+        "12R/30L"
+      ],
+      "profile": "DESERT_SUPERHUB",
+      "unlockXp": 4200
+    }
+  ],
+  "procedurePacks": [
+    {
+      "id": "VISUAL_URBAN",
+      "name": "Visual urbano",
+      "risk": 18,
+      "skills": [
+        "RUNWAY_AWARENESS",
+        "PACE_DISCIPLINE"
+      ]
+    },
+    {
+      "id": "INSTRUMENT_IFR",
+      "name": "IFR simplificado",
+      "risk": 22,
+      "skills": [
+        "WEATHER_READING",
+        "RADIO_CLARITY"
+      ]
+    },
+    {
+      "id": "PARALLEL_RUNWAY",
+      "name": "Pistas paralelas",
+      "risk": 28,
+      "skills": [
+        "RUNWAY_AWARENESS",
+        "NETWORK_FLOW"
+      ]
+    },
+    {
+      "id": "COASTAL_APPROACH",
+      "name": "Aproximação costeira",
+      "risk": 24,
+      "skills": [
+        "WEATHER_READING",
+        "RADIO_CLARITY"
+      ]
+    },
+    {
+      "id": "HEAVY_WAKE",
+      "name": "Esteira pesada",
+      "risk": 26,
+      "skills": [
+        "PACE_DISCIPLINE",
+        "RUNWAY_AWARENESS"
+      ]
+    },
+    {
+      "id": "LOW_VIS_IFR",
+      "name": "Baixa visibilidade IFR",
+      "risk": 34,
+      "skills": [
+        "WEATHER_READING",
+        "EMERGENCY_RESPONSE"
+      ]
+    },
+    {
+      "id": "SLOT_BANK",
+      "name": "Bancos de slots",
+      "risk": 30,
+      "skills": [
+        "NETWORK_FLOW",
+        "SUPERVISOR_DECISION"
+      ]
+    }
+  ],
+  "routeChallenges": [
+    {
+      "id": "CGH_SHUTTLE",
+      "name": "Ponte aérea Congonhas-Santos Dumont",
+      "airports": [
+        "SBSP",
+        "SBRJ"
+      ],
+      "difficulty": 5,
+      "durationMin": 12
+    },
+    {
+      "id": "GRU_INTERNATIONAL_WAVE",
+      "name": "Onda internacional Guarulhos",
+      "airports": [
+        "SBGR"
+      ],
+      "difficulty": 6,
+      "durationMin": 14
+    },
+    {
+      "id": "RIO_MIXED_OPS",
+      "name": "Operação mista Rio",
+      "airports": [
+        "SBRJ",
+        "SBGL"
+      ],
+      "difficulty": 6,
+      "durationMin": 14
+    },
+    {
+      "id": "JFK_PARALLEL_PRESSURE",
+      "name": "Pressão em pistas paralelas JFK",
+      "airports": [
+        "KJFK"
+      ],
+      "difficulty": 8,
+      "durationMin": 16
+    },
+    {
+      "id": "HEATHROW_SLOT_BANK",
+      "name": "Banco de slots Heathrow",
+      "airports": [
+        "EGLL"
+      ],
+      "difficulty": 8,
+      "durationMin": 16
+    },
+    {
+      "id": "HANEDA_BAY_COMPLEX",
+      "name": "Complexo da baía Haneda",
+      "airports": [
+        "RJTT"
+      ],
+      "difficulty": 9,
+      "durationMin": 18
+    },
+    {
+      "id": "DUBAI_NIGHT_FLOW",
+      "name": "Fluxo noturno Dubai",
+      "airports": [
+        "OMDB"
+      ],
+      "difficulty": 9,
+      "durationMin": 18
+    }
+  ],
+  "runwayModes": [
+    {
+      "id": "SINGLE_ACTIVE",
+      "name": "Pista única ativa",
+      "capacity": 1,
+      "risk": 10
+    },
+    {
+      "id": "PARALLEL_SEGREGATED",
+      "name": "Paralelas segregadas",
+      "capacity": 2,
+      "risk": 18
+    },
+    {
+      "id": "PARALLEL_MIXED",
+      "name": "Paralelas mistas",
+      "capacity": 2,
+      "risk": 28
+    },
+    {
+      "id": "CROSSWIND_RESTRICTED",
+      "name": "Restrição por vento cruzado",
+      "capacity": 1,
+      "risk": 30
+    },
+    {
+      "id": "LOW_VIS_PROCEDURAL",
+      "name": "Procedural baixa visibilidade",
+      "capacity": 1,
+      "risk": 34
+    }
+  ],
+  "airportKPIs": [
+    {
+      "id": "AIRPORT_SCORE",
+      "name": "Score aeroporto"
+    },
+    {
+      "id": "ACTIVE_AIRPORT",
+      "name": "Aeroporto ativo"
+    },
+    {
+      "id": "PROCEDURE_RISK",
+      "name": "Risco procedimento"
+    },
+    {
+      "id": "ROUTE_CHALLENGE",
+      "name": "Desafio rota"
+    },
+    {
+      "id": "RUNWAY_MODE",
+      "name": "Modo pista"
+    },
+    {
+      "id": "UNLOCK_PROGRESS",
+      "name": "Progresso desbloqueio"
+    }
+  ],
+  "airportBands": [
+    {
+      "id": "MASTERED",
+      "min": 92,
+      "name": "Dominado"
+    },
+    {
+      "id": "QUALIFIED",
+      "min": 80,
+      "name": "Qualificado"
+    },
+    {
+      "id": "TRAINING",
+      "min": 62,
+      "name": "Em treino"
+    },
+    {
+      "id": "RESTRICTED",
+      "min": 0,
+      "name": "Restrito"
+    }
+  ]
+}

@@ -1,3 +1,27 @@
+## SC-1.59.0-F59-20260624-2115 — World Airports, Procedure Packs & Route Challenge Center
+
+- Adicionado módulo oficial `62-world-airports-procedure-pack-center.js`.
+- Criado catálogo `data/world-airport-procedures.json`.
+- Adicionados pacotes de aeroportos.
+- Adicionados procedimentos simplificados.
+- Adicionados desafios de rota.
+- Adicionados modos de pista.
+- Adicionados desbloqueios por XP.
+- Adicionado domínio por aeroporto.
+- Adicionado painel `AIRPORT PACK`.
+- Tela final mostra Airport e Airport Score.
+- Hotfix mobile F50.1 preservado.
+- Adaptive Pace F51 preservado.
+- Stability Diagnostics F52 preservado.
+- PWA Update Manager F53 preservado.
+- Live Ops Remote Config F54 preservado.
+- Scenario Mission Generator F55 preservado.
+- Campaign Progression F56 preservado.
+- Instructor Debrief F57 preservado.
+- Replay Timeline F58 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F59.
+
 ## SC-1.58.0-F58-20260624-2030 — Replay Timeline, Heatmap & Session Export Center
 
 - Adicionado módulo oficial `61-replay-timeline-heatmap-center.js`.

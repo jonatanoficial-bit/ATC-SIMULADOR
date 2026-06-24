@@ -1,18 +1,18 @@
-# Build Notes — SC-1.58.0-F58-20260624-2030
+# Build Notes — SC-1.59.0-F59-20260624-2115
 
 ## Identificação
 
 - Produto: Skyward Control
-- Versão: 1.58.0
-- Fase: F58 — Replay Timeline, Heatmap & Session Export Center, Linha do Tempo, Marcadores e Exportação de Sessão
-- Build: `SC-1.58.0-F58-20260624-2030`
-- Data/hora: 2026-06-24 20:30 BRT
-- Canal: replay-timeline-heatmap
-- Replay Timeline schema: 1
+- Versão: 1.59.0
+- Fase: F59 — World Airports, Procedure Packs & Route Challenge Center, Aeroportos, Procedimentos, Rotas e Desafios
+- Build: `SC-1.59.0-F59-20260624-2115`
+- Data/hora: 2026-06-24 21:15 BRT
+- Canal: world-airports-procedures
+- World Airport Procedure schema: 1
 
 ## Entregas
 
-A Fase 58 adiciona linha do tempo de replay, bookmarks, heatmap de risco, momentos críticos e exportação de sessão.
+A Fase 59 adiciona aeroportos jogáveis, procedimentos simplificados, desafios de rota, modos de pista, desbloqueios e domínio por aeroporto.
 
 ## Base preservada
 
@@ -26,6 +26,7 @@ A build preserva:
 - F55: Scenario Designer & Mission Generator Center.
 - F56: Campaign Progression, Licenses & Achievements Center.
 - F57: Instructor Debrief, Replay Analytics & Training Feedback Center.
+- F58: Replay Timeline, Heatmap & Session Export Center.
 
 ## Documento de upload
 

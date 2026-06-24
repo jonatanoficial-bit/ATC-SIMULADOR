@@ -1,10 +1,10 @@
 SKYWARD CONTROL
-Version: 1.58.0
-Phase: F58 — Replay Timeline, Heatmap & Session Export Center, Linha do Tempo, Marcadores e Exportação de Sessão
-Build: SC-1.58.0-F58-20260624-2030
-Built at: 2026-06-24 20:30 BRT
-Channel: replay-timeline-heatmap
-Replay Timeline schema: 1
+Version: 1.59.0
+Phase: F59 — World Airports, Procedure Packs & Route Challenge Center, Aeroportos, Procedimentos, Rotas e Desafios
+Build: SC-1.59.0-F59-20260624-2115
+Built at: 2026-06-24 21:15 BRT
+Channel: world-airports-procedures
+World Airport Procedure schema: 1
 F50.1 mobile hotfix preserved: true
 F51 adaptive pace preserved: true
 F52 stability diagnostics preserved: true
@@ -13,4 +13,5 @@ F54 live ops config preserved: true
 F55 scenario mission preserved: true
 F56 campaign progression preserved: true
 F57 instructor debrief preserved: true
+F58 replay timeline preserved: true
 Target: Mobile-first / Tablet / Desktop

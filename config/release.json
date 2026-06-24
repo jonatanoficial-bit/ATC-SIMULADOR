@@ -1,10 +1,10 @@
 {
   "product": "Skyward Control",
   "prefix": "SC",
-  "version": "1.58.0",
-  "phase": "F58",
-  "phaseName": "Replay Timeline, Heatmap & Session Export Center, Linha do Tempo, Marcadores e Exportação de Sessão",
-  "channel": "replay-timeline-heatmap",
+  "version": "1.59.0",
+  "phase": "F59",
+  "phaseName": "World Airports, Procedure Packs & Route Challenge Center, Aeroportos, Procedimentos, Rotas e Desafios",
+  "channel": "world-airports-procedures",
   "saveSchema": 3,
   "target": "Mobile-first / Tablet / Desktop",
   "timeZone": "America/Sao_Paulo",
@@ -17,9 +17,9 @@
   "desktopSchema": 1,
   "accessibilitySchema": 1,
   "replaySchema": 1,
-  "build": "SC-1.58.0-F58-20260624-2030",
-  "builtAt": "2026-06-24 20:30 BRT",
-  "builtAtIso": "2026-06-24T20:30:00-03:00",
+  "build": "SC-1.59.0-F59-20260624-2115",
+  "builtAt": "2026-06-24 21:15 BRT",
+  "builtAtIso": "2026-06-24T21:15:00-03:00",
   "aircraftPerformanceSchema": 1,
   "airportSurfaceSchema": 1,
   "surfaceSafetySchema": 1,
@@ -69,5 +69,6 @@
   "scenarioMissionSchema": 1,
   "campaignProgressionSchema": 1,
   "instructorDebriefSchema": 1,
-  "replayTimelineSchema": 1
+  "replayTimelineSchema": 1,
+  "worldAirportProcedureSchema": 1
 }

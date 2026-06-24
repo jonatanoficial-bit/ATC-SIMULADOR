@@ -1,0 +1,264 @@
+{
+  "schema": 1,
+  "suite": "phase59-browser",
+  "mode": "static-runtime-verification",
+  "environmentLimitation": "Validação estrutural orientada a código e artefatos do bundle para World Airports Procedure Packs.",
+  "build": {
+    "product": "Skyward Control",
+    "prefix": "SC",
+    "version": "1.59.0",
+    "phase": "F59",
+    "phaseName": "World Airports, Procedure Packs & Route Challenge Center, Aeroportos, Procedimentos, Rotas e Desafios",
+    "channel": "world-airports-procedures",
+    "saveSchema": 3,
+    "target": "Mobile-first / Tablet / Desktop",
+    "timeZone": "America/Sao_Paulo",
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "build": "SC-1.59.0-F59-20260624-2115",
+    "builtAt": "2026-06-24 21:15 BRT",
+    "builtAtIso": "2026-06-24T21:15:00-03:00",
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1,
+    "surfaceSafetySchema": 1,
+    "weatherOpsSchema": 1,
+    "procedureOpsSchema": 1,
+    "careerSchema": 1,
+    "economySchema": 1,
+    "incidentSchema": 1,
+    "networkFlowSchema": 1,
+    "controlRoomSchema": 1,
+    "commercialPolishSchema": 1,
+    "releaseCandidateSchema": 1,
+    "goldMasterSchema": 1,
+    "postGoldMasterSchema": 1,
+    "postPublishHealthSchema": 1,
+    "publicOpsSchema": 1,
+    "trainingAcademySchema": 1,
+    "trainingCoachSchema": 1,
+    "internationalCampaignSchema": 1,
+    "airlineOpsSchema": 1,
+    "airportAuthoritySchema": 1,
+    "crisisCommandSchema": 1,
+    "safetyComplianceSchema": 1,
+    "infrastructureExpansionSchema": 1,
+    "environmentSustainabilitySchema": 1,
+    "revenueManagementSchema": 1,
+    "workforceStaffingSchema": 1,
+    "passengerReputationSchema": 1,
+    "multiAirportNetworkSchema": 1,
+    "emergencyResponseSchema": 1,
+    "securityCyberDefenseSchema": 1,
+    "assetMaintenanceSchema": 1,
+    "digitalTwinPredictiveSchema": 1,
+    "aiCopilotSchema": 1,
+    "radioPhraseologySchema": 1,
+    "groundTurnaroundSchema": 1,
+    "cargoLogisticsSchema": 1,
+    "terminalFlowSchema": 1,
+    "nonAeroRevenueSchema": 1,
+    "mobileStabilityHotfixSchema": 1,
+    "safeModeIncidentFixSchema": 1,
+    "paceTuningSchema": 1,
+    "adaptivePaceSchema": 1,
+    "stabilityDiagnosticsSchema": 1,
+    "pwaUpdateManagerSchema": 1,
+    "liveOpsRemoteConfigSchema": 1,
+    "scenarioMissionSchema": 1,
+    "campaignProgressionSchema": 1,
+    "instructorDebriefSchema": 1,
+    "replayTimelineSchema": 1,
+    "worldAirportProcedureSchema": 1
+  },
+  "checks": [
+    {
+      "name": "build F59 carregada",
+      "ok": true,
+      "detail": "{'product': 'Skyward Control', 'prefix': 'SC', 'version': '1.59.0', 'phase': 'F59', 'phaseName': 'World Airports, Procedure Packs & Route Challenge Center, Aeroportos, Procedimentos, Rotas e Desafios', 'channel': 'world-airports-procedures', 'saveSchema': 3, 'target': 'Mobile-first / Tablet / Desktop', 'timeZone': 'America/Sao_Paulo', 'contractSchema': 2, 'testSchema': 3, 'saveVaultSchema': 1, 'pwaSchema': 1, 'cacheSchema': 1, 'uxSchema': 1, 'desktopSchema': 1, 'accessibilitySchema': 1, 'replaySchema': 1, 'build': 'SC-1.59.0-F59-20260624-2115', 'builtAt': '2026-06-24 21:15 BRT', 'builtAtIso': '2026-06-24T21:15:00-03:00', 'aircraftPerformanceSchema': 1, 'airportSurfaceSchema': 1, 'surfaceSafetySchema': 1, 'weatherOpsSchema': 1, 'procedureOpsSchema': 1, 'careerSchema': 1, 'economySchema': 1, 'incidentSchema': 1, 'networkFlowSchema': 1, 'controlRoomSchema': 1, 'commercialPolishSchema': 1, 'releaseCandidateSchema': 1, 'goldMasterSchema': 1, 'postGoldMasterSchema': 1, 'postPublishHealthSchema': 1, 'publicOpsSchema': 1, 'trainingAcademySchema': 1, 'trainingCoachSchema': 1, 'internationalCampaignSchema': 1, 'airlineOpsSchema': 1, 'airportAuthoritySchema': 1, 'crisisCommandSchema': 1, 'safetyComplianceSchema': 1, 'infrastructureExpansionSchema': 1, 'environmentSustainabilitySchema': 1, 'revenueManagementSchema': 1, 'workforceStaffingSchema': 1, 'passengerReputationSchema': 1, 'multiAirportNetworkSchema': 1, 'emergencyResponseSchema': 1, 'securityCyberDefenseSchema': 1, 'assetMaintenanceSchema': 1, 'digitalTwinPredictiveSchema': 1, 'aiCopilotSchema': 1, 'radioPhraseologySchema': 1, 'groundTurnaroundSchema': 1, 'cargoLogisticsSchema': 1, 'terminalFlowSchema': 1, 'nonAeroRevenueSchema': 1, 'mobileStabilityHotfixSchema': 1, 'safeModeIncidentFixSchema': 1, 'paceTuningSchema': 1, 'adaptivePaceSchema': 1, 'stabilityDiagnosticsSchema': 1, 'pwaUpdateManagerSchema': 1, 'liveOpsRemoteConfigSchema': 1, 'scenarioMissionSchema': 1, 'campaignProgressionSchema': 1, 'instructorDebriefSchema': 1, 'replayTimelineSchema': 1, 'worldAirportProcedureSchema': 1}"
+    },
+    {
+      "name": "hotfix F50.1 preservado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "F51 preservada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "F52 preservada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "F53 preservada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "F54 preservada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "F55 preservada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "F56 preservada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "F57 preservada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "F58 preservada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "main bundle inclui módulo 62",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API SKYWARD_WORLD_AIRPORTS no bundle",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui aeroportos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui procedimentos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo possui rotas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PWA cache inclui world-airport-procedures.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "início de turno inicializa F59",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fim de turno mostra F59",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS possui painel world airport",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scripts npm F59 expostos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema worldAirportProcedureSchema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "channel world-airports-procedures",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc world airports existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "doc route challenges existe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado raiz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload preservado docs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém caminho Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "documento upload contém repo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "SBSP presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "KJFK presente",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "parallel runway presente",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "status": "ok"
+    },
+    "tablet": {
+      "width": 1024,
+      "height": 768,
+      "status": "ok"
+    },
+    "mobile_landscape": {
+      "width": 844,
+      "height": 390,
+      "status": "ok"
+    },
+    "mobile_portrait": {
+      "width": 390,
+      "height": 844,
+      "status": "ok"
+    }
+  },
+  "passed": 31,
+  "failed": 0,
+  "total": 31
+}

@@ -1,0 +1,23 @@
+# Checklist — Fase 59
+
+- [x] Novo módulo `62-world-airports-procedure-pack-center.js`
+- [x] Novo catálogo `data/world-airport-procedures.json`
+- [x] Pacotes de aeroportos
+- [x] Procedimentos simplificados
+- [x] Desafios de rota
+- [x] Modos de pista
+- [x] Desbloqueios por XP
+- [x] Domínio por aeroporto
+- [x] Painel AIRPORT PACK
+- [x] Integração com início/fim de turno
+- [x] F50.1 preservado
+- [x] F51 preservada
+- [x] F52 preservada
+- [x] F53 preservada
+- [x] F54 preservada
+- [x] F55 preservada
+- [x] F56 preservada
+- [x] F57 preservada
+- [x] F58 preservada
+- [x] Documento de upload Git Bash preservado
+- [x] Testes F59

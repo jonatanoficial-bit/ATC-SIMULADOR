@@ -283,6 +283,11 @@
       "description": "Replay timeline, bookmarks, performance heatmap, critical moments and session export"
     },
     {
+      "file": "62-world-airports-procedure-pack-center.js",
+      "name": "world-airports-procedure-pack-center",
+      "description": "World airport packs, procedure packs, runway modes, route challenges and airport mastery"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"
