@@ -1,0 +1,28 @@
+# Feature Flags, Kill-Switches e Mobile Guard — Fase 54
+
+## Feature flags
+
+- ADAPTIVE_PACE.
+- MOBILE_CONSERVATIVE_MODE.
+- INCIDENT_LIMITER.
+- PWA_UPDATE_GUARD.
+- STABILITY_OBSERVATORY.
+- AUTO_CACHE_MIGRATION_HINT.
+- AI_COPILOT_HINTS.
+- DENSE_TRAFFIC_MODE.
+- EXPERIMENTAL_EVENTS.
+
+## Kill-switches
+
+- DISABLE_RANDOM_BURSTS.
+- DISABLE_EXPERIMENTAL_EVENTS.
+- LOCK_MOBILE_MAX_AIRCRAFT.
+- FORCE_PWA_UPDATE_CHECK.
+
+## Regras automáticas
+
+- Se houver modo seguro, aplica LIVE_OPS_GUARD.
+- Mobile inicia em SAFE_MOBILE.
+- Cache antigo aplica LIVE_OPS_GUARD.
+- Treino usa TRAINING_EASY.
+- Desktop usa REALISTIC_DESKTOP.

@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-PWA Update Manager Evolution — Phase 53
-Version: 1.53.0
-Build: SC-1.53.0-F53-20260624-1645
-Built: 2026-06-24 16:45 BRT
-Channel: PWA-UPDATE-MANAGER
-Status: F53 PWA UPDATE MANAGER AUDITED
-F50.1, F51 and F52 mobile safeguards preserved.
+Scenario Designer Evolution — Phase 55
+Version: 1.55.0
+Build: SC-1.55.0-F55-20260624-1815
+Built: 2026-06-24 18:15 BRT
+Channel: SCENARIO-MISSION-GENERATOR
+Status: F55 SCENARIO MISSION GENERATOR AUDITED
+F50.1, F51, F52, F53 and F54 safeguards preserved.

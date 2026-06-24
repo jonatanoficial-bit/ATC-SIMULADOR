@@ -258,6 +258,16 @@
       "description": "PWA update manager, cache migration, stale bundle guard, service worker health and safe reload"
     },
     {
+      "file": "57-live-ops-remote-config-center.js",
+      "name": "live-ops-remote-config-center",
+      "description": "Live Ops remote config, feature flags, kill-switches, mobile guards and runtime overrides"
+    },
+    {
+      "file": "58-scenario-mission-generator-center.js",
+      "name": "scenario-mission-generator-center",
+      "description": "Scenario designer, mission generator, templates, events, objectives, weather, traffic and grading"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

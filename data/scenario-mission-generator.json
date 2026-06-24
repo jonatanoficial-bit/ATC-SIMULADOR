@@ -1,0 +1,273 @@
+{
+  "schema": 1,
+  "version": "2026.06-f55",
+  "description": "Scenario designer and mission generator for ATC sessions with templates, scheduled events, traffic packs, weather packs, objectives, grading rules and replay seeds.",
+  "missionTemplates": [
+    {
+      "id": "MOBILE_TRAINING",
+      "name": "Treino Mobile Seguro",
+      "difficulty": 2,
+      "durationMin": 8,
+      "traffic": "LOW",
+      "weather": "VFR",
+      "profile": "SAFE_MOBILE"
+    },
+    {
+      "id": "PEAK_HOUR",
+      "name": "Hora Pico Controlada",
+      "difficulty": 4,
+      "durationMin": 12,
+      "traffic": "MEDIUM",
+      "weather": "VFR",
+      "profile": "BALANCED"
+    },
+    {
+      "id": "STORM_DIVERSION",
+      "name": "Desvio por Tempestade",
+      "difficulty": 6,
+      "durationMin": 14,
+      "traffic": "MEDIUM",
+      "weather": "STORM",
+      "profile": "LIVE_OPS_GUARD"
+    },
+    {
+      "id": "RADIO_DISCIPLINE",
+      "name": "Fraseologia Rigorosa",
+      "difficulty": 5,
+      "durationMin": 10,
+      "traffic": "LOW",
+      "weather": "MVFR",
+      "profile": "TRAINING_EASY"
+    },
+    {
+      "id": "EMERGENCY_RUNWAY",
+      "name": "Emergência em Pista",
+      "difficulty": 7,
+      "durationMin": 15,
+      "traffic": "MEDIUM",
+      "weather": "IFR",
+      "profile": "LIVE_OPS_GUARD"
+    },
+    {
+      "id": "CARGO_NIGHT",
+      "name": "Operação Cargueira Noturna",
+      "difficulty": 5,
+      "durationMin": 12,
+      "traffic": "CARGO",
+      "weather": "NIGHT_VFR",
+      "profile": "BALANCED"
+    },
+    {
+      "id": "REGIONAL_NETWORK",
+      "name": "Rede Regional Multi-Hub",
+      "difficulty": 6,
+      "durationMin": 16,
+      "traffic": "NETWORK",
+      "weather": "MIXED",
+      "profile": "REALISTIC_DESKTOP"
+    }
+  ],
+  "eventTypes": [
+    {
+      "id": "ARRIVAL_WAVE",
+      "name": "Onda de chegadas",
+      "severity": 14
+    },
+    {
+      "id": "DEPARTURE_BANK",
+      "name": "Banco de decolagens",
+      "severity": 16
+    },
+    {
+      "id": "WEATHER_CELL",
+      "name": "Célula meteorológica",
+      "severity": 22
+    },
+    {
+      "id": "RADIO_CONGESTION",
+      "name": "Congestionamento rádio",
+      "severity": 18
+    },
+    {
+      "id": "RUNWAY_INSPECTION",
+      "name": "Inspeção de pista",
+      "severity": 24
+    },
+    {
+      "id": "MEDICAL_PRIORITY",
+      "name": "Prioridade médica",
+      "severity": 26
+    },
+    {
+      "id": "LOW_VISIBILITY",
+      "name": "Baixa visibilidade",
+      "severity": 28
+    },
+    {
+      "id": "CARGO_PRIORITY",
+      "name": "Prioridade cargueira",
+      "severity": 16
+    }
+  ],
+  "trafficPacks": [
+    {
+      "id": "LOW",
+      "name": "Baixo",
+      "aircraft": 3,
+      "spacingSec": 48
+    },
+    {
+      "id": "MEDIUM",
+      "name": "Médio",
+      "aircraft": 5,
+      "spacingSec": 36
+    },
+    {
+      "id": "HIGH",
+      "name": "Alto",
+      "aircraft": 7,
+      "spacingSec": 28
+    },
+    {
+      "id": "CARGO",
+      "name": "Cargueiro",
+      "aircraft": 4,
+      "spacingSec": 42
+    },
+    {
+      "id": "NETWORK",
+      "name": "Multi-Hub",
+      "aircraft": 6,
+      "spacingSec": 34
+    }
+  ],
+  "weatherPacks": [
+    {
+      "id": "VFR",
+      "name": "Visual",
+      "visibility": 10,
+      "wind": 8,
+      "risk": 6
+    },
+    {
+      "id": "MVFR",
+      "name": "Marginal",
+      "visibility": 6,
+      "wind": 14,
+      "risk": 14
+    },
+    {
+      "id": "IFR",
+      "name": "Instrumento",
+      "visibility": 3,
+      "wind": 18,
+      "risk": 24
+    },
+    {
+      "id": "STORM",
+      "name": "Tempestade",
+      "visibility": 2,
+      "wind": 28,
+      "risk": 34
+    },
+    {
+      "id": "NIGHT_VFR",
+      "name": "Noite visual",
+      "visibility": 8,
+      "wind": 10,
+      "risk": 12
+    },
+    {
+      "id": "MIXED",
+      "name": "Misto regional",
+      "visibility": 5,
+      "wind": 18,
+      "risk": 22
+    }
+  ],
+  "objectiveTypes": [
+    {
+      "id": "NO_CONFLICTS",
+      "name": "Sem conflitos",
+      "points": 180
+    },
+    {
+      "id": "LOW_DENIALS",
+      "name": "Poucas negativas",
+      "points": 120
+    },
+    {
+      "id": "RADIO_ACCURACY",
+      "name": "Fraseologia correta",
+      "points": 140
+    },
+    {
+      "id": "PACE_CONTROL",
+      "name": "Controle de ritmo",
+      "points": 100
+    },
+    {
+      "id": "SAFE_MODE_ZERO",
+      "name": "Sem modo seguro",
+      "points": 160
+    },
+    {
+      "id": "MISSION_COMPLETION",
+      "name": "Missão concluída",
+      "points": 200
+    }
+  ],
+  "gradeBands": [
+    {
+      "id": "S",
+      "min": 92,
+      "name": "Excelente"
+    },
+    {
+      "id": "A",
+      "min": 82,
+      "name": "Ótimo"
+    },
+    {
+      "id": "B",
+      "min": 70,
+      "name": "Bom"
+    },
+    {
+      "id": "C",
+      "min": 55,
+      "name": "Regular"
+    },
+    {
+      "id": "D",
+      "min": 0,
+      "name": "Repetir treino"
+    }
+  ],
+  "scenarioKPIs": [
+    {
+      "id": "MISSION_SCORE",
+      "name": "Score missão"
+    },
+    {
+      "id": "GRADE",
+      "name": "Nota"
+    },
+    {
+      "id": "OBJECTIVE_CLEAR",
+      "name": "Objetivos cumpridos"
+    },
+    {
+      "id": "EVENT_CONTROL",
+      "name": "Controle de eventos"
+    },
+    {
+      "id": "SAFETY_RESULT",
+      "name": "Resultado segurança"
+    },
+    {
+      "id": "REPLAY_SEED",
+      "name": "Seed replay"
+    }
+  ]
+}

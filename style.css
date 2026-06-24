@@ -1076,3 +1076,19 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .pwa-update-current{color:#91ffb7}
 .pwa-update-stale{color:#ffd27a}
 .pwa-update-outdated{color:#ff918c}
+
+/* F54 Live Ops Remote Config */
+.live-ops-config-inline{border-color:rgba(255,170,230,.64);background:linear-gradient(180deg,rgba(84,28,78,.92),rgba(42,5,37,.98));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 32px rgba(255,170,230,.16)}
+.live-ops-config-inline .airport-ops-head span{color:#ffc5f1}
+.live-ops-config-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,170,230,.45);border-radius:999px;padding:4px 9px;background:rgba(255,170,230,.13);font-weight:900}
+.live-ops-protected{color:#91ffb7}
+.live-ops-review{color:#ffd27a}
+.live-ops-unguarded{color:#ff918c}
+
+/* F55 Scenario Designer Mission Generator */
+.scenario-mission-inline{border-color:rgba(180,255,135,.64);background:linear-gradient(180deg,rgba(43,84,25,.92),rgba(13,42,5,.98));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 32px rgba(180,255,135,.16)}
+.scenario-mission-inline .airport-ops-head span{color:#c9ff9a}
+.scenario-mission-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(180,255,135,.45);border-radius:999px;padding:4px 9px;background:rgba(180,255,135,.13);font-weight:900}
+.scenario-grade-s{color:#91ffb7}
+.scenario-grade-c{color:#ffd27a}
+.scenario-grade-d{color:#ff918c}

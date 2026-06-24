@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "suite": "phase54-unit",
+  "build": "SC-1.54.0-F54-20260624-1730",
+  "passed": 16,
+  "total": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F54+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.54.0\",\"phase\":\"F54\",\"phaseName\":\"Live Ops Remote Config & Feature Flags Center, Controle de Ritmo, Mobile, Incidentes, PWA e Diagnóstico\",\"channel\":\"live-ops-remote-config\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.54.0-F54-20260624-1730\",\"builtAt\":\"2026-06-24 17:30 BRT\",\"builtAtIso\":\"2026-06-24T17:30:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1,\"terminalFlowSchema\":1,\"nonAeroRevenueSchema\":1,\"mobileStabilityHotfixSchema\":1,\"safeModeIncidentFixSchema\":1,\"paceTuningSchema\":1,\"adaptivePaceSchema\":1,\"stabilityDiagnosticsSchema\":1,\"pwaUpdateManagerSchema\":1,\"liveOpsRemoteConfigSchema\":1}"
+    },
+    {
+      "name": "módulo F54 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo profiles flags switches",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"profiles\":5,\"flags\":9}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"activeProfile\":\"LIVE_OPS_GUARD\",\"configScore\":99,\"status\":\"PROTECTED\",\"flags\":{\"ADAPTIVE_PACE\":true,\"MOBILE_CONSERVATIVE_MODE\":true,\"INCIDENT_LIMITER\":true,\"PWA_UPDATE_GUARD\":true,\"STABILITY_OBSERVATORY\":true,\"AUTO_CACHE_MIGRATION_HINT\":true,\"AI_COPILOT_HINTS\":true,\"DENSE_TRAFFIC_MODE\":false,\"EXPERIMENTAL_EVENTS\":false},\"killSwitches\":{\"DISABLE_RANDOM_BURSTS\":true,\"DISABLE_EXPERIMENTAL_EVENTS\":true,\"LOCK_MOBILE_MAX_AIRCRAFT\":true,\"FORCE_PWA_UPDATE_CHECK\":true},\"appliedRules\":[],\"overrides\":{\"paceScale\":0.62,\"maxAircraft\":4,\"spawnSpacingSec\":42,\"incidentCooldownSec\":105,\"eventBurstLimit\":2},\"history\":[{\"at\":\"2026-06-24T17:25:26.980Z\",\"build\":\"SC-1.54.0-F54-20260624-1730\",\"reason\":\"init\",\"profile\":\"LIVE_OPS_GUARD\",\"configScore\":99,\"status\":\"PROTECTED\",\"overrides\":{\"paceScale\":0.62,\"maxAircraft\":4,\"spawnSpacingSec\":42,\"incidentCooldownSec\":105,\"eventBurstLimit\":2},\"flags\":{\"ADAPTIVE_PACE\":true,\"MOBILE_CONSERVATIVE_MODE\":true,\"INCIDENT_LIMITER\":true,\"PWA_UPDATE_GUARD\":true,\"STABILITY_OBSERVATORY\":true,\"AUTO_CACHE_MIGRATION_HINT\":true,\"AI_COPILOT_HINTS\":true,\"DENSE_TRAFFIC_MODE\":false,\"EXPERIMENTAL_EVENTS\":false},\"killSwitches\":{\"DISABLE_RANDOM_BURSTS\":true,\"DISABLE_EXPERIMENTAL_EVENTS\":true,\"LOCK_MOBILE_MAX_AIRCRAFT\":true,\"FORCE_PWA_UPDATE_CHECK\":true}},{\"at\":\"2026-06-24T17:25:26.979Z\",\"build\":\"SC-1.54.0-F54-20260624-1730\",\"reason\":\"self-check-guard\",\"profile\":\"LIVE_OPS_GUARD\",\"configScore\":99,\"status\":\"PROTECTED\",\"overrides\":{\"paceScale\":0.62,\"maxAircraft\":4,\"spawnSpacingSec\":42,\"incidentCooldownSec\":105,\"eventBurstLimit\":2},\"flags\":{\"ADAPTIVE_PACE\":true,\"MOBILE_CONSERVATIVE_MODE\":true,\"INCIDENT_LIMITER\":true,\"PWA_UPDATE_GUARD\":true,\"STABILITY_OBSERVATORY\":true,\"AUTO_CACHE_MIGRATION_HINT\":true,\"AI_COPILOT_HINTS\":true,\"DENSE_TRAFFIC_MODE\":false,\"EXPERIMENTAL_EVENTS\":false},\"killSwitches\":{\"DISABLE_RANDOM_BURSTS\":true,\"DISABLE_EXPERIMENTAL_EVENTS\":true,\"LOCK_MOBILE_MAX_AIRCRAFT\":true,\"FORCE_PWA_UPDATE_CHECK\":true}},{\"at\":\"2026-06-24T17:25:26.979Z\",\"build\":\"SC-1.54.0-F54-20260624-1730\",\"reason\":\"self-check\",\"profile\":\"SAFE_MOBILE\",\"configScore\":99,\"status\":\"PROTECTED\",\"overrides\":{\"paceScale\":0.58,\"maxAircraft\":3,\"spawnSpacingSec\":44,\"incidentCooldownSec\":110,\"eventBurstLimit\":2},\"flags\":{\"ADAPTIVE_PACE\":true,\"MOBILE_CONSERVATIVE_MODE\":true,\"INCIDENT_LIMITER\":true,\"PWA_UPDATE_GUARD\":true,\"STABILITY_OBSERVATORY\":true,\"AUTO_CACHE_MIGRATION_HINT\":true,\"AI_COPILOT_HINTS\":true,\"DENSE_TRAFFIC_MODE\":false,\"EXPERIMENTAL_EVENTS\":false},\"killSwitches\":{\"DISABLE_RANDOM_BURSTS\":true,\"DISABLE_EXPERIMENTAL_EVENTS\":true,\"LOCK_MOBILE_MAX_AIRCRAFT\":true,\"FORCE_PWA_UPDATE_CHECK\":true}},{\"at\":\"2026-06-24T17:25:26.979Z\",\"build\":\"SC-1.54.0-F54-20260624-1730\",\"reason\":\"self-check-guard\",\"profile\":\"LIVE_OPS_GUARD\",\"configScore\":99,\"status\":\"PROTECTED\",\"overrides\":{\"paceScale\":0.62,\"maxAircraft\":4,\"spawnSpacingSec\":42,\"incidentCooldownSec\":105,\"eventBurstLimit\":2},\"flags\":{\"ADAPTIVE_PACE\":true,\"MOBILE_CONSERVATIVE_MODE\":true,\"INCIDENT_LIMITER\":true,\"PWA_UPDATE_GUARD\":true,\"STABILITY_OBSERVATORY\":true,\"AUTO_CACHE_MIGRATION_HINT\":true,\"AI_COPILOT_HINTS\":true,\"DENSE_TRAFFIC_MODE\":false,\"EXPERIMENTAL_EVENTS\":false},\"killSwitches\":{\"DISABLE_RANDOM_BURSTS\":true,\"DISABLE_EXPERIMENTAL_EVENTS\":true,\"LOCK_MOBILE_MAX_AIRCRAFT\":true,\"FORCE_PWA_UPDATE_CHECK\":true}},{\"at\":\"2026-06-24T17:25:26.972Z\",\"build\":\"SC-1.54.0-F54-20260624-1730\",\"reason\":\"self-check\",\"profile\":\"SAFE_MOBILE\",\"configScore\":99,\"status\":\"PROTECTED\",\"overrides\":{\"paceScale\":0.58,\"maxAircraft\":3,\"spawnSpacingSec\":44,\"incidentCooldownSec\":110,\"eventBurstLimit\":2},\"flags\":{\"ADAPTIVE_PACE\":true,\"MOBILE_CONSERVATIVE_MODE\":true,\"INCIDENT_LIMITER\":true,\"PWA_UPDATE_GUARD\":true,\"STABILITY_OBSERVATORY\":true,\"AUTO_CACHE_MIGRATION_HINT\":true,\"AI_COPILOT_HINTS\":true,\"DENSE_TRAFFIC_MODE\":false,\"EXPERIMENTAL_EVENTS\":false},\"killSwitches\":{\"DISABLE_RANDOM_BURSTS\":true,\"DISABLE_EXPERIMENTAL_EVENTS\":true,\"LOCK_MOBILE_MAX_AIRCRAFT\":true,\"FORCE_PWA_UPDATE_CHECK\":true}}],\"lastEvaluation\":{\"at\":\"2026-06-24T17:25:26.980Z\",\"build\":\"SC-1.54.0-F54-20260624-1730\",\"reason\":\"init\",\"profile\":\"LIVE_OPS_GUARD\",\"configScore\":99,\"status\":\"PROTECTED\",\"overrides\":{\"paceScale\":0.62,\"maxAircraft\":4,\"spawnSpacingSec\":42,\"incidentCooldownSec\":105,\"eventBurstLimit\":2},\"flags\":{\"ADAPTIVE_PACE\":true,\"MOBILE_CONSERVATIVE_MODE\":true,\"INCIDENT_LIMITER\":true,\"PWA_UPDATE_GUARD\":true,\"STABILITY_OBSERVATORY\":true,\"AUTO_CACHE_MIGRATION_HINT\":true,\"AI_COPILOT_HINTS\":true,\"DENSE_TRAFFIC_MODE\":false,\"EXPERIMENTAL_EVENTS\":false},\"killSwitches\":{\"DISABLE_RANDOM_BURSTS\":true,\"DISABLE_EXPERIMENTAL_EVENTS\":true,\"LOCK_MOBILE_MAX_AIRCRAFT\":true,\"FORCE_PWA_UPDATE_CHECK\":true}}}"
+    },
+    {
+      "name": "perfil seguro aplicado",
+      "ok": true,
+      "detail": "{\"paceScale\":0.58,\"maxAircraft\":3,\"spawnSpacingSec\":44,\"incidentCooldownSec\":110,\"eventBurstLimit\":2}"
+    },
+    {
+      "name": "flag altera valor",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "kill switch altera valor",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "avaliação válida",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T17:25:26.982Z\",\"build\":\"SC-1.54.0-F54-20260624-1730\",\"reason\":\"end-shift\",\"profile\":\"LIVE_OPS_GUARD\",\"configScore\":99,\"status\":\"PROTECTED\",\"overrides\":{\"paceScale\":0.62,\"maxAircraft\":4,\"spawnSpacingSec\":42,\"incidentCooldownSec\":105,\"eventBurstLimit\":2},\"flags\":{\"ADAPTIVE_PACE\":true,\"MOBILE_CONSERVATIVE_MODE\":true,\"INCIDENT_LIMITER\":true,\"PWA_UPDATE_GUARD\":true,\"STABILITY_OBSERVATORY\":true,\"AUTO_CACHE_MIGRATION_HINT\":true,\"AI_COPILOT_HINTS\":true,\"DENSE_TRAFFIC_MODE\":false,\"EXPERIMENTAL_EVENTS\":false},\"killSwitches\":{\"DISABLE_RANDOM_BURSTS\":true,\"DISABLE_EXPERIMENTAL_EVENTS\":true,\"LOCK_MOBILE_MAX_AIRCRAFT\":true,\"FORCE_PWA_UPDATE_CHECK\":true},\"airport\":\"SBGR\",\"finalScore\":2700,\"signals\":{\"mobile\":true,\"safeModeCount\":1,\"oldBundleRisk\":0,\"workload\":44,\"pwaStatus\":\"CURRENT\",\"stabilityStatus\":\"WATCH\"},\"rule\":\"SAFE_MODE_AUTO_GUARD\"}"
+    },
+    {
+      "name": "progress contém live ops",
+      "ok": true,
+      "detail": "{\"score\":99,\"status\":\"PROTECTED\",\"activeProfile\":\"LIVE_OPS_GUARD\",\"enabledFlags\":7,\"enabledKillSwitches\":4,\"paceScale\":0.62,\"maxAircraft\":4,\"incidentCooldownSec\":105,\"last\":{\"at\":\"2026-06-24T17:25:26.982Z\",\"build\":\"SC-1.54.0-F54-20260624-1730\",\"reason\":\"end-shift\",\"profile\":\"LIVE_OPS_GUARD\",\"configScore\":99,\"status\":\"PROTECTED\",\"overrides\":{\"paceScale\":0.62,\"maxAircraft\":4,\"spawnSpacingSec\":42,\"incidentCooldownSec\":105,\"eventBurstLimit\":2},\"flags\":{\"ADAPTIVE_PACE\":true,\"MOBILE_CONSERVATIVE_MODE\":true,\"INCIDENT_LIMITER\":true,\"PWA_UPDATE_GUARD\":true,\"STABILITY_OBSERVATORY\":true,\"AUTO_CACHE_MIGRATION_HINT\":true,\"AI_COPILOT_HINTS\":true,\"DENSE_TRAFFIC_MODE\":false,\"EXPERIMENTAL_EVENTS\":false},\"killSwitches\":{\"DISABLE_RANDOM_BURSTS\":true,\"DISABLE_EXPERIMENTAL_EVENTS\":true,\"LOCK_MOBILE_MAX_AIRCRAFT\":true,\"FORCE_PWA_UPDATE_CHECK\":true}}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"PROTECTED\",\"min\":90,\"name\":\"Protegido\"},{\"id\":\"CONTROLLED\",\"min\":75,\"name\":\"Controlado\"},{\"id\":\"NEEDS_REVIEW\",\"min\":55,\"name\":\"Revisar\"},{\"id\":\"UNGUARDED\",\"min\":0,\"name\":\"Sem guarda\"}]"
+    },
+    {
+      "name": "safe mode aplica guard",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T17:25:26.982Z\",\"build\":\"SC-1.54.0-F54-20260624-1730\",\"reason\":\"end-shift\",\"profile\":\"LIVE_OPS_GUARD\",\"configScore\":99,\"status\":\"PROTECTED\",\"overrides\":{\"paceScale\":0.62,\"maxAircraft\":4,\"spawnSpacingSec\":42,\"incidentCooldownSec\":105,\"eventBurstLimit\":2},\"flags\":{\"ADAPTIVE_PACE\":true,\"MOBILE_CONSERVATIVE_MODE\":true,\"INCIDENT_LIMITER\":true,\"PWA_UPDATE_GUARD\":true,\"STABILITY_OBSERVATORY\":true,\"AUTO_CACHE_MIGRATION_HINT\":true,\"AI_COPILOT_HINTS\":true,\"DENSE_TRAFFIC_MODE\":false,\"EXPERIMENTAL_EVENTS\":false},\"killSwitches\":{\"DISABLE_RANDOM_BURSTS\":true,\"DISABLE_EXPERIMENTAL_EVENTS\":true,\"LOCK_MOBILE_MAX_AIRCRAFT\":true,\"FORCE_PWA_UPDATE_CHECK\":true},\"airport\":\"SBGR\",\"finalScore\":2700,\"signals\":{\"mobile\":true,\"safeModeCount\":1,\"oldBundleRisk\":0,\"workload\":44,\"pwaStatus\":\"CURRENT\",\"stabilityStatus\":\"WATCH\"},\"rule\":\"SAFE_MODE_AUTO_GUARD\"}"
+    }
+  ]
+}

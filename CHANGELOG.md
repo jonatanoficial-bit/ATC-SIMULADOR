@@ -1,3 +1,42 @@
+## SC-1.55.0-F55-20260624-1815 — Scenario Designer & Mission Generator Center
+
+- Adicionado módulo oficial `58-scenario-mission-generator-center.js`.
+- Criado catálogo `data/scenario-mission-generator.json`.
+- Adicionados templates de missão.
+- Adicionados eventos programados.
+- Adicionados pacotes de tráfego.
+- Adicionados pacotes de clima.
+- Adicionados objetivos avaliáveis.
+- Adicionada nota final da missão.
+- Adicionado replay seed.
+- Adicionado painel `MISSION OPS`.
+- Tela final mostra Mission e Mission Score.
+- Hotfix mobile F50.1 preservado.
+- Adaptive Pace F51 preservado.
+- Stability Diagnostics F52 preservado.
+- PWA Update Manager F53 preservado.
+- Live Ops Remote Config F54 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F55.
+
+## SC-1.54.0-F54-20260624-1730 — Live Ops Remote Config & Feature Flags Center
+
+- Adicionado módulo oficial `57-live-ops-remote-config-center.js`.
+- Criado catálogo `data/live-ops-remote-config.json`.
+- Adicionados perfis Live Ops.
+- Adicionadas feature flags.
+- Adicionados kill-switches.
+- Adicionadas regras automáticas de perfil.
+- Adicionados overrides de runtime para ritmo, aeronaves, spawn e cooldown.
+- Adicionado painel `LIVE OPS CFG`.
+- Tela final mostra Live Ops e Cfg Score.
+- Hotfix mobile F50.1 preservado.
+- Adaptive Pace F51 preservado.
+- Stability Diagnostics F52 preservado.
+- PWA Update Manager F53 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F54.
+
 ## SC-1.53.0-F53-20260624-1645 — PWA Update Manager & Cache Migration Center
 
 - Adicionado módulo oficial `56-pwa-update-cache-migration-center.js`.

@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "suite": "phase55-unit",
+  "build": "SC-1.55.0-F55-20260624-1815",
+  "passed": 15,
+  "total": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F55+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.55.0\",\"phase\":\"F55\",\"phaseName\":\"Scenario Designer & Mission Generator Center, Missões, Eventos, Objetivos, Clima, Tráfego e Avaliação\",\"channel\":\"scenario-mission-generator\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.55.0-F55-20260624-1815\",\"builtAt\":\"2026-06-24 18:15 BRT\",\"builtAtIso\":\"2026-06-24T18:15:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1,\"terminalFlowSchema\":1,\"nonAeroRevenueSchema\":1,\"mobileStabilityHotfixSchema\":1,\"safeModeIncidentFixSchema\":1,\"paceTuningSchema\":1,\"adaptivePaceSchema\":1,\"stabilityDiagnosticsSchema\":1,\"pwaUpdateManagerSchema\":1,\"liveOpsRemoteConfigSchema\":1,\"scenarioMissionSchema\":1}"
+    },
+    {
+      "name": "módulo F55 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo templates events objectives",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"templates\":7,\"events\":8}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"activeMission\":{\"id\":\"MIS-297466\",\"templateId\":\"MOBILE_TRAINING\",\"name\":\"Treino Mobile Seguro\",\"difficulty\":2,\"durationMin\":8,\"traffic\":{\"id\":\"LOW\",\"name\":\"Baixo\",\"aircraft\":3,\"spacingSec\":48},\"weather\":{\"id\":\"VFR\",\"name\":\"Visual\",\"visibility\":10,\"wind\":8,\"risk\":6},\"profile\":\"SAFE_MOBILE\",\"seed\":4059986911,\"status\":\"ACTIVE\",\"startedAt\":\"2026-06-24T18:04:57.466Z\",\"build\":\"SC-1.55.0-F55-20260624-1815\"},\"missionHistory\":[{\"at\":\"2026-06-24T18:04:57.467Z\",\"build\":\"SC-1.55.0-F55-20260624-1815\",\"airport\":\"SBGR\",\"missionId\":\"MIS-297466\",\"templateId\":\"MOBILE_TRAINING\",\"missionName\":\"Treino Mobile Seguro\",\"missionScore\":100,\"grade\":\"S\",\"gradeName\":\"Excelente\",\"objectivesDone\":5,\"objectivesTotal\":5,\"events\":4,\"seed\":4059986911,\"finalScore\":2600,\"stats\":{\"conflicts\":0,\"denied\":0,\"incursions\":0,\"fail\":false}},{\"at\":\"2026-06-24T18:04:57.466Z\",\"build\":\"SC-1.55.0-F55-20260624-1815\",\"airport\":\"SBGR\",\"missionId\":\"MIS-297463\",\"templateId\":\"MOBILE_TRAINING\",\"missionName\":\"Treino Mobile Seguro\",\"missionScore\":100,\"grade\":\"S\",\"gradeName\":\"Excelente\",\"objectivesDone\":5,\"objectivesTotal\":5,\"events\":4,\"seed\":4059986911,\"finalScore\":2600,\"stats\":{\"conflicts\":0,\"denied\":0,\"incursions\":0,\"fail\":false}}],\"generatedEvents\":[{\"id\":\"EVT-MOBILE_TRAINING-1\",\"type\":\"ARRIVAL_WAVE\",\"name\":\"Onda de chegadas\",\"severity\":14,\"minute\":2,\"status\":\"SCHEDULED\",\"traffic\":\"LOW\",\"weather\":\"VFR\"},{\"id\":\"EVT-MOBILE_TRAINING-2\",\"type\":\"DEPARTURE_BANK\",\"name\":\"Banco de decolagens\",\"severity\":16,\"minute\":4,\"status\":\"SCHEDULED\",\"traffic\":\"LOW\",\"weather\":\"VFR\"},{\"id\":\"EVT-MOBILE_TRAINING-3\",\"type\":\"CARGO_PRIORITY\",\"name\":\"Prioridade cargueira\",\"severity\":16,\"minute\":6,\"status\":\"SCHEDULED\",\"traffic\":\"LOW\",\"weather\":\"VFR\"},{\"id\":\"EVT-CUSTOM-297467\",\"type\":\"ARRIVAL_WAVE\",\"name\":\"Onda de chegadas\",\"severity\":14,\"minute\":2,\"status\":\"SCHEDULED\",\"custom\":true}],\"missionScore\":100,\"grade\":\"S\",\"objectives\":[{\"id\":\"MISSION_COMPLETION\",\"name\":\"Missão concluída\",\"points\":200,\"status\":\"DONE\",\"completedAt\":\"2026-06-24T18:04:57.467Z\"},{\"id\":\"NO_CONFLICTS\",\"name\":\"Sem conflitos\",\"points\":180,\"status\":\"DONE\",\"completedAt\":\"2026-06-24T18:04:57.467Z\"},{\"id\":\"LOW_DENIALS\",\"name\":\"Poucas negativas\",\"points\":120,\"status\":\"DONE\",\"completedAt\":\"2026-06-24T18:04:57.467Z\"},{\"id\":\"PACE_CONTROL\",\"name\":\"Controle de ritmo\",\"points\":100,\"status\":\"DONE\",\"completedAt\":\"2026-06-24T18:04:57.467Z\"},{\"id\":\"SAFE_MODE_ZERO\",\"name\":\"Sem modo seguro\",\"points\":160,\"status\":\"DONE\",\"completedAt\":\"2026-06-24T18:04:57.467Z\"}],\"lastEvaluation\":{\"at\":\"2026-06-24T18:04:57.467Z\",\"build\":\"SC-1.55.0-F55-20260624-1815\",\"airport\":\"SBGR\",\"missionId\":\"MIS-297466\",\"templateId\":\"MOBILE_TRAINING\",\"missionName\":\"Treino Mobile Seguro\",\"missionScore\":100,\"grade\":\"S\",\"gradeName\":\"Excelente\",\"objectivesDone\":5,\"objectivesTotal\":5,\"events\":4,\"seed\":4059986911,\"finalScore\":2600,\"stats\":{\"conflicts\":0,\"denied\":0,\"incursions\":0,\"fail\":false}}}"
+    },
+    {
+      "name": "missão inicia",
+      "ok": true,
+      "detail": "{\"id\":\"MIS-297468\",\"templateId\":\"STORM_DIVERSION\",\"name\":\"Desvio por Tempestade\",\"difficulty\":6,\"durationMin\":14,\"traffic\":{\"id\":\"MEDIUM\",\"name\":\"Médio\",\"aircraft\":5,\"spacingSec\":36},\"weather\":{\"id\":\"STORM\",\"name\":\"Tempestade\",\"visibility\":2,\"wind\":28,\"risk\":34},\"profile\":\"LIVE_OPS_GUARD\",\"seed\":3935479641,\"status\":\"ACTIVE\",\"startedAt\":\"2026-06-24T18:04:57.468Z\",\"build\":\"SC-1.55.0-F55-20260624-1815\"}"
+    },
+    {
+      "name": "evento agenda",
+      "ok": true,
+      "detail": "{\"id\":\"EVT-CUSTOM-297468\",\"type\":\"MEDICAL_PRIORITY\",\"name\":\"Prioridade médica\",\"severity\":26,\"minute\":3,\"status\":\"SCHEDULED\",\"custom\":true}"
+    },
+    {
+      "name": "avaliação válida",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T18:04:57.468Z\",\"build\":\"SC-1.55.0-F55-20260624-1815\",\"airport\":\"SBGR\",\"missionId\":\"MIS-297468\",\"templateId\":\"STORM_DIVERSION\",\"missionName\":\"Desvio por Tempestade\",\"missionScore\":100,\"grade\":\"S\",\"gradeName\":\"Excelente\",\"objectivesDone\":5,\"objectivesTotal\":5,\"events\":6,\"seed\":3935479641,\"finalScore\":2800,\"stats\":{\"conflicts\":0,\"denied\":0,\"incursions\":0,\"fail\":false}}"
+    },
+    {
+      "name": "progress contém missão",
+      "ok": true,
+      "detail": "{\"score\":100,\"grade\":\"S\",\"activeMission\":{\"id\":\"MIS-297468\",\"templateId\":\"STORM_DIVERSION\",\"name\":\"Desvio por Tempestade\",\"difficulty\":6,\"durationMin\":14,\"traffic\":{\"id\":\"MEDIUM\",\"name\":\"Médio\",\"aircraft\":5,\"spacingSec\":36},\"weather\":{\"id\":\"STORM\",\"name\":\"Tempestade\",\"visibility\":2,\"wind\":28,\"risk\":34},\"profile\":\"LIVE_OPS_GUARD\",\"seed\":3935479641,\"status\":\"ACTIVE\",\"startedAt\":\"2026-06-24T18:04:57.468Z\",\"build\":\"SC-1.55.0-F55-20260624-1815\"},\"events\":6,\"objectivesDone\":5,\"objectivesTotal\":5,\"seed\":3935479641,\"last\":{\"at\":\"2026-06-24T18:04:57.468Z\",\"build\":\"SC-1.55.0-F55-20260624-1815\",\"airport\":\"SBGR\",\"missionId\":\"MIS-297468\",\"templateId\":\"STORM_DIVERSION\",\"missionName\":\"Desvio por Tempestade\",\"missionScore\":100,\"grade\":\"S\",\"gradeName\":\"Excelente\",\"objectivesDone\":5,\"objectivesTotal\":5,\"events\":6,\"seed\":3935479641,\"finalScore\":2800,\"stats\":{\"conflicts\":0,\"denied\":0,\"incursions\":0,\"fail\":false}}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"S\",\"min\":92,\"name\":\"Excelente\"},{\"id\":\"A\",\"min\":82,\"name\":\"Ótimo\"},{\"id\":\"B\",\"min\":70,\"name\":\"Bom\"},{\"id\":\"C\",\"min\":55,\"name\":\"Regular\"},{\"id\":\"D\",\"min\":0,\"name\":\"Repetir treino\"}]"
+    },
+    {
+      "name": "nota boa sem falhas",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-24T18:04:57.468Z\",\"build\":\"SC-1.55.0-F55-20260624-1815\",\"airport\":\"SBGR\",\"missionId\":\"MIS-297468\",\"templateId\":\"STORM_DIVERSION\",\"missionName\":\"Desvio por Tempestade\",\"missionScore\":100,\"grade\":\"S\",\"gradeName\":\"Excelente\",\"objectivesDone\":5,\"objectivesTotal\":5,\"events\":6,\"seed\":3935479641,\"finalScore\":2800,\"stats\":{\"conflicts\":0,\"denied\":0,\"incursions\":0,\"fail\":false}}"
+    }
+  ]
+}

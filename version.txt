@@ -1,11 +1,13 @@
 SKYWARD CONTROL
-Version: 1.53.0
-Phase: F53 — PWA Update Manager & Cache Migration Center, Version Guard, Service Worker Health e Limpeza Segura
-Build: SC-1.53.0-F53-20260624-1645
-Built at: 2026-06-24 16:45 BRT
-Channel: pwa-update-manager
-PWA Update Manager schema: 1
+Version: 1.55.0
+Phase: F55 — Scenario Designer & Mission Generator Center, Missões, Eventos, Objetivos, Clima, Tráfego e Avaliação
+Build: SC-1.55.0-F55-20260624-1815
+Built at: 2026-06-24 18:15 BRT
+Channel: scenario-mission-generator
+Scenario Mission schema: 1
 F50.1 mobile hotfix preserved: true
 F51 adaptive pace preserved: true
 F52 stability diagnostics preserved: true
+F53 PWA update manager preserved: true
+F54 live ops config preserved: true
 Target: Mobile-first / Tablet / Desktop

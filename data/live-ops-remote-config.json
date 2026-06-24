@@ -1,0 +1,210 @@
+{
+  "schema": 1,
+  "version": "2026.06-f54",
+  "description": "Live Ops Remote Config and feature flags center for adaptive pace, mobile guard, incident limiter, PWA update guard, diagnostics verbosity and runtime kill-switches.",
+  "configProfiles": [
+    {
+      "id": "SAFE_MOBILE",
+      "name": "Mobile seguro",
+      "paceScale": 0.58,
+      "maxAircraft": 3,
+      "spawnSpacingSec": 44,
+      "incidentCooldownSec": 110,
+      "eventBurstLimit": 2
+    },
+    {
+      "id": "BALANCED",
+      "name": "Balanceado",
+      "paceScale": 0.72,
+      "maxAircraft": 4,
+      "spawnSpacingSec": 36,
+      "incidentCooldownSec": 90,
+      "eventBurstLimit": 3
+    },
+    {
+      "id": "REALISTIC_DESKTOP",
+      "name": "Desktop realista",
+      "paceScale": 0.88,
+      "maxAircraft": 6,
+      "spawnSpacingSec": 28,
+      "incidentCooldownSec": 70,
+      "eventBurstLimit": 4
+    },
+    {
+      "id": "TRAINING_EASY",
+      "name": "Treino fácil",
+      "paceScale": 0.52,
+      "maxAircraft": 3,
+      "spawnSpacingSec": 50,
+      "incidentCooldownSec": 125,
+      "eventBurstLimit": 2
+    },
+    {
+      "id": "LIVE_OPS_GUARD",
+      "name": "Guarda produção",
+      "paceScale": 0.62,
+      "maxAircraft": 4,
+      "spawnSpacingSec": 42,
+      "incidentCooldownSec": 105,
+      "eventBurstLimit": 2
+    }
+  ],
+  "featureFlags": [
+    {
+      "id": "ADAPTIVE_PACE",
+      "name": "Ritmo adaptativo",
+      "default": true,
+      "scope": "runtime"
+    },
+    {
+      "id": "MOBILE_CONSERVATIVE_MODE",
+      "name": "Modo mobile conservador",
+      "default": true,
+      "scope": "mobile"
+    },
+    {
+      "id": "INCIDENT_LIMITER",
+      "name": "Limitador de incidentes",
+      "default": true,
+      "scope": "safety"
+    },
+    {
+      "id": "PWA_UPDATE_GUARD",
+      "name": "Guarda atualização PWA",
+      "default": true,
+      "scope": "pwa"
+    },
+    {
+      "id": "STABILITY_OBSERVATORY",
+      "name": "Observatório estabilidade",
+      "default": true,
+      "scope": "diagnostics"
+    },
+    {
+      "id": "AUTO_CACHE_MIGRATION_HINT",
+      "name": "Aviso migração cache",
+      "default": true,
+      "scope": "pwa"
+    },
+    {
+      "id": "AI_COPILOT_HINTS",
+      "name": "Dicas copiloto IA",
+      "default": true,
+      "scope": "training"
+    },
+    {
+      "id": "DENSE_TRAFFIC_MODE",
+      "name": "Tráfego denso",
+      "default": false,
+      "scope": "traffic"
+    },
+    {
+      "id": "EXPERIMENTAL_EVENTS",
+      "name": "Eventos experimentais",
+      "default": false,
+      "scope": "experimental"
+    }
+  ],
+  "remoteRules": [
+    {
+      "id": "SAFE_MODE_AUTO_GUARD",
+      "name": "Se houver modo seguro, aplica perfil seguro",
+      "trigger": "safeModeCount>0",
+      "profile": "LIVE_OPS_GUARD"
+    },
+    {
+      "id": "MOBILE_LOW_PACE",
+      "name": "Mobile sempre inicia conservador",
+      "trigger": "device=mobile",
+      "profile": "SAFE_MOBILE"
+    },
+    {
+      "id": "CACHE_RISK_LOCKDOWN",
+      "name": "Cache antigo limita eventos",
+      "trigger": "oldBundleRisk>=35",
+      "profile": "LIVE_OPS_GUARD"
+    },
+    {
+      "id": "TRAINING_LOW_PRESSURE",
+      "name": "Treino reduz pressão",
+      "trigger": "mode=training",
+      "profile": "TRAINING_EASY"
+    },
+    {
+      "id": "DESKTOP_REALISM",
+      "name": "Desktop usa realismo moderado",
+      "trigger": "device=desktop",
+      "profile": "REALISTIC_DESKTOP"
+    }
+  ],
+  "killSwitches": [
+    {
+      "id": "DISABLE_RANDOM_BURSTS",
+      "name": "Desativar rajadas aleatórias",
+      "enabled": true
+    },
+    {
+      "id": "DISABLE_EXPERIMENTAL_EVENTS",
+      "name": "Desativar eventos experimentais",
+      "enabled": true
+    },
+    {
+      "id": "LOCK_MOBILE_MAX_AIRCRAFT",
+      "name": "Travar máximo mobile",
+      "enabled": true
+    },
+    {
+      "id": "FORCE_PWA_UPDATE_CHECK",
+      "name": "Forçar checagem PWA",
+      "enabled": true
+    }
+  ],
+  "configBands": [
+    {
+      "id": "PROTECTED",
+      "min": 90,
+      "name": "Protegido"
+    },
+    {
+      "id": "CONTROLLED",
+      "min": 75,
+      "name": "Controlado"
+    },
+    {
+      "id": "NEEDS_REVIEW",
+      "min": 55,
+      "name": "Revisar"
+    },
+    {
+      "id": "UNGUARDED",
+      "min": 0,
+      "name": "Sem guarda"
+    }
+  ],
+  "configKPIs": [
+    {
+      "id": "CONFIG_SCORE",
+      "name": "Score configuração"
+    },
+    {
+      "id": "ACTIVE_PROFILE",
+      "name": "Perfil ativo"
+    },
+    {
+      "id": "ENABLED_FLAGS",
+      "name": "Flags ativas"
+    },
+    {
+      "id": "KILL_SWITCHES",
+      "name": "Kill switches"
+    },
+    {
+      "id": "REMOTE_RULE_MATCH",
+      "name": "Regra aplicada"
+    },
+    {
+      "id": "MOBILE_GUARD",
+      "name": "Guarda mobile"
+    }
+  ]
+}
