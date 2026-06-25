@@ -293,6 +293,16 @@
       "description": "Dynamic weather radar, ATIS, NOTAM, crosswind, visibility, ceiling and operational impacts"
     },
     {
+      "file": "64-arrival-departure-sequencer-center.js",
+      "name": "arrival-departure-sequencer-center",
+      "description": "Arrival manager, departure sequencer, holding stack, slots, priority rules and runway flow"
+    },
+    {
+      "file": "65-sector-handoff-coordination-center.js",
+      "name": "sector-handoff-coordination-center",
+      "description": "Sector handoff, approach departure coordination, control positions, transfer quality and sector workload"
+    },
+    {
       "file": "17-surface-safety-director.js",
       "name": "surface-safety-director",
       "description": "Advanced surface safety director for taxi conflicts, runway incursions, hotspots and ground command risk"

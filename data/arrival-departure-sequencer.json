@@ -1,0 +1,229 @@
+{
+  "schema": 1,
+  "version": "2026.06-f61",
+  "description": "Arrival Manager, Departure Sequencer and Holding Stack center for runway flow, arrival spacing, departure slots, priorities and sequencing.",
+  "arrivalFlows": [
+    {
+      "id": "STANDARD_STREAM",
+      "name": "Fluxo padrão",
+      "spacingNm": 5,
+      "risk": 8
+    },
+    {
+      "id": "TIGHT_URBAN",
+      "name": "Urbano apertado",
+      "spacingNm": 6,
+      "risk": 16
+    },
+    {
+      "id": "WEATHER_EXTENDED",
+      "name": "Clima espaçado",
+      "spacingNm": 9,
+      "risk": 20
+    },
+    {
+      "id": "HEAVY_MIX",
+      "name": "Misto com pesados",
+      "spacingNm": 8,
+      "risk": 18
+    },
+    {
+      "id": "LOW_VIS_STREAM",
+      "name": "Baixa visibilidade",
+      "spacingNm": 10,
+      "risk": 28
+    },
+    {
+      "id": "EMERGENCY_PRIORITY",
+      "name": "Prioridade emergência",
+      "spacingNm": 11,
+      "risk": 30
+    }
+  ],
+  "departureBanks": [
+    {
+      "id": "LIGHT_BANK",
+      "name": "Banco leve",
+      "slots": 3,
+      "spacingSec": 90,
+      "risk": 8
+    },
+    {
+      "id": "REGIONAL_BANK",
+      "name": "Banco regional",
+      "slots": 4,
+      "spacingSec": 105,
+      "risk": 12
+    },
+    {
+      "id": "INTERNATIONAL_BANK",
+      "name": "Banco internacional",
+      "slots": 5,
+      "spacingSec": 130,
+      "risk": 18
+    },
+    {
+      "id": "CARGO_BANK",
+      "name": "Banco cargueiro",
+      "slots": 4,
+      "spacingSec": 150,
+      "risk": 16
+    },
+    {
+      "id": "WEATHER_HOLD_BANK",
+      "name": "Banco com espera meteorológica",
+      "slots": 3,
+      "spacingSec": 170,
+      "risk": 24
+    }
+  ],
+  "holdingStacks": [
+    {
+      "id": "HOLD_NORTH",
+      "name": "Espera Norte",
+      "capacity": 4,
+      "risk": 14
+    },
+    {
+      "id": "HOLD_SOUTH",
+      "name": "Espera Sul",
+      "capacity": 4,
+      "risk": 14
+    },
+    {
+      "id": "HOLD_COASTAL",
+      "name": "Espera Costeira",
+      "capacity": 3,
+      "risk": 18
+    },
+    {
+      "id": "HOLD_HIGH_ALT",
+      "name": "Espera Alta",
+      "capacity": 5,
+      "risk": 12
+    },
+    {
+      "id": "HOLD_EMERGENCY_CLEAR",
+      "name": "Espera limpa para emergência",
+      "capacity": 2,
+      "risk": 26
+    }
+  ],
+  "priorityRules": [
+    {
+      "id": "MEDICAL",
+      "name": "Prioridade médica",
+      "weight": 34
+    },
+    {
+      "id": "FUEL_LOW",
+      "name": "Combustível baixo",
+      "weight": 32
+    },
+    {
+      "id": "EMERGENCY",
+      "name": "Emergência declarada",
+      "weight": 40
+    },
+    {
+      "id": "VIP",
+      "name": "Movimento VIP",
+      "weight": 16
+    },
+    {
+      "id": "CARGO_PERISHABLE",
+      "name": "Carga perecível",
+      "weight": 14
+    },
+    {
+      "id": "SLOT_CRITICAL",
+      "name": "Slot crítico",
+      "weight": 18
+    },
+    {
+      "id": "TRAINING",
+      "name": "Treinamento",
+      "weight": 6
+    }
+  ],
+  "slotPolicies": [
+    {
+      "id": "FAIR_QUEUE",
+      "name": "Fila justa",
+      "delayBias": 0,
+      "safetyBias": 8
+    },
+    {
+      "id": "SAFETY_FIRST",
+      "name": "Segurança primeiro",
+      "delayBias": 8,
+      "safetyBias": 18
+    },
+    {
+      "id": "AIRLINE_BANK",
+      "name": "Banco companhia",
+      "delayBias": -4,
+      "safetyBias": 6
+    },
+    {
+      "id": "WEATHER_RECOVERY",
+      "name": "Recuperação meteorológica",
+      "delayBias": 10,
+      "safetyBias": 16
+    },
+    {
+      "id": "EMERGENCY_CLEARANCE",
+      "name": "Corredor de emergência",
+      "delayBias": 16,
+      "safetyBias": 22
+    }
+  ],
+  "flowBands": [
+    {
+      "id": "OPTIMAL",
+      "min": 90,
+      "name": "Fluxo ótimo"
+    },
+    {
+      "id": "STABLE",
+      "min": 76,
+      "name": "Fluxo estável"
+    },
+    {
+      "id": "CONGESTED",
+      "min": 58,
+      "name": "Congestionado"
+    },
+    {
+      "id": "SATURATED",
+      "min": 0,
+      "name": "Saturado"
+    }
+  ],
+  "sequencerKPIs": [
+    {
+      "id": "FLOW_SCORE",
+      "name": "Score de fluxo"
+    },
+    {
+      "id": "ARRIVAL_SPACING",
+      "name": "Espaçamento chegada"
+    },
+    {
+      "id": "DEPARTURE_SLOTS",
+      "name": "Slots de partida"
+    },
+    {
+      "id": "HOLDING_LOAD",
+      "name": "Carga holding"
+    },
+    {
+      "id": "PRIORITY_LOAD",
+      "name": "Carga prioridade"
+    },
+    {
+      "id": "RUNWAY_BALANCE",
+      "name": "Balanceamento pista"
+    }
+  ]
+}

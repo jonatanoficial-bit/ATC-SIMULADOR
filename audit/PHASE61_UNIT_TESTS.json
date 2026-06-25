@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "suite": "phase61-unit",
+  "build": "SC-1.61.0-F61-20260624-2245",
+  "passed": 14,
+  "total": 14,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "metadados F61+",
+      "ok": true,
+      "detail": "{\"product\":\"Skyward Control\",\"prefix\":\"SC\",\"version\":\"1.61.0\",\"phase\":\"F61\",\"phaseName\":\"Arrival Manager, Departure Sequencer & Holding Stack Center, AMAN, DMAN, Slots, Prioridades e Fluxo de Pista\",\"channel\":\"arrival-departure-sequencer\",\"saveSchema\":3,\"target\":\"Mobile-first / Tablet / Desktop\",\"timeZone\":\"America/Sao_Paulo\",\"contractSchema\":2,\"testSchema\":3,\"saveVaultSchema\":1,\"pwaSchema\":1,\"cacheSchema\":1,\"uxSchema\":1,\"desktopSchema\":1,\"accessibilitySchema\":1,\"replaySchema\":1,\"build\":\"SC-1.61.0-F61-20260624-2245\",\"builtAt\":\"2026-06-24 22:45 BRT\",\"builtAtIso\":\"2026-06-24T22:45:00-03:00\",\"aircraftPerformanceSchema\":1,\"airportSurfaceSchema\":1,\"surfaceSafetySchema\":1,\"weatherOpsSchema\":1,\"procedureOpsSchema\":1,\"careerSchema\":1,\"economySchema\":1,\"incidentSchema\":1,\"networkFlowSchema\":1,\"controlRoomSchema\":1,\"commercialPolishSchema\":1,\"releaseCandidateSchema\":1,\"goldMasterSchema\":1,\"postGoldMasterSchema\":1,\"postPublishHealthSchema\":1,\"publicOpsSchema\":1,\"trainingAcademySchema\":1,\"trainingCoachSchema\":1,\"internationalCampaignSchema\":1,\"airlineOpsSchema\":1,\"airportAuthoritySchema\":1,\"crisisCommandSchema\":1,\"safetyComplianceSchema\":1,\"infrastructureExpansionSchema\":1,\"environmentSustainabilitySchema\":1,\"revenueManagementSchema\":1,\"workforceStaffingSchema\":1,\"passengerReputationSchema\":1,\"multiAirportNetworkSchema\":1,\"emergencyResponseSchema\":1,\"securityCyberDefenseSchema\":1,\"assetMaintenanceSchema\":1,\"digitalTwinPredictiveSchema\":1,\"aiCopilotSchema\":1,\"radioPhraseologySchema\":1,\"groundTurnaroundSchema\":1,\"cargoLogisticsSchema\":1,\"terminalFlowSchema\":1,\"nonAeroRevenueSchema\":1,\"mobileStabilityHotfixSchema\":1,\"safeModeIncidentFixSchema\":1,\"paceTuningSchema\":1,\"adaptivePaceSchema\":1,\"stabilityDiagnosticsSchema\":1,\"pwaUpdateManagerSchema\":1,\"liveOpsRemoteConfigSchema\":1,\"scenarioMissionSchema\":1,\"campaignProgressionSchema\":1,\"instructorDebriefSchema\":1,\"replayTimelineSchema\":1,\"worldAirportProcedureSchema\":1,\"dynamicWeatherAtisNotamSchema\":1,\"arrivalDepartureSequencerSchema\":1}"
+    },
+    {
+      "name": "módulo F61 identificado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API congelada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "catálogo arrivals departures holding",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "API executa em isolamento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "schema 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "selfcheck aprovado",
+      "ok": true,
+      "detail": "{\"ok\":true,\"issues\":[],\"arrivals\":6,\"banks\":5}"
+    },
+    {
+      "name": "init gera estado",
+      "ok": true,
+      "detail": "{\"schema\":1,\"arrivalFlow\":\"WEATHER_EXTENDED\",\"departureBank\":\"WEATHER_HOLD_BANK\",\"holdingStack\":\"HOLD_HIGH_ALT\",\"slotPolicy\":\"SAFETY_FIRST\",\"arrivalQueue\":[{\"id\":\"ARR-51596\",\"sequence\":1,\"spacingNm\":9,\"priority\":\"SLOT_CRITICAL\",\"etaMin\":3},{\"id\":\"ARR-51597\",\"sequence\":2,\"spacingNm\":10,\"priority\":\"NORMAL\",\"etaMin\":11},{\"id\":\"ARR-51598\",\"sequence\":3,\"spacingNm\":11,\"priority\":\"NORMAL\",\"etaMin\":19}],\"departureQueue\":[{\"id\":\"DEP-51616\",\"slot\":1,\"spacingSec\":170,\"priority\":\"SLOT_CRITICAL\",\"etdMin\":2},{\"id\":\"DEP-51617\",\"slot\":2,\"spacingSec\":182,\"priority\":\"NORMAL\",\"etdMin\":5},{\"id\":\"DEP-51618\",\"slot\":3,\"spacingSec\":194,\"priority\":\"NORMAL\",\"etdMin\":8}],\"holdingLoad\":0,\"priorityLoad\":36,\"flowScore\":88,\"status\":\"STABLE\",\"runwayBalance\":75,\"history\":[{\"at\":\"2026-06-25T19:32:31.596Z\",\"build\":\"SC-1.61.0-F61-20260624-2245\",\"airport\":\"SBSP\",\"flowScore\":88,\"status\":\"STABLE\",\"statusName\":\"Fluxo estável\",\"arrivalFlow\":\"WEATHER_EXTENDED\",\"arrivalSpacingNm\":9,\"departureBank\":\"WEATHER_HOLD_BANK\",\"departureSlots\":3,\"holdingStack\":\"HOLD_HIGH_ALT\",\"holdingLoad\":0,\"priorityLoad\":36,\"slotPolicy\":\"SAFETY_FIRST\",\"runwayBalance\":75,\"weatherStatus\":\"ADVERSE\",\"finalScore\":2800},{\"at\":\"2026-06-25T19:32:31.595Z\",\"build\":\"SC-1.61.0-F61-20260624-2245\",\"airport\":\"SBSP\",\"flowScore\":88,\"status\":\"STABLE\",\"statusName\":\"Fluxo estável\",\"arrivalFlow\":\"WEATHER_EXTENDED\",\"arrivalSpacingNm\":9,\"departureBank\":\"WEATHER_HOLD_BANK\",\"departureSlots\":3,\"holdingStack\":\"HOLD_HIGH_ALT\",\"holdingLoad\":0,\"priorityLoad\":36,\"slotPolicy\":\"SAFETY_FIRST\",\"runwayBalance\":75,\"weatherStatus\":\"ADVERSE\",\"finalScore\":2800}],\"lastEvaluation\":{\"at\":\"2026-06-25T19:32:31.596Z\",\"build\":\"SC-1.61.0-F61-20260624-2245\",\"airport\":\"SBSP\",\"flowScore\":88,\"status\":\"STABLE\",\"statusName\":\"Fluxo estável\",\"arrivalFlow\":\"WEATHER_EXTENDED\",\"arrivalSpacingNm\":9,\"departureBank\":\"WEATHER_HOLD_BANK\",\"departureSlots\":3,\"holdingStack\":\"HOLD_HIGH_ALT\",\"holdingLoad\":0,\"priorityLoad\":36,\"slotPolicy\":\"SAFETY_FIRST\",\"runwayBalance\":75,\"weatherStatus\":\"ADVERSE\",\"finalScore\":2800}}"
+    },
+    {
+      "name": "auto escolhe fluxo",
+      "ok": true,
+      "detail": "{\"schema\":1,\"arrivalFlow\":\"WEATHER_EXTENDED\",\"departureBank\":\"WEATHER_HOLD_BANK\",\"holdingStack\":\"HOLD_HIGH_ALT\",\"slotPolicy\":\"SAFETY_FIRST\",\"arrivalQueue\":[{\"id\":\"ARR-51596\",\"sequence\":1,\"spacingNm\":9,\"priority\":\"SLOT_CRITICAL\",\"etaMin\":3},{\"id\":\"ARR-51597\",\"sequence\":2,\"spacingNm\":10,\"priority\":\"NORMAL\",\"etaMin\":11},{\"id\":\"ARR-51598\",\"sequence\":3,\"spacingNm\":11,\"priority\":\"NORMAL\",\"etaMin\":19}],\"departureQueue\":[{\"id\":\"DEP-51616\",\"slot\":1,\"spacingSec\":170,\"priority\":\"SLOT_CRITICAL\",\"etdMin\":2},{\"id\":\"DEP-51617\",\"slot\":2,\"spacingSec\":182,\"priority\":\"NORMAL\",\"etdMin\":5},{\"id\":\"DEP-51618\",\"slot\":3,\"spacingSec\":194,\"priority\":\"NORMAL\",\"etdMin\":8}],\"holdingLoad\":0,\"priorityLoad\":36,\"flowScore\":88,\"status\":\"STABLE\",\"runwayBalance\":75,\"history\":[{\"at\":\"2026-06-25T19:32:31.596Z\",\"build\":\"SC-1.61.0-F61-20260624-2245\",\"airport\":\"SBSP\",\"flowScore\":88,\"status\":\"STABLE\",\"statusName\":\"Fluxo estável\",\"arrivalFlow\":\"WEATHER_EXTENDED\",\"arrivalSpacingNm\":9,\"departureBank\":\"WEATHER_HOLD_BANK\",\"departureSlots\":3,\"holdingStack\":\"HOLD_HIGH_ALT\",\"holdingLoad\":0,\"priorityLoad\":36,\"slotPolicy\":\"SAFETY_FIRST\",\"runwayBalance\":75,\"weatherStatus\":\"ADVERSE\",\"finalScore\":2800},{\"at\":\"2026-06-25T19:32:31.595Z\",\"build\":\"SC-1.61.0-F61-20260624-2245\",\"airport\":\"SBSP\",\"flowScore\":88,\"status\":\"STABLE\",\"statusName\":\"Fluxo estável\",\"arrivalFlow\":\"WEATHER_EXTENDED\",\"arrivalSpacingNm\":9,\"departureBank\":\"WEATHER_HOLD_BANK\",\"departureSlots\":3,\"holdingStack\":\"HOLD_HIGH_ALT\",\"holdingLoad\":0,\"priorityLoad\":36,\"slotPolicy\":\"SAFETY_FIRST\",\"runwayBalance\":75,\"weatherStatus\":\"ADVERSE\",\"finalScore\":2800}],\"lastEvaluation\":{\"at\":\"2026-06-25T19:32:31.596Z\",\"build\":\"SC-1.61.0-F61-20260624-2245\",\"airport\":\"SBSP\",\"flowScore\":88,\"status\":\"STABLE\",\"statusName\":\"Fluxo estável\",\"arrivalFlow\":\"WEATHER_EXTENDED\",\"arrivalSpacingNm\":9,\"departureBank\":\"WEATHER_HOLD_BANK\",\"departureSlots\":3,\"holdingStack\":\"HOLD_HIGH_ALT\",\"holdingLoad\":0,\"priorityLoad\":36,\"slotPolicy\":\"SAFETY_FIRST\",\"runwayBalance\":75,\"weatherStatus\":\"ADVERSE\",\"finalScore\":2800}}"
+    },
+    {
+      "name": "policy aplicada",
+      "ok": true,
+      "detail": "{\"id\":\"SAFETY_FIRST\",\"name\":\"Segurança primeiro\",\"delayBias\":8,\"safetyBias\":18}"
+    },
+    {
+      "name": "avaliação gera flow score",
+      "ok": true,
+      "detail": "{\"at\":\"2026-06-25T19:32:31.596Z\",\"build\":\"SC-1.61.0-F61-20260624-2245\",\"airport\":\"KJFK\",\"flowScore\":88,\"status\":\"STABLE\",\"statusName\":\"Fluxo estável\",\"arrivalFlow\":\"WEATHER_EXTENDED\",\"arrivalSpacingNm\":9,\"departureBank\":\"WEATHER_HOLD_BANK\",\"departureSlots\":3,\"holdingStack\":\"HOLD_HIGH_ALT\",\"holdingLoad\":0,\"priorityLoad\":36,\"slotPolicy\":\"SAFETY_FIRST\",\"runwayBalance\":75,\"weatherStatus\":\"ADVERSE\",\"finalScore\":3000}"
+    },
+    {
+      "name": "progress contém flow",
+      "ok": true,
+      "detail": "{\"score\":88,\"status\":\"STABLE\",\"arrivalFlow\":\"WEATHER_EXTENDED\",\"departureBank\":\"WEATHER_HOLD_BANK\",\"holdingStack\":\"HOLD_HIGH_ALT\",\"slotPolicy\":\"SAFETY_FIRST\",\"arrivals\":3,\"departures\":3,\"holdingLoad\":0,\"priorityLoad\":36,\"runwayBalance\":75,\"last\":{\"at\":\"2026-06-25T19:32:31.596Z\",\"build\":\"SC-1.61.0-F61-20260624-2245\",\"airport\":\"KJFK\",\"flowScore\":88,\"status\":\"STABLE\",\"statusName\":\"Fluxo estável\",\"arrivalFlow\":\"WEATHER_EXTENDED\",\"arrivalSpacingNm\":9,\"departureBank\":\"WEATHER_HOLD_BANK\",\"departureSlots\":3,\"holdingStack\":\"HOLD_HIGH_ALT\",\"holdingLoad\":0,\"priorityLoad\":36,\"slotPolicy\":\"SAFETY_FIRST\",\"runwayBalance\":75,\"weatherStatus\":\"ADVERSE\",\"finalScore\":3000}}"
+    },
+    {
+      "name": "status contém catálogo",
+      "ok": true,
+      "detail": "[{\"id\":\"OPTIMAL\",\"min\":90,\"name\":\"Fluxo ótimo\"},{\"id\":\"STABLE\",\"min\":76,\"name\":\"Fluxo estável\"},{\"id\":\"CONGESTED\",\"min\":58,\"name\":\"Congestionado\"},{\"id\":\"SATURATED\",\"min\":0,\"name\":\"Saturado\"}]"
+    }
+  ]
+}

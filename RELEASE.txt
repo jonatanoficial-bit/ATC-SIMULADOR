@@ -1,8 +1,8 @@
 SKYWARD CONTROL
-Dynamic Weather ATIS NOTAM Evolution — Phase 60
-Version: 1.60.0
-Build: SC-1.60.0-F60-20260624-2200
-Built: 2026-06-24 22:00 BRT
-Channel: DYNAMIC-WEATHER-ATIS-NOTAM
-Status: F60 WEATHER ATIS NOTAM AUDITED
-F50.1 through F59 safeguards, airports, missions, campaign, debrief and replay preserved.
+Sector Handoff Coordination Evolution — Phase 62
+Version: 1.62.0
+Build: SC-1.62.0-F62-20260624-2330
+Built: 2026-06-24 23:30 BRT
+Channel: SECTOR-HANDOFF-COORDINATION
+Status: F62 SECTOR HANDOFF COORDINATION AUDITED
+F50.1 through F61 safeguards, flow, weather, airports, missions, career, debrief and replay preserved.

@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.60.0-F60-20260624-2200",
-  "builtAt": "2026-06-24 22:00 BRT",
-  "cacheName": "skyward-control-1-sc-1.60.0-f60-20260624-2200",
+  "build": "SC-1.62.0-F62-20260624-2330",
+  "builtAt": "2026-06-24 23:30 BRT",
+  "cacheName": "skyward-control-1-sc-1.62.0-f62-20260624-2330",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,8 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 2216,
-      "sha256": "809aace20ddfc78903cd7100ccf60c404dc01a4c091a48aacfa550cd2f0ef2a6"
+      "bytes": 2294,
+      "sha256": "4a2d53b823cc6b1231404f43dc1f480f8cb70d97362bb37d04419a928e7b128f"
     },
     {
       "url": "./data/adaptive-pace-workload.json",
@@ -133,6 +133,12 @@
       "file": "data/airports.json",
       "bytes": 4613,
       "sha256": "2908723bc368e9c28e3ca927ba0511613b43ec215263124a65c93316fa70e74e"
+    },
+    {
+      "url": "./data/arrival-departure-sequencer.json",
+      "file": "data/arrival-departure-sequencer.json",
+      "bytes": 4375,
+      "sha256": "1d6339fa5e2f0fa04e8ddb839bc3af662758ec12485dd7bfe7cdee8b4c16503b"
     },
     {
       "url": "./data/asset-maintenance-reliability.json",
@@ -333,6 +339,12 @@
       "sha256": "c66babe9c93d0a94df22a6b6540d6b0a69b3fd81f4e94b2142f2d132bcb71780"
     },
     {
+      "url": "./data/sector-handoff-coordination.json",
+      "file": "data/sector-handoff-coordination.json",
+      "bytes": 4360,
+      "sha256": "e56b43c36b918e6d40665214f11293b60075efc2233ac6ce32c71e03151d51b4"
+    },
+    {
       "url": "./data/security-cyber-defense.json",
       "file": "data/security-cyber-defense.json",
       "bytes": 5133,
@@ -401,8 +413,8 @@
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 904843,
-      "sha256": "fe51840debeebb66c13ad0c8d97097d9df6c588541242c8db25fecbae2fe7391"
+      "bytes": 932797,
+      "sha256": "f2fb403fe2d6e6df9db4f41103fa61084a0d00d7407f0487049c207c3a9de4f8"
     },
     {
       "url": "./manifest.webmanifest",
@@ -413,8 +425,8 @@
     {
       "url": "./style.css",
       "file": "style.css",
-      "bytes": 118824,
-      "sha256": "f89c02dea4f6244fa8702c402c4d71e5e6345051466b27f0d2748260a2fef79d"
+      "bytes": 120029,
+      "sha256": "ca2d60660dbc2cea895e314e2fb04fa466f98c125c760a10a1f88ea59918c422"
     }
   ]
 }

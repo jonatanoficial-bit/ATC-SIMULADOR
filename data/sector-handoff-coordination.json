@@ -1,0 +1,221 @@
+{
+  "schema": 1,
+  "version": "2026.06-f62",
+  "description": "Sector handoff, approach/departure coordination and control room center with controller positions, handoff quality, sector load, transfer rules and coordination workload.",
+  "controlSectors": [
+    {
+      "id": "GROUND",
+      "name": "Solo",
+      "abbr": "GND",
+      "capacity": 5,
+      "risk": 10
+    },
+    {
+      "id": "TOWER",
+      "name": "Torre",
+      "abbr": "TWR",
+      "capacity": 6,
+      "risk": 14
+    },
+    {
+      "id": "DEPARTURE",
+      "name": "Partida",
+      "abbr": "DEP",
+      "capacity": 5,
+      "risk": 16
+    },
+    {
+      "id": "APPROACH",
+      "name": "Aproximação",
+      "abbr": "APP",
+      "capacity": 7,
+      "risk": 18
+    },
+    {
+      "id": "CENTER",
+      "name": "Centro",
+      "abbr": "CTR",
+      "capacity": 8,
+      "risk": 12
+    },
+    {
+      "id": "FLOW",
+      "name": "Fluxo",
+      "abbr": "FMP",
+      "capacity": 4,
+      "risk": 16
+    },
+    {
+      "id": "EMERGENCY_DESK",
+      "name": "Mesa emergência",
+      "abbr": "EMG",
+      "capacity": 3,
+      "risk": 22
+    }
+  ],
+  "handoffTypes": [
+    {
+      "id": "GROUND_TO_TOWER",
+      "name": "Solo → Torre",
+      "from": "GROUND",
+      "to": "TOWER",
+      "requiredReadback": true,
+      "risk": 10
+    },
+    {
+      "id": "TOWER_TO_DEPARTURE",
+      "name": "Torre → Partida",
+      "from": "TOWER",
+      "to": "DEPARTURE",
+      "requiredReadback": true,
+      "risk": 14
+    },
+    {
+      "id": "APPROACH_TO_TOWER",
+      "name": "Aproximação → Torre",
+      "from": "APPROACH",
+      "to": "TOWER",
+      "requiredReadback": true,
+      "risk": 16
+    },
+    {
+      "id": "CENTER_TO_APPROACH",
+      "name": "Centro → Aproximação",
+      "from": "CENTER",
+      "to": "APPROACH",
+      "requiredReadback": true,
+      "risk": 18
+    },
+    {
+      "id": "TOWER_TO_GROUND",
+      "name": "Torre → Solo",
+      "from": "TOWER",
+      "to": "GROUND",
+      "requiredReadback": false,
+      "risk": 9
+    },
+    {
+      "id": "FLOW_TO_TOWER",
+      "name": "Fluxo → Torre",
+      "from": "FLOW",
+      "to": "TOWER",
+      "requiredReadback": false,
+      "risk": 12
+    },
+    {
+      "id": "EMERGENCY_BROADCAST",
+      "name": "Emergência → todos",
+      "from": "EMERGENCY_DESK",
+      "to": "ALL",
+      "requiredReadback": true,
+      "risk": 26
+    }
+  ],
+  "coordinationRules": [
+    {
+      "id": "FREQUENCY_CHANGE",
+      "name": "Troca de frequência",
+      "penalty": 8
+    },
+    {
+      "id": "RADAR_IDENT",
+      "name": "Identificação radar",
+      "penalty": 9
+    },
+    {
+      "id": "RUNWAY_RELEASE",
+      "name": "Liberação de pista",
+      "penalty": 10
+    },
+    {
+      "id": "MISSED_APPROACH",
+      "name": "Aproximação perdida",
+      "penalty": 18
+    },
+    {
+      "id": "DEPARTURE_RELEASE",
+      "name": "Liberação de partida",
+      "penalty": 12
+    },
+    {
+      "id": "EMERGENCY_TRANSFER",
+      "name": "Transferência emergencial",
+      "penalty": 22
+    },
+    {
+      "id": "WEATHER_REROUTE",
+      "name": "Desvio por clima",
+      "penalty": 16
+    }
+  ],
+  "sectorLoadBands": [
+    {
+      "id": "NORMAL",
+      "min": 88,
+      "name": "Carga normal"
+    },
+    {
+      "id": "BUSY",
+      "min": 74,
+      "name": "Setor ocupado"
+    },
+    {
+      "id": "OVERLOAD",
+      "min": 55,
+      "name": "Setor sobrecarregado"
+    },
+    {
+      "id": "CRITICAL",
+      "min": 0,
+      "name": "Coordenação crítica"
+    }
+  ],
+  "handoffQualityBands": [
+    {
+      "id": "CLEAN",
+      "min": 92,
+      "name": "Transferência limpa"
+    },
+    {
+      "id": "STABLE",
+      "min": 78,
+      "name": "Transferência estável"
+    },
+    {
+      "id": "NOISY",
+      "min": 60,
+      "name": "Transferência ruidosa"
+    },
+    {
+      "id": "FAILED",
+      "min": 0,
+      "name": "Transferência falha"
+    }
+  ],
+  "coordinationKPIs": [
+    {
+      "id": "HANDOFF_SCORE",
+      "name": "Score handoff"
+    },
+    {
+      "id": "SECTOR_LOAD",
+      "name": "Carga setor"
+    },
+    {
+      "id": "TRANSFER_COUNT",
+      "name": "Transferências"
+    },
+    {
+      "id": "ACCEPTANCE_RATE",
+      "name": "Aceitação"
+    },
+    {
+      "id": "COORDINATION_RISK",
+      "name": "Risco coordenação"
+    },
+    {
+      "id": "PRIMARY_SECTOR",
+      "name": "Setor principal"
+    }
+  ]
+}

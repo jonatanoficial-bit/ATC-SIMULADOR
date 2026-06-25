@@ -1,0 +1,27 @@
+# Checklist — Fase 62
+
+- [x] Novo módulo `65-sector-handoff-coordination-center.js`
+- [x] Novo catálogo `data/sector-handoff-coordination.json`
+- [x] Setores de controle
+- [x] Handoff entre setores
+- [x] Aceitação de transferência
+- [x] Carga por setor
+- [x] Risco de coordenação
+- [x] Regras de coordenação
+- [x] Setor primário ativo
+- [x] Painel SECTOR OPS
+- [x] Integração com início/fim de turno
+- [x] F50.1 preservado
+- [x] F51 preservada
+- [x] F52 preservada
+- [x] F53 preservada
+- [x] F54 preservada
+- [x] F55 preservada
+- [x] F56 preservada
+- [x] F57 preservada
+- [x] F58 preservada
+- [x] F59 preservada
+- [x] F60 preservada
+- [x] F61 preservada
+- [x] Documento de upload Git Bash preservado
+- [x] Testes F62

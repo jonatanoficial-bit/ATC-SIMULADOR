@@ -1132,3 +1132,19 @@ body .atc-top{grid-template-columns:48px 150px minmax(120px,1fr) 88px 92px 88px 
 .weather-normal{color:#91ffb7}
 .weather-watch{color:#ffd27a}
 .weather-severe{color:#ff918c}
+
+/* F61 Arrival Manager Departure Sequencer */
+.arrival-departure-inline{border-color:rgba(255,190,130,.68);background:linear-gradient(180deg,rgba(92,52,18,.94),rgba(45,20,4,.98));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 32px rgba(255,190,130,.17)}
+.arrival-departure-inline .airport-ops-head span{color:#ffd0a6}
+.arrival-departure-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,190,130,.45);border-radius:999px;padding:4px 9px;background:rgba(255,190,130,.13);font-weight:900}
+.flow-optimal{color:#91ffb7}
+.flow-congested{color:#ffd27a}
+.flow-saturated{color:#ff918c}
+
+/* F62 Sector Handoff Coordination */
+.sector-handoff-inline{border-color:rgba(185,255,220,.68);background:linear-gradient(180deg,rgba(22,82,61,.94),rgba(5,39,26,.98));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 32px rgba(185,255,220,.17)}
+.sector-handoff-inline .airport-ops-head span{color:#c7ffe1}
+.sector-handoff-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(185,255,220,.45);border-radius:999px;padding:4px 9px;background:rgba(185,255,220,.13);font-weight:900}
+.handoff-clean{color:#91ffb7}
+.handoff-noisy{color:#ffd27a}
+.handoff-failed{color:#ff918c}

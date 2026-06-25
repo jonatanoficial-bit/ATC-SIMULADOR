@@ -1,10 +1,10 @@
 SKYWARD CONTROL
-Version: 1.60.0
-Phase: F60 — Dynamic Weather Radar, ATIS & NOTAM Center, Clima Vivo, Vento Cruzado, Visibilidade e Alertas Operacionais
-Build: SC-1.60.0-F60-20260624-2200
-Built at: 2026-06-24 22:00 BRT
-Channel: dynamic-weather-atis-notam
-Dynamic Weather ATIS NOTAM schema: 1
+Version: 1.62.0
+Phase: F62 — Sector Handoff, Approach/Departure Coordination & Control Room Center, Setores, Transferências e Coordenação ATC
+Build: SC-1.62.0-F62-20260624-2330
+Built at: 2026-06-24 23:30 BRT
+Channel: sector-handoff-coordination
+Sector Handoff schema: 1
 F50.1 mobile hotfix preserved: true
 F51 adaptive pace preserved: true
 F52 stability diagnostics preserved: true
@@ -15,4 +15,6 @@ F56 campaign progression preserved: true
 F57 instructor debrief preserved: true
 F58 replay timeline preserved: true
 F59 world airport procedures preserved: true
+F60 dynamic weather preserved: true
+F61 arrival departure sequencer preserved: true
 Target: Mobile-first / Tablet / Desktop

@@ -1,0 +1,27 @@
+# Checklist — Fase 61
+
+- [x] Novo módulo `64-arrival-departure-sequencer-center.js`
+- [x] Novo catálogo `data/arrival-departure-sequencer.json`
+- [x] AMAN / Arrival Manager
+- [x] DMAN / Departure Sequencer
+- [x] Holding stack
+- [x] Slots de partida
+- [x] Regras de prioridade
+- [x] Políticas de slot
+- [x] Score de fluxo
+- [x] Balanceamento de pista
+- [x] Painel FLOW OPS
+- [x] Integração com início/fim de turno
+- [x] F50.1 preservado
+- [x] F51 preservada
+- [x] F52 preservada
+- [x] F53 preservada
+- [x] F54 preservada
+- [x] F55 preservada
+- [x] F56 preservada
+- [x] F57 preservada
+- [x] F58 preservada
+- [x] F59 preservada
+- [x] F60 preservada
+- [x] Documento de upload Git Bash preservado
+- [x] Testes F61

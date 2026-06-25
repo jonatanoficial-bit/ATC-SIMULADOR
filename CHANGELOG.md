@@ -1,3 +1,59 @@
+## SC-1.62.0-F62-20260624-2330 — Sector Handoff, Approach/Departure Coordination & Control Room Center
+
+- Adicionado módulo oficial `65-sector-handoff-coordination-center.js`.
+- Criado catálogo `data/sector-handoff-coordination.json`.
+- Adicionados setores de controle.
+- Adicionados tipos de handoff.
+- Adicionada aceitação de transferência.
+- Adicionada carga por setor.
+- Adicionado risco de coordenação.
+- Adicionadas regras de coordenação.
+- Adicionado setor primário ativo.
+- Adicionado painel `SECTOR OPS`.
+- Tela final mostra Sector e Handoff.
+- Hotfix mobile F50.1 preservado.
+- Adaptive Pace F51 preservado.
+- Stability Diagnostics F52 preservado.
+- PWA Update Manager F53 preservado.
+- Live Ops Remote Config F54 preservado.
+- Scenario Mission Generator F55 preservado.
+- Campaign Progression F56 preservado.
+- Instructor Debrief F57 preservado.
+- Replay Timeline F58 preservado.
+- World Airports F59 preservado.
+- Dynamic Weather F60 preservado.
+- Arrival Departure Sequencer F61 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F62.
+
+## SC-1.61.0-F61-20260624-2245 — Arrival Manager, Departure Sequencer & Holding Stack Center
+
+- Adicionado módulo oficial `64-arrival-departure-sequencer-center.js`.
+- Criado catálogo `data/arrival-departure-sequencer.json`.
+- Adicionado AMAN / Arrival Manager.
+- Adicionado DMAN / Departure Sequencer.
+- Adicionado holding stack.
+- Adicionados slots de partida.
+- Adicionadas regras de prioridade.
+- Adicionadas políticas de sequenciamento.
+- Adicionado score de fluxo.
+- Adicionado balanceamento de pista.
+- Adicionado painel `FLOW OPS`.
+- Tela final mostra Flow e AMAN/DMAN.
+- Hotfix mobile F50.1 preservado.
+- Adaptive Pace F51 preservado.
+- Stability Diagnostics F52 preservado.
+- PWA Update Manager F53 preservado.
+- Live Ops Remote Config F54 preservado.
+- Scenario Mission Generator F55 preservado.
+- Campaign Progression F56 preservado.
+- Instructor Debrief F57 preservado.
+- Replay Timeline F58 preservado.
+- World Airports F59 preservado.
+- Dynamic Weather F60 preservado.
+- Documento de upload Git Bash preservado dentro da build.
+- Adicionados testes unitários, browser/estruturais e auditoria F61.
+
 ## SC-1.60.0-F60-20260624-2200 — Dynamic Weather Radar, ATIS & NOTAM Center
 
 - Adicionado módulo oficial `63-dynamic-weather-atis-notam-center.js`.
