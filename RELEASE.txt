@@ -1,8 +1,7 @@
 SKYWARD CONTROL
-Sector Handoff Coordination Evolution — Phase 62
+Commercial evolution program — Phase 62
 Version: 1.62.0
-Build: SC-1.62.0-F62-20260624-2330
-Built: 2026-06-24 23:30 BRT
+Build: SC-1.62.0-F62-20260630-1555
+Built: 2026-06-30 15:55 BRT
 Channel: SECTOR-HANDOFF-COORDINATION
-Status: F62 SECTOR HANDOFF COORDINATION AUDITED
-F50.1 through F61 safeguards, flow, weather, airports, missions, career, debrief and replay preserved.
+Status: F62 AUDITED / RELEASE PIPELINE LOCKED

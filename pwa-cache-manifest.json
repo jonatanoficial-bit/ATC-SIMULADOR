@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.62.0-F62-20260624-2330",
-  "builtAt": "2026-06-24 23:30 BRT",
-  "cacheName": "skyward-control-1-sc-1.62.0-f62-20260624-2330",
+  "build": "SC-1.62.0-F62-20260630-1555",
+  "builtAt": "2026-06-30 15:55 BRT",
+  "cacheName": "skyward-control-1-sc-1.62.0-f62-20260630-1555",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,8 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 2294,
-      "sha256": "4a2d53b823cc6b1231404f43dc1f480f8cb70d97362bb37d04419a928e7b128f"
+      "bytes": 842,
+      "sha256": "7c516e2d8975308671f483f8a2cb8b6d9ab044cf9874da9fab440f477b8794cf"
     },
     {
       "url": "./data/adaptive-pace-workload.json",
@@ -413,8 +413,8 @@
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 932797,
-      "sha256": "f2fb403fe2d6e6df9db4f41103fa61084a0d00d7407f0487049c207c3a9de4f8"
+      "bytes": 934563,
+      "sha256": "4b52bf2bb5fbfc653faa0c71500108f7f506a18443b4f82aacb733310ca52478"
     },
     {
       "url": "./manifest.webmanifest",

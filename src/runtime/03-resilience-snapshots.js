@@ -193,7 +193,10 @@ function recoverGameplayState(reason='auto'){
   try{
     renderGameplayUi(true);
     SAFE_MODE.diagnostics.unshift({msg:`Estado estabilizado: ${reason}`,level:'ok',at:Date.now()});
-  }catch(e){ showSafeMode(e); }
+  }catch(e){
+    safeLogError(e,'recover-gameplay-state');
+    SAFE_MODE.diagnostics.unshift({msg:`Recuperação parcial: ${reason}`,level:'warn',at:Date.now()});
+  }
 }
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));

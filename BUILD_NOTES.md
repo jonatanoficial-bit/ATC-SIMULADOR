@@ -1,36 +1,70 @@
-# Build Notes — SC-1.62.0-F62-20260624-2330
+# Build Notes — SC-1.62.0-F62-20260630-1555
 
 ## Identificação
 
 - Produto: Skyward Control
 - Versão: 1.62.0
-- Fase: F62 — Sector Handoff, Approach/Departure Coordination & Control Room Center, Setores, Transferências e Coordenação ATC
-- Build: `SC-1.62.0-F62-20260624-2330`
-- Data/hora: 2026-06-24 23:30 BRT
+- Fase: F62 — Sector Handoff, Approach/Departure Coordination & Control Room Center + Hotfix Anti-Retorno ao Lobby
+- Build: `SC-1.62.0-F62-20260630-1555`
+- Data/hora: 2026-06-30 15:55 BRT
 - Canal: sector-handoff-coordination
-- Sector Handoff schema: 1
+- Save schema: 3
+- Contract schema: 2
+- Test schema: 3
+- Save vault schema: 1
+- PWA schema: 1
+- Cache schema: 1
+- UX schema: 1
+- Alvo: Mobile-first / Tablet / Desktop
 
-## Entregas
+## Geração reproduzível
 
-A Fase 62 adiciona setores de controle, handoff, aceitação de transferência, risco de coordenação, carga por setor e painel Sector Ops.
+A identificação desta build é gerada a partir de `config/release.json`. Não edite `build-info.js`, `release-metadata.json`, `version.txt`, `RELEASE.txt` ou este arquivo manualmente.
 
-## Base preservada
+Execute:
 
-A build preserva:
+```bash
+npm run release -- --version 1.62.0 --phase F62 --phase-name "Sector Handoff, Approach/Departure Coordination & Control Room Center + Hotfix Anti-Retorno ao Lobby"
+```
 
-- Hotfix F50.1: correção do erro `Assignment to constant variable`.
-- F51: Adaptive Pace & Workload Director.
-- F52: Stability Observatory & Diagnostics Center.
-- F53: PWA Update Manager & Cache Migration Center.
-- F54: Live Ops Remote Config & Feature Flags Center.
-- F55: Scenario Designer & Mission Generator Center.
-- F56: Campaign Progression, Licenses & Achievements Center.
-- F57: Instructor Debrief, Replay Analytics & Training Feedback Center.
-- F58: Replay Timeline, Heatmap & Session Export Center.
-- F59: World Airports, Procedure Packs & Route Challenge Center.
-- F60: Dynamic Weather Radar, ATIS & NOTAM Center.
-- F61: Arrival Manager, Departure Sequencer & Holding Stack Center.
+Para validar uma build já empacotada:
 
-## Documento de upload
+```bash
+npm test
+npm run verify:integrity
+```
 
-A build preserva `UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md`, contendo o caminho local, o caminho Git Bash e o repositório GitHub para upload.
+## Compatibilidade mantida
+
+- Celular horizontal: 844 × 390
+- Celular vertical: 390 × 844 nos menus; orientação horizontal durante o turno
+- Tablet: 1024 × 768
+- PC: 1440 × 900
+
+## Política anti-quebra
+
+A geração é interrompida quando há divergência de metadados, TypeScript inválido, contratos desatualizados, JavaScript inválido, JSON corrompido, referência de asset ausente, arquivo obrigatório faltando ou teste unitário reprovado, cenário Chromium reprovado, soak test instável ou teste de regressão reprovado. O pacote final recebe manifesto SHA-256 interno e checksum externo do ZIP.
+
+
+## Continuidade de fases preservadas
+
+- F50.1 Mobile Stability preservado.
+- F51 Adaptive Pace preservada.
+- F52 Stability Diagnostics preservada.
+- F53 PWA Update Manager preservada.
+- F54 Live Ops Remote Config preservada.
+- F55 Scenario Mission Generator preservada.
+- F56 Campaign Progression preservada.
+- F57 Instructor Debrief preservada.
+- F58 Replay Timeline preservada.
+- F59 World Airport Procedure preservada.
+- F60 Dynamic Weather ATIS/NOTAM preservada.
+- F61 Arrival/Departure Sequencer preservada.
+- F62 Sector Handoff preservada.
+
+## Hotfix F62.1 — Anti-retorno ao lobby
+
+- O erro temporário de runtime não abre mais o pop-up bloqueante `crashShield` durante o turno.
+- O loop do radar agenda recuperação automática e preserva a tela de jogo.
+- O estado de aeronaves, solicitações e HUD passa por sanitização antes de continuar.
+- O botão de lobby continua existindo apenas como ação manual, não como destino automático de falha.

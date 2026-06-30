@@ -38,9 +38,9 @@
       "file": "01-build-and-radio.js",
       "name": "01-build-and-radio",
       "description": "Build metadata and ATC radio/readback",
-      "lines": 149,
-      "bytes": 7787,
-      "sha256": "dbe34722bfa54244a0817ec0312a01ac69ecbb25b0296a78dc6d123014a8fd1c"
+      "lines": 177,
+      "bytes": 9418,
+      "sha256": "fb5e8be51c07e39b01b56bffe3ba88d8a31bd6f757c390bc8e8bde12c54d55a6"
     },
     {
       "order": 5,
@@ -74,9 +74,9 @@
       "file": "03-resilience-snapshots.js",
       "name": "03-resilience-snapshots",
       "description": "Snapshots, recovery, state sanitization and DOM validation",
-      "lines": 205,
-      "bytes": 14054,
-      "sha256": "3b106131429f91938ce5b49e48774d63f47e215a9a2efd2ec040fdb7019ea0b2"
+      "lines": 208,
+      "bytes": 14189,
+      "sha256": "d8a89fbc92ebf08e74b66771a1e76207e18f8594892cef09e8ae4b9fea56ce0a"
     },
     {
       "order": 9,
@@ -647,8 +647,8 @@
     }
   ],
   "bundle": {
-    "bytes": 932797,
-    "lines": 13307,
-    "sha256": "f2fb403fe2d6e6df9db4f41103fa61084a0d00d7407f0487049c207c3a9de4f8"
+    "bytes": 934563,
+    "lines": 13338,
+    "sha256": "4b52bf2bb5fbfc653faa0c71500108f7f506a18443b4f82aacb733310ca52478"
   }
 }

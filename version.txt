@@ -1,20 +1,21 @@
 SKYWARD CONTROL
 Version: 1.62.0
-Phase: F62 — Sector Handoff, Approach/Departure Coordination & Control Room Center, Setores, Transferências e Coordenação ATC
-Build: SC-1.62.0-F62-20260624-2330
-Built at: 2026-06-24 23:30 BRT
+Phase: F62 — Sector Handoff, Approach/Departure Coordination & Control Room Center + Hotfix Anti-Retorno ao Lobby
+Build: SC-1.62.0-F62-20260630-1555
+Built at: 2026-06-30 15:55 BRT
 Channel: sector-handoff-coordination
-Sector Handoff schema: 1
-F50.1 mobile hotfix preserved: true
-F51 adaptive pace preserved: true
-F52 stability diagnostics preserved: true
-F53 PWA update manager preserved: true
-F54 live ops config preserved: true
-F55 scenario mission preserved: true
-F56 campaign progression preserved: true
-F57 instructor debrief preserved: true
-F58 replay timeline preserved: true
-F59 world airport procedures preserved: true
-F60 dynamic weather preserved: true
-F61 arrival departure sequencer preserved: true
+Save schema: 3
+Contract schema: 2
+Test schema: 3
+Save vault schema: 1
+PWA schema: 1
+Cache schema: 1
+UX schema: 1
+Desktop schema: 1
+Accessibility schema: 1
+Replay schema: 1
+Aircraft performance schema: 1
+Airport surface schema: 1
+Surface safety schema: 1
+Weather ops schema: 1
 Target: Mobile-first / Tablet / Desktop

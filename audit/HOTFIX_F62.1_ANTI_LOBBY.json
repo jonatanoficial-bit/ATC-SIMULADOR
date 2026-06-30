@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "suite": "HOTFIX_F62.1_ANTI_LOBBY",
+  "build": "SC-1.62.0-F62-20260630-1555",
+  "checks": [
+    {
+      "name": "showSafeMode encontrado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "showSafeMode usa recuperação suave",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "showSafeMode não pausa turno",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "window error faz preventDefault",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unhandledrejection faz preventDefault",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "crashShield é ocultado na recuperação",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "loopRecoveryPending evita avalanche",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "recupera gameplay sem chamar crashShield recursivo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "botão lobby permanece manual",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "passed": 9,
+  "failed": 0,
+  "total": 9
+}

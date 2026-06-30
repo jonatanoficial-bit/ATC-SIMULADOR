@@ -473,7 +473,7 @@ function applyBuildInfo(){
   document.title = `${BUILD_INFO.product} v${BUILD_INFO.version} — ${BUILD_INFO.phase}`;
 }
 
-const SAFE_MODE = { errors: [], contractFailures:0, saveRecoveries:0, saveMigrations:0, lastSaveStatus:'idle', lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[], perf:{badFrames:0, mode:'normal'} };
+const SAFE_MODE = { errors: [], contractFailures:0, saveRecoveries:0, saveMigrations:0, softRecoveries:0, hardFaults:0, lastSoftFaultAt:0, loopRecoveryPending:false, lastSaveStatus:'idle', lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[], perf:{badFrames:0, mode:'normal'} };
 function safeLogError(err, where='runtime'){
   try{
     const msg = (err && (err.stack || err.message)) ? (err.stack || err.message) : String(err);
@@ -482,18 +482,46 @@ function safeLogError(err, where='runtime'){
     localStorage.setItem('skywardLastError', JSON.stringify(SAFE_MODE.errors[0]));
   }catch(_e){}
 }
-function showSafeMode(err){
-  safeLogError(err,'safe-mode');
-  try{
-    running=false; paused=true;
-    const shield=document.querySelector('#crashShield');
-    const detail=document.querySelector('#safeErrorText');
-    if(detail) detail.textContent = SAFE_MODE.errors[0]?.msg || 'Falha desconhecida recuperada.';
-    if(shield) shield.classList.add('open');
-  }catch(_e){}
+function gameplaySceneActive(){
+  try{return Boolean(document.querySelector('#game.screen.active') || document.body?.classList?.contains('game-active'));}catch(_e){return false;}
 }
-window.addEventListener('error', e=>{ showSafeMode(e.error || e.message); });
-window.addEventListener('unhandledrejection', e=>{ showSafeMode(e.reason || 'Promise rejeitada'); });
+function hideCrashShield(){
+  try{document.querySelector('#crashShield')?.classList.remove('open');}catch(_e){}
+}
+function scheduleLoopRecovery(){
+  try{
+    if(SAFE_MODE.loopRecoveryPending) return;
+    let shouldResume=false;
+    try{shouldResume=Boolean(running && gameplaySceneActive() && typeof loop==='function');}catch(_e){shouldResume=false;}
+    if(!shouldResume) return;
+    SAFE_MODE.loopRecoveryPending=true;
+    requestAnimationFrame((t)=>{SAFE_MODE.loopRecoveryPending=false;try{loop(t);}catch(error){safeLogError(error,'loop-recovery-frame');}});
+  }catch(error){safeLogError(error,'schedule-loop-recovery');}
+}
+function softRecoverRuntime(err, where='runtime'){
+  safeLogError(err,where);
+  SAFE_MODE.softRecoveries++;
+  SAFE_MODE.lastSoftFaultAt=Date.now();
+  hideCrashShield();
+  try{
+    if(typeof sanitizeAircraftList==='function') sanitizeAircraftList();
+  }catch(error){safeLogError(error,'soft-recover-sanitize');}
+  try{
+    if(gameplaySceneActive() && typeof recoverGameplayState==='function') recoverGameplayState(`soft-${where}`);
+  }catch(error){safeLogError(error,'soft-recover-gameplay');}
+  try{
+    if(typeof setDiagnostic==='function') setDiagnostic('INSTABILIDADE CORRIGIDA — TURNO PRESERVADO','warn');
+    if(typeof addLog==='function' && gameplaySceneActive()) addLog('Sistema: falha temporária corrigida automaticamente. Turno preservado.','warn');
+  }catch(_e){}
+  scheduleLoopRecovery();
+  return true;
+}
+function showSafeMode(err){
+  // F62.1 hotfix: erro de runtime em gameplay não deve abrir pop-up bloqueante nem devolver ao lobby.
+  return softRecoverRuntime(err,'safe-mode');
+}
+window.addEventListener('error', e=>{ softRecoverRuntime(e.error || e.message,'window-error'); try{e.preventDefault();}catch(_e){} });
+window.addEventListener('unhandledrejection', e=>{ softRecoverRuntime(e.reason || 'Promise rejeitada','unhandled-rejection'); try{e.preventDefault();}catch(_e){} });
 function safeStorageGet(key, fallback){ try{ const raw=localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }catch(e){ safeLogError(e,'storage-get'); return fallback; } }
 function safeStorageSet(key, value){ try{ localStorage.setItem(key, JSON.stringify(value)); return true; }catch(e){ safeLogError(e,'storage-set'); return false; } }
 function cloneSafe(value){ return JSON.parse(JSON.stringify(value)); }
@@ -1465,7 +1493,10 @@ function recoverGameplayState(reason='auto'){
   try{
     renderGameplayUi(true);
     SAFE_MODE.diagnostics.unshift({msg:`Estado estabilizado: ${reason}`,level:'ok',at:Date.now()});
-  }catch(e){ showSafeMode(e); }
+  }catch(e){
+    safeLogError(e,'recover-gameplay-state');
+    SAFE_MODE.diagnostics.unshift({msg:`Recuperação parcial: ${reason}`,level:'warn',at:Date.now()});
+  }
 }
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
