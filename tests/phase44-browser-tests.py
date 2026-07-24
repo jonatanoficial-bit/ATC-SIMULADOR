@@ -30,7 +30,7 @@ check('doc forecast existe', (ROOT/'docs/FORECAST_GARGALOS_WHATIF_F44.md').exist
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('traffic load presente', any(s.get('id')=='TRAFFIC_LOAD' for s in cat.get('twinSignals',[])))
 check('asset reliability presente', any(s.get('id')=='ASSET_RELIABILITY' for s in cat.get('twinSignals',[])))

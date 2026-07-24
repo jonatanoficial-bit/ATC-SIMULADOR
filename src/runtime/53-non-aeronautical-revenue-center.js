@@ -67,11 +67,11 @@ let nonAeroState={schema:1,channelScores:{DUTY_FREE:80,FOOD_BEVERAGE:78,RETAIL:7
 function loadNonAeroRevenue(){try{const raw=localStorage?.getItem?.(NON_AERO_REVENUE_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)nonAeroState={...nonAeroState,...parsed};}}catch(e){safeLogError?.(e,'non-aero-revenue-load');}return nonAeroState;}
 function saveNonAeroRevenue(){try{localStorage?.setItem?.(NON_AERO_REVENUE_KEY,JSON.stringify(nonAeroState));}catch(e){safeLogError?.(e,'non-aero-revenue-save');}return nonAeroState;}
 function commercialBand(score){return NON_AERO_REVENUE_CATALOG.commercialBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||NON_AERO_REVENUE_CATALOG.commercialBands.at(-1);}
-function programById(id){return NON_AERO_REVENUE_CATALOG.revenuePrograms.find(p=>p.id===id)||NON_AERO_REVENUE_CATALOG.revenuePrograms[0];}
-function incidentById(id){return NON_AERO_REVENUE_CATALOG.commercialIncidents.find(i=>i.id===id)||NON_AERO_REVENUE_CATALOG.commercialIncidents[0];}
+function revenueProgramById(id){return NON_AERO_REVENUE_CATALOG.revenuePrograms.find(p=>p.id===id)||NON_AERO_REVENUE_CATALOG.revenuePrograms[0];}
+function revenueIncidentById(id){return NON_AERO_REVENUE_CATALOG.commercialIncidents.find(i=>i.id===id)||NON_AERO_REVENUE_CATALOG.commercialIncidents[0];}
 function runCommercialProgram(id='DUTY_FREE_BUNDLE'){
   loadNonAeroRevenue();
-  const program=programById(id);
+  const program=revenueProgramById(id);
   if(nonAeroState.programs.some(p=>p.programId===program.id)) return nonAeroState.programs.find(p=>p.programId===program.id);
   const item={id:`NAR-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',at:new Date().toISOString()};
   nonAeroState.programs.unshift(item);
@@ -84,7 +84,7 @@ function runCommercialProgram(id='DUTY_FREE_BUNDLE'){
 }
 function raiseCommercialIncident(id='FOOD_QUEUE_SPIKE'){
   loadNonAeroRevenue();
-  const tpl=incidentById(id);
+  const tpl=revenueIncidentById(id);
   const item={id:`NAC-${String(Date.now()).slice(-6)}`,incidentId:tpl.id,name:tpl.name,channel:tpl.channel,severity:tpl.severity,status:'OPEN',at:new Date().toISOString()};
   nonAeroState.incidents.unshift(item);
   nonAeroState.incidents=nonAeroState.incidents.slice(0,80);

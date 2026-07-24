@@ -30,7 +30,7 @@ check('doc mobile balance existe', (ROOT/'docs/MOBILE_BALANCE_COOLDOWN_F51.md').
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('mobile profile conservador', any(p.get('id')=='MOBILE_STANDARD' and p.get('maxAircraft')<=4 and p.get('paceMultiplier')<=0.65 for p in cat.get('deviceProfiles',[])))
 check('cooldown mobile elevado', any(p.get('id')=='MOBILE_STANDARD' and p.get('incidentCooldownSec')>=80 for p in cat.get('deviceProfiles',[])))

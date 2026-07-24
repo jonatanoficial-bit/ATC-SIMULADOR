@@ -66,7 +66,7 @@ function saveWorkforceStaffing(){
   try{ localStorage?.setItem?.(WORKFORCE_STAFFING_KEY,JSON.stringify(workforceStaffingState)); }catch(e){ safeLogError?.(e,'workforce-staffing-save'); }
   return workforceStaffingState;
 }
-function readinessBand(score){
+function workforceReadinessBand(score){
   return WORKFORCE_STAFFING_CATALOG.readinessBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||WORKFORCE_STAFFING_CATALOG.readinessBands.at(-1);
 }
 function roleById(id){ return WORKFORCE_STAFFING_CATALOG.roles.find(r=>r.id===id)||WORKFORCE_STAFFING_CATALOG.roles[0]; }
@@ -178,7 +178,7 @@ function evaluateWorkforceStaffing(finalScore=0,statsObj={},fail=false,airportCo
   const riskPenalty=workforceStaffingState.laborRisk*0.22+openEvents.length*2+cashPressure;
   const readiness=Math.max(0,Math.min(100,Math.round(coverage.avgSkill*.42+(100-coverage.avgFatigue)*.28+Math.min(100,safetyScore)*.12+workforceStaffingState.morale*.12+Math.max(0,100-riskPenalty-moralePenalty)*.06-coverage.shortage*14)));
   workforceStaffingState.readinessScore=readiness;
-  workforceStaffingState.status=readinessBand(readiness).id;
+  workforceStaffingState.status=workforceReadinessBand(readiness).id;
   if(readiness<55 && !openEvents.some(e=>e.eventId==='BURNOUT_ALERT')) raiseLaborEvent('BURNOUT_ALERT');
   const evaluation={at:new Date().toISOString(),build:BUILD,airport:icao,finalScore:Math.round(finalScore||0),coverage,readinessScore:readiness,status:workforceStaffingState.status,morale:workforceStaffingState.morale,laborRisk:workforceStaffingState.laborRisk,shiftPattern:workforceStaffingState.shiftPattern,openEvents:workforceStaffingState.events.filter(e=>e.status==='OPEN').length,trainees:workforceStaffingState.trainees.length};
   workforceStaffingState.history.unshift(evaluation);

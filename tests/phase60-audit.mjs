@@ -16,7 +16,7 @@ check('bundle sincronizado',bundle.includes('@skyward-module 63-dynamic-weather-
 check('PWA cache inclui catálogo',json('pwa-cache-manifest.json').files.some(f=>f.file==='data/dynamic-weather-atis-notam.json'));
 check('docs F60 existem',fs.existsSync(path.join(root,'docs/DYNAMIC_WEATHER_ATIS_NOTAM_F60.md'))&&fs.existsSync(path.join(root,'docs/WEATHER_RADAR_ATIS_NOTAM_IMPACT_F60.md')));
 check('documento upload preservado',fs.existsSync(path.join(root,'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md'))&&fs.existsSync(path.join(root,'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md')));
-check('documento upload contém caminhos',read('UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').includes('/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO')&&read('UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').includes('https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git'));
+check('documento upload contém caminhos',read('UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').includes('<PROJECT_ROOT>')&&read('UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').includes('https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git'));
 check('F50.1 preservado',notes.includes('F50.1')||read('CHANGELOG.md').includes('F50.1'));
 check('F51 preservado',metadata.adaptivePaceSchema===1&&bundle.includes('SKYWARD_ADAPTIVE_PACE'));
 check('F52 preservado',metadata.stabilityDiagnosticsSchema===1&&bundle.includes('SKYWARD_STABILITY_DIAGNOSTICS'));

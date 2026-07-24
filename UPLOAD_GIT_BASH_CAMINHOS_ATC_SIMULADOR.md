@@ -6,9 +6,9 @@ Use este documento se esta build for aberta em uma nova conversa do ChatGPT e o 
 
 - Nome do projeto: ATC Simulador / Skyward Control
 - Pasta local no Windows:
-  `C:\Users\jonat\Desktop\GAME\¨2026\ATC 3 NOVO`
+  `<PROJECT_ROOT>`
 - Caminho equivalente no Git Bash:
-  `/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO`
+  `<PROJECT_ROOT>`
 - Repositório GitHub:
   `https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git`
 
@@ -16,14 +16,14 @@ Use este documento se esta build for aberta em uma nova conversa do ChatGPT e o 
 
 Estou continuando o projeto **ATC Simulador / Skyward Control**. Quando eu pedir ajuda para upload via Git Bash, use exatamente estes caminhos:
 
-- Pasta local Windows: `C:\Users\jonat\Desktop\GAME\¨2026\ATC 3 NOVO`
-- Caminho no Git Bash: `/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO`
+- Pasta local Windows: `<PROJECT_ROOT>`
+- Caminho no Git Bash: `<PROJECT_ROOT>`
 - Repositório GitHub: `https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git`
 
 Comandos-base:
 
 ```bash
-cd "/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO"
+cd "<PROJECT_ROOT>"
 git status
 git add .
 git commit -m "Build Skyward Control"

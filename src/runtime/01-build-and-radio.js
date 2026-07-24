@@ -50,10 +50,9 @@ const CLEARANCE_COMMANDS = Object.freeze({
 });
 
 function applyBuildInfo(){
-  document.querySelectorAll('[data-build]').forEach(el=>{ el.textContent = BUILD_INFO.build; });
+  document.querySelectorAll('[data-build]').forEach(el=>{ el.textContent = `Versão ${BUILD_INFO.version}`; });
   document.querySelectorAll('[data-build-version]').forEach(el=>{ el.textContent = `v${BUILD_INFO.version}`; });
-  document.querySelectorAll('[data-build-date]').forEach(el=>{ el.textContent = BUILD_INFO.builtAt; });
-  document.querySelectorAll('[data-build-phase]').forEach(el=>{ el.textContent = BUILD_INFO.phase; });
+  document.querySelectorAll('[data-build-date]').forEach(el=>{ el.textContent = ''; });
   document.querySelectorAll('[data-build-channel]').forEach(el=>{ el.textContent = BUILD_INFO.channel.toUpperCase(); });
   document.documentElement.dataset.buildId = BUILD_INFO.build;
   document.documentElement.dataset.buildPhase = BUILD_INFO.phase;
@@ -64,7 +63,7 @@ function applyBuildInfo(){
   document.documentElement.dataset.cacheSchema = String(BUILD_INFO.cacheSchema || 0);
   document.documentElement.dataset.uxSchema = String(BUILD_INFO.uxSchema || 0);
   document.documentElement.dataset.replaySchema = String(BUILD_INFO.replaySchema || 0);
-  document.title = `${BUILD_INFO.product} v${BUILD_INFO.version} — ${BUILD_INFO.phase}`;
+  document.title = `${BUILD_INFO.product} v${BUILD_INFO.version}`;
 }
 
 const SAFE_MODE = { errors: [], contractFailures:0, saveRecoveries:0, saveMigrations:0, softRecoveries:0, hardFaults:0, lastSoftFaultAt:0, loopRecoveryPending:false, lastSaveStatus:'idle', lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[], perf:{badFrames:0, mode:'normal'} };
@@ -175,4 +174,3 @@ function atcReadbackFor(p, cmd){
   if(cmd==='clearEmergency') return `${p.id} pouso imediato autorizado.`;
   return `${p.id} comando ${cmd.toUpperCase()} recebido.`;
 }
-

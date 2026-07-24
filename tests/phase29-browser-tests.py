@@ -29,7 +29,7 @@ check('doc plano estudo existe', (ROOT/'docs/PLANO_ESTUDO_ADAPTATIVO_F29.md').ex
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('card holding presente', any(c.get('id')=='HOLD_SHORT' for c in cat.get('studyCards',[])))
 check('badge flow presente', any(b.get('id')=='FLOW_PLANNER' for b in cat.get('coachBadges',[])))

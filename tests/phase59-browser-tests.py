@@ -39,7 +39,7 @@ check('doc route challenges existe', (ROOT/'docs/AIRPORT_PACKS_ROUTE_CHALLENGES_
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('SBSP presente', any(a.get('icao')=='SBSP' for a in cat.get('airportPacks',[])))
 check('KJFK presente', any(a.get('icao')=='KJFK' for a in cat.get('airportPacks',[])))

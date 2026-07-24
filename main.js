@@ -456,10 +456,9 @@ const CLEARANCE_COMMANDS = Object.freeze({
 });
 
 function applyBuildInfo(){
-  document.querySelectorAll('[data-build]').forEach(el=>{ el.textContent = BUILD_INFO.build; });
+  document.querySelectorAll('[data-build]').forEach(el=>{ el.textContent = `Versão ${BUILD_INFO.version}`; });
   document.querySelectorAll('[data-build-version]').forEach(el=>{ el.textContent = `v${BUILD_INFO.version}`; });
-  document.querySelectorAll('[data-build-date]').forEach(el=>{ el.textContent = BUILD_INFO.builtAt; });
-  document.querySelectorAll('[data-build-phase]').forEach(el=>{ el.textContent = BUILD_INFO.phase; });
+  document.querySelectorAll('[data-build-date]').forEach(el=>{ el.textContent = ''; });
   document.querySelectorAll('[data-build-channel]').forEach(el=>{ el.textContent = BUILD_INFO.channel.toUpperCase(); });
   document.documentElement.dataset.buildId = BUILD_INFO.build;
   document.documentElement.dataset.buildPhase = BUILD_INFO.phase;
@@ -470,7 +469,7 @@ function applyBuildInfo(){
   document.documentElement.dataset.cacheSchema = String(BUILD_INFO.cacheSchema || 0);
   document.documentElement.dataset.uxSchema = String(BUILD_INFO.uxSchema || 0);
   document.documentElement.dataset.replaySchema = String(BUILD_INFO.replaySchema || 0);
-  document.title = `${BUILD_INFO.product} v${BUILD_INFO.version} — ${BUILD_INFO.phase}`;
+  document.title = `${BUILD_INFO.product} v${BUILD_INFO.version}`;
 }
 
 const SAFE_MODE = { errors: [], contractFailures:0, saveRecoveries:0, saveMigrations:0, softRecoveries:0, hardFaults:0, lastSoftFaultAt:0, loopRecoveryPending:false, lastSaveStatus:'idle', lastFrame: 0, lastScene: 'boot', maxAircraft: 16, recovering:false, lastGoodState:null, diagnostics:[], perf:{badFrames:0, mode:'normal'} };
@@ -2783,11 +2782,11 @@ function evaluateOperationalEconomy(finalScore=0, shiftStats={}, fail=false, air
   const contractPenalty=contracts.reduce((a,c)=>a+c.penalty,0);
   const staffingCost=Math.round(budget.shiftBudget*.22 + Math.max(0,(shiftStats.commands||0)-35)*45);
   const weatherCost=(window.SKYWARD_WEATHER_OPS?.state?.().flightRules==='LIFR') ? Math.round(budget.shiftBudget*.08) : 0;
-  const revenue=serviceRevenue+contractBonus+(typeof networkBonus==='number'?networkBonus:0);
   const incidentCost=(typeof incidentEconomicImpact==='function' ? incidentEconomicImpact().cost : 0);
   const netImpact=(typeof networkEconomicImpact==='function' ? networkEconomicImpact().impact : 0);
-  const costs=staffingCost+delayCost+fines+contractPenalty+weatherCost+incidentCost+Math.max(0,-netImpact);
   const networkBonus=Math.max(0,netImpact);
+  const revenue=serviceRevenue+contractBonus+networkBonus;
+  const costs=staffingCost+delayCost+fines+contractPenalty+weatherCost+incidentCost+Math.max(0,-netImpact);
   const profit=Math.round(revenue-costs);
   airportEconomy.balance=Math.round((airportEconomy.balance||0)+profit);
   airportEconomy.totalRevenue=Math.round((airportEconomy.totalRevenue||0)+revenue);
@@ -4163,7 +4162,7 @@ const POST_GOLD_MASTER_CATALOG = Object.freeze({
     {id:'PAGES',name:'Ativar GitHub Pages na branch main'},
     {id:'VERIFY',name:'Abrir URL pública e testar PWA'}
   ],
-  githubPages:{repo:'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git',branch:'main',path:'/',localGitBashPath:'/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO',expectedUrlPattern:'https://jonatanoficial-bit.github.io/ATC-SIMULADOR/'},
+  githubPages:{repo:'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git',branch:'main',path:'/',localGitBashPath:'<PROJECT_ROOT>',expectedUrlPattern:'https://jonatanoficial-bit.github.io/ATC-SIMULADOR/'},
   manualQAStatus:{automatedReady:true,requiresHumanDeviceQA:true,screenshotsPending:true,canPublishToGitHubPages:true}
 });
 const POST_GM_KEY='skywardPostGoldMaster_v1';
@@ -4333,7 +4332,7 @@ const POST_PUBLISH_CATALOG = Object.freeze({
     {id:'HF_OFFLINE_ASSET',severity:'CRITICAL',title:'Asset não carrega offline',firstAction:'incluir no pwa-cache-manifest e service worker'},
     {id:'HF_SAVE_RESET',severity:'CRITICAL',title:'Save some após update',firstAction:'verificar schema/migração/localStorage'}
   ],
-  publicVerification:{repo:'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git',expectedUrl:'https://jonatanoficial-bit.github.io/ATC-SIMULADOR/',branch:'main',rootPath:'/',localPath:'/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO'},
+  publicVerification:{repo:'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git',expectedUrl:'https://jonatanoficial-bit.github.io/ATC-SIMULADOR/',branch:'main',rootPath:'/',localPath:'<PROJECT_ROOT>'},
   manualCaptureFields:['device','browser','url','orientation','pwaInstalled','offlineWorks','buildVisible','notes'],
   promotionRules:[
     {id:'PROMOTE_PUBLIC',name:'Pode anunciar link público',minHealth:90,requiresNoCritical:true},
@@ -5722,7 +5721,7 @@ function saveCrisisCommand(){
   return crisisCommandState;
 }
 function crisisById(id){ return CRISIS_COMMAND_CATALOG.crisisTypes.find(c=>c.id===id)||CRISIS_COMMAND_CATALOG.crisisTypes[0]; }
-function actionById(id){ return CRISIS_COMMAND_CATALOG.commandActions.find(a=>a.id===id)||CRISIS_COMMAND_CATALOG.commandActions[0]; }
+function crisisActionById(id){ return CRISIS_COMMAND_CATALOG.commandActions.find(a=>a.id===id)||CRISIS_COMMAND_CATALOG.commandActions[0]; }
 function scoreBand(score){ return CRISIS_COMMAND_CATALOG.scoreBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||CRISIS_COMMAND_CATALOG.scoreBands.at(-1); }
 function triggerCrisis(id='GROUND_STOP', note=''){
   loadCrisisCommand();
@@ -5736,7 +5735,7 @@ function triggerCrisis(id='GROUND_STOP', note=''){
 }
 function takeCrisisAction(id='ACTIVATE_EOC'){
   loadCrisisCommand();
-  const action=actionById(id);
+  const action=crisisActionById(id);
   const item={id:`CAC-${String(Date.now()).slice(-6)}`,actionId:action.id,name:action.name,cost:action.cost,at:new Date().toISOString()};
   crisisCommandState.actionsTaken.unshift(item);
   crisisCommandState.actionsTaken=crisisCommandState.actionsTaken.slice(0,20);
@@ -6747,7 +6746,7 @@ function saveWorkforceStaffing(){
   try{ localStorage?.setItem?.(WORKFORCE_STAFFING_KEY,JSON.stringify(workforceStaffingState)); }catch(e){ safeLogError?.(e,'workforce-staffing-save'); }
   return workforceStaffingState;
 }
-function readinessBand(score){
+function workforceReadinessBand(score){
   return WORKFORCE_STAFFING_CATALOG.readinessBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||WORKFORCE_STAFFING_CATALOG.readinessBands.at(-1);
 }
 function roleById(id){ return WORKFORCE_STAFFING_CATALOG.roles.find(r=>r.id===id)||WORKFORCE_STAFFING_CATALOG.roles[0]; }
@@ -6859,7 +6858,7 @@ function evaluateWorkforceStaffing(finalScore=0,statsObj={},fail=false,airportCo
   const riskPenalty=workforceStaffingState.laborRisk*0.22+openEvents.length*2+cashPressure;
   const readiness=Math.max(0,Math.min(100,Math.round(coverage.avgSkill*.42+(100-coverage.avgFatigue)*.28+Math.min(100,safetyScore)*.12+workforceStaffingState.morale*.12+Math.max(0,100-riskPenalty-moralePenalty)*.06-coverage.shortage*14)));
   workforceStaffingState.readinessScore=readiness;
-  workforceStaffingState.status=readinessBand(readiness).id;
+  workforceStaffingState.status=workforceReadinessBand(readiness).id;
   if(readiness<55 && !openEvents.some(e=>e.eventId==='BURNOUT_ALERT')) raiseLaborEvent('BURNOUT_ALERT');
   const evaluation={at:new Date().toISOString(),build:BUILD,airport:icao,finalScore:Math.round(finalScore||0),coverage,readinessScore:readiness,status:workforceStaffingState.status,morale:workforceStaffingState.morale,laborRisk:workforceStaffingState.laborRisk,shiftPattern:workforceStaffingState.shiftPattern,openEvents:workforceStaffingState.events.filter(e=>e.status==='OPEN').length,trainees:workforceStaffingState.trainees.length};
   workforceStaffingState.history.unshift(evaluation);
@@ -6995,11 +6994,11 @@ function savePassengerReputation(){
 function reputationBand(score){
   return PASSENGER_REPUTATION_CATALOG.reputationBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||PASSENGER_REPUTATION_CATALOG.reputationBands.at(-1);
 }
-function programById(id){ return PASSENGER_REPUTATION_CATALOG.servicePrograms.find(p=>p.id===id)||PASSENGER_REPUTATION_CATALOG.servicePrograms[0]; }
+function passengerProgramById(id){ return PASSENGER_REPUTATION_CATALOG.servicePrograms.find(p=>p.id===id)||PASSENGER_REPUTATION_CATALOG.servicePrograms[0]; }
 function complaintById(id){ return PASSENGER_REPUTATION_CATALOG.complaintTypes.find(c=>c.id===id)||PASSENGER_REPUTATION_CATALOG.complaintTypes[0]; }
 function launchPassengerProgram(id='LIVE_INFO_BOARDS'){
   loadPassengerReputation();
-  const program=programById(id);
+  const program=passengerProgramById(id);
   if(passengerReputationState.programs.some(p=>p.programId===program.id)) return passengerReputationState.programs.find(p=>p.programId===program.id);
   const item={id:`PXP-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',startedAt:new Date().toISOString()};
   passengerReputationState.programs.unshift(item);
@@ -7211,19 +7210,19 @@ function saveMultiAirportNetwork(){
 function networkBand(score){
   return MULTI_AIRPORT_NETWORK_CATALOG.networkBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||MULTI_AIRPORT_NETWORK_CATALOG.networkBands.at(-1);
 }
-function policyById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.networkPolicies.find(p=>p.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.networkPolicies[0]; }
-function disruptionById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.disruptionTypes.find(d=>d.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.disruptionTypes[0]; }
-function actionById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.recoveryActions.find(a=>a.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.recoveryActions[0]; }
+function networkPolicyById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.networkPolicies.find(p=>p.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.networkPolicies[0]; }
+function networkDisruptionById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.disruptionTypes.find(d=>d.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.disruptionTypes[0]; }
+function networkActionById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.recoveryActions.find(a=>a.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.recoveryActions[0]; }
 function setNetworkPolicy(id='BALANCED_FLOW'){
   loadMultiAirportNetwork();
-  multiAirportNetworkState.policy=policyById(id).id;
+  multiAirportNetworkState.policy=networkPolicyById(id).id;
   saveMultiAirportNetwork();
   renderMultiAirportNetworkBoard();
-  return policyById(multiAirportNetworkState.policy);
+  return networkPolicyById(multiAirportNetworkState.policy);
 }
 function raiseNetworkDisruption(id='HUB_OVERLOAD'){
   loadMultiAirportNetwork();
-  const tpl=disruptionById(id);
+  const tpl=networkDisruptionById(id);
   const item={id:`NET-${String(Date.now()).slice(-6)}`,disruptionId:tpl.id,name:tpl.name,risk:tpl.risk,metric:tpl.metric,status:'OPEN',at:new Date().toISOString()};
   multiAirportNetworkState.disruptions.unshift(item);
   multiAirportNetworkState.disruptions=multiAirportNetworkState.disruptions.slice(0,50);
@@ -7233,7 +7232,7 @@ function raiseNetworkDisruption(id='HUB_OVERLOAD'){
 }
 function takeNetworkAction(id='PROTECT_BANK'){
   loadMultiAirportNetwork();
-  const act=actionById(id);
+  const act=networkActionById(id);
   const item={id:`NAC-${String(Date.now()).slice(-6)}`,actionId:act.id,name:act.name,cost:act.cost,status:'ACTIVE',at:new Date().toISOString()};
   multiAirportNetworkState.actions.unshift(item);
   multiAirportNetworkState.actions=multiAirportNetworkState.actions.slice(0,50);
@@ -7258,7 +7257,7 @@ function closeNetworkDisruption(id,ok=true){
 function networkActionBenefit(kind){
   let total=0;
   for(const a of multiAirportNetworkState.actions){
-    const tpl=actionById(a.actionId);
+    const tpl=networkActionById(a.actionId);
     total+=Number(tpl.benefit?.[kind]||0);
   }
   return total;
@@ -7270,7 +7269,7 @@ function calculateNetworkMetrics(finalScore=0,statsObj={},fail=false){
   const crisis=window.SKYWARD_CRISIS_COMMAND?.status?.()||{};
   const workforce=window.SKYWARD_WORKFORCE_STAFFING?.status?.()||{};
   const networkFlow=window.SKYWARD_NETWORK_FLOW?.status?.()||{};
-  const policy=policyById(multiAirportNetworkState.policy);
+  const policy=networkPolicyById(multiAirportNetworkState.policy);
   const open=multiAirportNetworkState.disruptions.filter(d=>d.status==='OPEN');
   const denied=Number(statsObj.denied||0);
   const conflicts=Number(statsObj.conflicts||0);
@@ -7446,17 +7445,17 @@ function saveEmergencyResponse(){
   try{ localStorage?.setItem?.(EMERGENCY_RESPONSE_KEY,JSON.stringify(emergencyResponseState)); }catch(e){ safeLogError?.(e,'emergency-response-save'); }
   return emergencyResponseState;
 }
-function readinessBand(score){
+function emergencyReadinessBand(score){
   return EMERGENCY_RESPONSE_CATALOG.readinessBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||EMERGENCY_RESPONSE_CATALOG.readinessBands.at(-1);
 }
 function incidentLevel(severity){
   return EMERGENCY_RESPONSE_CATALOG.incidentLevels.slice().sort((a,b)=>b.minSeverity-a.minSeverity).find(l=>severity>=l.minSeverity)||EMERGENCY_RESPONSE_CATALOG.incidentLevels[0];
 }
-function programById(id){ return EMERGENCY_RESPONSE_CATALOG.preparednessPrograms.find(p=>p.id===id)||EMERGENCY_RESPONSE_CATALOG.preparednessPrograms[0]; }
+function emergencyProgramById(id){ return EMERGENCY_RESPONSE_CATALOG.preparednessPrograms.find(p=>p.id===id)||EMERGENCY_RESPONSE_CATALOG.preparednessPrograms[0]; }
 function scenarioById(id){ return EMERGENCY_RESPONSE_CATALOG.emergencyScenarios.find(s=>s.id===id)||EMERGENCY_RESPONSE_CATALOG.emergencyScenarios[0]; }
 function runPreparednessProgram(id='FULL_SCALE_DRILL'){
   loadEmergencyResponse();
-  const program=programById(id);
+  const program=emergencyProgramById(id);
   if(emergencyResponseState.programs.some(p=>p.programId===program.id)) return emergencyResponseState.programs.find(p=>p.programId===program.id);
   const item={id:`ERP-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',at:new Date().toISOString()};
   emergencyResponseState.programs.unshift(item);
@@ -7537,7 +7536,7 @@ function evaluateEmergencyResponse(finalScore=0,statsObj={},fail=false,airportCo
     responseScore*.22 + metrics.arffCoverage*.24 + metrics.evacuationFlow*.16 + metrics.medicalTriage*.16 + metrics.agencyCoordination*.16 + Math.max(0,100-metrics.reputationLoad)*.06 - (fail?8:0)
   )));
   emergencyResponseState.readinessScore=score;
-  emergencyResponseState.status=readinessBand(score).id;
+  emergencyResponseState.status=emergencyReadinessBand(score).id;
   const evaluation={at:new Date().toISOString(),build:BUILD,airport:icao,finalScore:Math.round(finalScore||0),...metrics,readinessScore:score,status:emergencyResponseState.status,programs:emergencyResponseState.programs.length};
   emergencyResponseState.history.unshift(evaluation);
   emergencyResponseState.history=emergencyResponseState.history.slice(0,100);
@@ -7679,11 +7678,11 @@ function bandForSecurity(score){
 function responseForScore(score){
   return SECURITY_CYBER_CATALOG.responseLevels.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||SECURITY_CYBER_CATALOG.responseLevels.at(-1);
 }
-function programById(id){ return SECURITY_CYBER_CATALOG.defensePrograms.find(p=>p.id===id)||SECURITY_CYBER_CATALOG.defensePrograms[0]; }
+function securityProgramById(id){ return SECURITY_CYBER_CATALOG.defensePrograms.find(p=>p.id===id)||SECURITY_CYBER_CATALOG.defensePrograms[0]; }
 function threatById(id){ return SECURITY_CYBER_CATALOG.threatScenarios.find(t=>t.id===id)||SECURITY_CYBER_CATALOG.threatScenarios[0]; }
 function launchSecurityProgram(id='SOC_HARDENING'){
   loadSecurityCyber();
-  const program=programById(id);
+  const program=securityProgramById(id);
   if(securityCyberState.programs.some(p=>p.programId===program.id)) return securityCyberState.programs.find(p=>p.programId===program.id);
   const item={id:`SEC-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',at:new Date().toISOString()};
   securityCyberState.programs.unshift(item);
@@ -7880,11 +7879,11 @@ let assetMaintenanceState={schema:1,assetHealth:{PRIMARY_RADAR:82,SECONDARY_RADA
 function loadAssetMaintenance(){try{const raw=localStorage?.getItem?.(ASSET_MAINTENANCE_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)assetMaintenanceState={...assetMaintenanceState,...parsed};}}catch(e){safeLogError?.(e,'asset-maintenance-load');}return assetMaintenanceState;}
 function saveAssetMaintenance(){try{localStorage?.setItem?.(ASSET_MAINTENANCE_KEY,JSON.stringify(assetMaintenanceState));}catch(e){safeLogError?.(e,'asset-maintenance-save');}return assetMaintenanceState;}
 function reliabilityBand(score){return ASSET_MAINTENANCE_CATALOG.reliabilityBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||ASSET_MAINTENANCE_CATALOG.reliabilityBands.at(-1);}
-function programById(id){return ASSET_MAINTENANCE_CATALOG.maintenancePrograms.find(p=>p.id===id)||ASSET_MAINTENANCE_CATALOG.maintenancePrograms[0];}
-function failureById(id){return ASSET_MAINTENANCE_CATALOG.failureModes.find(f=>f.id===id)||ASSET_MAINTENANCE_CATALOG.failureModes[0];}
+function assetProgramById(id){return ASSET_MAINTENANCE_CATALOG.maintenancePrograms.find(p=>p.id===id)||ASSET_MAINTENANCE_CATALOG.maintenancePrograms[0];}
+function assetFailureById(id){return ASSET_MAINTENANCE_CATALOG.failureModes.find(f=>f.id===id)||ASSET_MAINTENANCE_CATALOG.failureModes[0];}
 function runMaintenanceProgram(id='RADAR_CALIBRATION'){
   loadAssetMaintenance();
-  const program=programById(id);
+  const program=assetProgramById(id);
   const item={id:`PM-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'DONE',at:new Date().toISOString()};
   assetMaintenanceState.programs.unshift(item);
   assetMaintenanceState.programs=assetMaintenanceState.programs.slice(0,80);
@@ -7898,7 +7897,7 @@ function runMaintenanceProgram(id='RADAR_CALIBRATION'){
 }
 function raiseAssetFailure(id='ILS_OUTAGE'){
   loadAssetMaintenance();
-  const tpl=failureById(id);
+  const tpl=assetFailureById(id);
   const item={id:`FAIL-${String(Date.now()).slice(-6)}`,failureId:tpl.id,name:tpl.name,asset:tpl.asset,severity:tpl.severity,opsPenalty:tpl.opsPenalty,status:'OPEN',at:new Date().toISOString()};
   assetMaintenanceState.failures.unshift(item);
   assetMaintenanceState.failures=assetMaintenanceState.failures.slice(0,80);
@@ -8093,9 +8092,9 @@ let radioPhraseologyState={schema:1,domainScores:{VHF_LOAD:78,READBACK_ACCURACY:
 function loadRadioPhraseology(){try{const raw=localStorage?.getItem?.(RADIO_PHRASEOLOGY_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)radioPhraseologyState={...radioPhraseologyState,...parsed};}}catch(e){safeLogError?.(e,'radio-phraseology-load');}return radioPhraseologyState;}
 function saveRadioPhraseology(){try{localStorage?.setItem?.(RADIO_PHRASEOLOGY_KEY,JSON.stringify(radioPhraseologyState));}catch(e){safeLogError?.(e,'radio-phraseology-save');}return radioPhraseologyState;}
 function radioBand(score){return RADIO_PHRASEOLOGY_CATALOG.radioBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||RADIO_PHRASEOLOGY_CATALOG.radioBands.at(-1);}
-function programById(id){return RADIO_PHRASEOLOGY_CATALOG.improvementPrograms.find(p=>p.id===id)||RADIO_PHRASEOLOGY_CATALOG.improvementPrograms[0];}
+function radioProgramById(id){return RADIO_PHRASEOLOGY_CATALOG.improvementPrograms.find(p=>p.id===id)||RADIO_PHRASEOLOGY_CATALOG.improvementPrograms[0];}
 function issueById(id){return RADIO_PHRASEOLOGY_CATALOG.communicationIssues.find(i=>i.id===id)||RADIO_PHRASEOLOGY_CATALOG.communicationIssues[0];}
-function runRadioProgram(id='READBACK_DRILL'){loadRadioPhraseology();const p=programById(id);const item={id:`COM-${String(Date.now()).slice(-6)}`,programId:p.id,name:p.name,cost:p.cost,status:'DONE',at:new Date().toISOString()};radioPhraseologyState.programs.unshift(item);radioPhraseologyState.programs=radioPhraseologyState.programs.slice(0,80);for(const [d,g] of Object.entries(p.benefit||{}))radioPhraseologyState.domainScores[d]=Math.min(100,Number(radioPhraseologyState.domainScores[d]||75)+Number(g||0));saveRadioPhraseology();renderRadioPhraseologyBoard();return item;}
+function runRadioProgram(id='READBACK_DRILL'){loadRadioPhraseology();const p=radioProgramById(id);const item={id:`COM-${String(Date.now()).slice(-6)}`,programId:p.id,name:p.name,cost:p.cost,status:'DONE',at:new Date().toISOString()};radioPhraseologyState.programs.unshift(item);radioPhraseologyState.programs=radioPhraseologyState.programs.slice(0,80);for(const [d,g] of Object.entries(p.benefit||{}))radioPhraseologyState.domainScores[d]=Math.min(100,Number(radioPhraseologyState.domainScores[d]||75)+Number(g||0));saveRadioPhraseology();renderRadioPhraseologyBoard();return item;}
 function raiseRadioIssue(id='WRONG_READBACK'){loadRadioPhraseology();const tpl=issueById(id);const item={id:`COMISS-${String(Date.now()).slice(-6)}`,issueId:tpl.id,name:tpl.name,domain:tpl.domain,severity:tpl.severity,status:'OPEN',at:new Date().toISOString()};radioPhraseologyState.issues.unshift(item);radioPhraseologyState.issues=radioPhraseologyState.issues.slice(0,80);radioPhraseologyState.domainScores[tpl.domain]=Math.max(0,Number(radioPhraseologyState.domainScores[tpl.domain]||75)-Math.round(tpl.severity/4));saveRadioPhraseology();renderRadioPhraseologyBoard();return item;}
 function resolveRadioIssue(id,ok=true){loadRadioPhraseology();const issue=radioPhraseologyState.issues.find(i=>i.id===id);if(issue){issue.status=ok?'RESOLVED':'ESCALATED';issue.closedAt=new Date().toISOString();if(ok)radioPhraseologyState.domainScores[issue.domain]=Math.min(100,Number(radioPhraseologyState.domainScores[issue.domain]||75)+3);}saveRadioPhraseology();renderRadioPhraseologyBoard();return issue||null;}
 function calculateRadioMetrics(finalScore=0,statsObj={},fail=false){const ai=window.SKYWARD_AI_COPILOT?.status?.()||{};const workforce=window.SKYWARD_WORKFORCE_STAFFING?.status?.()||{};const safety=window.SKYWARD_SAFETY_COMPLIANCE?.status?.()||{};const emergency=window.SKYWARD_EMERGENCY_RESPONSE?.status?.()||{};const traffic=window.SKYWARD_NETWORK_FLOW?.status?.()||{};const open=radioPhraseologyState.issues.filter(i=>i.status==='OPEN');const denied=Number(statsObj.denied||0),commands=Number(statsObj.commands||0),blocked=Number(statsObj.blocked||0),conflicts=Number(statsObj.conflicts||0),emergencies=Number(statsObj.emergencies||0);const scores={...radioPhraseologyState.domainScores};const openPenalty=d=>open.filter(i=>i.domain===d).reduce((a,i)=>a+Number(i.severity||0),0)/3.8;const load=Math.min(100,Math.round(commands*3.5+denied*4+blocked*7+Number(traffic.networkDelayMin||0)*.7));scores.VHF_LOAD=Math.max(0,Math.min(100,92-load*0.45-openPenalty('VHF_LOAD')));scores.READBACK_ACCURACY=Math.max(0,Math.min(100,Number(scores.READBACK_ACCURACY||84)+Number(workforce.progress?.score||78)*.04-denied*3-openPenalty('READBACK_ACCURACY')));scores.HEARBACK_MONITOR=Math.max(0,Math.min(100,Number(scores.HEARBACK_MONITOR||82)+Number(safety.progress?.score||80)*.04-conflicts*4-openPenalty('HEARBACK_MONITOR')));scores.PHRASEOLOGY=Math.max(0,Math.min(100,Number(scores.PHRASEOLOGY||84)+finalScore/900-denied*2-openPenalty('PHRASEOLOGY')));scores.CPDLC_TEXT=Math.max(0,Math.min(100,Number(scores.CPDLC_TEXT||78)+Number(ai.progress?.confidence||72)*.05-blocked*2-openPenalty('CPDLC_TEXT')));scores.EMERGENCY_COMMS=Math.max(0,Math.min(100,Number(scores.EMERGENCY_COMMS||80)+Number(emergency.progress?.score||78)*.05-emergencies*3-openPenalty('EMERGENCY_COMMS')));scores.LANGUAGE_CLARITY=Math.max(0,Math.min(100,Number(scores.LANGUAGE_CLARITY||82)+Number(workforce.progress?.score||78)*.03-denied*1.5-openPenalty('LANGUAGE_CLARITY')));if(fail){scores.READBACK_ACCURACY=Math.max(0,scores.READBACK_ACCURACY-6);scores.PHRASEOLOGY=Math.max(0,scores.PHRASEOLOGY-5);}return {scores,load,openIssues:open.length,readbackRate:Math.round((scores.READBACK_ACCURACY+scores.HEARBACK_MONITOR)/2),blockedRate:Math.max(0,Math.min(100,Math.round(blocked*9+open.filter(i=>i.issueId==='BLOCKED_TRANSMISSION').length*12))),vhfUtilization:load,drivers:{denied,commands,blocked,conflicts,emergencies}};}
@@ -8166,11 +8165,11 @@ let groundTurnaroundState={schema:1,processScores:{GATE_ASSIGNMENT:78,BOARDING:8
 function loadGroundTurnaround(){try{const raw=localStorage?.getItem?.(GROUND_TURNAROUND_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)groundTurnaroundState={...groundTurnaroundState,...parsed};}}catch(e){safeLogError?.(e,'ground-turnaround-load');}return groundTurnaroundState;}
 function saveGroundTurnaround(){try{localStorage?.setItem?.(GROUND_TURNAROUND_KEY,JSON.stringify(groundTurnaroundState));}catch(e){safeLogError?.(e,'ground-turnaround-save');}return groundTurnaroundState;}
 function turnaroundBand(score){return GROUND_TURNAROUND_CATALOG.turnaroundBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||GROUND_TURNAROUND_CATALOG.turnaroundBands.at(-1);}
-function programById(id){return GROUND_TURNAROUND_CATALOG.improvementPrograms.find(p=>p.id===id)||GROUND_TURNAROUND_CATALOG.improvementPrograms[0];}
+function turnaroundProgramById(id){return GROUND_TURNAROUND_CATALOG.improvementPrograms.find(p=>p.id===id)||GROUND_TURNAROUND_CATALOG.improvementPrograms[0];}
 function delayById(id){return GROUND_TURNAROUND_CATALOG.delayCauses.find(d=>d.id===id)||GROUND_TURNAROUND_CATALOG.delayCauses[0];}
 function runGroundProgram(id='GATE_OPTIMIZER'){
   loadGroundTurnaround();
-  const program=programById(id);
+  const program=turnaroundProgramById(id);
   if(groundTurnaroundState.programs.some(p=>p.programId===program.id)) return groundTurnaroundState.programs.find(p=>p.programId===program.id);
   const item={id:`GPR-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',at:new Date().toISOString()};
   groundTurnaroundState.programs.unshift(item);
@@ -8374,12 +8373,12 @@ let cargoLogisticsState={schema:1,processScores:{ULD_BUILDUP:78,CARGO_ACCEPTANCE
 function loadCargoLogistics(){try{const raw=localStorage?.getItem?.(CARGO_LOGISTICS_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)cargoLogisticsState={...cargoLogisticsState,...parsed};}}catch(e){safeLogError?.(e,'cargo-logistics-load');}return cargoLogisticsState;}
 function saveCargoLogistics(){try{localStorage?.setItem?.(CARGO_LOGISTICS_KEY,JSON.stringify(cargoLogisticsState));}catch(e){safeLogError?.(e,'cargo-logistics-save');}return cargoLogisticsState;}
 function cargoBand(score){return CARGO_LOGISTICS_CATALOG.cargoBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||CARGO_LOGISTICS_CATALOG.cargoBands.at(-1);}
-function programById(id){return CARGO_LOGISTICS_CATALOG.cargoPrograms.find(p=>p.id===id)||CARGO_LOGISTICS_CATALOG.cargoPrograms[0];}
-function disruptionById(id){return CARGO_LOGISTICS_CATALOG.logisticsDisruptions.find(d=>d.id===id)||CARGO_LOGISTICS_CATALOG.logisticsDisruptions[0];}
+function cargoProgramById(id){return CARGO_LOGISTICS_CATALOG.cargoPrograms.find(p=>p.id===id)||CARGO_LOGISTICS_CATALOG.cargoPrograms[0];}
+function cargoDisruptionById(id){return CARGO_LOGISTICS_CATALOG.logisticsDisruptions.find(d=>d.id===id)||CARGO_LOGISTICS_CATALOG.logisticsDisruptions[0];}
 function shipmentById(id){return CARGO_LOGISTICS_CATALOG.shipmentTypes.find(s=>s.id===id)||CARGO_LOGISTICS_CATALOG.shipmentTypes[0];}
 function runCargoProgram(id='ULD_POOL'){
   loadCargoLogistics();
-  const program=programById(id);
+  const program=cargoProgramById(id);
   if(cargoLogisticsState.programs.some(p=>p.programId===program.id)) return cargoLogisticsState.programs.find(p=>p.programId===program.id);
   const item={id:`CGP-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',at:new Date().toISOString()};
   cargoLogisticsState.programs.unshift(item);
@@ -8403,7 +8402,7 @@ function acceptCargoShipment(id='GENERAL_CARGO'){
 }
 function raiseCargoDisruption(id='ULD_SHORTAGE'){
   loadCargoLogistics();
-  const tpl=disruptionById(id);
+  const tpl=cargoDisruptionById(id);
   const item={id:`CGD-${String(Date.now()).slice(-6)}`,disruptionId:tpl.id,name:tpl.name,process:tpl.process,severity:tpl.severity,status:'OPEN',at:new Date().toISOString()};
   cargoLogisticsState.disruptions.unshift(item);
   cargoLogisticsState.disruptions=cargoLogisticsState.disruptions.slice(0,80);
@@ -8593,11 +8592,11 @@ let terminalFlowState={schema:1,zoneScores:{CURBSIDE:77,CHECKIN:80,SECURITY_QUEU
 function loadTerminalFlow(){try{const raw=localStorage?.getItem?.(TERMINAL_FLOW_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)terminalFlowState={...terminalFlowState,...parsed};}}catch(e){safeLogError?.(e,'terminal-flow-load');}return terminalFlowState;}
 function saveTerminalFlow(){try{localStorage?.setItem?.(TERMINAL_FLOW_KEY,JSON.stringify(terminalFlowState));}catch(e){safeLogError?.(e,'terminal-flow-save');}return terminalFlowState;}
 function terminalBand(score){return TERMINAL_FLOW_CATALOG.flowBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||TERMINAL_FLOW_CATALOG.flowBands.at(-1);}
-function programById(id){return TERMINAL_FLOW_CATALOG.flowPrograms.find(p=>p.id===id)||TERMINAL_FLOW_CATALOG.flowPrograms[0];}
-function incidentById(id){return TERMINAL_FLOW_CATALOG.queueIncidents.find(i=>i.id===id)||TERMINAL_FLOW_CATALOG.queueIncidents[0];}
+function terminalProgramById(id){return TERMINAL_FLOW_CATALOG.flowPrograms.find(p=>p.id===id)||TERMINAL_FLOW_CATALOG.flowPrograms[0];}
+function terminalIncidentById(id){return TERMINAL_FLOW_CATALOG.queueIncidents.find(i=>i.id===id)||TERMINAL_FLOW_CATALOG.queueIncidents[0];}
 function runTerminalProgram(id='OPEN_SECURITY_LANES'){
   loadTerminalFlow();
-  const program=programById(id);
+  const program=terminalProgramById(id);
   if(terminalFlowState.programs.some(p=>p.programId===program.id)) return terminalFlowState.programs.find(p=>p.programId===program.id);
   const item={id:`TFP-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',at:new Date().toISOString()};
   terminalFlowState.programs.unshift(item);
@@ -8610,7 +8609,7 @@ function runTerminalProgram(id='OPEN_SECURITY_LANES'){
 }
 function raiseTerminalIncident(id='SECURITY_BACKLOG'){
   loadTerminalFlow();
-  const tpl=incidentById(id);
+  const tpl=terminalIncidentById(id);
   const item={id:`TFI-${String(Date.now()).slice(-6)}`,incidentId:tpl.id,name:tpl.name,zone:tpl.zone,severity:tpl.severity,status:'OPEN',at:new Date().toISOString()};
   terminalFlowState.incidents.unshift(item);
   terminalFlowState.incidents=terminalFlowState.incidents.slice(0,80);
@@ -8812,11 +8811,11 @@ let nonAeroState={schema:1,channelScores:{DUTY_FREE:80,FOOD_BEVERAGE:78,RETAIL:7
 function loadNonAeroRevenue(){try{const raw=localStorage?.getItem?.(NON_AERO_REVENUE_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)nonAeroState={...nonAeroState,...parsed};}}catch(e){safeLogError?.(e,'non-aero-revenue-load');}return nonAeroState;}
 function saveNonAeroRevenue(){try{localStorage?.setItem?.(NON_AERO_REVENUE_KEY,JSON.stringify(nonAeroState));}catch(e){safeLogError?.(e,'non-aero-revenue-save');}return nonAeroState;}
 function commercialBand(score){return NON_AERO_REVENUE_CATALOG.commercialBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||NON_AERO_REVENUE_CATALOG.commercialBands.at(-1);}
-function programById(id){return NON_AERO_REVENUE_CATALOG.revenuePrograms.find(p=>p.id===id)||NON_AERO_REVENUE_CATALOG.revenuePrograms[0];}
-function incidentById(id){return NON_AERO_REVENUE_CATALOG.commercialIncidents.find(i=>i.id===id)||NON_AERO_REVENUE_CATALOG.commercialIncidents[0];}
+function revenueProgramById(id){return NON_AERO_REVENUE_CATALOG.revenuePrograms.find(p=>p.id===id)||NON_AERO_REVENUE_CATALOG.revenuePrograms[0];}
+function revenueIncidentById(id){return NON_AERO_REVENUE_CATALOG.commercialIncidents.find(i=>i.id===id)||NON_AERO_REVENUE_CATALOG.commercialIncidents[0];}
 function runCommercialProgram(id='DUTY_FREE_BUNDLE'){
   loadNonAeroRevenue();
-  const program=programById(id);
+  const program=revenueProgramById(id);
   if(nonAeroState.programs.some(p=>p.programId===program.id)) return nonAeroState.programs.find(p=>p.programId===program.id);
   const item={id:`NAR-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',at:new Date().toISOString()};
   nonAeroState.programs.unshift(item);
@@ -8829,7 +8828,7 @@ function runCommercialProgram(id='DUTY_FREE_BUNDLE'){
 }
 function raiseCommercialIncident(id='FOOD_QUEUE_SPIKE'){
   loadNonAeroRevenue();
-  const tpl=incidentById(id);
+  const tpl=revenueIncidentById(id);
   const item={id:`NAC-${String(Date.now()).slice(-6)}`,incidentId:tpl.id,name:tpl.name,channel:tpl.channel,severity:tpl.severity,status:'OPEN',at:new Date().toISOString()};
   nonAeroState.incidents.unshift(item);
   nonAeroState.incidents=nonAeroState.incidents.slice(0,80);
@@ -9014,10 +9013,10 @@ function getViewportClass(){
     return 'DESKTOP_STANDARD';
   }catch(e){return 'MOBILE_STANDARD';}
 }
-function profileById(id){return ADAPTIVE_PACE_CATALOG.deviceProfiles.find(p=>p.id===id)||ADAPTIVE_PACE_CATALOG.deviceProfiles[1];}
-function policyById(id){return ADAPTIVE_PACE_CATALOG.pacePolicies.find(p=>p.id===id)||ADAPTIVE_PACE_CATALOG.pacePolicies[2];}
+function adaptiveProfileById(id){return ADAPTIVE_PACE_CATALOG.deviceProfiles.find(p=>p.id===id)||ADAPTIVE_PACE_CATALOG.deviceProfiles[1];}
+function adaptivePolicyById(id){return ADAPTIVE_PACE_CATALOG.pacePolicies.find(p=>p.id===id)||ADAPTIVE_PACE_CATALOG.pacePolicies[2];}
 function bandForWorkload(score){return ADAPTIVE_PACE_CATALOG.workloadBands.find(b=>score>=b.min&&score<=b.max)||ADAPTIVE_PACE_CATALOG.workloadBands.at(-1);}
-function setAdaptivePacePolicy(id='CAREER'){loadAdaptivePace();adaptivePaceState.policy=policyById(id).id;saveAdaptivePace();return adaptivePaceState;}
+function setAdaptivePacePolicy(id='CAREER'){loadAdaptivePace();adaptivePaceState.policy=adaptivePolicyById(id).id;saveAdaptivePace();return adaptivePaceState;}
 function estimateWorkload(statsObj={}){
   const planesCount=Array.isArray(window.planes)?window.planes.length:Number(statsObj.activePlanes||0);
   const requestCount=Array.isArray(window.pendingRequests)?window.pendingRequests.length:Number(statsObj.pendingRequests||0);
@@ -9032,8 +9031,8 @@ function estimateWorkload(statsObj={}){
 }
 function tuneAdaptivePace(statsObj={},reason='runtime'){
   loadAdaptivePace();
-  const profile=profileById(getViewportClass());
-  const policy=policyById(adaptivePaceState.policy);
+  const profile=adaptiveProfileById(getViewportClass());
+  const policy=adaptivePolicyById(adaptivePaceState.policy);
   const workload=estimateWorkload(statsObj);
   const band=bandForWorkload(workload);
   let pace=profile.paceMultiplier*policy.paceBias;
@@ -9214,11 +9213,11 @@ function classifyError(message=''){
   if(txt.includes('quota')||txt.includes('storage')||txt.includes('save')) return 'SAVE_CORRUPTION';
   return 'RENDER_LOOP_DROP';
 }
-function failureById(id){return STABILITY_DIAGNOSTICS_CATALOG.failureTypes.find(f=>f.id===id)||STABILITY_DIAGNOSTICS_CATALOG.failureTypes.at(-1);}
+function stabilityFailureById(id){return STABILITY_DIAGNOSTICS_CATALOG.failureTypes.find(f=>f.id===id)||STABILITY_DIAGNOSTICS_CATALOG.failureTypes.at(-1);}
 function recordRuntimeError(error,context='runtime'){
   loadStabilityDiagnostics();
   const message=String(error?.message||error||'erro desconhecido').slice(0,220);
-  const failure=failureById(classifyError(message));
+  const failure=stabilityFailureById(classifyError(message));
   const item={id:`ERR-${String(Date.now()).slice(-6)}`,type:failure.id,name:failure.name,severity:failure.severity,message,context,at:new Date().toISOString(),build:BUILD};
   stabilityState.runtimeErrors.unshift(item);
   stabilityState.runtimeErrors=stabilityState.runtimeErrors.slice(0,60);
@@ -9651,7 +9650,7 @@ function loadLiveOpsConfig(){
   return liveOpsConfigState;
 }
 function saveLiveOpsConfig(){try{localStorage?.setItem?.(LIVE_OPS_REMOTE_CONFIG_KEY,JSON.stringify(liveOpsConfigState));}catch(e){safeLogError?.(e,'live-ops-config-save');}return liveOpsConfigState;}
-function profileById(id){return LIVE_OPS_REMOTE_CONFIG_CATALOG.configProfiles.find(p=>p.id===id)||LIVE_OPS_REMOTE_CONFIG_CATALOG.configProfiles[1];}
+function liveOpsProfileById(id){return LIVE_OPS_REMOTE_CONFIG_CATALOG.configProfiles.find(p=>p.id===id)||LIVE_OPS_REMOTE_CONFIG_CATALOG.configProfiles[1];}
 function configBand(score){return LIVE_OPS_REMOTE_CONFIG_CATALOG.configBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||LIVE_OPS_REMOTE_CONFIG_CATALOG.configBands.at(-1);}
 function isMobileDevice(){
   try{
@@ -9670,7 +9669,7 @@ function setLiveOpsFlag(id,value){
 }
 function setLiveOpsProfile(id='BALANCED'){
   loadLiveOpsConfig();
-  liveOpsConfigState.activeProfile=profileById(id).id;
+  liveOpsConfigState.activeProfile=liveOpsProfileById(id).id;
   applyLiveOpsProfile(liveOpsConfigState.activeProfile,'manual');
   return liveOpsConfigState;
 }
@@ -9703,7 +9702,7 @@ function resolveLiveOpsProfile(signals=collectLiveOpsSignals()){
 }
 function applyLiveOpsProfile(id=liveOpsConfigState.activeProfile,reason='auto'){
   loadLiveOpsConfig();
-  const profile=profileById(id);
+  const profile=liveOpsProfileById(id);
   liveOpsConfigState.activeProfile=profile.id;
   liveOpsConfigState.overrides={
     paceScale:profile.paceScale,
@@ -9754,7 +9753,7 @@ function evaluateLiveOpsConfig(finalScore=0,statsObj={},fail=false,airportCode='
 }
 function liveOpsConfigProgress(){
   loadLiveOpsConfig();
-  return {score:liveOpsConfigState.configScore,status:liveOpsConfigState.status,activeProfile:liveOpsConfigState.activeProfile,enabledFlags:Object.values(liveOpsConfigState.flags||{}).filter(Boolean).length,enabledKillSwitches:Object.values(liveOpsConfigState.killSwitches||{}).filter(Boolean).length,paceScale:liveOpsConfigState.overrides?.paceScale||profileById(liveOpsConfigState.activeProfile).paceScale,maxAircraft:liveOpsConfigState.overrides?.maxAircraft||profileById(liveOpsConfigState.activeProfile).maxAircraft,incidentCooldownSec:liveOpsConfigState.overrides?.incidentCooldownSec||profileById(liveOpsConfigState.activeProfile).incidentCooldownSec,last:liveOpsConfigState.lastEvaluation||null};
+  return {score:liveOpsConfigState.configScore,status:liveOpsConfigState.status,activeProfile:liveOpsConfigState.activeProfile,enabledFlags:Object.values(liveOpsConfigState.flags||{}).filter(Boolean).length,enabledKillSwitches:Object.values(liveOpsConfigState.killSwitches||{}).filter(Boolean).length,paceScale:liveOpsConfigState.overrides?.paceScale||liveOpsProfileById(liveOpsConfigState.activeProfile).paceScale,maxAircraft:liveOpsConfigState.overrides?.maxAircraft||liveOpsProfileById(liveOpsConfigState.activeProfile).maxAircraft,incidentCooldownSec:liveOpsConfigState.overrides?.incidentCooldownSec||liveOpsProfileById(liveOpsConfigState.activeProfile).incidentCooldownSec,last:liveOpsConfigState.lastEvaluation||null};
 }
 function renderLiveOpsConfigBoard(){
   try{

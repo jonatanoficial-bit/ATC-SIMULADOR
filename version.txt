@@ -1,9 +1,9 @@
 SKYWARD CONTROL
-Version: 1.62.0
-Phase: F62 — Sector Handoff, Approach/Departure Coordination & Control Room Center + Hotfix Anti-Retorno ao Lobby
-Build: SC-1.62.0-F62-20260630-1555
-Built at: 2026-06-30 15:55 BRT
-Channel: sector-handoff-coordination
+Version: 1.63.0
+Phase: F63 — Commercial Mobile-First Stability Release
+Build: SC-1.63.0-F63-20260724-0915
+Built at: 2026-07-24 09:15 BRT
+Channel: production
 Save schema: 3
 Contract schema: 2
 Test schema: 3

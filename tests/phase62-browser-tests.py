@@ -33,7 +33,7 @@ check('doc control room existe', (ROOT/'docs/ATC_HANDOFF_SECTORS_CONTROL_ROOM_F6
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('tower sector presente', any(s.get('id')=='TOWER' for s in cat.get('controlSectors',[])))
 check('approach to tower presente', any(h.get('id')=='APPROACH_TO_TOWER' for h in cat.get('handoffTypes',[])))

@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 
-export const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const RELEASE_CONFIG = path.join(ROOT, 'config', 'release.json');
 
 export function readJson(file) {
@@ -120,15 +121,14 @@ export function writeGeneratedFiles(root, metadata) {
 
   fs.writeFileSync(path.join(root, 'RELEASE.txt'), [
     metadata.product.toUpperCase(),
-    `Commercial evolution program — Phase ${metadata.phase.slice(1)}`,
     `Version: ${metadata.version}`,
     `Build: ${metadata.build}`,
     `Built: ${metadata.builtAt}`,
-    `Channel: ${metadata.channel.toUpperCase()}`,
-    `Status: ${metadata.phase} AUDITED / RELEASE PIPELINE LOCKED`,
+    'Mode: PRODUCTION',
+    'Status: RELEASE VALIDATED',
     ''
   ].join('\n'));
-  fs.writeFileSync(path.join(root, 'BUILD_NOTES.md'), `# Build Notes — ${metadata.build}\n\n## Identificação\n\n- Produto: ${metadata.product}\n- Versão: ${metadata.version}\n- Fase: ${metadata.phase} — ${metadata.phaseName}\n- Build: \`${metadata.build}\`\n- Data/hora: ${metadata.builtAt}\n- Canal: ${metadata.channel}\n- Save schema: ${metadata.saveSchema}\n- Contract schema: ${metadata.contractSchema}\n- Test schema: ${metadata.testSchema}\n- Save vault schema: ${metadata.saveVaultSchema}\n- PWA schema: ${metadata.pwaSchema}\n- Cache schema: ${metadata.cacheSchema}\n- UX schema: ${metadata.uxSchema}\n- Alvo: ${metadata.target}\n\n## Geração reproduzível\n\nA identificação desta build é gerada a partir de \`config/release.json\`. Não edite \`build-info.js\`, \`release-metadata.json\`, \`version.txt\`, \`RELEASE.txt\` ou este arquivo manualmente.\n\nExecute:\n\n\`\`\`bash\nnpm run release -- --version ${metadata.version} --phase ${metadata.phase} --phase-name "${metadata.phaseName}"\n\`\`\`\n\nPara validar uma build já empacotada:\n\n\`\`\`bash\nnpm test\nnpm run verify:integrity\n\`\`\`\n\n## Compatibilidade mantida\n\n- Celular horizontal: 844 × 390\n- Celular vertical: 390 × 844 nos menus; orientação horizontal durante o turno\n- Tablet: 1024 × 768\n- PC: 1440 × 900\n\n## Política anti-quebra\n\nA geração é interrompida quando há divergência de metadados, TypeScript inválido, contratos desatualizados, JavaScript inválido, JSON corrompido, referência de asset ausente, arquivo obrigatório faltando ou teste unitário reprovado, cenário Chromium reprovado, soak test instável ou teste de regressão reprovado. O pacote final recebe manifesto SHA-256 interno e checksum externo do ZIP.\n`);
+  fs.writeFileSync(path.join(root, 'BUILD_NOTES.md'), `# Build Notes — ${metadata.build}\n\n## Identificação\n\n- Produto: ${metadata.product}\n- Versão: ${metadata.version}\n- Fase interna: ${metadata.phase} — ${metadata.phaseName}\n- Build: \`${metadata.build}\`\n- Data/hora: ${metadata.builtAt}\n- Canal: ${metadata.channel}\n- Save schema: ${metadata.saveSchema}\n- Contract schema: ${metadata.contractSchema}\n- Test schema: ${metadata.testSchema}\n- Save vault schema: ${metadata.saveVaultSchema}\n- PWA schema: ${metadata.pwaSchema}\n- Cache schema: ${metadata.cacheSchema}\n- UX schema: ${metadata.uxSchema}\n- Alvo: ${metadata.target}\n\n## Geração reproduzível\n\nA identificação desta build é gerada a partir de \`config/release.json\`. Não edite \`build-info.js\`, \`release-metadata.json\`, \`version.txt\`, \`RELEASE.txt\` ou este arquivo manualmente.\n\nExecute:\n\n\`\`\`bash\nnpm run release -- --version ${metadata.version} --phase ${metadata.phase} --phase-name "${metadata.phaseName}" --channel production\n\`\`\`\n\nPara validar uma build já empacotada:\n\n\`\`\`bash\nnpm test\nnpm run verify:integrity\n\`\`\`\n\n## Compatibilidade validada\n\n- Celular horizontal: 844 × 390\n- Celular vertical: 390 × 844 nos menus; orientação horizontal durante o turno\n- Tablet: 1024 × 768\n- PC: 1440 × 900\n\n## Política anti-quebra\n\nA geração é interrompida quando há divergência de metadados, TypeScript inválido, contratos desatualizados, JavaScript inválido, JSON corrompido, referência de asset ausente, arquivo obrigatório faltando, teste unitário reprovado ou regressão comercial reprovada. A validação visual de navegador é documentada em \`TESTES-REALIZADOS.md\`. O pacote final recebe manifesto SHA-256 interno e checksum externo do ZIP.\n`);
 
   const historyPath = path.join(root, 'BUILD_HISTORY.json');
   let history = [];

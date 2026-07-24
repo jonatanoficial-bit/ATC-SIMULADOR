@@ -2,9 +2,9 @@
   "schema": 1,
   "pwaSchema": 1,
   "cacheSchema": 1,
-  "build": "SC-1.62.0-F62-20260630-1555",
-  "builtAt": "2026-06-30 15:55 BRT",
-  "cacheName": "skyward-control-1-sc-1.62.0-f62-20260630-1555",
+  "build": "SC-1.63.0-F63-20260724-0915",
+  "builtAt": "2026-07-24 09:15 BRT",
+  "cacheName": "skyward-control-1-sc-1.63.0-f63-20260724-0915",
   "scope": "./",
   "strategy": "versioned-precache-controlled-update-network-first-navigation",
   "files": [
@@ -83,8 +83,8 @@
     {
       "url": "./build-info.js",
       "file": "build-info.js",
-      "bytes": 842,
-      "sha256": "7c516e2d8975308671f483f8a2cb8b6d9ab044cf9874da9fab440f477b8794cf"
+      "bytes": 766,
+      "sha256": "93d0a5998744528885467d3824371b49d0df372f1a2f1b0f96df3218da880e0b"
     },
     {
       "url": "./data/adaptive-pace-workload.json",
@@ -275,14 +275,14 @@
     {
       "url": "./data/post-gold-master-publishing.json",
       "file": "data/post-gold-master-publishing.json",
-      "bytes": 3797,
-      "sha256": "9991f07172a460620ecd4b41396d8c835ccf6f61f7aac0e2fcc8b1654af6c72b"
+      "bytes": 3766,
+      "sha256": "5b7280cc4129516c95ce79ee29411cb2edcc4138bf800b352fd1d47f19a1fd67"
     },
     {
       "url": "./data/post-publish-healthcheck.json",
       "file": "data/post-publish-healthcheck.json",
-      "bytes": 3264,
-      "sha256": "42657acb17935fec471905cfd7650695fb5d02a7f0121622851e2bf8604be6c8"
+      "bytes": 3233,
+      "sha256": "ff30031f50ad667a5361d2e63b1351427051e29c4351ec55d6e4ce551f0f0a6c"
     },
     {
       "url": "./data/procedures-f16.json",
@@ -407,14 +407,14 @@
     {
       "url": "./index.html",
       "file": "index.html",
-      "bytes": 29327,
-      "sha256": "b75f40d69f8ed15db9175ae82b65e49cbd5c812d2661ed849c97e3f4afb76e3d"
+      "bytes": 29059,
+      "sha256": "fa163401bcccd2da0bfb23bf8db90e59369c6cf039e776d50a6ab3c5d8728b9f"
     },
     {
       "url": "./main.js",
       "file": "main.js",
-      "bytes": 934563,
-      "sha256": "4b52bf2bb5fbfc653faa0c71500108f7f506a18443b4f82aacb733310ca52478"
+      "bytes": 934731,
+      "sha256": "fa26d1b6a0eb51617a35a927fcdaff7846c09ee0da76bdbc841e1bdd0affd6a7"
     },
     {
       "url": "./manifest.webmanifest",
@@ -425,8 +425,8 @@
     {
       "url": "./style.css",
       "file": "style.css",
-      "bytes": 120029,
-      "sha256": "ca2d60660dbc2cea895e314e2fb04fa466f98c125c760a10a1f88ea59918c422"
+      "bytes": 121999,
+      "sha256": "7c1e4590828ff68baea34a28ee15a1df77cad811e4d0e3efd7472d10e4a382db"
     }
   ]
 }

@@ -1,0 +1,499 @@
+{
+  "schema": 1,
+  "suite": "current-release-regression",
+  "startedAt": "2026-07-24T12:33:52.791Z",
+  "finishedAt": "2026-07-24T12:34:03.934Z",
+  "passed": 61,
+  "failed": 0,
+  "total": 61,
+  "results": [
+    {
+      "file": "phase5-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 197,
+      "output": "Skyward Control F05 unit tests: 70/70 aprovados\nPASS  kernel executa isoladamente\nPASS  API global disponível\nPASS  schema de teste do kernel\nPASS  versão do kernel\nPASS  kernel congelado\nPASS  tabelas congeladas\nPASS  módulo registrado\nPASS  clamp -10 em [0,100]\nPASS  clamp 0 em [0,100]\nPASS  clamp 42 em [0,100]\nPASS  clamp 100 em [0,100]\nPASS  clamp 999 em [0,100]\nPASS  clamp -5 em [-10,-1]\nPASS  clamp -99 em [-10,-1]\nPASS  clamp 4.5 em [4,5]\nPASS  normalize heading -720\nPASS  normalize heading -370\nPASS  normalize heading -10\nPASS  normalize heading 0\nPASS  normalize heading 90\nPASS  normalize heading 359\nPASS  normalize heading 360\nPASS  normalize heading 725\nPASS  shortest turn 0->10\nPASS  shortest turn 10->0\nPASS  shortest turn 350->10\nPASS  shortest turn 10->350\nPASS  shortest turn 0->180\nPASS  shortest turn 180->0\nPASS  shortest turn 270->90\nPASS  shortest turn 90->270\nPASS  distance {\"x\":0,\"y\":0} {\"x\":3,\"y\":4}\nPASS  distance {\"x\":3,\"y\":4} {\"x\":0,\"y\":0}\nPASS  distance {\"x\":10,\"y\":10} {\"x\":10,\"y\":10}\nPASS  distance {\"x\":-2,\"y\":-3} {\"x\":1,\"y\":1}\nPASS  distance {\"x\":0,\"y\":0} {\"x\":6,\"y\":8}\nPASS  headingTo 0\nPASS  headingTo 90\nPASS  headingTo 180\nPASS  headingTo 270\nPASS  headingTo 45\nPASS  headingTo 225\nPASS  range 0-10 @ 0\nPASS  range 0-10 @ 1\nPASS  range 0-10 @ 0.5\nPASS  range -5-5 @ 0.25\nPASS  range 10-20 @ 2\nPASS  range 10-20 @ -2\nPASS  priority urgent/emergency\nPASS  priority warn/landing\nPASS  priority normal/takeoff\nPASS  priority normal/pushback\nPASS  priority warn/lowfuel\nPASS  priority warn/panpan\nPASS  priority normal/taxi\nPASS  priority unknown/unknown\nPASS  emergência supera pouso normal\nPASS  idade aumenta prioridade\nPASS  wake H-H x1\nPASS  wake H-M x1\nPASS  wake H-L x1\nPASS  wake M-M x1\nPASS  wake M-L x1\nPASS  wake L-L x1\nPASS  wake H-M x1.5\nPASS  wake X-X x1\nPASS  wake M-M x0.5\nPASS  wake usa tabela operacional injetada\nPASS  API não aceita mutação\nPASS  funções essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase6-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 243,
+      "output": "Skyward Control F06 unit tests: 24/24 aprovados\nPASS  API do vault criada\nPASS  schema do vault é 1\nPASS  SHA-256 conhecido\nPASS  serialização canônica independe da ordem\nPASS  hash canônico independe da ordem\nPASS  primeira transação é confirmada\nPASS  primeiro save ocupa slot primário\nPASS  segunda transação incrementa revisão\nPASS  segunda transação cria backup\nPASS  leitura retorna versão primária mais recente\nPASS  JSON corrompido aciona rollback automático\nPASS  save corrompido é enviado à quarentena\nPASS  rollback restaura slot primário válido\nPASS  adulteração do payload é detectada pelo SHA-256\nPASS  journal confirmado após commit interrompido\nPASS  journal confirmado é removido\nPASS  transação preparada incompleta sofre rollback\nPASS  envelope antigo é migrado automaticamente\nPASS  migração grava envelope no schema atual\nPASS  save legado sem envelope é importado\nPASS  save legado importado recebe integridade\nPASS  schema futuro desconhecido é rejeitado\nPASS  payload contratualmente inválido não é gravado\nPASS  diagnósticos registram commits e recuperações",
+      "error": ""
+    },
+    {
+      "file": "phase7-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 731,
+      "output": "Skyward Control F07 unit tests: 180/180 aprovados\nPASS  config legível\nPASS  manifest PWA legível\nPASS  manifesto de cache legível\nPASS  arquitetura modular legível\nPASS  fase F07+ configurada\nPASS  schemas PWA válidos\nPASS  build carimbada\nPASS  manifesto inicia no escopo relativo\nPASS  modo standalone e orientação landscape\nPASS  display override contém fullscreen\nPASS  tema escuro configurado\nPASS  três ícones PWA declarados\nPASS  ícone maskable declarado\nPASS  ícone 180px íntegro: icon-180.png\nPASS  ícone 192px íntegro: icon-192.png\nPASS  ícone 512px íntegro: icon-512.png\nPASS  ícone 512px íntegro: icon-maskable-512.png\nPASS  cache pertence à build atual\nPASS  nome de cache versionado\nPASS  estratégia de atualização controlada\nPASS  15+ recursos precacheados\nPASS  lista de cache sem duplicações\nPASS  lista de cache sem caminhos inseguros\nPASS  cache hash válido: assets/backgrounds/BG_AIRPORT_DAY_CLEAR_V1.png\nPASS  cache tamanho válido: assets/backgrounds/BG_AIRPORT_DAY_CLEAR_V1.png\nPASS  cache hash válido: assets/backgrounds/BG_AIRPORT_NIGHT_RAIN_V1.png\nPASS  cache tamanho válido: assets/backgrounds/BG_AIRPORT_NIGHT_RAIN_V1.png\nPASS  cache hash válido: assets/backgrounds/BG_CONTROL_TOWER_REALISTIC_V1.png\nPASS  cache tamanho válido: assets/backgrounds/BG_CONTROL_TOWER_REALISTIC_V1.png\nPASS  cache hash válido: assets/characters/CHAR_CONTROLLER_FEMALE01_V1.png\nPASS  cache tamanho válido: assets/characters/CHAR_CONTROLLER_FEMALE01_V1.png\nPASS  cache hash válido: assets/characters/CHAR_CONTROLLER_MALE01_V1.png\nPASS  cache tamanho válido: assets/characters/CHAR_CONTROLLER_MALE01_V1.png\nPASS  cache hash válido: assets/icons/icon-180.png\nPASS  cache tamanho válido: assets/icons/icon-180.png\nPASS  cache hash válido: assets/icons/icon-192.png\nPASS  cache tamanho válido: assets/icons/icon-192.png\nPASS  cache hash válido: assets/icons/icon-512.png\nPASS  cache tamanho válido: assets/icons/icon-512.png\nPASS  cache hash válido: assets/icons/icon-maskable-512.png\nPASS  cache tamanho válido: assets/icons/icon-maskable-512.png\nPASS  cache hash válido: assets/maps/MAP_KATL_AIRPORT_CLEAN_V1.png\nPASS  cache tamanho válido: assets/maps/MAP_KATL_AIRPORT_CLEAN_V1.png\nPASS  cache hash válido: assets/radar/RADAR_BASE_CLEAN_V1.png\nPASS  cache tamanho válido: assets/radar/RADAR_BASE_CLEAN_V1.png\nPASS  cache hash válido: assets/ui/UI_PANEL_DARK_GLASS_V1.png\nPASS  cache tamanho válido: assets/ui/UI_PANEL_DARK_GLASS_V1.png\nPASS  cache hash válido: build-info.js\nPASS  cache tamanho válido: build-info.js\nPASS  cache hash válido: data/adaptive-pace-workload.json\nPASS  cache tamanho válido: data/adaptive-pace-workload.json\nPASS  cache hash válido: data/ai-copilot-decision-support.json\nPASS  cache tamanho válido: data/ai-copilot-decision-support.json\nPASS  cache hash válido: data/aircraft-performance.json\nPASS  cache tamanho válido: data/aircraft-performance.json\nPASS  cache hash válido: data/aircraft.json\nPASS  cache tamanho válido: data/aircraft.json\nPASS  cache hash válido: data/airline-operations.json\nPASS  cache tamanho válido: data/airline-operations.json\nPASS  cache hash válido: data/airport-authority.json\nPASS  cache tamanho válido: data/airport-authority.json\nPASS  cache hash válido: data/airport-graphs.json\nPASS  cache tamanho válido: data/airport-graphs.json\nPASS  cache hash válido: data/airports.json\nPASS  cache tamanho válido: data/airports.json\nPASS  cache hash válido: data/arrival-departure-sequencer.json\nPASS  cache tamanho válido: data/arrival-departure-sequencer.json\nPASS  cache hash válido: data/asset-maintenance-reliability.json\nPASS  cache tamanho válido: data/asset-maintenance-reliability.json\nPASS  cache hash válido: data/campaign-progression.json\nPASS  cache tamanho válido: data/campaign-progression.json\nPASS  cache hash válido: data/career-ratings.json\nPASS  cache tamanho válido: data/career-ratings.json\nPASS  cache hash válido: data/cargo-logistics.json\nPASS  cache tamanho válido: data/cargo-logistics.json\nPASS  cache hash válido: data/control-room-ranking.json\nPASS  cache tamanho válido: data/control-room-ranking.json\nPASS  cache hash válido: data/crisis-command-center.json\nPASS  cache tamanho válido: data/crisis-command-center.json\nPASS  cache hash válido: data/digital-twin-predictive.json\nPASS  cache tamanho válido: data/digital-twin-predictive.json\nPASS  cache hash válido: data/dynamic-weather-atis-notam.json\nPASS  cache tamanho válido: data/dynamic-weather-atis-notam.json\nPASS  cache hash válido: data/economy-contracts.json\nPASS  cache tamanho válido: data/economy-contracts.json\nPASS  cache hash válido: data/emergency-response-disaster.json\nPASS  cache tamanho válido: data/emergency-response-disaster.json\nPASS  cache hash válido: data/environment-sustainability.json\nPASS  cache tamanho válido: data/environment-sustainability.json\nPASS  cache hash válido: data/gold-master-package.json\nPASS  cache tamanho válido: data/gold-master-package.json\nPASS  cache hash válido: data/ground-turnaround.json\nPASS  cache tamanho válido: data/ground-turnaround.json\nPASS  cache hash válido: data/incident-playbooks.json\nPASS  cache tamanho válido: data/incident-playbooks.json\nPASS  cache hash válido: data/infrastructure-expansion.json\nPASS  cache tamanho válido: data/infrastructure-expansion.json\nPASS  cache hash válido: data/instructor-debrief.json\nPASS  cache tamanho válido: data/instructor-debrief.json\nPASS  cache hash válido: data/international-campaign.json\nPASS  cache tamanho válido: data/international-campaign.json\nPASS  cache hash válido: data/live-ops-remote-config.json\nPASS  cache tamanho válido: data/live-ops-remote-config.json\nPASS  cache hash válido: data/multi-airport-network.json\nPASS  cache tamanho válido: data/multi-airport-network.json\nPASS  cache hash válido: data/network-flow-slots.json\nPASS  cache tamanho válido: data/network-flow-slots.json\nPASS  cache hash válido: data/non-aero-revenue.json\nPASS  cache tamanho válido: data/non-aero-revenue.json\nPASS  cache hash válido: data/passenger-reputation.json\nPASS  cache tamanho válido: data/passenger-reputation.json\nPASS  cache hash válido: data/post-gold-master-publishing.json\nPASS  cache tamanho válido: data/post-gold-master-publishing.json\nPASS  cache hash válido: data/post-publish-healthcheck.json\nPASS  cache tamanho válido: data/post-publish-healthcheck.json\nPASS  cache hash válido: data/procedures-f16.json\nPASS  cache tamanho válido: data/procedures-f16.json\nPASS  cache hash válido: data/public-ops-feedback.json\nPASS  cache tamanho válido: data/public-ops-feedback.json\nPASS  cache hash válido: data/pwa-update-manager.json\nPASS  cache tamanho válido: data/pwa-update-manager.json\nPASS  cache hash válido: data/radio-phraseology.json\nPASS  cache tamanho válido: data/radio-phraseology.json\nPASS  cache hash válido: data/release-candidate-qa.json\nPASS  cache tamanho válido: data/release-candidate-qa.json\nPASS  cache hash válido: data/replay-timeline-heatmap.json\nPASS  cache tamanho válido: data/replay-timeline-heatmap.json\nPASS  cache hash válido: data/revenue-management.json\nPASS  cache tamanho válido: data/revenue-management.json\nPASS  cache hash válido: data/safety-compliance-center.json\nPASS  cache tamanho válido: data/safety-compliance-center.json\nPASS  cache hash válido: data/scenario-mission-generator.json\nPASS  cache tamanho válido: data/scenario-mission-generator.json\nPASS  cache hash válido: data/sector-handoff-coordination.json\nPASS  cache tamanho válido: data/sector-handoff-coordination.json\nPASS  cache hash válido: data/security-cyber-defense.json\nPASS  cache tamanho válido: data/security-cyber-defense.json\nPASS  cache hash válido: data/stability-diagnostics.json\nPASS  cache tamanho válido: data/stability-diagnostics.json\nPASS  cache hash válido: data/surface-hotspots.json\nPASS  cache tamanho válido: data/surface-hotspots.json\nPASS  cache hash válido: data/terminal-flow.json\nPASS  cache tamanho válido: data/terminal-flow.json\nPASS  cache hash válido: data/training-academy-scenarios.json\nPASS  cache tamanho válido: data/training-academy-scenarios.json\nPASS  cache hash válido: data/training-coach-debriefing.json\nPASS  cache tamanho válido: data/training-coach-debriefing.json\nPASS  cache hash válido: data/ux-polish-presets.json\nPASS  cache tamanho válido: data/ux-polish-presets.json\nPASS  cache hash válido: data/weather-profiles.json\nPASS  cache tamanho válido: data/weather-profiles.json\nPASS  cache hash válido: data/workforce-staffing.json\nPASS  cache tamanho válido: data/workforce-staffing.json\nPASS  cache hash válido: data/world-airport-procedures.json\nPASS  cache tamanho válido: data/world-airport-procedures.json\nPASS  cache hash válido: index.html\nPASS  cache tamanho válido: index.html\nPASS  cache hash válido: main.js\nPASS  cache tamanho válido: main.js\nPASS  cache hash válido: manifest.webmanifest\nPASS  cache tamanho válido: manifest.webmanifest\nPASS  cache hash válido: style.css\nPASS  cache tamanho válido: style.css\nPASS  app shell completo\nPASS  service worker contém build atual\nPASS  service worker não força atualização de build ativa\nPASS  service worker remove apenas caches Skyward antigos\nPASS  navegação tem fallback offline\nPASS  recursos usam cache-first\nPASS  worker informa versão ao app\nPASS  HTML liga manifesto e Apple icon\nPASS  HTML possui painel PWA e banner offline\nPASS  runtime expõe API PWA congelada\nPASS  atualização salva progresso antes de ativar\nPASS  ciclo de vida protege progresso\nPASS  registro usa updateViaCache none\nPASS  fullscreen profissional e landscape integrados\nPASS  módulo PWA pertence à ordem oficial\nPASS  arquitetura geração 7+\nPASS  17+ módulos oficiais",
+      "error": ""
+    },
+    {
+      "file": "phase8-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 243,
+      "output": "Skyward Control F08 unit tests: 53/53 aprovados\nPASS  config legível\nPASS  metadata legível\nPASS  order legível\nPASS  runtime legível\nPASS  fase F08+ configurada\nPASS  UX schema válido\nPASS  build F08+ carimbada\nPASS  metadados F08 sincronizados\nPASS  17+ módulos oficiais\nPASS  módulo mobile na ordem oficial\nPASS  arquitetura geração 8+\nPASS  fonte expõe API congelada\nPASS  classificador de gestos existe\nPASS  quatro modos responsivos existem\nPASS  alvo de toque calculado\nPASS  gesto da borda esquerda abre pedidos\nPASS  gesto da borda direita abre ações\nPASS  gesto vertical fecha painel\nPASS  gestos horizontais alternam aeronaves\nPASS  toque longo abre ações\nPASS  toque duplo abre ações\nPASS  haptics respeita preferência\nPASS  preferências são persistidas\nPASS  painéis mutuamente exclusivos\nPASS  turno inicia radar-first\nPASS  badges de pedidos, tráfego e safety\nPASS  dock possui cinco botões\nPASS  tabs ARIA controlam painéis\nPASS  chip de aeronave selecionada presente\nPASS  guia de gestos presente\nPASS  toast móvel presente\nPASS  safe areas aplicadas\nPASS  dock usa cinco colunas\nPASS  painel lateral preserva radar\nPASS  touch target CSS variável\nPASS  modo tablet tem breakpoint próprio\nPASS  movimento reduzido respeitado\nPASS  bundle contém UX F08\nPASS  API F08 executa em isolamento\nPASS  API está congelada\nPASS  schema público correto\nPASS  844×390 classificado como mobile horizontal\nPASS  390×844 classificado como mobile retrato\nPASS  1024×768 classificado como tablet\nPASS  1440×900 classificado como desktop\nPASS  alvo móvel horizontal >=46px\nPASS  alvo móvel retrato >=48px\nPASS  alvo tablet >=44px\nPASS  swipe esquerdo reconhecido\nPASS  swipe direito reconhecido\nPASS  swipe para baixo reconhecido\nPASS  swipe horizontal próximo reconhecido\nPASS  movimento curto vira toque",
+      "error": ""
+    },
+    {
+      "file": "phase9-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 177,
+      "output": "Skyward Control F09 unit tests: 36/36 aprovados\nPASS  config legível\nPASS  metadata legível\nPASS  order legível\nPASS  runtime legível\nPASS  fase F09+ configurada\nPASS  desktop schema 1\nPASS  build F09+ carimbada\nPASS  metadados sincronizados\nPASS  18 módulos oficiais\nPASS  módulo desktop oficial\nPASS  arquitetura geração 9+\nPASS  manifesto consistente\nPASS  HUD desktop presente\nPASS  três modos de workspace presentes\nPASS  controles de painel presentes\nPASS  ajustes de largura presentes\nPASS  ajuda de atalhos presente\nPASS  CSS usa variáveis de workspace\nPASS  modo radar remove painéis\nPASS  modo análise amplia painéis\nPASS  tablet possui HUD touch-safe\nPASS  mobile oculta workspace desktop\nPASS  API desktop congelada\nPASS  preferências persistentes\nPASS  atalhos ignoram campos de edição\nPASS  bundle sincronizado\nPASS  API executa em isolamento\nPASS  viewport desktop\nPASS  viewport tablet\nPASS  viewport compacto\nPASS  clamp inferior\nPASS  clamp superior\nPASS  atalho N\nPASS  atalho Shift+A\nPASS  atalho 5 abre safety\nPASS  preferências saneadas",
+      "error": ""
+    },
+    {
+      "file": "phase10-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 157,
+      "output": "Skyward Control F10 unit tests: 41/41 aprovados\nPASS  config legível\nPASS  metadata legível\nPASS  order legível\nPASS  runtime legível\nPASS  fase F10+ configurada\nPASS  accessibility schema 1\nPASS  build F10+ carimbada\nPASS  schemas anteriores preservados\nPASS  módulo F10 oficial\nPASS  módulo F10 antes do bridge QA\nPASS  arquitetura geração 10\nPASS  manifesto consistente\nPASS  estratégia acessibilidade registrada\nPASS  painel de acessibilidade no HTML\nPASS  gatilhos de configurações presentes\nPASS  controles de visual presentes\nPASS  controles de áudio presentes\nPASS  controles de desempenho presentes\nPASS  CSS aplica escala e contraste\nPASS  CSS aplica modos de daltonismo\nPASS  CSS reduz movimento\nPASS  CSS alvos grandes\nPASS  API F10 congelada\nPASS  preferências F10 persistem\nPASS  atalhos F10 presentes\nPASS  bundle sincronizado\nPASS  API executa em isolamento\nPASS  schema API 1\nPASS  clamp inferior\nPASS  clamp superior\nPASS  sanitize escala inválida\nPASS  sanitize contraste alto\nPASS  sanitize volume limita\nPASS  preferência visual aplica dataset\nPASS  escala cria variável CSS\nPASS  alvos grandes criam classe\nPASS  reduzir movimento cria classe\nPASS  preferências salvas\nPASS  resumo legível\nPASS  self check aprovado\nPASS  reset retorna padrão",
+      "error": ""
+    },
+    {
+      "file": "phase11-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 124,
+      "output": "Skyward Control F11 unit tests: 20/20 aprovados\nPASS  metadados F11+\nPASS  marcador de módulo\nPASS  API congelada no código\nPASS  seed hash implementado\nPASS  PRNG mulberry implementado\nPASS  exportação JSON implementada\nPASS  importação validada implementada\nPASS  wrappers start/command\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  hash determinístico\nPASS  selfcheck determinístico\nPASS  mesma seed repete sequência\nPASS  seed diferente muda sequência\nPASS  export schema/build\nPASS  export contém evento\nPASS  checksum estável\nPASS  import aceita payload\nPASS  estado resumo seguro\nPASS  storage recebe último replay",
+      "error": ""
+    },
+    {
+      "file": "phase12-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 133,
+      "output": "Skyward Control F12 unit tests: 19/19 aprovados\nPASS  metadados F12+\nPASS  marcador de módulo\nPASS  API congelada no código\nPASS  catálogo JSON schema 1\nPASS  catálogo possui perfis suficientes\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  B752 é heavy wake\nPASS  E190 tem VREF menor que B752\nPASS  B77W consome mais que A20N\nPASS  decolagem acelera respeitando rotação\nPASS  decolagem sobe com climb fpm\nPASS  aproximação desacelera\nPASS  aproximação desce\nPASS  pouso rápido gera risco\nPASS  final busca VREF\nPASS  baixa energia detectada\nPASS  catálogo externo validado",
+      "error": ""
+    },
+    {
+      "file": "phase13-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 129,
+      "output": "Skyward Control F13 unit tests: 23/23 aprovados\nPASS  metadados F13+\nPASS  módulo F13 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo cobre 5 aeroportos\nPASS  SBGR possui múltiplas taxiways\nPASS  KATL possui pistas múltiplas\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  SBGR retornado\nPASS  apply sincroniza pista\nPASS  apply carrega gates\nPASS  apply carrega holding points\nPASS  apply registra secundárias\nPASS  runway heading coerente\nPASS  rota pushback existe\nPASS  rota taxi existe\nPASS  rota lineup existe\nPASS  stepSurfaceRoute progride\nPASS  saída de pista encontrada\nPASS  rota vacate existe\nPASS  summary reflete grafo",
+      "error": ""
+    },
+    {
+      "file": "phase14-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 129,
+      "output": "Skyward Control F14 unit tests: 16/16 aprovados\nPASS  metadados F14+\nPASS  módulo F14 identificado\nPASS  API congelada\nPASS  catálogo hotspots schema 1\nPASS  hotspots cobrem 5 aeroportos\nPASS  KATL possui 3 hotspots\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  hotspots SBGR retornam\nPASS  runway incursion detectada\nPASS  taxi conflict detectado\nPASS  surface state danger\nPASS  line up bloqueado por incursion/short final\nPASS  taxi aprovado fora de conflito\nPASS  hotspot ativo identificado",
+      "error": ""
+    },
+    {
+      "file": "phase15-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 107,
+      "output": "Skyward Control F15 unit tests: 17/17 aprovados\nPASS  metadados F15+\nPASS  módulo F15 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo tem 5 perfis\nPASS  perfil LIFR presente\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  VMC aplica VFR\nPASS  FOG aplica LIFR\nPASS  risco severo maior que VMC\nPASS  pouso em TS gera alerta ou bloqueio\nPASS  decolagem bloqueia crosswind severo\nPASS  risco de pouso climático positivo\nPASS  risco de decolagem climático positivo\nPASS  perfil por aeroporto retorna válido",
+      "error": ""
+    },
+    {
+      "file": "phase16-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 98,
+      "output": "Skyward Control F16 unit tests: 16/16 aprovados\nPASS  metadados F16+\nPASS  módulo F16 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo cobre 3 aeroportos\nPASS  SBGR possui SID STAR ILS RNAV missed hold\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  initialize carrega SBGR\nPASS  arrival recebe procedimento\nPASS  stepGuidance avança fix\nPASS  departure recebe SID\nPASS  missed approach atribuído\nPASS  holding atribuído\nPASS  mínimos por RVR consultáveis",
+      "error": ""
+    },
+    {
+      "file": "phase17-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 124,
+      "output": "Skyward Control F17 unit tests: 16/16 aprovados\nPASS  metadados F17+\nPASS  módulo F17 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo licenças e ratings\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  supervisor por XP\nPASS  senior por turnos e segurança\nPASS  safety diferencia turno bom e ruim\nPASS  evaluate gera XP carreira\nPASS  evaluate registra histórico\nPASS  fadiga aumenta após turno\nPASS  descanso reduz fadiga\nPASS  bandas de reputação funcionam",
+      "error": ""
+    },
+    {
+      "file": "phase18-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 193,
+      "output": "Skyward Control F18 unit tests: 16/16 aprovados\nPASS  metadados F18+\nPASS  módulo F18 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo orçamentos e contratos\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  budget SBGR válido\nPASS  eficiência diferencia turno bom e ruim\nPASS  delay operacional positivo\nPASS  contratos geram avaliação\nPASS  evaluate gera resultado econômico\nPASS  histórico econômico registra turno\nPASS  turno ruim gera multas\nPASS  bandas econômicas funcionam",
+      "error": ""
+    },
+    {
+      "file": "phase19-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 272,
+      "output": "Skyward Control F19 unit tests: 16/16 aprovados\nPASS  metadados F19+\nPASS  módulo F19 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo incidentes e agências\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  incidente inicia\nPASS  alvo vira emergência\nPASS  pista fecha em incidente crítico\nPASS  clearance bloqueado com pista fechada\nPASS  score de resolução alto após ações\nPASS  incidente resolvido e histórico\nPASS  impacto econômico registrado\nPASS  reabertura forçada funciona",
+      "error": ""
+    },
+    {
+      "file": "phase20-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 396,
+      "output": "Skyward Control F20 unit tests: 18/18 aprovados\nPASS  metadados F20+\nPASS  módulo F20 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo hubs rotas slots\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  rota SBGR válida\nPASS  política de slot válida\nPASS  compliance cai com atraso\nPASS  delay de rede positivo\nPASS  bancos protegem conexões\nPASS  alternados acionados\nPASS  evaluate gera network shift\nPASS  histórico network registra turno\nPASS  risk retorna objeto operacional\nPASS  impacto econômico consultável",
+      "error": ""
+    },
+    {
+      "file": "phase21-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 132,
+      "output": "Skyward Control F21 unit tests: 17/17 aprovados\nPASS  metadados F21+\nPASS  módulo F21 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo salas ranking métricas\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  cria sala network\nPASS  snapshot completo\nPASS  código de replay prefixado\nPASS  parse preserva replay\nPASS  share salva replay\nPASS  complete atualiza ranking\nPASS  import replay funciona\nPASS  comparação escolhe melhor turno\nPASS  tier master válido",
+      "error": ""
+    },
+    {
+      "file": "phase22-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 121,
+      "output": "Skyward Control F22 unit tests: 15/15 aprovados\nPASS  metadados F22+\nPASS  módulo F22 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo layouts onboarding acessibilidade\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  layout mobile landscape correto\nPASS  layout portrait safe correto\nPASS  apply responsive retorna layout\nPASS  acessibilidade alto contraste aplicada\nPASS  onboarding retorna card\nPASS  release readiness alto\nPASS  status contém readiness",
+      "error": ""
+    },
+    {
+      "file": "phase23-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 132,
+      "output": "Skyward Control F23 unit tests: 16/16 aprovados\nPASS  metadados F23+\nPASS  módulo F23 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo gates tutorial publication\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  tutorial possui progresso\nPASS  tutorial aceita métricas\nPASS  balance saudável aprovado\nPASS  gates RC calculados\nPASS  publication checklist disponível\nPASS  evaluate gera entry RC\nPASS  status contém tutorial/gates/publication",
+      "error": ""
+    },
+    {
+      "file": "phase24-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 132,
+      "output": "Skyward Control F24 unit tests: 14/14 aprovados\nPASS  metadados F24+\nPASS  módulo F24 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo gates manual store\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  gates GM calculados\nPASS  store checklist disponível\nPASS  manual possui seções\nPASS  init retorna gates\nPASS  evaluate gera entry GM\nPASS  status contém store manual notes",
+      "error": ""
+    },
+    {
+      "file": "phase25-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 115,
+      "output": "Skyward Control F25 unit tests: 14/14 aprovados\nPASS  metadados F25+\nPASS  módulo F25 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo device screenshot publishing\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  bug minor registrado\nPASS  readiness publicação alta\nPASS  comandos Git Bash corretos\nPASS  status contém github pages\nPASS  matriz exige QA humano",
+      "error": ""
+    },
+    {
+      "file": "phase26-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 132,
+      "output": "Skyward Control F26 unit tests: 14/14 aprovados\nPASS  metadados F26+\nPASS  módulo F26 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo health hotfix promotion\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  captura manual registrada\nPASS  hotfix aberto\nPASS  health avaliado\nPASS  advice retorna regra\nPASS  status contém catálogo",
+      "error": ""
+    },
+    {
+      "file": "phase27-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 123,
+      "output": "Skyward Control F27 unit tests: 16/16 aprovados\nPASS  metadados F27+\nPASS  módulo F27 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo feedback telemetria hotfix\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera sessão\nPASS  feedback registrado\nPASS  bug crítico registrado\nPASS  hotfix plan gerado\nPASS  summary detecta hotfix required\nPASS  bug fechado melhora status\nPASS  dossiê exportável\nPASS  status contém catálogo",
+      "error": ""
+    },
+    {
+      "file": "phase28-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 118,
+      "output": "Skyward Control F28 unit tests: 15/15 aprovados\nPASS  metadados F28+\nPASS  módulo F28 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo tracks missions exams\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  start missão básica\nPASS  missão saudável aprova\nPASS  exame iniciado\nPASS  falha gera remediação\nPASS  progresso calculado\nPASS  status contém catálogo\nPASS  trilhas avançadas presentes",
+      "error": ""
+    },
+    {
+      "file": "phase29-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 163,
+      "output": "Skyward Control F29 unit tests: 15/15 aprovados\nPASS  metadados F29+\nPASS  módulo F29 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo coach cards rules\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  debrief ruim gera remediação\nPASS  debrief bom gera score\nPASS  progress contém coach score\nPASS  status contém catálogo\nPASS  cards essenciais presentes\nPASS  badges essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase30-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 233,
+      "output": "Skyward Control F30 unit tests: 15/15 aprovados\nPASS  metadados F30+\nPASS  módulo F30 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo regiões temporadas contratos\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  turno saudável passa contrato\nPASS  turno ruim falha segurança\nPASS  progress contém contrato\nPASS  status contém catálogo\nPASS  contrato KATL presente\nPASS  temporadas avançadas presentes",
+      "error": ""
+    },
+    {
+      "file": "phase31-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 248,
+      "output": "Skyward Control F31 unit tests: 15/15 aprovados\nPASS  metadados F31+\nPASS  módulo F31 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo airlines banks SLA\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  pedido operacional criado\nPASS  SLA saudável aprovado\nPASS  SLA ruim cai\nPASS  progress contém Airline Ops\nPASS  status contém catálogo\nPASS  companhias principais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase32-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 161,
+      "output": "Skyward Control F32 unit tests: 15/15 aprovados\nPASS  metadados F32+\nPASS  módulo F32 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo terminals gates flows\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  evento terminal criado\nPASS  experiência calculada\nPASS  evento fechado reduz pressão\nPASS  progress contém terminal\nPASS  status contém catálogo\nPASS  fluxos essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase33-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 155,
+      "output": "Skyward Control F33 unit tests: 15/15 aprovados\nPASS  metadados F33+\nPASS  módulo F33 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo crises ações recovery\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  crise cyber criada\nPASS  ação de comando registrada\nPASS  crise avaliada\nPASS  progress contém recovery\nPASS  status contém catálogo\nPASS  ground stop presente",
+      "error": ""
+    },
+    {
+      "file": "phase34-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 166,
+      "output": "Skyward Control F34 unit tests: 15/15 aprovados\nPASS  metadados F34+\nPASS  módulo F34 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo domains severity root cap\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  auditoria gera achados\nPASS  achado tem causa e CAP\nPASS  fechamento de achado funciona\nPASS  progress contém SMS\nPASS  status contém catálogo\nPASS  domínios essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase35-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 142,
+      "output": "Skyward Control F35 unit tests: 15/15 aprovados\nPASS  metadados F35+\nPASS  módulo F35 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo projects maintenance funding\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  obra iniciada\nPASS  manutenção registrada\nPASS  infra avaliada\nPASS  progress contém CAPEX\nPASS  status contém catálogo\nPASS  projetos essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase36-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 136,
+      "output": "Skyward Control F36 unit tests: 15/15 aprovados\nPASS  metadados F36+\nPASS  módulo F36 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo metrics initiatives events\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  iniciativa verde criada\nPASS  evento ambiental criado\nPASS  ESG avaliado\nPASS  progress contém ESG\nPASS  status contém catálogo\nPASS  métricas essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase37-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 143,
+      "output": "Skyward Control F37 unit tests: 15/15 aprovados\nPASS  metadados F37+\nPASS  módulo F37 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo revenue costs deals\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  alavanca preço aplicada\nPASS  contrato comercial criado\nPASS  relatório financeiro calculado\nPASS  progress contém finanças\nPASS  status contém catálogo\nPASS  fontes essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase38-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 143,
+      "output": "Skyward Control F38 unit tests: 16/16 aprovados\nPASS  metadados F38+\nPASS  módulo F38 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo roles training hiring\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  escala aplicada\nPASS  treinamento registrado\nPASS  contratação registrada\nPASS  workforce avaliado\nPASS  progress contém workforce\nPASS  status contém catálogo\nPASS  funções essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase39-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 194,
+      "output": "Skyward Control F39 unit tests: 15/15 aprovados\nPASS  metadados F39+\nPASS  módulo F39 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo metrics programs complaints\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  programa XP criado\nPASS  reclamação criada\nPASS  reputação avaliada\nPASS  progress contém reputação\nPASS  status contém catálogo\nPASS  métricas essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase40-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 216,
+      "output": "Skyward Control F40 unit tests: 16/16 aprovados\nPASS  metadados F40+\nPASS  módulo F40 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo airports routeBanks policies\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  política aplicada\nPASS  interrupção criada\nPASS  ação regional criada\nPASS  rede avaliada\nPASS  progress contém rede\nPASS  status contém catálogo\nPASS  aeroportos essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase41-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 225,
+      "output": "Skyward Control F41 unit tests: 15/15 aprovados\nPASS  metadados F41+\nPASS  módulo F41 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo units scenarios programs\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  programa ARFF criado\nPASS  incidente criado\nPASS  emergência avaliada\nPASS  progress contém emergência\nPASS  status contém catálogo\nPASS  unidades essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase42-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 167,
+      "output": "Skyward Control F42 unit tests: 15/15 aprovados\nPASS  metadados F42+\nPASS  módulo F42 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo domains threats programs\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  programa SOC criado\nPASS  ameaça criada\nPASS  segurança avaliada\nPASS  progress contém segurança\nPASS  status contém catálogo\nPASS  domínios essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase43-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 144,
+      "output": "Skyward Control F43 unit tests: 15/15 aprovados\nPASS  metadados F43+\nPASS  módulo F43 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo assets failures programs\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  programa manutenção criado\nPASS  falha criada\nPASS  manutenção avaliada\nPASS  progress contém manutenção\nPASS  status contém catálogo\nPASS  ativos essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase44-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 157,
+      "output": "Skyward Control F44 unit tests: 16/16 aprovados\nPASS  metadados F44+\nPASS  módulo F44 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo signals models plays risks\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  play what-if criado\nPASS  risco preditivo criado\nPASS  forecast criado\nPASS  digital twin avaliado\nPASS  progress contém digital twin\nPASS  status contém catálogo\nPASS  sinais essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase45-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 148,
+      "output": "Skyward Control F45 unit tests: 15/15 aprovados\nPASS  metadados F45+\nPASS  módulo F45 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo domains rules modes\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  modo aplicado\nPASS  alerta criado\nPASS  copiloto avaliado\nPASS  progress contém copiloto\nPASS  status contém catálogo\nPASS  domínios essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase46-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 138,
+      "output": "Skyward Control F46 unit tests: 11/11 aprovados\nPASS  metadados F46+\nPASS  módulo F46 identificado\nPASS  API congelada\nPASS  catálogo completo\nPASS  API executa\nPASS  selfcheck aprovado\nPASS  programa criado\nPASS  issue criado\nPASS  avaliação válida\nPASS  progress válido\nPASS  domínios essenciais",
+      "error": ""
+    },
+    {
+      "file": "phase47-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 149,
+      "output": "Skyward Control F47 unit tests: 15/15 aprovados\nPASS  metadados F47+\nPASS  módulo F47 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo processes delays programs\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  programa de solo criado\nPASS  atraso de solo criado\nPASS  turnaround avaliado\nPASS  progress contém solo\nPASS  status contém catálogo\nPASS  processos essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase48-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 177,
+      "output": "Skyward Control F48 unit tests: 16/16 aprovados\nPASS  metadados F48+\nPASS  módulo F48 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo processes disruptions programs\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  programa cargo criado\nPASS  shipment criado\nPASS  disrupção cargo criada\nPASS  cargo avaliado\nPASS  progress contém cargo\nPASS  status contém catálogo\nPASS  processos essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase49-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 210,
+      "output": "Skyward Control F49 unit tests: 15/15 aprovados\nPASS  metadados F49+\nPASS  módulo F49 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo zones incidents programs\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  programa terminal criado\nPASS  incidente terminal criado\nPASS  terminal avaliado\nPASS  progress contém terminal\nPASS  status contém catálogo\nPASS  zonas essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase50-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 321,
+      "output": "Skyward Control F50 unit tests: 15/15 aprovados\nPASS  metadados F50+\nPASS  módulo F50 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo channels incidents programs\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  programa comercial criado\nPASS  incidente comercial criado\nPASS  non-aero avaliado\nPASS  progress contém non-aero\nPASS  status contém catálogo\nPASS  canais essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase51-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 207,
+      "output": "Skyward Control F51 unit tests: 14/14 aprovados\nPASS  metadados F51+\nPASS  módulo F51 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo profiles policies bands\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  tuning gera ritmo\nPASS  progress contém workload\nPASS  limite mobile conservador\nPASS  avaliação final válida\nPASS  status contém catálogo",
+      "error": ""
+    },
+    {
+      "file": "phase52-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 126,
+      "output": "Skyward Control F52 unit tests: 15/15 aprovados\nPASS  metadados F52+\nPASS  módulo F52 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo signals failures actions\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  erro classificado\nPASS  safe mode registrado\nPASS  diagnóstico válido\nPASS  progress contém estabilidade\nPASS  export diagnóstico válido\nPASS  status contém catálogo",
+      "error": ""
+    },
+    {
+      "file": "phase53-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 112,
+      "output": "Skyward Control F53 unit tests: 14/14 aprovados\nPASS  metadados F53+\nPASS  módulo F53 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo signals risks actions\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  status contém catálogo\nPASS  progress contém update\nPASS  avaliação válida\nPASS  export relatório válido\nPASS  ações essenciais presentes",
+      "error": ""
+    },
+    {
+      "file": "phase54-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 147,
+      "output": "Skyward Control F54 unit tests: 16/16 aprovados\nPASS  metadados F54+\nPASS  módulo F54 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo profiles flags switches\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  perfil seguro aplicado\nPASS  flag altera valor\nPASS  kill switch altera valor\nPASS  avaliação válida\nPASS  progress contém live ops\nPASS  status contém catálogo\nPASS  safe mode aplica guard",
+      "error": ""
+    },
+    {
+      "file": "phase55-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 127,
+      "output": "Skyward Control F55 unit tests: 15/15 aprovados\nPASS  metadados F55+\nPASS  módulo F55 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo templates events objectives\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  missão inicia\nPASS  evento agenda\nPASS  avaliação válida\nPASS  progress contém missão\nPASS  status contém catálogo\nPASS  nota boa sem falhas",
+      "error": ""
+    },
+    {
+      "file": "phase56-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 126,
+      "output": "Skyward Control F56 unit tests: 14/14 aprovados\nPASS  metadados F56+\nPASS  módulo F56 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo chapters ranks achievements\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  avaliação gera xp\nPASS  conquistas liberadas\nPASS  progress contém carreira\nPASS  status contém catálogo\nPASS  licenças/ranks consistentes",
+      "error": ""
+    },
+    {
+      "file": "phase57-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 142,
+      "output": "Skyward Control F57 unit tests: 14/14 aprovados\nPASS  metadados F57+\nPASS  módulo F57 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo areas errors drills\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  avaliação gera debrief\nPASS  treino recomendado existe\nPASS  falhas detectadas\nPASS  progress contém debrief\nPASS  status contém catálogo",
+      "error": ""
+    },
+    {
+      "file": "phase58-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 131,
+      "output": "Skyward Control F58 unit tests: 15/15 aprovados\nPASS  metadados F58+\nPASS  módulo F58 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo tracks bookmarks heatmap\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  bookmark cria evento\nPASS  avaliação gera replay\nPASS  heatmap detecta risco\nPASS  export completo válido\nPASS  progress contém replay\nPASS  status contém catálogo",
+      "error": ""
+    },
+    {
+      "file": "phase59-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 172,
+      "output": "Skyward Control F59 unit tests: 15/15 aprovados\nPASS  metadados F59+\nPASS  módulo F59 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo airports procedures routes\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  aeroporto desbloqueado por XP\nPASS  procedimento aplicado\nPASS  rota aplicada\nPASS  avaliação gera airport score\nPASS  progress contém aeroporto\nPASS  status contém catálogo",
+      "error": ""
+    },
+    {
+      "file": "phase60-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 283,
+      "output": "Skyward Control F60 unit tests: 14/14 aprovados\nPASS  metadados F60+\nPASS  módulo F60 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo weather atis notams\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  tempestade gera radar/notam\nPASS  avaliação gera weather score\nPASS  vento cruzado detectado\nPASS  progress contém weather\nPASS  status contém catálogo",
+      "error": ""
+    },
+    {
+      "file": "phase61-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 317,
+      "output": "Skyward Control F61 unit tests: 14/14 aprovados\nPASS  metadados F61+\nPASS  módulo F61 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo arrivals departures holding\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  auto escolhe fluxo\nPASS  policy aplicada\nPASS  avaliação gera flow score\nPASS  progress contém flow\nPASS  status contém catálogo",
+      "error": ""
+    },
+    {
+      "file": "phase62-unit-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 182,
+      "output": "Skyward Control F62 unit tests: 14/14 aprovados\nPASS  metadados F62+\nPASS  módulo F62 identificado\nPASS  API congelada\nPASS  catálogo schema 1\nPASS  catálogo sectors handoffs rules\nPASS  API executa em isolamento\nPASS  schema 1\nPASS  selfcheck aprovado\nPASS  init gera estado\nPASS  handoff cria transferência\nPASS  refresh gera setor\nPASS  avaliação gera handoff score\nPASS  progress contém setor\nPASS  status contém catálogo",
+      "error": ""
+    },
+    {
+      "file": "phase7-service-worker-tests.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 179,
+      "output": "Skyward Control F07 Service Worker: 19/19 aprovados\nPASS  handlers install/activate/message/fetch registrados\nPASS  install cria cache da build atual\nPASS  install precacheia todos os recursos declarados\nPASS  primeira instalação chama skipWaiting\nPASS  activate remove somente cache Skyward antigo\nPASS  activate preserva cache atual\nPASS  activate preserva cache de terceiros\nPASS  activate reivindica clientes\nPASS  GET_VERSION responde com build correta\nPASS  GET_VERSION responde com cache correto\nPASS  SKIP_WAITING autorizado aciona ativação\nPASS  recurso estático é servido do cache offline\nPASS  navegação offline retorna app shell\nPASS  recurso ausente offline retorna 503 controlado\nPASS  recurso online é retornado pela rede\nPASS  recurso online same-origin é armazenado no cache\nPASS  fetch de outra origem é ignorado pelo worker\nPASS  requisição não GET é ignorada\nPASS  rede foi chamada apenas quando necessário",
+      "error": ""
+    },
+    {
+      "file": "pipeline-guard.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 159,
+      "output": "Pipeline guard: 18/18 aprovadas\nPASS  configuração válida aceita\nPASS  SemVer inválido bloqueado\nPASS  fase inválida bloqueada\nPASS  schema inválido bloqueado\nPASS  contract schema inválido bloqueado\nPASS  test schema inválido bloqueado\nPASS  save vault schema inválido bloqueado\nPASS  PWA schema inválido bloqueado\nPASS  cache schema inválido bloqueado\nPASS  UX schema inválido bloqueado\nPASS  desktop schema inválido bloqueado\nPASS  accessibility schema inválido bloqueado\nPASS  replay schema inválido bloqueado\nPASS  aircraft performance schema inválido bloqueado\nPASS  build determinística em BRT\nPASS  timestamp BRT determinístico\nPASS  manifesto inclui arquivo\nPASS  adulteração muda SHA-256",
+      "error": ""
+    },
+    {
+      "file": "commercial-release-regression.mjs",
+      "ok": true,
+      "exitCode": 0,
+      "durationMs": 332,
+      "output": "Commercial release regression: 20/20 approved\nPASS  versão sincronizada\nPASS  build sincronizada\nPASS  fase interna atual\nPASS  canal de produção\nPASS  runtime modular sincronizado\nPASS  bundle gerado\nPASS  service worker versionado\nPASS  sem dependências runtime\nPASS  TypeScript fixado como ferramenta de desenvolvimento\nPASS  bundle sem erro de sintaxe\nPASS  interface pública sem linguagem interna\nPASS  interface mostra somente a versão comercial\nPASS  perfil mobile protegido contra overflow\nPASS  alvos touch mínimos\nPASS  modo retrato orienta o usuário\nPASS  painéis administrativos ocultos\nPASS  release sem caminho pessoal Windows\nPASS  release sem caminho pessoal Git Bash\nPASS  sem colisões globais entre módulos\nPASS  cache PWA referencia somente arquivos existentes",
+      "error": ""
+    }
+  ]
+}

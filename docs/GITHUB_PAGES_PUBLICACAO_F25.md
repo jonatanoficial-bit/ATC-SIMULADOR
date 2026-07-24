@@ -2,14 +2,14 @@
 
 ## Caminhos oficiais
 
-- Windows: `C:\Users\jonat\Desktop\GAME\¨2026\ATC 3 NOVO`
-- Git Bash: `/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO`
+- Windows: `<PROJECT_ROOT>`
+- Git Bash: `<PROJECT_ROOT>`
 - Repositório: `https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git`
 
 ## Comandos
 
 ```bash
-cd "/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO"
+cd "<PROJECT_ROOT>"
 git merge --abort 2>/dev/null || true
 git status
 git remote set-url origin https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git

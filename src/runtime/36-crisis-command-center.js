@@ -55,7 +55,7 @@ function saveCrisisCommand(){
   return crisisCommandState;
 }
 function crisisById(id){ return CRISIS_COMMAND_CATALOG.crisisTypes.find(c=>c.id===id)||CRISIS_COMMAND_CATALOG.crisisTypes[0]; }
-function actionById(id){ return CRISIS_COMMAND_CATALOG.commandActions.find(a=>a.id===id)||CRISIS_COMMAND_CATALOG.commandActions[0]; }
+function crisisActionById(id){ return CRISIS_COMMAND_CATALOG.commandActions.find(a=>a.id===id)||CRISIS_COMMAND_CATALOG.commandActions[0]; }
 function scoreBand(score){ return CRISIS_COMMAND_CATALOG.scoreBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||CRISIS_COMMAND_CATALOG.scoreBands.at(-1); }
 function triggerCrisis(id='GROUND_STOP', note=''){
   loadCrisisCommand();
@@ -69,7 +69,7 @@ function triggerCrisis(id='GROUND_STOP', note=''){
 }
 function takeCrisisAction(id='ACTIVATE_EOC'){
   loadCrisisCommand();
-  const action=actionById(id);
+  const action=crisisActionById(id);
   const item={id:`CAC-${String(Date.now()).slice(-6)}`,actionId:action.id,name:action.name,cost:action.cost,at:new Date().toISOString()};
   crisisCommandState.actionsTaken.unshift(item);
   crisisCommandState.actionsTaken=crisisCommandState.actionsTaken.slice(0,20);

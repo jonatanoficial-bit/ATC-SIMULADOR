@@ -50,10 +50,10 @@ function getViewportClass(){
     return 'DESKTOP_STANDARD';
   }catch(e){return 'MOBILE_STANDARD';}
 }
-function profileById(id){return ADAPTIVE_PACE_CATALOG.deviceProfiles.find(p=>p.id===id)||ADAPTIVE_PACE_CATALOG.deviceProfiles[1];}
-function policyById(id){return ADAPTIVE_PACE_CATALOG.pacePolicies.find(p=>p.id===id)||ADAPTIVE_PACE_CATALOG.pacePolicies[2];}
+function adaptiveProfileById(id){return ADAPTIVE_PACE_CATALOG.deviceProfiles.find(p=>p.id===id)||ADAPTIVE_PACE_CATALOG.deviceProfiles[1];}
+function adaptivePolicyById(id){return ADAPTIVE_PACE_CATALOG.pacePolicies.find(p=>p.id===id)||ADAPTIVE_PACE_CATALOG.pacePolicies[2];}
 function bandForWorkload(score){return ADAPTIVE_PACE_CATALOG.workloadBands.find(b=>score>=b.min&&score<=b.max)||ADAPTIVE_PACE_CATALOG.workloadBands.at(-1);}
-function setAdaptivePacePolicy(id='CAREER'){loadAdaptivePace();adaptivePaceState.policy=policyById(id).id;saveAdaptivePace();return adaptivePaceState;}
+function setAdaptivePacePolicy(id='CAREER'){loadAdaptivePace();adaptivePaceState.policy=adaptivePolicyById(id).id;saveAdaptivePace();return adaptivePaceState;}
 function estimateWorkload(statsObj={}){
   const planesCount=Array.isArray(window.planes)?window.planes.length:Number(statsObj.activePlanes||0);
   const requestCount=Array.isArray(window.pendingRequests)?window.pendingRequests.length:Number(statsObj.pendingRequests||0);
@@ -68,8 +68,8 @@ function estimateWorkload(statsObj={}){
 }
 function tuneAdaptivePace(statsObj={},reason='runtime'){
   loadAdaptivePace();
-  const profile=profileById(getViewportClass());
-  const policy=policyById(adaptivePaceState.policy);
+  const profile=adaptiveProfileById(getViewportClass());
+  const policy=adaptivePolicyById(adaptivePaceState.policy);
   const workload=estimateWorkload(statsObj);
   const band=bandForWorkload(workload);
   let pace=profile.paceMultiplier*policy.paceBias;

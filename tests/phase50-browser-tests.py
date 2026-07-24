@@ -29,7 +29,7 @@ check('doc dutyfree existe', (ROOT/'docs/DUTY_FREE_PARKING_LOUNGES_CONCESSOES_F5
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('duty free presente', any(c.get('id')=='DUTY_FREE' for c in cat.get('commercialChannels',[])))
 check('parking presente', any(c.get('id')=='PARKING' for c in cat.get('commercialChannels',[])))

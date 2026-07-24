@@ -3,6 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { spawnSync } from 'node:child_process';
+import { createRequire } from 'node:module';
 import { ROOT, readJson, writeJson } from './release-lib.mjs';
 
 const args=new Set(process.argv.slice(2));
@@ -11,6 +12,8 @@ const tsconfig=path.join(ROOT,'tsconfig.json');
 const output=path.join(ROOT,'src/runtime/00-typescript-contracts.js');
 const manifestPath=path.join(ROOT,'contracts-manifest.json');
 const sources=['src/types/domain.ts','src/contracts/runtime-contracts.ts'];
+const require=createRequire(import.meta.url);
+const tscCli=require.resolve('typescript/bin/tsc');
 const sha=value=>crypto.createHash('sha256').update(value).digest('hex');
 const fail=message=>{throw new Error(`TypeScript contracts: ${message}`);};
 if(!fs.existsSync(tsconfig)) fail('tsconfig.json ausente');
@@ -19,7 +22,7 @@ for(const rel of sources) if(!fs.existsSync(path.join(ROOT,rel))) fail(`fonte au
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'skyward-contracts-'));
 const tempOutput=path.join(temp,'contracts.js');
 const config=readJson(tsconfig);
-const compile=spawnSync('tsc',['-p',tsconfig,'--outFile',tempOutput,'--pretty','false'],{cwd:ROOT,encoding:'utf8'});
+const compile=spawnSync(process.execPath,[tscCli,'-p',tsconfig,'--outFile',tempOutput,'--pretty','false'],{cwd:ROOT,encoding:'utf8'});
 if(compile.status!==0){
   fs.rmSync(temp,{recursive:true,force:true});
   fail(`compilação falhou\n${compile.stdout||''}${compile.stderr||''}`.trim());

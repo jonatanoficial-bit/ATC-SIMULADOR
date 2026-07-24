@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "suite": "commercial-release-regression",
+  "build": "SC-1.63.0-F63-20260724-0915",
+  "passed": 20,
+  "failed": 0,
+  "total": 20,
+  "checks": [
+    {
+      "name": "versão sincronizada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build sincronizada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fase interna atual",
+      "ok": true,
+      "detail": "F63"
+    },
+    {
+      "name": "canal de produção",
+      "ok": true,
+      "detail": "production"
+    },
+    {
+      "name": "runtime modular sincronizado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bundle gerado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "service worker versionado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "sem dependências runtime",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "TypeScript fixado como ferramenta de desenvolvimento",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bundle sem erro de sintaxe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "interface pública sem linguagem interna",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "interface mostra somente a versão comercial",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "perfil mobile protegido contra overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "alvos touch mínimos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "modo retrato orienta o usuário",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "painéis administrativos ocultos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "release sem caminho pessoal Windows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "release sem caminho pessoal Git Bash",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "sem colisões globais entre módulos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cache PWA referencia somente arquivos existentes",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

@@ -62,11 +62,11 @@ let assetMaintenanceState={schema:1,assetHealth:{PRIMARY_RADAR:82,SECONDARY_RADA
 function loadAssetMaintenance(){try{const raw=localStorage?.getItem?.(ASSET_MAINTENANCE_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)assetMaintenanceState={...assetMaintenanceState,...parsed};}}catch(e){safeLogError?.(e,'asset-maintenance-load');}return assetMaintenanceState;}
 function saveAssetMaintenance(){try{localStorage?.setItem?.(ASSET_MAINTENANCE_KEY,JSON.stringify(assetMaintenanceState));}catch(e){safeLogError?.(e,'asset-maintenance-save');}return assetMaintenanceState;}
 function reliabilityBand(score){return ASSET_MAINTENANCE_CATALOG.reliabilityBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||ASSET_MAINTENANCE_CATALOG.reliabilityBands.at(-1);}
-function programById(id){return ASSET_MAINTENANCE_CATALOG.maintenancePrograms.find(p=>p.id===id)||ASSET_MAINTENANCE_CATALOG.maintenancePrograms[0];}
-function failureById(id){return ASSET_MAINTENANCE_CATALOG.failureModes.find(f=>f.id===id)||ASSET_MAINTENANCE_CATALOG.failureModes[0];}
+function assetProgramById(id){return ASSET_MAINTENANCE_CATALOG.maintenancePrograms.find(p=>p.id===id)||ASSET_MAINTENANCE_CATALOG.maintenancePrograms[0];}
+function assetFailureById(id){return ASSET_MAINTENANCE_CATALOG.failureModes.find(f=>f.id===id)||ASSET_MAINTENANCE_CATALOG.failureModes[0];}
 function runMaintenanceProgram(id='RADAR_CALIBRATION'){
   loadAssetMaintenance();
-  const program=programById(id);
+  const program=assetProgramById(id);
   const item={id:`PM-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'DONE',at:new Date().toISOString()};
   assetMaintenanceState.programs.unshift(item);
   assetMaintenanceState.programs=assetMaintenanceState.programs.slice(0,80);
@@ -80,7 +80,7 @@ function runMaintenanceProgram(id='RADAR_CALIBRATION'){
 }
 function raiseAssetFailure(id='ILS_OUTAGE'){
   loadAssetMaintenance();
-  const tpl=failureById(id);
+  const tpl=assetFailureById(id);
   const item={id:`FAIL-${String(Date.now()).slice(-6)}`,failureId:tpl.id,name:tpl.name,asset:tpl.asset,severity:tpl.severity,opsPenalty:tpl.opsPenalty,status:'OPEN',at:new Date().toISOString()};
   assetMaintenanceState.failures.unshift(item);
   assetMaintenanceState.failures=assetMaintenanceState.failures.slice(0,80);

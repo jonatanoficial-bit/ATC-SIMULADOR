@@ -63,11 +63,11 @@ function savePassengerReputation(){
 function reputationBand(score){
   return PASSENGER_REPUTATION_CATALOG.reputationBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||PASSENGER_REPUTATION_CATALOG.reputationBands.at(-1);
 }
-function programById(id){ return PASSENGER_REPUTATION_CATALOG.servicePrograms.find(p=>p.id===id)||PASSENGER_REPUTATION_CATALOG.servicePrograms[0]; }
+function passengerProgramById(id){ return PASSENGER_REPUTATION_CATALOG.servicePrograms.find(p=>p.id===id)||PASSENGER_REPUTATION_CATALOG.servicePrograms[0]; }
 function complaintById(id){ return PASSENGER_REPUTATION_CATALOG.complaintTypes.find(c=>c.id===id)||PASSENGER_REPUTATION_CATALOG.complaintTypes[0]; }
 function launchPassengerProgram(id='LIVE_INFO_BOARDS'){
   loadPassengerReputation();
-  const program=programById(id);
+  const program=passengerProgramById(id);
   if(passengerReputationState.programs.some(p=>p.programId===program.id)) return passengerReputationState.programs.find(p=>p.programId===program.id);
   const item={id:`PXP-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',startedAt:new Date().toISOString()};
   passengerReputationState.programs.unshift(item);

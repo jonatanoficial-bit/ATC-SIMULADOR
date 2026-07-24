@@ -63,12 +63,12 @@ let cargoLogisticsState={schema:1,processScores:{ULD_BUILDUP:78,CARGO_ACCEPTANCE
 function loadCargoLogistics(){try{const raw=localStorage?.getItem?.(CARGO_LOGISTICS_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)cargoLogisticsState={...cargoLogisticsState,...parsed};}}catch(e){safeLogError?.(e,'cargo-logistics-load');}return cargoLogisticsState;}
 function saveCargoLogistics(){try{localStorage?.setItem?.(CARGO_LOGISTICS_KEY,JSON.stringify(cargoLogisticsState));}catch(e){safeLogError?.(e,'cargo-logistics-save');}return cargoLogisticsState;}
 function cargoBand(score){return CARGO_LOGISTICS_CATALOG.cargoBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||CARGO_LOGISTICS_CATALOG.cargoBands.at(-1);}
-function programById(id){return CARGO_LOGISTICS_CATALOG.cargoPrograms.find(p=>p.id===id)||CARGO_LOGISTICS_CATALOG.cargoPrograms[0];}
-function disruptionById(id){return CARGO_LOGISTICS_CATALOG.logisticsDisruptions.find(d=>d.id===id)||CARGO_LOGISTICS_CATALOG.logisticsDisruptions[0];}
+function cargoProgramById(id){return CARGO_LOGISTICS_CATALOG.cargoPrograms.find(p=>p.id===id)||CARGO_LOGISTICS_CATALOG.cargoPrograms[0];}
+function cargoDisruptionById(id){return CARGO_LOGISTICS_CATALOG.logisticsDisruptions.find(d=>d.id===id)||CARGO_LOGISTICS_CATALOG.logisticsDisruptions[0];}
 function shipmentById(id){return CARGO_LOGISTICS_CATALOG.shipmentTypes.find(s=>s.id===id)||CARGO_LOGISTICS_CATALOG.shipmentTypes[0];}
 function runCargoProgram(id='ULD_POOL'){
   loadCargoLogistics();
-  const program=programById(id);
+  const program=cargoProgramById(id);
   if(cargoLogisticsState.programs.some(p=>p.programId===program.id)) return cargoLogisticsState.programs.find(p=>p.programId===program.id);
   const item={id:`CGP-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',at:new Date().toISOString()};
   cargoLogisticsState.programs.unshift(item);
@@ -92,7 +92,7 @@ function acceptCargoShipment(id='GENERAL_CARGO'){
 }
 function raiseCargoDisruption(id='ULD_SHORTAGE'){
   loadCargoLogistics();
-  const tpl=disruptionById(id);
+  const tpl=cargoDisruptionById(id);
   const item={id:`CGD-${String(Date.now()).slice(-6)}`,disruptionId:tpl.id,name:tpl.name,process:tpl.process,severity:tpl.severity,status:'OPEN',at:new Date().toISOString()};
   cargoLogisticsState.disruptions.unshift(item);
   cargoLogisticsState.disruptions=cargoLogisticsState.disruptions.slice(0,80);

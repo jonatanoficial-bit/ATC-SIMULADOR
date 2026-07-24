@@ -16,7 +16,7 @@ check('bundle sincronizado',bundle.includes('@skyward-module 54-adaptive-pace-wo
 check('PWA cache inclui catálogo',json('pwa-cache-manifest.json').files.some(f=>f.file==='data/adaptive-pace-workload.json'));
 check('docs F51 existem',fs.existsSync(path.join(root,'docs/ADAPTIVE_PACE_WORKLOAD_F51.md'))&&fs.existsSync(path.join(root,'docs/MOBILE_BALANCE_COOLDOWN_F51.md')));
 check('documento upload preservado',fs.existsSync(path.join(root,'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md'))&&fs.existsSync(path.join(root,'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md')));
-check('documento upload contém caminhos',read('UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').includes('/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO')&&read('UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').includes('https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git'));
+check('documento upload contém caminhos',read('UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').includes('<PROJECT_ROOT>')&&read('UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').includes('https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git'));
 check('mobile conservador',catalog.deviceProfiles.some(p=>p.id==='MOBILE_STANDARD'&&p.maxAircraft<=4&&p.paceMultiplier<=0.65&&p.incidentCooldownSec>=80));
 check('hotfix F50.1 preservado',read('BUILD_NOTES.md').includes('F50.1')||read('CHANGELOG.md').includes('F50.1'));
 const run=spawnSync(process.execPath,['tests/phase51-unit-tests.mjs'],{cwd:root,encoding:'utf8'});check('unitários F51 executam novamente',run.status===0,(run.stderr||run.stdout).trim());

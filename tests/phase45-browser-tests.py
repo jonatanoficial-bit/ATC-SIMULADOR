@@ -29,7 +29,7 @@ check('doc recomendações existe',(ROOT/'docs/RECOMENDACOES_ALERTAS_PLANO_ACAO_
 check('documento upload preservado raiz',(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs',(ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash','/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash','<PROJECT_ROOT>' in doc)
 check('documento upload contém repo','https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('TRAFFIC presente',any(d.get('id')=='TRAFFIC' for d in cat.get('copilotDomains',[])))
 check('ASSETS presente',any(d.get('id')=='ASSETS' for d in cat.get('copilotDomains',[])))

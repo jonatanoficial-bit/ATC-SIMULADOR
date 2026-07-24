@@ -1,5 +1,26 @@
 [
   {
+    "build": "SC-1.63.0-F63-20260724-0915",
+    "version": "1.63.0",
+    "phase": "F63",
+    "phaseName": "Commercial Mobile-First Stability Release",
+    "builtAt": "2026-07-24 09:15 BRT",
+    "builtAtIso": "2026-07-24T09:15:16-03:00",
+    "channel": "production",
+    "saveSchema": 3,
+    "contractSchema": 2,
+    "testSchema": 3,
+    "saveVaultSchema": 1,
+    "pwaSchema": 1,
+    "cacheSchema": 1,
+    "uxSchema": 1,
+    "desktopSchema": 1,
+    "accessibilitySchema": 1,
+    "replaySchema": 1,
+    "aircraftPerformanceSchema": 1,
+    "airportSurfaceSchema": 1
+  },
+  {
     "build": "SC-1.62.0-F62-20260630-1555",
     "version": "1.62.0",
     "phase": "F62",

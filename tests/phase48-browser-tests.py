@@ -29,7 +29,7 @@ check('doc ULD existe', (ROOT/'docs/ULD_DG_CADEIA_FRIA_ALFANDEGA_F48.md').exists
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('DG presente', any(p.get('id')=='DANGEROUS_GOODS' for p in cat.get('cargoProcesses',[])))
 check('cadeia fria presente', any(p.get('id')=='PERISHABLE_COLD' for p in cat.get('cargoProcesses',[])))

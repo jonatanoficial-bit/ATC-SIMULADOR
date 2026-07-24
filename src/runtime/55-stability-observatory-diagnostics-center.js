@@ -53,11 +53,11 @@ function classifyError(message=''){
   if(txt.includes('quota')||txt.includes('storage')||txt.includes('save')) return 'SAVE_CORRUPTION';
   return 'RENDER_LOOP_DROP';
 }
-function failureById(id){return STABILITY_DIAGNOSTICS_CATALOG.failureTypes.find(f=>f.id===id)||STABILITY_DIAGNOSTICS_CATALOG.failureTypes.at(-1);}
+function stabilityFailureById(id){return STABILITY_DIAGNOSTICS_CATALOG.failureTypes.find(f=>f.id===id)||STABILITY_DIAGNOSTICS_CATALOG.failureTypes.at(-1);}
 function recordRuntimeError(error,context='runtime'){
   loadStabilityDiagnostics();
   const message=String(error?.message||error||'erro desconhecido').slice(0,220);
-  const failure=failureById(classifyError(message));
+  const failure=stabilityFailureById(classifyError(message));
   const item={id:`ERR-${String(Date.now()).slice(-6)}`,type:failure.id,name:failure.name,severity:failure.severity,message,context,at:new Date().toISOString(),build:BUILD};
   stabilityState.runtimeErrors.unshift(item);
   stabilityState.runtimeErrors=stabilityState.runtimeErrors.slice(0,60);

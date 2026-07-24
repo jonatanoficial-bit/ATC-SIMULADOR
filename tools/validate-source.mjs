@@ -1,7 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { createRequire } from 'node:module';
 import { ROOT, readJson, validateConfig } from './release-lib.mjs';
+
+const require = createRequire(import.meta.url);
+const tscCli = require.resolve('typescript/bin/tsc');
 
 const required = [
   'index.html','style.css','main.js','build-info.js','release-metadata.json','version.txt',
@@ -20,6 +24,7 @@ const required = [
 ];
 const checks = [];
 const check = (name, condition, detail='') => checks.push({ name, ok:Boolean(condition), detail });
+const processDetail = result => String(result?.stderr || result?.stdout || result?.error?.message || '').trim();
 
 for (const rel of required) check(`arquivo obrigatório: ${rel}`, fs.existsSync(path.join(ROOT, rel)));
 
@@ -35,22 +40,22 @@ for (const rel of ['data/aircraft.json','data/airports.json','package.json','BUI
 }
 
 const syntax = spawnSync(process.execPath, ['--check', path.join(ROOT, 'main.js')], { encoding:'utf8' });
-check('main.js sem erro de sintaxe', syntax.status === 0, syntax.stderr.trim());
+check('main.js sem erro de sintaxe', syntax.status === 0, processDetail(syntax));
 const buildSyntax = spawnSync(process.execPath, ['--check', path.join(ROOT, 'build-info.js')], { encoding:'utf8' });
-check('build-info.js sem erro de sintaxe', buildSyntax.status === 0, buildSyntax.stderr.trim());
+check('build-info.js sem erro de sintaxe', buildSyntax.status === 0, processDetail(buildSyntax));
 const contractCheck = spawnSync(process.execPath, ['tools/build-contracts.mjs', '--check'], { cwd:ROOT, encoding:'utf8' });
-check('contratos TypeScript sincronizados', contractCheck.status === 0, (contractCheck.stderr || contractCheck.stdout).trim());
-const typeCheck = spawnSync('tsc', ['-p','tsconfig.json','--noEmit','--pretty','false'], { cwd:ROOT, encoding:'utf8' });
-check('TypeScript strict sem erros', typeCheck.status === 0, (typeCheck.stderr || typeCheck.stdout).trim());
+check('contratos TypeScript sincronizados', contractCheck.status === 0, processDetail(contractCheck));
+const typeCheck = spawnSync(process.execPath, [tscCli,'-p','tsconfig.json','--noEmit','--pretty','false'], { cwd:ROOT, encoding:'utf8' });
+check('TypeScript strict sem erros', typeCheck.status === 0, processDetail(typeCheck));
 const pwaCheck = spawnSync(process.execPath, ['tools/build-pwa.mjs', '--check'], { cwd:ROOT, encoding:'utf8' });
-check('PWA e cache sincronizados com a build', pwaCheck.status === 0, (pwaCheck.stderr || pwaCheck.stdout).trim());
+check('PWA e cache sincronizados com a build', pwaCheck.status === 0, processDetail(pwaCheck));
 const runtimeCheck = spawnSync(process.execPath, ['tools/build-runtime.mjs', '--check'], { cwd:ROOT, encoding:'utf8' });
-check('bundle runtime sincronizado com módulos', runtimeCheck.status === 0, (runtimeCheck.stderr || runtimeCheck.stdout).trim());
+check('bundle runtime sincronizado com módulos', runtimeCheck.status === 0, processDetail(runtimeCheck));
 try {
   const order = readJson(path.join(ROOT, 'src/runtime/module-order.json'));
   for (const item of order.modules || []) {
     const syntax = spawnSync(process.execPath, ['--check', path.join(ROOT, 'src/runtime', item.file)], { encoding:'utf8' });
-    check(`módulo sem erro de sintaxe: ${item.file}`, syntax.status === 0, syntax.stderr.trim());
+    check(`módulo sem erro de sintaxe: ${item.file}`, syntax.status === 0, processDetail(syntax));
   }
 } catch (error) { check('módulos runtime verificáveis', false, error.message); }
 
@@ -89,7 +94,7 @@ check('runtime mobile adaptativo incorporado', js.includes('window.SKYWARD_MOBIL
 check('HTML possui dock mobile F08', html.includes('mobileDockV2') && html.includes('mobileSelectedChip') && html.includes('mobileGestureCoach'));
 check('bridge QA protegido', js.includes('SKYWARD_QA_MODE') && js.includes('read-only outside explicit QA mode'));
 check('main.js sem build F01 hardcoded', !/SC-1\.1\.0-F01-/.test(js));
-check('fase visível gerada em runtime', html.includes('data-build-phase') && js.includes("'[data-build-phase]'"));
+check('versão comercial visível sem fase interna', html.includes('data-build-version') && !html.includes('data-build-phase') && js.includes("'[data-build-version]'"));
 check('schema de replay exposto', Number(config?.replaySchema)>=1 && metadata?.replaySchema===config?.replaySchema && js.includes('SKYWARD_REPLAY'));
 check('runtime replay incorporado', js.includes('@skyward-module 14-deterministic-replay') && js.includes('replayBeginTurn') && html.includes('replayPanel'));
 check('documentação F11 presente', fs.existsSync(path.join(ROOT,'docs/RELOGIO_DETERMINISTICO_REPLAY_F11.md')));

@@ -1,7 +1,7 @@
 # Comandos de upload — Fase 26
 
 ```bash
-cd "/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO"
+cd "<PROJECT_ROOT>"
 git merge --abort 2>/dev/null || true
 git status
 git remote set-url origin https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git

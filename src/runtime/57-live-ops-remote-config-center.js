@@ -61,7 +61,7 @@ function loadLiveOpsConfig(){
   return liveOpsConfigState;
 }
 function saveLiveOpsConfig(){try{localStorage?.setItem?.(LIVE_OPS_REMOTE_CONFIG_KEY,JSON.stringify(liveOpsConfigState));}catch(e){safeLogError?.(e,'live-ops-config-save');}return liveOpsConfigState;}
-function profileById(id){return LIVE_OPS_REMOTE_CONFIG_CATALOG.configProfiles.find(p=>p.id===id)||LIVE_OPS_REMOTE_CONFIG_CATALOG.configProfiles[1];}
+function liveOpsProfileById(id){return LIVE_OPS_REMOTE_CONFIG_CATALOG.configProfiles.find(p=>p.id===id)||LIVE_OPS_REMOTE_CONFIG_CATALOG.configProfiles[1];}
 function configBand(score){return LIVE_OPS_REMOTE_CONFIG_CATALOG.configBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||LIVE_OPS_REMOTE_CONFIG_CATALOG.configBands.at(-1);}
 function isMobileDevice(){
   try{
@@ -80,7 +80,7 @@ function setLiveOpsFlag(id,value){
 }
 function setLiveOpsProfile(id='BALANCED'){
   loadLiveOpsConfig();
-  liveOpsConfigState.activeProfile=profileById(id).id;
+  liveOpsConfigState.activeProfile=liveOpsProfileById(id).id;
   applyLiveOpsProfile(liveOpsConfigState.activeProfile,'manual');
   return liveOpsConfigState;
 }
@@ -113,7 +113,7 @@ function resolveLiveOpsProfile(signals=collectLiveOpsSignals()){
 }
 function applyLiveOpsProfile(id=liveOpsConfigState.activeProfile,reason='auto'){
   loadLiveOpsConfig();
-  const profile=profileById(id);
+  const profile=liveOpsProfileById(id);
   liveOpsConfigState.activeProfile=profile.id;
   liveOpsConfigState.overrides={
     paceScale:profile.paceScale,
@@ -164,7 +164,7 @@ function evaluateLiveOpsConfig(finalScore=0,statsObj={},fail=false,airportCode='
 }
 function liveOpsConfigProgress(){
   loadLiveOpsConfig();
-  return {score:liveOpsConfigState.configScore,status:liveOpsConfigState.status,activeProfile:liveOpsConfigState.activeProfile,enabledFlags:Object.values(liveOpsConfigState.flags||{}).filter(Boolean).length,enabledKillSwitches:Object.values(liveOpsConfigState.killSwitches||{}).filter(Boolean).length,paceScale:liveOpsConfigState.overrides?.paceScale||profileById(liveOpsConfigState.activeProfile).paceScale,maxAircraft:liveOpsConfigState.overrides?.maxAircraft||profileById(liveOpsConfigState.activeProfile).maxAircraft,incidentCooldownSec:liveOpsConfigState.overrides?.incidentCooldownSec||profileById(liveOpsConfigState.activeProfile).incidentCooldownSec,last:liveOpsConfigState.lastEvaluation||null};
+  return {score:liveOpsConfigState.configScore,status:liveOpsConfigState.status,activeProfile:liveOpsConfigState.activeProfile,enabledFlags:Object.values(liveOpsConfigState.flags||{}).filter(Boolean).length,enabledKillSwitches:Object.values(liveOpsConfigState.killSwitches||{}).filter(Boolean).length,paceScale:liveOpsConfigState.overrides?.paceScale||liveOpsProfileById(liveOpsConfigState.activeProfile).paceScale,maxAircraft:liveOpsConfigState.overrides?.maxAircraft||liveOpsProfileById(liveOpsConfigState.activeProfile).maxAircraft,incidentCooldownSec:liveOpsConfigState.overrides?.incidentCooldownSec||liveOpsProfileById(liveOpsConfigState.activeProfile).incidentCooldownSec,last:liveOpsConfigState.lastEvaluation||null};
 }
 function renderLiveOpsConfigBoard(){
   try{

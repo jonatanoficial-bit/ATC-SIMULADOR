@@ -70,19 +70,19 @@ function saveMultiAirportNetwork(){
 function networkBand(score){
   return MULTI_AIRPORT_NETWORK_CATALOG.networkBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||MULTI_AIRPORT_NETWORK_CATALOG.networkBands.at(-1);
 }
-function policyById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.networkPolicies.find(p=>p.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.networkPolicies[0]; }
-function disruptionById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.disruptionTypes.find(d=>d.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.disruptionTypes[0]; }
-function actionById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.recoveryActions.find(a=>a.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.recoveryActions[0]; }
+function networkPolicyById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.networkPolicies.find(p=>p.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.networkPolicies[0]; }
+function networkDisruptionById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.disruptionTypes.find(d=>d.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.disruptionTypes[0]; }
+function networkActionById(id){ return MULTI_AIRPORT_NETWORK_CATALOG.recoveryActions.find(a=>a.id===id)||MULTI_AIRPORT_NETWORK_CATALOG.recoveryActions[0]; }
 function setNetworkPolicy(id='BALANCED_FLOW'){
   loadMultiAirportNetwork();
-  multiAirportNetworkState.policy=policyById(id).id;
+  multiAirportNetworkState.policy=networkPolicyById(id).id;
   saveMultiAirportNetwork();
   renderMultiAirportNetworkBoard();
-  return policyById(multiAirportNetworkState.policy);
+  return networkPolicyById(multiAirportNetworkState.policy);
 }
 function raiseNetworkDisruption(id='HUB_OVERLOAD'){
   loadMultiAirportNetwork();
-  const tpl=disruptionById(id);
+  const tpl=networkDisruptionById(id);
   const item={id:`NET-${String(Date.now()).slice(-6)}`,disruptionId:tpl.id,name:tpl.name,risk:tpl.risk,metric:tpl.metric,status:'OPEN',at:new Date().toISOString()};
   multiAirportNetworkState.disruptions.unshift(item);
   multiAirportNetworkState.disruptions=multiAirportNetworkState.disruptions.slice(0,50);
@@ -92,7 +92,7 @@ function raiseNetworkDisruption(id='HUB_OVERLOAD'){
 }
 function takeNetworkAction(id='PROTECT_BANK'){
   loadMultiAirportNetwork();
-  const act=actionById(id);
+  const act=networkActionById(id);
   const item={id:`NAC-${String(Date.now()).slice(-6)}`,actionId:act.id,name:act.name,cost:act.cost,status:'ACTIVE',at:new Date().toISOString()};
   multiAirportNetworkState.actions.unshift(item);
   multiAirportNetworkState.actions=multiAirportNetworkState.actions.slice(0,50);
@@ -117,7 +117,7 @@ function closeNetworkDisruption(id,ok=true){
 function networkActionBenefit(kind){
   let total=0;
   for(const a of multiAirportNetworkState.actions){
-    const tpl=actionById(a.actionId);
+    const tpl=networkActionById(a.actionId);
     total+=Number(tpl.benefit?.[kind]||0);
   }
   return total;
@@ -129,7 +129,7 @@ function calculateNetworkMetrics(finalScore=0,statsObj={},fail=false){
   const crisis=window.SKYWARD_CRISIS_COMMAND?.status?.()||{};
   const workforce=window.SKYWARD_WORKFORCE_STAFFING?.status?.()||{};
   const networkFlow=window.SKYWARD_NETWORK_FLOW?.status?.()||{};
-  const policy=policyById(multiAirportNetworkState.policy);
+  const policy=networkPolicyById(multiAirportNetworkState.policy);
   const open=multiAirportNetworkState.disruptions.filter(d=>d.status==='OPEN');
   const denied=Number(statsObj.denied||0);
   const conflicts=Number(statsObj.conflicts||0);

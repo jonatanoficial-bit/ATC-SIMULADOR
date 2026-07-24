@@ -10,7 +10,7 @@ const checks=[]; const check=(name,ok,detail='')=>checks.push({name,ok:Boolean(o
 const source=fs.readFileSync(path.join(root,'src/runtime/65-sector-handoff-coordination-center.js'),'utf8');
 const metadata=JSON.parse(fs.readFileSync(path.join(root,'release-metadata.json'),'utf8'));
 const catalog=JSON.parse(fs.readFileSync(path.join(root,'data/sector-handoff-coordination.json'),'utf8'));
-check('metadados F62+',/^F(62|[7-9][0-9])$/.test(metadata.phase)&&metadata.sectorHandoffSchema===1,JSON.stringify(metadata));
+check('metadados F62+',Number(metadata.phase?.slice?.(1)||0)>=62&&metadata.sectorHandoffSchema===1,JSON.stringify(metadata));
 check('módulo F62 identificado',source.includes('@skyward-module 65-sector-handoff-coordination-center'));
 check('API congelada',source.includes('window.SKYWARD_SECTOR_HANDOFF=Object.freeze'));
 check('catálogo schema 1',catalog.schema===1&&catalog.version);

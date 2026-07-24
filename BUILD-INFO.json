@@ -1,0 +1,26 @@
+{
+  "product": "Skyward Control",
+  "version": "1.63.0",
+  "build": "SC-1.63.0-F63-20260724-0915",
+  "builtAt": "2026-07-24 09:15 BRT",
+  "channel": "production",
+  "target": "Mobile-first / Tablet / Desktop",
+  "runtimeModules": 71,
+  "pwaCachedFiles": 70,
+  "validation": {
+    "source": {
+      "passed": 223,
+      "total": 223
+    },
+    "suites": {
+      "passed": 61,
+      "total": 61
+    },
+    "commercialChecks": {
+      "passed": 20,
+      "total": 20
+    },
+    "browserConsoleErrors": 0,
+    "status": "approved"
+  }
+}

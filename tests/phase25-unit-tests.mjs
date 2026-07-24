@@ -49,7 +49,7 @@ try{
   const ready=api.readiness();
   check('readiness publicação alta',ready.score>=80&&ready.status!=='BLOCKED_BY_CRITICAL_BUG',JSON.stringify(ready));
   const commands=api.commands();
-  check('comandos Git Bash corretos',commands.some(c=>c.includes('ATC 3 NOVO'))&&commands.some(c=>c.includes('git push')),JSON.stringify(commands));
+  check('comandos Git Bash corretos',commands.some(c=>c.includes('<PROJECT_ROOT>'))&&commands.some(c=>c.includes('git push')),JSON.stringify(commands));
   const status=api.status();
   check('status contém github pages',status.githubPages.repo.includes('ATC-SIMULADOR'),JSON.stringify(status.githubPages));
   check('matriz exige QA humano',api.catalog.manualQAStatus.requiresHumanDeviceQA===true && api.catalog.manualQAStatus.screenshotsPending===true,JSON.stringify(api.catalog.manualQAStatus));

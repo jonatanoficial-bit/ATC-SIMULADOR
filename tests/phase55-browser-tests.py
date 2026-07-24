@@ -35,7 +35,7 @@ check('doc objectives existe', (ROOT/'docs/MISSION_OBJECTIVES_EVENTS_REPLAY_F55.
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('mobile training template presente', any(t.get('id')=='MOBILE_TRAINING' for t in cat.get('missionTemplates',[])))
 check('storm mission template presente', any(t.get('id')=='STORM_DIVERSION' for t in cat.get('missionTemplates',[])))

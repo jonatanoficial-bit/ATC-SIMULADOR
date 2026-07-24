@@ -1,3 +1,18 @@
+## SC-1.63.0-F63-20260724-0915 — Commercial Mobile-First Stability Release
+
+- Corrigido erro de inicialização no cálculo econômico de `networkBonus`.
+- Eliminadas colisões de helpers globais entre módulos do runtime.
+- Corrigidos caminhos e execução do pipeline no Windows.
+- Adicionado TypeScript 5.8.3 como dependência de desenvolvimento.
+- Corrigido overflow do formulário de perfil em celulares.
+- Garantidos alvos touch mínimos de 44 px durante o turno mobile.
+- Removidos fase, build completa, data e linguagem técnica da interface pública.
+- Ocultados consoles internos de publicação e pós-publicação.
+- Sanitizadas referências a caminhos pessoais.
+- Criado gate progressivo com 61 suítes atuais e regressão comercial.
+- Atualizado empacotamento multiplataforma com manifesto e SHA-256.
+- Adicionadas auditoria, documentação técnica e matriz de testes da versão.
+
 ## SC-1.62.0-F62-20260624-2330 — Sector Handoff, Approach/Departure Coordination & Control Room Center
 
 - Adicionado módulo oficial `65-sector-handoff-coordination-center.js`.

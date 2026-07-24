@@ -58,11 +58,11 @@ let terminalFlowState={schema:1,zoneScores:{CURBSIDE:77,CHECKIN:80,SECURITY_QUEU
 function loadTerminalFlow(){try{const raw=localStorage?.getItem?.(TERMINAL_FLOW_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)terminalFlowState={...terminalFlowState,...parsed};}}catch(e){safeLogError?.(e,'terminal-flow-load');}return terminalFlowState;}
 function saveTerminalFlow(){try{localStorage?.setItem?.(TERMINAL_FLOW_KEY,JSON.stringify(terminalFlowState));}catch(e){safeLogError?.(e,'terminal-flow-save');}return terminalFlowState;}
 function terminalBand(score){return TERMINAL_FLOW_CATALOG.flowBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||TERMINAL_FLOW_CATALOG.flowBands.at(-1);}
-function programById(id){return TERMINAL_FLOW_CATALOG.flowPrograms.find(p=>p.id===id)||TERMINAL_FLOW_CATALOG.flowPrograms[0];}
-function incidentById(id){return TERMINAL_FLOW_CATALOG.queueIncidents.find(i=>i.id===id)||TERMINAL_FLOW_CATALOG.queueIncidents[0];}
+function terminalProgramById(id){return TERMINAL_FLOW_CATALOG.flowPrograms.find(p=>p.id===id)||TERMINAL_FLOW_CATALOG.flowPrograms[0];}
+function terminalIncidentById(id){return TERMINAL_FLOW_CATALOG.queueIncidents.find(i=>i.id===id)||TERMINAL_FLOW_CATALOG.queueIncidents[0];}
 function runTerminalProgram(id='OPEN_SECURITY_LANES'){
   loadTerminalFlow();
-  const program=programById(id);
+  const program=terminalProgramById(id);
   if(terminalFlowState.programs.some(p=>p.programId===program.id)) return terminalFlowState.programs.find(p=>p.programId===program.id);
   const item={id:`TFP-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',at:new Date().toISOString()};
   terminalFlowState.programs.unshift(item);
@@ -75,7 +75,7 @@ function runTerminalProgram(id='OPEN_SECURITY_LANES'){
 }
 function raiseTerminalIncident(id='SECURITY_BACKLOG'){
   loadTerminalFlow();
-  const tpl=incidentById(id);
+  const tpl=terminalIncidentById(id);
   const item={id:`TFI-${String(Date.now()).slice(-6)}`,incidentId:tpl.id,name:tpl.name,zone:tpl.zone,severity:tpl.severity,status:'OPEN',at:new Date().toISOString()};
   terminalFlowState.incidents.unshift(item);
   terminalFlowState.incidents=terminalFlowState.incidents.slice(0,80);

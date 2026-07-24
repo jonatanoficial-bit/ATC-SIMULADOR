@@ -56,11 +56,11 @@ let groundTurnaroundState={schema:1,processScores:{GATE_ASSIGNMENT:78,BOARDING:8
 function loadGroundTurnaround(){try{const raw=localStorage?.getItem?.(GROUND_TURNAROUND_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed?.schema===1)groundTurnaroundState={...groundTurnaroundState,...parsed};}}catch(e){safeLogError?.(e,'ground-turnaround-load');}return groundTurnaroundState;}
 function saveGroundTurnaround(){try{localStorage?.setItem?.(GROUND_TURNAROUND_KEY,JSON.stringify(groundTurnaroundState));}catch(e){safeLogError?.(e,'ground-turnaround-save');}return groundTurnaroundState;}
 function turnaroundBand(score){return GROUND_TURNAROUND_CATALOG.turnaroundBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||GROUND_TURNAROUND_CATALOG.turnaroundBands.at(-1);}
-function programById(id){return GROUND_TURNAROUND_CATALOG.improvementPrograms.find(p=>p.id===id)||GROUND_TURNAROUND_CATALOG.improvementPrograms[0];}
+function turnaroundProgramById(id){return GROUND_TURNAROUND_CATALOG.improvementPrograms.find(p=>p.id===id)||GROUND_TURNAROUND_CATALOG.improvementPrograms[0];}
 function delayById(id){return GROUND_TURNAROUND_CATALOG.delayCauses.find(d=>d.id===id)||GROUND_TURNAROUND_CATALOG.delayCauses[0];}
 function runGroundProgram(id='GATE_OPTIMIZER'){
   loadGroundTurnaround();
-  const program=programById(id);
+  const program=turnaroundProgramById(id);
   if(groundTurnaroundState.programs.some(p=>p.programId===program.id)) return groundTurnaroundState.programs.find(p=>p.programId===program.id);
   const item={id:`GPR-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',at:new Date().toISOString()};
   groundTurnaroundState.programs.unshift(item);

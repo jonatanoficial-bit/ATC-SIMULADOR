@@ -55,7 +55,7 @@
       <button class="secondary" type="button" data-pwa-action="fullscreen">ALTERNAR TELA CHEIA</button>
       <button class="secondary" type="button" data-pwa-action="check-update">VERIFICAR ATUALIZAÇÃO</button>
     </div>
-    <small class="pwa-build"><span data-build></span> • cache <span data-pwa-cache-name>—</span></small>
+    <small class="pwa-build"><span data-build></span></small>
   </div>
 </div>
 
@@ -69,8 +69,8 @@
       <section class="accessibility-section"><h3>Desempenho / controles</h3><label>Modo de desempenho<select data-access-setting="performanceMode"><option value="auto">Automático</option><option value="battery">Economia de bateria</option><option value="performance">Performance</option></select></label><label>Limite visual de FPS<select data-access-setting="fpsCap"><option value="30">30 FPS</option><option value="45">45 FPS</option><option value="60">60 FPS</option></select></label><label>Efeitos visuais<select data-access-setting="effects"><option value="minimal">Mínimos</option><option value="normal">Normais</option><option value="rich">Ricos</option></select></label><label>Toque mobile<select data-access-setting="touchMode"><option value="standard">Padrão</option><option value="large">Botões grandes</option><option value="compact">Compacto</option></select></label></section>
     </div>
     <div class="accessibility-actions"><button class="primary" type="button" data-settings-action="close">APLICAR</button><button class="secondary" type="button" data-settings-action="contrast">CICLAR CONTRASTE</button><button class="secondary" type="button" data-settings-action="reset">RESTAURAR PADRÃO</button><button class="secondary" type="button" data-settings-action="export">EXPORTAR CONFIG</button></div>
-    <textarea id="accessibilityExport" readonly placeholder="As configurações exportadas aparecerão aqui para auditoria."></textarea>
-    <small class="accessibility-foot">Atalhos: F10 ou Alt+S abre esta central. Todas as preferências são salvas localmente e entram na auditoria anti-quebra.</small>
+    <textarea id="accessibilityExport" readonly placeholder="O backup das configurações aparecerá aqui."></textarea>
+    <small class="accessibility-foot">Atalhos: F10 ou Alt+S abre esta central. Todas as preferências são salvas neste dispositivo.</small>
   </div>
 </div>
 
@@ -79,12 +79,12 @@
     <div class="shade"></div>
     <div class="brand-block"><div class="vale">VALE <span>GAME</span></div><h1>SKYWARD<br><span>CONTROL</span></h1><p>YOU GUIDE. THEY TRUST.</p></div>
     <div class="boot-card glass"><strong>SIMULADOR ATC REAL</strong><span>Radar profissional mobile-first com procedimentos ILS/SID/STAR, Safety Advisor, objetivos de turno e recursos antequebra.</span><button class="primary" data-go="menu">INICIAR SIMULADOR</button></div>
-    <footer><span data-build>carregando build</span> • <span data-build-date></span></footer>
+    <footer><span data-build-version>v—</span></footer>
   </section>
 
   <section id="menu" class="screen bg-rain">
     <div class="shade"></div>
-    <header class="topbar"><div class="logo-mini">SKYWARD<br><span>CONTROL</span></div><div class="build-pill"><span data-build-version>v—</span><br><span data-build-date></span><small data-build></small></div></header>
+    <header class="topbar"><div class="logo-mini">SKYWARD<br><span>CONTROL</span></div><div class="build-pill"><span data-build-version>v—</span></div></header>
     <main class="menu-main"><h2>Controle de Tráfego Aéreo</h2><p>Interface radar-first com comandos adaptativos, gestos mobile, procedimentos ILS/SID/STAR e proteção anti-quebra.</p><button class="primary" data-go="profile">NOVO PERFIL / CARREIRA</button><button class="secondary" data-go="lobby">CONTINUAR CARREIRA</button><button class="secondary" data-go="training">TREINAMENTO</button><div class="pwa-menu-actions"><button id="installAppBtn" class="primary" type="button" data-pwa-action="install">INSTALAR APP</button><button class="secondary" type="button" data-pwa-action="fullscreen">TELA CHEIA</button><button class="secondary" type="button" data-pwa-action="open">STATUS OFFLINE / APP</button><button class="secondary" type="button" data-settings-action="open">ACESSIBILIDADE / CONFIG</button></div><small id="pwaMenuStatus" class="pwa-menu-status">Preparando recursos offline...</small></main>
   </section>
 
@@ -109,7 +109,7 @@
   <section id="airports" class="screen bg-day">
     <div class="shade"></div>
     <header class="topbar"><button class="icon" data-go="lobby">‹</button><div class="title">ESCOLHER AEROPORTO</div></header>
-    <main class="airport-select-wrap"><div class="glass airport-info"><h2>Brasil primeiro</h2><p>Guarulhos, Congonhas, Viracopos e outros aeroportos brasileiros estão no modo carreira. Mapas específicos serão refinados fase a fase.</p></div><div id="airportGrid" class="airport-grid"></div></main>
+    <main class="airport-select-wrap"><div class="glass airport-info"><h2>Brasil primeiro</h2><p>Guarulhos, Congonhas, Viracopos e outros aeroportos brasileiros estão no modo carreira, com mapas e procedimentos adaptados a cada operação.</p></div><div id="airportGrid" class="airport-grid"></div></main>
   </section>
 
   <section id="game" class="screen game-screen atc-scene">
@@ -121,7 +121,7 @@
       <div class="atc-status"><small>TEMPO</small><b id="clock">00:00</b><span id="runwayTextTop">RWY 09/27</span></div>
       <div class="atc-status"><small>PONTOS</small><b id="score">0</b><span id="scoreDelta">turno</span></div>
       <div class="atc-status weather"><small id="weatherTemp">23°C</small><b id="weather">VARIÁVEL</b><span id="weatherWind">vento leve</span></div>
-      <button id="replayBadge" class="icon atc-replay" type="button" data-replay-action="open" aria-label="Abrir replay técnico">REPLAY</button>
+      <button id="replayBadge" class="icon atc-replay" type="button" data-replay-action="open" aria-label="Abrir replay do turno">REPLAY</button>
       <button id="accessibilityBadge" class="icon atc-settings" type="button" data-settings-action="open" aria-label="Abrir acessibilidade e configurações">ACESS</button>
       <button id="gameFullscreenBtn" class="icon atc-fullscreen" type="button" data-pwa-action="fullscreen" aria-label="Alternar tela cheia">⛶</button>
       <button id="pauseBtn" class="icon atc-pause">Ⅱ</button>
@@ -142,7 +142,7 @@
 
       <section class="scope-column">
         <section class="radar-shell glass">
-          <canvas id="radar"></canvas><div id="radarModeBadge" class="radar-mode-badge">SCOPE PROFISSIONAL • <span data-build-version>v—</span> <span data-build-phase>F—</span></div>
+          <canvas id="radar"></canvas><div id="radarModeBadge" class="radar-mode-badge">SCOPE PROFISSIONAL • <span data-build-version>v—</span></div>
           <div class="scope-overlay top-left">SCOPE ATC • <span id="runwayStatus">RWY LIVRE</span></div>
           <div class="scope-overlay bottom-left" id="radarHint">Toque numa aeronave ou solicitação para controlar.</div>
           <div class="scope-overlay bottom-right" id="seqStatus">SEQ: ---</div>
@@ -229,11 +229,11 @@
 
     <div id="replayPanel" class="replay-panel" role="dialog" aria-modal="true" aria-labelledby="replayPanelTitle" aria-hidden="true" data-replay-schema="1">
       <div class="replay-card glass">
-        <div class="replay-head"><div><small>REPLAY / QA TÉCNICO</small><b id="replayPanelTitle">RELÓGIO DETERMINÍSTICO</b></div><button class="icon" type="button" data-replay-action="close" aria-label="Fechar replay">×</button></div>
+        <div class="replay-head"><div><small>REPLAY DO TURNO</small><b id="replayPanelTitle">LINHA DO TEMPO</b></div><button class="icon" type="button" data-replay-action="close" aria-label="Fechar replay">×</button></div>
         <div class="replay-grid"><div><span>Status</span><b id="replayStatusValue">AGUARDANDO TURNO</b></div><div><span>Seed</span><b id="replaySeedValue">—</b></div><div><span>Schema</span><b>Replay 1</b></div></div>
-        <p>O replay registra seed, comandos, checkpoints e checksum do estado para auditoria técnica reproduzível.</p>
-        <div class="replay-actions"><button class="primary" type="button" data-replay-action="checkpoint">CRIAR CHECKPOINT</button><button class="secondary" type="button" data-replay-action="export">EXPORTAR JSON</button></div>
-        <textarea id="replayExportText" readonly placeholder="O JSON exportado aparecerá aqui após o checkpoint/export."></textarea>
+        <p>Revise comandos e momentos importantes do turno para aperfeiçoar sua operação.</p>
+        <div class="replay-actions"><button class="primary" type="button" data-replay-action="checkpoint">MARCAR MOMENTO</button><button class="secondary" type="button" data-replay-action="export">SALVAR REPLAY</button></div>
+        <textarea id="replayExportText" readonly placeholder="Os dados do replay aparecerão aqui após salvar."></textarea>
       </div>
     </div>
 

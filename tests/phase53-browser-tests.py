@@ -33,7 +33,7 @@ check('doc cache migration existe', (ROOT/'docs/CACHE_MIGRATION_VERSION_GUARD_F5
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('old main js monitorado', any(r.get('id')=='OLD_MAIN_JS' for r in cat.get('cacheRisks',[])))
 check('clear reload presente', any(a.get('id')=='CLEAR_AND_RELOAD' for a in cat.get('updateActions',[])))

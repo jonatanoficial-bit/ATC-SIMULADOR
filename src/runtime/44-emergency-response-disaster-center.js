@@ -67,17 +67,17 @@ function saveEmergencyResponse(){
   try{ localStorage?.setItem?.(EMERGENCY_RESPONSE_KEY,JSON.stringify(emergencyResponseState)); }catch(e){ safeLogError?.(e,'emergency-response-save'); }
   return emergencyResponseState;
 }
-function readinessBand(score){
+function emergencyReadinessBand(score){
   return EMERGENCY_RESPONSE_CATALOG.readinessBands.slice().sort((a,b)=>b.min-a.min).find(b=>score>=b.min)||EMERGENCY_RESPONSE_CATALOG.readinessBands.at(-1);
 }
 function incidentLevel(severity){
   return EMERGENCY_RESPONSE_CATALOG.incidentLevels.slice().sort((a,b)=>b.minSeverity-a.minSeverity).find(l=>severity>=l.minSeverity)||EMERGENCY_RESPONSE_CATALOG.incidentLevels[0];
 }
-function programById(id){ return EMERGENCY_RESPONSE_CATALOG.preparednessPrograms.find(p=>p.id===id)||EMERGENCY_RESPONSE_CATALOG.preparednessPrograms[0]; }
+function emergencyProgramById(id){ return EMERGENCY_RESPONSE_CATALOG.preparednessPrograms.find(p=>p.id===id)||EMERGENCY_RESPONSE_CATALOG.preparednessPrograms[0]; }
 function scenarioById(id){ return EMERGENCY_RESPONSE_CATALOG.emergencyScenarios.find(s=>s.id===id)||EMERGENCY_RESPONSE_CATALOG.emergencyScenarios[0]; }
 function runPreparednessProgram(id='FULL_SCALE_DRILL'){
   loadEmergencyResponse();
-  const program=programById(id);
+  const program=emergencyProgramById(id);
   if(emergencyResponseState.programs.some(p=>p.programId===program.id)) return emergencyResponseState.programs.find(p=>p.programId===program.id);
   const item={id:`ERP-${String(Date.now()).slice(-6)}`,programId:program.id,name:program.name,cost:program.cost,status:'ACTIVE',at:new Date().toISOString()};
   emergencyResponseState.programs.unshift(item);
@@ -158,7 +158,7 @@ function evaluateEmergencyResponse(finalScore=0,statsObj={},fail=false,airportCo
     responseScore*.22 + metrics.arffCoverage*.24 + metrics.evacuationFlow*.16 + metrics.medicalTriage*.16 + metrics.agencyCoordination*.16 + Math.max(0,100-metrics.reputationLoad)*.06 - (fail?8:0)
   )));
   emergencyResponseState.readinessScore=score;
-  emergencyResponseState.status=readinessBand(score).id;
+  emergencyResponseState.status=emergencyReadinessBand(score).id;
   const evaluation={at:new Date().toISOString(),build:BUILD,airport:icao,finalScore:Math.round(finalScore||0),...metrics,readinessScore:score,status:emergencyResponseState.status,programs:emergencyResponseState.programs.length};
   emergencyResponseState.history.unshift(evaluation);
   emergencyResponseState.history=emergencyResponseState.history.slice(0,100);

@@ -10,7 +10,7 @@ const checks=[]; const check=(name,ok,detail='')=>checks.push({name,ok:Boolean(o
 const source=fs.readFileSync(path.join(root,'src/runtime/64-arrival-departure-sequencer-center.js'),'utf8');
 const metadata=JSON.parse(fs.readFileSync(path.join(root,'release-metadata.json'),'utf8'));
 const catalog=JSON.parse(fs.readFileSync(path.join(root,'data/arrival-departure-sequencer.json'),'utf8'));
-check('metadados F61+',/^F(61|[7-9][0-9])$/.test(metadata.phase)&&metadata.arrivalDepartureSequencerSchema===1,JSON.stringify(metadata));
+check('metadados F61+',Number(metadata.phase?.slice?.(1)||0)>=61&&metadata.arrivalDepartureSequencerSchema===1,JSON.stringify(metadata));
 check('módulo F61 identificado',source.includes('@skyward-module 64-arrival-departure-sequencer-center'));
 check('API congelada',source.includes('window.SKYWARD_ARRIVAL_DEPARTURE=Object.freeze'));
 check('catálogo schema 1',catalog.schema===1&&catalog.version);

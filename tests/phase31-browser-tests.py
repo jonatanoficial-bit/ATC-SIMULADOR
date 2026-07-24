@@ -29,7 +29,7 @@ check('doc companhias existe', (ROOT/'docs/COMPANHIAS_MALHA_SLA_F31.md').exists(
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('Delta/KATL presente', any(a.get('id')=='DAL' and 'KATL' in a.get('baseAirports',[]) for a in cat.get('airlines',[])))
 check('cargo peak presente', any(d.get('id')=='CARGO_PEAK' for d in cat.get('demandProfiles',[])))

@@ -37,7 +37,7 @@ check('doc replay analytics existe', (ROOT/'docs/REPLAY_ANALYTICS_TRAINING_FEEDB
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('loss separation monitorado', any(e.get('id')=='LOSS_SEPARATION' for e in cat.get('errorTaxonomy',[])))
 check('drill mobile seguro presente', any(d.get('id')=='DRILL_MOBILE_SAFE' for d in cat.get('trainingDrills',[])))

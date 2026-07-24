@@ -34,7 +34,7 @@ check('doc flags existe', (ROOT/'docs/FEATURE_FLAGS_KILLSWITCH_MOBILE_GUARD_F54.
 check('documento upload preservado raiz', (ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 check('documento upload preservado docs', (ROOT/'docs/UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').exists())
 doc=(ROOT/'UPLOAD_GIT_BASH_CAMINHOS_ATC_SIMULADOR.md').read_text(encoding='utf8')
-check('documento upload contém caminho Git Bash', '/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO' in doc)
+check('documento upload contém caminho Git Bash', '<PROJECT_ROOT>' in doc)
 check('documento upload contém repo', 'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git' in doc)
 check('perfil mobile seguro presente', any(p.get('id')=='SAFE_MOBILE' and p.get('maxAircraft')<=3 for p in cat.get('configProfiles',[])))
 check('incident limiter flag presente', any(f.get('id')=='INCIDENT_LIMITER' for f in cat.get('featureFlags',[])))

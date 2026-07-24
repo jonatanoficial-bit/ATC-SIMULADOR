@@ -38,9 +38,9 @@
       "file": "01-build-and-radio.js",
       "name": "01-build-and-radio",
       "description": "Build metadata and ATC radio/readback",
-      "lines": 177,
-      "bytes": 9418,
-      "sha256": "fb5e8be51c07e39b01b56bffe3ba88d8a31bd6f757c390bc8e8bde12c54d55a6"
+      "lines": 176,
+      "bytes": 9290,
+      "sha256": "a6351bef17ee0655beaeab8556be53ef11405d9ac88c6774dd056fdc77dea028"
     },
     {
       "order": 5,
@@ -147,8 +147,8 @@
       "name": "operational-economy",
       "description": "Operational economy, airport budget, airline contracts, delay costs, fines and efficiency",
       "lines": 182,
-      "bytes": 11957,
-      "sha256": "70c04868f356ac9e1a7289e25f0e10a0f81850b230183d2997e566bedb061a1c"
+      "bytes": 11922,
+      "sha256": "8f914cc871b633b715bb3bfd775d990dd291ddb78639da47532d17c5077bf8d9"
     },
     {
       "order": 17,
@@ -210,8 +210,8 @@
       "name": "post-gold-master-publishing",
       "description": "Post-Gold Master real device QA, screenshots, bug triage and GitHub Pages publishing kit",
       "lines": 179,
-      "bytes": 10713,
-      "sha256": "7da8f419cf78cee02f19f3b5ab18c2e523c4b36ccb2d044bff5e19575abe7a5b"
+      "bytes": 10682,
+      "sha256": "6ea844bb4377933937aa5a689493ca4ddc868488c17cdbd34b097ddf12ce6609"
     },
     {
       "order": 24,
@@ -219,8 +219,8 @@
       "name": "post-publish-healthcheck",
       "description": "Post-publish GitHub Pages/PWA healthcheck, manual QA capture and hotfix deck",
       "lines": 176,
-      "bytes": 10778,
-      "sha256": "550ad80fc4cf0f7472ce43cd235ff275c54b1eab5b43706b1340ca0922bb8420"
+      "bytes": 10747,
+      "sha256": "c1ca564b1524fc8261c4cf3ddefce8b89536dadd0e2c06b6dc4302a129287728"
     },
     {
       "order": 25,
@@ -282,8 +282,8 @@
       "name": "crisis-command-center",
       "description": "Crisis Command Center, irregular operations, ground stop, cyber incident and recovery plan",
       "lines": 198,
-      "bytes": 11150,
-      "sha256": "ea4c72b92e6fa1d78d0a99d5dd3b51f1a287ce72ba42c8886967f23b4b1810a8"
+      "bytes": 11162,
+      "sha256": "ba05b4c789f78d605bd46db1d9231f397c4fd1d48042e53e29478751a23f54a7"
     },
     {
       "order": 32,
@@ -327,8 +327,8 @@
       "name": "workforce-staffing-center",
       "description": "Workforce staffing, ATC teams, roster coverage, fatigue, training, hiring and labor risk",
       "lines": 249,
-      "bytes": 14727,
-      "sha256": "cb07aaf14ee6736ab8d0603bc7f73a056f96f53e09f0dcba9451c1af4f29d9a1"
+      "bytes": 14745,
+      "sha256": "1269ed0c87b038acf436b4e8ecbaab6460fa974b3dc797ced3110e7b38b93785"
     },
     {
       "order": 37,
@@ -336,8 +336,8 @@
       "name": "passenger-reputation-center",
       "description": "Passenger experience, NPS, complaints, accessibility, public reputation and social sentiment",
       "lines": 207,
-      "bytes": 13890,
-      "sha256": "74d5343e93a48237383b23ee54c92c40badb9d98b5ef31b5f6aa678defb987c5"
+      "bytes": 13908,
+      "sha256": "e6026d66539d05b5ab71214aa7847bf0adeb04820ca61f8f29f2192168f28ffa"
     },
     {
       "order": 38,
@@ -345,8 +345,8 @@
       "name": "multi-airport-network-center",
       "description": "Multi-airport network, hubs, routes, alternates, slots, connections and regional resilience",
       "lines": 236,
-      "bytes": 15321,
-      "sha256": "c093120fbcdaa75f8cb50a6965684684bac83bb8c8373e2d570f69bacae9c964"
+      "bytes": 15384,
+      "sha256": "5988152c029980fd26d132070f7e6f5a279051fd47f3eeda7047878504d101ee"
     },
     {
       "order": 39,
@@ -354,8 +354,8 @@
       "name": "emergency-response-disaster-center",
       "description": "Emergency response, ARFF, evacuation, medical triage, disaster preparedness and multi-agency coordination",
       "lines": 224,
-      "bytes": 15012,
-      "sha256": "cf748e8f9986356d0f59faba985695e2875af60d848e4654e22ac5141f1b6a53"
+      "bytes": 15048,
+      "sha256": "8cabc4032aa4719d1fb11fe44c0248b75fb41f1c6925fa8484124b54dabf4bde"
     },
     {
       "order": 40,
@@ -363,8 +363,8 @@
       "name": "security-cyber-defense-center",
       "description": "Security operations, passenger screening, perimeter, access control, cyber defense and law enforcement",
       "lines": 211,
-      "bytes": 13430,
-      "sha256": "29bdbf3251015539b0b4eda7e26a213a01aaf40c7ade34ac06c61fb74198df79"
+      "bytes": 13446,
+      "sha256": "fb094bd7c91c5109ef5b28f097b0b06f1b64433a622d9288b9768231d55593e7"
     },
     {
       "order": 41,
@@ -372,8 +372,8 @@
       "name": "asset-maintenance-reliability-center",
       "description": "Asset maintenance, radar, ILS, runway lighting, tower systems, ARFF vehicles, spare parts, MTBF and MTTR",
       "lines": 210,
-      "bytes": 14561,
-      "sha256": "ee3d21552a876a12e1420694388a4579baa43284f634baff29f835130e697734"
+      "bytes": 14581,
+      "sha256": "21a0d23af5afb080cb307250cfa8ea84e13863a4e64a4641f2994381a4ed0994"
     },
     {
       "order": 42,
@@ -399,8 +399,8 @@
       "name": "radio-communications-phraseology-center",
       "description": "Radio communications, VHF load, readback, hearback, CPDLC, phraseology and language clarity",
       "lines": 24,
-      "bytes": 13219,
-      "sha256": "d8d536f7c44c2b1de3fb6ba5d87a5168e146830854e85661f488fc109f4d59f5"
+      "bytes": 13229,
+      "sha256": "d693b4909773bacaca374338c16439504ebbf973638b01e6a6262249db22d481"
     },
     {
       "order": 45,
@@ -408,8 +408,8 @@
       "name": "ground-handling-turnaround-center",
       "description": "Ground handling, turnaround, gate, pushback, baggage, fueling, catering, cleaning, ramp safety and SLA",
       "lines": 199,
-      "bytes": 14432,
-      "sha256": "9e88da6da5915b9dc377ebe31a6307421aa02ec693dbffc2782092ac8c299589"
+      "bytes": 14452,
+      "sha256": "1b7f6731591d362ec5bc7ad70b5255fe7bc5b0a36b3f086fb546703dfd33dd5f"
     },
     {
       "order": 46,
@@ -417,8 +417,8 @@
       "name": "cargo-logistics-operations-center",
       "description": "Cargo logistics, ULD, dangerous goods, perishables, customs, cold chain, freight revenue and cargo SLA",
       "lines": 222,
-      "bytes": 15803,
-      "sha256": "6c21a92dc83d0a441eb29158e749a375bd1cefa169a1f47bf84c9bc14897571b"
+      "bytes": 15823,
+      "sha256": "a20da59ebd3b0f272ebc94972ce6d301e91668936d3d1995a106e4196a1f3221"
     },
     {
       "order": 47,
@@ -426,8 +426,8 @@
       "name": "terminal-flow-landside-center",
       "description": "Terminal flow, queues, check-in, security, immigration, baggage claim, curbside, parking and wayfinding",
       "lines": 208,
-      "bytes": 15031,
-      "sha256": "40617f1ccae10d58552a2e536f2d2ab638a2ae1209b408ed09705125d0456cf0"
+      "bytes": 15063,
+      "sha256": "c5c074ecadd97580ab53640ce4e561ede0731bb1825f361f853292394346a8c8"
     },
     {
       "order": 48,
@@ -435,8 +435,8 @@
       "name": "non-aeronautical-revenue-center",
       "description": "Non-aeronautical revenue, retail, duty free, F&B, parking, lounges, advertising, hotel, concessions and digital commerce",
       "lines": 217,
-      "bytes": 15599,
-      "sha256": "2c31c531d534407124afdf395dea897ae890dd6d8f65bb35aa4c663c075c6be2"
+      "bytes": 15627,
+      "sha256": "656ae0b1e0f33118c216c3e224adf20d0a1b0afaa4d00a0039546c5b1d59a86f"
     },
     {
       "order": 49,
@@ -444,8 +444,8 @@
       "name": "adaptive-pace-workload-director",
       "description": "Adaptive simulation pace, mobile workload cap, aircraft density, incident cooldown and event spacing",
       "lines": 195,
-      "bytes": 11871,
-      "sha256": "0792f6deb81c474cf58a30d498920966836b14e979407256d3cff6811948024f"
+      "bytes": 11911,
+      "sha256": "1caea4dd3a989559c5f0301657ea633fe6848842e1f60e81d2b37cdb5fc75ca0"
     },
     {
       "order": 50,
@@ -453,8 +453,8 @@
       "name": "stability-observatory-diagnostics-center",
       "description": "Local telemetry, safe mode reports, runtime diagnostics, PWA cache health and recovery recommendations",
       "lines": 219,
-      "bytes": 13519,
-      "sha256": "048ed694db6427f4d67119b63b0233fa01675c19aaf3fc2b09e054e4d3b1985f"
+      "bytes": 13537,
+      "sha256": "45cdceca7bcdc857991634bdb123c0eaa20bf528a9a12ef18811a388026c31a8"
     },
     {
       "order": 51,
@@ -471,8 +471,8 @@
       "name": "live-ops-remote-config-center",
       "description": "Live Ops remote config, feature flags, kill-switches, mobile guards and runtime overrides",
       "lines": 225,
-      "bytes": 13841,
-      "sha256": "237438afb2d394c638a8be5d43e517d6b28bc2986bfaff8a7bf9e871fe173ddf"
+      "bytes": 13883,
+      "sha256": "1a3d6cb9f2c7f1000da67e3c56144406af02f7f76e62333657ce0afc025d0016"
     },
     {
       "order": 53,
@@ -647,8 +647,8 @@
     }
   ],
   "bundle": {
-    "bytes": 934563,
-    "lines": 13338,
-    "sha256": "4b52bf2bb5fbfc653faa0c71500108f7f506a18443b4f82aacb733310ca52478"
+    "bytes": 934731,
+    "lines": 13337,
+    "sha256": "fa26d1b6a0eb51617a35a927fcdaff7846c09ee0da76bdbc841e1bdd0affd6a7"
   }
 }

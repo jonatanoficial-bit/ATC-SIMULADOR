@@ -36,7 +36,7 @@ const POST_GOLD_MASTER_CATALOG = Object.freeze({
     {id:'PAGES',name:'Ativar GitHub Pages na branch main'},
     {id:'VERIFY',name:'Abrir URL pública e testar PWA'}
   ],
-  githubPages:{repo:'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git',branch:'main',path:'/',localGitBashPath:'/c/Users/jonat/Desktop/GAME/¨2026/ATC 3 NOVO',expectedUrlPattern:'https://jonatanoficial-bit.github.io/ATC-SIMULADOR/'},
+  githubPages:{repo:'https://github.com/jonatanoficial-bit/ATC-SIMULADOR.git',branch:'main',path:'/',localGitBashPath:'<PROJECT_ROOT>',expectedUrlPattern:'https://jonatanoficial-bit.github.io/ATC-SIMULADOR/'},
   manualQAStatus:{automatedReady:true,requiresHumanDeviceQA:true,screenshotsPending:true,canPublishToGitHubPages:true}
 });
 const POST_GM_KEY='skywardPostGoldMaster_v1';
